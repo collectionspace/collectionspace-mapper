@@ -11,7 +11,6 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     before(:all) do
       @client = bonsai_client
       @cache = bonsai_cache
-      populate_bonsai(@cache)
     end
     
     context 'objectexit record' do
