@@ -1,0 +1,21 @@
+{
+  "objectNumber": "20CS.018.1395",
+  "numberOfObjects": "1",
+  "title": "Souvenir books. The Wiz Scrapbook.",
+  "titleLanguage": "English",
+  "objectName": "Souvenir books",
+  "recordStatus": "approved",
+  "comment": "This record contains sample data provided by CollectionSpace community members. While the record may reference real artworks, people, and organizations, the information should not be read as an accurate description of any artwork, person, or organization, or of relationships among them.",
+  "measuredPart": "unframed",
+  "dimensionSummary": "11 x 8.5 x .5",
+  "dimension": "height; width; depth",
+  "value": "11; 8.5; .5",
+  "measurementUnit": "inches",
+  "material": "paper",
+  "objectProductionDateGroup": "1978",
+  "objectProductionOrganization": "Berkley Publising Group",
+  "objectProductionOrganizationRole": "publisher",
+  "objectProductionPerson": "Richard J. Anobile",
+  "objectProductionPersonRole": "author",
+  "objectProductionPlace": "Louisville, KY"
+}

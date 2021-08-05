@@ -1,0 +1,16 @@
+{
+  "objectNumber": "20CS.120.0012",
+  "numberOfObjects": "1",
+  "objectName": "Vase",
+  "recordStatus": "approved",
+  "briefDescription": "Large double neck,\"wedding jar\". Black ware, polished, cracked in one area.",
+  "comment": "This record contains sample data provided by CollectionSpace community members. While the record may reference real artworks, people, and organizations, the information should not be read as an accurate description of any artwork, person, or organization, or of relationships among them.",
+  "dimensionSummary": "31.5 x 36.5 x 73",
+  "dimension": "height; diameter; circumference",
+  "value": "31.5; 36.5; 73",
+  "measurementUnit": "cm",
+  "material": "clay",
+  "objectProductionPeople": "Tesuque",
+  "objectProductionPlace": "Tesuque",
+  "technique": "coiled; fired"
+}

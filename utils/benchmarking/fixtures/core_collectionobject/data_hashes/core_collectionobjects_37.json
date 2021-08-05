@@ -1,0 +1,18 @@
+{
+  "objectNumber": "20CS.049.0008",
+  "numberOfObjects": "1",
+  "title": "Rampe",
+  "titleLanguage": "Danish",
+  "titleTranslation": "Ramp",
+  "titleTranslationLanguage": "English",
+  "recordStatus": "approved",
+  "comment": "This record contains sample data provided by CollectionSpace community members. While the record may reference real artworks, people, and organizations, the information should not be read as an accurate description of any artwork, person, or organization, or of relationships among them.",
+  "dimensionSummary": "315 x 980 x 150",
+  "dimension": "height; width; depth",
+  "value": "315; 980; 150",
+  "measurementUnit": "cm",
+  "material": "plaster; glass",
+  "objectProductionDateGroup": "1973",
+  "objectProductionPerson": "Nørgaard, Bjørn",
+  "objectProductionPersonRole": "artist"
+}
