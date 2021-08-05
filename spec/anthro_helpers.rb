@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
+require 'memo_wise'
+
 module Helpers
+  prepend MemoWise
   extend self
   
   def anthro_client
@@ -23,6 +26,7 @@ module Helpers
     populate_anthro(cache)
     cache
   end
+  memo_wise(:anthro_cache)
 
   def anthro_object_mapper
     path = 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json'

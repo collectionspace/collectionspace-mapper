@@ -11,7 +11,6 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
     before(:all) do
       @client = anthro_client
       @cache = anthro_cache
-      populate_anthro(@cache)
       @collectionobject_config = @config.merge({
         transforms: {
           'collection' => {

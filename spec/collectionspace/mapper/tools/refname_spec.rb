@@ -5,7 +5,6 @@ require 'spec_helper'
 RSpec.describe CollectionSpace::Mapper::Tools::RefName do
   before(:all) do
     @cache = anthro_cache
-    populate_anthro(@cache)
   end
   context 'when initialized with source_type, type, subtype, term, and cache' do
     it 'builds refname for authorities' do

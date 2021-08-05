@@ -11,7 +11,6 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     before(:all) do
       @client = anthro_client
       @cache = anthro_cache
-      populate_anthro(@cache)
     end
   
     context 'claim record' do

@@ -6,7 +6,6 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
   before(:all) do
     @anthro_client = anthro_client
     @anthro_cache = anthro_cache
-    populate_anthro(@anthro_cache)
     @anthro_object_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json')
     @anthro_object_handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @anthro_object_mapper,
                                                                       client: @anthro_client,
