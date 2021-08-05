@@ -41,6 +41,9 @@ module CollectionSpace
           when 'nonhierarchicalrelationship'
             prepper = CollectionSpace::Mapper::NonHierarchicalRelationshipPrepper.new(response, self)
             prepper.prep
+          when 'objecthierarchy'
+            prepper = CollectionSpace::Mapper::ObjectHierarchyPrepper.new(response, self)
+            prepper.prep
           else
             prepper = CollectionSpace::Mapper::DataPrepper.new(response, self)
             prepper.prep

@@ -19,7 +19,7 @@ module Helpers
   def core_cache
     cache_config = {
       domain: 'core.collectionspace.org',
-      search_enabled: false,
+      search_enabled: true,
       search_identifiers: false
     }
     cache = CollectionSpace::RefCache.new(config: cache_config, client: core_client)
