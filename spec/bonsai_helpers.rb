@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
-require 'memo_wise'
-
 module Helpers
-  prepend MemoWise
-  extend self
-  
   def bonsai_client
     CollectionSpace::Client.new(
       CollectionSpace::Configuration.new(
@@ -17,9 +12,7 @@ module Helpers
   end
   
   def bonsai_cache
-    cache_config = {
-      domain: 'bonsai.collectionspace.org'
-    }
+    cache_config = base_cache_config.merge({domain: 'bonsai.collectionspace.org'})
     cache = CollectionSpace::RefCache.new(config: cache_config, client: bonsai_client)
     populate_bonsai(cache)
     cache

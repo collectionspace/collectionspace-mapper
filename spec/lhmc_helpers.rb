@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 module Helpers
-  extend self
-  
   def lhmc_client
     CollectionSpace::Client.new(
       CollectionSpace::Configuration.new(
@@ -14,13 +12,12 @@ module Helpers
   end
   
   def lhmc_cache
-    cache_config = {
-      domain: 'lhmc.collectionspace.org',
-      search_enabled: true,
-      search_identifiers: false
-    }
-    CollectionSpace::RefCache.new(config: cache_config, client: lhmc_client)
+    cache_config = base_cache_config.merge({domain: 'lhmc.collectionspace.org'})
+    cache = CollectionSpace::RefCache.new(config: cache_config, client: lhmc_client)
+    populate_lhmc(cache)
+    cache
   end
+  memo_wise(:lhmc_cache)
 
   def populate_lhmc(cache)
     terms = [

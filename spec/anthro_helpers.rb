@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
-require 'memo_wise'
-
 module Helpers
-  prepend MemoWise
-  extend self
-  
   def anthro_client
     CollectionSpace::Client.new(
       CollectionSpace::Configuration.new(
@@ -17,11 +12,7 @@ module Helpers
   end
   
   def anthro_cache
-    cache_config = {
-      domain: 'anthro.collectionspace.org',
-      search_enabled: false,
-      search_identifiers: false
-    }
+    cache_config = base_cache_config.merge({domain: 'anthro.collectionspace.org'})
     cache = CollectionSpace::RefCache.new(config: cache_config, client: anthro_client)
     populate_anthro(cache)
     cache

@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
-require 'memo_wise'
-
 module Helpers
-  extend self
-  
   def botgarden_client
     CollectionSpace::Client.new(
       CollectionSpace::Configuration.new(
@@ -16,11 +12,7 @@ module Helpers
   end
   
   def botgarden_cache
-    cache_config = {
-      domain: 'botgarden.collectionspace.org',
-      search_enabled: true,
-      search_identifiers: false
-    }
+    cache_config = base_cache_config.merge({domain: 'botgarden.collectionspace.org'})
     cache = CollectionSpace::RefCache.new(config: cache_config, client: botgarden_client)
     populate_botgarden(cache)
     cache

@@ -11,7 +11,6 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     before(:all) do
       @client = fcart_client
       @cache = fcart_cache
-      populate_fcart(@cache)
     end
 
     context 'acquisition record' do
@@ -121,7 +120,6 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     before(:all) do
       @client = lhmc_client
       @cache = lhmc_cache
-      populate_lhmc(@cache)
     end
     context 'person record' do
       before(:all) do
