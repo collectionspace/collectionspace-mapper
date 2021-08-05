@@ -163,7 +163,6 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     before(:all) do
       @client = botgarden_client
       @cache = botgarden_cache
-      populate_botgarden(@cache)
     end
     context 'loanout record' do
       before(:all) do
@@ -269,7 +268,6 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     xit 'adds botgarden propagation namespace' do
       client = botgarden_client
       cache = botgarden_cache
-      populate_botgarden(cache)
       prop_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/botgarden/botgarden_2-0-1_propagation.json')
       prop_handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: prop_mapper,
                                                               client: client,

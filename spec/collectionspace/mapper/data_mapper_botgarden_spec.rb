@@ -11,7 +11,6 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     before(:all) do
       @client = botgarden_client
       @cache = botgarden_cache
-      populate_botgarden(@cache)
     end
     
     context 'pottag record' do

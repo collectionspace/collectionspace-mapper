@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'memo_wise'
+
 module Helpers
   extend self
   
@@ -19,8 +21,11 @@ module Helpers
       search_enabled: true,
       search_identifiers: false
     }
-    CollectionSpace::RefCache.new(config: cache_config, client: botgarden_client)
+    cache = CollectionSpace::RefCache.new(config: cache_config, client: botgarden_client)
+    populate_botgarden(cache)
+    cache
   end
+  memo_wise(:botgarden_cache)
 
   def populate_botgarden(cache)
     terms = [

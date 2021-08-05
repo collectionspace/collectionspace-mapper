@@ -6,7 +6,6 @@ RSpec.describe CollectionSpace::Mapper::Response do
   before(:all) do
     @client = botgarden_client
     @cache = botgarden_cache
-    populate_botgarden(@cache)
     @mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/botgarden/botgarden_2-0-1_taxon-local.json')
     @handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @mapper,
                                                         client: @client,
