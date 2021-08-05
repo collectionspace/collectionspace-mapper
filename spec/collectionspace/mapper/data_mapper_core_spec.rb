@@ -7,7 +7,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
 
   context 'core profile' do
     let(:client) { core_client }
-    let(:cache) { populate_core(core_cache) }
+    let(:cache) { core_cache }
     let(:handler) { CollectionSpace::Mapper::DataHandler.new(record_mapper: mapper,
                                                              client: client,
                                                              cache: cache,

@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
+require 'memo_wise'
+
 module Helpers
+  prepend MemoWise
   extend self
 
   def core_client
@@ -19,8 +22,11 @@ module Helpers
       search_enabled: false,
       search_identifiers: false
     }
-    CollectionSpace::RefCache.new(config: cache_config, client: core_client)
+    cache = CollectionSpace::RefCache.new(config: cache_config, client: core_client)
+    populate_core(cache)
+    cache
   end
+  memo_wise(:core_cache)
 
   def core_cache_search
     cache_config = {

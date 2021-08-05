@@ -87,7 +87,6 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
       before(:all) do
         @client = core_client
         @cache = core_cache
-        populate_core(@cache)
       end
       describe '#process_xpaths' do
         context 'when authority record' do

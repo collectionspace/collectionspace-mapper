@@ -44,7 +44,6 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     before(:all) do
       @client = core_client
       @cache = core_cache
-      populate_core(@cache)
     end
     context 'collectionobject record' do
       before(:all) do

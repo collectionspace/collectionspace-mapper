@@ -91,37 +91,48 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
     end
   
   describe '#terms' do
+    let(:terms) { th.terms }
     context 'titletranslationlanguage (vocabulary, field subgroup)' do
       let(:colname) { 'titleTranslationLanguage' }
       let(:data) { [['%NULLVALUE%', 'Swahili'], ['Sanza', 'Spanish'], [CS::Mapper::THE_BOMB]] }
 
-      it 'contains a term Hash for each value' do
-        expect(th.terms.length).to eq(3)
+      context 'when new term (Sanza) is initially encountered' do
+        it 'returns terms as expected' do
+          found = terms.select{ |h| h[:found] }
+          not_found = terms.select{ |h| !h[:found] }
+          expect(terms.length).to eq(3)
+          expect(found.length).to eq(2)
+          expect(not_found.first[:refname].display_name).to eq('Sanza')
+        end
       end
-      it 'term hash :found == true when term exists already' do
-        chk = th.terms.select{ |h| h[:found] }
-        expect(chk.length).to eq(2)
-      end
-      it 'term hash :found == false when term does not exist already' do
-        chk = th.terms.select{ |h| !h[:found] }
-        expect(chk.first[:refname].display_name).to eq('Sanza')
+
+      context 'when new term is subsequently encountered' do
+        it 'the term is treated as found' do
+          chk = terms.select{ |h| h[:found] }
+          expect(chk.length).to eq(3)
+        end
       end
     end
 
     context 'reference (authority, field group)' do
       let(:colname) { 'referenceLocal' }
       let(:data) { ['Reference 3', 'Reference 3', 'Reference 4', '%NULLVALUE%'] }
-      
-      it 'contains a term Hash for each value' do
-        expect(th.terms.length).to eq(3)
+
+      context 'when new term (Reference 3) is initially encountered' do
+        it 'contains a term Hash for each value' do
+          found = th.terms.select{ |h| h[:found] }
+          not_found = th.terms.select{ |h| !h[:found] }
+          expect(terms.length).to eq(3)
+          expect(found.length).to eq(1)
+          expect(not_found.first[:refname].display_name).to eq('Reference 3')
+        end
       end
-      it 'term hash :found == true when term exists already' do
-        chk = th.terms.select{ |h| h[:found] }
-        expect(chk.length).to eq(1)
-      end
-      it 'term hash :found == false when term does not exist already' do
-        chk = th.terms.select{ |h| !h[:found] }
-        expect(chk.first[:refname].display_name).to eq('Reference 3')
+
+      context 'when new term is subsequently encountered' do
+        it 'the term is treated as found' do
+          chk = th.terms.select{ |h| h[:found] }
+          expect(chk.length).to eq(3)
+        end
       end
     end
   end
