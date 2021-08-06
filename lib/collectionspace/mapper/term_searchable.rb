@@ -25,7 +25,7 @@ module CollectionSpace
       def has_caps?(string)
         string.match?(/[A-Z]/) ? true : false
       end
-      
+
       def searched_term(val)
         begin
           response = @client.find(
@@ -77,7 +77,7 @@ module CollectionSpace
           end
 
           return csid if csid.nil?
-          
+
           @cache.put(type, '', objnum, csid)
           return csid
         else
@@ -131,7 +131,7 @@ module CollectionSpace
           end
 
           return csid if csid.nil?
-          
+
           @cache.put(type, subtype, term, csid)
           return csid
         else
@@ -168,7 +168,7 @@ module CollectionSpace
         end
         refname
       end
-      
+
       def search_field
         begin
           field = CollectionSpace::Service.get(type: type)[:term]

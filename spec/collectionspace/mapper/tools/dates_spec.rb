@@ -14,7 +14,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::Dates do
       before(:all) do
         @res = CollectionSpace::Mapper::Tools::Dates::CspaceDate.new('2020-09-30', @client, @cache, @config)
       end
-      
+
       it 'populates .timestamp' do
         res = @res.timestamp.to_s
         expect(res).to start_with('2020-09-30 12:00:00')
@@ -62,19 +62,21 @@ RSpec.describe CollectionSpace::Mapper::Tools::Dates do
 
         context 'when no date_format specified in config' do
           it 'defaults to M/D/Y interpretation' do
-            res = CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(@string, @client, @cache, @config).timestamp.to_s
+            res = CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(@string, @client, @cache,
+                                                                        @config).timestamp.to_s
             expect(res).to start_with('2020-01-02 12:00:00')
           end
         end
         context 'when date_format in config = month day year' do
           it 'interprets as M/D/Y' do
-            res = CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(@string, @client, @cache, @config).timestamp.to_s
+            res = CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(@string, @client, @cache,
+                                                                        @config).timestamp.to_s
             expect(res).to start_with('2020-01-02 12:00:00')
           end
         end
         context 'when date_format in config = day month year' do
           it 'interprets as D/M/Y' do
-            config = CS::Mapper::Config.new(config: { date_format: 'day month year' })
+            config = CS::Mapper::Config.new(config: {date_format: 'day month year'})
             res = CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(@string, @client, @cache, config).timestamp.to_s
             expect(res).to start_with('2020-02-01 12:00:00')
           end
@@ -108,7 +110,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::Dates do
         end
       end
     end
-    
+
     context 'when date string is not Chronic parseable (e.g. 1/2/2000 - 12/21/2001)', services_call: true do
       before(:all) do
         @string = '1/2/2000 - 12/21/2001'
@@ -175,7 +177,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::Dates do
         it 'dateEarliestSingleMonth = 3' do
           expect(@res.mappable['dateEarliestSingleMonth']).to eq('3')
         end
-        
+
         it 'dateLatestMonth = 3' do
           expect(@res.mappable['dateLatestMonth']).to eq('3')
         end
@@ -183,7 +185,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::Dates do
         it 'dateEarliestSingleDay = 1' do
           expect(@res.mappable['dateEarliestSingleDay']).to eq('1')
         end
-        
+
         it 'dateLatestDay = 31' do
           expect(@res.mappable['dateLatestDay']).to eq('31')
         end
@@ -191,7 +193,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::Dates do
         it 'dateEarliestSingleYear = 2020' do
           expect(@res.mappable['dateEarliestSingleYear']).to eq('2020')
         end
-        
+
         it 'dateLatestYear = 2020' do
           expect(@res.mappable['dateLatestYear']).to eq('2020')
         end
@@ -214,7 +216,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::Dates do
         it 'dateEarliestSingleMonth = 3' do
           expect(@res.mappable['dateEarliestSingleMonth']).to eq('3')
         end
-        
+
         it 'dateLatestMonth = 3' do
           expect(@res.mappable['dateLatestMonth']).to eq('3')
         end
@@ -222,7 +224,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::Dates do
         it 'dateEarliestSingleDay = 1' do
           expect(@res.mappable['dateEarliestSingleDay']).to eq('1')
         end
-        
+
         it 'dateLatestDay = 31' do
           expect(@res.mappable['dateLatestDay']).to eq('31')
         end
@@ -230,7 +232,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::Dates do
         it 'dateEarliestSingleYear = 2020' do
           expect(@res.mappable['dateEarliestSingleYear']).to eq('2020')
         end
-        
+
         it 'dateLatestYear = 2020' do
           expect(@res.mappable['dateLatestYear']).to eq('2020')
         end
@@ -253,7 +255,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::Dates do
         it 'dateEarliestSingleMonth = 1' do
           expect(@res.mappable['dateEarliestSingleMonth']).to eq('1')
         end
-        
+
         it 'dateLatestMonth = 12' do
           expect(@res.mappable['dateLatestMonth']).to eq('12')
         end
@@ -261,7 +263,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::Dates do
         it 'dateEarliestSingleDay = 1' do
           expect(@res.mappable['dateEarliestSingleDay']).to eq('1')
         end
-        
+
         it 'dateLatestDay = 31' do
           expect(@res.mappable['dateLatestDay']).to eq('31')
         end
@@ -269,7 +271,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::Dates do
         it 'dateEarliestSingleYear = 2002' do
           expect(@res.mappable['dateEarliestSingleYear']).to eq('2002')
         end
-        
+
         it 'dateLatestYear = 2002' do
           expect(@res.mappable['dateLatestYear']).to eq('2002')
         end

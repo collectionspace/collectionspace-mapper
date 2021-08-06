@@ -15,7 +15,7 @@ module CollectionSpace
       def blankdoc
         build_xml
       end
-      
+
       private
 
       def build_xml
@@ -32,7 +32,7 @@ module CollectionSpace
           end
         end
       end
-      
+
       def process_group(xml, grouppath)
         @docstructure.dig(*grouppath).keys.each do |key|
           thispath = grouppath.clone.append(key)

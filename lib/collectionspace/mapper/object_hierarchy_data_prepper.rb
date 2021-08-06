@@ -8,7 +8,7 @@ module CollectionSpace
     class ObjectHierarchyPrepper < CollectionSpace::Mapper::DataPrepper
       include CollectionSpace::Mapper::TermSearchable
       attr_reader :errors, :warnings, :type
-      
+
       def initialize(data, handler)
         super
         @cache = @handler.mapper.termcache
@@ -16,7 +16,7 @@ module CollectionSpace
         @errors = []
         @warnings = []
       end
-      
+
       def prep
         set_id
         split_data
@@ -33,13 +33,12 @@ module CollectionSpace
         nt = @response.merged_data['narrower_object_number']
         @response.identifier = "#{bt} > #{nt}"
       end
-      
+
       def process_xpaths
         clear_unmapped_mappings
         @handler.mapper.xpath = @handler.xpath_hash
         super
       end
-      
 
       # these mappings were needed to get data in via template for processing, but
       #  do not actually get used to produce XML

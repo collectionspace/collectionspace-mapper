@@ -27,7 +27,7 @@ module CollectionSpace
         combine_data_fields
         self
       end
-      
+
       def split_data
         @xphash.each{ |xpath, hash| do_splits(hash) }
         @response.split_data
@@ -49,7 +49,7 @@ module CollectionSpace
         @response.errors.flatten!
         @response.transformed_data
       end
-      
+
       def check_data
         @xphash.each{ |xpath, hash| check_data_quality(hash) }
         @response.warnings.flatten!
@@ -63,7 +63,7 @@ module CollectionSpace
 
       private
 
-      #used by NonHierarchicalRelationshipPrepper and AuthorityHierarchyPrepper
+      # used by NonHierarchicalRelationshipPrepper and AuthorityHierarchyPrepper
       def push_errors_and_warnings
         unless errors.empty?
           @response.errors << errors
@@ -103,13 +103,15 @@ module CollectionSpace
             data = @response.merged_data.fetch(column, nil)
             next if data.nil? || data.empty?
 
-            @response.split_data[column] = mapping.repeats == 'y' ? CollectionSpace::Mapper::SimpleSplitter.new(data, @config).result : [data.strip]
+            @response.split_data[column] =
+mapping.repeats == 'y' ? CollectionSpace::Mapper::SimpleSplitter.new(data, @config).result : [data.strip]
           end
         elsif xphash[:is_group] == true && xphash[:is_subgroup] == false
           xphash[:mappings].each do |mapping|
             column = mapping.datacolumn
             data = @response.merged_data.fetch(column, nil)
             next if data.nil? || data.empty?
+
             @response.split_data[column] = CollectionSpace::Mapper::SimpleSplitter.new(data, @config).result
           end
         elsif xphash[:is_group] && xphash[:is_subgroup]
@@ -117,6 +119,7 @@ module CollectionSpace
             column = mapping.datacolumn
             data = @response.merged_data.fetch(column, nil)
             next if data.nil? || data.empty?
+
             @response.split_data[column] = CollectionSpace::Mapper::SubgroupSplitter.new(data, @config).result
           end
         end
@@ -129,6 +132,7 @@ module CollectionSpace
           column = mapping.datacolumn
           data = splitdata.fetch(column, nil)
           next if data.blank?
+
           if mapping.transforms.blank?
             targetdata[column] = data
           else
@@ -162,7 +166,7 @@ module CollectionSpace
         xphash[:mappings].each do |mapping|
           column = mapping.datacolumn
           type = mapping.data_type
-          
+
           data = sourcedata.fetch(column, nil)
           next if data.blank?
 
@@ -174,7 +178,7 @@ module CollectionSpace
               sourcedata[column] = unstructured_date_transform(data)
             end
           else
-            sourcedata[column] = data  
+            sourcedata[column] = data
           end
         end
       end
@@ -184,10 +188,10 @@ module CollectionSpace
         xphash[:mappings].each do |mapping|
           source_type = get_source_type(mapping.source_type)
           next if source_type.nil?
-          
+
           column = mapping.datacolumn
           next if column['refname']
-          
+
           data = sourcedata.fetch(column, nil)
           next if data.blank?
 
@@ -213,7 +217,7 @@ module CollectionSpace
           nil
         end
       end
-      
+
       def structured_date_transform(data)
         data.map do |d|
           if d.is_a?(String)
@@ -251,6 +255,7 @@ module CollectionSpace
         xphash[:mappings].each do |mapping|
           data = xformdata[mapping.datacolumn]
           next if data.blank?
+
           qc = CollectionSpace::Mapper::DataQualityChecker.new(mapping, data)
           @response.warnings << qc.warnings unless qc.warnings.empty?
         end

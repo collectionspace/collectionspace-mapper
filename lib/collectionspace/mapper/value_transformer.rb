@@ -22,6 +22,7 @@ module CollectionSpace
 
       def process_replacements
         return if @value.empty?
+
         @transforms[:replacements].each do |r|
           case r[:type]
           when :plain
@@ -41,7 +42,7 @@ module CollectionSpace
           obj_num_to_csid if special.include?('obj_num_to_csid')
         end
       end
-      
+
       def process_boolean
         if @value.blank?
           @value = 'false'
@@ -82,7 +83,7 @@ module CollectionSpace
       def obj_num_to_csid
         @value = obj_csid(@value, 'collectionobjects')
       end
-      
+
       def process_behrensmeyer
         lookup = {
           '0' => '0 - no cracking or flaking on bone surface',
@@ -97,4 +98,4 @@ module CollectionSpace
     end
   end
 end
- 
+

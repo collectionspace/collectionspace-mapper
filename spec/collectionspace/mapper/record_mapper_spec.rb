@@ -3,26 +3,26 @@
 require 'spec_helper'
 
 RSpec.describe CollectionSpace::Mapper::RecordMapper do
-  let(:path) { 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json' }
-  let(:jsonmapper) { get_json_record_mapper(path) }
-  let(:client) { anthro_client }
-  let(:mapper) { mapr = described_class.new(mapper: jsonmapper, csclient: client, termcache: anthro_cache) }
+  let(:path){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json' }
+  let(:jsonmapper){ get_json_record_mapper(path) }
+  let(:client){ anthro_client }
+  let(:mapper){ mapr = described_class.new(mapper: jsonmapper, csclient: client, termcache: anthro_cache) }
 
   it 'has expected instance variables' do
-    expected = [:@xpath, :@config, :@xml_template, :@mappings, :@batchconfig, :@csclient, :@termcache].sort
+    expected = %i[@xpath @config @xml_template @mappings @batchconfig @csclient @termcache].sort
     expect(mapper.instance_variables.sort).to eq(expected)
   end
 
   describe '#service_type' do
     context 'when initialized with authority mapper' do
-      let(:path) { 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_citation-local.json' }
+      let(:path){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_citation-local.json' }
       it 'returns Authority module name' do
         expect(mapper.service_type).to eq(CS::Mapper::Authority)
       end
     end
 
     context 'when initialized with relationship mapper' do
-      let(:path) { 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_authorityhierarchy.json' }
+      let(:path){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_authorityhierarchy.json' }
       it 'returns Relationship module name' do
         expect(mapper.service_type).to eq(CS::Mapper::Relationship)
       end

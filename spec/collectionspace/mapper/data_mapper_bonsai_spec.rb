@@ -12,7 +12,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
       @client = bonsai_client
       @cache = bonsai_cache
     end
-    
+
     context 'objectexit record' do
       before(:all) do
         @objectexitmapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/bonsai/bonsai_4-1-1_objectexit.json')

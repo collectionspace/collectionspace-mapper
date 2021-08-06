@@ -30,14 +30,16 @@ RSpec.describe CollectionSpace::Mapper::Config do
                        }
                      }'
   }
-  let(:with_string) { described_class.new(config: configstr) }
-  let(:confighash) { JSON.parse(configstr) }
-  let(:with_hash) { described_class.new(config: confighash) }
-  let(:with_nothing) { described_class.new }
-  let(:with_array) { described_class.new(config: [2, 3]) }
-  let(:expected_hash) { {:delimiter=>";", :subgroup_delimiter=>"^^", :response_mode=>"verbose", :force_defaults=>false, :check_record_status=>true, :check_terms=>true, :date_format=>"month day year", :two_digit_year_handling=>"convert to four digit", :transforms=>{"collection"=>{:special=>["downcase_value"], :replacements=>[{:find=>" ", :replace=>"-", :type=>"plain"}]}}, :default_values=>{"publishto"=>"DPLA;Omeka", "collection"=>"library-collection"}} }
-  let(:invalid_response) { {response_mode: 'mouthy'} }
-  let(:with_invalid_response) { described_class.new(config: invalid_response) }
+  let(:with_string){ described_class.new(config: configstr) }
+  let(:confighash){ JSON.parse(configstr) }
+  let(:with_hash){ described_class.new(config: confighash) }
+  let(:with_nothing){ described_class.new }
+  let(:with_array){ described_class.new(config: [2, 3]) }
+  let(:expected_hash){
+ {delimiter: ';', subgroup_delimiter: '^^', response_mode: 'verbose', force_defaults: false,
+  check_record_status: true, check_terms: true, date_format: 'month day year', two_digit_year_handling: 'convert to four digit', transforms: {'collection' => {special: ['downcase_value'], replacements: [{find: ' ', replace: '-', type: 'plain'}]}}, default_values: {'publishto' => 'DPLA;Omeka', 'collection' => 'library-collection'}} }
+  let(:invalid_response){ {response_mode: 'mouthy'} }
+  let(:with_invalid_response){ described_class.new(config: invalid_response) }
 
   context 'when initialized with JSON string' do
     it 'is created' do

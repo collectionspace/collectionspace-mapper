@@ -12,7 +12,7 @@ module CollectionSpace
 
       def perform(value)
         return value if value.blank?
-        
+
         value.gsub(@find, @replace)
       end
 

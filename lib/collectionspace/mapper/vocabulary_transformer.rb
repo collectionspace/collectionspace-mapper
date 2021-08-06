@@ -7,7 +7,7 @@ module CollectionSpace
 
     # transforms vocabulary term into RefName
     class VocabularyTransformer < Transformer
-      
+
       def initialize(opts)
         super
         @type = 'vocabularies'

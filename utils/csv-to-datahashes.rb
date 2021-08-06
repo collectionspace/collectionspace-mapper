@@ -5,7 +5,7 @@ require 'optparse'
 require 'csv'
 require 'json'
 
-#other dependencies
+# other dependencies
 require 'bundler/inline'
 require 'pry'
 
@@ -14,12 +14,12 @@ gemfile do
   gem 'pry'
 end
 
-
 options = {}
 OptionParser.new{ |opts|
   opts.banner = 'Usage: ruby csv-to-datahashes.rb -i PATH_TO_CSV'
 
-  opts.on('-i', '--input PATH_TO_CSV', 'Path to CSV file. One JSON file will be created per row in the same directory.'){ |i|
+  opts.on('-i', '--input PATH_TO_CSV',
+          'Path to CSV file. One JSON file will be created per row in the same directory.'){ |i|
     options[:input] = i
     unless File.file?(i)
       puts "File #{i} does not exist"
@@ -39,7 +39,7 @@ OptionParser.new{ |opts|
 datahashes = []
 
 filename_stub = options[:input].sub(/^.*\//, '').sub('.csv', '')
-dir = options[:input]['/'] ? options[:input].sub(/\/[^\/]+$/, '/') : '' 
+dir = options[:input]['/'] ? options[:input].sub(/\/[^\/]+$/, '/') : ''
 
 CSV.foreach(options[:input], headers: true) do |row|
   datahashes << row.to_h

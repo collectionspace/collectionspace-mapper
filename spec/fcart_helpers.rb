@@ -10,7 +10,7 @@ module Helpers
       )
     )
   end
-  
+
   def fcart_cache
     cache_config = base_cache_config.merge({domain: 'fcart.collectionspace.org'})
     cache = CollectionSpace::RefCache.new(config: cache_config, client: fcart_client)
@@ -21,7 +21,8 @@ module Helpers
 
   def populate_fcart(cache)
     terms = [
-      ['personauthorities', 'person', 'Elizabeth', "urn:cspace:fcart.collectionspace.org:personauthorities:name(person):item:name(Elizabeth123)'Elizabeth'"]    ]
+      ['personauthorities', 'person', 'Elizabeth',
+       "urn:cspace:fcart.collectionspace.org:personauthorities:name(person):item:name(Elizabeth123)'Elizabeth'"]    ]
     populate(cache, terms)
   end
 

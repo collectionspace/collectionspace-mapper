@@ -4,7 +4,6 @@ require 'bundler/setup'
 require 'time_up'
 require 'pry'
 
-
 require 'collectionspace/mapper'
 require_relative '../../spec/helpers'
 

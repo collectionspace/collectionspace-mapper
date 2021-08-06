@@ -10,7 +10,7 @@ module Helpers
       )
     )
   end
-  
+
   def lhmc_cache
     cache_config = base_cache_config.merge({domain: 'lhmc.collectionspace.org'})
     cache = CollectionSpace::RefCache.new(config: cache_config, client: lhmc_client)
@@ -21,8 +21,10 @@ module Helpers
 
   def populate_lhmc(cache)
     terms = [
-      ['personauthorities', 'person', 'Ann Analyst', "urn:cspace:lhmc.collectionspace.org:personauthorities:name(person):item:name(AnnAnalyst1594848799340)'Ann Analyst'"],
-      ['vocabularies', 'agerange', 'adolescent 26-75%', "urn:cspace:lhmc.collectionspace.org:vocabularies:name(agerange):item:name(adolescent_26_75)'adolescent 26-75%'"],
+      ['personauthorities', 'person', 'Ann Analyst',
+       "urn:cspace:lhmc.collectionspace.org:personauthorities:name(person):item:name(AnnAnalyst1594848799340)'Ann Analyst'"],
+      ['vocabularies', 'agerange', 'adolescent 26-75%',
+       "urn:cspace:lhmc.collectionspace.org:vocabularies:name(agerange):item:name(adolescent_26_75)'adolescent 26-75%'"],
     ]
     populate(cache, terms)
   end

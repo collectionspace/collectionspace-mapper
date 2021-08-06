@@ -16,7 +16,8 @@ def mapping_workflow
   }
 
   rm_anthro_co = Helpers.get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json')
-  handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: rm_anthro_co, cache: Helpers.anthro_cache, client: Helpers.anthro_client, config: config)
+  handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: rm_anthro_co, cache: Helpers.anthro_cache,
+                                                     client: Helpers.anthro_client, config: config)
 
   datahash = Helpers.get_datahash(path: 'spec/fixtures/files/datahashes/anthro/collectionobject2.json')
 

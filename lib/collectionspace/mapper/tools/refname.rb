@@ -10,7 +10,7 @@ module CollectionSpace
       end
 
       class UnparseableUrnError < StandardError; end
-      
+
       class RefName
         attr_reader :domain, :type, :subtype, :identifier, :display_name, :urn
 
@@ -41,9 +41,9 @@ module CollectionSpace
         def build_urn
           "urn:cspace:#{@domain}:#{@type}:name(#{@subtype}):item:name(#{@identifier})'#{@display_name}'"
         end
-        
+
         def new_from_term
-          
+
           @identifier = CollectionSpace::Mapper::Identifiers::ShortIdentifier.new(term: @display_name).value
         end
 

@@ -11,7 +11,7 @@ module CollectionSpace
 
       attr_reader :config
       def_delegators :@all, :each, :length, :map, :reject!, :select
-      
+
       def initialize(opts = {})
         @mapper = opts[:mapper]
         @config = @mapper.config
@@ -45,6 +45,7 @@ module CollectionSpace
 
       def service_type=(mawdule)
         return unless mawdule
+
         extend(mawdule)
       end
 

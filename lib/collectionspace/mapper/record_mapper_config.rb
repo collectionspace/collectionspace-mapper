@@ -9,8 +9,8 @@ module CollectionSpace
     #  keys are present for now. This also makes writing tests on the methods here a bit easier.
     class RecordMapperConfig
       attr_reader :profile_basename, :document_name, :service_name, :service_path, :service_type,
-        :object_name, :ns_uri, :identifier_field, :search_field, :authority_subtypes,
-        :authority_type, :authority_subtype, :recordtype
+                  :object_name, :ns_uri, :identifier_field, :search_field, :authority_subtypes,
+                  :authority_type, :authority_subtype, :recordtype
 
       def initialize(config_hash)
         config_hash.each do |key, value|
@@ -21,7 +21,7 @@ module CollectionSpace
       def common_namespace
         namespaces.select{ |namespace| namespace.end_with?('_common') }.first
       end
-      
+
       def namespaces
         @ns_uri.keys
       end

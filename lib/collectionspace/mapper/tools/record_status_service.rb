@@ -10,7 +10,7 @@ module CollectionSpace
     end
 
     class NoClientServiceError < StandardError; end
-    
+
     module Tools
       class RecordStatusService
         def initialize(client, mapper)
@@ -38,7 +38,7 @@ module CollectionSpace
 
           ct = count_results(response)
           if ct == 0
-            report = { status: :new }
+            report = {status: :new}
           elsif ct == 1
             report = {
               status: :existing,
@@ -56,10 +56,10 @@ module CollectionSpace
 
         def lookup_relationship(value)
           @client.get(
-            @path, query: { 'sbj' => value[:sub], 'obj' => value[:obj] }
+            @path, query: {'sbj' => value[:sub], 'obj' => value[:obj]}
           )
         end
-        
+
         def lookup_non_relationship(value)
           @client.find(
             type: @mapper.config.service_path,
@@ -68,11 +68,12 @@ module CollectionSpace
             field: @search_field
           )
         end
-        
+
         def count_results(response)
           unless response.result.success?
             raise CollectionSpace::RequestError, response.result.body
           end
+
           response.parsed[@response_top]['totalItems'].to_i
         end
 
@@ -84,7 +85,8 @@ module CollectionSpace
                 subtype: @mapper.config.authority_subtype
               )
             rescue KeyError
-              raise CS::Mapper::NoClientServiceError, "#{@mapper.config.authority_type} > #{@mapper.config.authority_subtype}"
+              raise CS::Mapper::NoClientServiceError,
+                    "#{@mapper.config.authority_type} > #{@mapper.config.authority_subtype}"
             end
           else
             begin

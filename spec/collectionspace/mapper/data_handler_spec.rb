@@ -4,23 +4,23 @@ require 'spec_helper'
 
 RSpec.describe CollectionSpace::Mapper::DataHandler do
   before(:all) do
-    @anthro_client = anthro_client
-    @anthro_cache = anthro_cache
-    @anthro_object_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json')
-    @anthro_object_handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @anthro_object_mapper,
-                                                                      client: @anthro_client,
-                                                                      cache: @anthro_cache)
-    @anthro_place_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_place-local.json')
-    @anthro_place_handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @anthro_place_mapper,
-                                                                     client: @anthro_client,
-                                                                     cache: @anthro_cache)
+  @anthro_client = anthro_client
+  @anthro_cache = anthro_cache
+  @anthro_object_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json')
+  @anthro_object_handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @anthro_object_mapper,
+                                                                    client: @anthro_client,
+                                                                    cache: @anthro_cache)
+  @anthro_place_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_place-local.json')
+  @anthro_place_handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @anthro_place_mapper,
+                                                                   client: @anthro_client,
+                                                                   cache: @anthro_cache)
 
-    @bonsai_client = bonsai_client
-    @bonsai_cache = bonsai_cache
-    @bonsai_conservation_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/bonsai/bonsai_4-1-1_conservation.json')
-    @bonsai_conservation_handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @bonsai_conservation_mapper,
-                                                                            client: @bonsai_client,
-                                                                            cache: @bonsai_cache)
+  @bonsai_client = bonsai_client
+  @bonsai_cache = bonsai_cache
+  @bonsai_conservation_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/bonsai/bonsai_4-1-1_conservation.json')
+  @bonsai_conservation_handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @bonsai_conservation_mapper,
+                                                                          client: @bonsai_client,
+                                                                          cache: @bonsai_cache)
 end
 
   # todo: why are these making services api calls?
@@ -34,20 +34,20 @@ end
                                                           client: @client,
                                                           cache: @cache,
                                                           config: @config)
-      @data = {"objectNumber"=>"20CS.001.0002",
-               "numberOfObjects"=>"1",
-               "title"=>"Rainbow",
-               "titleLanguage"=>"English",
-               "namedCollection"=>"Test Collection",
-               "collection"=>"rando"}
-      @data2 = {"objectNumber"=>"20CS.001.0001",
-                "numberOfObjects"=>"1",
-                "numberValue"=>"123456|98765",
-                "numberType"=>"lender|obsolete",
-                "title"=>"A Man| A Woman",
-                "titleLanguage"=>"English| Klingon",
-                "namedCollection"=>"Test collection",
-                "collection"=>"permanent collection"}
+      @data = {'objectNumber' => '20CS.001.0002',
+               'numberOfObjects' => '1',
+               'title' => 'Rainbow',
+               'titleLanguage' => 'English',
+               'namedCollection' => 'Test Collection',
+               'collection' => 'rando'}
+      @data2 = {'objectNumber' => '20CS.001.0001',
+                'numberOfObjects' => '1',
+                'numberValue' => '123456|98765',
+                'numberType' => 'lender|obsolete',
+                'title' => 'A Man| A Woman',
+                'titleLanguage' => 'English| Klingon',
+                'namedCollection' => 'Test collection',
+                'collection' => 'permanent collection'}
     end
     it 'returns found = false for all terms, even if they exist in client' do
       res = @handler.process(@data)
@@ -64,20 +64,20 @@ end
   it 'tags all un-found terms as such', services_call: true do
     data1 = {
       'objectNumber' => '1',
-      'publishTo' => 'Wordpress', #vocabulary - not in cache
-      'namedCollection' => 'nc', #authority - not in cache
+      'publishTo' => 'Wordpress', # vocabulary - not in cache
+      'namedCollection' => 'nc', # authority - not in cache
     }
     data2 = {
       'objectNumber' => '2',
-      'publishTo' => 'Wordpress', #vocabulary - now in cache
-      'namedCollection' => 'nc', #authority - now in cache
+      'publishTo' => 'Wordpress', # vocabulary - now in cache
+      'namedCollection' => 'nc', # authority - now in cache
       'contentConceptAssociated' => 'Birds' # authority, in cache
     }
     @anthro_object_handler.process(data1)
     result = @anthro_object_handler.process(data2).terms.select{ |t| t[:found] == false }
     expect(result.length).to eq(2)
   end
-  
+
   describe '#is_authority' do
     context 'anthro profile' do
       context 'place record' do
@@ -92,10 +92,10 @@ end
   end
 
   describe '#service_type' do
-    let(:servicetype) { handler.service_type }
+    let(:servicetype){ handler.service_type }
     context 'anthro profile' do
       context 'collectionobject record' do
-        let(:handler) { @anthro_object_handler }
+        let(:handler){ @anthro_object_handler }
 
         it 'returns object' do
           expect(servicetype).to eq('object')
@@ -103,7 +103,7 @@ end
       end
 
       context 'place record' do
-        let(:handler) { @anthro_place_handler }
+        let(:handler){ @anthro_place_handler }
 
         it 'returns authority' do
           expect(servicetype).to eq('authority')
@@ -113,7 +113,7 @@ end
 
     context 'bonsai profile' do
       context 'conservation record' do
-        let(:handler) { @bonsai_conservation_handler }
+        let(:handler){ @bonsai_conservation_handler }
 
         it 'returns procedure' do
           expect(servicetype).to eq('procedure')
@@ -121,7 +121,7 @@ end
       end
     end
   end
-  
+
   describe '#xpath_hash' do
     context 'anthro profile' do
       context 'collectionobject record' do
@@ -176,29 +176,29 @@ end
         end
       end
     end
-context 'bonsai profile' do
-  context 'conservation record type' do
-    context 'xpath ending with fertilizersToBeUsed' do
-      it 'is a repeating group' do
-        h = @bonsai_conservation_handler.mapper.xpath
-        res = h['conservation_livingplant/fertilizationGroupList/fertilizationGroup/fertilizersToBeUsed'][:is_group]
-        expect(res).to be true
+    context 'bonsai profile' do
+      context 'conservation record type' do
+        context 'xpath ending with fertilizersToBeUsed' do
+          it 'is a repeating group' do
+            h = @bonsai_conservation_handler.mapper.xpath
+            res = h['conservation_livingplant/fertilizationGroupList/fertilizationGroup/fertilizersToBeUsed'][:is_group]
+            expect(res).to be true
+          end
+        end
+        context 'xpath ending with conservators' do
+          it 'is a repeating group' do
+            h = @bonsai_conservation_handler.mapper.xpath
+            res = h['conservation_common/conservators'][:is_group]
+            expect(res).to be false
+          end
+        end
       end
     end
-    context 'xpath ending with conservators' do
-      it 'is a repeating group' do
-        h = @bonsai_conservation_handler.mapper.xpath
-        res = h['conservation_common/conservators'][:is_group]
-        expect(res).to be false
-      end
-    end
-  end
-end
   end
 
   describe '#validate' do
     it 'returns CollectionSpace::Mapper::Response object' do
-      data = { 'objectNumber' => '123' }
+      data = {'objectNumber' => '123'}
       result = @anthro_object_handler.validate(data)
       expect(result).to be_a(CollectionSpace::Mapper::Response)
     end
@@ -219,10 +219,10 @@ end
       }
     end
   end
-  
+
   describe '#prep' do
     before(:all) do
-      @data = { 'objectNumber' => '123' }
+      @data = {'objectNumber' => '123'}
     end
     it 'can be called with response from validation' do
       vresult = @anthro_object_handler.validate(@data)
@@ -241,7 +241,7 @@ end
     end
     context 'when response_mode = verbose' do
       it 'returned response includes detailed data transformation info' do
-        config = { response_mode: 'verbose' }
+        config = {response_mode: 'verbose'}
         handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @anthro_object_mapper,
                                                            client: @anthro_client,
                                                            cache: @anthro_cache,
@@ -254,7 +254,7 @@ end
 
   describe '#process', services_call: true do
     before(:all) do
-      @data = { 'objectNumber' => '123' }
+      @data = {'objectNumber' => '123'}
     end
     it 'can be called with response from validation' do
       vresult = @anthro_object_handler.validate(@data)
@@ -273,7 +273,7 @@ end
     end
     context 'when response_mode = verbose' do
       it 'returned response includes detailed data transformation info' do
-        config = { response_mode: 'verbose' }
+        config = {response_mode: 'verbose'}
         handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @anthro_object_mapper,
                                                            client: @anthro_client,
                                                            cache: @anthro_cache,
@@ -283,15 +283,15 @@ end
       end
     end
   end
-  
+
   describe '#map', services_call: true do
     before(:all) do
-      @data = { 'objectNumber' => '123' }
+      @data = {'objectNumber' => '123'}
       prepper = CollectionSpace::Mapper::DataPrepper.new(@data, @anthro_object_handler)
       prep_response = @anthro_object_handler.prep(@data).response
       @result = @anthro_object_handler.map(prep_response, prepper.xphash)
     end
-    
+
     it 'returns CollectionSpace::Mapper::Response object' do
       expect(@result).to be_a(CollectionSpace::Mapper::Response)
     end
@@ -306,7 +306,7 @@ end
     end
     context 'when response_mode = verbose' do
       it 'returned response includes detailed data transformation info' do
-        config = { 'response_mode'=> 'verbose' }
+        config = {'response_mode' => 'verbose'}
         handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @anthro_object_mapper,
                                                            client: @anthro_client,
                                                            cache: @anthro_cache,

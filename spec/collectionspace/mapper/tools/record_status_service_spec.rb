@@ -3,8 +3,8 @@
 require 'spec_helper'
 
 RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_call: true do
-  let(:client) { core_client }
-  let(:service) { CollectionSpace::Mapper::Tools::RecordStatusService.new(client, mapper) }
+  let(:client){ core_client }
+  let(:service){ CollectionSpace::Mapper::Tools::RecordStatusService.new(client, mapper) }
 
   context 'when mapper service_path not handled by collectionspace-client' do
     let(:mapper) { CS::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
@@ -12,21 +12,20 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_cal
     ), termcache: core_cache) }
 
     it 'raises NoClientServiceError' do
-      expect{ CS::Mapper::Tools::RecordStatusService.new(client, mapper) }.to raise_error(CS::Mapper::NoClientServiceError)
+      expect{
+ CS::Mapper::Tools::RecordStatusService.new(client, mapper) }.to raise_error(CS::Mapper::NoClientServiceError)
     end
   end
 
-
-  
   describe '#lookup' do
     context 'when mapper is for an authority' do
       let(:mapper) { CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
         'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_person-local.json'
       ), termcache: core_cache) }
-      
+
       context 'and one result is found' do
-        let(:report) { service.lookup('John Doe') }
-        
+        let(:report){ service.lookup('John Doe') }
+
         it 'status = :existing' do
           expect(report[:status]).to eq(:existing)
         end
@@ -54,7 +53,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_cal
         #   in core.dev
         # you may need to re-create them if they have been removed
         it 'raises error because we cannot know what to do with imported record' do
-          expect{ service.lookup('Inkpot Guineafowl') }.to raise_error(CollectionSpace::Mapper::MultipleCsRecordsFoundError)
+          expect{
+ service.lookup('Inkpot Guineafowl') }.to raise_error(CollectionSpace::Mapper::MultipleCsRecordsFoundError)
         end
       end
     end

@@ -24,16 +24,16 @@ module CollectionSpace
             @ce = "urn:cspace:#{@cache.domain}:vocabularies:name(dateera):item:name(ce)'CE'"
 
             date_formats = [
-              '^\d{1,2}[-\/]\d{1,2}[-\/]\d{4}$', #02-15-2020, 2-15-2020, 2/15/2020, 02/15/2020
-              '^\d{4}-\d{2}-\d{2}$', #2020-02-15
-              '^\w+ \d{1,2},? \d{4}$', #Feb 15 2020, February 15, 2020
-              '^\d{1,2} \w+ \d{4}$' #15 Feb 2020, 15 February 2020
+              '^\d{1,2}[-\/]\d{1,2}[-\/]\d{4}$', # 02-15-2020, 2-15-2020, 2/15/2020, 02/15/2020
+              '^\d{4}-\d{2}-\d{2}$', # 2020-02-15
+              '^\w+ \d{1,2},? \d{4}$', # Feb 15 2020, February 15, 2020
+              '^\d{1,2} \w+ \d{4}$' # 15 Feb 2020, 15 February 2020
             ].map{ |f| Regexp.new(f) }
 
             two_digit_year_date_formats = [
               '^\d{1,2}[-\/]\d{1,2}[-\/]\d{2}$'
             ].map{ |f| Regexp.new(f) }
-            
+
             service_parseable_month_formats = [
               '^\w+ \d{4}$',
               '^\d{4} \w+$',
@@ -45,7 +45,7 @@ module CollectionSpace
             ].map{ |f| Regexp.new(f) }
 
             if date_string == '%NULLVALUE%'
-              #do nothing
+              # do nothing
             elsif date_string == THE_BOMB
               @timestamp = date_string
               blow_up_date
@@ -82,13 +82,13 @@ module CollectionSpace
             this_year_last_two = this_year[2,2].to_i
 
             if yr.to_i > this_year_last_two
-              val <<  "#{this_year_century.to_i - 1}#{yr}"
+              val << "#{this_year_century.to_i - 1}#{yr}"
             else
               val << "#{this_year_century}#{yr}"
             end
             val.join('-')
           end
-          
+
           def try_chronic_parse(string)
             if @config.date_format == 'day month year'
               @timestamp = Chronic.parse(string, endian_precedence: :little)
@@ -100,11 +100,11 @@ module CollectionSpace
           def create_mappable_passthrough
             @mappable['dateDisplayDate'] = @date_string
           end
-          
+
           def create_mappable_date
             date = @timestamp.to_date
             next_day = date + 1
-            
+
             @mappable['dateDisplayDate'] = @date_string
             @mappable['dateEarliestSingleYear'] = date.year.to_s
             @mappable['dateEarliestSingleMonth'] = date.month.to_s
@@ -131,7 +131,7 @@ module CollectionSpace
             month = @date_string.sub(year.to_s, '').match(/(\d{1,2})/)[1].to_i
             next_month = month + 1
             last_day_of_month = Date.new(year, month, -1).day
-            
+
             @mappable['dateDisplayDate'] = @date_string
             @mappable['dateEarliestSingleYear'] = year.to_s
             @mappable['dateEarliestSingleMonth'] = month.to_s
@@ -149,7 +149,7 @@ module CollectionSpace
           def create_mappable_year
             year = @date_string
             next_year = @date_string.to_i + 1
-            
+
             @mappable['dateDisplayDate'] = @date_string
             @mappable['dateEarliestSingleYear'] = year
             @mappable['dateEarliestSingleMonth'] = '1'
@@ -171,7 +171,7 @@ module CollectionSpace
               result = response.result['structureddate_common']
               @mappable = fix_services_scalars(result)
             else
-              @mappable = { 'dateDisplayDate' => date_string,
+              @mappable = {'dateDisplayDate' => date_string,
                            'scalarValuesComputed' => 'false'
                           }
             end
@@ -191,7 +191,7 @@ module CollectionSpace
 
           def map(doc, parentnode, groupname)
             @parser_result.each do |datefield, value|
-              value = DateTime.parse(value).iso8601(3).sub('+00:00', "Z") if datefield['ScalarValue']
+              value = DateTime.parse(value).iso8601(3).sub('+00:00', 'Z') if datefield['ScalarValue']
             end
           end
         end

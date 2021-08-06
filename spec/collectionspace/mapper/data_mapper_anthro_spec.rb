@@ -12,7 +12,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
       @client = anthro_client
       @cache = anthro_cache
     end
-  
+
     context 'claim record' do
       # Tests for claim record are pending because changes must be made to
       # handling of repeating field groups which contain more than one

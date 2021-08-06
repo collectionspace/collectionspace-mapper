@@ -7,7 +7,7 @@ module CollectionSpace
 
     # transforms authority display name into RefName
     class AuthorityTransformer < Transformer
-      
+
       def initialize(opts)
         super
         @type = opts[:transform][0]

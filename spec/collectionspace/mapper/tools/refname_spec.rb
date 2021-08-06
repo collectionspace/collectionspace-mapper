@@ -63,7 +63,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
     context 'with urn for movement' do
       it 'builds refname from URN' do
         args = {
-          urn: "urn:cspace:core.collectionspace.org:movements:id(8e74756f-38f5-4dee-90d4)"
+          urn: 'urn:cspace:core.collectionspace.org:movements:id(8e74756f-38f5-4dee-90d4)'
         }
         result = CollectionSpace::Mapper::Tools::RefName.new(args)
         expect(result.domain).to eq('core.collectionspace.org')
@@ -77,9 +77,10 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
     context 'with unparseable URN' do
       it 'raises error' do
         args = {
-          urn: "urn:cspace:core.collectionspace.org:weird"
+          urn: 'urn:cspace:core.collectionspace.org:weird'
         }
-        expect{ CollectionSpace::Mapper::Tools::RefName.new(args) }.to raise_error(CollectionSpace::Mapper::Tools::UnparseableUrnError)
+        expect{
+ CollectionSpace::Mapper::Tools::RefName.new(args) }.to raise_error(CollectionSpace::Mapper::Tools::UnparseableUrnError)
       end
     end
   end
@@ -90,7 +91,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
         urn: "urn:cspace:anthro.collectionspace.org:personauthorities:name(person):item:name(MaryPoole1796320156)'Mary Poole'",
         cache: @cache
       }
-      expect { CollectionSpace::Mapper::Tools::RefName.new(args) }.to raise_error(CollectionSpace::Mapper::Tools::RefNameArgumentError)
+      expect{
+ CollectionSpace::Mapper::Tools::RefName.new(args) }.to raise_error(CollectionSpace::Mapper::Tools::RefNameArgumentError)
     end
   end
 end
