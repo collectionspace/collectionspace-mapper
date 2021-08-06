@@ -11,7 +11,7 @@ module CollectionSpace
       
       def initialize(data, handler)
         super
-        @cache = @handler.mapper.csidcache
+        @cache = @handler.mapper.termcache
         @type = @response.merged_data['subjectdocumenttype']
         @errors = []
         @warnings = []

@@ -60,6 +60,20 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
       end
     end
 
+    context 'with urn for movement' do
+      it 'builds refname from URN' do
+        args = {
+          urn: "urn:cspace:core.collectionspace.org:movements:id(8e74756f-38f5-4dee-90d4)"
+        }
+        result = CollectionSpace::Mapper::Tools::RefName.new(args)
+        expect(result.domain).to eq('core.collectionspace.org')
+        expect(result.type).to eq('movements')
+        expect(result.subtype).to be_nil
+        expect(result.identifier).to eq('8e74756f-38f5-4dee-90d4')
+        expect(result.display_name).to eq('')
+      end
+    end
+
     context 'with unparseable URN' do
       it 'raises error' do
         args = {

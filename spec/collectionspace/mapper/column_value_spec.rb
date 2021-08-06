@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe CollectionSpace::Mapper::ColumnValue do
   let(:mapperpath) { 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json'}
-  let(:recmapper) { get_record_mapper_object(mapperpath) }
+  let(:recmapper) { get_record_mapper_object(mapperpath, core_cache) }
   let(:mapping) { recmapper.mappings.lookup(colname) }
   let(:colval) { described_class.new(column: colname,
                                      value: colvalue,

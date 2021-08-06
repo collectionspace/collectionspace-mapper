@@ -34,7 +34,7 @@ module Helpers
 
   def core_object_mapper
     path = 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json'
-    get_record_mapper_object(path)
+    get_record_mapper_object(path, core_cache)
   end
 
   def populate_core(cache)

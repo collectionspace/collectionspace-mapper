@@ -42,7 +42,7 @@ module CollectionSpace
       end
 
       def obj_csid(objnum, type)
-        csid = @cache.get(type, '', objnum)
+        csid = @cache.get(type, '', objnum, search: false)
         return csid unless csid.nil?
 
         response = @client.find(type: type, value: objnum)

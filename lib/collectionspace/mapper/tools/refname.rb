@@ -54,7 +54,7 @@ module CollectionSpace
         def new_from_urn
           if /^urn:cspace:([^:]+):([^:]+):name\(([^\)]+)\):item:name\(([^\)]+)\)'/.match?(@urn)
             term_parts_from_urn
-          elsif /^urn:cspace:([^:]+):([^:]+):id\(([^\)]+)\)'([^']+)'/.match?(@urn)
+          elsif /^urn:cspace:([^:]+):([^:]+):id\(([^\)]+)\)(.*)/.match?(@urn)
             non_term_parts_from_urn
           else
             raise CS::Mapper::Tools::UnparseableUrnError
@@ -71,12 +71,12 @@ module CollectionSpace
         end
 
         def non_term_parts_from_urn
-          parts = @urn.match(/^urn:cspace:([^:]+):([^:]+):id\(([^\)]+)\)'([^']+)'/)
+          parts = @urn.match(/^urn:cspace:([^:]+):([^:]+):id\(([^\)]+)\)(.*)/)
           @domain = parts[1]
           @type = parts[2]
           @subtype = nil
           @identifier = parts[3]
-          @display_name = parts[4]
+          @display_name = parts[4].delete("'") if parts[4]
         end
       end
     end
