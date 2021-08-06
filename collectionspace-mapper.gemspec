@@ -39,11 +39,11 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'chronic'
   spec.add_dependency 'facets'
+  spec.add_dependency 'memo_wise', '~> 1.1.0'
   spec.add_dependency 'nokogiri', '>= 1.10.9'
   spec.add_dependency 'xxhash', '>= 0.4.0'
 
   spec.add_development_dependency 'bundler', '>= 2.1.2'
-  spec.add_development_dependency 'memo_wise', '~> 1.1.0'
   spec.add_development_dependency 'pry-byebug'
   spec.add_development_dependency 'rake', '>= 13.0.1'
   spec.add_development_dependency 'rspec', '~> 3.0'
