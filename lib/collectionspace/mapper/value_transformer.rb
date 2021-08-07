@@ -20,15 +20,30 @@ module CollectionSpace
         @result = @value
       end
 
+      BOOLEAN_LOOKUP = {
+        'true' => 'true',
+        'false' => 'false',
+        '' => 'false',
+        'yes' => 'true',
+        'no' => 'false',
+        'y' => 'true',
+        'n' => 'false',
+        't' => 'true',
+        'f' => 'false'
+      }
+      
       def process_replacements
         return if @value.empty?
 
-        @transforms[:replacements].each do |r|
-          case r[:type]
+        @transforms[:replacements].each do |rule|
+          find = rule[:find]
+          replace = rule[:replace]
+          
+          case rule[:type]
           when :plain
-            @value = @value.gsub(r[:find], r[:replace])
+            @value = @value.gsub(find, replace)
           when :regexp
-            @value = @value.gsub(Regexp.new(r[:find]), r[:replace])
+            @value = @value.gsub(Regexp.new(find), replace)
           end
         end
       end
@@ -46,38 +61,24 @@ module CollectionSpace
       def process_boolean
         if @value.blank?
           @value = 'false'
-        else
-          case @value.downcase
-          when 'true'
-            @value = 'true'
-          when 'false'
-            @value = 'false'
-          when ''
-            @value = 'false'
-          when 'yes'
-            @value = 'true'
-          when 'no'
-            @value = 'false'
-          when 'y'
-            @value = 'true'
-          when 'n'
-            @value = 'false'
-          when 't'
-            @value = 'true'
-          when 'f'
-            @value = 'false'
-          else
-            @value = 'false'
-            @warnings << {
-              category: :boolean_value_transform,
-              field: nil,
-              type: nil,
-              subtype: nil,
-              value: @value,
-              message: "#{@value} cannot be converted to boolean. Defaulting to false"
-            }
-          end
+          return
         end
+
+        chkval = @value.downcase
+        if BOOLEAN_LOOKUP.key?(chkval)
+          @value = BOOLEAN_LOOKUP[chkval]
+          return
+        end
+        
+        @value = 'false'
+        @warnings << {
+          category: :boolean_value_transform,
+          field: nil,
+          type: nil,
+          subtype: nil,
+          value: @value,
+          message: "#{@value} cannot be converted to boolean. Defaulting to false"
+        }
       end
 
       def obj_num_to_csid
