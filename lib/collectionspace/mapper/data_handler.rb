@@ -78,6 +78,27 @@ module CollectionSpace
         validator.validate(response)
       end
 
+      def mappings
+        @mapper.mappings
+      end
+
+      def setup_xpath_hash_structure
+        xhash = {}
+        # create key for each xpath containing fields, and set up structure of its value
+        mappings.each do |mapping|
+          xhash[mapping.fullpath] =
+            {parent: '', children: [], is_group: false, is_subgroup: false, subgroups: [], mappings: []}
+        end
+        xhash
+      end
+
+      def associate_mappings_with_xpaths(xhash)
+        mappings.each do |mapping|
+          xhash[mapping.fullpath][:mappings] << mapping
+        end
+        xhash
+      end
+
       # builds hash containing information to be used in mapping the fields that are
       #  children of each xpath
       # keys - the XML doc xpaths that contain child fields
@@ -90,17 +111,9 @@ module CollectionSpace
       #     that itself contains direct child fields
       #  :mappings - Array, of fieldmappings that are children of this xpath
       def xpath_hash
-        h = {}
-        # create key for each xpath containing fields, and set up structure of its value
-        @mapper.mappings.each do |mapping|
-          h[mapping.fullpath] =
-{parent: '', children: [], is_group: false, is_subgroup: false, subgroups: [], mappings: []}
-        end
-        # add fieldmappings for children of each xpath
-        @mapper.mappings.each do |mapping|
-          h[mapping.fullpath][:mappings] << mapping
-        end
-        # populate other attributes
+        xhash = setup_xpath_hash_structure
+        h = associate_mappings_with_xpaths(xhash)
+
         # populate parent of all non-top xpaths
         h.each do |xpath, ph|
           if xpath['/']
