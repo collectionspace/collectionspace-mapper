@@ -55,9 +55,8 @@ module CollectionSpace
         private
 
         def lookup_relationship(value)
-          @client.get(
-            @path, query: { 'sbj' => value[:sub], 'obj' => value[:obj] }
-          )
+          query = { 'sbj' => value[:sub], 'obj' => value[:obj] }
+          @client.get(@path, query: query)
         end
         
         def lookup_non_relationship(value)
