@@ -10,11 +10,19 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased]
 
+## [2.4.8] - 2021-09-03
+### Changed
+- Bugfix for [collectionspace-csv-importer#110](https://github.com/collectionspace/collectionspace-csv-importer/issues/110)
+- Re-set up running tests automatically on PR creation
+- Use `collectionspace-client` v0.10.0 and the `find_relation` method added to it
+- Use `collectionspace-refcache` v0.7.7
+- Add tests for methods in `TermSearchable` module
+
 ## [2.4.7] - 2021-07-14
 ### Changed
-- use ruby v2.7.3
-- use `collectionspace-client` v0.9.0
-- use `collectionspace-refcache` v0.7.6
+- Use ruby v2.7.3
+- Use `collectionspace-client` v0.9.0
+- Use `collectionspace-refcache` v0.7.6
 
 ## [2.4.6] - 2021-07-13
 ### Changed
