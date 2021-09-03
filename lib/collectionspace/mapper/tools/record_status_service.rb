@@ -31,7 +31,7 @@ module CollectionSpace
         # Tests in examples/search.rb
         def lookup(value)
           if @ns_prefix == 'relations'
-            response = lookup_relationship(value)
+            response = @client.find_relation(subject_csid: value[:sub], object_csid: value[:obj])
           else
             response = lookup_non_relationship(value)
           end
@@ -53,12 +53,6 @@ module CollectionSpace
         end
 
         private
-
-        def lookup_relationship(value)
-          @client.get(
-            @path, query: {'sbj' => value[:sub], 'obj' => value[:obj]}
-          )
-        end
 
         def lookup_non_relationship(value)
           @client.find(

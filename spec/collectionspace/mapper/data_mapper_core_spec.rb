@@ -107,27 +107,25 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     end
 
     context 'object hierarchy record', services_call: true do
-      let(:mapper){
- get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_objecthierarchy.json') }
+      let(:mapper) do
+        get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_objecthierarchy.json')
+      end
+      let(:hashpath) { 'spec/fixtures/files/datahashes/core/objectHierarchy1.json' }
+      let(:fixturepath) { 'core/objectHierarchy1.xml' }
 
-      context 'record 1' do
-        let(:hashpath){ 'spec/fixtures/files/datahashes/core/objectHierarchy1.json' }
-        let(:fixturepath){ 'core/objectHierarchy1.xml' }
+      it 'sets response id field as expected' do
+        expect(response.identifier).to eq('2020.1.105 > 2020.1.1055')
+      end
+      
+      it 'does not map unexpected fields' do
+        expect(diff).to eq([])
+      end
 
-        it 'sets response id field as expected' do
-          expect(response.identifier).to eq('2020.1.105 > 2020.1.1055')
-        end
-
-        it 'does not map unexpected fields' do
-          expect(diff).to eq([])
-        end
-
-        it 'maps as expected' do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
+      it 'maps as expected' do
+        fixture_xpaths.each do |xpath|
+          fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
+          mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
+          expect(mapped_node).to eq(fixture_node)
         end
       end
     end

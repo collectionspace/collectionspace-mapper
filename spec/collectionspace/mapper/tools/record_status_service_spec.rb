@@ -80,5 +80,16 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_cal
         expect(res[:status]).to eq(:existing)
       end
     end
+
+    context 'when mapper is for a relationship' do
+      let(:mapper) { CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
+        'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_objecthierarchy.json'
+      )) }
+
+      it 'works the same' do
+        res = service.lookup({sub: '56c04f5f-32b9-4f1d-8a4b', obj: '6f0ce7b3-0130-444d-8633'})
+        expect(res[:status]).to eq(:existing)
+      end
+    end
   end
 end

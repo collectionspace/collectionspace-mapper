@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe CollectionSpace::Mapper::Tools::RefName do
-  before(:all) do
+  before(:context) do
     @cache = anthro_cache
   end
   context 'when initialized with source_type, type, subtype, term, and cache' do

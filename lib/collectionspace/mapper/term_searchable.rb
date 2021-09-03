@@ -42,9 +42,15 @@ module CollectionSpace
       end
 
       def obj_csid(objnum, type)
-        csid = @cache.get(type, '', objnum, search: false)
-        return csid unless csid.nil?
+        csid = @cache.get(type, '', objnum)
+        csid ? extract_refname_csid(csid) : lookup_obj_csid(objnum, type)
+      end
 
+      def extract_refname_csid(urn)
+        urn.match(/:id\((.*?)\)/)[1]
+      end
+      
+      def lookup_obj_csid(objnum, type)
         response = @client.find(type: type, value: objnum)
         if response.result.success?
           result = response.parsed['abstract_common_list']
@@ -84,8 +90,8 @@ module CollectionSpace
           errors << {
             category: :unsuccessful_csid_lookup_for_objnum,
             field: '',
-            type: type,
             subtype: '',
+            type: type,
             value: objnum,
             message: "Problem with search for #{objnum}."
           }
@@ -94,6 +100,9 @@ module CollectionSpace
       end
 
       def term_csid(term)
+        # This is currently working though it returns the cached refname urn instead of CSID
+        #   if a term is cached. There's a lot of stuff to clean up/fix/test better here so
+        #   I'm leaving this for now to get the bugfix in
         csid = cached_term(term)
         return csid unless csid.nil?
 
