@@ -10,6 +10,10 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased]
 
+## [2.4.9] - 2021-09-03
+### Changed
+- Use Ruby 2.7.4 to stay in sync with collectionspace-csv-importer
+
 ## [2.4.8] - 2021-09-03
 ### Changed
 - Bugfix for [collectionspace-csv-importer#110](https://github.com/collectionspace/collectionspace-csv-importer/issues/110)
