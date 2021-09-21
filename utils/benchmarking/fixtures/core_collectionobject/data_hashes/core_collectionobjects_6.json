@@ -1,0 +1,22 @@
+{
+  "objectNumber": "20CS.001.0005",
+  "numberOfObjects": "1",
+  "title": "Untitled (Watercolor I)",
+  "titleLanguage": "English",
+  "objectName": "painting",
+  "responsibleDepartment": "paintings-sculpture",
+  "collection": "permanent-collection",
+  "recordStatus": "approved",
+  "briefDescription": "Vestibulum lorem sed risus ultricies tristique nulla aliquet enim tortor at auctor urna nunc id.",
+  "comment": "This record contains sample data provided by CollectionSpace community members. While the record may reference real artworks, people, and organizations, the information should not be read as an accurate description of any artwork, person, or organization, or of relationships among them.",
+  "measuredPart": "unframed",
+  "dimensionSummary": "8.75 x 12",
+  "dimension": "height; width",
+  "value": "8.75; 12",
+  "measurementUnit": "inches",
+  "material": "watercolor; paper",
+  "objectProductionDateGroup": "2015",
+  "objectProductionPerson": "Eleanor Brown",
+  "objectProductionPersonRole": "artist",
+  "objectProductionPlace": "Louisville, KY"
+}

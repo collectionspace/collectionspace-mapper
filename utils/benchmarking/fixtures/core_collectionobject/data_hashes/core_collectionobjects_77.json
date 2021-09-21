@@ -1,0 +1,18 @@
+{
+  "objectNumber": "20CS.017.0299",
+  "numberOfObjects": "1",
+  "title": "Filzwinkel",
+  "titleLanguage": "German",
+  "titleTranslation": "Felt Angle",
+  "titleTranslationLanguage": "English",
+  "recordStatus": "approved",
+  "comment": "This record contains sample data provided by CollectionSpace community members. While the record may reference real artworks, people, and organizations, the information should not be read as an accurate description of any artwork, person, or organization, or of relationships among them.",
+  "dimensionSummary": "14-1/16 x 4-1/8 x 3/8",
+  "dimension": "height; width; depth",
+  "value": "14.0625; 4.125; .375",
+  "measurementUnit": "inches",
+  "objectProductionDateGroup": "1985",
+  "objectProductionPerson": "Joseph Beuys",
+  "objectProductionPersonRole": "artist",
+  "technique": "offset lithograph on paper bag"
+}

@@ -6,7 +6,7 @@ require 'csv'
 require 'json'
 require 'pp'
 
-#other dependencies
+# other dependencies
 require 'bundler/inline'
 require 'pry'
 
@@ -14,7 +14,6 @@ gemfile do
   source 'https://rubygems.org'
   gem 'pry'
 end
-
 
 options = {}
 OptionParser.new{ |opts|
@@ -37,7 +36,7 @@ OptionParser.new{ |opts|
   }
 }.parse!
 
-dir = options[:input]['/'] ? options[:input].sub(/\/[^\/]+$/, '/') : '' 
+dir = options[:input]['/'] ? options[:input].sub(/\/[^\/]+$/, '/') : ''
 filename_stub = options[:input].sub(/^.*\//, '').sub('.json', '')
 csv_file = "#{dir}#{filename_stub}.csv"
 

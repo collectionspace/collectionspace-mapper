@@ -22,13 +22,13 @@ module CollectionSpace
       end
 
       def process(data)
-          prepped = prep(data)
-          case @mapper.record_type
-          when 'nonhierarchicalrelationship'
-            prepped.responses.map{ |response| map(response, prepped.xphash) }
-          else
-            map(prepped.response, prepped.xphash)
-          end
+        prepped = prep(data)
+        case @mapper.record_type
+        when 'nonhierarchicalrelationship'
+          prepped.responses.map{ |response| map(response, prepped.xphash) }
+        else
+          map(prepped.response, prepped.xphash)
+        end
       end
 
       def prep(data)
@@ -41,6 +41,9 @@ module CollectionSpace
           when 'nonhierarchicalrelationship'
             prepper = CollectionSpace::Mapper::NonHierarchicalRelationshipPrepper.new(response, self)
             prepper.prep
+          when 'objecthierarchy'
+            prepper = CollectionSpace::Mapper::ObjectHierarchyPrepper.new(response, self)
+            prepper.prep
           else
             prepper = CollectionSpace::Mapper::DataPrepper.new(response, self)
             prepper.prep
@@ -49,7 +52,7 @@ module CollectionSpace
           response
         end
       end
-      
+
       def map(response, xphash)
         mapper = CollectionSpace::Mapper::DataMapper.new(response, self, xphash)
         result = mapper.response
@@ -57,22 +60,43 @@ module CollectionSpace
         @mapper.batchconfig.check_record_status ? set_record_status(result) : result.record_status = :new
         @mapper.batchconfig.response_mode == 'normal' ? result.normal : result
       end
-      
+
       def check_fields(data)
         data_fields = data.keys.map(&:downcase)
         unknown = data_fields - @mapper.mappings.known_columns
         known = data_fields - unknown
-        { known_fields: known, unknown_fields: unknown }
+        {known_fields: known, unknown_fields: unknown}
       end
 
       # this is surfaced in public interface because it is used by cspace-batch-import
       def service_type
         @mapper.config.service_type
       end
-      
+
       def validate(data)
         response = CollectionSpace::Mapper::setup_data(data, @mapper.batchconfig)
         validator.validate(response)
+      end
+
+      def mappings
+        @mapper.mappings
+      end
+
+      def setup_xpath_hash_structure
+        xhash = {}
+        # create key for each xpath containing fields, and set up structure of its value
+        mappings.each do |mapping|
+          xhash[mapping.fullpath] =
+            {parent: '', children: [], is_group: false, is_subgroup: false, subgroups: [], mappings: []}
+        end
+        xhash
+      end
+
+      def associate_mappings_with_xpaths(xhash)
+        mappings.each do |mapping|
+          xhash[mapping.fullpath][:mappings] << mapping
+        end
+        xhash
       end
 
       # builds hash containing information to be used in mapping the fields that are
@@ -87,16 +111,9 @@ module CollectionSpace
       #     that itself contains direct child fields
       #  :mappings - Array, of fieldmappings that are children of this xpath
       def xpath_hash
-        h = {}
-        # create key for each xpath containing fields, and set up structure of its value
-        @mapper.mappings.each do |mapping|
-          h[mapping.fullpath] = {parent: '', children: [], is_group: false, is_subgroup: false, subgroups: [], mappings: []}
-        end
-        # add fieldmappings for children of each xpath
-        @mapper.mappings.each do |mapping|
-          h[mapping.fullpath][:mappings] << mapping
-        end
-        # populate other attributes
+        xhash = setup_xpath_hash_structure
+        h = associate_mappings_with_xpaths(xhash)
+
         # populate parent of all non-top xpaths
         h.each do |xpath, ph|
           if xpath['/']
@@ -112,7 +129,7 @@ module CollectionSpace
           keys = h.keys - [xpath]
           ph[:children] = keys.select{ |k| k.start_with?(xpath) }
         end
-        
+
         # populate subgroups
         h.each do |xpath, ph|
           keys = h.keys - [xpath]
@@ -128,7 +145,8 @@ module CollectionSpace
           if v.size > 1
             puts "WARNING: #{xpath} has fields with different :in_repeating_group values (#{v}). Defaulting to treating NOT as a group"
           end
-          ph[:is_group] = true if ct == 1 && v == ['as part of larger repeating group'] && ph[:mappings][0].repeats == 'y'
+          ph[:is_group] =
+true if ct == 1 && v == ['as part of larger repeating group'] && ph[:mappings][0].repeats == 'y'
         end
 
         # populate is_subgroup
@@ -138,7 +156,7 @@ module CollectionSpace
         h.keys.each{ |k| h[k][:is_subgroup] = true if subgroups.include?(k) }
         h
       end
-      
+
       private
 
       def set_record_status(response)
@@ -185,20 +203,20 @@ module CollectionSpace
         terms.select{ |t| t[:found] }.each do |term|
           term[:found] = false if @new_terms.key?(CollectionSpace::Mapper::term_key(term))
         end
-        
+
         result.terms = terms
       end
 
       def validator
         @validator ||= CS::Mapper::DataValidator.new(@mapper, @mapper.termcache)
       end
-      
+
       # you can specify per-data-key transforms in your config.json
       # This method merges the config.json transforms into the CollectionSpace::Mapper::RecordMapper field
       #   mappings for the appropriate fields
       def merge_config_transforms
         return unless @mapper.batchconfig.transforms
-        
+
         @mapper.batchconfig.transforms.transform_keys!(&:downcase)
         @mapper.batchconfig.transforms.each do |data_column, transforms|
           target_mapping = transform_target(data_column)

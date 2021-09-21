@@ -30,6 +30,7 @@ RSpec.describe CollectionSpace::Mapper::Config do
                        }
                      }'
   }
+
   let(:with_string) { described_class.new(config: configstr) }
   let(:confighash) { JSON.parse(configstr) }
   let(:with_hash) { described_class.new(config: confighash) }

@@ -11,47 +11,47 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     before(:all) do
       @client = fcart_client
       @cache = fcart_cache
-      populate_fcart(@cache)
     end
 
     context 'acquisition record' do
       before(:all) do
         @acq_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/fcart/fcart_3-0-1_acquisition.json')
-        @handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @acq_mapper, client: @client, cache: @cache, config: @config)
+        @handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @acq_mapper, client: @client, cache: @cache,
+                                                            config: @config)
       end
 
       it 'maps records as expected in sequence' do
-        data1 = JSON.parse("{\"creditline\":\"Gift of Frances, 1985\",\"accessiondategroup\":\"1985\",\"acquisitionmethod\":\"unknown-provenance\",\"acquisitionreferencenumber\":\"ACC216 (migrated accession)\",\"acquisitionsourceperson\":\"\",\"acquisitionsourceorganization\":\"\",\"acquisitionauthorizer\":\"\",\"acquisitionnote\":\"\"}")
-        data2 = JSON.parse("{\"creditline\":\"\",\"accessiondategroup\":\"\",\"acquisitionmethod\":\"unknown-provenance\",\"acquisitionreferencenumber\":\"ACC215 (migrated accession)\",\"acquisitionsourceperson\":\"\",\"acquisitionsourceorganization\":\"\",\"acquisitionauthorizer\":\"\",\"acquisitionnote\":\"\"}")
-        data3 = JSON.parse("{\"creditline\":\"Gift of Elizabeth, 1985\",\"accessiondategroup\":\"1985\",\"acquisitionmethod\":\"gift\",\"acquisitionreferencenumber\":\"ACC208 (migrated accession)\",\"acquisitionsourceperson\":\"Elizabeth\",\"acquisitionsourceorganization\":\"\",\"acquisitionauthorizer\":\"\",\"acquisitionnote\":\"Acquisition source role(s): Donor\"}")
+        data1 = JSON.parse('{"creditline":"Gift of Frances, 1985","accessiondategroup":"1985","acquisitionmethod":"unknown-provenance","acquisitionreferencenumber":"ACC216 (migrated accession)","acquisitionsourceperson":"","acquisitionsourceorganization":"","acquisitionauthorizer":"","acquisitionnote":""}')
+        data2 = JSON.parse('{"creditline":"","accessiondategroup":"","acquisitionmethod":"unknown-provenance","acquisitionreferencenumber":"ACC215 (migrated accession)","acquisitionsourceperson":"","acquisitionsourceorganization":"","acquisitionauthorizer":"","acquisitionnote":""}')
+        data3 = JSON.parse('{"creditline":"Gift of Elizabeth, 1985","accessiondategroup":"1985","acquisitionmethod":"gift","acquisitionreferencenumber":"ACC208 (migrated accession)","acquisitionsourceperson":"Elizabeth","acquisitionsourceorganization":"","acquisitionauthorizer":"","acquisitionnote":"Acquisition source role(s): Donor"}')
         data = [data1, data2, data3]
         preppers = data.map{ |d| CollectionSpace::Mapper::DataPrepper.new(d, @handler) }
-        mappers = preppers.map{ |prepper| CollectionSpace::Mapper::DataMapper.new(prepper.prep.response, @handler, prepper.xphash) }
+        mappers = preppers.map{ |prepper|
+ CollectionSpace::Mapper::DataMapper.new(prepper.prep.response, @handler, prepper.xphash) }
         docs = mappers.map{ |mapper| remove_namespaces(mapper.response.doc) }
         docxpaths = docs.map{ |doc| list_xpaths(doc) }
 
         fixpaths = ['fcart/acqseq1.xml', 'fcart/acqseq2.xml', 'fcart/acqseq3.xml']
         fixdocs = fixpaths.map{ |path| get_xml_fixture(path) }
         fixxpaths = fixdocs.map{ |doc| list_xpaths(doc) }
-        
+
         expect(docxpaths).to eq(fixxpaths)
       end
-      
     end
   end
-  
+
   context 'core profile' do
     before(:all) do
       @client = core_client
       @cache = core_cache
-      populate_core(@cache)
     end
     context 'collectionobject record' do
       before(:all) do
         @collectionobject_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json')
-        @handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @collectionobject_mapper, client: @client, cache: @cache, config: @config)
-        
+        @handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @collectionobject_mapper, client: @client,
+                                                            cache: @cache)
       end
+
       context 'overflow subgroup record with uneven subgroup values' do
         before(:all) do
           @datahash = get_datahash(path: 'spec/fixtures/files/datahashes/core/collectionobject2.json')
@@ -100,8 +100,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     context 'media record' do
       before(:all) do
         @media_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_media.json')
-        @handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @media_mapper, client: @client, cache: @cache)
-        
+        @handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @media_mapper, client: @client,
+                                                            cache: @cache)
       end
       context 'sending through the bomb emoji' do
         it 'sends through an empty node for any field containing bomb' do
@@ -117,18 +117,18 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
       end
     end
   end
-  
+
   context 'lhmc profile' do
     before(:all) do
       @client = lhmc_client
       @cache = lhmc_cache
-      populate_lhmc(@cache)
     end
     context 'person record' do
       before(:all) do
         @recmapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/lhmc/lhmc_3-1-1_person-local.json')
         @handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @recmapper, client: @client, cache: @cache)
-        @prepper = CollectionSpace::Mapper::DataPrepper.new({'termDisplayName' => 'Xanadu', 'placeNote' => 'note'}, @handler)
+        @prepper = CollectionSpace::Mapper::DataPrepper.new({'termDisplayName' => 'Xanadu', 'placeNote' => 'note'},
+                                                            @handler)
         @datamapper = CollectionSpace::Mapper::DataMapper.new(@prepper.prep.response, @handler, @prepper.xphash)
         @mapped_doc = remove_namespaces(@datamapper.response.doc)
       end
@@ -158,13 +158,11 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
       end
     end
   end
-  
 
   context 'botgarden profile' do
     before(:all) do
       @client = botgarden_client
       @cache = botgarden_cache
-      populate_botgarden(@cache)
     end
     context 'loanout record' do
       before(:all) do
@@ -187,7 +185,6 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     before(:all) do
       @client = anthro_client
       @cache = anthro_cache
-      populate_anthro(@cache)
     end
     context 'place record' do
       before(:all) do
@@ -199,7 +196,6 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
 
       describe '#add_short_id' do
         it 'adds shortIdentifier' do
-          
         end
       end
     end
@@ -211,13 +207,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
             'collection' => {
               special: %w[downcase_value],
               replacements: [
-                { find: ' ', replace: '-', type: :plain }
+                {find: ' ', replace: '-', type: :plain}
               ]
             },
             'ageRange' => {
               special: %w[downcase_value],
               replacements: [
-                { find: ' - ', replace: '-', type: :plain }
+                {find: ' - ', replace: '-', type: :plain}
               ]
             }
           },
@@ -228,7 +224,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
         }
 
         @recmapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json')
-        @handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @recmapper, client: @client, cache: @cache, config: config)
+        @handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @recmapper, client: @client, cache: @cache,
+                                                            config: config)
         @prepper = CollectionSpace::Mapper::DataPrepper.new(anthro_co_1, @handler)
         @datamapper = CollectionSpace::Mapper::DataMapper.new(@prepper.prep.response, @handler, @prepper.xphash)
       end
@@ -250,7 +247,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
           expect(res).to be_a(Nokogiri::XML::Document)
         end
       end
-      
+
       describe '#add_namespaces' do
         it 'adds namespace definitions' do
           urihash = @datamapper.handler.mapper.config.ns_uri.clone
@@ -271,7 +268,6 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     xit 'adds botgarden propagation namespace' do
       client = botgarden_client
       cache = botgarden_cache
-      populate_botgarden(cache)
       prop_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/botgarden/botgarden_2-0-1_propagation.json')
       prop_handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: prop_mapper,
                                                               client: client,

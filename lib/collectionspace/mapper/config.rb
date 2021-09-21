@@ -15,7 +15,7 @@ module CollectionSpace
       # todo: move default config in here
       include Tools::Symbolizable
 
-      DEFAULT_CONFIG = { delimiter: '|',
+      DEFAULT_CONFIG = {delimiter: '|',
                         subgroup_delimiter: '^^',
                         response_mode: 'normal',
                         check_terms: true,
@@ -72,7 +72,7 @@ module CollectionSpace
         config = symbolize(config)
         transforms = config[:transforms]
         return config unless transforms
-        
+
         config[:transforms] = symbolize_transforms(transforms)
         config
       end
@@ -90,6 +90,7 @@ module CollectionSpace
 
       def record_type=(mawdule)
         return unless mawdule
+
         extend(mawdule)
       end
 
@@ -97,6 +98,7 @@ module CollectionSpace
         hash = {}
         instance_variables.each do |var|
           next if var == :@record_type
+
           key = var.to_s.delete('@').to_sym
           hash[key] = instance_variable_get(var)
         end
@@ -106,7 +108,7 @@ module CollectionSpace
       def set_instance_variables(hash)
         hash.each{ |key, value| instance_variable_set("@#{key}", value) }
       end
-      
+
       def validate
         begin
           has_required_attributes
@@ -128,7 +130,7 @@ module CollectionSpace
           raise ConfigResponseModeError.new("Invalid response_mode value in config: #{@response_mode}")
         end
       end
-      
+
       def has_required_attributes
         required_keys = DEFAULT_CONFIG.keys
         remaining_keys = required_keys - hash.keys

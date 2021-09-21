@@ -7,13 +7,14 @@ module CollectionSpace
 
     # transforms vocabulary term into RefName
     class VocabularyTransformer < Transformer
-      
+
       def initialize(opts)
         super
         @type = 'vocabularies'
         @subtype = opts[:transform]
-        @termcache = opts[:recmapper].termcache
-        @csclient = opts[:recmapper].csclient
+        mapper = opts[:recmapper]
+        @termcache = mapper.termcache
+        @csclient = mapper.csclient
       end
 
       def transform(value)

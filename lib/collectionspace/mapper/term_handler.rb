@@ -6,9 +6,9 @@ module CollectionSpace
   module Mapper
     class TermHandler
       include TermSearchable
-      
+
       attr_reader :result, :terms, :warnings, :errors,
-        :column, :source_type, :type, :subtype
+                  :column, :source_type, :type, :subtype
       attr_accessor :value
       def initialize(mapping:, data:, client:, cache:, mapper:)
         @mapping = mapping
@@ -16,7 +16,7 @@ module CollectionSpace
         @client = client
         @cache = cache
         @mapper = mapper
-        
+
         @column = mapping.datacolumn
         @field = mapping.fieldname
         @config = @mapper.batchconfig
@@ -50,8 +50,9 @@ module CollectionSpace
         @value = val
         return '' if val.blank? || val == '%NULLVALUE%'
         return THE_BOMB if val == THE_BOMB
+
         added = false
-        
+
         term_report = {
           category: source_type,
           field: column
@@ -80,7 +81,7 @@ module CollectionSpace
             subtype: subtype,
             term: val,
             cache: @cache)
-          @terms << term_report.merge({ found: false, refname: refname_obj })
+          @terms << term_report.merge({found: false, refname: refname_obj})
           @cache.put(type, subtype, val, refname_obj.urn)
           refname_urn = refname_obj.urn
         end
@@ -89,8 +90,8 @@ module CollectionSpace
 
       def add_found_term(refname_urn, term_report)
         refname_obj = CollectionSpace::Mapper::Tools::RefName.new(urn: refname_urn)
-        found = @config.check_terms ? true : false 
-        @terms << term_report.merge({ found: found, refname: refname_obj })
+        found = @config.check_terms ? true : false
+        @terms << term_report.merge({found: found, refname: refname_obj})
       end
     end
   end

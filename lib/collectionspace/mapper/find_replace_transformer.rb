@@ -12,7 +12,7 @@ module CollectionSpace
         super
         @operations = transform.map{ |operation| FindReplaceOperation.create(operation) }
       end
-      
+
       def transform(value)
         return value if value.blank?
 

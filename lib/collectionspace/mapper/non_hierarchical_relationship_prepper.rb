@@ -8,16 +8,16 @@ module CollectionSpace
     class NonHierarchicalRelationshipPrepper < CollectionSpace::Mapper::DataPrepper
       include CollectionSpace::Mapper::TermSearchable
       attr_reader :errors, :warnings, :responses
-      
+
       def initialize(data, handler)
         super
-        @cache = @handler.mapper.csidcache
+        @cache = @handler.mapper.termcache
         @types = [@response.merged_data['item1_type'], @response.merged_data['item2_type']]
         @errors = []
         @warnings = []
         @responses = []
       end
-      
+
       def prep
         @response.identifier = "#{stringify_item(1)} -> #{stringify_item(2)}"
         split_data
@@ -42,7 +42,7 @@ module CollectionSpace
       def flip_response
         resp2 = @response.dup
         resp2.identifier = "#{stringify_item(2)} -> #{stringify_item(1)}"
-        resp2.combined_data = {'relations_common'=>{}}
+        resp2.combined_data = {'relations_common' => {}}
         origrel = @response.combined_data['relations_common']['relationshipType']
         origsub = @response.combined_data['relations_common']['subjectCsid']
         origobj = @response.combined_data['relations_common']['objectCsid']
@@ -57,7 +57,6 @@ module CollectionSpace
         @handler.mapper.xpath = @handler.xpath_hash
         super
       end
-      
 
       # these mappings were needed to get data in via template for processing, but
       #  do not actually get used to produce XML

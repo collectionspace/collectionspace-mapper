@@ -145,7 +145,7 @@ module CollectionSpace
           def create_mappable_date
             date = @timestamp.to_date
             next_day = date + 1
-            
+
             @mappable['dateDisplayDate'] = @date_string
             @mappable['dateEarliestSingleYear'] = date.year.to_s
             @mappable['dateEarliestSingleMonth'] = date.month.to_s
@@ -172,7 +172,7 @@ module CollectionSpace
             month = @date_string.sub(year.to_s, '').match(/(\d{1,2})/)[1].to_i
             next_month = month + 1
             last_day_of_month = Date.new(year, month, -1).day
-            
+
             @mappable['dateDisplayDate'] = @date_string
             @mappable['dateEarliestSingleYear'] = year.to_s
             @mappable['dateEarliestSingleMonth'] = month.to_s
@@ -190,7 +190,7 @@ module CollectionSpace
           def create_mappable_year
             year = @date_string
             next_year = @date_string.to_i + 1
-            
+
             @mappable['dateDisplayDate'] = @date_string
             @mappable['dateEarliestSingleYear'] = year
             @mappable['dateEarliestSingleMonth'] = '1'
@@ -212,7 +212,7 @@ module CollectionSpace
               result = response.result['structureddate_common']
               @mappable = fix_services_scalars(result)
             else
-              @mappable = { 'dateDisplayDate' => date_string,
+              @mappable = {'dateDisplayDate' => date_string,
                            'scalarValuesComputed' => 'false'
                           }
             end
@@ -285,7 +285,7 @@ module CollectionSpace
           
           def map(doc, parentnode, groupname)
             @parser_result.each do |datefield, value|
-              value = DateTime.parse(value).iso8601(3).sub('+00:00', "Z") if datefield['ScalarValue']
+              value = DateTime.parse(value).iso8601(3).sub('+00:00', 'Z') if datefield['ScalarValue']
             end
           end
         end

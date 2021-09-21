@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'collectionspace/mapper/version'
 require 'collectionspace/client'
 require 'collectionspace/refcache'
@@ -20,7 +22,7 @@ module CollectionSpace
     LOGGER = Logger.new(STDERR)
 
     THE_BOMB = "\u{1F4A3}"
-    
+
     Dir[File.dirname(__FILE__) + 'mapper/tools/*.rb'].sort.each do |file|
       require "collectionspace/mapper/tools/#{File.basename(file, File.extname(file))}"
     end
@@ -32,8 +34,8 @@ module CollectionSpace
     end
 
     module Errors
-        class UnprocessableDataError < StandardError
-          UnprocessableDataError = CollectionSpace::Mapper::Errors::UnprocessableDataError
+      class UnprocessableDataError < StandardError
+        UnprocessableDataError = CollectionSpace::Mapper::Errors::UnprocessableDataError
         attr_reader :input
         def initialize(message, input)
           super(message)
@@ -48,7 +50,8 @@ module CollectionSpace
       elsif data.is_a?(CollectionSpace::Mapper::Response)
         response = data
       else
-        raise Errors::UnprocessableDataError.new("Cannot process a #{data.class}. Need a Hash or Mapper::Response", data)
+        raise Errors::UnprocessableDataError.new("Cannot process a #{data.class}. Need a Hash or Mapper::Response",
+                                                 data)
       end
 
       response.merged_data.empty? ? merge_default_values(response, config) : response
@@ -57,7 +60,7 @@ module CollectionSpace
     def merge_default_values(data, batchconfig)
       defaults = batchconfig.default_values
       return data unless defaults
-      
+
       mdata = data.orig_data.clone
       defaults.each do |f, val|
         if batchconfig.force_defaults
@@ -70,10 +73,10 @@ module CollectionSpace
       data.merged_data = mdata.compact.transform_keys(&:downcase)
       data
     end
-    
+
     def term_key(term)
       "#{term[:refname].type}-#{term[:refname].subtype}-#{term[:refname].display_name}"
     end
 
-  end    
+  end
 end

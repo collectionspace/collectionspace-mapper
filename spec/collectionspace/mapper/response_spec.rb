@@ -6,7 +6,6 @@ RSpec.describe CollectionSpace::Mapper::Response do
   before(:all) do
     @client = botgarden_client
     @cache = botgarden_cache
-    populate_botgarden(@cache)
     @mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/botgarden/botgarden_2-0-1_taxon-local.json')
     @handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @mapper,
                                                         client: @client,
@@ -17,14 +16,14 @@ RSpec.describe CollectionSpace::Mapper::Response do
   describe '#valid?' do
     context 'when there are no errors' do
       it 'returns true' do
-        data = { 'termDisplayName' => 'Tanacetum' }
+        data = {'termDisplayName' => 'Tanacetum'}
         validation_response = @handler.validate(data)
         expect(validation_response.valid?).to be true
       end
     end
     context 'when there is one or more errors' do
       it 'returns false' do
-        data = { 'taxonName' => 'Tanacetum' }
+        data = {'taxonName' => 'Tanacetum'}
         validation_response = @handler.validate(data)
         expect(validation_response.valid?).to be false
       end
@@ -68,7 +67,7 @@ RSpec.describe CollectionSpace::Mapper::Response do
   describe '#xml' do
     context 'when there is a doc', services_call: true do
       it 'returns string' do
-        data = { 'termDisplayName' => 'Tanacetum;Tansy', 'termStatus' => 'made up' }
+        data = {'termDisplayName' => 'Tanacetum;Tansy', 'termStatus' => 'made up'}
         vresponse = @handler.validate(data)
         response = @handler.process(vresponse).xml
         expect(response).to be_a(String)
@@ -76,7 +75,7 @@ RSpec.describe CollectionSpace::Mapper::Response do
     end
     context 'when there is no doc' do
       it 'returns nil' do
-        data = { 'termDisplayName' => 'Tanacetum;Tansy', 'termStatus' => 'made up' }
+        data = {'termDisplayName' => 'Tanacetum;Tansy', 'termStatus' => 'made up'}
         vresponse = @handler.validate(data)
         response = vresponse.xml
         expect(response).to be_nil
