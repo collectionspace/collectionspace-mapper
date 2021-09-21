@@ -2,7 +2,7 @@
 
 module CollectionSpace
   module Mapper
-    # mapping instructions for an individual data column
+    # mapping instructions for an individual data column TODO: fix description
     # :reek:InstanceVariableAssumption is spurious; we are setting the instance variables here
     #  by iterating through the mapper hash. Given that the mapper data is created by the
     #  Untangler, I am trusting it will be consistent and I'm not validating that expected

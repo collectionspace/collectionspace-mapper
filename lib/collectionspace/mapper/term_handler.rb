@@ -87,14 +87,6 @@ module CollectionSpace
         refname_urn
       end
 
-      # def in_cache?(val)
-      #   @cache.exists?(type, subtype, val)
-      # end
-
-      # def cached_term(val)
-      #   @cache.get(type, subtype, val, search: false)
-      # end
-
       def add_found_term(refname_urn, term_report)
         refname_obj = CollectionSpace::Mapper::Tools::RefName.new(urn: refname_urn)
         found = @config.check_terms ? true : false 

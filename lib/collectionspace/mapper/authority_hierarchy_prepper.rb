@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require_relative 'data_prepper'
+require_relative 'term_searchable'
+
 module CollectionSpace
   module Mapper
     class AuthorityHierarchyPrepper < CollectionSpace::Mapper::DataPrepper

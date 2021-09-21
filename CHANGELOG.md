@@ -10,9 +10,48 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased]
 
+## [2.4.9] - 2021-09-03
+### Changed
+- Use Ruby 2.7.4 to stay in sync with collectionspace-csv-importer
+
+## [2.4.8] - 2021-09-03
+### Changed
+- Bugfix for [collectionspace-csv-importer#110](https://github.com/collectionspace/collectionspace-csv-importer/issues/110)
+- Re-set up running tests automatically on PR creation
+- Use `collectionspace-client` v0.10.0 and the `find_relation` method added to it
+- Use `collectionspace-refcache` v0.7.7
+- Add tests for methods in `TermSearchable` module
+
+## [2.4.7] - 2021-07-14
+### Changed
+- Use ruby v2.7.3
+- Use `collectionspace-client` v0.9.0
+- Use `collectionspace-refcache` v0.7.6
+
+## [2.4.6] - 2021-07-13
+### Changed
+- `mediaFileURI` is included in the list of known columns for media procedure records.
+
+## [2.4.5] - 2021-06-29
+### Changed
+- Bumps version of `collectionspace-client` to 0.8.0, to add support for all 6.1 record types and new 7.0 record types
+- Bumps version of `collectionspace-refcache` to 0.7.4, which now also depends on `collectionspace-client` 0.8.0
+- Sorts Dir files before requiring them to avoid load-order problems that are tricky to reproduce
+- Explicitly requires dependent files to fix failures highlighted by introducing sort before requiring
+
+Details: https://github.com/collectionspace/collectionspace-mapper/compare/v2.4.4...v2.4.5
+
+## [2.4.4] - 2021-06-21
+### Added
+- `Tools::RecordStatusService` raises `NoClientServiceError` instead of passing along a mysterious, hard to debug `KeyError`. This allows `collectionspace-csv-importer` to fail with an informative message.
+
+Details: https://github.com/collectionspace/collectionspace-mapper/compare/v2.4.3...v2.4.4
+
 ## [2.4.3] - 2021-06-21
 ### Changed
 - Bumps version of `collectionspace-refcache` to 0.7.3, as this is the version now required by `collectionspace-csv-importer` for playing nice with Heroku
+
+Details: https://github.com/collectionspace/collectionspace-mapper/compare/v2.4.2...v2.4.3
 
 ## [2.4.2] - 2021-06-07
 ### Added
@@ -21,6 +60,8 @@ This project bumps the version number for any changes (including documentation u
 ### Changed
 - Refactored core mapper tests
 
+Details: https://github.com/collectionspace/collectionspace-mapper/compare/v2.4.1...v2.4.2
+
 ## [2.4.1] - 2021-06-02
 ### Added
 - Tests for vocabulary/authority-controlled fields containing %NULLVALUE% and THE BOMB
@@ -28,11 +69,13 @@ This project bumps the version number for any changes (including documentation u
 ### Changed
 - Term handler now passes through %NULLVALUE% as an empty string, and passes 💣 through as 💣. This means you no longer get spurious "not found" term warnings about these values, and they have the expected result when imported.
 
+Details: https://github.com/collectionspace/collectionspace-mapper/compare/v2.4.0...v2.4.1
+
 ## [2.4.0] - 2021-05-17
 ### Added
 - Public `DataHandler.service_type` method so that `cspace-batch-import` does not reach into the guts of the class for that info
 
-Details: https://github.com/collectionspace/collectionspace-mapper/compare/v2.3.2...v2.3.3
+Details: https://github.com/collectionspace/collectionspace-mapper/compare/v2.3.2...v2.4.0
 
 ## [2.3.1], [2.3.2] - 2021-05-17
 ### Deleted 

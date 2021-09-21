@@ -81,7 +81,6 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings do
     it 'adds shortIdentifier to mappings' do
       allow(mapperconfig).to receive(:common_namespace).and_return('citations_common')
       allow(recordmapper).to receive(:service_type).and_return(CS::Mapper::Authority)
-      
       authmappings = described_class.new(mappings: mappings,
                                          mapper: recordmapper)
       expect(authmappings.known_columns.include?('shortidentifier')).to be true
@@ -91,6 +90,45 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings do
   context 'when initialized from non-authority RecordMapper' do
     it 'does not add shortIdentifier to mappings' do
       expect(mappingsobj.known_columns.include?('shortidentifier')).to be false
+    end
+  end
+
+  context 'when initialized from media RecordMapper' do
+    let(:mappings) { [
+    {:fieldname=>"identificationNumber",
+     :transforms=>{},
+     :source_type=>"na",
+     :source_name=>nil,
+     :namespace=>"media_common",
+     :xpath=>[],
+     :data_type=>"string",
+     :repeats=>"n",
+     :in_repeating_group=>"n/a",
+     :opt_list_values=>[],
+     :datacolumn=>"identificationNumber",
+     :required=>"y"},
+    {:fieldname=>"title",
+     :transforms=>{},
+     :source_type=>"na",
+     :source_name=>nil,
+     :namespace=>"media_common",
+     :xpath=>[],
+     :data_type=>"string",
+     :repeats=>"n",
+     :in_repeating_group=>"n/a",
+     :opt_list_values=>[],
+     :datacolumn=>"title",
+     :required=>"n"}
+
+  ] }
+
+    it 'adds mediaFileURI to mappings' do
+      allow(mapperconfig).to receive(:common_namespace).and_return('media_common')
+      allow(recordmapper).to receive(:service_type).and_return(CS::Mapper::Media)
+
+      mediamappings = described_class.new(mappings: mappings,
+                                          mapper: recordmapper)
+      expect(mediamappings.known_columns.include?('mediafileuri')).to be true
     end
   end
 

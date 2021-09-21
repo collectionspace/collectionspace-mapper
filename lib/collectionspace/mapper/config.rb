@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'tools/symbolizable'
+
 module CollectionSpace
   module Mapper
 

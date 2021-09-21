@@ -50,6 +50,8 @@ module CollectionSpace
           CS::Mapper::Authority
         when 'relation'
           CS::Mapper::Relationship
+        when 'procedure'
+          record_type_extension
         end
       end
       
@@ -91,6 +93,8 @@ module CollectionSpace
 
       def record_type_extension
         case record_type
+        when 'media'
+          CS::Mapper::Media
         when 'objecthierarchy'
           CS::Mapper::ObjectHierarchy
         when 'authorityhierarchy'
