@@ -19,21 +19,17 @@ RSpec.describe CollectionSpace::Mapper::DataQualityChecker do
         'teaching-collection'
       ]
     } }
-    context 'and value is not in option list' do
-      it 'returns warning' do
-        data = ['Permanent Collection']
+      it 'returns expected warnings' do
+        data = [
+          'Permanent Collection', # not a valid option, should return warning
+          '%NULLVALUE%', # indicates placeholder blank value, should be skipped
+          'permanent-collection', # valid option
+          '' # non-placeholder blank value, should be skipped
+        ]
         res = CollectionSpace::Mapper::DataQualityChecker.new(mapping, data).warnings
         expect(res.size).to eq(1)
       end
     end
-    context 'and value is in option list' do
-      it 'does not return warning' do
-        data = ['permanent-collection']
-        res = CollectionSpace::Mapper::DataQualityChecker.new(mapping, data).warnings
-        expect(res).to be_empty
-      end
-    end
-  end
 
   context 'when datacolumn contains `refname`' do
     context 'and source_type = vocabulary' do
