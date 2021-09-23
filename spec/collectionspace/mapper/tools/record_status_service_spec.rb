@@ -20,9 +20,11 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_cal
   
   describe '#lookup' do
     context 'when mapper is for an authority' do
-      let(:mapper) { CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
-        'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_person-local.json'
-      )) }
+      let(:mapper) do
+        CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
+          'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_person-local.json'
+        ))
+      end
       
       context 'and one result is found' do
         let(:report) { service.lookup('John Doe') }
@@ -50,11 +52,30 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_cal
       end
 
       context 'and multiple results found' do
-        # if this test fails, verify there are two person/local authority records for 'Inkpot Guineafowl'
+        # if these tests fail, verify there are two person/local authority records for 'Inkpot Guineafowl'
         #   in core.dev
         # you may need to re-create them if they have been removed
-        it 'raises error because we cannot know what to do with imported record' do
-          expect{ service.lookup('Inkpot Guineafowl') }.to raise_error(CollectionSpace::Mapper::MultipleCsRecordsFoundError)
+        context 'with default config' do
+          it 'raises error because we cannot know what to do with imported record' do
+            expect{ service.lookup('Inkpot Guineafowl') }.to raise_error(CollectionSpace::Mapper::MultipleCsRecordsFoundError)
+          end
+        end
+
+        context 'with multiple_recs_found = use first in batchconfig' do
+          let(:json) do
+            uri = 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_person-local.json'
+            get_json_record_mapper(uri)
+          end
+          let(:mapper) do
+            CollectionSpace::Mapper::RecordMapper.new(
+              mapper: json,
+              batchconfig: { multiple_recs_found: 'use_first' }
+            )
+          end
+          let(:result) { service.lookup('Inkpot Guineafowl').keys.any?(:multiple_recs_found) }
+          it 'returns result with count of records found' do
+            expect(result).to be true
+          end
         end
       end
     end

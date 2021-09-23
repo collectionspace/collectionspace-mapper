@@ -10,6 +10,10 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased]
 
+## [2.5.0] - 2021-09-23
+### Added
+- `multiple_recs_found` batch configuration option added to allow batch deletion of duplicate records. This defaults to `fail`, which means if there are two or more existing records sharing the same ID, the batch importer will not transfer anything for that ID. In rare cases, however, you may really need to delete duplicates, and now you can. The batch importer will transfer your update or delete to the first result found via a search for the record ID. See [the batch configuration options documentation](https://github.com/collectionspace/collectionspace-mapper/blob/main/doc/batch_configuration.adoc) for more information.
+
 ## [2.4.9] - 2021-09-03
 ### Changed
 - Use Ruby 2.7.4 to stay in sync with collectionspace-csv-importer
