@@ -38,22 +38,31 @@ module CollectionSpace
 
           ct = count_results(response)
           if ct == 0
-            report = {status: :new}
+            reportable_result
           elsif ct == 1
-            report = {
-              status: :existing,
-              csid: response.parsed[@response_top][@response_nested]['csid'],
-              uri: response.parsed[@response_top][@response_nested]['uri'],
-              refname: response.parsed[@response_top][@response_nested]['refName']
-            }
+            reportable_result(response.parsed[@response_top][@response_nested])
           elsif ct > 1
-            raise CollectionSpace::Mapper::MultipleCsRecordsFoundError.new(ct)
+            raise CollectionSpace::Mapper::MultipleCsRecordsFoundError.new(ct) unless use_first?
+
+            item = response.parsed[@response_top][@response_nested].first
+            num_found = response.parsed[@response_top][@response_nested].length
+            reportable_result(item).merge({ multiple_recs_found: num_found})
           end
-          report
         end
 
         private
 
+        def reportable_result(item = nil)
+          return { status: :new } unless item
+
+          {
+            status: :existing,
+            csid: item['csid'],
+            uri: item['uri'],
+            refname: item['refName']
+          }
+        end
+        
         def lookup_non_relationship(value)
           @client.find(
             type: @mapper.config.service_path,
@@ -63,6 +72,12 @@ module CollectionSpace
           )
         end
 
+        def use_first?
+          return true if @mapper.batchconfig.multiple_recs_found == 'use_first'
+
+          false
+        end
+        
         def count_results(response)
           unless response.result.success?
             raise CollectionSpace::RequestError, response.result.body

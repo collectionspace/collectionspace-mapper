@@ -8,7 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This project bumps the version number for any changes (including documentation updates and refactorings). Versions with only documentation or refactoring changes may not be released. Versions with bugfixes will be released. Changes made to unreleased versions will be indicated by version number under each release that includes those changes.
 
-## [Unreleased]
+## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
+- nothing
+
+## [2.5.0] - 2021-09-23
+### Added
+- `multiple_recs_found` batch configuration option added to allow batch deletion of duplicate records. This defaults to `fail`, which means if there are two or more existing records sharing the same ID, the batch importer will not transfer anything for that ID. In rare cases, however, you may really need to delete duplicates, and now you can. The batch importer will transfer your update or delete to the first result found via a search for the record ID. See [the batch configuration options documentation](https://github.com/collectionspace/collectionspace-mapper/blob/main/doc/batch_configuration.adoc) for more information.
+
+### Changed
+- Do not warn about "%NULLVALUE%" as an unknown option list value
 
 ## [2.4.9] - 2021-09-03
 ### Changed

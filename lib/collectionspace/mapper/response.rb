@@ -34,6 +34,17 @@ module CollectionSpace
       def xml
         doc ? doc.to_xml : nil
       end
+
+      def add_multi_rec_found_warning(num_found)
+        warnings << {
+          category: :multiple_records_found_for_id,
+          field: nil,
+          type: nil,
+          subtype: nil,
+          value: nil,
+          message: "#{num_found} records found for #{identifier}. Using first record found: #{uri}"
+        }
+      end
     end
   end
 end
