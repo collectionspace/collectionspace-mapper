@@ -53,14 +53,17 @@ module CollectionSpace
       def check_opt_list_vals
         @opts = @mapping.opt_list_values
         if @data.first.is_a?(String)
-          @data.each{ |val| check_opt_list_val(val) unless val.blank? }
+          @data.each{ |val| check_opt_list_val(val) }
         else
-          @data.each{ |arr| arr.each{ |val| check_opt_list_val(val) unless val.blank? } }
+          @data.each{ |arr| arr.each{ |val| check_opt_list_val(val) } }
         end
       end
 
       def check_opt_list_val(val)
+        return if val.blank?
+        return if val == '%NULLVALUE%'
         return if @opts.include?(val)
+        
         @warnings << {
           category: :unknown_option_list_value,
           field: @column,
