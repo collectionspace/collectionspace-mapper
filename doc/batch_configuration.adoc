@@ -22,6 +22,7 @@ A JSON config hash may be passed to a new `Mapper::DataHandler` to control vario
   "delimiter": ";",
   "subgroup_delimiter": "^^",
   "response_mode": "verbose",
+  "multiple_recs_found": "fail",
   "check_terms" : true,
   "check_record_status" : true,
   "force_defaults": false,
@@ -79,6 +80,27 @@ If `verbose`, `Mapper::Response` also has the following attributes, which may be
 - *Defaults to:* normal
 - *Data type*: string
 - *Allowed values*: `normal`, `verbose`
+
+== multiple_recs_found
+
+Controls what happens when the mapper looks up the status (new vs. existing) of the record being mapped in your CollectionSpace instance, and more than one record with the same ID is found.
+
+If `fail`, the mapper returns an error for that record. You will not be able to transfer that record with the batch importer.
+
+`fail` is the default because it is generally unsafe to update or delete a record when it's not clear which record should be updated.
+
+WARNING: Do not use this option at all if you are not 100% certain of what it does. It has the potential to be very destructive to your data.
+
+There may be odd cases where you end up with true duplicate records, in your system, however. The `use_first` value for this config option was added to enable batch deletion of known duplicate records. If your records with the same ID are not actually duplicates, this can be very destructive, so *use with care*.
+
+If using this option to enable batch deletes of records with duplicate ids, you have no control over which record with the given id will be deleted. If they are true duplicate records, that is fine. Note that, only one record with a given ID is ever updated or deleted at a time via the CSV importer. If you had 3 records with the same id, and you used this option to do a delete transfer, you will still have 2 records with the same id in the system. 
+
+While it is possible to use this setting to batch update existing records that do not have unique ids, it is strongly discouraged. You will not have any control over _which_ of the records with a non-unique id is updated. If the records sharing an ID were not duplicate records, you may be updating the wrong record. If they were duplicates, they won't be after you update one, but you will still have duplicate ids in the system. 
+
+- *Required?:* no
+- *Defaults to:* fail
+- *Data type*: string
+- *Allowed values*: `fail`, `use_first`
 
 == check_terms
 

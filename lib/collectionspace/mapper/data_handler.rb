@@ -167,11 +167,15 @@ module CollectionSpace
         else
           status = searchresult[:status]
           response.record_status = status
-          if status == :existing
-            response.csid = searchresult[:csid]
-            response.uri = searchresult[:uri]
-            response.refname = searchresult[:refname]
-          end
+          return if status == :new
+          
+          response.csid = searchresult[:csid]
+          response.uri = searchresult[:uri]
+          response.refname = searchresult[:refname]
+          num_found = searchresult[:multiple_recs_found]
+          return unless num_found
+
+          response.add_multi_rec_found_warning(num_found)
         end
       end
 
