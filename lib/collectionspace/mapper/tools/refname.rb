@@ -24,7 +24,7 @@ module CollectionSpace
             new_from_urn
           elsif args_given == term_args
             cache = args[:cache]
-            @domain = cache.domain
+            @domain = cache.domain.sub(/https?:\/\//, '').sub('/cspace-services', '')
             @type = args[:type]
             @subtype = args[:subtype]
             @display_name = args[:term]
