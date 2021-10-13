@@ -49,6 +49,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '>= 13.0.1'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rubocop', '~> 1.18.3'
-  spec.add_development_dependency 'ruby-prof', '~> 1.4.3'
-  spec.add_development_dependency 'time_up', '~> 0.0.7'
+
+  # Uncomment these if you need to use the scripts in utils/benchmarking
+  #spec.add_development_dependency 'ruby-prof', '~> 1.4.3'
+  #spec.add_development_dependency 'time_up', '~> 0.0.7'
 end

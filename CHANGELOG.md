@@ -11,6 +11,12 @@ This project bumps the version number for any changes (including documentation u
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 - nothing
 
+## [2.5.1] - 2021-10-13
+### Changed
+- accept and handle collectionspace-refcache passed in from collectionspace-csv-importer
+- bug fixes for dealing with cached data
+- refactoring 
+
 ## [2.5.0] - 2021-09-23
 ### Added
 - `multiple_recs_found` batch configuration option added to allow batch deletion of duplicate records. This defaults to `fail`, which means if there are two or more existing records sharing the same ID, the batch importer will not transfer anything for that ID. In rare cases, however, you may really need to delete duplicates, and now you can. The batch importer will transfer your update or delete to the first result found via a search for the record ID. See [the batch configuration options documentation](https://github.com/collectionspace/collectionspace-mapper/blob/main/doc/batch_configuration.adoc) for more information.
