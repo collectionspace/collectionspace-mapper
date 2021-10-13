@@ -9,11 +9,11 @@ module CollectionSpace
         @response = response
         @handler = handler
         @xphash = xphash
-        
+
         @data = @response.combined_data
         @doc = @handler.mapper.xml_template.blankdoc
         @cache = @handler.mapper.termcache
-        
+
         @xphash.each{ |xpath, hash| map(xpath, hash) }
         add_short_id if @handler.mapper.service_type == CS::Mapper::Authority
         set_response_identifier
@@ -33,7 +33,7 @@ module CollectionSpace
           mapping = @handler.mapper.mappings.select{ |mapper| mapper.fieldname == id_field }.first
           thexpath = "//#{mapping.namespace}/#{mapping.fieldname}"
           value = @doc.xpath(thexpath).first
-            value = value.text
+          value = value.text
           @response.identifier = value
         end
       end
@@ -46,7 +46,7 @@ module CollectionSpace
           @response.identifier = "#{broad} > #{narrow}"
         end
       end
-      
+
       def add_short_id
         term = @response.transformed_data['termdisplayname'][0]
         targetnode = @doc.xpath("/document/#{@handler.mapper.config.common_namespace}").first
@@ -67,7 +67,7 @@ module CollectionSpace
           map_subgroup(xphash, thisdata)
         end
       end
-      
+
       def clean_doc
         @doc.traverse do |node|
           node.remove if node.text == '%NULLVALUE%'
@@ -80,7 +80,7 @@ module CollectionSpace
           node.content = '' if node.text == THE_BOMB
         end
       end
-      
+
       def add_namespaces
         @doc.xpath('/*/*').each do |section|
           fetchuri = @handler.mapper.config.ns_uri[section.name]
@@ -99,7 +99,7 @@ module CollectionSpace
           target.add_child(child)
         end
       end
-      
+
       def simple_map(xphash, parent, thisdata)
         xphash[:mappings].each do |field_mapping|
           field_name = field_mapping.fieldname
@@ -119,15 +119,15 @@ module CollectionSpace
           parent.add_child(child)
         end
       end
-      
+
       def populate_group_field_data(index, data, parent)
         data.each do |field, values|
           if values[index]
             child = Nokogiri::XML::Node.new(field, @doc)
             if values[index].is_a?(Hash)
-              map_structured_date(child, values[index]) 
+              map_structured_date(child, values[index])
             else values[index]
-              child.content = values[index]
+                 child.content = values[index]
             end
             parent.add_child(child)
           end
@@ -158,7 +158,7 @@ module CollectionSpace
           populate_subgroup_field_data(field, data, target)
         end
       end
-      
+
       def map_group(xpath, targetnode, thisdata)
         pnode = targetnode.parent
         groupname = targetnode.name.dup
@@ -232,10 +232,11 @@ module CollectionSpace
       def assign_subgroup_values_to_group_hash_data(groups, field, subgroups)
         subgroups.each_with_index do |subgroup_values, group_index|
           next if groups[group_index].nil?
+
           groups[group_index][:data][field] = subgroup_values
         end
       end
-      
+
       def map_subgroup(xphash, thisdata)
         parent_path = xphash[:parent]
         parent_set = @doc.xpath("//#{parent_path}")
@@ -246,7 +247,7 @@ module CollectionSpace
         groups = {}
         # populated it with parent group for each subgroup, keyed by group index
         parent_set.each_with_index do |p, i|
-          groups[i] = { parent: p, data: {} }
+          groups[i] = {parent: p, data: {}}
         end
 
         add_uneven_subgroup_warning(parent_path: parent_path,
@@ -255,7 +256,7 @@ module CollectionSpace
         add_too_many_subgroups_warning(parent_path: parent_path,
                                        intervening_path: subgroup_path,
                                        subgroup: subgroup) unless group_accommodates_subgroup?(groups, thisdata)
-        
+
         thisdata.each{ |field, subgroups| assign_subgroup_values_to_group_hash_data(groups, field, subgroups) }
 
         groups.values.each{ |grp| create_intermediate_subgroup_hierarchy(grp, subgroup_path) }

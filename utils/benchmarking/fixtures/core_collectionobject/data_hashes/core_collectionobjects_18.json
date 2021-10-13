@@ -1,0 +1,19 @@
+{
+  "objectNumber": "20CS.067.0001a",
+  "numberOfObjects": "1",
+  "title": "Souvenir books. The Smiling Lieutenant.",
+  "titleLanguage": "English",
+  "objectName": "Souvenir books",
+  "recordStatus": "approved",
+  "comment": "This record contains sample data provided by CollectionSpace community members. While the record may reference real artworks, people, and organizations, the information should not be read as an accurate description of any artwork, person, or organization, or of relationships among them.",
+  "measuredPart": "unframed",
+  "dimensionSummary": "12 x 8",
+  "dimension": "height; width",
+  "value": "12; 8",
+  "measurementUnit": "inches",
+  "contentPersonPersonLocal": "Maurice Chevalier",
+  "material": "paper",
+  "objectProductionDateGroup": "1931",
+  "objectProductionOrganization": "Paramount Publix Corporation",
+  "objectProductionOrganizationRole": "licensor"
+}

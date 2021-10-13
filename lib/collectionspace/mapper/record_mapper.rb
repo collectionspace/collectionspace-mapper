@@ -10,34 +10,26 @@ module CollectionSpace
     # The RecordMapper bundles up all the info needed by various other classes in order
     #  to transform and map incoming data into CollectionSpace XML, so it gets passed
     #  around to everything as a kind of mondo-configuration-object, which is probably
-    #  terrible OOD but better than what I had before? 
+    #  terrible OOD but better than what I had before?
 
     # :reek:Attribute - when I get rid of xphash, this will go away
     # :reek:InstanceVariableAssumption - instance variable gets set by convert
     class RecordMapper
       include Tools::Symbolizable
-      
-      attr_reader :batchconfig, :config, :mappings, :xml_template, :csclient
+
+      attr_reader :batchconfig, :config, :termcache, :mappings, :xml_template, :csclient
 
       attr_accessor :xpath
-      
+
       def initialize(opts)
         jhash = opts[:mapper].is_a?(Hash) ? opts[:mapper] : JSON.parse(opts[:mapper])
         convert(jhash)
         @batchconfig = CS::Mapper::Config.new(config: opts[:batchconfig], record_type: record_type_extension)
         @csclient = opts[:csclient]
-        @termcache = opts[:termcache] || nil
+        @termcache = opts[:termcache]
         @xpath = {}
       end
 
-      def termcache
-        @termcache ||= get_termcache
-      end
-
-      def csidcache
-        @csidcache ||= get_csidcache
-      end
-      
       def record_type
         @config.recordtype
       end
@@ -54,41 +46,15 @@ module CollectionSpace
           record_type_extension
         end
       end
-      
+
       private
 
       def convert(json)
         hash = symbolize(json)
         @config = CS::Mapper::RecordMapperConfig.new(hash[:config])
         @xml_template = CS::Mapper::XmlTemplate.new(hash[:docstructure])
-        @mappings = CS::Mapper::ColumnMappings.new(mappings: hash[:mappings],                             
+        @mappings = CS::Mapper::ColumnMappings.new(mappings: hash[:mappings],
                                                    mapper: self)
-      end
-
-      def get_termcache
-        config = {
-          domain: @csclient.domain,
-          error_if_not_found: false,
-          lifetime: 5 * 60,
-          search_delay: 5 * 60,
-          search_enabled: true
-        }
-        # search for authority records by display name, not short ID
-        config[:search_identifiers] = service_type == CS::Mapper::Authority ? false : true
-        CollectionSpace::RefCache.new(config: config, client: @csclient)
-      end
-
-      def get_csidcache
-        return nil unless service_type == CS::Mapper::Relationship
-        
-        config = {
-          domain: @csclient.domain,
-          error_if_not_found: false,
-          lifetime: 5 * 60,
-          search_delay: 5 * 60,
-          search_enabled: false
-        }
-        CollectionSpace::RefCache.new(config: config, client: @csclient)
       end
 
       def record_type_extension

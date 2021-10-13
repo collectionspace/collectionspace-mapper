@@ -10,7 +10,7 @@ module CollectionSpace
     end
 
     class NoClientServiceError < StandardError; end
-    
+
     module Tools
       class RecordStatusService
         def initialize(client, mapper)
@@ -82,6 +82,7 @@ module CollectionSpace
           unless response.result.success?
             raise CollectionSpace::RequestError, response.result.body
           end
+
           response.parsed[@response_top]['totalItems'].to_i
         end
 
@@ -93,7 +94,8 @@ module CollectionSpace
                 subtype: @mapper.config.authority_subtype
               )
             rescue KeyError
-              raise CS::Mapper::NoClientServiceError, "#{@mapper.config.authority_type} > #{@mapper.config.authority_subtype}"
+              raise CS::Mapper::NoClientServiceError,
+                    "#{@mapper.config.authority_type} > #{@mapper.config.authority_subtype}"
             end
           else
             begin

@@ -11,9 +11,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     before(:all) do
       @client = botgarden_client
       @cache = botgarden_cache
-      populate_botgarden(@cache)
     end
-    
+
     context 'pottag record' do
       # before(:all) do
       #   @pottag_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/botgarden/botgarden_2-0-1_pottag.json')
@@ -68,7 +67,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
         # these tests are waiting for namespace uri fixes in CCU RecordMappers
         xit 'does not map unexpected fields' do
           diff = @mapped_xpaths - @fixture_xpaths
-          #puts diff
+          # puts diff
           expect(diff).to eq([])
         end
 
@@ -81,7 +80,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
         end
       end
     end
-    
+
     context 'taxon record' do
       before(:all) do
         @taxon_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/botgarden/botgarden_2-0-1_taxon-local.json')
@@ -108,7 +107,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
 
         it 'maps as expected' do
           @fixture_xpaths.each do |xpath|
-            #puts xpath
+            # puts xpath
             fixture_node = standardize_value(@fixture_doc.xpath(xpath).text)
             mapped_node = standardize_value(@mapped_doc.xpath(xpath).text)
             expect(mapped_node).to eq(fixture_node)

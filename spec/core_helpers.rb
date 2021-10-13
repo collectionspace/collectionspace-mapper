@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Helpers
-  extend self
+require_relative './helpers'
 
+module Helpers
   def core_client
     CollectionSpace::Client.new(
       CollectionSpace::Configuration.new(
@@ -12,15 +12,14 @@ module Helpers
       )
     )
   end
-    
+
   def core_cache
-    cache_config = {
-      domain: 'core.collectionspace.org',
-      search_enabled: false,
-      search_identifiers: false
-    }
-    CollectionSpace::RefCache.new(config: cache_config, client: core_client)
+    cache_config = base_cache_config.merge({domain: 'core.collectionspace.org'})
+    cache = CollectionSpace::RefCache.new(config: cache_config, client: core_client)
+    populate_core(cache)
+    cache
   end
+  memo_wise(:core_cache)
 
   def core_cache_search
     cache_config = {
@@ -35,7 +34,7 @@ module Helpers
 
   def core_object_mapper
     path = 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json'
-    get_record_mapper_object(path)
+    get_record_mapper_object(path, core_cache)
   end
 
   def populate_core(cache)

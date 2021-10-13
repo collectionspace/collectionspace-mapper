@@ -3,15 +3,15 @@
 require 'spec_helper'
 
 RSpec.describe CollectionSpace::Mapper::RowData do
-  let(:recmapper) { core_object_mapper}
+  let(:recmapper){ core_object_mapper}
   let(:data_hash) { {
-    'objectNumber'=>'123',
-    'comment'=>'blah',
-    'title'=>'The title',
-    'titleTranslation'=>'La title'
+    'objectNumber' => '123',
+    'comment' => 'blah',
+    'title' => 'The title',
+    'titleTranslation' => 'La title'
   } }
 
-  let(:row) { CollectionSpace::Mapper::RowData.new(data_hash, recmapper) }
+  let(:row){ CollectionSpace::Mapper::RowData.new(data_hash, recmapper) }
 
   describe '#columns' do
     it 'returns Array' do

@@ -1,17 +1,26 @@
 # frozen_string_literal: true
 
-require_relative './anthro_helpers'
-require_relative './bonsai_helpers'
-require_relative './botgarden_helpers'
-require_relative './core_helpers'
-require_relative './fcart_helpers'
-require_relative './lhmc_helpers'
+require 'memo_wise'
 
 module Helpers
+  prepend MemoWise
   extend self
-  
+
+  require_relative './anthro_helpers'
+  require_relative './bonsai_helpers'
+  require_relative './botgarden_helpers'
+  require_relative './core_helpers'
+  require_relative './fcart_helpers'
+  require_relative './lhmc_helpers'
+
   FIXTUREDIR = 'spec/fixtures/files/xml'
 
+  def base_cache_config
+    {
+      search_enabled: true,
+      search_identifiers: false
+    }
+  end
 
   # returns RecordMapper hash read in from JSON file
   # path = String. Path to JSON file
@@ -22,14 +31,14 @@ module Helpers
     JSON.parse(File.read(path))
   end
 
-  def get_record_mapper_object(path)
-    CS::Mapper::RecordMapper.new(mapper: File.read(path))
+  def get_record_mapper_object(path, cache = nil)
+    CS::Mapper::RecordMapper.new(mapper: File.read(path), termcache: cache)
   end
 
   def get_datahash(path:)
     JSON.parse(File.read(path))
   end
-  
+
   # The way CollectionSpace uses different URIs for the same namespace prefix in the same
   #  document is irregular and makes it impossible to query a document via xpath if
   #  the namespaces are defined. For testing, remove them...
@@ -48,11 +57,11 @@ module Helpers
     end
     doc
   end
-  
+
   def get_xml_fixture(filename, remove_blanks = true)
     doc = remove_namespaces(Nokogiri::XML(File.read("#{FIXTUREDIR}/#{filename}")){ |c| c.noblanks })
     doc = remove_blank_structured_dates(doc)
-    
+
     # fields to omit from testing across the board
     rejectfields = %w[computedCurrentLocation].sort
     doc.traverse do |node|
@@ -70,7 +79,7 @@ module Helpers
 
   def get_xpaths(doc)
     xpaths = []
-    doc.traverse { |node| xpaths <<  node.path }
+    doc.traverse{ |node| xpaths << node.path }
     xpaths.sort!
   end
 
@@ -96,11 +105,11 @@ module Helpers
       mappaths.any?{ |e| path.start_with?(e) }
     end
   end
-  
+
   def remove_xpath_occurrence_indicators(path)
     path.match(/^(.*)\//)[1].gsub(/\[\d+\]/, '')
   end
-  
+
   def list_xpaths(doc)
     xpaths = get_xpaths(doc)
     xpaths = field_value_xpaths(xpaths)
@@ -120,9 +129,7 @@ module Helpers
     terms.each do |term|
       cache.put(*term)
     end
-  cache
+    cache
   end
-
-
 
 end

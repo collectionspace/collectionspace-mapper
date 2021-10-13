@@ -40,6 +40,7 @@ module CollectionSpace
         }
         pattern = Regexp.new("^urn:cspace:.+#{type_segment[@source_type]}name\(.+\):item:name(.+)'.+'$")
         return if val.match?(pattern)
+
         @warnings << {
           category: :malformed_refname_value,
           field: @column,
@@ -63,14 +64,14 @@ module CollectionSpace
         return if val.blank?
         return if val == '%NULLVALUE%'
         return if @opts.include?(val)
-        
+
         @warnings << {
           category: :unknown_option_list_value,
           field: @column,
           type: 'option list value',
           subtype: '',
           value: val,
-          message: "Unknown value in option list `#{@column}` column" 
+          message: "Unknown value in option list `#{@column}` column"
         }
       end
     end

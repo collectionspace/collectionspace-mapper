@@ -21,7 +21,7 @@ module CollectionSpace
       def queue
         @queue.sort
       end
-      
+
       private
 
       def populate_queue
@@ -37,7 +37,7 @@ module CollectionSpace
       def data_type_transforms
         @queue << DateStampTransformer.new if @colmapping.data_type == 'date'
         @queue << StructuredDateTransformer.new if @colmapping.data_type == 'structured date group'
-      end      
+      end
     end
   end
 end

@@ -6,10 +6,10 @@ module CollectionSpace
     # :reek:InstanceVariableAssumption is spurious; we are setting the instance variables here
     #  by iterating through the mapper hash. Given that the mapper data is created by the
     #  Untangler, I am trusting it will be consistent and I'm not validating that expected
-    #  keys are present for now. This also makes writing tests onthe methods here a bit easier. 
+    #  keys are present for now. This also makes writing tests onthe methods here a bit easier.
     class ColumnMapping
       attr_reader :recmapper, :data_type, :fieldname, :in_repeating_group, :is_group, :namespace, :opt_list_values,
-        :repeats, :source_type, :transforms, :xpath
+                  :repeats, :source_type, :transforms, :xpath
       def initialize(mapping_hash, recmapper)
         @recmapper = recmapper
         mapping_hash.each do |key, value|
@@ -26,7 +26,7 @@ module CollectionSpace
         @fullpath ||= [@namespace, @xpath].flatten.join('/')
       end
 
-      # includes both truly required and "required in template" 
+      # includes both truly required and "required in template"
       def required?
         @required.start_with?('y')
       end
@@ -34,12 +34,12 @@ module CollectionSpace
       def update_transforms(new_transforms)
         @transforms = @transforms.merge(new_transforms)
       end
-      
+
       private
 
       def symbolize_transforms
         return if @transforms.blank?
-        
+
         @transforms.transform_keys!(&:to_sym)
       end
     end

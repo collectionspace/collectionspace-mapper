@@ -8,16 +8,16 @@ module CollectionSpace
     class AuthorityHierarchyPrepper < CollectionSpace::Mapper::DataPrepper
       include CollectionSpace::Mapper::TermSearchable
       attr_reader :errors, :warnings, :type, :subtype
-      
+
       def initialize(data, handler)
         super
-        @cache = @handler.mapper.csidcache
+        @cache = @handler.mapper.termcache
         @type = @response.merged_data['term_type']
         @subtype = @response.merged_data['term_subtype']
         @errors = []
         @warnings = []
       end
-      
+
       def prep
         set_id
         split_data
@@ -34,13 +34,12 @@ module CollectionSpace
         nt = @response.merged_data['narrower_term']
         @response.identifier = "#{bt} > #{nt}"
       end
-      
+
       def process_xpaths
         clear_unmapped_mappings
         @handler.mapper.xpath = @handler.xpath_hash
         super
       end
-      
 
       # these mappings were needed to get data in via template for processing, but
       #  do not actually get used to produce XML

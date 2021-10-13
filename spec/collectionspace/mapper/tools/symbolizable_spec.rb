@@ -31,7 +31,7 @@ RSpec.describe CS::Mapper::Tools::Symbolizable do
                              }')
   }
 
-  let(:symconfig) { CS::Mapper::Tools::Symbolizable.symbolize(config) }
+  let(:symconfig){ CS::Mapper::Tools::Symbolizable.symbolize(config) }
   describe '#symbolize' do
     it 'turns hash keys into symbols' do
       expected = %i[delimiter subgroup_delimiter response_mode force_defaults check_record_status
@@ -41,9 +41,9 @@ RSpec.describe CS::Mapper::Tools::Symbolizable do
   end
 
   describe '#symbolize_transforms' do
-    let(:transforms) { symconfig[:transforms] }
-    let(:expected) { {"collection"=>{:special=>["downcase_value"],
-                                     :replacements=>[{:find=>" ", :replace=>"-", :type=>"plain"}]
+    let(:transforms){ symconfig[:transforms] }
+    let(:expected) { {'collection' => {special: ['downcase_value'],
+                                       replacements: [{find: ' ', replace: '-', type: 'plain'}]
                                     }}
     }
     it 'transforms as expected' do

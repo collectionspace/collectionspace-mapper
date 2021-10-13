@@ -14,11 +14,11 @@ module CollectionSpace
         end
 
         private
-        
+
         def prepped_term
           @term.gsub(/\W/, '')
         end
-      end        
+      end
     end
   end
 end

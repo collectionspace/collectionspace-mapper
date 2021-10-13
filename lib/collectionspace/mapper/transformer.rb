@@ -5,8 +5,8 @@ module CollectionSpace
 
     # parent class of the data value Transformer class hierarchy
     class Transformer
-       attr_reader :precedence, :warnings
-      
+      attr_reader :precedence, :warnings
+
       def initialize(opts = {})
         @precedence = lookup_precedence
         @warnings = []
@@ -18,7 +18,7 @@ module CollectionSpace
       def <=>(other)
         @precedence <=> other.precedence
       end
-      
+
       private
 
       def lookup_precedence

@@ -20,7 +20,7 @@ module CollectionSpace
           MultivalColumnValue.new(column: column, value: value, recmapper: recmapper, mapping: mapping)
         when 2
           GroupColumnValue.new(column: column, value: value, recmapper: recmapper, mapping: mapping)
-        when 3 #bonsai conservation fertilizerToBeUsed is the only field like this
+        when 3 # bonsai conservation fertilizerToBeUsed is the only field like this
           GroupMultivalColumnValue.new(column: column, value: value, recmapper: recmapper, mapping: mapping)
         when 4
           SubgroupColumnValue.new(column: column, value: value, recmapper: recmapper, mapping: mapping)

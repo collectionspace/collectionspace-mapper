@@ -1,0 +1,16 @@
+{
+  "objectNumber": "20CS.019.0160",
+  "numberOfObjects": "1",
+  "title": "Gipsobjekt",
+  "titleLanguage": "Danish",
+  "titleTranslation": "Plaster Object",
+  "titleTranslationLanguage": "English",
+  "recordStatus": "approved",
+  "comment": "This record contains sample data provided by CollectionSpace community members. While the record may reference real artworks, people, and organizations, the information should not be read as an accurate description of any artwork, person, or organization, or of relationships among them.",
+  "dimensionSummary": "220 x 315 x 225",
+  "dimension": "height; width; depth",
+  "value": "220; 315; 225",
+  "measurementUnit": "cm",
+  "material": "plaster; wood; wire",
+  "objectProductionDateGroup": "1967"
+}

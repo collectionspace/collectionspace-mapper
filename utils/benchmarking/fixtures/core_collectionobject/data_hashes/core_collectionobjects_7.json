@@ -1,0 +1,22 @@
+{
+  "objectNumber": "20CS.001.0006",
+  "numberOfObjects": "1",
+  "title": "Garden",
+  "titleLanguage": "English",
+  "objectName": "painting",
+  "responsibleDepartment": "paintings-sculpture",
+  "collection": "permanent-collection",
+  "recordStatus": "approved",
+  "briefDescription": "Gravida cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus mauris vitae.",
+  "comment": "This record contains sample data provided by CollectionSpace community members. While the record may reference real artworks, people, and organizations, the information should not be read as an accurate description of any artwork, person, or organization, or of relationships among them.",
+  "measuredPart": "unframed",
+  "dimensionSummary": "9 x 12",
+  "dimension": "height; width",
+  "value": "9; 12",
+  "measurementUnit": "inches",
+  "material": "acrylic paint; construction paper",
+  "objectProductionDateGroup": "2015",
+  "objectProductionPerson": "Eleanor Brown",
+  "objectProductionPersonRole": "artist",
+  "objectProductionPlace": "Louisville, KY"
+}

@@ -20,7 +20,7 @@ module CollectionSpace
         def hashed_term
           XXhash.xxh32(prepped_term)
         end
-      end        
+      end
     end
   end
 end
