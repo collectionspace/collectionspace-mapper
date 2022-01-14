@@ -22,28 +22,6 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   let(:prepper) { CollectionSpace::Mapper::DataPrepper.new(datahash, handler) }
   let(:datahash) { { 'objectNumber' => '123' } }
 
-  # let(:config) do
-  #   {
-  #     delimiter: ';',
-  #     transforms: {
-  #       'collection' => {
-  #         special: %w[downcase_value],
-  #         replacements: [
-  #           {find: ' ', replace: '-', type: :plain}
-  #         ]
-  #       },
-  #       'ageRange' => {
-  #         special: %w[downcase_value],
-  #       }
-  #     },
-  #     default_values: {
-  #       'publishTo' => 'DPLA;Omeka',
-  #       'collection' => 'library-collection'
-  #     },
-  #     force_defaults: false
-  #   }
-  # end
-
   describe '#merge_default_values' do
     let(:datahash) do
       {
@@ -238,28 +216,28 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
     end
     
     context 'when multi-authority field is part of repeating field subgroup' do
-        let(:client) { core_client }
-        let(:cache) { core_cache }
-        let(:mapperpath) { 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_media.json' }
-        let(:xpath) { 'media_common/measuredPartGroupList/measuredPartGroup/dimensionSubGroupList/dimensionSubGroup' }
+      let(:client) { core_client }
+      let(:cache) { core_cache }
+      let(:mapperpath) { 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_media.json' }
+      let(:xpath) { 'media_common/measuredPartGroupList/measuredPartGroup/dimensionSubGroupList/dimensionSubGroup' }
 
-        context 'when there is more than one group' do
-          let(:datahash) do
-            {
-              'identificationNumber' => 'MR2020.1.77',
-              'measuredPart' => 'framed;',
-              'dimensionSummary' => 'Past is gone;Summary',
-              'dimension' => 'base^^^^weight^^circumference;height^^width',
-              'measuredByPerson' => 'Gomongo^^Comodore;Gomongo',
-              'measuredByOrganization' => 'Cuckoo^^;Cuckoo',
-              'measurementMethod' => 'sliding_calipers^^theodolite_total_station^^electronic_distance_measurement^^measuring_tape_cloth;measuring_tape_cloth^^measuring_tape_cloth',
-              'value' => '25^^83^^56^^10;5^^5',
-              'measurementUnit' => 'centimeters^^carats^^kilograms^^inches;inches^^inches',
-              'valueQualifier' => 'cm^^ct^^kg^^in;q1^^q2',
-              'valueDate' => '2020-09-23^^2020-09-28^^2020-09-25^^2020-09-30;2020-07-21^^^2020-07-21'
-            }
-          end
-          
+      context 'when there is more than one group' do
+        let(:datahash) do
+          {
+            'identificationNumber' => 'MR2020.1.77',
+            'measuredPart' => 'framed;',
+            'dimensionSummary' => 'Past is gone;Summary',
+            'dimension' => 'base^^^^weight^^circumference;height^^width',
+            'measuredByPerson' => 'Gomongo^^Comodore;Gomongo',
+            'measuredByOrganization' => 'Cuckoo^^;Cuckoo',
+            'measurementMethod' => 'sliding_calipers^^theodolite_total_station^^electronic_distance_measurement^^measuring_tape_cloth;measuring_tape_cloth^^measuring_tape_cloth',
+            'value' => '25^^83^^56^^10;5^^5',
+            'measurementUnit' => 'centimeters^^carats^^kilograms^^inches;inches^^inches',
+            'valueQualifier' => 'cm^^ct^^kg^^in;q1^^q2',
+            'valueDate' => '2020-09-23^^2020-09-28^^2020-09-25^^2020-09-30;2020-07-21^^^2020-07-21'
+          }
+        end
+        
         # todo: why does this call services api?
         it 'combines values properly', services_call: true do
           result = prepper.prep.response.combined_data[xpath]['measuredBy']
@@ -276,25 +254,25 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
           ]
           expect(result).to eq(expected)
         end
+      end
+      
+      context 'when there is only one group' do
+        let(:datahash) do
+          {
+            'identificationNumber' => 'MR2020.1.77',
+            'measuredPart' => 'framed',
+            'dimensionSummary' => 'Past is gone',
+            'dimension' => 'base^^^^weight^^circumference',
+            'measuredByPerson' => 'Gomongo^^Comodore',
+            'measuredByOrganization' => 'Cuckoo^^',
+            'measurementMethod' => 'sliding_calipers^^theodolite_total_station^^electronic_distance_measurement^^measuring_tape_cloth',
+            'value' => '25^^83^^56^^10',
+            'measurementUnit' => 'centimeters^^carats^^kilograms^^inches',
+            'valueQualifier' => 'cm^^ct^^kg^^in',
+            'valueDate' => '2020-09-23^^2020-09-28^^2020-09-25^^2020-09-30'
+          }
         end
         
-        context 'when there is only one group' do
-          let(:datahash) do
-            {
-              'identificationNumber' => 'MR2020.1.77',
-              'measuredPart' => 'framed',
-              'dimensionSummary' => 'Past is gone',
-              'dimension' => 'base^^^^weight^^circumference',
-              'measuredByPerson' => 'Gomongo^^Comodore',
-              'measuredByOrganization' => 'Cuckoo^^',
-              'measurementMethod' => 'sliding_calipers^^theodolite_total_station^^electronic_distance_measurement^^measuring_tape_cloth',
-              'value' => '25^^83^^56^^10',
-              'measurementUnit' => 'centimeters^^carats^^kilograms^^inches',
-              'valueQualifier' => 'cm^^ct^^kg^^in',
-              'valueDate' => '2020-09-23^^2020-09-28^^2020-09-25^^2020-09-30'
-            }
-          end
-          
         it 'combines values properly' do
           result = prepper.prep.response.combined_data[xpath]['measuredBy']
           expected = [
@@ -335,6 +313,29 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   describe '#check_data' do
     it 'returns array' do
       expect(prepper.check_data).to be_a(Array)
+    end
+  end
+
+  describe 'leading/trailing space stripping' do
+    let(:datahash) { { 'objectNumber' => '123 ' } }
+    let(:result) { prepper.prep.response.transformed_data['objectnumber'] }
+    
+    context 'with strip_id_values = true (the default)' do
+      it 'strips leading/trailing spaces from id field(s)' do
+        expect(result).to eq(['123'])
+      end
+    end
+
+    context 'with strip_id_values = false' do
+      let(:config) do
+        {
+          strip_id_values: false
+        }
+      end
+      
+      it 'does not strip leading/trailing spaces from id field(s)' do
+        expect(result).to eq(['123 '])
+      end
     end
   end
 end
