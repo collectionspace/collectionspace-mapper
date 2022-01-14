@@ -22,6 +22,7 @@ A JSON config hash may be passed to a new `Mapper::DataHandler` to control vario
   "delimiter": ";",
   "subgroup_delimiter": "^^",
   "response_mode": "verbose",
+  "strip_id_values": true,
   "multiple_recs_found": "fail",
   "check_terms" : true,
   "check_record_status" : true,
@@ -80,6 +81,21 @@ If `verbose`, `Mapper::Response` also has the following attributes, which may be
 - *Defaults to:* normal
 - *Data type*: string
 - *Allowed values*: `normal`, `verbose`
+
+== strip_id_values
+
+Controls whether or not leading and trailing spaces are removed from values in record identifier fields before processing.
+
+The use case for this is when you need to update records that have been created in the UI with a space at the beginning or end of the record identifier field value.
+
+If the mapper strips the spaces off, then the record will not match the existing record and the CSV Importer will only be able to create the record as a new record.
+
+If you get existing records that unexpectedly cannot be transfered as updates, check whether they are being flagged as new records because spaces are messing up the matching. If this is the case, setting this to `false` may allow you to to update those records.
+
+- *Required?:* no
+- *Defaults to:* true
+- *Data type*: boolean
+- *Allowed values*: `true`, `false`
 
 == multiple_recs_found
 
