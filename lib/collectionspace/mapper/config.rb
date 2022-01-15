@@ -9,7 +9,7 @@ module CollectionSpace
     #   or non-hierarchichal relationships via module extension
     # :reek:InstanceVariableAssumption - instance variables are set during initialization
     class Config
-      attr_reader :delimiter, :subgroup_delimiter, :response_mode, :multiple_recs_found, :force_defaults,
+      attr_reader :delimiter, :subgroup_delimiter, :response_mode, :strip_id_values, :multiple_recs_found, :force_defaults,
         :check_record_status, :check_terms, :date_format, :two_digit_year_handling, :transforms, :default_values,
         :record_type
       # todo: move default config in here
@@ -18,6 +18,7 @@ module CollectionSpace
       DEFAULT_CONFIG = {delimiter: '|',
                         subgroup_delimiter: '^^',
                         response_mode: 'normal',
+                        strip_id_values: true,
                         multiple_recs_found: 'fail',
                         check_terms: true,
                         check_record_status: true,

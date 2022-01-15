@@ -96,35 +96,64 @@ module CollectionSpace
         end
       end
 
+      def identifier?(column)
+        column.downcase == handler.mapper.config.identifier_field.downcase
+      end
+
       def do_splits(xphash)
         if xphash[:is_group] == false
-          xphash[:mappings].each do |mapping|
-            column = mapping.datacolumn
-            data = @response.merged_data.fetch(column, nil)
-            next if data.nil? || data.empty?
-
-            @response.split_data[column] =
-mapping.repeats == 'y' ? CollectionSpace::Mapper::SimpleSplitter.new(data, @config).result : [data.strip]
-          end
+          do_non_group_splits(xphash)
         elsif xphash[:is_group] == true && xphash[:is_subgroup] == false
-          xphash[:mappings].each do |mapping|
-            column = mapping.datacolumn
-            data = @response.merged_data.fetch(column, nil)
-            next if data.nil? || data.empty?
-
-            @response.split_data[column] = CollectionSpace::Mapper::SimpleSplitter.new(data, @config).result
-          end
+          do_non_subgroup_group_splits(xphash)
         elsif xphash[:is_group] && xphash[:is_subgroup]
-          xphash[:mappings].each do |mapping|
-            column = mapping.datacolumn
-            data = @response.merged_data.fetch(column, nil)
-            next if data.nil? || data.empty?
-
-            @response.split_data[column] = CollectionSpace::Mapper::SubgroupSplitter.new(data, @config).result
-          end
+          do_subgroup_splits(xphash)
         end
       end
 
+      def do_non_group_splits(xphash)
+        xphash[:mappings].each do |mapping|
+          column = mapping.datacolumn
+          data = @response.merged_data.fetch(column, nil)
+          next if data.nil? || data.empty?
+
+          @response.split_data[column] = non_group_splitter(mapping, data)
+            #mapping.repeats == 'y' ? CollectionSpace::Mapper::SimpleSplitter.new(data, config).result : [data.strip]
+        end
+      end
+
+      def non_group_splitter(mapping, data)
+        return CollectionSpace::Mapper::SimpleSplitter.new(data, config).result if mapping.repeats == 'y'
+        return split_identifier(data) if identifier?(mapping.fieldname)
+
+        [data.strip]
+      end
+
+      def split_identifier(data)
+        return [data.strip] if config.strip_id_values
+
+        [data]
+      end
+
+      def do_non_subgroup_group_splits(xphash)
+        xphash[:mappings].each do |mapping|
+          column = mapping.datacolumn
+          data = @response.merged_data.fetch(column, nil)
+          next if data.nil? || data.empty?
+
+          @response.split_data[column] = CollectionSpace::Mapper::SimpleSplitter.new(data, config).result
+        end
+      end
+
+      def do_subgroup_splits(xphash)
+        xphash[:mappings].each do |mapping|
+          column = mapping.datacolumn
+          data = @response.merged_data.fetch(column, nil)
+          next if data.nil? || data.empty?
+
+          @response.split_data[column] = CollectionSpace::Mapper::SubgroupSplitter.new(data, config).result
+        end
+      end
+      
       def do_transforms(xphash)
         splitdata = @response.split_data
         targetdata = @response.transformed_data
