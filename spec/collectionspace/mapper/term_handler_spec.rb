@@ -107,9 +107,15 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
       end
 
       context 'when new term is subsequently encountered' do
-        it 'the term is treated as found' do
+        it 'the term is still treated as not found' do
+          first_handler = CS::Mapper::TermHandler.new(mapping: colmapping,
+                                                      data: data,
+                                                      client: client,
+                                                      cache: termcache,
+                                                      mapper: recmapper)
+
           chk = terms.select{ |h| h[:found] }
-          expect(chk.length).to eq(3)
+          expect(chk.length).to eq(2)
         end
       end
     end
@@ -123,15 +129,8 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
           found = th.terms.select{ |h| h[:found] }
           not_found = th.terms.select{ |h| !h[:found] }
           expect(terms.length).to eq(3)
-          expect(found.length).to eq(1)
+          expect(found.length).to eq(0)
           expect(not_found.first[:refname].display_name).to eq('Reference 3')
-        end
-      end
-
-      context 'when new term is subsequently encountered' do
-        it 'the term is treated as found' do
-          chk = th.terms.select{ |h| h[:found] }
-          expect(chk.length).to eq(3)
         end
       end
     end

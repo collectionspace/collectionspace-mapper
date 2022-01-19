@@ -4,88 +4,97 @@ module CollectionSpace
   module Mapper
     module TermSearchable
       def in_cache?(val)
-        @cache.exists?(type, subtype, val)
+        return true if @cache.exists?(type, subtype, val)
+        return true if @cache.exists?(type, subtype, case_swap(val))
+
+        false
       end
 
-      def cached_term(val)
-        @cache.get(type, subtype, val, search: false)
+      # returns whether value is cached as an unknownvalue
+      def cached_as_unknown?(val)
+        return true if @cache.exists?('unknownvalue', unknown_type, val)
+        return true if @cache.exists?('unknownvalue', unknown_type, case_swap(val))
+
+        false
       end
 
-      def get_vocabulary_term(vocab:, term:)
-        result = @cache.get('vocabularies', vocab, term, search: true)
-        return result unless result.nil?
+      private def unknown_type
+                @unknown_type ||= "#{type}/#{subtype}"
+              end
 
-        if has_caps?(term)
-          @cache.get('vocabularies', vocab, term.downcase, search: true)
-        else
-          @cache.get('vocabularies', vocab, term.capitalize, search: true)
-        end
+      # returns refName of cached term
+      def cached_term(val, return_key = :refname)
+        returned = @cache.get(type, subtype, val, search: false)
+        return returned[return_key] if returned
+
+        returned = @cache.get(type, subtype, case_swap(val), search: false)
+        return returned[return_key] if returned
       end
 
-      def has_caps?(string)
-        string.match?(/[A-Z]/) ? true : false
+      # returns refName of searched (term)
+      def searched_term(val, return_key = :refname)
+        response = term_search_response(val)
+
+        rec = rec_from_response('term', val, response)
+        return nil unless rec
+
+        cache_value = { refname: rec['refName'], csid: rec['csid'] }
+        @cache.put(type, subtype, val, cache_value)
+        cache_value[return_key]
       end
 
-      def searched_term(val)
-        begin
-          response = @client.find(
-            type: type,
-            subtype: subtype,
-            value: val,
-            field: search_field
-          )
-        rescue StandardError => e
-          puts e.message
-        else
-          response_term_refname(response)
-        end
-      end
 
-      def obj_csid(objnum, type)
-        csid = @cache.get(type, '', objnum)
-        csid ? extract_refname_csid(csid) : lookup_obj_csid(objnum, type)
-      end
-
-      def extract_refname_csid(urn)
-        urn.match(/:id\((.*?)\)/)[1]
-      end
+      private def case_swap(string)
+                string.match?(/[A-Z]/) ? string.downcase : string.capitalize
+              end
       
+
+      private def term_search_response(val)
+                as_is = get_term_response(val)
+                return as_is if term_response_usable?(as_is)
+
+                get_term_response(case_swap(val))
+              end
+      
+      private def get_term_response(val)
+                response = @client.find(
+                  type: type,
+                  subtype: subtype,
+                  value: val,
+                  field: search_field
+                )
+              rescue StandardError => e
+                puts e.message
+                nil
+              else
+                parse_response(response)
+              end
+
+      private def parse_response(response)
+                parsed = response.parsed['abstract_common_list']
+              rescue StandardError => e
+                puts e.message
+                nil
+              else
+                parsed
+              end
+      
+      def obj_csid(objnum, type)
+        cached = @cache.get(type, '', objnum, search: false)
+        return cached[:csid] if cached
+        
+        lookup_obj_csid(objnum, type)
+      end
+
       def lookup_obj_csid(objnum, type)
         response = @client.find(type: type, value: objnum)
         if response.result.success?
-          result = response.parsed['abstract_common_list']
-          term_ct = result['totalItems'].to_i
-          case term_ct
-          when 0
-            errors << {
-              category: :no_records_found_with_objnum,
-              field: '',
-              type: type,
-              subtype: '',
-              value: objnum,
-              message: "#{term_ct} records found."
-            }
-            csid = nil
-          when 1
-            csid = result['list_item']['csid']
-          else
-            rec = result['list_item'][0]
-            using_uri = "#{@client.config.base_uri}#{rec['uri']}"
-            csid = rec['csid']
-            warnings << {
-              category: :multiple_records_found_with_objnum,
-              field: '',
-              type: type,
-              subtype: '',
-              value: objnum,
-              message: "#{term_ct} records found. Using #{using_uri}"
-            }
-          end
+          rec = rec_from_response('objnum', objnum, parse_response(response))
+          return nil unless rec
 
-          return csid if csid.nil?
-
-          @cache.put(type, '', objnum, csid)
-          return csid
+          csid = rec['csid']
+          @cache.put(type, '', objnum, { refname: rec['refName'], csid: csid } )
+          csid
         else
           errors << {
             category: :unsuccessful_csid_lookup_for_objnum,
@@ -100,93 +109,92 @@ module CollectionSpace
       end
 
       def term_csid(term)
-        # This is currently working though it returns the cached refname urn instead of CSID
-        #   if a term is cached. There's a lot of stuff to clean up/fix/test better here so
-        #   I'm leaving this for now to get the bugfix in
-        csid = cached_term(term)
-        return csid unless csid.nil?
+        cached = cached_term(term, :csid)
+        return cached if cached
 
-        field = CollectionSpace::Service.get(type: type)[:term]
-
-        response = @client.find(type: type, subtype: subtype, field: field, value: term)
-        if response.result.success?
-          result = response.parsed['abstract_common_list']
-          term_ct = result['totalItems'].to_i
-          case term_ct
-          when 0
-            errors << {
-              category: :no_records_found_for_term,
-              field: '',
-              type: type,
-              subtype: subtype,
-              value: term,
-              message: "#{term_ct} records found."
-            }
-            csid = nil
-          when 1
-            csid = result['list_item']['csid']
-          else
-            rec = result['list_item'][0]
-            using_uri = "#{@client.config.base_uri}#{rec['uri']}"
-            csid = rec['csid']
-            warnings << {
-              category: :multiple_records_found_for_term,
-              field: '',
-              type: type,
-              subtype: subtype,
-              value: term,
-              message: "#{term_ct} records found. Using #{using_uri}"
-            }
-          end
-
-          return csid if csid.nil?
-
-          @cache.put(type, subtype, term, csid)
-          return csid
-        else
-          errors << {
-            category: :unsuccessful_csid_lookup_for_term,
-            field: '',
-            type: type,
-            subtype: subtype,
-            value: term,
-            message: "Problem with search for #{term}"
-          }
-          return nil
-        end
+        searched_term(term, :csid)
       end
 
-      def response_term_refname(response)
-        term_ct = response.parsed.dig('abstract_common_list', 'totalItems')
-        return nil if term_ct.nil?
+      private def term_response_usable?(response)
+                ct = response_item_count(response)
+                return false unless ct
+                return false if ct == 0
 
-        if term_ct.to_i == 1
-          refname = response.parsed.dig('abstract_common_list', 'list_item', 'refName')
-        elsif term_ct.to_i > 1
-          rec = response.parsed.dig('abstract_common_list', 'list_item')[0]
-          using_uri = "#{@client.config.base_uri}#{rec['uri']}"
-          refname = rec['refName']
-          warnings << {
-            category: :multiple_records_found_for_term,
-            field: column,
-            type: type,
-            subtype: subtype,
-            value: value,
-            message: "#{term_ct} records found. Using #{using_uri}"
-          }
-        end
-        refname
-      end
+                true
+              end
+      
+      private def response_item_count(response)
+                ct = response.dig('totalItems')
+                return ct.to_i if ct
 
-      def search_field
-        begin
+                nil
+              end
+
+      
+      private def rec_from_response(category, val, response)
+                term_ct = response_item_count(response)
+
+                unless term_ct
+                  errors << {
+                    category: "unsuccessful_csid_lookup_for_#{category}".to_sym,
+                    field: '',
+                    type: type,
+                    subtype: subtype,
+                    value: val,
+                    message: "Problem with search for #{val}"
+                  }
+                  return nil
+                end
+
+                case term_ct
+                when 0
+                  errors << {
+                    category: "no_records_found_for_#{category}".to_sym,
+                    field: '',
+                    type: type,
+                    subtype: subtype,
+                    value: val,
+                    message: "#{term_ct} records found."
+                  }
+                  rec = nil
+                when 1
+                  rec = response['list_item']
+                else
+                  rec = response['list_item'][0]
+                  using_uri = "#{@client.config.base_uri}#{rec['uri']}"
+                  warnings << {
+                    category: "multiple_records_found_for_#{category}".to_sym,
+                    field: '',
+                    type: type,
+                    subtype: subtype,
+                    value: val,
+                    message: "#{term_ct} records found. Using #{using_uri}"
+                  }
+                end
+
+                rec
+              end
+      
+      private def search_field
           field = CollectionSpace::Service.get(type: type)[:term]
         rescue StandardError => e
           puts e.message
         else
           field
+      end
+
+      # added toward refactoring that isn't done yet
+      def get_vocabulary_term(vocab:, term:)
+        result = @cache.get('vocabularies', vocab, term, search: true)
+        return result unless result.nil?
+
+        if has_caps?(term)
+          @cache.get('vocabularies', vocab, term.downcase, search: true)
+        else
+          @cache.get('vocabularies', vocab, term.capitalize, search: true)
         end
       end
+
     end
   end
 end
