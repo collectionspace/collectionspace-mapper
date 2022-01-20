@@ -29,7 +29,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
         'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_nonhierarchicalrelationship.json'
       ) }
 
-      context 'record 1' do
+      context 'when all IDs found' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/nonHierarchicalRelationship1.json' }
         let(:mapped_doc1){ remove_namespaces(response[0].doc) }
         let(:mapped_doc2){ remove_namespaces(response[1].doc) }
@@ -62,6 +62,56 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
         context 'with flipped data' do
           it 'sets response id field as expected' do
             expect(response[1].identifier).to eq('LOC2020.1.24 (movements) -> 2020.1.107 TEST (collectionobjects)')
+          end
+
+          it 'does not map unexpected fields' do
+            thisdiff = mapped_xpaths2 - fixture_xpaths2
+            expect(thisdiff).to eq([])
+          end
+
+          it 'maps as expected' do
+            fixture_xpaths2.each do |xpath|
+              fixture_node = standardize_value(fixture_doc2.xpath(xpath).text)
+              mapped_node = standardize_value(mapped_doc2.xpath(xpath).text)
+              expect(mapped_node).to eq(fixture_node)
+            end
+          end
+        end
+      end
+
+      context 'when ID not found' do
+        let(:hashpath){ 'spec/fixtures/files/datahashes/core/nonHierarchicalRelationship2.json' }
+        let(:mapped_doc1){ remove_namespaces(response[0].doc) }
+        let(:mapped_doc2){ remove_namespaces(response[1].doc) }
+        let(:mapped_xpaths1){ list_xpaths(mapped_doc1) }
+        let(:mapped_xpaths2){ list_xpaths(mapped_doc2) }
+        let(:fixture_doc1){ get_xml_fixture('core/nonHierarchicalRelationship2A.xml') }
+        let(:fixture_xpaths1){ test_xpaths(fixture_doc1, handler.mapper.mappings) }
+        let(:fixture_doc2){ get_xml_fixture('core/nonHierarchicalRelationship2B.xml') }
+        let(:fixture_xpaths2){ test_xpaths(fixture_doc2, handler.mapper.mappings) }
+
+        context 'with original data' do
+          it 'sets response id field as expected' do
+            expect(response[0].identifier).to eq('2020.1.107 TEST (collectionobjects) -> LOC MISSING (movements)')
+          end
+
+          it 'does not map unexpected fields' do
+            thisdiff = mapped_xpaths1 - fixture_xpaths1
+            expect(thisdiff).to eq([])
+          end
+
+          it 'maps as expected' do
+            fixture_xpaths1.each do |xpath|
+              fixture_node = standardize_value(fixture_doc1.xpath(xpath).text)
+              mapped_node = standardize_value(mapped_doc1.xpath(xpath).text)
+              expect(mapped_node).to eq(fixture_node)
+            end
+          end
+        end
+
+        context 'with flipped data' do
+          it 'sets response id field as expected' do
+            expect(response[1].identifier).to eq('LOC MISSING (movements) -> 2020.1.107 TEST (collectionobjects)')
           end
 
           it 'does not map unexpected fields' do

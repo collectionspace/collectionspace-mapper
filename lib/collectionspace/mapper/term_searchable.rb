@@ -19,7 +19,7 @@ module CollectionSpace
       end
 
       private def type_subtype
-                @type_subtype ||= "#{type}/#{subtype}"
+                "#{type}/#{subtype}"
               end
 
       # returns refName of cached term
