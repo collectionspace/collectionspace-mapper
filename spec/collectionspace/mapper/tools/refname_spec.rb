@@ -80,7 +80,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
           urn: 'urn:cspace:core.collectionspace.org:weird'
         }
         expect do
- CollectionSpace::Mapper::Tools::RefName.new(args) end.to raise_error(CollectionSpace::Mapper::Tools::UnparseableUrnError)
+          CollectionSpace::Mapper::Tools::RefName.new(args)
+        end.to raise_error(CollectionSpace::Mapper::Tools::UnparseableUrnError)
       end
     end
   end
@@ -92,8 +93,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
         cache: @cache
       }
       expect do
- CollectionSpace::Mapper::Tools::RefName.new(args) end.to raise_error(CollectionSpace::Mapper::Tools::RefNameArgumentError)
+        CollectionSpace::Mapper::Tools::RefName.new(args)
+      end.to raise_error(CollectionSpace::Mapper::Tools::RefNameArgumentError)
     end
   end
 end
-

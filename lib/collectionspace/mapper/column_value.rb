@@ -2,7 +2,6 @@
 
 module CollectionSpace
   module Mapper
-
     # represents a row of data from a CSV.
     class ColumnValue
       def initialize(column:, value:, recmapper:, mapping:)

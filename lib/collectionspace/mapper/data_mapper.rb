@@ -5,6 +5,7 @@ module CollectionSpace
     class DataMapper
       attr_reader :handler, :xphash
       attr_accessor :doc, :response
+
       def initialize(response, handler, xphash)
         @response = response
         @handler = handler
@@ -122,15 +123,16 @@ module CollectionSpace
 
       def populate_group_field_data(index, data, parent)
         data.each do |field, values|
-          if values[index]
-            child = Nokogiri::XML::Node.new(field, @doc)
-            if values[index].is_a?(Hash)
-              map_structured_date(child, values[index])
-            else values[index]
-                 child.content = values[index]
-            end
-            parent.add_child(child)
+          next unless values[index]
+
+          child = Nokogiri::XML::Node.new(field, @doc)
+          if values[index].is_a?(Hash)
+            map_structured_date(child, values[index])
+          else
+            values[index]
+            child.content = values[index]
           end
+          parent.add_child(child)
         end
       end
 
@@ -177,7 +179,7 @@ module CollectionSpace
       end
 
       def even_subgroup_field_values?(data)
-        data.values.map(&:flatten).map(&:length).uniq.length == 1 ? true : false
+        data.values.map(&:flatten).map(&:length).uniq.length == 1
       end
 
       def add_uneven_subgroup_warning(parent_path:, intervening_path:, subgroup:)
@@ -204,7 +206,7 @@ module CollectionSpace
 
       def group_accommodates_subgroup?(groupdata, subgroupdata)
         sg_max_length = subgroupdata.values.map(&:length).max
-        sg_max_length <= groupdata.length ? true : false
+        sg_max_length <= groupdata.length
       end
 
       # EXAMPLE: creates empty titleTranslationSubGroupList as a child of titleGroup
@@ -222,7 +224,7 @@ module CollectionSpace
       # returns the count of field values for the subgroup field with the mosty values
       # we need to know this in order to create enough empty subgroup elements to hold the data
       def maximum_subgroup_values(data)
-        data.map{ |field, values| subgroup_value_count(values) }.flatten.max
+        data.map{ |_field, values| subgroup_value_count(values) }.flatten.max
       end
 
       def subgroup_value_count(values)
@@ -250,12 +252,16 @@ module CollectionSpace
           groups[i] = {parent: p, data: {}}
         end
 
-        add_uneven_subgroup_warning(parent_path: parent_path,
-                                    intervening_path: subgroup_path,
-                                    subgroup: subgroup) unless even_subgroup_field_values?(thisdata)
-        add_too_many_subgroups_warning(parent_path: parent_path,
-                                       intervening_path: subgroup_path,
-                                       subgroup: subgroup) unless group_accommodates_subgroup?(groups, thisdata)
+        unless even_subgroup_field_values?(thisdata)
+          add_uneven_subgroup_warning(parent_path: parent_path,
+                                      intervening_path: subgroup_path,
+                                      subgroup: subgroup)
+        end
+        unless group_accommodates_subgroup?(groups, thisdata)
+          add_too_many_subgroups_warning(parent_path: parent_path,
+                                         intervening_path: subgroup_path,
+                                         subgroup: subgroup)
+        end
 
         thisdata.each{ |field, subgroups| assign_subgroup_values_to_group_hash_data(groups, field, subgroups) }
 
@@ -263,7 +269,7 @@ module CollectionSpace
 
         max_ct = maximum_subgroup_values(thisdata)
 
-        groups.each do |i, data|
+        groups.each do |i, _data|
           max_ct.times do
             target = @doc.xpath("//#{parent_path}/#{subgroup_path.join('/')}")
             target[i].add_child(Nokogiri::XML::Node.new(subgroup, @doc))

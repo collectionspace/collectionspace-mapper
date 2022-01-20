@@ -4,10 +4,8 @@ require_relative 'transformer'
 
 module CollectionSpace
   module Mapper
-
     # transforms authority display name into RefName
     class AuthorityTransformer < Transformer
-
       def initialize(opts)
         super
         @type = opts[:transform][0]
@@ -16,8 +14,7 @@ module CollectionSpace
         @csclient = opts[:recmapper].csclient
       end
 
-      def transform(value)
-      end
+      def transform(value); end
     end
   end
 end

@@ -4,6 +4,7 @@ module CollectionSpace
   module Mapper
     class DataQualityChecker
       attr_reader :mapping, :data, :warnings, :terms
+
       def initialize(mapping, data)
         @mapping = mapping
         @column = mapping.datacolumn
@@ -77,4 +78,3 @@ module CollectionSpace
     end
   end
 end
-

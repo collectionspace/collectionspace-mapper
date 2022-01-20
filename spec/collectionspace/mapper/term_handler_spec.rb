@@ -6,17 +6,21 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
   let(:client){ core_client }
   let(:termcache){ core_cache }
   let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json' }
-  let(:recmapper) do CS::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
-                                                  csclient: client,
-                                                  termcache: termcache) end
+  let(:recmapper) do
+    CS::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
+                                 csclient: client,
+                                 termcache: termcache)
+  end
   let(:colmapping){ recmapper.mappings.lookup(colname) }
-  let(:th) do CS::Mapper::TermHandler.new(mapping: colmapping,
-                                          data: data,
-                                          client: client,
-                                          cache: termcache,
-                                          mapper: recmapper) end
- # before(:all) do
-#    @config = @handler.mapper.batchconfig
+  let(:th) do
+    CS::Mapper::TermHandler.new(mapping: colmapping,
+                                data: data,
+                                client: client,
+                                cache: termcache,
+                                mapper: recmapper)
+  end
+  # before(:all) do
+  #    @config = @handler.mapper.batchconfig
   #  @ref_mapping = CollectionSpace::Mapper::ColumnMapping.new({
   #     :fieldname=>"reference",
   #     :transforms=>{:authority=>["citationauthorities", "citation"]},
@@ -53,48 +57,48 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
   # end
 
   describe '#result' do
-      context 'titletranslationlanguage (vocabulary, field subgroup)' do
-        let(:colname){ 'titleTranslationLanguage' }
-        let(:data){ [['%NULLVALUE%', 'Swahili'], ['Klingon', 'Spanish'], [CS::Mapper::THE_BOMB]] }
+    context 'titletranslationlanguage (vocabulary, field subgroup)' do
+      let(:colname){ 'titleTranslationLanguage' }
+      let(:data){ [['%NULLVALUE%', 'Swahili'], %w[Klingon Spanish], [CS::Mapper::THE_BOMB]] }
 
-        it 'result is the transformed value for mapping' do
-          expected = [['',
-                       "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(swa)'Swahili'"],
-                      ["urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(Klingon)'Klingon'",
-                       "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(spa)'Spanish'"],
-                      [CS::Mapper::THE_BOMB]]
-          expect(th.result).to eq(expected)
-        end
-        it 'all values are refnames, blanks, or the bomb' do
-          chk = th.result.flatten.select{ |v| v.start_with?('urn:') || v.empty? || v = CS::Mapper::THE_BOMB }
-          expect(chk.length).to eq(5)
-        end
+      it 'result is the transformed value for mapping' do
+        expected = [['',
+                     "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(swa)'Swahili'"],
+                    ["urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(Klingon)'Klingon'",
+                     "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(spa)'Spanish'"],
+                    [CS::Mapper::THE_BOMB]]
+        expect(th.result).to eq(expected)
       end
-
-      context 'reference (authority, field group)' do
-        let(:colname){ 'referenceLocal' }
-        let(:data){ ['Reference 1', 'Reference 2', '%NULLVALUE%'] }
-
-        it 'result is the transformed value for mapping' do
-          expected = [
-            "urn:cspace:core.collectionspace.org:citationauthorities:name(citation):item:name(Reference11143445083)'Reference 1'",
-            "urn:cspace:core.collectionspace.org:citationauthorities:name(citation):item:name(Reference22573957271)'Reference 2'",
-            ''
-            ]
-          expect(th.result).to eq(expected)
-        end
-        it 'all values are refnames' do
-          chk = th.result.flatten.select{ |v| v.start_with?('urn:') }
-          expect(chk.length).to eq(2)
-        end
+      it 'all values are refnames, blanks, or the bomb' do
+        chk = th.result.flatten.select{ |v| v.start_with?('urn:') || v.empty? || v = CS::Mapper::THE_BOMB }
+        expect(chk.length).to eq(5)
       end
     end
+
+    context 'reference (authority, field group)' do
+      let(:colname){ 'referenceLocal' }
+      let(:data){ ['Reference 1', 'Reference 2', '%NULLVALUE%'] }
+
+      it 'result is the transformed value for mapping' do
+        expected = [
+          "urn:cspace:core.collectionspace.org:citationauthorities:name(citation):item:name(Reference11143445083)'Reference 1'",
+          "urn:cspace:core.collectionspace.org:citationauthorities:name(citation):item:name(Reference22573957271)'Reference 2'",
+          ''
+        ]
+        expect(th.result).to eq(expected)
+      end
+      it 'all values are refnames' do
+        chk = th.result.flatten.select{ |v| v.start_with?('urn:') }
+        expect(chk.length).to eq(2)
+      end
+    end
+  end
 
   describe '#terms' do
     let(:terms){ th.terms }
     context 'titletranslationlanguage (vocabulary, field subgroup)' do
       let(:colname){ 'titleTranslationLanguage' }
-      let(:data){ [['%NULLVALUE%', 'Swahili'], ['Sanza', 'Spanish'], [CS::Mapper::THE_BOMB]] }
+      let(:data){ [['%NULLVALUE%', 'Swahili'], %w[Sanza Spanish], [CS::Mapper::THE_BOMB]] }
 
       context 'when new term (Sanza) is initially encountered' do
         it 'returns terms as expected' do

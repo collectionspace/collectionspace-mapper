@@ -38,8 +38,8 @@ end.parse!
 
 datahashes = []
 
-filename_stub = options[:input].sub(/^.*\//, '').sub('.csv', '')
-dir = options[:input]['/'] ? options[:input].sub(/\/[^\/]+$/, '/') : ''
+filename_stub = options[:input].sub(%r{^.*/}, '').sub('.csv', '')
+dir = options[:input]['/'] ? options[:input].sub(%r{/[^/]+$}, '/') : ''
 
 CSV.foreach(options[:input], headers: true) do |row|
   datahashes << row.to_h

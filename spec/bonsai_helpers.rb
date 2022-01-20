@@ -42,7 +42,7 @@ module Helpers
       ['vocabularies', 'deaccessionapprovalstatus', 'not required',
        {refname: "urn:cspace:bonsai.collectionspace.org:vocabularies:name(deaccessionapprovalstatus):item:name(not_required)'not required'", csid: '1111-2222-3333-4444'}],
       ['vocabularies', 'disposalmethod', 'public auction',
-       {refname: "urn:cspace:bonsai.collectionspace.org:vocabularies:name(disposalmethod):item:name(public_auction)'public auction'", csid: '1111-2222-3333-4444'}],
+       {refname: "urn:cspace:bonsai.collectionspace.org:vocabularies:name(disposalmethod):item:name(public_auction)'public auction'", csid: '1111-2222-3333-4444'}]
     ]
     populate(cache, terms)
   end

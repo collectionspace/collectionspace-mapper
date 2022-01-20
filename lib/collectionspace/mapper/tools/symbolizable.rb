@@ -11,7 +11,7 @@ module CollectionSpace
         end
 
         def symbolize_transforms(transforms)
-          transforms.each do |field, fieldtransform|
+          transforms.each do |_field, fieldtransform|
             fieldtransform.transform_keys!(&:to_sym)
             next unless replacements?(fieldtransform)
 
@@ -30,4 +30,3 @@ module CollectionSpace
     end
   end
 end
-

@@ -5,6 +5,7 @@ module CollectionSpace
     class ValueTransformer
       include TermSearchable
       attr_reader :orig, :result, :warnings, :errors
+
       def initialize(value, transforms, prepper)
         @value = value
         @orig = @value.clone
@@ -99,4 +100,3 @@ module CollectionSpace
     end
   end
 end
-

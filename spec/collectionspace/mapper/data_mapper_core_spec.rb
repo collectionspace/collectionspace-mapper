@@ -8,10 +8,12 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
   context 'core profile' do
     let(:client){ core_client }
     let(:cache){ core_cache }
-    let(:handler) do CollectionSpace::Mapper::DataHandler.new(record_mapper: mapper,
-                                                              client: client,
-                                                              cache: cache,
-                                                              config: config) end
+    let(:handler) do
+      CollectionSpace::Mapper::DataHandler.new(record_mapper: mapper,
+                                               client: client,
+                                               cache: cache,
+                                               config: config)
+    end
     let(:datahash){ get_datahash(path: hashpath) }
     let(:response){ handler.process(datahash) }
     let(:mapped_doc){ remove_namespaces(response.doc) }
@@ -25,9 +27,11 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
       # These tests are prone to failing if one of the records used in the test in core.dev is deleted
       # If a UUID is expected but you get blank, recreate the record in core.dev, rerun the test to
       #   get the UUID for the new record, and replace the old UUID in both fixture XML files used.
-      let(:mapper) do get_json_record_mapper(
-        'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_nonhierarchicalrelationship.json'
-      ) end
+      let(:mapper) do
+        get_json_record_mapper(
+          'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_nonhierarchicalrelationship.json'
+        )
+      end
 
       context 'when all IDs found' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/nonHierarchicalRelationship1.json' }
@@ -132,7 +136,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
 
     context 'authority hierarchy record', services_call: true do
       let(:mapper) do
-        get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_authorityhierarchy.json') end
+        get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_authorityhierarchy.json')
+      end
 
       context 'with existing terms' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/authorityHierarchy1.json' }
@@ -248,7 +253,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
 
     context 'collectionobject record' do
       let(:mapper) do
- get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json') end
+        get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json')
+      end
 
       context 'record 1' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/collectionobject1.json' }
@@ -305,7 +311,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
 
     context 'conditioncheck record', services_call: true do
       let(:mapper) do
- get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_conditioncheck.json') end
+        get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_conditioncheck.json')
+      end
 
       context 'record 1' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/conditioncheck1.json' }
@@ -327,7 +334,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
 
     context 'conservation record', services_call: true do
       let(:mapper) do
- get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_conservation.json') end
+        get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_conservation.json')
+      end
 
       context 'record 1' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/conservation1.json' }
@@ -372,7 +380,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
       let(:mapper){ get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_group.json') }
 
       context 'record 1' do
-        let(:hashpath){ 'spec/fixtures/files/datahashes/core/group1.json'}
+        let(:hashpath){ 'spec/fixtures/files/datahashes/core/group1.json' }
         let(:fixturepath){ 'core/group1.xml' }
 
         it 'does not map unexpected fields' do
@@ -507,7 +515,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
 
         it 'maps as expected' do
           fixture_xpaths.each do |xpath|
-            # todo - why is this next clause here?
+            # TODO: - why is this next clause here?
             next if xpath.start_with?('/document/objectexit_common/exitDateGroup')
 
             fixture_node = standardize_value(fixture_doc.xpath(xpath).text)

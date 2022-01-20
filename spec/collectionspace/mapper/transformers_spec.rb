@@ -5,14 +5,18 @@ require 'spec_helper'
 RSpec.describe CollectionSpace::Mapper::Transformers do
   let(:client){ anthro_client }
   let(:cache){ anthro_cache }
-  let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject_transforms.json'}
-  let(:recmapper) do CS::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
-                                                  csclient: client,
-                                                  termcache: cache) end
+  let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject_transforms.json' }
+  let(:recmapper) do
+    CS::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
+                                 csclient: client,
+                                 termcache: cache)
+  end
   let(:mapping){ recmapper.mappings.lookup(colname) }
-  let(:xforms) do described_class.new(colmapping: mapping,
-                                      transforms: mapping.transforms,
-                                      recmapper: recmapper) end
+  let(:xforms) do
+    described_class.new(colmapping: mapping,
+                        transforms: mapping.transforms,
+                        recmapper: recmapper)
+  end
 
   describe '#queue' do
     context 'when measuredByPerson column' do

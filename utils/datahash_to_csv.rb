@@ -36,8 +36,8 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-dir = options[:input]['/'] ? options[:input].sub(/\/[^\/]+$/, '/') : ''
-filename_stub = options[:input].sub(/^.*\//, '').sub('.json', '')
+dir = options[:input]['/'] ? options[:input].sub(%r{/[^/]+$}, '/') : ''
+filename_stub = options[:input].sub(%r{^.*/}, '').sub('.json', '')
 csv_file = "#{dir}#{filename_stub}.csv"
 
 data = JSON.parse(File.read(options[:input]))

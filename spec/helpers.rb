@@ -66,9 +66,7 @@ module Helpers
     rejectfields = %w[computedCurrentLocation].sort
     doc.traverse do |node|
       # Drop empty nodes
-      if remove_blanks
-        node.remove unless node.text.match?(/\S/m)
-      end
+      node.remove if remove_blanks && !node.text.match?(/\S/m)
       # Drop sections of the document we don't write with the mapper
       node.remove if node.name == 'collectionspace_core' || node.name == 'account_permission'
       # Drop fields created by CS application
@@ -107,22 +105,20 @@ module Helpers
   end
 
   def remove_xpath_occurrence_indicators(path)
-    path.match(/^(.*)\//)[1].gsub(/\[\d+\]/, '')
+    path.match(%r{^(.*)/})[1].gsub(/\[\d+\]/, '')
   end
 
   def list_xpaths(doc)
     xpaths = get_xpaths(doc)
-    xpaths = field_value_xpaths(xpaths)
-    xpaths
+    field_value_xpaths(xpaths)
   end
 
   def standardize_value(string)
     if string.start_with?('urn:cspace')
-      val = string.sub(/(item:name\([a-zA-Z]+)\d+(\)')/, '\1\2')
+      string.sub(/(item:name\([a-zA-Z]+)\d+(\)')/, '\1\2')
     else
-      val = string
+      string
     end
-    val
   end
 
   def populate(cache, terms)
@@ -131,5 +127,4 @@ module Helpers
     end
     cache
   end
-
 end

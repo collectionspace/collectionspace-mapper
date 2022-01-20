@@ -20,7 +20,7 @@ module CollectionSpace
 
       private def type_subtype
         "#{type}/#{subtype}"
-              end
+      end
 
       # returns refName of cached term
       def cached_term(val, return_key = :refname, termtype = type, termsubtype = subtype)
@@ -35,7 +35,7 @@ module CollectionSpace
         return cache_response if cache_response.is_a?(Hash)
 
         instance_eval(cache_response)
-              end
+      end
 
       # returns refName of searched (term)
       def searched_term(val, return_key = :refname)
@@ -51,14 +51,14 @@ module CollectionSpace
 
       private def case_swap(string)
         string.match?(/[A-Z]/) ? string.downcase : string.capitalize
-              end
+      end
 
       private def term_search_response(val)
         as_is = get_term_response(val)
         return as_is if term_response_usable?(as_is)
 
         get_term_response(case_swap(val))
-              end
+      end
 
       private def get_term_response(val)
         response = @client.find(
@@ -72,7 +72,7 @@ module CollectionSpace
         nil
       else
         parse_response(response)
-              end
+      end
 
       private def parse_response(response)
         parsed = response.parsed['abstract_common_list']
@@ -81,7 +81,7 @@ module CollectionSpace
         nil
       else
         parsed
-              end
+      end
 
       def obj_csid(objnum, type)
         cached = @cache.get(type, '', objnum, search: false)
@@ -98,7 +98,7 @@ module CollectionSpace
           return nil unless rec
 
           csid = rec['csid']
-          @cache.put(type, '', objnum, {refname: rec['refName'], csid: csid} )
+          @cache.put(type, '', objnum, {refname: rec['refName'], csid: csid})
           csid
         else
           errors << {
@@ -109,7 +109,7 @@ module CollectionSpace
             value: objnum,
             message: "Problem with search for #{objnum}."
           }
-          return nil
+          nil
         end
       end
 
@@ -126,14 +126,14 @@ module CollectionSpace
         return false if ct == 0
 
         true
-              end
+      end
 
       private def response_item_count(response)
         ct = response.dig('totalItems')
         return ct.to_i if ct
 
         nil
-              end
+      end
 
       private def add_missing_record_error(category, val)
         datacolumn = column ||= 'data'
@@ -146,7 +146,7 @@ module CollectionSpace
           value: val,
           message: "#{val} (#{type_subtype} in #{datacolumn} column)"
         }
-              end
+      end
 
       private def rec_from_response(category, val, response)
         term_ct = response_item_count(response)
@@ -183,7 +183,7 @@ module CollectionSpace
         end
 
         rec
-              end
+      end
 
       private def search_field
         field = CollectionSpace::Service.get(type: type)[:term]
@@ -204,7 +204,6 @@ module CollectionSpace
           @cache.get('vocabularies', vocab, term.capitalize, search: true)
         end
       end
-
     end
   end
 end

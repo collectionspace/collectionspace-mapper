@@ -5,7 +5,6 @@ require_relative 'find_replace_operation'
 
 module CollectionSpace
   module Mapper
-
     # carries out a find/replace operation on a given value
     class FindReplaceTransformer < Transformer
       def initialize(transform:)

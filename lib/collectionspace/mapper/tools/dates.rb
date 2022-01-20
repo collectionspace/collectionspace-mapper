@@ -36,7 +36,7 @@ module CollectionSpace
 
             service_parseable_month_formats = [
               '^\w+ \d{4}$',
-              '^\d{4} \w+$',
+              '^\d{4} \w+$'
             ].map{ |f| Regexp.new(f) }
 
             other_month_formats = [
@@ -49,8 +49,7 @@ module CollectionSpace
             elsif date_string == THE_BOMB
               @timestamp = date_string
               blow_up_date
-            elsif
-              date_formats.any?{ |re| @date_string.match?(re) }
+            elsif date_formats.any?{ |re| @date_string.match?(re) }
               try_chronic_parse(@date_string)
               @timestamp ? create_mappable_date : try_services_query
             elsif two_digit_year_date_formats.any?{ |re| @date_string.match?(re) }
@@ -78,23 +77,23 @@ module CollectionSpace
             val = @date_string.gsub('/', '-').split('-')
             yr = val.pop
             this_year = Time.now.year.to_s
-            this_year_century = this_year[0,2]
-            this_year_last_two = this_year[2,2].to_i
+            this_year_century = this_year[0, 2]
+            this_year_last_two = this_year[2, 2].to_i
 
-            if yr.to_i > this_year_last_two
-              val << "#{this_year_century.to_i - 1}#{yr}"
-            else
-              val << "#{this_year_century}#{yr}"
-            end
+            val << if yr.to_i > this_year_last_two
+                     "#{this_year_century.to_i - 1}#{yr}"
+                   else
+                     "#{this_year_century}#{yr}"
+                   end
             val.join('-')
           end
 
           def try_chronic_parse(string)
-            if @config.date_format == 'day month year'
-              @timestamp = Chronic.parse(string, endian_precedence: :little)
-            else
-              @timestamp = Chronic.parse(string)
-            end
+            @timestamp = if @config.date_format == 'day month year'
+                           Chronic.parse(string, endian_precedence: :little)
+                         else
+                           Chronic.parse(string)
+                         end
           end
 
           def create_mappable_passthrough
@@ -172,24 +171,23 @@ module CollectionSpace
               @mappable = fix_services_scalars(result)
             else
               @mappable = {'dateDisplayDate' => date_string,
-                           'scalarValuesComputed' => 'false'
-                          }
+                           'scalarValuesComputed' => 'false'}
             end
           end
 
           def fix_services_scalars(services_result)
             new_hash = {}
             services_result.each do |k, v|
-              if k.end_with?('ScalarValue')
-                new_hash[k] = "#{v}#{@timestamp_suffix}"
-              else
-                new_hash[k] = v
-              end
+              new_hash[k] = if k.end_with?('ScalarValue')
+                              "#{v}#{@timestamp_suffix}"
+                            else
+                              v
+                            end
             end
             new_hash
           end
 
-          def map(doc, parentnode, groupname)
+          def map(_doc, _parentnode, _groupname)
             @parser_result.each do |datefield, value|
               value = DateTime.parse(value).iso8601(3).sub('+00:00', 'Z') if datefield['ScalarValue']
             end

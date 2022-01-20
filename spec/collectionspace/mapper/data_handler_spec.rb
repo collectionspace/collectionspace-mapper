@@ -7,7 +7,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
   let(:cache){ core_cache_search }
   let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json' }
   let(:mapper){ get_json_record_mapper(mapperpath) }
-  let(:config){ {"delimiter": '|'} }
+  let(:config){ {delimiter: '|'} }
   let(:handler) do
     CollectionSpace::Mapper::DataHandler.new(record_mapper: mapper,
                                              client: client,
@@ -16,41 +16,38 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
   end
 
   # these make services api calls to find terms not in cache
-  context 'when config has check_terms = false', services_call: true do
-    let(:config){ '{"check_terms": false}' }
+  context 'with some terms found and some terms not found', services_call: true do
     let(:result){ handler.process(data).terms.reject{ |t| t[:found] } }
 
     context 'with terms in instance but not in cache' do
       let(:data) do
-        {'objectNumber' => '20CS.001.0002',
-         'titleLanguage' => 'English', # vocabulary, in instance, in cache
-         'namedCollection' => 'Test Collection', # authority, not in instance, not in cache
-         'collection' => 'rando'}
+        {
+          'objectNumber' => '20CS.001.0002',
+          'titleLanguage' => 'English', # vocabulary, in instance, in cache
+          'namedCollection' => 'Test Collection' # authority, in instance (caseswapped), not in cache
+        }
       end
 
-      it 'returns found = false for all terms, even if they exist in client', skip: 'deprecating check_terms' do
-        res = @handler.process(@data)
+      it 'returns expected found values' do
+        res = handler.process(data)
         not_found = res.terms.reject{ |t| t[:found] }
-        expect(not_found.length).to eq(2)
+        expect(not_found.length).to eq(0)
       end
     end
 
     context 'with terms in instance but not in cache, and not in instance' do
       let(:data) do
-        {'objectNumber' => '20CS.001.0001',
-         'numberOfObjects' => '1',
-         'numberValue' => '123456|98765',
-         'numberType' => 'lender|obsolete',
-         'title' => 'A Man| A Woman',
-         'titleLanguage' => 'English| Klingon',
-         'namedCollection' => 'Test collection',
-         'collection' => 'permanent collection'}
+        {
+          'objectNumber' => '20CS.001.0001',
+          'titleLanguage' => 'English| Klingon', # English is in cache; Klingon is not in instance or cache
+          'namedCollection' => 'Test collection' # In instance (caseswapped)
+        }
       end
 
-      it 'returns found = false for all terms, even if they exist in client', skip: 'deprecating check_terms' do
-        res = @handler.process(@data2)
+      it 'returns expected found values' do
+        res = handler.process(data)
         not_found = res.terms.reject{ |t| t[:found] }
-        expect(not_found.length).to eq(3)
+        expect(not_found.length).to eq(1)
       end
     end
   end
@@ -59,7 +56,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
     data1 = {
       'objectNumber' => '1',
       'publishTo' => 'All', # vocabulary - in instance, not in cache
-      'namedCollection' => 'QA TARGET Work', # authority - in instance, not in cache
+      'namedCollection' => 'QA TARGET Work' # authority - in instance, not in cache
     }
     data2 = {
       'objectNumber' => '2',
@@ -175,7 +172,8 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
 
         context 'xpath ending with mortuaryTreatmentGroup' do
           let(:xpath) do
- 'collectionobjects_anthro/commingledRemainsGroupList/commingledRemainsGroup/mortuaryTreatmentGroupList/mortuaryTreatmentGroup' end
+            'collectionobjects_anthro/commingledRemainsGroupList/commingledRemainsGroup/mortuaryTreatmentGroupList/mortuaryTreatmentGroup'
+          end
 
           it 'is_group = true' do
             expect(result[:is_group]).to be true
@@ -351,5 +349,3 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
     end
   end
 end
-
-

@@ -10,7 +10,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   let(:mapper){ get_json_record_mapper(mapperpath) }
   let(:config) do
     {
-      delimiter: delimiter,
+      delimiter: delimiter
     }
   end
   let(:handler) do
@@ -43,7 +43,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
         {
           delimiter: ';',
           default_values: {
-            'publishTo' => 'DPLA;Omeka',
+            'publishTo' => 'DPLA;Omeka'
           }
         }
       end
@@ -75,7 +75,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
             {
               delimiter: ';',
               default_values: {
-                'publishTo' => 'DPLA;Omeka',
+                'publishTo' => 'DPLA;Omeka'
               },
               force_defaults: true
             }
@@ -137,7 +137,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
       {
         'objectnumber' => '123',
         'annotationdate' => '12/19/2019;12/10/2019',
-        'identdategroup' => '2019-09-30;4/5/2020',
+        'identdategroup' => '2019-09-30;4/5/2020'
       }
     end
     context 'when field is a structured date' do
@@ -238,7 +238,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
           }
         end
 
-        # todo: why does this call services api?
+        # TODO: why does this call services api?
         it 'combines values properly', services_call: true do
           result = prepper.prep.response.combined_data[xpath]['measuredBy']
           expected = [
@@ -246,10 +246,11 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
               "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Gomongo1599463746195)'Gomongo'",
               "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Comodore1599463826401)'Comodore'",
               "urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Cuckoo1599463786824)'Cuckoo'",
-              ''],
+              ''
+            ],
             [
               "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Gomongo1599463746195)'Gomongo'",
-              "urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Cuckoo1599463786824)'Cuckoo'",
+              "urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Cuckoo1599463786824)'Cuckoo'"
             ]
           ]
           expect(result).to eq(expected)
@@ -280,7 +281,8 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
               "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Gomongo1599463746195)'Gomongo'",
               "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Comodore1599463826401)'Comodore'",
               "urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Cuckoo1599463786824)'Cuckoo'",
-              ''],
+              ''
+            ]
           ]
           expect(result).to eq(expected)
         end

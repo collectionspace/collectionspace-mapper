@@ -3,74 +3,78 @@
 require 'spec_helper'
 
 RSpec.describe CollectionSpace::Mapper::ColumnMappings do
-  let(:mappings) do [
-    {fieldname: 'objectNumber',
-     transforms: {},
-     source_type: 'na',
-     source_name: nil,
-     namespace: 'collectionobjects_common',
-     xpath: [],
-     data_type: 'string',
-     repeats: 'n',
-     in_repeating_group: 'n/a',
-     opt_list_values: [],
-     datacolumn: 'objectNumber',
-     required: 'y'},
-    {fieldname: 'numberOfObjects',
-     transforms: {},
-     source_type: 'na',
-     source_name: nil,
-     namespace: 'collectionobjects_common',
-     xpath: [],
-     data_type: 'integer',
-     repeats: 'n',
-     in_repeating_group: 'n/a',
-     opt_list_values: [],
-     datacolumn: 'numberOfObjects',
-     required: 'n'},
-    {fieldname: 'numberValue',
-     transforms: {},
-     source_type: 'na',
-     source_name: nil,
-     namespace: 'collectionobjects_common',
-     xpath: ['otherNumberList', 'otherNumber'],
-     data_type: 'string',
-     repeats: 'n',
-     in_repeating_group: 'y',
-     opt_list_values: [],
-     datacolumn: 'numberValue',
-     required: 'n'},
-    {fieldname: 'numberType',
-     transforms: {},
-     source_type: 'optionlist',
-     source_name: 'numberTypes',
-     namespace: 'collectionobjects_common',
-     xpath: ['otherNumberList', 'otherNumber'],
-     data_type: 'string',
-     repeats: 'n',
-     in_repeating_group: 'y',
-     opt_list_values: ['lender', 'obsolete', 'previous', 'serial', 'unknown'],
-     datacolumn: 'numberType',
-     required: 'n'},
-    {datacolumn: 'otherRequired',
-     required: 'y'}
-  ] end
+  let(:mappings) do
+    [
+      {fieldname: 'objectNumber',
+       transforms: {},
+       source_type: 'na',
+       source_name: nil,
+       namespace: 'collectionobjects_common',
+       xpath: [],
+       data_type: 'string',
+       repeats: 'n',
+       in_repeating_group: 'n/a',
+       opt_list_values: [],
+       datacolumn: 'objectNumber',
+       required: 'y'},
+      {fieldname: 'numberOfObjects',
+       transforms: {},
+       source_type: 'na',
+       source_name: nil,
+       namespace: 'collectionobjects_common',
+       xpath: [],
+       data_type: 'integer',
+       repeats: 'n',
+       in_repeating_group: 'n/a',
+       opt_list_values: [],
+       datacolumn: 'numberOfObjects',
+       required: 'n'},
+      {fieldname: 'numberValue',
+       transforms: {},
+       source_type: 'na',
+       source_name: nil,
+       namespace: 'collectionobjects_common',
+       xpath: %w[otherNumberList otherNumber],
+       data_type: 'string',
+       repeats: 'n',
+       in_repeating_group: 'y',
+       opt_list_values: [],
+       datacolumn: 'numberValue',
+       required: 'n'},
+      {fieldname: 'numberType',
+       transforms: {},
+       source_type: 'optionlist',
+       source_name: 'numberTypes',
+       namespace: 'collectionobjects_common',
+       xpath: %w[otherNumberList otherNumber],
+       data_type: 'string',
+       repeats: 'n',
+       in_repeating_group: 'y',
+       opt_list_values: %w[lender obsolete previous serial unknown],
+       datacolumn: 'numberType',
+       required: 'n'},
+      {datacolumn: 'otherRequired',
+       required: 'y'}
+    ]
+  end
 
   let(:recordmapper){ instance_double('CS::Mapper::RecordMapper') }
   let(:mapperconfig){ instance_double('CS::Mapper::RecordMapperConfig') }
 
   let(:mappingsobj){ dc = described_class.new(mappings: mappings, mapper: recordmapper) }
 
-  let(:added_field) do {
-    fieldname: 'addedField',
-    namespace: 'persons_common',
-    data_type: 'string',
-    xpath: [],
-    required: 'not in input data',
-    repeats: 'n',
-    in_repeating_group: 'n/a',
-    datacolumn: 'addedfield'
-  } end
+  let(:added_field) do
+    {
+      fieldname: 'addedField',
+      namespace: 'persons_common',
+      data_type: 'string',
+      xpath: [],
+      required: 'not in input data',
+      repeats: 'n',
+      in_repeating_group: 'n/a',
+      datacolumn: 'addedfield'
+    }
+  end
 
   before do
     allow(recordmapper).to receive(:config).and_return(mapperconfig)
@@ -94,32 +98,34 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings do
   end
 
   context 'when initialized from media RecordMapper' do
-    let(:mappings) do [
-    {fieldname: 'identificationNumber',
-     transforms: {},
-     source_type: 'na',
-     source_name: nil,
-     namespace: 'media_common',
-     xpath: [],
-     data_type: 'string',
-     repeats: 'n',
-     in_repeating_group: 'n/a',
-     opt_list_values: [],
-     datacolumn: 'identificationNumber',
-     required: 'y'},
-    {fieldname: 'title',
-     transforms: {},
-     source_type: 'na',
-     source_name: nil,
-     namespace: 'media_common',
-     xpath: [],
-     data_type: 'string',
-     repeats: 'n',
-     in_repeating_group: 'n/a',
-     opt_list_values: [],
-     datacolumn: 'title',
-     required: 'n'}
-  ] end
+    let(:mappings) do
+      [
+        {fieldname: 'identificationNumber',
+         transforms: {},
+         source_type: 'na',
+         source_name: nil,
+         namespace: 'media_common',
+         xpath: [],
+         data_type: 'string',
+         repeats: 'n',
+         in_repeating_group: 'n/a',
+         opt_list_values: [],
+         datacolumn: 'identificationNumber',
+         required: 'y'},
+        {fieldname: 'title',
+         transforms: {},
+         source_type: 'na',
+         source_name: nil,
+         namespace: 'media_common',
+         xpath: [],
+         data_type: 'string',
+         repeats: 'n',
+         in_repeating_group: 'n/a',
+         opt_list_values: [],
+         datacolumn: 'title',
+         required: 'n'}
+      ]
+    end
 
     it 'adds mediaFileURI to mappings' do
       allow(mapperconfig).to receive(:common_namespace).and_return('media_common')
@@ -158,4 +164,3 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings do
     end
   end
 end
-

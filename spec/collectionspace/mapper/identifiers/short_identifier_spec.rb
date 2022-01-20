@@ -16,4 +16,3 @@ RSpec.describe CollectionSpace::Mapper::Identifiers::ShortIdentifier do
     end
   end
 end
-

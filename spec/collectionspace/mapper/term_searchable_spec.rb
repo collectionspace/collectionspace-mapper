@@ -5,6 +5,7 @@ require 'spec_helper'
 class TermClass
   attr_reader :cache, :client
   attr_accessor :type, :subtype, :errors
+
   include CS::Mapper::TermSearchable
 
   def initialize(cache, client, type, subtype)
@@ -14,7 +15,6 @@ class TermClass
     @subtype = subtype
     @errors = []
   end
-
 end
 
 RSpec.describe CollectionSpace::Mapper::TermSearchable do
@@ -138,7 +138,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
     context 'when in cache' do
       let(:val){ 'Sample Concept 1' }
       it 'returns csid' do
-      # it 'returns csid', :skip => 'does not cause mapping to fail, so we live with technical incorrectness for now' do
+        # it 'returns csid', :skip => 'does not cause mapping to fail, so we live with technical incorrectness for now' do
         expect(result).to eq('1111-2222-3333-4444')
       end
     end

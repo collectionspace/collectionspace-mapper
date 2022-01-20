@@ -7,21 +7,26 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_cal
   let(:service){ CollectionSpace::Mapper::Tools::RecordStatusService.new(client, mapper) }
 
   context 'when mapper service_path not handled by collectionspace-client' do
-    let(:mapper) do CS::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
-      'spec/fixtures/files/mappers/core_6-1-0_aardvark.json'
-    ), termcache: core_cache) end
+    let(:mapper) do
+      CS::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
+        'spec/fixtures/files/mappers/core_6-1-0_aardvark.json'
+      ), termcache: core_cache)
+    end
 
     it 'raises NoClientServiceError' do
       expect do
- CS::Mapper::Tools::RecordStatusService.new(client, mapper) end.to raise_error(CS::Mapper::NoClientServiceError)
+        CS::Mapper::Tools::RecordStatusService.new(client, mapper)
+      end.to raise_error(CS::Mapper::NoClientServiceError)
     end
   end
 
   describe '#lookup' do
     context 'when mapper is for an authority' do
-      let(:mapper) do CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
-        'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_person-local.json'
-      ), termcache: core_cache) end
+      let(:mapper) do
+        CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
+          'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_person-local.json'
+        ), termcache: core_cache)
+      end
 
       context 'and one result is found' do
         let(:report){ service.lookup('John Doe') }
@@ -55,7 +60,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_cal
         context 'with default config' do
           it 'raises error because we cannot know what to do with imported record' do
             expect do
- service.lookup('Inkpot Guineafowl') end.to raise_error(CollectionSpace::Mapper::MultipleCsRecordsFoundError)
+              service.lookup('Inkpot Guineafowl')
+            end.to raise_error(CollectionSpace::Mapper::MultipleCsRecordsFoundError)
           end
         end
 
@@ -79,9 +85,11 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_cal
     end
 
     context 'when mapper is for an object' do
-      let(:mapper) do CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
-        'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json'
-      ), termcache: core_cache) end
+      let(:mapper) do
+        CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
+          'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json'
+        ), termcache: core_cache)
+      end
 
       it 'works the same' do
         res = service.lookup('2000.1')
@@ -90,9 +98,11 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_cal
     end
 
     context 'when mapper is for a procedure' do
-      let(:mapper) do CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
-        'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_acquisition.json'
-      ), termcache: core_cache) end
+      let(:mapper) do
+        CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
+          'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_acquisition.json'
+        ), termcache: core_cache)
+      end
 
       it 'works the same' do
         res = service.lookup('2000.001')
@@ -101,9 +111,11 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_cal
     end
 
     context 'when mapper is for a relationship' do
-      let(:mapper) do CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
-        'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_objecthierarchy.json'
-      )) end
+      let(:mapper) do
+        CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
+          'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_objecthierarchy.json'
+        ))
+      end
 
       it 'works the same' do
         res = service.lookup({sub: '56c04f5f-32b9-4f1d-8a4b', obj: '6f0ce7b3-0130-444d-8633'})

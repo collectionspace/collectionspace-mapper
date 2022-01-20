@@ -4,6 +4,7 @@ module CollectionSpace
   module Mapper
     class DataSplitter
       attr_reader :data, :result
+
       def initialize(data, config)
         @data = data.strip
         @config = config

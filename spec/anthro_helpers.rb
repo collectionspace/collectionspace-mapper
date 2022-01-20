@@ -179,7 +179,7 @@ module Helpers
       ['personauthorities', 'person', 'praya',
        {refname: "urn:cspace:anthro.collectionspace.org:personauthorities:name(person):item:name(praya1599821095120)'praya'", csid: '1111-2222-3333-4444'}],
       ['personauthorities', 'person', 'jijoe',
-       {refname: "urn:cspace:anthro.collectionspace.org:personauthorities:name(person):item:name(jijoe1599821246989)'jijoe'", csid: '1111-2222-3333-4444'}],
+       {refname: "urn:cspace:anthro.collectionspace.org:personauthorities:name(person):item:name(jijoe1599821246989)'jijoe'", csid: '1111-2222-3333-4444'}]
     ]
     populate(cache, terms)
   end

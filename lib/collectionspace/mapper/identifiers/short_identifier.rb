@@ -3,7 +3,6 @@
 module CollectionSpace
   module Mapper
     module Identifiers
-
       class ShortIdentifier
         def initialize(term:)
           @term = term
@@ -22,4 +21,3 @@ module CollectionSpace
     end
   end
 end
-

@@ -5,7 +5,6 @@ require 'collectionspace/mapper/tools/dates'
 
 module CollectionSpace
   module Mapper
-
     # given a RecordMapper hash and a data hash, returns CollectionSpace XML document
     class DataHandler
       # this is an accessor rather than a reader until I refactor away the hideous
@@ -32,7 +31,7 @@ module CollectionSpace
       end
 
       def prep(data)
-        response = CollectionSpace::Mapper::setup_data(data, @mapper.batchconfig)
+        response = CollectionSpace::Mapper.setup_data(data, @mapper.batchconfig)
         if response.valid?
           case @mapper.record_type
           when 'authorityhierarchy'
@@ -74,7 +73,7 @@ module CollectionSpace
       end
 
       def validate(data)
-        response = CollectionSpace::Mapper::setup_data(data, @mapper.batchconfig)
+        response = CollectionSpace::Mapper.setup_data(data, @mapper.batchconfig)
         validator.validate(response)
       end
 
@@ -116,12 +115,12 @@ module CollectionSpace
 
         # populate parent of all non-top xpaths
         h.each do |xpath, ph|
-          if xpath['/']
-            keys = h.keys - [xpath]
-            keys = keys.select{ |k| xpath[k] }
-            keys = keys.sort{ |a, b| b.length <=> a.length }
-            ph[:parent] = keys[0] unless keys.empty?
-          end
+          next unless xpath['/']
+
+          keys = h.keys - [xpath]
+          keys = keys.select{ |k| xpath[k] }
+          keys = keys.sort{ |a, b| b.length <=> a.length }
+          ph[:parent] = keys[0] unless keys.empty?
         end
 
         # populate children
@@ -145,13 +144,15 @@ module CollectionSpace
           if v.size > 1
             puts "WARNING: #{xpath} has fields with different :in_repeating_group values (#{v}). Defaulting to treating NOT as a group"
           end
-          ph[:is_group] =
-true if ct == 1 && v == ['as part of larger repeating group'] && ph[:mappings][0].repeats == 'y'
+          if ct == 1 && v == ['as part of larger repeating group'] && ph[:mappings][0].repeats == 'y'
+            ph[:is_group] =
+              true
+          end
         end
 
         # populate is_subgroup
         subgroups = []
-        h.each{ |k, v| subgroups << v[:subgroups] }
+        h.each{ |_k, v| subgroups << v[:subgroups] }
         subgroups = subgroups.flatten.uniq
         h.keys.each{ |k| h[k][:is_subgroup] = true if subgroups.include?(k) }
         h
@@ -202,10 +203,10 @@ true if ct == 1 && v == ['as part of larger repeating group'] && ph[:mappings][0
         return if terms.empty?
 
         terms.select{ |t| !t[:found] }.each do |term|
-          @new_terms[CollectionSpace::Mapper::term_key(term)] = nil
+          @new_terms[CollectionSpace::Mapper.term_key(term)] = nil
         end
         terms.select{ |t| t[:found] }.each do |term|
-          term[:found] = false if @new_terms.key?(CollectionSpace::Mapper::term_key(term))
+          term[:found] = false if @new_terms.key?(CollectionSpace::Mapper.term_key(term))
         end
 
         result.terms = terms

@@ -2,7 +2,6 @@
 
 module CollectionSpace
   module Mapper
-
     # The XML document structure for a given record type.
     # Knows the structure as a Hash provided by initial JSON record mapper
     # Provides a blank XML document with all namespace and field group elements

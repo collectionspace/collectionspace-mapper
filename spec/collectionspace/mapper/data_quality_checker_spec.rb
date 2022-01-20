@@ -7,39 +7,43 @@ RSpec.describe CollectionSpace::Mapper::DataQualityChecker do
   let(:mapping){ CollectionSpace::Mapper::ColumnMapping.new(maphash, recordmapper) }
 
   context 'when source_type = optionlist' do
-      let(:maphash) do {
+    let(:maphash) do
+      {
         fieldname: 'collection',
         datacolumn: 'collection',
         transforms: {},
         source_type: 'optionlist',
-        opt_list_values: [
-          'library-collection',
-          'permanent-collection',
-          'study-collection',
-          'teaching-collection'
+        opt_list_values: %w[
+          library-collection
+          permanent-collection
+          study-collection
+          teaching-collection
         ]
-      } end
-      it 'returns expected warnings' do
-        data = [
-          'Permanent Collection', # not a valid option, should return warning
-          '%NULLVALUE%', # indicates placeholder blank value, should be skipped
-          'permanent-collection', # valid option
-          '' # non-placeholder blank value, should be skipped
-        ]
-        res = CollectionSpace::Mapper::DataQualityChecker.new(mapping, data).warnings
-        expect(res.size).to eq(1)
-      end
+      }
     end
+    it 'returns expected warnings' do
+      data = [
+        'Permanent Collection', # not a valid option, should return warning
+        '%NULLVALUE%', # indicates placeholder blank value, should be skipped
+        'permanent-collection', # valid option
+        '' # non-placeholder blank value, should be skipped
+      ]
+      res = CollectionSpace::Mapper::DataQualityChecker.new(mapping, data).warnings
+      expect(res.size).to eq(1)
+    end
+  end
 
   context 'when datacolumn contains `refname`' do
     context 'and source_type = vocabulary' do
-      let(:maphash) do {
-        fieldname: 'nagprainventoryname',
-        datacolumn: 'nagprainventorynamerefname',
-        transforms: {},
-        source_type: 'vocabulary',
-        opt_list_values: []
-      } end
+      let(:maphash) do
+        {
+          fieldname: 'nagprainventoryname',
+          datacolumn: 'nagprainventorynamerefname',
+          transforms: {},
+          source_type: 'vocabulary',
+          opt_list_values: []
+        }
+      end
       context 'and value is not well-formed refname' do
         it 'returns warning' do
           data = ["urn:pahma.cspace.berkeley.edu:vocabularies:name(nagpraPahmaInventoryNames):item:name(nagpraPahmaInventoryNames01)'AK-Alaska'"]
@@ -57,13 +61,15 @@ RSpec.describe CollectionSpace::Mapper::DataQualityChecker do
     end
 
     context 'and source_type = authority' do
-      let(:maphash) do {
-        fieldname: 'nagpradetermculture',
-        datacolumn: 'nagpradetermculturerefname',
-        transforms: {},
-        source_type: 'authority',
-        opt_list_values: []
-      } end
+      let(:maphash) do
+        {
+          fieldname: 'nagpradetermculture',
+          datacolumn: 'nagpradetermculturerefname',
+          transforms: {},
+          source_type: 'authority',
+          opt_list_values: []
+        }
+      end
       context 'and value is not well-formed refname' do
         it 'returns warning' do
           data = ["urn:cspace:pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(Chumash1607458832492)'Chumash"]

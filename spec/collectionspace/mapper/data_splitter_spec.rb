@@ -49,33 +49,33 @@ end
 
 RSpec.describe CollectionSpace::Mapper::SubgroupSplitter do
   before(:all) do
-   @config = CS::Mapper::Config.new(config: {delimiter: ';', subgroup_delimiter: '^^'})
- end
+    @config = CS::Mapper::Config.new(config: {delimiter: ';', subgroup_delimiter: '^^'})
+  end
 
   describe '#result' do
-   context 'when "a^^b;c^^d"' do
-     it 'returns [["a", "b"], ["c", "d"]]' do
-       s = CollectionSpace::Mapper::SubgroupSplitter.new('a^^b;c^^d', @config)
-       expect(s.result).to eq([%w[a b], %w[c d]])
-     end
-   end
-   context 'when "a;c"' do
-     it 'returns [["a"], ["c"]]' do
-       s = CollectionSpace::Mapper::SubgroupSplitter.new('a;c', @config)
-       expect(s.result).to eq([%w[a], %w[c]])
-     end
-   end
-   context 'when "a;c^^d"' do
-     it 'returns [["a"], ["c", "d"]]' do
-       s = CollectionSpace::Mapper::SubgroupSplitter.new('a;c^^d', @config)
-       expect(s.result).to eq([%w[a], %w[c d]])
-     end
-   end
-   context 'when "a^^;c^^d"' do
-     it 'returns [["a", ""], ["c", "d"]]' do
-       s = CollectionSpace::Mapper::SubgroupSplitter.new('a^^;c^^d', @config)
-       expect(s.result).to eq([['a', ''], %w[c d]])
-     end
-   end
- end
+    context 'when "a^^b;c^^d"' do
+      it 'returns [["a", "b"], ["c", "d"]]' do
+        s = CollectionSpace::Mapper::SubgroupSplitter.new('a^^b;c^^d', @config)
+        expect(s.result).to eq([%w[a b], %w[c d]])
+      end
+    end
+    context 'when "a;c"' do
+      it 'returns [["a"], ["c"]]' do
+        s = CollectionSpace::Mapper::SubgroupSplitter.new('a;c', @config)
+        expect(s.result).to eq([%w[a], %w[c]])
+      end
+    end
+    context 'when "a;c^^d"' do
+      it 'returns [["a"], ["c", "d"]]' do
+        s = CollectionSpace::Mapper::SubgroupSplitter.new('a;c^^d', @config)
+        expect(s.result).to eq([%w[a], %w[c d]])
+      end
+    end
+    context 'when "a^^;c^^d"' do
+      it 'returns [["a", ""], ["c", "d"]]' do
+        s = CollectionSpace::Mapper::SubgroupSplitter.new('a^^;c^^d', @config)
+        expect(s.result).to eq([['a', ''], %w[c d]])
+      end
+    end
+  end
 end

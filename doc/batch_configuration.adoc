@@ -24,7 +24,6 @@ A JSON config hash may be passed to a new `Mapper::DataHandler` to control vario
   "response_mode": "verbose",
   "strip_id_values": true,
   "multiple_recs_found": "fail",
-  "check_terms" : true,
   "check_record_status" : true,
   "force_defaults": false,
   "date_format": "month day year",
@@ -117,22 +116,6 @@ While it is possible to use this setting to batch update existing records that d
 - *Defaults to:* fail
 - *Data type*: string
 - *Allowed values*: `fail`, `use_first`
-
-== check_terms
-
-If `true`, looks up each term via `collectionspace-refcache`. If found, uses existing refname. If not found, searches for term via cspace-services API and uses existing refname if found. If term not found in refcache or services API, builds a new refname, uses that in the record, adds it to refcache, and returns the term with `found=false` in `Response::Terms`.
-
-If `false`, never searches services API for the term. Uses refcache refname if it exists, otherwise builds a new refname and adds it to refcache. Returns all terms with `found=false` in `Response::Terms`.
-
-[NOTE]
-====
-Set this to false only if you are certain no terms from your data exist in CollectionSpace, and all of the terms need to be created as new. Otherwise, you may end up with duplicate terms being added to CollectionSpace, due to the fact that `collectionspace-mapper` does not generate exactly the same hashed short identifier value for use in the refname as the CollectionSpace application does.
-====
-
-- *Required?:* yes
-- *Defaults to:* true
-- *Data type*: boolean
-- *Allowed values*: `true`, `false`
 
 == check_record_status
 

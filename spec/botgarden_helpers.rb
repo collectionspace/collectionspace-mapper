@@ -76,7 +76,7 @@ module Helpers
       ['vocabularies', 'taxontermflag', 'invalid',
        {refname: "urn:cspace:botgarden.collectionspace.org:vocabularies:name(taxontermflag):item:name(invalid)'invalid'", csid: '1111-2222-3333-4444'}],
       ['vocabularies', 'taxontermflag', 'valid',
-       {refname: "urn:cspace:botgarden.collectionspace.org:vocabularies:name(taxontermflag):item:name(valid)'valid'", csid: '1111-2222-3333-4444'}],
+       {refname: "urn:cspace:botgarden.collectionspace.org:vocabularies:name(taxontermflag):item:name(valid)'valid'", csid: '1111-2222-3333-4444'}]
     ]
     populate(cache, terms)
   end

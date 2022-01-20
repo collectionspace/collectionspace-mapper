@@ -4,7 +4,7 @@ module CollectionSpace
   module Mapper
     module Tools
       class RefNameArgumentError < ArgumentError
-        def initialize(msg='Arguments requires either :urn OR :source_type, :type, :subtype, :term, :cache values')
+        def initialize(msg = 'Arguments requires either :urn OR :source_type, :type, :subtype, :term, :cache values')
           super
         end
       end
@@ -24,7 +24,7 @@ module CollectionSpace
             new_from_urn
           elsif args_given == term_args
             cache = args[:cache]
-            @domain = cache.domain.sub(/https?:\/\//, '').sub('/cspace-services', '')
+            @domain = cache.domain.sub(%r{https?://}, '').sub('/cspace-services', '')
             @type = args[:type]
             @subtype = args[:subtype]
             @display_name = args[:term]
@@ -43,7 +43,6 @@ module CollectionSpace
         end
 
         def new_from_term
-
           @identifier = CollectionSpace::Mapper::Identifiers::ShortIdentifier.new(term: @display_name).value
         end
 
@@ -52,9 +51,9 @@ module CollectionSpace
         end
 
         def new_from_urn
-          if /^urn:cspace:([^:]+):([^:]+):name\(([^\)]+)\):item:name\(([^\)]+)\)'/.match?(@urn)
+          if /^urn:cspace:([^:]+):([^:]+):name\(([^)]+)\):item:name\(([^)]+)\)'/.match?(@urn)
             term_parts_from_urn
-          elsif /^urn:cspace:([^:]+):([^:]+):id\(([^\)]+)\)(.*)/.match?(@urn)
+          elsif /^urn:cspace:([^:]+):([^:]+):id\(([^)]+)\)(.*)/.match?(@urn)
             non_term_parts_from_urn
           else
             raise CS::Mapper::Tools::UnparseableUrnError
@@ -62,7 +61,7 @@ module CollectionSpace
         end
 
         def term_parts_from_urn
-          parts = @urn.match(/^urn:cspace:([^:]+):([^:]+):name\(([^\)]+)\):item:name\(([^\)]+)\)'/)
+          parts = @urn.match(/^urn:cspace:([^:]+):([^:]+):name\(([^)]+)\):item:name\(([^)]+)\)'/)
           @domain = parts[1]
           @type = parts[2]
           @subtype = parts[3]
@@ -71,7 +70,7 @@ module CollectionSpace
         end
 
         def non_term_parts_from_urn
-          parts = @urn.match(/^urn:cspace:([^:]+):([^:]+):id\(([^\)]+)\)(.*)/)
+          parts = @urn.match(/^urn:cspace:([^:]+):([^:]+):id\(([^)]+)\)(.*)/)
           @domain = parts[1]
           @type = parts[2]
           @subtype = nil

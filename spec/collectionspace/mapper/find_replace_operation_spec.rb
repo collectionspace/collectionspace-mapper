@@ -9,7 +9,7 @@ RSpec.describe CollectionSpace::Mapper::FindReplaceOperation do
     let(:creator){ described_class.create(opspec) }
 
     context 'given a plain operation' do
-      let(:opspec){ {find: ' ', replace:'-', type: 'plain'} }
+      let(:opspec){ {find: ' ', replace: '-', type: 'plain'} }
       it 'returns a FindReplaceOperation' do
         expect(creator).to be_a(CS::Mapper::FindReplaceOperation)
       end
@@ -24,7 +24,7 @@ RSpec.describe CollectionSpace::Mapper::FindReplaceOperation do
   end
 
   describe '#perform' do
-    let(:opspec){ {find: ' ', replace:'-', type: 'plain'} }
+    let(:opspec){ {find: ' ', replace: '-', type: 'plain'} }
     let(:result){ operation.perform(value) }
     context 'given blank value' do
       let(:value){ '' }
@@ -41,4 +41,3 @@ RSpec.describe CollectionSpace::Mapper::FindReplaceOperation do
     end
   end
 end
-

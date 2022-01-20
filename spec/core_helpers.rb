@@ -133,7 +133,7 @@ module Helpers
        {refname: "urn:cspace:core.collectionspace.org:orgauthorities:name(ulan_oa):item:name(Signal1599559737158)'Signal'", csid: '1111-2222-3333-4444'}],
       ['orgauthorities', 'ulan_oa', 'Very fats',
        {refname: "urn:cspace:core.collectionspace.org:orgauthorities:name(ulan_oa):item:name(Veryfats1599645188567)'Very fats'", csid: '1111-2222-3333-4444'}],
-      ['personauthorities', 'person',  'Broooks',
+      ['personauthorities', 'person', 'Broooks',
        {refname: "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Broooks1599221558583)'Broooks'", csid: '1111-2222-3333-4444'}],
       ['personauthorities', 'person', '2020',
        {refname: "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(20201599147149106)'2020'", csid: '1111-2222-3333-4444'}],
@@ -404,7 +404,7 @@ module Helpers
       ['vocabularies', 'uocusertypes', 'lecturer',
        {refname: "urn:cspace:core.collectionspace.org:vocabularies:name(uocusertypes):item:name(lecturer)'lecturer'", csid: '1111-2222-3333-4444'}],
       ['workauthorities', 'work', 'Makeup',
-       {refname: "urn:cspace:core.collectionspace.org:workauthorities:name(work):item:name(Makeup1608768998350)'Makeup'", csid: '1111-2222-3333-4444'}],
+       {refname: "urn:cspace:core.collectionspace.org:workauthorities:name(work):item:name(Makeup1608768998350)'Makeup'", csid: '1111-2222-3333-4444'}]
     ]
     populate(cache, terms)
   end
