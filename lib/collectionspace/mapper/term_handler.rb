@@ -113,6 +113,7 @@ module CollectionSpace
         #refname_url = @cache.get('unknownvalue', type_subtype, val)[:refname]
         refname_obj = CollectionSpace::Mapper::Tools::RefName.new(urn: refname_url)
         @terms << term_report.merge({found: false, refname: refname_obj})
+        add_missing_record_error('term', val)
         refname_url
       end
     end

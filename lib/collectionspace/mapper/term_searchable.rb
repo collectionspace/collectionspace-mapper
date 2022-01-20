@@ -134,6 +134,17 @@ module CollectionSpace
 
                 nil
               end
+
+      private def add_missing_record_error(category, val)
+                errors << {
+                  category: "no_records_found_for_#{category}".to_sym,
+                  field: column,
+                  type: type,
+                  subtype: subtype,
+                  value: val,
+                  message: "#{val} (#{type_subtype} in #{column} column)"
+                }
+              end
       
       private def rec_from_response(category, val, response)
                 term_ct = response_item_count(response)
@@ -152,14 +163,7 @@ module CollectionSpace
 
                 case term_ct
                 when 0
-                  errors << {
-                    category: "no_records_found_for_#{category}".to_sym,
-                    field: column,
-                    type: type,
-                    subtype: subtype,
-                    value: val,
-                    message: "#{val} (#{type_subtype} in #{column} column)"
-                  }
+                  add_missing_record_error(category, val)
                   rec = nil
                 when 1
                   rec = response['list_item']
