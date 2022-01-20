@@ -86,7 +86,7 @@ module CollectionSpace
       
       def obj_csid(objnum, type)
         cached = @cache.get(type, '', objnum, search: false)
-        return cached[:csid] if cached
+        return convert_cached_value(cached)[:csid] if cached
         
         lookup_obj_csid(objnum, type)
       end
