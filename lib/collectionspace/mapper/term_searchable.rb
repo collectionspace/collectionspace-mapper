@@ -24,6 +24,7 @@ module CollectionSpace
 
       # returns refName of cached term
       def cached_term(val, return_key = :refname)
+        binding.pry
         returned = @cache.get(type, subtype, val, search: false)
         return returned[return_key] if returned
 
