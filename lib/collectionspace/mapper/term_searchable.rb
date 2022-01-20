@@ -88,13 +88,14 @@ module CollectionSpace
         cached = @cache.get(type, '', objnum, search: false)
         return convert_cached_value(cached)[:csid] if cached
         
-        lookup_obj_csid(objnum, type)
+        lookup_obj_or_procedure_csid(objnum, type)
       end
 
-      def lookup_obj_csid(objnum, type)
+      def lookup_obj_or_procedure_csid(objnum, type)
+        category = 'object_or_procedure'
         response = @client.find(type: type, value: objnum)
         if response.result.success?
-          rec = rec_from_response('objnum', objnum, parse_response(response))
+          rec = rec_from_response(category, objnum, parse_response(response))
           return nil unless rec
 
           csid = rec['csid']
@@ -102,7 +103,7 @@ module CollectionSpace
           csid
         else
           errors << {
-            category: :unsuccessful_csid_lookup_for_objnum,
+            category: "unsuccessful_csid_lookup_for_#{category}".to_sym,
             field: '',
             subtype: '',
             type: type,
