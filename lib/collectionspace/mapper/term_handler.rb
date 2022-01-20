@@ -58,6 +58,8 @@ module CollectionSpace
           field: column
         }
 
+        binding.pry
+        
         if in_cache?(val)
           refname_urn = cached_term(val, :refname)
           if refname_urn
