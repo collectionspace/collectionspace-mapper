@@ -12,14 +12,14 @@ module CollectionSpace
 
       # returns whether value is cached as an unknownvalue
       def cached_as_unknown?(val)
-        return true if @cache.exists?('unknownvalue', unknown_type, val)
-        return true if @cache.exists?('unknownvalue', unknown_type, case_swap(val))
+        return true if @cache.exists?('unknownvalue', type_subtype, val)
+        return true if @cache.exists?('unknownvalue', type_subtype, case_swap(val))
 
         false
       end
 
-      private def unknown_type
-                @unknown_type ||= "#{type}/#{subtype}"
+      private def type_subtype
+                @type_subtype ||= "#{type}/#{subtype}"
               end
 
       # returns refName of cached term
@@ -134,7 +134,6 @@ module CollectionSpace
 
                 nil
               end
-
       
       private def rec_from_response(category, val, response)
                 term_ct = response_item_count(response)
@@ -155,11 +154,11 @@ module CollectionSpace
                 when 0
                   errors << {
                     category: "no_records_found_for_#{category}".to_sym,
-                    field: '',
+                    field: column,
                     type: type,
                     subtype: subtype,
                     value: val,
-                    message: "#{term_ct} records found."
+                    message: "#{val} (#{type_subtype} in #{column} column)"
                   }
                   rec = nil
                 when 1

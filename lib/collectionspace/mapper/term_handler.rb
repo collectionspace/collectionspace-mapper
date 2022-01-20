@@ -104,13 +104,13 @@ module CollectionSpace
 
         @terms << term_report.merge({found: false, refname: refname_obj})
         refname_url = refname_obj.urn
-        @cache.put('unknownvalue', unknown_type, val, {refname: refname_url, csid: nil})
+        @cache.put('unknownvalue', type_subtype, val, {refname: refname_url, csid: nil})
         refname_url
       end
 
       def add_known_unknown_term(val, term_report)
         refname_url = cached_term(val, :refname, 'unknownvalue', "#{type}/#{subtype}")
-        #refname_url = @cache.get('unknownvalue', unknown_type, val)[:refname]
+        #refname_url = @cache.get('unknownvalue', type_subtype, val)[:refname]
         refname_obj = CollectionSpace::Mapper::Tools::RefName.new(urn: refname_url)
         @terms << term_report.merge({found: false, refname: refname_obj})
         refname_url
