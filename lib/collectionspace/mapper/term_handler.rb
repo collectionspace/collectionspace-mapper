@@ -64,6 +64,9 @@ module CollectionSpace
             add_found_term(refname_urn, term_report)
             added = true
           end
+        elsif cached_as_unknown?(val)
+          refname_urn = add_known_unknown_term(val, term_report)
+          added = true
         else # not in cache
           if @config.check_terms
             refname_urn = searched_term(val, :refname)
@@ -75,19 +78,19 @@ module CollectionSpace
         end
 
         return refname_urn if added
-        
-        # this section needs to be updated when not-found terms become blocking errors instead
-        #  of warnings. At that point, we no longer want to generate and store a refname for the
-        #  term, since it will not be mapped. 
-        if cached_as_unknown?(val)
-          refname_urn = add_known_unknown_term(val, term_report)
-        else
-          refname_urn = add_new_unknown_term(val, term_report)
-        end
-        
-        refname_urn
+
+        add_new_unknown_term(val, term_report)
       end
 
+      def add_found_term(refname_urn, term_report)
+        refname_obj = CollectionSpace::Mapper::Tools::RefName.new(urn: refname_urn)
+        found = @config.check_terms ? true : false
+        @terms << term_report.merge({found: found, refname: refname_obj})
+      end
+
+      # the next two methods need to be updated when not-found terms become blocking errors instead
+      #  of warnings. At that point, we no longer want to generate and store a refname for the
+      #  term, since it will not be mapped.
       def add_new_unknown_term(val, term_report)
         refname_obj = CollectionSpace::Mapper::Tools::RefName.new(
           source_type: source_type,
@@ -107,12 +110,6 @@ module CollectionSpace
         refname_obj = CollectionSpace::Mapper::Tools::RefName.new(urn: refname_url)
         @terms << term_report.merge({found: false, refname: refname_obj})
         refname_url
-      end
-
-      def add_found_term(refname_urn, term_report)
-        refname_obj = CollectionSpace::Mapper::Tools::RefName.new(urn: refname_urn)
-        found = @config.check_terms ? true : false
-        @terms << term_report.merge({found: found, refname: refname_obj})
       end
     end
   end
