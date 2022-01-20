@@ -7,12 +7,13 @@ module CollectionSpace
   module Mapper
     class ObjectHierarchyPrepper < CollectionSpace::Mapper::DataPrepper
       include CollectionSpace::Mapper::TermSearchable
-      attr_reader :errors, :warnings, :type
+      attr_reader :errors, :warnings, :type, :subtype
 
       def initialize(data, handler)
         super
         @cache = @handler.mapper.termcache
         @type = @response.merged_data['subjectdocumenttype']
+        @subtype = ''
         @errors = []
         @warnings = []
       end
