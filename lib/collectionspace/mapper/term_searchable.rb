@@ -136,13 +136,15 @@ module CollectionSpace
               end
 
       private def add_missing_record_error(category, val)
+                datacolumn = column ||= 'data'
+                
                 errors << {
                   category: "no_records_found_for_#{category}".to_sym,
-                  field: column,
-                  type: type,
-                  subtype: subtype,
+                  field: '',
+                  type: '',
+                  subtype: '',
                   value: val,
-                  message: "#{val} (#{type_subtype} in #{column} column)"
+                  message: "#{val} (#{type_subtype} in #{datacolumn} column)"
                 }
               end
       

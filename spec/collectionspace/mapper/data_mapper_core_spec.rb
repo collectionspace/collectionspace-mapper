@@ -84,12 +84,33 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
       let(:mapper){
  get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_authorityhierarchy.json') }
 
-      context 'record 1' do
+      context 'with existing terms' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/authorityHierarchy1.json' }
         let(:fixturepath){ 'core/authorityHierarchy1.xml' }
 
         it 'sets response id field as expected' do
           expect(response.identifier).to eq('Cats > Siamese cats')
+        end
+
+        it 'does not map unexpected fields' do
+          expect(diff).to eq([])
+        end
+
+        it 'maps as expected' do
+          fixture_xpaths.each do |xpath|
+            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
+            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
+            expect(mapped_node).to eq(fixture_node)
+          end
+        end
+      end
+
+      context 'with a missing term' do
+        let(:hashpath){ 'spec/fixtures/files/datahashes/core/authorityHierarchy2.json' }
+        let(:fixturepath){ 'core/authorityHierarchy2.xml' }
+
+        it 'sets response id field as expected' do
+          expect(response.identifier).to eq('Cats > Tuxedo cats')
         end
 
         it 'does not map unexpected fields' do
