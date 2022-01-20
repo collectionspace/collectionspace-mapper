@@ -23,14 +23,20 @@ module CollectionSpace
               end
 
       # returns refName of cached term
-      def cached_term(val, return_key = :refname)
-        returned = @cache.get(type, subtype, val, search: false)
-        return returned[return_key] if returned
+      def cached_term(val, return_key = :refname, termtype = type, termsubtype = subtype)
+        returned = @cache.get(termtype, termsubtype, val, search: false)
+        return convert_cached_value(returned)[return_key] if returned
 
-        returned = @cache.get(type, subtype, case_swap(val), search: false)
-        return returned[return_key] if returned
+        returned = @cache.get(termtype, termsubtype, case_swap(val), search: false)
+        return convert_cached_value(returned)[return_key] if returned
       end
 
+      private def convert_cached_value(cache_response)
+                return cache_response if cache_response.is_a?(Hash)
+
+                instance_eval(cache_response)
+              end
+      
       # returns refName of searched (term)
       def searched_term(val, return_key = :refname)
         response = term_search_response(val)
@@ -42,7 +48,6 @@ module CollectionSpace
         @cache.put(type, subtype, val, cache_value)
         cache_value[return_key]
       end
-
 
       private def case_swap(string)
                 string.match?(/[A-Z]/) ? string.downcase : string.capitalize

@@ -58,7 +58,6 @@ module CollectionSpace
           field: column
         }
 
-        binding.pry
         
         if in_cache?(val)
           refname_urn = cached_term(val, :refname)
@@ -93,6 +92,8 @@ module CollectionSpace
       # the next two methods need to be updated when not-found terms become blocking errors instead
       #  of warnings. At that point, we no longer want to generate and store a refname for the
       #  term, since it will not be mapped.
+      # at the point of switching error, the termtype and termsubtype parameters can be removed from
+      #  cached_term
       def add_new_unknown_term(val, term_report)
         refname_obj = CollectionSpace::Mapper::Tools::RefName.new(
           source_type: source_type,
@@ -108,7 +109,8 @@ module CollectionSpace
       end
 
       def add_known_unknown_term(val, term_report)
-        refname_url = @cache.get('unknownvalue', unknown_type, val)[:refname]
+        refname_url = cached_term(val, :refname, 'unknownvalue', "#{type}/#{subtype}")
+        #refname_url = @cache.get('unknownvalue', unknown_type, val)[:refname]
         refname_obj = CollectionSpace::Mapper::Tools::RefName.new(urn: refname_url)
         @terms << term_report.merge({found: false, refname: refname_obj})
         refname_url
