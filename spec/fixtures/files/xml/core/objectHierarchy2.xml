@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<document name="relations">
+    <ns2:relations_common xmlns:ns2="http://collectionspace.org/services/relation">
+        <subjectCsid></subjectCsid>
+        <subjectDocumentType>collectionobjects</subjectDocumentType>
+        <relationshipType>hasBroader</relationshipType>
+        <relationshipMetaType>separable-part</relationshipMetaType>
+        <objectCsid>e37949e9-6402-4ad2-b899</objectCsid>
+        <objectDocumentType>collectionobjects</objectDocumentType>
+    </ns2:relations_common>
+</document>
