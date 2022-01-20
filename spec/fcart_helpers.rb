@@ -22,7 +22,7 @@ module Helpers
   def populate_fcart(cache)
     terms = [
       ['personauthorities', 'person', 'Elizabeth',
-       { refname: "urn:cspace:fcart.collectionspace.org:personauthorities:name(person):item:name(Elizabeth123)'Elizabeth'", csid: '1111-2222-3333-4444' }]    ]
+       {refname: "urn:cspace:fcart.collectionspace.org:personauthorities:name(person):item:name(Elizabeth123)'Elizabeth'", csid: '1111-2222-3333-4444'}]    ]
     populate(cache, terms)
   end
 

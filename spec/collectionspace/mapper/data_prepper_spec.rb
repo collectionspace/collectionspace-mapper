@@ -3,11 +3,11 @@
 require 'spec_helper'
 
 RSpec.describe CollectionSpace::Mapper::DataPrepper do
-  let(:delimiter) { ';' }
-  let(:client) { anthro_client }
-  let(:cache) { anthro_cache }
-  let(:mapperpath) { 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json' }
-  let(:mapper) { get_json_record_mapper(mapperpath) }
+  let(:delimiter){ ';' }
+  let(:client){ anthro_client }
+  let(:cache){ anthro_cache }
+  let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json' }
+  let(:mapper){ get_json_record_mapper(mapperpath) }
   let(:config) do
     {
       delimiter: delimiter,
@@ -19,8 +19,8 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
                                              cache: cache,
                                              config: config)
   end
-  let(:prepper) { CollectionSpace::Mapper::DataPrepper.new(datahash, handler) }
-  let(:datahash) { { 'objectNumber' => '123' } }
+  let(:prepper){ CollectionSpace::Mapper::DataPrepper.new(datahash, handler) }
+  let(:datahash){ {'objectNumber' => '123'} }
 
   describe '#merge_default_values' do
     let(:datahash) do
@@ -69,7 +69,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
             expect(res).to eq(ex)
           end
         end
-        
+
         context 'and :force_defaults = true' do
           let(:config) do
             {
@@ -92,10 +92,10 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
 
   describe '#process_xpaths' do
     context 'when authority record' do
-      let(:client) { core_client }
-      let(:cache) { core_cache }
-      let(:mapperpath) { 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_place-local.json' }
-      let(:datahash) { {'termdisplayname'=>'Silk Hope' } }
+      let(:client){ core_client }
+      let(:cache){ core_cache }
+      let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_place-local.json' }
+      let(:datahash){ {'termdisplayname' => 'Silk Hope'} }
 
       it 'keeps mapping for shortIdentifier in xphash' do
         result = prepper.prep.xphash['places_common'][:mappings].select do |mapping|
@@ -109,7 +109,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   describe '#handle_term_fields' do
     let(:datahash) do
       {
-        'objectnumber'=>'123',
+        'objectnumber' => '123',
         'title' => 'A "Man";A Woman',
         'titleLanguage' => 'English;English',
         'titleTranslation' => 'Un Homme^^Hombre; Une Femme^^Fraulein',
@@ -125,7 +125,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
                    "urn:cspace:anthro.collectionspace.org:vocabularies:name(languages):item:name(deu)'German'"]]
       expect(res).to eq(expected)
     end
-    
+
     it 'adds expected term Hashes to response.terms' do
       chk = prepper.prep.response.terms.select{ |t| t[:field] == 'titletranslationlanguage' }
       expect(chk.length).to eq(4)
@@ -135,7 +135,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   describe '#transform_date_fields' do
     let(:datahash) do
       {
-        'objectnumber'=>'123',
+        'objectnumber' => '123',
         'annotationdate' => '12/19/2019;12/10/2019',
         'identdategroup' => '2019-09-30;4/5/2020',
       }
@@ -159,7 +159,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   describe '#combine_data_values' do
     let(:datahash) do
       {
-        'objectnumber'=>'123',
+        'objectnumber' => '123',
         'fieldCollectorPerson' => 'Ann Analyst;Gabriel Solares',
         'fieldCollectorOrganization' => 'Organization 1',
         'objectProductionPeopleArchculture' => 'Blackfoot',
@@ -191,9 +191,9 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
       end
 
       context 'and one or more combined field values is blank' do
-        let(:client) { core_client }
-        let(:cache) { core_cache }
-        let(:mapperpath) { 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_conservation.json' }
+        let(:client){ core_client }
+        let(:cache){ core_cache }
+        let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_conservation.json' }
         let(:datahash) do
           {
             'conservationNumber' => 'CT2020.7',
@@ -201,25 +201,25 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
             'statusDate' => ''
           }
         end
-        let(:xpath) { 'conservation_common/conservationStatusGroupList/conservationStatusGroup' }
+        let(:xpath){ 'conservation_common/conservationStatusGroupList/conservationStatusGroup' }
 
         it 'removes empty fields from combined data response' do
           result = prepper.prep.response.combined_data[xpath].keys
           expect(result).to_not include('statusDate')
         end
-        
+
         it 'removes empty fields from fieldmapping list passed on for mapping' do
           result = prepper.prep.xphash[xpath][:mappings]
           expect(result.length).to eq(1)
         end
       end
     end
-    
+
     context 'when multi-authority field is part of repeating field subgroup' do
-      let(:client) { core_client }
-      let(:cache) { core_cache }
-      let(:mapperpath) { 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_media.json' }
-      let(:xpath) { 'media_common/measuredPartGroupList/measuredPartGroup/dimensionSubGroupList/dimensionSubGroup' }
+      let(:client){ core_client }
+      let(:cache){ core_cache }
+      let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_media.json' }
+      let(:xpath){ 'media_common/measuredPartGroupList/measuredPartGroup/dimensionSubGroupList/dimensionSubGroup' }
 
       context 'when there is more than one group' do
         let(:datahash) do
@@ -237,7 +237,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
             'valueDate' => '2020-09-23^^2020-09-28^^2020-09-25^^2020-09-30;2020-07-21^^^2020-07-21'
           }
         end
-        
+
         # todo: why does this call services api?
         it 'combines values properly', services_call: true do
           result = prepper.prep.response.combined_data[xpath]['measuredBy']
@@ -255,7 +255,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
           expect(result).to eq(expected)
         end
       end
-      
+
       context 'when there is only one group' do
         let(:datahash) do
           {
@@ -272,7 +272,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
             'valueDate' => '2020-09-23^^2020-09-28^^2020-09-25^^2020-09-30'
           }
         end
-        
+
         it 'combines values properly' do
           result = prepper.prep.response.combined_data[xpath]['measuredBy']
           expected = [
@@ -289,7 +289,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   end
 
   describe '#prep' do
-    let(:res) { prepper.prep }
+    let(:res){ prepper.prep }
     it 'returns self' do
       expect(res).to be_a(CollectionSpace::Mapper::DataPrepper)
     end
@@ -317,9 +317,9 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   end
 
   describe 'leading/trailing space stripping' do
-    let(:datahash) { { 'objectNumber' => '123 ' } }
-    let(:result) { prepper.prep.response.transformed_data['objectnumber'] }
-    
+    let(:datahash){ {'objectNumber' => '123 '} }
+    let(:result){ prepper.prep.response.transformed_data['objectnumber'] }
+
     context 'with strip_id_values = true (the default)' do
       it 'strips leading/trailing spaces from id field(s)' do
         expect(result).to eq(['123'])
@@ -332,7 +332,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
           strip_id_values: false
         }
       end
-      
+
       it 'does not strip leading/trailing spaces from id field(s)' do
         expect(result).to eq(['123 '])
       end

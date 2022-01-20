@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe CollectionSpace::Mapper::ColumnMappings do
-  let(:mappings) { [
+  let(:mappings) do [
     {fieldname: 'objectNumber',
      transforms: {},
      source_type: 'na',
@@ -54,14 +54,14 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings do
      required: 'n'},
     {datacolumn: 'otherRequired',
      required: 'y'}
-  ] }
+  ] end
 
   let(:recordmapper){ instance_double('CS::Mapper::RecordMapper') }
   let(:mapperconfig){ instance_double('CS::Mapper::RecordMapperConfig') }
 
   let(:mappingsobj){ dc = described_class.new(mappings: mappings, mapper: recordmapper) }
 
-  let(:added_field) { {
+  let(:added_field) do {
     fieldname: 'addedField',
     namespace: 'persons_common',
     data_type: 'string',
@@ -70,7 +70,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings do
     repeats: 'n',
     in_repeating_group: 'n/a',
     datacolumn: 'addedfield'
-  } }
+  } end
 
   before do
     allow(recordmapper).to receive(:config).and_return(mapperconfig)
@@ -94,7 +94,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings do
   end
 
   context 'when initialized from media RecordMapper' do
-    let(:mappings) { [
+    let(:mappings) do [
     {fieldname: 'identificationNumber',
      transforms: {},
      source_type: 'na',
@@ -119,7 +119,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings do
      opt_list_values: [],
      datacolumn: 'title',
      required: 'n'}
-  ] }
+  ] end
 
     it 'adds mediaFileURI to mappings' do
       allow(mapperconfig).to receive(:common_namespace).and_return('media_common')

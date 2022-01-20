@@ -58,7 +58,6 @@ module CollectionSpace
           field: column
         }
 
-        
         if in_cache?(val)
           refname_urn = cached_term(val, :refname)
           if refname_urn
@@ -110,7 +109,7 @@ module CollectionSpace
 
       def add_known_unknown_term(val, term_report)
         refname_url = cached_term(val, :refname, 'unknownvalue', "#{type}/#{subtype}")
-        #refname_url = @cache.get('unknownvalue', type_subtype, val)[:refname]
+        # refname_url = @cache.get('unknownvalue', type_subtype, val)[:refname]
         refname_obj = CollectionSpace::Mapper::Tools::RefName.new(urn: refname_url)
         @terms << term_report.merge({found: false, refname: refname_obj})
         add_missing_record_error('term', val)

@@ -186,7 +186,7 @@ true if ct == 1 && v == ['as part of larger repeating group'] && ph[:mappings][0
           status = searchresult[:status]
           response.record_status = status
           return if status == :new
-          
+
           response.csid = searchresult[:csid]
           response.uri = searchresult[:uri]
           response.refname = searchresult[:refname]

@@ -36,9 +36,9 @@ module CollectionSpace
       def process_group(xml, grouppath)
         @docstructure.dig(*grouppath).keys.each do |key|
           thispath = grouppath.clone.append(key)
-          xml.send(key){
+          xml.send(key) do
             process_group(xml, thispath)
-          }
+          end
         end
       end
     end

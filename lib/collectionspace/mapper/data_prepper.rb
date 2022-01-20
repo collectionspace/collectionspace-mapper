@@ -117,7 +117,7 @@ module CollectionSpace
           next if data.nil? || data.empty?
 
           @response.split_data[column] = non_group_splitter(mapping, data)
-            #mapping.repeats == 'y' ? CollectionSpace::Mapper::SimpleSplitter.new(data, config).result : [data.strip]
+            # mapping.repeats == 'y' ? CollectionSpace::Mapper::SimpleSplitter.new(data, config).result : [data.strip]
         end
       end
 
@@ -153,7 +153,7 @@ module CollectionSpace
           @response.split_data[column] = CollectionSpace::Mapper::SubgroupSplitter.new(data, config).result
         end
       end
-      
+
       def do_transforms(xphash)
         splitdata = @response.split_data
         targetdata = @response.transformed_data
@@ -255,10 +255,10 @@ module CollectionSpace
                                                                   @cache,
                                                                   @handler.mapper.batchconfig).mappable
           else
-            d.map{ |v| CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(v,
-                                                                             @client,
-                                                                             @cache,
-                                                                             @handler.mapper.batchconfig).mappable }
+            d.map do |v| CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(v,
+                                                                               @client,
+                                                                               @cache,
+                                                                               @handler.mapper.batchconfig).mappable end
           end
         end
       end
@@ -271,10 +271,10 @@ module CollectionSpace
                                                                   @cache,
                                                                   @handler.mapper.batchconfig).stamp
           else
-            d.map{ |v| CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(v,
-                                                                             @client,
-                                                                             @cache,
-                                                                             @handler.mapper.batchconfig).stamp }
+            d.map do |v| CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(v,
+                                                                               @client,
+                                                                               @cache,
+                                                                               @handler.mapper.batchconfig).stamp end
           end
         end
       end

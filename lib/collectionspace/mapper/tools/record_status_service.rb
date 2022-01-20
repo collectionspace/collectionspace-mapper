@@ -46,14 +46,14 @@ module CollectionSpace
 
             item = response.parsed[@response_top][@response_nested].first
             num_found = response.parsed[@response_top][@response_nested].length
-            reportable_result(item).merge({ multiple_recs_found: num_found})
+            reportable_result(item).merge({multiple_recs_found: num_found})
           end
         end
 
         private
 
         def reportable_result(item = nil)
-          return { status: :new } unless item
+          return {status: :new} unless item
 
           {
             status: :existing,
@@ -62,7 +62,7 @@ module CollectionSpace
             refname: item['refName']
           }
         end
-        
+
         def lookup_non_relationship(value)
           @client.find(
             type: @mapper.config.service_path,
@@ -77,7 +77,7 @@ module CollectionSpace
 
           false
         end
-        
+
         def count_results(response)
           unless response.result.success?
             raise CollectionSpace::RequestError, response.result.body

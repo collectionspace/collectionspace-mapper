@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
 
   spec.required_ruby_version = '>= 2.7.4'
-  
+
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
@@ -53,6 +53,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop', '~> 1.18.3'
 
   # Uncomment these if you need to use the scripts in utils/benchmarking
-  #spec.add_development_dependency 'ruby-prof', '~> 1.4.3'
-  #spec.add_development_dependency 'time_up', '~> 0.0.7'
+  # spec.add_development_dependency 'ruby-prof', '~> 1.4.3'
+  # spec.add_development_dependency 'time_up', '~> 0.0.7'
 end

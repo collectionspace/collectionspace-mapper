@@ -14,13 +14,13 @@ class TermClass
     @subtype = subtype
     @errors = []
   end
-  
+
 end
 
 RSpec.describe CollectionSpace::Mapper::TermSearchable do
-  let(:cache) { core_cache }
-  let(:termtype) { 'conceptauthorities' }
-  let(:termsubtype) { 'concept' }
+  let(:cache){ core_cache }
+  let(:termtype){ 'conceptauthorities' }
+  let(:termsubtype){ 'concept' }
   let(:term){ TermClass.new(cache, core_client, termtype, termsubtype) }
 
   describe '#in_cache?' do
@@ -48,7 +48,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
   end
 
   describe '#cached_as_unknown?' do
-    let(:result) { term.cached_as_unknown?(val) }
+    let(:result){ term.cached_as_unknown?(val) }
     let(:val){ 'blahblahblah' }
 
     context 'when not cached as unknown value' do
@@ -64,7 +64,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
       end
     end
   end
-  
+
   describe '#cached_term' do
     let(:result){ term.cached_term(val) }
     context 'when not in cache' do
@@ -92,12 +92,12 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
   end
 
   describe '#searched_term' do
-    let(:termtype) { 'vocabularies' }
-    let(:termsubtype) { 'publishto' }
+    let(:termtype){ 'vocabularies' }
+    let(:termsubtype){ 'publishto' }
     let(:result){ term.searched_term(val) }
 
     context 'when val exists in instance' do
-      let(:val) { 'All' }
+      let(:val){ 'All' }
       it 'returns refname urn' do
         expected = "urn:cspace:core.collectionspace.org:vocabularies:name(publishto):item:name(all)'All'"
         expect(result).to eq(expected)
@@ -105,7 +105,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
     end
 
     context 'when case-swapped val exists in instance' do
-      let(:val) { 'all' }
+      let(:val){ 'all' }
       it 'returns refname urn' do
         expected = "urn:cspace:core.collectionspace.org:vocabularies:name(publishto):item:name(all)'All'"
         expect(result).to eq(expected)
@@ -119,7 +119,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
     let(:result){ term.obj_csid(objnum, type) }
     context 'when in cache' do
       let(:objnum){ 'Hierarchy Test 001' }
-      
+
       it 'returns csid' do
         expect(result).to eq('16161bff-b01a-4b55-95aa')
       end
@@ -138,7 +138,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
     context 'when in cache' do
       let(:val){ 'Sample Concept 1' }
       it 'returns csid' do
-      #it 'returns csid', :skip => 'does not cause mapping to fail, so we live with technical incorrectness for now' do
+      # it 'returns csid', :skip => 'does not cause mapping to fail, so we live with technical incorrectness for now' do
         expect(result).to eq('1111-2222-3333-4444')
       end
     end

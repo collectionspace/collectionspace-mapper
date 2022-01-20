@@ -79,8 +79,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
         args = {
           urn: 'urn:cspace:core.collectionspace.org:weird'
         }
-        expect{
- CollectionSpace::Mapper::Tools::RefName.new(args) }.to raise_error(CollectionSpace::Mapper::Tools::UnparseableUrnError)
+        expect do
+ CollectionSpace::Mapper::Tools::RefName.new(args) end.to raise_error(CollectionSpace::Mapper::Tools::UnparseableUrnError)
       end
     end
   end
@@ -91,8 +91,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
         urn: "urn:cspace:anthro.collectionspace.org:personauthorities:name(person):item:name(MaryPoole1796320156)'Mary Poole'",
         cache: @cache
       }
-      expect{
- CollectionSpace::Mapper::Tools::RefName.new(args) }.to raise_error(CollectionSpace::Mapper::Tools::RefNameArgumentError)
+      expect do
+ CollectionSpace::Mapper::Tools::RefName.new(args) end.to raise_error(CollectionSpace::Mapper::Tools::RefNameArgumentError)
     end
   end
 end

@@ -27,9 +27,9 @@ RSpec.describe CollectionSpace::Mapper do
     context 'when passed other class of object' do
       it 'returns a CollectionSpace::Mapper::Response' do
         data = ['objectNumber', '123']
-        expect{
- CollectionSpace::Mapper::setup_data(data) }.to raise_error(CollectionSpace::Mapper::Errors::UnprocessableDataError,
-                                                            'Cannot process a Array. Need a Hash or Mapper::Response')
+        expect do
+ CollectionSpace::Mapper::setup_data(data) end.to raise_error(CollectionSpace::Mapper::Errors::UnprocessableDataError,
+                                                              'Cannot process a Array. Need a Hash or Mapper::Response')
       end
     end
   end

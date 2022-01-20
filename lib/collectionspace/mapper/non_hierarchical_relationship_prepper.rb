@@ -70,7 +70,7 @@ module CollectionSpace
         instance_variable_set(:@type, type)
         obj_csid(id, type)
       end
-      
+
       def transform_terms
         %w[item1_id item2_id].each_with_index do |field, i|
           transformed = @response.split_data[field].map{ |id| get_rec_csid(id, @types[i]) }

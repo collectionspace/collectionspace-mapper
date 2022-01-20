@@ -10,8 +10,8 @@ module CollectionSpace
     # :reek:InstanceVariableAssumption - instance variables are set during initialization
     class Config
       attr_reader :delimiter, :subgroup_delimiter, :response_mode, :strip_id_values, :multiple_recs_found, :force_defaults,
-        :check_record_status, :check_terms, :date_format, :two_digit_year_handling, :transforms, :default_values,
-        :record_type
+                  :check_record_status, :check_terms, :date_format, :two_digit_year_handling, :transforms, :default_values,
+                  :record_type
       # todo: move default config in here
       include Tools::Symbolizable
 

@@ -27,10 +27,10 @@ RSpec.describe CollectionSpace::Mapper::ColumnMapping do
   end
 
   describe '#fullpath' do
-    let(:hash) { {
+    let(:hash) do {
         namespace: 'collectionobjects_common',
         xpath: ['otherNumberList', 'otherNumber'],
-      } }
+      } end
     it 'returns full xpath to target CollectionSpace field' do
       expected = 'collectionobjects_common/otherNumberList/otherNumber'
       expect(mapping.fullpath).to eq(expected)

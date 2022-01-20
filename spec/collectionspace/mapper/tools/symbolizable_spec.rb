@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe CS::Mapper::Tools::Symbolizable do
-  let(:config) { JSON.parse('{
+  let(:config) do JSON.parse('{
                                "delimiter": ";",
                                "subgroup_delimiter": "^^",
                                "response_mode": "verbose",
@@ -29,7 +29,7 @@ RSpec.describe CS::Mapper::Tools::Symbolizable do
                                  "collection": "library-collection"
                                }
                              }')
-  }
+  end
 
   let(:symconfig){ CS::Mapper::Tools::Symbolizable.symbolize(config) }
   describe '#symbolize' do
@@ -42,10 +42,10 @@ RSpec.describe CS::Mapper::Tools::Symbolizable do
 
   describe '#symbolize_transforms' do
     let(:transforms){ symconfig[:transforms] }
-    let(:expected) { {'collection' => {special: ['downcase_value'],
-                                       replacements: [{find: ' ', replace: '-', type: 'plain'}]
+    let(:expected) do {'collection' => {special: ['downcase_value'],
+                                        replacements: [{find: ' ', replace: '-', type: 'plain'}]
                                     }}
-    }
+    end
     it 'transforms as expected' do
       expect(CS::Mapper::Tools::Symbolizable.symbolize_transforms(transforms)).to eq(expected)
     end

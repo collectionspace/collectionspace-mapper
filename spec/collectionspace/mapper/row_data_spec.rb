@@ -4,12 +4,12 @@ require 'spec_helper'
 
 RSpec.describe CollectionSpace::Mapper::RowData do
   let(:recmapper){ core_object_mapper}
-  let(:data_hash) { {
+  let(:data_hash) do {
     'objectNumber' => '123',
     'comment' => 'blah',
     'title' => 'The title',
     'titleTranslation' => 'La title'
-  } }
+  } end
 
   let(:row){ CollectionSpace::Mapper::RowData.new(data_hash, recmapper) }
 

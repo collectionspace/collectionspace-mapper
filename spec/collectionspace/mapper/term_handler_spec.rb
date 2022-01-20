@@ -6,15 +6,15 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
   let(:client){ core_client }
   let(:termcache){ core_cache }
   let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json' }
-  let(:recmapper) { CS::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
-                                                 csclient: client,
-                                                 termcache: termcache) }
+  let(:recmapper) do CS::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
+                                                  csclient: client,
+                                                  termcache: termcache) end
   let(:colmapping){ recmapper.mappings.lookup(colname) }
-  let(:th) { CS::Mapper::TermHandler.new(mapping: colmapping,
-                                         data: data,
-                                         client: client,
-                                         cache: termcache,
-                                         mapper: recmapper) }
+  let(:th) do CS::Mapper::TermHandler.new(mapping: colmapping,
+                                          data: data,
+                                          client: client,
+                                          cache: termcache,
+                                          mapper: recmapper) end
  # before(:all) do
 #    @config = @handler.mapper.batchconfig
   #  @ref_mapping = CollectionSpace::Mapper::ColumnMapping.new({

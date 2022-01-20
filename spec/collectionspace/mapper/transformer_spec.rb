@@ -6,14 +6,14 @@ RSpec.describe CollectionSpace::Mapper::Transformer do
   let(:client){ anthro_client }
   let(:cache){ anthro_cache }
   let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject_transforms.json'}
-  let(:recmapper) { CS::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
-                                                 csclient: client,
-                                                 termcache: cache) }
+  let(:recmapper) do CS::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
+                                                  csclient: client,
+                                                  termcache: cache) end
 
   describe '.create' do
-    let(:creator) { described_class.create(recmapper: recmapper,
-                                           type: type,
-                                           transform: transform) }
+    let(:creator) do described_class.create(recmapper: recmapper,
+                                            type: type,
+                                            transform: transform) end
 
     context 'given an authority transform' do
       let(:type){ :authority }

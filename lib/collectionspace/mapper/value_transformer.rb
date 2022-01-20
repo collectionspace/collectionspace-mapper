@@ -31,14 +31,14 @@ module CollectionSpace
         't' => 'true',
         'f' => 'false'
       }
-      
+
       def process_replacements
         return if @value.empty?
 
         @transforms[:replacements].each do |rule|
           find = rule[:find]
           replace = rule[:replace]
-          
+
           case rule[:type]
           when :plain
             @value = @value.gsub(find, replace)
@@ -69,7 +69,7 @@ module CollectionSpace
           @value = BOOLEAN_LOOKUP[chkval]
           return
         end
-        
+
         @value = 'false'
         @warnings << {
           category: :boolean_value_transform,
