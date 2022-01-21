@@ -31,6 +31,8 @@ See [PR 136](https://github.com/collectionspace/collectionspace-mapper/pull/136)
 ### Deleted
 - `check_terms` batch configuration option
 
+Details: https://github.com/collectionspace/collectionspace-mapper/compare/v2.5.2...v3.0.0
+
 ## [2.5.2] - 2022-01-14
 ### Added
 - `strip_id_values` batch configuration option added. Setting this to `false` allows update of existing records with leading/trailing spaces on the record ID field values. 
