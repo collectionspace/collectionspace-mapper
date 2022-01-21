@@ -10,6 +10,7 @@ module CollectionSpace
       attr_reader :result, :terms, :warnings, :errors,
                   :column, :source_type, :type, :subtype
       attr_accessor :value
+
       def initialize(mapping:, data:, client:, cache:, mapper:)
         @mapping = mapping
         @data = data
@@ -39,11 +40,11 @@ module CollectionSpace
       private
 
       def handle_terms
-        if @data.first.is_a?(String)
-          @result = @data.map{ |val| handle_term(val) }
-        else
-          @result = @data.map{ |arr| arr.map{ |val| handle_term(val)} }
-        end
+        @result = if @data.first.is_a?(String)
+                    @data.map{ |val| handle_term(val) }
+                  else
+                    @data.map{ |arr| arr.map{ |val| handle_term(val) } }
+                  end
       end
 
       def handle_term(val)
@@ -59,41 +60,61 @@ module CollectionSpace
         }
 
         if in_cache?(val)
-          refname_urn = cached_term(val)
+          refname_urn = cached_term(val, :refname)
           if refname_urn
             add_found_term(refname_urn, term_report)
             added = true
           end
+        elsif cached_as_unknown?(val)
+          refname_urn = add_known_unknown_term(val, term_report)
+          added = true
         else # not in cache
-          if @config.check_terms
-            refname_urn = searched_term(val)
-            if refname_urn
-              add_found_term(refname_urn, term_report)
-              added = true
-            end
+          refname_urn = searched_term(val, :refname)
+          if refname_urn
+            add_found_term(refname_urn, term_report)
+            added = true
           end
         end
 
-        unless added
-          refname_obj = CollectionSpace::Mapper::Tools::RefName.new(
-            source_type: source_type,
-            type: type,
-            subtype: subtype,
-            term: val,
-            cache: @cache)
-          @terms << term_report.merge({found: false, refname: refname_obj})
-          @cache.put(type, subtype, val, refname_obj.urn)
-          refname_urn = refname_obj.urn
-        end
-        refname_urn
+        return refname_urn if added
+
+        add_new_unknown_term(val, term_report)
       end
 
       def add_found_term(refname_urn, term_report)
         refname_obj = CollectionSpace::Mapper::Tools::RefName.new(urn: refname_urn)
-        found = @config.check_terms ? true : false
+        found = true
         @terms << term_report.merge({found: found, refname: refname_obj})
+      end
+
+      # the next two methods need to be updated when not-found terms become blocking errors instead
+      #  of warnings. At that point, we no longer want to generate and store a refname for the
+      #  term, since it will not be mapped.
+      # at the point of switching error, the termtype and termsubtype parameters can be removed from
+      #  cached_term
+      def add_new_unknown_term(val, term_report)
+        refname_obj = CollectionSpace::Mapper::Tools::RefName.new(
+          source_type: source_type,
+          type: type,
+          subtype: subtype,
+          term: val,
+          cache: @cache
+        )
+
+        @terms << term_report.merge({found: false, refname: refname_obj})
+        refname_url = refname_obj.urn
+        @cache.put('unknownvalue', type_subtype, val, {refname: refname_url, csid: nil})
+        refname_url
+      end
+
+      def add_known_unknown_term(val, term_report)
+        refname_url = cached_term(val, :refname, 'unknownvalue', "#{type}/#{subtype}")
+        # refname_url = @cache.get('unknownvalue', type_subtype, val)[:refname]
+        refname_obj = CollectionSpace::Mapper::Tools::RefName.new(urn: refname_url)
+        @terms << term_report.merge({found: false, refname: refname_obj})
+        add_missing_record_error('term', val)
+        refname_url
       end
     end
   end
 end
-

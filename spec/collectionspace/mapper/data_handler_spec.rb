@@ -3,86 +3,83 @@
 require 'spec_helper'
 
 RSpec.describe CollectionSpace::Mapper::DataHandler do
-  before(:all) do
-  @anthro_client = anthro_client
-  @anthro_cache = anthro_cache
-  @anthro_object_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json')
-  @anthro_object_handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @anthro_object_mapper,
-                                                                    client: @anthro_client,
-                                                                    cache: @anthro_cache)
-  @anthro_place_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_place-local.json')
-  @anthro_place_handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @anthro_place_mapper,
-                                                                   client: @anthro_client,
-                                                                   cache: @anthro_cache)
+  let(:client){ core_client }
+  let(:cache){ core_cache_search }
+  let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json' }
+  let(:mapper){ get_json_record_mapper(mapperpath) }
+  let(:config){ {delimiter: '|'} }
+  let(:handler) do
+    CollectionSpace::Mapper::DataHandler.new(record_mapper: mapper,
+                                             client: client,
+                                             cache: cache,
+                                             config: config)
+  end
 
-  @bonsai_client = bonsai_client
-  @bonsai_cache = bonsai_cache
-  @bonsai_conservation_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/bonsai/bonsai_4-1-1_conservation.json')
-  @bonsai_conservation_handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @bonsai_conservation_mapper,
-                                                                          client: @bonsai_client,
-                                                                          cache: @bonsai_cache)
-end
+  # these make services api calls to find terms not in cache
+  context 'with some terms found and some terms not found', services_call: true do
+    let(:result){ handler.process(data).terms.reject{ |t| t[:found] } }
 
-  # todo: why are these making services api calls?
-  context 'when config has check_terms = false', services_call: true do
-    before(:all) do
-      @client = core_client
-      @cache = core_cache_search
-      @mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json')
-      @config = '{"check_terms": false}'
-      @handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @mapper,
-                                                          client: @client,
-                                                          cache: @cache,
-                                                          config: @config)
-      @data = {'objectNumber' => '20CS.001.0002',
-               'numberOfObjects' => '1',
-               'title' => 'Rainbow',
-               'titleLanguage' => 'English',
-               'namedCollection' => 'Test Collection',
-               'collection' => 'rando'}
-      @data2 = {'objectNumber' => '20CS.001.0001',
-                'numberOfObjects' => '1',
-                'numberValue' => '123456|98765',
-                'numberType' => 'lender|obsolete',
-                'title' => 'A Man| A Woman',
-                'titleLanguage' => 'English| Klingon',
-                'namedCollection' => 'Test collection',
-                'collection' => 'permanent collection'}
+    context 'with terms in instance but not in cache' do
+      let(:data) do
+        {
+          'objectNumber' => '20CS.001.0002',
+          'titleLanguage' => 'English', # vocabulary, in instance, in cache
+          'namedCollection' => 'Test Collection' # authority, in instance (caseswapped), not in cache
+        }
+      end
+
+      it 'returns expected found values' do
+        res = handler.process(data)
+        not_found = res.terms.reject{ |t| t[:found] }
+        expect(not_found.length).to eq(0)
+      end
     end
-    it 'returns found = false for all terms, even if they exist in client' do
-      res = @handler.process(@data)
-      not_found = res.terms.reject{ |t| t[:found] }
-      expect(not_found.length).to eq(2)
-    end
-    it 'returns found = false for all terms, even if they exist in client' do
-      res = @handler.process(@data2)
-      not_found = res.terms.reject{ |t| t[:found] }
-      expect(not_found.length).to eq(3)
+
+    context 'with terms in instance but not in cache, and not in instance' do
+      let(:data) do
+        {
+          'objectNumber' => '20CS.001.0001',
+          'titleLanguage' => 'English| Klingon', # English is in cache; Klingon is not in instance or cache
+          'namedCollection' => 'Test collection' # In instance (caseswapped)
+        }
+      end
+
+      it 'returns expected found values' do
+        res = handler.process(data)
+        not_found = res.terms.reject{ |t| t[:found] }
+        expect(not_found.length).to eq(1)
+      end
     end
   end
 
   it 'tags all un-found terms as such', services_call: true do
     data1 = {
       'objectNumber' => '1',
-      'publishTo' => 'Wordpress', # vocabulary - not in cache
-      'namedCollection' => 'nc', # authority - not in cache
+      'publishTo' => 'All', # vocabulary - in instance, not in cache
+      'namedCollection' => 'QA TARGET Work' # authority - in instance, not in cache
     }
     data2 = {
       'objectNumber' => '2',
-      'publishTo' => 'Wordpress', # vocabulary - now in cache
-      'namedCollection' => 'nc', # authority - now in cache
-      'contentConceptAssociated' => 'Birds' # authority, in cache
+      'publishTo' => 'All', # vocabulary - now in cache
+      'namedCollection' => 'QA TARGET Work', # authority - now in cache
+      'contentConceptAssociated' => 'Birds' # authority - not in instance, not in cache
     }
-    @anthro_object_handler.process(data1)
-    result = @anthro_object_handler.process(data2).terms.select{ |t| t[:found] == false }
-    expect(result.length).to eq(2)
+
+    handler.process(data1)
+    result = handler.process(data2).terms.select{ |t| t[:found] == false }
+    expect(result.length).to eq(1)
   end
 
   describe '#is_authority' do
     context 'anthro profile' do
+      let(:client){ anthro_client }
+      let(:cache){ anthro_cache }
+
       context 'place record' do
+        let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_place-local.json' }
+
         it 'adds a xphash entry for shortIdentifier' do
-          result = @anthro_place_handler.mapper.xpath['places_common'][:mappings].select do |mapping|
+          result = handler.mapper.xpath['places_common'][:mappings].select do |mapping|
             mapping.fieldname == 'shortIdentifier'
           end
           expect(result.length).to eq(1)
@@ -93,9 +90,13 @@ end
 
   describe '#service_type' do
     let(:servicetype){ handler.service_type }
+
     context 'anthro profile' do
+      let(:client){ anthro_client }
+      let(:cache){ anthro_cache }
+
       context 'collectionobject record' do
-        let(:handler){ @anthro_object_handler }
+        let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json' }
 
         it 'returns object' do
           expect(servicetype).to eq('object')
@@ -103,7 +104,7 @@ end
       end
 
       context 'place record' do
-        let(:handler){ @anthro_place_handler }
+        let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_place-local.json' }
 
         it 'returns authority' do
           expect(servicetype).to eq('authority')
@@ -112,8 +113,11 @@ end
     end
 
     context 'bonsai profile' do
+      let(:client){ bonsai_client }
+      let(:cache){ bonsai_cache }
+
       context 'conservation record' do
-        let(:handler){ @bonsai_conservation_handler }
+        let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/bonsai/bonsai_4-1-1_conservation.json' }
 
         it 'returns procedure' do
           expect(servicetype).to eq('procedure')
@@ -122,74 +126,97 @@ end
     end
   end
 
+  #   @anthro_object_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json')
+  #   @anthro_object_handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @anthro_object_mapper,
+  #                                                                     client: @anthro_client,
+  #                                                                     cache: @anthro_cache)
+  #   @anthro_place_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_place-local.json')
+  #   @anthro_place_handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @anthro_place_mapper,
+  #                                                                    client: @anthro_client,
+  #                                                                    cache: @anthro_cache)
+
+  #   @bonsai_client = bonsai_client
+  #   @bonsai_cache = bonsai_cache
+  #   @bonsai_conservation_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/bonsai/bonsai_4-1-1_conservation.json')
+  #   @bonsai_conservation_handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @bonsai_conservation_mapper,
+  #                                                                           client: @bonsai_client,
+  #                                                                           cache: @bonsai_cache)
+  # end
+
   describe '#xpath_hash' do
+    let(:result){ handler.mapper.xpath[xpath] }
+
     context 'anthro profile' do
+      let(:client){ anthro_client }
+      let(:cache){ anthro_cache }
+
       context 'collectionobject record' do
+        let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json' }
+
         context 'xpath ending with commingledRemainsGroup' do
-          before(:all) do
-            xpath = 'collectionobjects_anthro/commingledRemainsGroupList/commingledRemainsGroup'
-            @h = @anthro_object_handler.mapper.xpath[xpath]
-          end
+          let(:xpath){ 'collectionobjects_anthro/commingledRemainsGroupList/commingledRemainsGroup' }
+
           it 'is_group = true' do
-            expect(@h[:is_group]).to be true
+            expect(result[:is_group]).to be true
           end
 
           it 'is_subgroup = false' do
-            expect(@h[:is_subgroup]).to be false
+            expect(result[:is_subgroup]).to be false
           end
 
           it 'includes mortuaryTreatment as subgroup' do
-            xpath = 'collectionobjects_anthro/commingledRemainsGroupList/commingledRemainsGroup/mortuaryTreatmentGroupList/mortuaryTreatmentGroup'
-            expect(@h[:children]).to eq([xpath])
-          end
-
-          xit 'has mortuaryTreatment listed as only child' do
+            child_xpath = 'collectionobjects_anthro/commingledRemainsGroupList/commingledRemainsGroup/mortuaryTreatmentGroupList/mortuaryTreatmentGroup'
+            expect(result[:children]).to eq([child_xpath])
           end
         end
 
         context 'xpath ending with mortuaryTreatmentGroup' do
-          before(:all) do
-            xpath = 'collectionobjects_anthro/commingledRemainsGroupList/commingledRemainsGroup/mortuaryTreatmentGroupList/mortuaryTreatmentGroup'
-            @h = @anthro_object_handler.mapper.xpath[xpath]
+          let(:xpath) do
+            'collectionobjects_anthro/commingledRemainsGroupList/commingledRemainsGroup/mortuaryTreatmentGroupList/mortuaryTreatmentGroup'
           end
+
           it 'is_group = true' do
-            expect(@h[:is_group]).to be true
+            expect(result[:is_group]).to be true
           end
 
           it 'is_subgroup = true' do
-            expect(@h[:is_subgroup]).to be true
+            expect(result[:is_subgroup]).to be true
           end
 
           it 'parent is xpath ending with commingledRemainsGroup' do
             ppath = 'collectionobjects_anthro/commingledRemainsGroupList/commingledRemainsGroup'
-            expect(@h[:parent]).to eq(ppath)
+            expect(result[:parent]).to eq(ppath)
           end
         end
 
         context 'xpath ending with collectionobjects_nagpra' do
-          before(:all) do
-            @h = @anthro_object_handler.mapper.xpath['collectionobjects_nagpra']
-          end
+          let(:xpath){ 'collectionobjects_nagpra' }
+
           it 'has 5 children' do
-            expect(@h[:children].size).to eq(5)
+            expect(result[:children].size).to eq(5)
           end
         end
       end
     end
+
     context 'bonsai profile' do
-      context 'conservation record type' do
+      let(:client){ bonsai_client }
+      let(:cache){ bonsai_cache }
+
+      context 'conservation record' do
+        let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/bonsai/bonsai_4-1-1_conservation.json' }
+
         context 'xpath ending with fertilizersToBeUsed' do
+          let(:xpath){ 'conservation_livingplant/fertilizationGroupList/fertilizationGroup/fertilizersToBeUsed' }
           it 'is a repeating group' do
-            h = @bonsai_conservation_handler.mapper.xpath
-            res = h['conservation_livingplant/fertilizationGroupList/fertilizationGroup/fertilizersToBeUsed'][:is_group]
-            expect(res).to be true
+            expect(result[:is_group]).to be true
           end
         end
+
         context 'xpath ending with conservators' do
+          let(:xpath){ 'conservation_common/conservators' }
           it 'is a repeating group' do
-            h = @bonsai_conservation_handler.mapper.xpath
-            res = h['conservation_common/conservators'][:is_group]
-            expect(res).to be false
+            expect(result[:is_group]).to be false
           end
         end
       end
@@ -199,120 +226,124 @@ end
   describe '#validate' do
     it 'returns CollectionSpace::Mapper::Response object' do
       data = {'objectNumber' => '123'}
-      result = @anthro_object_handler.validate(data)
+      result = handler.validate(data)
       expect(result).to be_a(CollectionSpace::Mapper::Response)
     end
   end
 
   describe '#check_fields' do
-    before(:all) do
-      @data = {
-        'conservationNumber' => '123',
-        'status' => 'good',
-        'conservator' => 'Someone'
-      }
-    end
-    it 'returns expected hash' do
-      expect = {
-        known_fields: %w[conservationnumber status],
-        unknown_fields: %w[conservator]
-      }
+    let(:result){ handler.check_fields(data) }
+    context 'bonsai profile' do
+      let(:client){ bonsai_client }
+      let(:cache){ bonsai_cache }
+
+      context 'conservation record' do
+        let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/bonsai/bonsai_4-1-1_conservation.json' }
+        let(:data) do
+          {
+            'conservationNumber' => '123',
+            'status' => 'good',
+            'conservator' => 'Someone'
+          }
+        end
+
+        it 'returns expected hash' do
+          expected = {
+            known_fields: %w[conservationnumber status],
+            unknown_fields: %w[conservator]
+          }
+          expect(result).to eq(expected)
+        end
+      end
     end
   end
 
   describe '#prep' do
-    before(:all) do
-      @data = {'objectNumber' => '123'}
-    end
+    let(:data){ {'objectNumber' => '123'} }
+
     it 'can be called with response from validation' do
-      vresult = @anthro_object_handler.validate(@data)
-      result = @anthro_object_handler.prep(vresult).response
+      vresult = handler.validate(data)
+      result = handler.prep(vresult).response
       expect(result).to be_a(CollectionSpace::Mapper::Response)
     end
+
     it 'can be called with just data' do
-      result = @anthro_object_handler.prep(@data).response
+      result = handler.prep(data).response
       expect(result).to be_a(CollectionSpace::Mapper::Response)
     end
+
     context 'when response_mode = normal' do
-      it 'returned response to include detailed data transformation info needed for mapping' do
-        result = @anthro_object_handler.prep(@data).response
+      let(:config){ {response_mode: 'normal'} }
+
+      it 'returned response includes detailed data transformation info needed for mapping' do
+        result = handler.prep(data).response
+
         expect(result.transformed_data).not_to be_empty
       end
     end
+
     context 'when response_mode = verbose' do
+      let(:config){ {response_mode: 'verbose'} }
+
       it 'returned response includes detailed data transformation info' do
-        config = {response_mode: 'verbose'}
-        handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @anthro_object_mapper,
-                                                           client: @anthro_client,
-                                                           cache: @anthro_cache,
-                                                           config: config)
-        result = handler.prep(@data).response
+        result = handler.prep(data).response
         expect(result.transformed_data).not_to be_empty
       end
     end
   end
 
   describe '#process', services_call: true do
-    before(:all) do
-      @data = {'objectNumber' => '123'}
-    end
+    let(:data){ {'objectNumber' => '123'} }
+
     it 'can be called with response from validation' do
-      vresult = @anthro_object_handler.validate(@data)
-      result = @anthro_object_handler.process(vresult)
+      vresult = handler.validate(data)
+      result = handler.process(vresult)
       expect(result).to be_a(CollectionSpace::Mapper::Response)
     end
+
     it 'can be called with just data' do
-      result = @anthro_object_handler.process(@data)
+      result = handler.process(data)
       expect(result).to be_a(CollectionSpace::Mapper::Response)
     end
+
     context 'when response_mode = normal' do
       it 'returned response omits detailed data transformation info' do
-        result = @anthro_object_handler.process(@data)
+        result = handler.process(data)
         expect(result.transformed_data).to be_empty
       end
     end
+
     context 'when response_mode = verbose' do
+      let(:config){ {response_mode: 'verbose'} }
+
       it 'returned response includes detailed data transformation info' do
-        config = {response_mode: 'verbose'}
-        handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @anthro_object_mapper,
-                                                           client: @anthro_client,
-                                                           cache: @anthro_cache,
-                                                           config: config)
-        result = handler.process(@data)
+        result = handler.process(data)
         expect(result.transformed_data).not_to be_empty
       end
     end
   end
 
   describe '#map', services_call: true do
-    before(:all) do
-      @data = {'objectNumber' => '123'}
-      prepper = CollectionSpace::Mapper::DataPrepper.new(@data, @anthro_object_handler)
-      prep_response = @anthro_object_handler.prep(@data).response
-      @result = @anthro_object_handler.map(prep_response, prepper.xphash)
-    end
+    let(:data){ {'objectNumber' => '123'} }
+    let(:prepper){ CollectionSpace::Mapper::DataPrepper.new(data, handler) }
+    let(:prepped){ handler.prep(data).response }
+    let(:result){ handler.map(prepped, prepper.xphash) }
 
     it 'returns CollectionSpace::Mapper::Response object' do
-      expect(@result).to be_a(CollectionSpace::Mapper::Response)
+      expect(result).to be_a(CollectionSpace::Mapper::Response)
     end
 
     it 'the CollectionSpace::Mapper::Response object doc attribute is a Nokogiri XML Document' do
-      expect(@result.doc).to be_a(Nokogiri::XML::Document)
+      expect(result.doc).to be_a(Nokogiri::XML::Document)
     end
     context 'when response_mode = normal' do
       it 'returned response omits detailed data transformation info' do
-        expect(@result.transformed_data).to be_empty
+        expect(result.transformed_data).to be_empty
       end
     end
     context 'when response_mode = verbose' do
+      let(:config){ {'response_mode' => 'verbose'} }
       it 'returned response includes detailed data transformation info' do
-        config = {'response_mode' => 'verbose'}
-        handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @anthro_object_mapper,
-                                                           client: @anthro_client,
-                                                           cache: @anthro_cache,
-                                                           config: config)
-        prepper = CollectionSpace::Mapper::DataPrepper.new(@data, handler)
-        result = handler.map(handler.prep(@data).response, prepper.xphash)
         expect(result.transformed_data).not_to be_empty
       end
     end

@@ -69,6 +69,7 @@ module CollectionSpace
       class IdFieldNotInMapperError < StandardError; end
 
       attr_reader :mapper, :cache, :required_fields
+
       def initialize(record_mapper, cache)
         @mapper = record_mapper
         @cache = cache
@@ -82,7 +83,7 @@ module CollectionSpace
       end
 
       def validate(data)
-        response = CollectionSpace::Mapper::setup_data(data)
+        response = CollectionSpace::Mapper.setup_data(data)
         if response.valid?
           data = response.merged_data.transform_keys!(&:downcase)
           res = check_required_fields(data) unless @required_fields.empty?
@@ -118,11 +119,11 @@ module CollectionSpace
         @required_fields.each do |field, columns|
           if columns.length == 1
             checkfield = SingleColumnRequiredField.new(field, columns)
-            errs << checkfield.missing_message if !checkfield.present_in?(data)
+            errs << checkfield.missing_message unless checkfield.present_in?(data)
             errs << checkfield.empty_message if checkfield.present_in?(data) && !checkfield.populated_in?(data)
           elsif columns.length > 1
             checkfield = MultiColumnRequiredField.new(field, columns)
-            errs << checkfield.missing_message if !checkfield.present_in?(data)
+            errs << checkfield.missing_message unless checkfield.present_in?(data)
             errs << checkfield.empty_message if checkfield.present_in?(data) && !checkfield.populated_in?(data)
           end
         end
@@ -131,4 +132,3 @@ module CollectionSpace
     end
   end
 end
-

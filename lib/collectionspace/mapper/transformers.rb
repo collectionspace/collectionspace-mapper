@@ -2,7 +2,6 @@
 
 module CollectionSpace
   module Mapper
-
     # aggregate representation of transformers associated with a ColumnMapping (queue)
     # Performs a factory function by creating the appropriate individual Transformers for a given
     #   ColumnMapping based on data_type

@@ -36,6 +36,7 @@ module CollectionSpace
       class UnprocessableDataError < StandardError
         UnprocessableDataError = CollectionSpace::Mapper::Errors::UnprocessableDataError
         attr_reader :input
+
         def initialize(message, input)
           super(message)
           @input = input
@@ -76,6 +77,5 @@ module CollectionSpace
     def term_key(term)
       "#{term[:refname].type}-#{term[:refname].subtype}-#{term[:refname].display_name}"
     end
-
   end
 end

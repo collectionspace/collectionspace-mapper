@@ -4,7 +4,6 @@ require 'collectionspace/mapper/tools/symbolizable'
 
 module CollectionSpace
   module Mapper
-
     # Represents a JSON RecordMapper containing the config, field mappings, and template
     #  for transforming a hash of data into CollectionSpace XML
     # The RecordMapper bundles up all the info needed by various other classes in order

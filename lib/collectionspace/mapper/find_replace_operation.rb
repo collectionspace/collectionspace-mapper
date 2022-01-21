@@ -2,7 +2,6 @@
 
 module CollectionSpace
   module Mapper
-
     # a single find/replace operation -- one step in a FindReplaceTransformer
     class FindReplaceOperation
       def initialize(opts)
@@ -19,7 +18,7 @@ module CollectionSpace
       def self.create(opts)
         case opts[:type]
         when 'plain'
-          self.new(opts)
+          new(opts)
         when 'regex'
           RegexFindReplaceOperation.new(opts)
         end

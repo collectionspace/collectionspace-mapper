@@ -10,6 +10,7 @@ module CollectionSpace
       extend Forwardable
 
       attr_reader :config
+
       def_delegators :@all, :each, :length, :map, :reject!, :select
 
       def initialize(opts = {})

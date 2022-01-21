@@ -2,18 +2,16 @@
 
 module CollectionSpace
   module Mapper
-
     # parent class of the data value Transformer class hierarchy
     class Transformer
       attr_reader :precedence, :warnings
 
-      def initialize(opts = {})
+      def initialize(_opts = {})
         @precedence = lookup_precedence
         @warnings = []
       end
 
-      def transform(value)
-      end
+      def transform(value); end
 
       def <=>(other)
         @precedence <=> other.precedence
@@ -35,7 +33,7 @@ module CollectionSpace
         ].find_index(self.class)
       end
 
-      def self.create(type:, transform: {}, recmapper:)
+      def self.create(type:, recmapper:, transform: {})
         case type.to_sym
         when :authority
           AuthorityTransformer.new(transform: transform, recmapper: recmapper)

@@ -10,6 +10,7 @@ module CollectionSpace
     class ColumnMapping
       attr_reader :recmapper, :data_type, :fieldname, :in_repeating_group, :is_group, :namespace, :opt_list_values,
                   :repeats, :source_type, :transforms, :xpath
+
       def initialize(mapping_hash, recmapper)
         @recmapper = recmapper
         mapping_hash.each do |key, value|

@@ -7,12 +7,13 @@ module CollectionSpace
   module Mapper
     class ObjectHierarchyPrepper < CollectionSpace::Mapper::DataPrepper
       include CollectionSpace::Mapper::TermSearchable
-      attr_reader :errors, :warnings, :type
+      attr_reader :errors, :warnings, :type, :subtype
 
       def initialize(data, handler)
         super
         @cache = @handler.mapper.termcache
         @type = @response.merged_data['subjectdocumenttype']
+        @subtype = ''
         @errors = []
         @warnings = []
       end
@@ -53,9 +54,7 @@ module CollectionSpace
         end
 
         @response.split_data.each do |field, value|
-          unless @response.transformed_data.key?(field)
-            @response.transformed_data[field] = value
-          end
+          @response.transformed_data[field] = value unless @response.transformed_data.key?(field)
         end
       end
 

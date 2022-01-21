@@ -7,12 +7,13 @@ module CollectionSpace
   module Mapper
     class NonHierarchicalRelationshipPrepper < CollectionSpace::Mapper::DataPrepper
       include CollectionSpace::Mapper::TermSearchable
-      attr_reader :errors, :warnings, :responses
+      attr_reader :errors, :warnings, :responses, :type, :subtype
 
       def initialize(data, handler)
         super
         @cache = @handler.mapper.termcache
         @types = [@response.merged_data['item1_type'], @response.merged_data['item2_type']]
+        @subtype = ''
         @errors = []
         @warnings = []
         @responses = []
@@ -65,16 +66,19 @@ module CollectionSpace
         @handler.mapper.mappings.reject!{ |mapping| to_clear.include?(mapping.fieldname) }
       end
 
+      def get_rec_csid(id, type)
+        instance_variable_set(:@type, type)
+        obj_csid(id, type)
+      end
+
       def transform_terms
         %w[item1_id item2_id].each_with_index do |field, i|
-          transformed = @response.split_data[field].map{ |id| obj_csid(id, @types[i]) }
+          transformed = @response.split_data[field].map{ |id| get_rec_csid(id, @types[i]) }
           @response.transformed_data[field] = transformed
         end
 
         @response.split_data.each do |field, value|
-          unless @response.transformed_data.key?(field)
-            @response.transformed_data[field] = value
-          end
+          @response.transformed_data[field] = value unless @response.transformed_data.key?(field)
         end
       end
     end

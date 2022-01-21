@@ -5,7 +5,6 @@ require 'collectionspace/mapper/identifiers/short_identifier'
 module CollectionSpace
   module Mapper
     module Identifiers
-
       class AuthorityShortIdentifier < ShortIdentifier
         def initialize(**opts)
           super
@@ -24,4 +23,3 @@ module CollectionSpace
     end
   end
 end
-

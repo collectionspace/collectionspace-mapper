@@ -26,8 +26,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
         data3 = JSON.parse('{"creditline":"Gift of Elizabeth, 1985","accessiondategroup":"1985","acquisitionmethod":"gift","acquisitionreferencenumber":"ACC208 (migrated accession)","acquisitionsourceperson":"Elizabeth","acquisitionsourceorganization":"","acquisitionauthorizer":"","acquisitionnote":"Acquisition source role(s): Donor"}')
         data = [data1, data2, data3]
         preppers = data.map{ |d| CollectionSpace::Mapper::DataPrepper.new(d, @handler) }
-        mappers = preppers.map{ |prepper|
- CollectionSpace::Mapper::DataMapper.new(prepper.prep.response, @handler, prepper.xphash) }
+        mappers = preppers.map do |prepper|
+          CollectionSpace::Mapper::DataMapper.new(prepper.prep.response, @handler, prepper.xphash)
+        end
         docs = mappers.map{ |mapper| remove_namespaces(mapper.response.doc) }
         docxpaths = docs.map{ |doc| list_xpaths(doc) }
 
@@ -219,7 +220,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
           default_values: {
             'publishTo' => 'DPLA;Omeka',
             'collection' => 'library-collection'
-          },
+          }
         }
 
         @recmapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json')

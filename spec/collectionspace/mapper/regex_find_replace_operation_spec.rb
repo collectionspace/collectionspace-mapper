@@ -6,7 +6,7 @@ RSpec.describe CollectionSpace::Mapper::RegexFindReplaceOperation do
   let(:operation){ described_class.new(opspec) }
 
   describe '#perform' do
-    let(:opspec){ {find: '(az|oo) ', replace:'\1-', type: 'regexp'} }
+    let(:opspec){ {find: '(az|oo) ', replace: '\1-', type: 'regexp'} }
     let(:result){ operation.perform(value) }
     context 'given blank value' do
       let(:value){ '' }
@@ -38,4 +38,3 @@ RSpec.describe CollectionSpace::Mapper::RegexFindReplaceOperation do
     end
   end
 end
-

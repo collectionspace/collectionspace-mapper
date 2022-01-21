@@ -94,14 +94,17 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
   before(:all) do
     @anthro_object_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json')
     @anthro_dv = CollectionSpace::Mapper::DataValidator.new(
-CollectionSpace::Mapper::RecordMapper.new(mapper: @anthro_object_mapper, termcache: anthro_cache), anthro_cache)
+      CollectionSpace::Mapper::RecordMapper.new(mapper: @anthro_object_mapper, termcache: anthro_cache), anthro_cache
+    )
     @botgarden_loanout_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/botgarden/botgarden_2-0-1_loanout.json')
     @botgarden_dv = CollectionSpace::Mapper::DataValidator.new(
-CollectionSpace::Mapper::RecordMapper.new(mapper: @botgarden_loanout_mapper,
-                                          termcache: botgarden_cache), botgarden_cache)
+      CollectionSpace::Mapper::RecordMapper.new(mapper: @botgarden_loanout_mapper,
+                                                termcache: botgarden_cache), botgarden_cache
+    )
     @core_authhier_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_authorityhierarchy.json')
     @core_authhier_dv = CollectionSpace::Mapper::DataValidator.new(
-CollectionSpace::Mapper::RecordMapper.new(mapper: @core_authhier_mapper, termcache: core_cache), core_cache)
+      CollectionSpace::Mapper::RecordMapper.new(mapper: @core_authhier_mapper, termcache: core_cache), core_cache
+    )
   end
 
   describe '#validate' do
@@ -114,7 +117,8 @@ CollectionSpace::Mapper::RecordMapper.new(mapper: @core_authhier_mapper, termcac
       before(:all) do
         @mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_movement.json')
         @validator = CollectionSpace::Mapper::DataValidator.new(
-CollectionSpace::Mapper::RecordMapper.new(mapper: @mapper, termcache: core_cache), core_cache)
+          CollectionSpace::Mapper::RecordMapper.new(mapper: @mapper, termcache: core_cache), core_cache
+        )
       end
       it 'validates' do
         data = {'movementReferenceNumber' => '1', 'currentLocationLocationLocal' => 'Loc'}

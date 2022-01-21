@@ -54,9 +54,7 @@ module CollectionSpace
         end
 
         @response.split_data.each do |field, value|
-          unless @response.transformed_data.key?(field)
-            @response.transformed_data[field] = value
-          end
+          @response.transformed_data[field] = value unless @response.transformed_data.key?(field)
         end
       end
 

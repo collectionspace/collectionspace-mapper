@@ -23,9 +23,7 @@ def mapping_workflow
 
   v_result = handler.validate(datahash)
 
-  if v_result.valid?
-    result = handler.process(datahash)
-  end
+  result = handler.process(datahash) if v_result.valid?
   result
 end
 

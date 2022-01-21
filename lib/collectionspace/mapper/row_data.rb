@@ -2,11 +2,11 @@
 
 module CollectionSpace
   module Mapper
-
     # represents a row of data from a CSV.
     # ends up having some responsibility for coordinating the processing of the row
     class RowData
       attr_reader :columns
+
       def initialize(datahash, recmapper)
         @recmapper = recmapper
         @columns = datahash.map do |column, value|

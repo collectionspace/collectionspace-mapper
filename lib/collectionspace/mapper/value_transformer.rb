@@ -5,6 +5,7 @@ module CollectionSpace
     class ValueTransformer
       include TermSearchable
       attr_reader :orig, :result, :warnings, :errors
+
       def initialize(value, transforms, prepper)
         @value = value
         @orig = @value.clone
@@ -31,14 +32,14 @@ module CollectionSpace
         't' => 'true',
         'f' => 'false'
       }
-      
+
       def process_replacements
         return if @value.empty?
 
         @transforms[:replacements].each do |rule|
           find = rule[:find]
           replace = rule[:replace]
-          
+
           case rule[:type]
           when :plain
             @value = @value.gsub(find, replace)
@@ -69,7 +70,7 @@ module CollectionSpace
           @value = BOOLEAN_LOOKUP[chkval]
           return
         end
-        
+
         @value = 'false'
         @warnings << {
           category: :boolean_value_transform,
@@ -99,4 +100,3 @@ module CollectionSpace
     end
   end
 end
-

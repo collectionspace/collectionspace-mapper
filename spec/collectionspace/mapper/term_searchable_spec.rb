@@ -5,25 +5,23 @@ require 'spec_helper'
 class TermClass
   attr_reader :cache, :client
   attr_accessor :type, :subtype, :errors
+
   include CS::Mapper::TermSearchable
 
-  def initialize(cache, client)
+  def initialize(cache, client, type, subtype)
     @cache = cache
     @client = client
-    @type = 'conceptauthorities'
-    @subtype = 'concept'
+    @type = type
+    @subtype = subtype
     @errors = []
   end
-  
 end
 
 RSpec.describe CollectionSpace::Mapper::TermSearchable do
-  before(:context) do
-    @cache = core_cache
-    populate_core(@cache)
-  end
-  
-  let(:term){ TermClass.new(@cache, core_client) }
+  let(:cache){ core_cache }
+  let(:termtype){ 'conceptauthorities' }
+  let(:termsubtype){ 'concept' }
+  let(:term){ TermClass.new(cache, core_client, termtype, termsubtype) }
 
   describe '#in_cache?' do
     let(:result){ term.in_cache?(val) }
@@ -37,6 +35,31 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
     context 'when in cache' do
       let(:val){ 'Test' }
       it 'returns true' do
+        expect(result).to be true
+      end
+    end
+
+    context 'when captitalized form is in cache' do
+      let(:val){ 'test' }
+      it 'returns true' do
+        expect(result).to be true
+      end
+    end
+  end
+
+  describe '#cached_as_unknown?' do
+    let(:result){ term.cached_as_unknown?(val) }
+    let(:val){ 'blahblahblah' }
+
+    context 'when not cached as unknown value' do
+      it 'returns false' do
+        expect(result).to be false
+      end
+    end
+
+    context 'when cached as unknown value' do
+      it 'returns true' do
+        cache.put('unknownvalue', "#{termtype}/#{termsubtype}", val, nil)
         expect(result).to be true
       end
     end
@@ -58,15 +81,45 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
         expect(result).to eq(expected)
       end
     end
+
+    context 'when capitalized form is in cache' do
+      let(:val){ 'test' }
+      it 'returns refname urn' do
+        expected = "urn:cspace:core.collectionspace.org:conceptauthorities:name(concept):item:name(Test1599650854716)'Test'"
+        expect(result).to eq(expected)
+      end
+    end
   end
 
-  # also covers extract_refname_csid and lookup_obj_csid
+  describe '#searched_term' do
+    let(:termtype){ 'vocabularies' }
+    let(:termsubtype){ 'publishto' }
+    let(:result){ term.searched_term(val) }
+
+    context 'when val exists in instance' do
+      let(:val){ 'All' }
+      it 'returns refname urn' do
+        expected = "urn:cspace:core.collectionspace.org:vocabularies:name(publishto):item:name(all)'All'"
+        expect(result).to eq(expected)
+      end
+    end
+
+    context 'when case-swapped val exists in instance' do
+      let(:val){ 'all' }
+      it 'returns refname urn' do
+        expected = "urn:cspace:core.collectionspace.org:vocabularies:name(publishto):item:name(all)'All'"
+        expect(result).to eq(expected)
+      end
+    end
+  end
+
+  # also covers lookup_obj_csid
   describe '#obj_csid' do
-    let(:result){ term.obj_csid(objnum, type) }
     let(:type){ 'collectionobjects' }
+    let(:result){ term.obj_csid(objnum, type) }
     context 'when in cache' do
       let(:objnum){ 'Hierarchy Test 001' }
-      
+
       it 'returns csid' do
         expect(result).to eq('16161bff-b01a-4b55-95aa')
       end
@@ -84,9 +137,9 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
     let(:result){ term.term_csid(val) }
     context 'when in cache' do
       let(:val){ 'Sample Concept 1' }
-      
-      it 'returns csid', :skip => 'does not cause mapping to fail, so we live with technical incorrectness for now' do
-        expect(result).to eq('c119ed04-d99d-4ea2-bbda')
+      it 'returns csid' do
+        # it 'returns csid', :skip => 'does not cause mapping to fail, so we live with technical incorrectness for now' do
+        expect(result).to eq('1111-2222-3333-4444')
       end
     end
 

@@ -16,10 +16,10 @@ gemfile do
 end
 
 options = {}
-OptionParser.new{ |opts|
+OptionParser.new do |opts|
   opts.banner = 'Usage: ruby datahash-to-csv.rb -i PATH_TO_JSON'
 
-  opts.on('-i', '--input PATH_TO_JSON', 'Path to JSON datahash file.'){ |i|
+  opts.on('-i', '--input PATH_TO_JSON', 'Path to JSON datahash file.') do |i|
     options[:input] = i
     unless File.file?(i)
       puts "File #{i} does not exist"
@@ -29,15 +29,15 @@ OptionParser.new{ |opts|
       puts "File #{i} does not have '.json' suffix"
       exit
     end
-  }
-  opts.on('-h', '--help', 'Prints this help'){
+  end
+  opts.on('-h', '--help', 'Prints this help') do
     puts opts
     exit
-  }
-}.parse!
+  end
+end.parse!
 
-dir = options[:input]['/'] ? options[:input].sub(/\/[^\/]+$/, '/') : ''
-filename_stub = options[:input].sub(/^.*\//, '').sub('.json', '')
+dir = options[:input]['/'] ? options[:input].sub(%r{/[^/]+$}, '/') : ''
+filename_stub = options[:input].sub(%r{^.*/}, '').sub('.json', '')
 csv_file = "#{dir}#{filename_stub}.csv"
 
 data = JSON.parse(File.read(options[:input]))
