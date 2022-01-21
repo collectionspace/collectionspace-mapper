@@ -11,6 +11,30 @@ This project bumps the version number for any changes (including documentation u
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 - nothing
 
+## [3.0.0] - 2022-01-20
+
+See [PR 136](https://github.com/collectionspace/collectionspace-mapper/pull/136) for more details on changes.
+
+### Breaking
+- `check_terms` batch configuration option is removed, as it is inherently unsafe
+- Changes introduced will prevent `collectionspace-csv-importer` users from transferring records they previously were able to transfer
+
+### Added
+- Searching for "case-swapped" versions of terms not found in cache or target CS instance
+
+### Changed
+- Attaches an error, rather than a warning, to responses returned to `collectionspace-csv-importer` when record data includes authority or vocabulary terms that do not yet exist in target CS instance. This has the effect of preventing transfer of these records
+- Both refname and csid of existing terms are cached on first lookup
+- Terms or records found to be missing from target CS instance are cached as `unknownvalue` type entries
+- Improved test coverage
+
+### Deleted
+- `check_terms` batch configuration option
+
+## [2.5.2] - 2022-01-14
+### Added
+- `strip_id_values` batch configuration option added. Setting this to `false` allows update of existing records with leading/trailing spaces on the record ID field values. 
+
 ## [2.5.1] - 2021-10-13
 ### Changed
 - accept and handle collectionspace-refcache passed in from collectionspace-csv-importer
