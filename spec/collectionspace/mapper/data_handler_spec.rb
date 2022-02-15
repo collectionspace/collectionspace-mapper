@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe CollectionSpace::Mapper::DataHandler do
   let(:client){ core_client }
-  let(:cache){ core_cache_search }
+  let(:cache){ core_cache }
   let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json' }
   let(:mapper){ get_json_record_mapper(mapperpath) }
   let(:config){ {delimiter: '|'} }

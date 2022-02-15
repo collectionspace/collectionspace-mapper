@@ -10,10 +10,11 @@ module Helpers
       )
     )
   end
+  memo_wise(:fcart_client)
 
   def fcart_cache
-    cache_config = base_cache_config.merge({domain: 'fcart.collectionspace.org'})
-    cache = CollectionSpace::RefCache.new(config: cache_config, client: fcart_client)
+    cache_config = base_cache_config.merge({domain: fcart_client.domain})
+    cache = CollectionSpace::RefCache.new(config: cache_config)
     populate_fcart(cache)
     cache
   end

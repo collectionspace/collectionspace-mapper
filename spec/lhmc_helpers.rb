@@ -10,10 +10,11 @@ module Helpers
       )
     )
   end
+  memo_wise(:lhmc_client)
 
   def lhmc_cache
-    cache_config = base_cache_config.merge({domain: 'lhmc.collectionspace.org'})
-    cache = CollectionSpace::RefCache.new(config: cache_config, client: lhmc_client)
+    cache_config = base_cache_config.merge({domain: lhmc_client.domain})
+    cache = CollectionSpace::RefCache.new(config: cache_config)
     populate_lhmc(cache)
     cache
   end

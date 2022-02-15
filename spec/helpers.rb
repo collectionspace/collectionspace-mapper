@@ -16,10 +16,7 @@ module Helpers
   FIXTUREDIR = 'spec/fixtures/files/xml'
 
   def base_cache_config
-    {
-      search_enabled: true,
-      search_identifiers: false
-    }
+    {}
   end
 
   # returns RecordMapper hash read in from JSON file

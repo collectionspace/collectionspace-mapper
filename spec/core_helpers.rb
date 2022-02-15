@@ -4,33 +4,24 @@ require_relative './helpers'
 
 module Helpers
   def core_client
-    CollectionSpace::Client.new(
+    client = CollectionSpace::Client.new(
       CollectionSpace::Configuration.new(
         base_uri: 'https://core.dev.collectionspace.org/cspace-services',
         username: 'admin@core.collectionspace.org',
         password: 'Administrator'
       )
     )
+    client
   end
+  memo_wise(:core_client)
 
   def core_cache
-    cache_config = base_cache_config.merge({domain: 'core.collectionspace.org'})
-    cache = CollectionSpace::RefCache.new(config: cache_config, client: core_client)
+    cache_config = base_cache_config.merge({ domain: core_client.domain })
+    cache = CollectionSpace::RefCache.new(config: cache_config)
     populate_core(cache)
     cache
   end
   memo_wise(:core_cache)
-
-  def core_cache_search
-    cache_config = {
-      domain: 'core.collectionspace.org',
-      search_enabled: true,
-      search_identifiers: false
-    }
-    cache = CollectionSpace::RefCache.new(config: cache_config, client: core_client)
-    populate_core(cache)
-    cache
-  end
 
   def core_object_mapper
     path = 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json'

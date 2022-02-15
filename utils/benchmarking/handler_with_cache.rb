@@ -7,24 +7,24 @@ require 'pry'
 require 'collectionspace/mapper'
 require_relative '../../spec/helpers'
 
+extend Helpers
+
 config = {delimiter: ';'}
 mapper_path = File.join(__dir__, 'fixtures', 'core_collectionobject', 'core_6-1-0_collectionobject.json')
-rec_mapper = Helpers.get_json_record_mapper(mapper_path)
-client = Helpers.core_client
+rec_mapper = get_json_record_mapper(mapper_path)
+client = core_client
 
 cache_config = {
-  domain: 'core.collectionspace.org',
-  search_enabled: false,
-  search_identifiers: false
+  domain: client.domain
 }
 
 TimeUp.start(:new_cache)
-cache = CollectionSpace::RefCache.new(config: cache_config, client: client)
+cache = CollectionSpace::RefCache.new(config: cache_config)
 TimeUp.stop(:new_cache)
 
 TimeUp.start(:new_popcache)
-popcache = Helpers.core_cache
-Helpers.populate_core(popcache)
+popcache = core_cache
+populate_core(popcache)
 TimeUp.stop(:new_popcache)
 
 def handler_reusing_cache(mapper, cache, client, config)

@@ -10,10 +10,11 @@ module Helpers
       )
     )
   end
+  memo_wise(:botgarden_client)
 
   def botgarden_cache
-    cache_config = base_cache_config.merge({domain: 'botgarden.collectionspace.org'})
-    cache = CollectionSpace::RefCache.new(config: cache_config, client: botgarden_client)
+    cache_config = base_cache_config.merge({domain: botgarden_client.domain})
+    cache = CollectionSpace::RefCache.new(config: cache_config)
     populate_botgarden(cache)
     cache
   end
