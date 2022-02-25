@@ -13,7 +13,8 @@ module CollectionSpace
 
       def initialize(record_mapper:, client:, cache: nil, csid_cache: nil, config: {})
         @mapper = CollectionSpace::Mapper::RecordMapper.new(mapper: record_mapper, batchconfig: config,
-                                                            csclient: client, termcache: cache)
+                                                            csclient: client, termcache: cache,
+                                                            csidcache: csid_cache )
         @mapper.xpath = xpath_hash
         merge_config_transforms
         @new_terms = {}
@@ -160,16 +161,22 @@ module CollectionSpace
 
       private
 
-      def set_record_status(response)
-        if @mapper.service_type == CS::Mapper::Authority
-          value = response.split_data['termdisplayname'].first
-        elsif @mapper.service_type == CS::Mapper::Relationship
-          value = {}
-          value[:sub] = response.combined_data['relations_common']['subjectCsid'][0]
-          value[:obj] = response.combined_data['relations_common']['objectCsid'][0]
+      def get_value_for_record_status(response)
+        case @mapper.service_type.to_s
+        when 'CollectionSpace::Mapper::Relationship'
+          {
+            sub: response.combined_data['relations_common']['subjectCsid'][0],
+            obj: response.combined_data['relations_common']['objectCsid'][0]
+          }
+        when 'CollectionSpace::Mapper::Authority'
+          response.split_data['termdisplayname'].first
         else
-          value = response.identifier
+          response.identifier
         end
+      end
+      
+      def set_record_status(response)
+        value = get_value_for_record_status(response)
 
         begin
           searchresult = @status_checker.lookup(value)
