@@ -13,6 +13,7 @@ require 'facets/array/before'
 require 'facets/kernel/blank'
 require 'nokogiri'
 require 'xxhash'
+require 'zeitwerk'
 
 module CollectionSpace
   ::CS = CollectionSpace
@@ -21,16 +22,6 @@ module CollectionSpace
     LOGGER = Logger.new(STDERR)
 
     THE_BOMB = "\u{1F4A3}"
-
-    Dir[File.dirname(__FILE__) + 'mapper/tools/*.rb'].sort.each do |file|
-      require "collectionspace/mapper/tools/#{File.basename(file, File.extname(file))}"
-    end
-    Dir[File.dirname(__FILE__) + '/mapper/identifiers/*.rb'].sort.each do |file|
-      require "collectionspace/mapper/identifiers/#{File.basename(file, File.extname(file))}"
-    end
-    Dir[File.dirname(__FILE__) + '/mapper/*.rb'].sort.each do |file|
-      require "collectionspace/mapper/#{File.basename(file, File.extname(file))}"
-    end
 
     module Errors
       class UnprocessableDataError < StandardError
@@ -78,4 +69,8 @@ module CollectionSpace
       "#{term[:refname].type}-#{term[:refname].subtype}-#{term[:refname].display_name}"
     end
   end
+
+  loader = Zeitwerk::Loader.new
+  loader.push_dir("#{__dir__}/mapper", namespace: CollectionSpace::Mapper)
+  loader.setup
 end
