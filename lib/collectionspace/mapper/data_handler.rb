@@ -161,48 +161,8 @@ module CollectionSpace
 
       private
 
-      def get_value_for_record_status(response)
-        case @mapper.service_type.to_s
-        when 'CollectionSpace::Mapper::Relationship'
-          {
-            sub: response.combined_data['relations_common']['subjectCsid'][0],
-            obj: response.combined_data['relations_common']['objectCsid'][0]
-          }
-        when 'CollectionSpace::Mapper::Authority'
-          response.split_data['termdisplayname'].first
-        else
-          response.identifier
-        end
-      end
-      
       def set_record_status(response)
-        value = get_value_for_record_status(response)
-
-        begin
-          searchresult = @status_checker.lookup(value)
-        rescue CollectionSpace::Mapper::MultipleCsRecordsFoundError => e
-          err = {
-            category: :multiple_matching_recs,
-            field: @mapper.config.search_field,
-            type: nil,
-            subtype: nil,
-            value: value,
-            message: e.message
-          }
-          response.errors << err
-        else
-          status = searchresult[:status]
-          response.record_status = status
-          return if status == :new
-
-          response.csid = searchresult[:csid]
-          response.uri = searchresult[:uri]
-          response.refname = searchresult[:refname]
-          num_found = searchresult[:multiple_recs_found]
-          return unless num_found
-
-          response.add_multi_rec_found_warning(num_found)
-        end
+        @status_checker.call(response)
       end
 
       def tag_terms(result)
