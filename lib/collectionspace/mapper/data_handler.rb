@@ -11,7 +11,7 @@ module CollectionSpace
       #  xpath hash
       attr_accessor :mapper
 
-      def initialize(record_mapper:, client:, cache: nil, config: {})
+      def initialize(record_mapper:, client:, cache: nil, csid_cache: nil, config: {})
         @mapper = CollectionSpace::Mapper::RecordMapper.new(mapper: record_mapper, batchconfig: config,
                                                             csclient: client, termcache: cache)
         @mapper.xpath = xpath_hash
