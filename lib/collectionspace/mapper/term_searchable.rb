@@ -24,10 +24,10 @@ module CollectionSpace
 
       # returns refName of cached term
       def cached_term(val, return_key = :refname, termtype = type, termsubtype = subtype)
-        returned = @cache.get(termtype, termsubtype, val, search: false)
+        returned = @cache.get(termtype, termsubtype, val)
         return convert_cached_value(returned)[return_key] if returned
 
-        returned = @cache.get(termtype, termsubtype, case_swap(val), search: false)
+        returned = @cache.get(termtype, termsubtype, case_swap(val))
         return convert_cached_value(returned)[return_key] if returned
       end
 
@@ -84,7 +84,7 @@ module CollectionSpace
       end
 
       def obj_csid(objnum, type)
-        cached = @cache.get(type, '', objnum, search: false)
+        cached = @cache.get(type, '', objnum)
         return convert_cached_value(cached)[:csid] if cached
 
         lookup_obj_or_procedure_csid(objnum, type)
