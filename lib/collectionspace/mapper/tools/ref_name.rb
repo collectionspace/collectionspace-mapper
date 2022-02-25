@@ -32,7 +32,7 @@ module CollectionSpace
             @urn = build_urn
             #  new_from_term(args[:source_type])
           else
-            raise CollectionSpace::Mapper::Tools::RefNameArgumentError
+            raise RefNameArgumentError
           end
         end
 
@@ -56,7 +56,7 @@ module CollectionSpace
           elsif /^urn:cspace:([^:]+):([^:]+):id\(([^)]+)\)(.*)/.match?(@urn)
             non_term_parts_from_urn
           else
-            raise CS::Mapper::Tools::UnparseableUrnError
+            raise UnparseableUrnError
           end
         end
 

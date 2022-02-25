@@ -5,7 +5,7 @@ require_relative 'term_searchable'
 
 module CollectionSpace
   module Mapper
-    class ObjectHierarchyPrepper < CollectionSpace::Mapper::DataPrepper
+    class ObjectHierarchyDataPrepper < CollectionSpace::Mapper::DataPrepper
       include CollectionSpace::Mapper::TermSearchable
       attr_reader :errors, :warnings, :type, :subtype
 

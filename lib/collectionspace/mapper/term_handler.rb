@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'collectionspace/mapper/tools/refname'
-
 module CollectionSpace
   module Mapper
     class TermHandler

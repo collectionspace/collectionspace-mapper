@@ -2,9 +2,9 @@
 
 require 'spec_helper'
 
-RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_call: true do
+RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient, services_call: true do
   let(:client){ core_client }
-  let(:service){ CollectionSpace::Mapper::Tools::RecordStatusService.new(client, mapper) }
+  let(:service){ CollectionSpace::Mapper::Tools::RecordStatusServiceClient.new(client, mapper) }
 
   context 'when mapper service_path not handled by collectionspace-client' do
     let(:mapper) do
@@ -15,7 +15,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_cal
 
     it 'raises NoClientServiceError' do
       expect do
-        CS::Mapper::Tools::RecordStatusService.new(client, mapper)
+        CS::Mapper::Tools::RecordStatusServiceClient.new(client, mapper)
       end.to raise_error(CS::Mapper::NoClientServiceError)
     end
   end

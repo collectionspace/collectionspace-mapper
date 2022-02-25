@@ -13,19 +13,7 @@ module CollectionSpace
     class NoClientServiceError < StandardError; end
 
     module Tools
-      class RecordStatusService
-        def initialize(client, mapper)
-          @client = client
-          @mapper = mapper
-          @is_authority = @mapper.config.service_type == 'authority'
-          service = get_service
-          @search_field = @is_authority ? service[:term] : service[:field]
-          @ns_prefix = service[:ns_prefix]
-          @path = service[:path]
-          @response_top = @client.get_list_types(@path)[0]
-          @response_nested = @client.get_list_types(@path)[1]
-        end
-
+      class RecordStatusServiceClient < CS::Mapper::Tools::RecordStatusServiceBuilder
         def call(response)
           value = get_value_for_record_status(response)
 

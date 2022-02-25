@@ -16,7 +16,7 @@ module CollectionSpace
     class RecordMapper
       include Tools::Symbolizable
 
-      attr_reader :batchconfig, :config, :termcache, :mappings, :xml_template, :csclient
+      attr_reader :batchconfig, :config, :termcache, :csidcache, :mappings, :xml_template, :csclient
 
       attr_accessor :xpath
 

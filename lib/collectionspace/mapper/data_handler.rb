@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-require 'collectionspace/mapper/tools/record_status_service'
+# require 'collectionspace/mapper/tools/record_status_service'
+# require 'collectionspace/mapper/tools/record_status_service_cache'
+# require 'collectionspace/mapper/tools/record_status_service_client'
 require 'collectionspace/mapper/tools/dates'
 
 module CollectionSpace
@@ -18,7 +20,7 @@ module CollectionSpace
         @mapper.xpath = xpath_hash
         merge_config_transforms
         @new_terms = {}
-        @status_checker = CollectionSpace::Mapper::Tools::RecordStatusService.new(@mapper.csclient, @mapper)
+        @status_checker = CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder.call(@mapper.csclient, @mapper)
       end
 
       def process(data)
@@ -42,7 +44,7 @@ module CollectionSpace
             prepper = CollectionSpace::Mapper::NonHierarchicalRelationshipPrepper.new(response, self)
             prepper.prep
           when 'objecthierarchy'
-            prepper = CollectionSpace::Mapper::ObjectHierarchyPrepper.new(response, self)
+            prepper = CollectionSpace::Mapper::ObjectHierarchyDataPrepper.new(response, self)
             prepper.prep
           else
             prepper = CollectionSpace::Mapper::DataPrepper.new(response, self)
