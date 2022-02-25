@@ -26,6 +26,7 @@ module CollectionSpace
         @batchconfig = CS::Mapper::Config.new(config: opts[:batchconfig], record_type: record_type_extension)
         @csclient = opts[:csclient]
         @termcache = opts[:termcache]
+        @csidcache = opts[:csidcache]
         @xpath = {}
       end
 
