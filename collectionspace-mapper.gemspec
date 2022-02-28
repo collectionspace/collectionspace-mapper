@@ -39,6 +39,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'chronic'
+  spec.add_dependency 'dry-configurable', '~>0.14'
   spec.add_dependency 'facets'
   spec.add_dependency 'memo_wise', '~> 1.1.0'
   spec.add_dependency 'nokogiri', '~> 1.13.3'
