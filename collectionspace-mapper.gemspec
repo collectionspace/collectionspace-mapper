@@ -41,7 +41,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'chronic'
   spec.add_dependency 'facets'
   spec.add_dependency 'memo_wise', '~> 1.1.0'
-  spec.add_dependency 'nokogiri', '>= 1.10.9'
+  spec.add_dependency 'nokogiri', '~> 1.13.3'
   spec.add_dependency 'xxhash', '>= 0.4.0'
   spec.add_dependency 'zeitwerk', '~> 2.5'
   
