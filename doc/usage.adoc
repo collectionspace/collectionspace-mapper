@@ -41,7 +41,7 @@ client = CollectionSpace::Client.new(
 )
 
 cache_config = { domain: 'core.collectionspace.org' }
-cache = CollectionSpace::RefCache.new(config: cache_config, client: client)
+cache = CollectionSpace::RefCache.new(config: cache_config)
 
 record_mapper = JSON.parse(File.read('spec/fixtures/files/mappers/release_6_1/core/core_6_1_0-collectionobject.json'))
 ----
