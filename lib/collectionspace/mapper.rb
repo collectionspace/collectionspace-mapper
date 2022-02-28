@@ -18,7 +18,8 @@ require 'zeitwerk'
 module CollectionSpace
   ::CS = CollectionSpace
   module Mapper
-    extend self
+    
+    
     LOGGER = Logger.new(STDERR)
 
     THE_BOMB = "\u{1F4A3}"
@@ -35,6 +36,8 @@ module CollectionSpace
       end
     end
 
+    module_function
+    
     def setup_data(data, config = Mapper::Config.new)
       if data.is_a?(Hash)
         response = Response.new(data)
