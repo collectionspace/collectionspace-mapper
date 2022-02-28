@@ -46,6 +46,8 @@ module CollectionSpace
           end
         end
 
+        # Given Response object, returns the value needed to look up record's status
+        # @param response [CollectionSpace::Mapper::Response]
         def get_value_for_record_status(response)
           case @mapper.service_type.to_s
           when 'CollectionSpace::Mapper::Relationship'
