@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-# require 'collectionspace/mapper/tools/record_status_service'
-# require 'collectionspace/mapper/tools/record_status_service_cache'
-# require 'collectionspace/mapper/tools/record_status_service_client'
-require 'collectionspace/mapper/tools/dates'
-
 module CollectionSpace
   module Mapper
     # given a RecordMapper hash and a data hash, returns CollectionSpace XML document
