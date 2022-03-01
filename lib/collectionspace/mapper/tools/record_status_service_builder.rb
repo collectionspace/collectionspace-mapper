@@ -6,54 +6,39 @@ module CollectionSpace
       class RecordStatusServiceBuilder
         class << self
           def call(client, mapper)
-            return CS::Mapper::Tools::RecordStatusServiceCache.new(client, mapper) if mapper.csidcache
+            return CS::Mapper::Tools::RecordStatusServiceCache.new(mapper) if mapper.csidcache
 
             CS::Mapper::Tools::RecordStatusServiceClient.new(client, mapper)
           end
         end
         
-        def initialize(client, mapper)
-          @client = client
+        def initialize(client = nil, mapper)
           @mapper = mapper
-          @is_authority = @mapper.config.service_type == 'authority'
-          service = get_service
-          @search_field = @is_authority ? service[:term] : service[:field]
-          @ns_prefix = service[:ns_prefix]
-          @path = service[:path]
-          @response_top = @client.get_list_types(@path)[0]
-          @response_nested = @client.get_list_types(@path)[1]
+          if authority?
+            @type = mapper.config.authority_type
+            @subtype = mapper.config.authority_subtype
+          else
+            @type = mapper.config.service_path
+          end
         end
 
         private
 
-        def get_service
-          if @is_authority
-            begin
-              @client.service(
-                type: @mapper.config.authority_type,
-                subtype: @mapper.config.authority_subtype
-              )
-            rescue KeyError
-              raise CS::Mapper::NoClientServiceError,
-                "#{@mapper.config.authority_type} > #{@mapper.config.authority_subtype}"
-            end
-          else
-            begin
-              @client.service(type: @mapper.config.service_path)
-            rescue KeyError
-              raise CS::Mapper::NoClientServiceError, @mapper.config.service_path
-            end
-          end
-        end
+        attr_reader :mapper, :type, :subtype
 
+        def authority?
+          mapper.config.service_type == 'authority'
+        end
+        
         # Given Response object, returns the value needed to look up record's status
         # @param response [CollectionSpace::Mapper::Response]
         def get_value_for_record_status(response)
-          case @mapper.service_type.to_s
+          case mapper.service_type.to_s
           when 'CollectionSpace::Mapper::Relationship'
             {
               sub: response.combined_data['relations_common']['subjectCsid'][0],
-              obj: response.combined_data['relations_common']['objectCsid'][0]
+              obj: response.combined_data['relations_common']['objectCsid'][0],
+              prd: response.combined_data['relations_common']['relationshipType'][0]
             }
           when 'CollectionSpace::Mapper::Authority'
             response.split_data['termdisplayname'].first
@@ -61,6 +46,18 @@ module CollectionSpace
             response.identifier
           end
         end
+
+        def reportable_result(item = nil)
+          return {status: :new} unless item
+
+          {
+            status: :existing,
+            csid: item['csid'],
+            uri: item['uri'],
+            refname: item['refName']
+          }
+        end
+
       end
     end
   end

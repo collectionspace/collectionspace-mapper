@@ -119,7 +119,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient, servic
       end
 
       it 'works the same' do
-        res = service.send(:lookup, {sub: '56c04f5f-32b9-4f1d-8a4b', obj: '6f0ce7b3-0130-444d-8633'})
+        res = service.send(:lookup, {sub: '56c04f5f-32b9-4f1d-8a4b', obj: '6f0ce7b3-0130-444d-8633', prd: 'affects'})
         expect(res[:status]).to eq(:existing)
       end
     end

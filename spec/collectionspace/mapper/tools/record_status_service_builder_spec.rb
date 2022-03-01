@@ -91,7 +91,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder do
       it 'returns expected value' do
         expected = {
           sub: '22706401-8328-4778-86fa',
-          obj: '8e74756f-38f5-4dee-90d4'
+          obj: '8e74756f-38f5-4dee-90d4',
+          prd: 'affects'
         }
         expect(result).to eq(expected)
       end

@@ -23,6 +23,14 @@ module Helpers
   end
   memo_wise(:core_cache)
 
+  def csid_cache
+    cache_config = base_cache_config.merge({ domain: core_client.domain })
+    cache = CollectionSpace::RefCache.new(config: cache_config)
+    populate_csids(cache)
+    cache
+  end
+  memo_wise(:csid_cache)
+
   def core_object_mapper
     path = 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json'
     get_record_mapper_object(path, core_cache)
@@ -395,7 +403,15 @@ module Helpers
       ['vocabularies', 'uocusertypes', 'lecturer',
        {refname: "urn:cspace:core.collectionspace.org:vocabularies:name(uocusertypes):item:name(lecturer)'lecturer'", csid: '1111-2222-3333-4444'}],
       ['workauthorities', 'work', 'Makeup',
-       {refname: "urn:cspace:core.collectionspace.org:workauthorities:name(work):item:name(Makeup1608768998350)'Makeup'", csid: '1111-2222-3333-4444'}]
+       {refname: "urn:cspace:core.collectionspace.org:workauthorities:name(work):item:name(Makeup1608768998350)'Makeup'", csid: '1111-2222-3333-4444'}],
+      ['personauthorities', 'person', 'John Doe', "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(JohnDoe1416422840)'John Doe'"]
+    ]
+    populate(cache, terms)
+  end
+
+    def populate_csids(cache)
+    terms = [
+      ['personauthorities', 'person', 'John Doe', '123'],
     ]
     populate(cache, terms)
   end
