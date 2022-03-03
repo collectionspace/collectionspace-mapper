@@ -6,9 +6,11 @@ module CollectionSpace
       class RecordStatusServiceBuilder
         class << self
           def call(client, mapper)
-            return CS::Mapper::Tools::RecordStatusServiceCache.new(mapper) if mapper.csidcache
-
-            CS::Mapper::Tools::RecordStatusServiceClient.new(client, mapper)
+            if mapper.batchconfig.status_check_method == 'client'
+              CS::Mapper::Tools::RecordStatusServiceClient.new(client, mapper)
+            else
+              CS::Mapper::Tools::RecordStatusServiceCache.new(mapper)
+            end
           end
         end
         
