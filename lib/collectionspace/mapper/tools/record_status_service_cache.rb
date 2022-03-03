@@ -3,6 +3,9 @@
 module CollectionSpace
   module Mapper
     module Tools
+      # Returns status of records, based on presence in CSID Cache.
+      # @note This should **only** be used with expert migration tooling with which you can
+      #   confidently ensure the CSID Cache is accurately populated with all existing records
       class RecordStatusServiceCache < CS::Mapper::Tools::RecordStatusServiceBuilder
         def initialize(mapper)
           super
@@ -14,6 +17,8 @@ module CollectionSpace
           value = get_value_for_record_status(response)
           if authority?
             lookup_authority(value)
+          elsif type == 'collectionobjects'
+            lookup_object(value)
           end
         end    
         #rectype = mapper.config.recordtype
@@ -31,7 +36,11 @@ module CollectionSpace
             reportable_result
           end
         end
-        
+
+        def lookup_object(identifier)
+          csid = csid_cache.get_object(identifier)
+          csid ? reportable_result({'csid' => csid}) : reportable_result
+        end
       end
     end
   end

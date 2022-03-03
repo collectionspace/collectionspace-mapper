@@ -11,13 +11,14 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache do
   end
   # @todo fix these tests so they are not on the now-private method
   describe '#call' do
+    let(:result){ service.call(response) }
+    
     context 'when mapper is for an authority' do
       let(:mapper_path) { 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_person-local.json' }
-      let(:response_data){ { 'termdisplayname'=>['John Doe'] } }
       let(:response){ double(:response, split_data: response_data) }
 
       context 'and result is found' do
-        let(:result){ service.call(response) }
+        let(:response_data){ { 'termdisplayname'=>['John Doe'] } }
 
         it 'status = :existing' do
           expect(result[:status]).to eq(:existing)
@@ -34,56 +35,31 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache do
         end
       end
 
-      # context 'and no result is found' do
-      #   it 'status = :new' do
-      #     res = service.send(:lookup, 'Chickweed Guineafowl')
-      #     expect(res[:status]).to eq(:new)
-      #   end
-      # end
-
-      # context 'and multiple results found' do
-      #   # if these tests fail, verify there are two person/local authority records for 'Inkpot Guineafowl'
-      #   #   in core.dev
-      #   # you may need to re-create them if they have been removed
-      #   context 'with default config' do
-      #     it 'raises error because we cannot know what to do with imported record' do
-      #       expect do
-      #         service.send(:lookup, 'Inkpot Guineafowl')
-      #       end.to raise_error(CollectionSpace::Mapper::MultipleCsRecordsFoundError)
-      #     end
-      #   end
-
-      #   context 'with multiple_recs_found = use first in batchconfig' do
-      #     let(:json) do
-      #       uri = 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_person-local.json'
-      #       get_json_record_mapper(uri)
-      #     end
-      #     let(:mapper) do
-      #       CollectionSpace::Mapper::RecordMapper.new(
-      #         mapper: json,
-      #         batchconfig: {multiple_recs_found: 'use_first'}
-      #       )
-      #     end
-      #     let(:result){ service.send(:lookup, 'Inkpot Guineafowl').keys.any?(:multiple_recs_found) }
-      #     it 'returns result with count of records found' do
-      #       expect(result).to be true
-      #     end
-      #   end
-      # end
+      context 'and no result is found' do
+        let(:response_data){ { 'termdisplayname'=>['Chickweed Guineafowl'] } }
+        it 'status = :new' do
+          expect(result[:status]).to eq(:new)
+        end
+      end
     end
 
-    # context 'when mapper is for an object' do
-    #   let(:mapper) do
-    #     CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
-    #       'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json'
-    #     ), termcache: core_cache)
-    #   end
+    context 'when mapper is for an object' do
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json' }
 
-    #   it 'works the same' do
-    #     res = service.send(:lookup, '2000.1')
-    #     expect(res[:status]).to eq(:existing)
-    #   end
-    # end
+      context 'when object is cached' do
+        let(:response){ double(:response, identifier: 'Hierarchy Test 001') }
+        it 'status = existing' do
+          expect(result[:status]).to eq(:existing)
+        end	
+      end
+
+      context 'when object is not cached' do
+      let(:response){ double(:response, identifier: '2000.1') }
+        it 'status = new' do
+          expect(result[:status]).to eq(:new)
+        end	
+      end
+    end
 
     # context 'when mapper is for a procedure' do
     #   let(:mapper) do
