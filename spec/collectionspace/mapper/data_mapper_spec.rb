@@ -22,7 +22,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
   let(:mapped_xpaths){ list_xpaths(mapped_doc) }
   let(:fixture_doc){ get_xml_fixture(fixture_path) }
   let(:fixture_xpaths){ test_xpaths(fixture_doc, handler.mapper.mappings) }
-  
+
   context 'fcart profile' do
     let(:client){ fcart_client }
     let(:cache){ fcart_cache }
