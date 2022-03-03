@@ -19,6 +19,10 @@ module CollectionSpace
             lookup_authority(value)
           elsif type == 'collectionobjects'
             lookup_object(value)
+          elsif mapper.service_type.to_s == 'CollectionSpace::Mapper::Relationship'
+            lookup_relation(value)
+          else
+            lookup_procedure(value)
           end
         end    
         #rectype = mapper.config.recordtype
@@ -40,6 +44,23 @@ module CollectionSpace
         def lookup_object(identifier)
           csid = csid_cache.get_object(identifier)
           csid ? reportable_result({'csid' => csid}) : reportable_result
+        end
+
+        def lookup_procedure(identifier)
+          csid = csid_cache.get_procedure(type, identifier)
+          csid ? reportable_result({'csid' => csid}) : reportable_result
+        end
+
+        def lookup_relation(rel_hash)
+          csid = csid_cache.get_relation(relation_type(rel_hash), rel_hash[:sub], rel_hash[:obj])
+          csid ? reportable_result({'csid' => csid}) : reportable_result
+        end
+
+        def relation_type(rel_hash)
+          prd = rel_hash[:prd]
+          return 'hier' if prd == 'hasBroader'
+
+          'nhr'
         end
       end
     end

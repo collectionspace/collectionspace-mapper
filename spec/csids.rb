@@ -4,8 +4,11 @@ module Helpers
   def cacheable_csids
     [
       # These are known to be needed/expected by tests
+      ['acquisitions', nil, 'ACQ 123', '8976-1265-9921-ab75'],
       ['collectionobjects', '', 'Hierarchy Test 001', '7976-7265-3715-6363'],
       ['conceptauthorities', 'concept', 'Sample Concept 1', '3736-2250-1869-4155'],
+      ['hier', '22706401-8328-4778-86fa', '8e74756f-38f5-4dee-90d4', 'xcvb-1234-9191-0000'],
+      ['nhr', '22706401-8328-4778-86fa', '8e74756f-38f5-4dee-90d4', 'xcvb-1234-9191-0000'],
       ['personauthorities', 'person', 'John Doe', '6369-4346-1059-9571'],
       # These are not -- they haven't all been checked!
       ['citationauthorities', 'citation', 'Arthur', '8558-5659-2886-1318'],

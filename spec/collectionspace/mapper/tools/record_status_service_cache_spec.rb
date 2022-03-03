@@ -61,31 +61,93 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache do
       end
     end
 
-    # context 'when mapper is for a procedure' do
-    #   let(:mapper) do
-    #     CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
-    #       'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_acquisition.json'
-    #     ), termcache: core_cache)
-    #   end
+    context 'when mapper is for a procedure' do
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_acquisition.json' }
 
-    #   it 'works the same' do
-    #     res = service.send(:lookup, '2000.001')
-    #     expect(res[:status]).to eq(:existing)
-    #   end
-    # end
+      context 'when cached' do
+        let(:response){ double(:response, identifier: 'ACQ 123') }
+        it 'status = existing' do
+          expect(result[:status]).to eq(:existing)
+        end	
+      end
 
-    # context 'when mapper is for a relationship' do
-    #   let(:mapper) do
-    #     CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
-    #       'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_objecthierarchy.json'
-    #     ))
-    #   end
+      context 'when not cached' do
+        let(:response){ double(:response, identifier: 'foo.bar') }
+        it 'status = new' do
+          expect(result[:status]).to eq(:new)
+        end	
+      end
+    end
 
-    #   it 'works the same' do
-    #     res = service.send(:lookup, {sub: '56c04f5f-32b9-4f1d-8a4b', obj: '6f0ce7b3-0130-444d-8633'})
-    #     expect(res[:status]).to eq(:existing)
-    #   end
-    # end
+    context 'when mapper is for a hierarchical relationship' do
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_objecthierarchy.json' }
+      let(:response){ double(:response, combined_data: response_data) }
+      
+      context 'when cached' do
+        let(:response_data) do
+          {
+            'relations_common'=>
+              {'subjectCsid'=>['22706401-8328-4778-86fa'],
+               'relationshipType'=>['hasBroader'],
+               'objectCsid'=>['8e74756f-38f5-4dee-90d4']}
+          }
+        end
+
+        it 'status = existing' do
+          expect(result[:status]).to eq(:existing)
+        end	
+      end
+
+      context 'when not cached' do
+        let(:response_data) do
+          {
+            'relations_common'=>
+              {'subjectCsid'=>['123'],
+               'relationshipType'=>['hasBroader'],
+               'objectCsid'=>['987']}
+          }
+        end
+        
+        it 'status = new' do
+          expect(result[:status]).to eq(:new)
+        end	
+      end
+    end
+
+    context 'when mapper is for a non-hierarchical relationship' do
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_nonhierarchicalrelationship.json' }
+      let(:response){ double(:response, combined_data: response_data) }
+      
+      context 'when cached' do
+        let(:response_data) do
+          {
+            'relations_common'=>
+              {'subjectCsid'=>['22706401-8328-4778-86fa'],
+               'relationshipType'=>['affects'],
+               'objectCsid'=>['8e74756f-38f5-4dee-90d4']}
+          }
+        end
+
+        it 'status = existing' do
+          expect(result[:status]).to eq(:existing)
+        end	
+      end
+
+      context 'when not cached' do
+        let(:response_data) do
+          {
+            'relations_common'=>
+              {'subjectCsid'=>['123'],
+               'relationshipType'=>['affects'],
+               'objectCsid'=>['987']}
+          }
+        end
+        
+        it 'status = new' do
+          expect(result[:status]).to eq(:new)
+        end	
+      end
+    end
   end
 end
 
