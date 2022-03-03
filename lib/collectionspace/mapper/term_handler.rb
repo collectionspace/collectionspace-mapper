@@ -9,6 +9,10 @@ module CollectionSpace
                   :column, :source_type, :type, :subtype
       attr_accessor :value
 
+      # @param mapping [CollectionSpace::Mapper::ColumnMapping]
+      # @param data [Array<String>]
+      # @param client [CollectionSpace::Client]
+      # @param mapper [CollectionSpace::Mapper::RecordMapper]
       def initialize(mapping:, data:, client:, mapper:)
         @mapping = mapping
         @data = data
@@ -63,21 +67,25 @@ module CollectionSpace
           if refname_urn
             add_found_term(refname_urn, term_report)
             added = true
+            map_val = refname_urn
           end
         elsif cached_as_unknown?(val)
           refname_urn = add_known_unknown_term(val, term_report)
           added = true
+          map_val = ''
         else # not in cache
           refname_urn = searched_term(val, :refname)
           if refname_urn
             add_found_term(refname_urn, term_report)
             added = true
+            map_val = refname_urn
           end
         end
 
-        return refname_urn if added
+        add_new_unknown_term(val, term_report) unless added
+        return map_val if map_val
 
-        add_new_unknown_term(val, term_report)
+        ''
       end
 
       def add_found_term(refname_urn, term_report)
@@ -99,14 +107,12 @@ module CollectionSpace
         )
         urn = unknown_term.urn
         @terms << term_report.merge({found: false, refname: unknown_term})
-        @cache.put('unknownvalue', type_subtype, val, urn)
-        @csid_cache.put('unknownvalue', type_subtype, val, urn)
-        urn
+        [val, case_swap(val)].each{ |value| @cache.put('unknownvalue', type_subtype, value, urn) }
       end
 
       # records the fact that this is an unknown term in the mapper response
       def add_known_unknown_term(val, term_report)
-        unknown_term_str = cached_term('unknownvalue', type_subtype, val)
+        unknown_term_str = cached_unknown(type_subtype, val)
         unknown_term = CollectionSpace::Mapper::UnknownTerm.from_string(unknown_term_str)
         @terms << term_report.merge({found: false, refname: unknown_term})
         add_missing_record_error('term', val)

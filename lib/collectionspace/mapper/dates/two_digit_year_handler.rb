@@ -15,7 +15,9 @@ module CollectionSpace
           if literal?
             @mappable = CS::Mapper::Dates::ServicesParser.new(date_string, handler).mappable
           elsif coerce?
-            @mappable = CS::Mapper::Dates::ChronicParser.new(coerced_year_date, handler).mappable
+            mappable = CS::Mapper::Dates::ChronicParser.new(coerced_year_date, handler).mappable
+            mappable['dateDisplayDate'] = date_string
+            @mappable = mappable
           else
             @mappable = no_mappable_date
           end

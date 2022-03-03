@@ -24,7 +24,7 @@ module CollectionSpace
 
         def call(date_string)
           if date_string == '%NULLVALUE%'
-            return
+            CS::Mapper::Dates::NullDate.new
           elsif date_string == THE_BOMB
             CS::Mapper::Dates::DateBomber.new
           elsif date_formats.any?{ |re| date_string.match?(re) }

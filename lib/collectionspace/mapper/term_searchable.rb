@@ -18,6 +18,10 @@ module CollectionSpace
         false
       end
 
+      def cached_unknown(type_subtype, val)
+        @cache.get('unknownvalue', type_subtype, val)
+      end
+
       private def type_subtype
         "#{type}/#{subtype}"
       end

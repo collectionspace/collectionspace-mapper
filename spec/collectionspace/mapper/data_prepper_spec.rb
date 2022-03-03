@@ -6,6 +6,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   let(:delimiter){ ';' }
   let(:client){ anthro_client }
   let(:cache){ anthro_cache }
+  let(:csid_cache){ anthro_csid_cache }
   let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json' }
   let(:mapper){ get_json_record_mapper(mapperpath) }
   let(:config) do
@@ -17,6 +18,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
     CollectionSpace::Mapper::DataHandler.new(record_mapper: mapper,
                                              client: client,
                                              cache: cache,
+                                             csid_cache: csid_cache,
                                              config: config)
   end
   let(:prepper){ CollectionSpace::Mapper::DataPrepper.new(datahash, handler) }

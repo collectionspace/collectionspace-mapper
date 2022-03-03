@@ -65,7 +65,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
       it 'result is the transformed value for mapping' do
         expected = [['',
                      "urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(swa)'Swahili'"],
-                    ['null',
+                    ['',
                      "urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(spa)'Spanish'"],
                     [CS::Mapper::THE_BOMB]]
         expect(th.result).to eq(expected)
@@ -103,7 +103,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
           not_found = terms.select{ |h| !h[:found] }
           expect(terms.length).to eq(3)
           expect(found.length).to eq(2)
-          expect(not_found.first[:refname]).to eq('null')
+          expect(not_found.first[:refname].urn).to eq('vocabularies|||languages|||Sanza')
         end
       end
 
@@ -130,7 +130,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
           not_found = th.terms.select{ |h| !h[:found] }
           expect(terms.length).to eq(3)
           expect(found.length).to eq(0)
-          expect(not_found.first[:refname]).to eq('null')
+          expect(not_found.first[:refname].display_name).to eq('Reference 3')
         end
       end
     end
