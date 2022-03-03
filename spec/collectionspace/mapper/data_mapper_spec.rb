@@ -22,6 +22,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
   let(:mapped_xpaths){ list_xpaths(mapped_doc) }
   let(:fixture_doc){ get_xml_fixture(fixture_path) }
   let(:fixture_xpaths){ test_xpaths(fixture_doc, handler.mapper.mappings) }
+  let(:diff){ mapped_xpaths - fixture_xpaths }
 
   context 'fcart profile' do
     let(:client){ fcart_client }
@@ -73,7 +74,6 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
           expect(w).to be true
         end
         it 'does not map unexpected fields' do
-          diff = mapped_xpaths - fixture_xpaths
           expect(diff).to eq([])
         end
 
