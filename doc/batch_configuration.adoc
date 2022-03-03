@@ -25,6 +25,7 @@ A JSON config hash may be passed to a new `Mapper::DataHandler` to control vario
   "strip_id_values": true,
   "multiple_recs_found": "fail",
   "check_record_status" : true,
+  "status_check_method" : 'client'
   "force_defaults": false,
   "date_format": "month day year",
   "two_digit_year_handling": "convert to four digit",
@@ -132,6 +133,25 @@ Set this to false only if you are certain no records in your data exist in Colle
 - *Defaults to:* true
 - *Data type*: boolean
 - *Allowed values*: `true`, `false`
+
+== status_check_method
+
+Controls whether the status of each record is determined via querying the services API, or by querying a cache.
+
+[WARNING]
+====
+**Do not** set this to `cache` unless:
+
+* you know you have an up-to-date `CollectionSpace::RefCache` accurately populated with all CSIDs from the CollectionSpace instance you are working with
+* you know no one is adding or deleting any records from the CollectionSpace instance you are working with while you are preparing records to be transferred into it
+
+If you use this in other circumstances, it is possible to inadvertently add duplicate records.
+====
+
+- *Required?:* yes
+- *Defaults to:* `client`
+- *Data type*: boolean
+- *Allowed values*: `client`, `cache`
 
 == force_defaults
 
