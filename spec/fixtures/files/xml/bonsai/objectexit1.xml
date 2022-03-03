@@ -6,28 +6,28 @@
     <createdBy>admin@bonsai.collectionspace.org</createdBy>
     <workflowState>project</workflowState>
     <tenantId>3000</tenantId>
-    <refName>urn:cspace:bonsai.collectionspace.org:objectexit:id(5f12d2f9-de20-4c77-9a93)</refName>
+    <refName>urn:cspace:c.bonsai.collectionspace.org:objectexit:id(5f12d2f9-de20-4c77-9a93)</refName>
     <uri>/objectexit/5f12d2f9-de20-4c77-9a93</uri>
     <updatedAt>2020-09-01T00:44:13.760Z</updatedAt>
   </ns2:collectionspace_core>
   <ns2:objectexit_common xmlns:ns2="http://collectionspace.org/services/objectexit" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <authorizationDate>2020-08-05T00:00:00.000Z</authorizationDate>
     <exitNote>Exit note text</exitNote>
-    <groupDisposalCurrency>urn:cspace:bonsai.collectionspace.org:vocabularies:name(currency):item:name(CAD)'Canadian Dollar'</groupDisposalCurrency>
+    <groupDisposalCurrency>urn:cspace:c.bonsai.collectionspace.org:vocabularies:name(currency):item:name(CAD)'Canadian Dollar'</groupDisposalCurrency>
     <displosalReason>Fund raising</displosalReason>
     <packingNote>Packing note text</packingNote>
-    <currentOwner>urn:cspace:bonsai.collectionspace.org:orgauthorities:name(organization):item:name(BonsaiMuseum1598919439027)'Bonsai Museum'</currentOwner>
+    <currentOwner>urn:cspace:c.bonsai.collectionspace.org:orgauthorities:name(organization):item:name(BonsaiMuseum1598919439027)'Bonsai Museum'</currentOwner>
     <exitMethods>
       <exitMethod>inperson</exitMethod>
       <exitMethod>post</exitMethod>
     </exitMethods>
-    <disposalMethod>urn:cspace:bonsai.collectionspace.org:vocabularies:name(disposalmethod):item:name(public_auction)'public auction'</disposalMethod>
-    <disposalProposedRecipient>urn:cspace:bonsai.collectionspace.org:personauthorities:name(person):item:name(PriscillaPlantsale1598920259864)'Priscilla Plantsale'</disposalProposedRecipient>
+    <disposalMethod>urn:cspace:c.bonsai.collectionspace.org:vocabularies:name(disposalmethod):item:name(public_auction)'public auction'</disposalMethod>
+    <disposalProposedRecipient>urn:cspace:c.bonsai.collectionspace.org:personauthorities:name(person):item:name(PriscillaPlantsale1598920259864)'Priscilla Plantsale'</disposalProposedRecipient>
     <displosalNote>Disposal note</displosalNote>
     <groupDisplosalValue>1500</groupDisplosalValue>
     <exitReason>fundraiser</exitReason>
     <displosalValue>256</displosalValue>
-    <deaccessionAuthorizer>urn:cspace:bonsai.collectionspace.org:personauthorities:name(person):item:name(AnnAuthorizer1598919551068)'Ann Authorizer'</deaccessionAuthorizer>
+    <deaccessionAuthorizer>urn:cspace:c.bonsai.collectionspace.org:personauthorities:name(person):item:name(AnnAuthorizer1598919551068)'Ann Authorizer'</deaccessionAuthorizer>
     <exitDateGroup>
       <scalarValuesComputed>true</scalarValuesComputed>
       <dateEarliestSingleCertainty/>
@@ -44,7 +44,7 @@
       <dateAssociation/>
       <dateLatestDay/>
       <dateEarliestSingleMonth>8</dateEarliestSingleMonth>
-      <dateEarliestSingleEra>urn:cspace:bonsai.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+      <dateEarliestSingleEra>urn:cspace:c.bonsai.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
       <dateLatestYear/>
       <dateLatestQualifierUnit/>
       <dateNote/>
@@ -54,29 +54,29 @@
       <dateLatestMonth/>
     </exitDateGroup>
     <exitQuantity>2</exitQuantity>
-    <disposalCurrency>urn:cspace:bonsai.collectionspace.org:vocabularies:name(currency):item:name(CAD)'Canadian Dollar'</disposalCurrency>
+    <disposalCurrency>urn:cspace:c.bonsai.collectionspace.org:vocabularies:name(currency):item:name(CAD)'Canadian Dollar'</disposalCurrency>
     <deacApprovalGroupList>
       <deacApprovalGroup>
         <deaccessionApprovalNote>DA note 1</deaccessionApprovalNote>
-        <deaccessionApprovalStatus>urn:cspace:bonsai.collectionspace.org:vocabularies:name(deaccessionapprovalstatus):item:name(approved)'approved'</deaccessionApprovalStatus>
+        <deaccessionApprovalStatus>urn:cspace:c.bonsai.collectionspace.org:vocabularies:name(deaccessionapprovalstatus):item:name(approved)'approved'</deaccessionApprovalStatus>
         <deaccessionApprovalGroup/>
         <deaccessionApprovalDate>2020-08-06T00:00:00.000Z</deaccessionApprovalDate>
-        <deaccessionApprovalIndividual>urn:cspace:bonsai.collectionspace.org:personauthorities:name(person):item:name(AnnAuthorizer1598919551068)'Ann Authorizer'</deaccessionApprovalIndividual>
+        <deaccessionApprovalIndividual>urn:cspace:c.bonsai.collectionspace.org:personauthorities:name(person):item:name(AnnAuthorizer1598919551068)'Ann Authorizer'</deaccessionApprovalIndividual>
       </deacApprovalGroup>
       <deacApprovalGroup>
         <deaccessionApprovalNote>DA note 2</deaccessionApprovalNote>
-        <deaccessionApprovalStatus>urn:cspace:bonsai.collectionspace.org:vocabularies:name(deaccessionapprovalstatus):item:name(not_required)'not required'</deaccessionApprovalStatus>
-        <deaccessionApprovalGroup>urn:cspace:bonsai.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(collection_committee)'collection committee'</deaccessionApprovalGroup>
+        <deaccessionApprovalStatus>urn:cspace:c.bonsai.collectionspace.org:vocabularies:name(deaccessionapprovalstatus):item:name(not_required)'not required'</deaccessionApprovalStatus>
+        <deaccessionApprovalGroup>urn:cspace:c.bonsai.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(collection_committee)'collection committee'</deaccessionApprovalGroup>
         <deaccessionApprovalDate>2020-08-06T00:00:00.000Z</deaccessionApprovalDate>
         <deaccessionApprovalIndividual/>
       </deacApprovalGroup>
     </deacApprovalGroupList>
     <displosalProvisos>Provisos here</displosalProvisos>
-    <disposalRecipient>urn:cspace:bonsai.collectionspace.org:orgauthorities:name(organization):item:name(BonsaiStore1598920297843)'Bonsai Store'</disposalRecipient>
+    <disposalRecipient>urn:cspace:c.bonsai.collectionspace.org:orgauthorities:name(organization):item:name(BonsaiStore1598920297843)'Bonsai Store'</disposalRecipient>
     <deaccessionDate>2020-08-08T00:00:00.000Z</deaccessionDate>
     <displosalNewObjectNumber>DN123</displosalNewObjectNumber>
     <disposalDate>2020-08-09T00:00:00.000Z</disposalDate>
-    <depositor>urn:cspace:bonsai.collectionspace.org:personauthorities:name(person):item:name(DebbieDepositor1598919493867)'Debbie Depositor'</depositor>
+    <depositor>urn:cspace:c.bonsai.collectionspace.org:personauthorities:name(person):item:name(DebbieDepositor1598919493867)'Debbie Depositor'</depositor>
     <exitNumber>EX2020.1</exitNumber>
   </ns2:objectexit_common>
   <ns2:account_permission xmlns:ns2="http://collectionspace.org/services/authorization">

@@ -3,17 +3,19 @@
 module CollectionSpace
   module Mapper
     class DataPrepper
-      attr_reader :data, :handler, :config, :cache, :client
+      attr_reader :data, :handler, :config, :cache, :csid_cache, :client
       attr_accessor :response, :xphash
 
       def initialize(data, handler)
         @handler = handler
-        @config = @handler.mapper.batchconfig
-        @cache = @handler.mapper.termcache
-        @client = @handler.mapper.csclient
-        @response = CollectionSpace::Mapper.setup_data(data, @config)
+        @config = handler.mapper.batchconfig
+        @cache = handler.mapper.termcache
+        @csid_cache = handler.mapper.csidcache
+        @client = handler.mapper.csclient
+        @date_handler = handler.date_handler
+        @response = CollectionSpace::Mapper.setup_data(data, config)
         drop_empty_fields
-        process_xpaths if @response.valid?
+        process_xpaths if response.valid?
       end
 
       def prep
@@ -226,8 +228,8 @@ module CollectionSpace
           th = CollectionSpace::Mapper::TermHandler.new(mapping: mapping,
                                                         data: data,
                                                         client: @client,
-                                                        cache: @cache,
                                                         mapper: @handler.mapper)
+          
           @response.transformed_data[column] = th.result
           @response.terms << th.terms
           @response.warnings << th.warnings unless th.warnings.empty?
@@ -248,15 +250,11 @@ module CollectionSpace
         data.map do |d|
           if d.is_a?(String)
             CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(d,
-                                                                  @client,
-                                                                  @cache,
-                                                                  @handler.mapper.batchconfig).mappable
+                                                                  @handler.date_handler).mappable
           else
             d.map do |v|
               CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(v,
-                                                                    @client,
-                                                                    @cache,
-                                                                    @handler.mapper.batchconfig).mappable
+                                                                    @handler.date_handler).mappable
             end
           end
         end
@@ -266,15 +264,11 @@ module CollectionSpace
         data.map do |d|
           if d.is_a?(String)
             CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(d,
-                                                                  @client,
-                                                                  @cache,
-                                                                  @handler.mapper.batchconfig).stamp
+                                                                  @handler.date_handler).stamp
           else
             d.map do |v|
               CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(v,
-                                                                    @client,
-                                                                    @cache,
-                                                                    @handler.mapper.batchconfig).stamp
+                                                                    @handler.date_handler).stamp
             end
           end
         end

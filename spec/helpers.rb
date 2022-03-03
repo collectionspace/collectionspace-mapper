@@ -6,6 +6,8 @@ module Helpers
   prepend MemoWise
   extend self
 
+  require_relative './csids'
+  require_relative './refnames'
   require_relative './anthro_helpers'
   require_relative './bonsai_helpers'
   require_relative './botgarden_helpers'
@@ -35,6 +37,7 @@ module Helpers
   def get_datahash(path:)
     JSON.parse(File.read(path))
   end
+
 
   # The way CollectionSpace uses different URIs for the same namespace prefix in the same
   #  document is irregular and makes it impossible to query a document via xpath if

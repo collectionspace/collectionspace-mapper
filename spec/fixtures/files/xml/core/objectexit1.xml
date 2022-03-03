@@ -6,29 +6,29 @@
     <createdBy>admin@core.collectionspace.org</createdBy>
     <workflowState>project</workflowState>
     <tenantId>1</tenantId>
-    <refName>urn:cspace:core.collectionspace.org:objectexit:id(ea54b752-b1ca-496a-82c0)</refName>
+    <refName>urn:cspace:c.core.collectionspace.org:objectexit:id(ea54b752-b1ca-496a-82c0)</refName>
     <uri>/objectexit/ea54b752-b1ca-496a-82c0</uri>
     <updatedAt>2020-09-08T08:23:26.892Z</updatedAt>
   </ns2:collectionspace_core>
   <ns2:objectexit_common xmlns:ns2="http://collectionspace.org/services/objectexit" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <authorizationDate>2020-09-25T00:00:00.000Z</authorizationDate>
     <exitNote>dsdsdsd</exitNote>
-    <groupDisposalCurrency>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(DKK)'Danish Krone'</groupDisposalCurrency>
+    <groupDisposalCurrency>urn:cspace:c.core.collectionspace.org:vocabularies:name(currency):item:name(DKK)'Danish Krone'</groupDisposalCurrency>
     <displosalReason>sdsds</displosalReason>
     <packingNote>sdsdsd</packingNote>
-    <currentOwner>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(cxcx1599551790384)'cxcx'</currentOwner>
+    <currentOwner>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(cxcx1599551790384)'cxcx'</currentOwner>
     <exitMethods>
       <exitMethod>post</exitMethod>
       <exitMethod>courier</exitMethod>
       <exitMethod>inperson</exitMethod>
     </exitMethods>
-    <disposalMethod>urn:cspace:core.collectionspace.org:vocabularies:name(disposalmethod):item:name(destruction)'destruction'</disposalMethod>
-    <disposalProposedRecipient>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(dssd1599552004115)'dssd'</disposalProposedRecipient>
+    <disposalMethod>urn:cspace:c.core.collectionspace.org:vocabularies:name(disposalmethod):item:name(destruction)'destruction'</disposalMethod>
+    <disposalProposedRecipient>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(dssd1599552004115)'dssd'</disposalProposedRecipient>
     <displosalNote>sddsdsd</displosalNote>
     <groupDisplosalValue>55</groupDisplosalValue>
     <exitReason>deaccession</exitReason>
     <displosalValue>20</displosalValue>
-    <deaccessionAuthorizer>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(sasa1599551852678)'sasa'</deaccessionAuthorizer>
+    <deaccessionAuthorizer>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(sasa1599551852678)'sasa'</deaccessionAuthorizer>
     <exitDateGroup>
       <scalarValuesComputed>true</scalarValuesComputed>
       <dateEarliestSingleCertainty/>
@@ -55,29 +55,29 @@
       <dateLatestMonth/>
     </exitDateGroup>
     <exitQuantity>10</exitQuantity>
-    <disposalCurrency>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(DKK)'Danish Krone'</disposalCurrency>
+    <disposalCurrency>urn:cspace:c.core.collectionspace.org:vocabularies:name(currency):item:name(DKK)'Danish Krone'</disposalCurrency>
     <deacApprovalGroupList>
       <deacApprovalGroup>
         <deaccessionApprovalNote>gf</deaccessionApprovalNote>
-        <deaccessionApprovalStatus>urn:cspace:core.collectionspace.org:vocabularies:name(deaccessionapprovalstatus):item:name(not_approved)'not approved'</deaccessionApprovalStatus>
-        <deaccessionApprovalGroup>urn:cspace:core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(collection_committee)'collection committee'</deaccessionApprovalGroup>
+        <deaccessionApprovalStatus>urn:cspace:c.core.collectionspace.org:vocabularies:name(deaccessionapprovalstatus):item:name(not_approved)'not approved'</deaccessionApprovalStatus>
+        <deaccessionApprovalGroup>urn:cspace:c.core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(collection_committee)'collection committee'</deaccessionApprovalGroup>
         <deaccessionApprovalDate>2020-09-02T00:00:00.000Z</deaccessionApprovalDate>
-        <deaccessionApprovalIndividual>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(fgfgf1599551987166)'fgfgf'</deaccessionApprovalIndividual>
+        <deaccessionApprovalIndividual>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(fgfgf1599551987166)'fgfgf'</deaccessionApprovalIndividual>
       </deacApprovalGroup>
       <deacApprovalGroup>
         <deaccessionApprovalNote>dfd</deaccessionApprovalNote>
-        <deaccessionApprovalStatus>urn:cspace:core.collectionspace.org:vocabularies:name(deaccessionapprovalstatus):item:name(approved)'approved'</deaccessionApprovalStatus>
-        <deaccessionApprovalGroup>urn:cspace:core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(executive_committee)'executive committee'</deaccessionApprovalGroup>
+        <deaccessionApprovalStatus>urn:cspace:c.core.collectionspace.org:vocabularies:name(deaccessionapprovalstatus):item:name(approved)'approved'</deaccessionApprovalStatus>
+        <deaccessionApprovalGroup>urn:cspace:c.core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(executive_committee)'executive committee'</deaccessionApprovalGroup>
         <deaccessionApprovalDate>2020-09-09T00:00:00.000Z</deaccessionApprovalDate>
         <deaccessionApprovalIndividual/>
       </deacApprovalGroup>
     </deacApprovalGroupList>
     <displosalProvisos>efsdfsfsdf</displosalProvisos>
-    <disposalRecipient>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(fggf1599552009173)'fggf'</disposalRecipient>
+    <disposalRecipient>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(fggf1599552009173)'fggf'</disposalRecipient>
     <deaccessionDate>2020-09-16T00:00:00.000Z</deaccessionDate>
     <displosalNewObjectNumber>sasa</displosalNewObjectNumber>
     <disposalDate>2020-09-02T00:00:00.000Z</disposalDate>
-    <depositor>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(dfdd1599551799173)'dfdd'</depositor>
+    <depositor>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(dfdd1599551799173)'dfdd'</depositor>
     <exitNumber>EX2020.2</exitNumber>
   </ns2:objectexit_common>
   <ns2:account_permission xmlns:ns2="http://collectionspace.org/services/authorization">

@@ -17,7 +17,6 @@ module CollectionSpace
       include Tools::Symbolizable
 
       attr_reader :batchconfig, :config, :termcache, :csidcache, :mappings, :xml_template, :csclient
-
       attr_accessor :xpath
 
       def initialize(opts)

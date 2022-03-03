@@ -36,6 +36,11 @@ module CollectionSpace
           end
         end
 
+        def key
+          "#{type}-#{subtype}-#{display_name}"
+        end
+
+
         private
 
         def build_urn

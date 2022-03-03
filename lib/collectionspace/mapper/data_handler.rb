@@ -4,6 +4,7 @@ module CollectionSpace
   module Mapper
     # given a RecordMapper hash and a data hash, returns CollectionSpace XML document
     class DataHandler
+      attr_reader :date_handler
       # this is an accessor rather than a reader until I refactor away the hideous
       #  xpath hash
       attr_accessor :mapper
@@ -12,6 +13,11 @@ module CollectionSpace
         @mapper = CollectionSpace::Mapper::RecordMapper.new(mapper: record_mapper, batchconfig: config,
                                                             csclient: client, termcache: cache,
                                                             csidcache: csid_cache )
+        @date_handler = CS::Mapper::Dates::StructuredDateHandler.new(
+          client: client,
+          cache: cache,
+          csid_cache: csid_cache,
+          config: mapper.batchconfig)
         @mapper.xpath = xpath_hash
         merge_config_transforms
         @new_terms = {}
@@ -167,10 +173,10 @@ module CollectionSpace
         return if terms.empty?
 
         terms.select{ |t| !t[:found] }.each do |term|
-          @new_terms[CollectionSpace::Mapper.term_key(term)] = nil
+          @new_terms[term[:refname].key] = nil
         end
         terms.select{ |t| t[:found] }.each do |term|
-          term[:found] = false if @new_terms.key?(CollectionSpace::Mapper.term_key(term))
+          term[:found] = false if @new_terms.key?(term[:refname].key)
         end
 
         result.terms = terms

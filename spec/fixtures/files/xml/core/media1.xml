@@ -6,20 +6,20 @@
     <createdBy>admin@core.collectionspace.org</createdBy>
     <workflowState>project</workflowState>
     <tenantId>1</tenantId>
-    <refName>urn:cspace:core.collectionspace.org:media:id(29cc0c73-4a43-4bfc-80ed)</refName>
+    <refName>urn:cspace:c.core.collectionspace.org:media:id(29cc0c73-4a43-4bfc-80ed)</refName>
     <uri>/media/29cc0c73-4a43-4bfc-80ed</uri>
     <updatedAt>2020-09-08T19:01:21.240Z</updatedAt>
   </ns2:collectionspace_core>
   <ns2:media_common xmlns:ns2="http://collectionspace.org/services/media" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <rightsHolder>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Kremling1599464161204)'Kremling'</rightsHolder>
+    <rightsHolder>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(Kremling1599464161204)'Kremling'</rightsHolder>
     <copyrightStatement>For the ones we have</copyrightStatement>
     <description>Rainy as usual.</description>
     <blobCsid>c6a4cf99-3b7e-4879-9526</blobCsid>
     <source>Quarry</source>
     <publishToList>
-      <publishTo>urn:cspace:core.collectionspace.org:vocabularies:name(publishto):item:name(omeka)'Omeka'</publishTo>
-      <publishTo>urn:cspace:core.collectionspace.org:vocabularies:name(publishto):item:name(cultureobject)'Culture Object'</publishTo>
-      <publishTo>urn:cspace:core.collectionspace.org:vocabularies:name(publishto):item:name(cspacepub)'CollectionSpace Public Browser'</publishTo>
+      <publishTo>urn:cspace:c.core.collectionspace.org:vocabularies:name(publishto):item:name(omeka)'Omeka'</publishTo>
+      <publishTo>urn:cspace:c.core.collectionspace.org:vocabularies:name(publishto):item:name(cultureobject)'Culture Object'</publishTo>
+      <publishTo>urn:cspace:c.core.collectionspace.org:vocabularies:name(publishto):item:name(cspacepub)'CollectionSpace Public Browser'</publishTo>
     </publishToList>
     <title>Shawshank Redemption</title>
     <dateGroupList>
@@ -39,7 +39,7 @@
         <dateAssociation/>
         <dateLatestDay/>
         <dateEarliestSingleMonth>8</dateEarliestSingleMonth>
-        <dateEarliestSingleEra>urn:cspace:core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+        <dateEarliestSingleEra>urn:cspace:c.core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
         <dateLatestYear/>
         <dateLatestQualifierUnit/>
         <dateNote/>
@@ -49,7 +49,7 @@
         <dateLatestMonth/>
       </dateGroup>
     </dateGroupList>
-    <contributor>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(FirstLayer1599463905818)'First Layer'</contributor>
+    <contributor>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(FirstLayer1599463905818)'First Layer'</contributor>
     <typeList>
       <type>document</type>
       <type>moving_image</type>
@@ -57,16 +57,16 @@
       <type>sound</type>
     </typeList>
     <languageList>
-      <language>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(hye)'Armenian'</language>
-      <language>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</language>
-      <language>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(mal)'Malaysian'</language>
+      <language>urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(hye)'Armenian'</language>
+      <language>urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</language>
+      <language>urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(mal)'Malaysian'</language>
     </languageList>
     <coverage>Area Code</coverage>
     <externalUrl>data:image/jpeg;base64,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</externalUrl>
     <subjectList>
       <subject>Earthling</subject>
     </subjectList>
-    <creator>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(JosephHills1599463935463)'Joseph Hills'</creator>
+    <creator>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(JosephHills1599463935463)'Joseph Hills'</creator>
     <measuredPartGroupList>
       <measuredPartGroup>
         <dimensionSummary>Past is gone</dimensionSummary>
@@ -76,7 +76,7 @@
             <dimensionNote/>
             <valueQualifier>cm</valueQualifier>
             <valueDate>2020-09-23T00:00:00.000Z</valueDate>
-            <measuredBy>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Gomongo1599463746195)'Gomongo'</measuredBy>
+            <measuredBy>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Gomongo1599463746195)'Gomongo'</measuredBy>
             <dimension>base</dimension>
             <value>25</value>
             <measurementMethod>sliding_calipers</measurementMethod>
@@ -86,7 +86,7 @@
             <dimensionNote/>
             <valueQualifier>ct</valueQualifier>
             <valueDate>2020-09-28T00:00:00.000Z</valueDate>
-            <measuredBy>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Comodore1599463826401)'Comodore'</measuredBy>
+            <measuredBy>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Comodore1599463826401)'Comodore'</measuredBy>
             <dimension/>
             <value>83</value>
             <measurementMethod>theodolite_total_station</measurementMethod>
@@ -96,7 +96,7 @@
             <dimensionNote/>
             <valueQualifier>kg</valueQualifier>
             <valueDate>2020-09-25T00:00:00.000Z</valueDate>
-            <measuredBy>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Cuckoo1599463786824)'Cuckoo'</measuredBy>
+            <measuredBy>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(Cuckoo1599463786824)'Cuckoo'</measuredBy>
             <dimension>weight</dimension>
             <value>56</value>
             <measurementMethod>electronic_distance_measurement</measurementMethod>
@@ -118,7 +118,7 @@
     <relationList>
       <relation>Custom</relation>
     </relationList>
-    <publisher>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Abel1599464025893)'Abel'</publisher>
+    <publisher>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Abel1599464025893)'Abel'</publisher>
     <identificationNumber>MR2020.1.77</identificationNumber>
   </ns2:media_common>
   <ns2:account_permission xmlns:ns2="http://collectionspace.org/services/authorization">

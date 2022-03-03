@@ -9,12 +9,13 @@ module CollectionSpace
                   :column, :source_type, :type, :subtype
       attr_accessor :value
 
-      def initialize(mapping:, data:, client:, cache:, mapper:)
+      def initialize(mapping:, data:, client:, mapper:)
         @mapping = mapping
         @data = data
         @client = client
-        @cache = cache
         @mapper = mapper
+        @cache = mapper.termcache
+        @csid_cache = mapper.csidcache
 
         @column = mapping.datacolumn
         @field = mapping.fieldname
@@ -58,7 +59,7 @@ module CollectionSpace
         }
 
         if in_cache?(val)
-          refname_urn = cached_term(val, :refname)
+          refname_urn = cached_term(val)
           if refname_urn
             add_found_term(refname_urn, term_report)
             added = true
@@ -91,28 +92,38 @@ module CollectionSpace
       # at the point of switching error, the termtype and termsubtype parameters can be removed from
       #  cached_term
       def add_new_unknown_term(val, term_report)
-        refname_obj = CollectionSpace::Mapper::Tools::RefName.new(
-          source_type: source_type,
+        unknown_term = CollectionSpace::Mapper::UnknownTerm.new(
           type: type,
           subtype: subtype,
-          term: val,
-          cache: @cache
+          term: val
         )
-
-        @terms << term_report.merge({found: false, refname: refname_obj})
-        refname_url = refname_obj.urn
-        @cache.put('unknownvalue', type_subtype, val, {refname: refname_url, csid: nil})
-        refname_url
+        urn = unknown_term.urn
+        @terms << term_report.merge({found: false, refname: unknown_term})
+        @cache.put('unknownvalue', type_subtype, val, urn)
+        @csid_cache.put('unknownvalue', type_subtype, val, urn)
+        urn
       end
 
+      # records the fact that this is an unknown term in the mapper response
       def add_known_unknown_term(val, term_report)
-        refname_url = cached_term(val, :refname, 'unknownvalue', "#{type}/#{subtype}")
-        # refname_url = @cache.get('unknownvalue', type_subtype, val)[:refname]
-        refname_obj = CollectionSpace::Mapper::Tools::RefName.new(urn: refname_url)
-        @terms << term_report.merge({found: false, refname: refname_obj})
+        unknown_term_str = cached_term('unknownvalue', type_subtype, val)
+        unknown_term = CollectionSpace::Mapper::UnknownTerm.from_string(unknown_term_str)
+        @terms << term_report.merge({found: false, refname: unknown_term})
         add_missing_record_error('term', val)
-        refname_url
+        unknown_term_str
       end
+
+      # def add_new_unknown_term(val, term_report)
+      #   @terms << term_report.merge({found: false, refname: 'null'})
+      #   @cache.put('unknownvalue', type_subtype, val, 'null')
+      #   'null'
+      # end
+
+      # def add_known_unknown_term(val, term_report)
+      #   @terms << term_report.merge({found: false, refname: 'null'})
+      #   add_missing_record_error('term', val)
+      #   'null'
+      # end
     end
   end
 end

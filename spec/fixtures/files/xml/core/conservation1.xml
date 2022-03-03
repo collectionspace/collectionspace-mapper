@@ -6,7 +6,7 @@
     <createdBy>admin@core.collectionspace.org</createdBy>
     <workflowState>project</workflowState>
     <tenantId>1</tenantId>
-    <refName>urn:cspace:core.collectionspace.org:conservation:id(b3ce795d-1fdc-4971-b12a)</refName>
+    <refName>urn:cspace:c.core.collectionspace.org:conservation:id(b3ce795d-1fdc-4971-b12a)</refName>
     <uri>/conservation/b3ce795d-1fdc-4971-b12a</uri>
     <updatedAt>2020-09-08T12:56:17.408Z</updatedAt>
   </ns2:collectionspace_core>
@@ -15,11 +15,11 @@
     <conservationStatusGroupList>
       <conservationStatusGroup>
         <statusDate>2020-09-24T00:00:00.000Z</statusDate>
-        <status>urn:cspace:core.collectionspace.org:vocabularies:name(conservationstatus):item:name(analysiscomplete)'Analysis complete'</status>
+        <status>urn:cspace:c.core.collectionspace.org:vocabularies:name(conservationstatus):item:name(analysiscomplete)'Analysis complete'</status>
       </conservationStatusGroup>
       <conservationStatusGroup>
         <statusDate/>
-        <status>urn:cspace:core.collectionspace.org:vocabularies:name(conservationstatus):item:name(treatmentapproved)'Treatment approved'</status>
+        <status>urn:cspace:c.core.collectionspace.org:vocabularies:name(conservationstatus):item:name(treatmentapproved)'Treatment approved'</status>
       </conservationStatusGroup>
       <conservationStatusGroup>
         <statusDate>2020-09-26T00:00:00.000Z</statusDate>
@@ -27,21 +27,21 @@
       </conservationStatusGroup>
       <conservationStatusGroup>
         <statusDate>2020-10-03T00:00:00.000Z</statusDate>
-        <status>urn:cspace:core.collectionspace.org:vocabularies:name(conservationstatus):item:name(treatmentinprogress)'Treatment in progress'</status>
+        <status>urn:cspace:c.core.collectionspace.org:vocabularies:name(conservationstatus):item:name(treatmentinprogress)'Treatment in progress'</status>
       </conservationStatusGroup>
     </conservationStatusGroupList>
     <analysisResults>spiced jelly</analysisResults>
-    <researcher>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(ShenYeng1599569685887)'Shen Yeng'</researcher>
+    <researcher>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(ShenYeng1599569685887)'Shen Yeng'</researcher>
     <proposedAnalysis>Giggle giggle</proposedAnalysis>
-    <approvedBy>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Grace1599569599918)'Grace'</approvedBy>
+    <approvedBy>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Grace1599569599918)'Grace'</approvedBy>
     <conservators>
-      <conservator>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Cardi1599569468209)'Cardi'</conservator>
-      <conservator>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(RockNation1599569481908)'Rock Nation'</conservator>
+      <conservator>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Cardi1599569468209)'Cardi'</conservator>
+      <conservator>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(RockNation1599569481908)'Rock Nation'</conservator>
     </conservators>
     <fabricationNote>Dexta Daps</fabricationNote>
     <destAnalysisGroupList>
       <destAnalysisGroup>
-        <sampleBy>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(KingKosa1599569726990)'King Kosa'</sampleBy>
+        <sampleBy>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(KingKosa1599569726990)'King Kosa'</sampleBy>
         <destAnalysisApprovalNote>Skin Clean</destAnalysisApprovalNote>
         <sampleDescription>Best nana</sampleDescription>
         <destAnalysisApprovedDate>2021-10-02T00:00:00.000Z</destAnalysisApprovedDate>
@@ -55,30 +55,30 @@
     <analysisMethod>All of the above</analysisMethod>
     <treatmentSummary>Give everything, straigthup</treatmentSummary>
     <proposedTreatment>Spicy</proposedTreatment>
-    <treatmentPurpose>urn:cspace:core.collectionspace.org:vocabularies:name(treatmentpurpose):item:name(exhibition)'Exhibition'</treatmentPurpose>
+    <treatmentPurpose>urn:cspace:c.core.collectionspace.org:vocabularies:name(treatmentpurpose):item:name(exhibition)'Exhibition'</treatmentPurpose>
     <otherPartyGroupList>
       <otherPartyGroup>
-        <otherParty>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(254Glock1599569494651)'254Glock'</otherParty>
+        <otherParty>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(254Glock1599569494651)'254Glock'</otherParty>
         <otherPartyNote>WAP</otherPartyNote>
-        <otherPartyRole>urn:cspace:core.collectionspace.org:vocabularies:name(otherpartyrole):item:name(preparator)'Preparator'</otherPartyRole>
+        <otherPartyRole>urn:cspace:c.core.collectionspace.org:vocabularies:name(otherpartyrole):item:name(preparator)'Preparator'</otherPartyRole>
       </otherPartyGroup>
       <otherPartyGroup>
-        <otherParty>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(MMG1599569514486)'MMG'</otherParty>
+        <otherParty>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(MMG1599569514486)'MMG'</otherParty>
         <otherPartyNote>Ross</otherPartyNote>
-        <otherPartyRole>urn:cspace:core.collectionspace.org:vocabularies:name(otherpartyrole):item:name(technician)'Technician'</otherPartyRole>
+        <otherPartyRole>urn:cspace:c.core.collectionspace.org:vocabularies:name(otherpartyrole):item:name(technician)'Technician'</otherPartyRole>
       </otherPartyGroup>
     </otherPartyGroupList>
     <examinationGroupList>
       <examinationGroup>
-        <examinationStaff>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Clon1599569543362)'Clon'</examinationStaff>
+        <examinationStaff>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Clon1599569543362)'Clon'</examinationStaff>
         <examinationDate>2020-09-22T00:00:00.000Z</examinationDate>
-        <examinationPhase>urn:cspace:core.collectionspace.org:vocabularies:name(examinationphase):item:name(beforetreatment)'before treatment'</examinationPhase>
+        <examinationPhase>urn:cspace:c.core.collectionspace.org:vocabularies:name(examinationphase):item:name(beforetreatment)'before treatment'</examinationPhase>
         <examinationNote>Cleaned</examinationNote>
       </examinationGroup>
       <examinationGroup>
-        <examinationStaff>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Meghan1599569567326)'Meghan'</examinationStaff>
+        <examinationStaff>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Meghan1599569567326)'Meghan'</examinationStaff>
         <examinationDate>2020-09-16T00:00:00.000Z</examinationDate>
-        <examinationPhase>urn:cspace:core.collectionspace.org:vocabularies:name(examinationphase):item:name(duringtreatment)'during treatment'</examinationPhase>
+        <examinationPhase>urn:cspace:c.core.collectionspace.org:vocabularies:name(examinationphase):item:name(duringtreatment)'during treatment'</examinationPhase>
         <examinationNote>Stallion</examinationNote>
       </examinationGroup>
     </examinationGroupList>

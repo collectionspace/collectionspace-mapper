@@ -6,17 +6,17 @@
     <createdBy>admin@core.collectionspace.org</createdBy>
     <workflowState>project</workflowState>
     <tenantId>1</tenantId>
-    <refName>urn:cspace:core.collectionspace.org:acquisitions:id(4a5f3216-1fa3-4b3f-9b2c)</refName>
+    <refName>urn:cspace:c.core.collectionspace.org:acquisitions:id(4a5f3216-1fa3-4b3f-9b2c)</refName>
     <uri>/acquisitions/4a5f3216-1fa3-4b3f-9b2c</uri>
     <updatedAt>2020-09-10T13:46:18.382Z</updatedAt>
   </ns2:collectionspace_core>
   <ns2:acquisitions_common xmlns:ns2="http://collectionspace.org/services/acquisition" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <acquisitionNote>Going home</acquisitionNote>
-    <objectPurchaseOfferPriceCurrency>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(EUR)'Euro'</objectPurchaseOfferPriceCurrency>
+    <objectPurchaseOfferPriceCurrency>urn:cspace:c.core.collectionspace.org:vocabularies:name(currency):item:name(EUR)'Euro'</objectPurchaseOfferPriceCurrency>
     <acquisitionReferenceNumber>363636</acquisitionReferenceNumber>
     <owners>
-      <owner>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(tint1599664800144)'tint'</owner>
-      <owner>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(tent1599664807586)'tent'</owner>
+      <owner>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(tint1599664800144)'tint'</owner>
+      <owner>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(tent1599664807586)'tent'</owner>
     </owners>
     <objectOfferPriceValue>96</objectOfferPriceValue>
     <acquisitionDateGroupList>
@@ -36,7 +36,7 @@
         <dateAssociation/>
         <dateLatestDay/>
         <dateEarliestSingleMonth>1</dateEarliestSingleMonth>
-        <dateEarliestSingleEra>urn:cspace:core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+        <dateEarliestSingleEra>urn:cspace:c.core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
         <dateLatestYear/>
         <dateLatestQualifierUnit/>
         <dateNote/>
@@ -47,12 +47,12 @@
       </acquisitionDateGroup>
     </acquisitionDateGroupList>
     <groupPurchasePriceValue>52</groupPurchasePriceValue>
-    <acquisitionAuthorizer>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Comrade1599664745661)'Comrade'</acquisitionAuthorizer>
+    <acquisitionAuthorizer>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Comrade1599664745661)'Comrade'</acquisitionAuthorizer>
     <creditLine>Help line</creditLine>
     <acquisitionReason>Reputation</acquisitionReason>
     <acquisitionSources>
-      <acquisitionSource>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(tonight1599664781376)'tonight'</acquisitionSource>
-      <acquisitionSource>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(pop1599664789385)'pop'</acquisitionSource>
+      <acquisitionSource>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(tonight1599664781376)'tonight'</acquisitionSource>
+      <acquisitionSource>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(pop1599664789385)'pop'</acquisitionSource>
     </acquisitionSources>
     <accessionDateGroup>
       <scalarValuesComputed>true</scalarValuesComputed>
@@ -70,7 +70,7 @@
       <dateAssociation/>
       <dateLatestDay/>
       <dateEarliestSingleMonth>12</dateEarliestSingleMonth>
-      <dateEarliestSingleEra>urn:cspace:core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+      <dateEarliestSingleEra>urn:cspace:c.core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
       <dateLatestYear/>
       <dateLatestQualifierUnit/>
       <dateNote/>
@@ -79,7 +79,7 @@
       <dateEarliestScalarValue>2020-12-30T00:00:00.000Z</dateEarliestScalarValue>
       <dateLatestMonth/>
     </accessionDateGroup>
-    <groupPurchasePriceCurrency>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(CAD)'Canadian Dollar'</groupPurchasePriceCurrency>
+    <groupPurchasePriceCurrency>urn:cspace:c.core.collectionspace.org:vocabularies:name(currency):item:name(CAD)'Canadian Dollar'</groupPurchasePriceCurrency>
     <acquisitionProvisos>Pictures on the wall</acquisitionProvisos>
     <acquisitionFundingList>
       <acquisitionFunding>
@@ -90,15 +90,15 @@
       </acquisitionFunding>
       <acquisitionFunding>
         <acquisitionFundingSourceProvisos/>
-        <acquisitionFundingCurrency>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(EUR)'Euro'</acquisitionFundingCurrency>
+        <acquisitionFundingCurrency>urn:cspace:c.core.collectionspace.org:vocabularies:name(currency):item:name(EUR)'Euro'</acquisitionFundingCurrency>
         <acquisitionFundingValue/>
-        <acquisitionFundingSource>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Disturb1599665062738)'Disturb'</acquisitionFundingSource>
+        <acquisitionFundingSource>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Disturb1599665062738)'Disturb'</acquisitionFundingSource>
       </acquisitionFunding>
       <acquisitionFunding>
         <acquisitionFundingSourceProvisos>Krone</acquisitionFundingSourceProvisos>
-        <acquisitionFundingCurrency>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(DKK)'Danish Krone'</acquisitionFundingCurrency>
+        <acquisitionFundingCurrency>urn:cspace:c.core.collectionspace.org:vocabularies:name(currency):item:name(DKK)'Danish Krone'</acquisitionFundingCurrency>
         <acquisitionFundingValue>250</acquisitionFundingValue>
-        <acquisitionFundingSource>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(ButOhh1599665031368)'But Ohh'</acquisitionFundingSource>
+        <acquisitionFundingSource>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(ButOhh1599665031368)'But Ohh'</acquisitionFundingSource>
       </acquisitionFunding>
     </acquisitionFundingList>
     <fieldCollectionEventNames>
@@ -107,35 +107,35 @@
       <fieldCollectionEventName>Ragga Muffin</fieldCollectionEventName>
     </fieldCollectionEventNames>
     <acquisitionMethod>transfer</acquisitionMethod>
-    <originalObjectPurchasePriceCurrency>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(CHF)'Swiss Franc'</originalObjectPurchasePriceCurrency>
+    <originalObjectPurchasePriceCurrency>urn:cspace:c.core.collectionspace.org:vocabularies:name(currency):item:name(CHF)'Swiss Franc'</originalObjectPurchasePriceCurrency>
     <objectPurchasePriceValue>60</objectPurchasePriceValue>
-    <objectOfferPriceCurrency>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(DKK)'Danish Krone'</objectOfferPriceCurrency>
+    <objectOfferPriceCurrency>urn:cspace:c.core.collectionspace.org:vocabularies:name(currency):item:name(DKK)'Danish Krone'</objectOfferPriceCurrency>
     <transferOfTitleNumber>235648</transferOfTitleNumber>
     <originalObjectPurchasePriceValue>100</originalObjectPurchasePriceValue>
     <objectPurchaseOfferPriceValue>80</objectPurchaseOfferPriceValue>
     <acquisitionAuthorizerDate>2020-09-16T00:00:00.000Z</acquisitionAuthorizerDate>
-    <objectPurchasePriceCurrency>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(SEK)'Swedish Krona'</objectPurchasePriceCurrency>
+    <objectPurchasePriceCurrency>urn:cspace:c.core.collectionspace.org:vocabularies:name(currency):item:name(SEK)'Swedish Krona'</objectPurchasePriceCurrency>
     <approvalGroupList>
       <approvalGroup>
-        <approvalStatus>urn:cspace:core.collectionspace.org:vocabularies:name(deaccessionapprovalstatus):item:name(not_approved)'not approved'</approvalStatus>
+        <approvalStatus>urn:cspace:c.core.collectionspace.org:vocabularies:name(deaccessionapprovalstatus):item:name(not_approved)'not approved'</approvalStatus>
         <approvalGroup/>
         <approvalNote>Hands</approvalNote>
         <approvalDate>2020-09-23T00:00:00.000Z</approvalDate>
-        <approvalIndividual>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(malik1599664876144)'malik'</approvalIndividual>
+        <approvalIndividual>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(malik1599664876144)'malik'</approvalIndividual>
       </approvalGroup>
       <approvalGroup>
-        <approvalStatus>urn:cspace:core.collectionspace.org:vocabularies:name(deaccessionapprovalstatus):item:name(not_required)'not required'</approvalStatus>
-        <approvalGroup>urn:cspace:core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(collection_committee)'collection committee'</approvalGroup>
+        <approvalStatus>urn:cspace:c.core.collectionspace.org:vocabularies:name(deaccessionapprovalstatus):item:name(not_required)'not required'</approvalStatus>
+        <approvalGroup>urn:cspace:c.core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(collection_committee)'collection committee'</approvalGroup>
         <approvalNote/>
         <approvalDate>2020-09-25T00:00:00.000Z</approvalDate>
         <approvalIndividual/>
       </approvalGroup>
       <approvalGroup>
-        <approvalStatus>urn:cspace:core.collectionspace.org:vocabularies:name(deaccessionapprovalstatus):item:name(approved)'approved'</approvalStatus>
-        <approvalGroup>urn:cspace:core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(executive_committee)'executive committee'</approvalGroup>
+        <approvalStatus>urn:cspace:c.core.collectionspace.org:vocabularies:name(deaccessionapprovalstatus):item:name(approved)'approved'</approvalStatus>
+        <approvalGroup>urn:cspace:c.core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(executive_committee)'executive committee'</approvalGroup>
         <approvalNote>Loving</approvalNote>
         <approvalDate/>
-        <approvalIndividual>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(rudelyt1599664917218)'rudelyt'</approvalIndividual>
+        <approvalIndividual>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(rudelyt1599664917218)'rudelyt'</approvalIndividual>
       </approvalGroup>
     </approvalGroupList>
   </ns2:acquisitions_common>

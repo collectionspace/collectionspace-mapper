@@ -6,7 +6,7 @@
     <createdBy>admin@anthro.collectionspace.org</createdBy>
     <workflowState>project</workflowState>
     <tenantId>1500</tenantId>
-    <refName>urn:cspace:anthro.collectionspace.org:claims:id(1c129996-dbd1-4ca4-b757)</refName>
+    <refName>urn:cspace:c.anthro.collectionspace.org:claims:id(1c129996-dbd1-4ca4-b757)</refName>
     <uri>/claims/1c129996-dbd1-4ca4-b757</uri>
     <updatedAt>2020-09-11T20:13:57.919Z</updatedAt>
   </ns2:collectionspace_core>
@@ -48,11 +48,11 @@
     <dateArrangedForTransfer>true</dateArrangedForTransfer>
     <nagpraClaimSiteGroupList>
       <nagpraClaimSiteGroup>
-        <nagpraClaimSiteName>urn:cspace:anthro.collectionspace.org:placeauthorities:name(place):item:name(Local1599824385298)'Local'</nagpraClaimSiteName>
+        <nagpraClaimSiteName>urn:cspace:c.anthro.collectionspace.org:placeauthorities:name(place):item:name(Local1599824385298)'Local'</nagpraClaimSiteName>
         <nagpraClaimSiteNote>Osha</nagpraClaimSiteNote>
       </nagpraClaimSiteGroup>
       <nagpraClaimSiteGroup>
-        <nagpraClaimSiteName>urn:cspace:anthro.collectionspace.org:placeauthorities:name(place):item:name(Early1599824413345)'Early'</nagpraClaimSiteName>
+        <nagpraClaimSiteName>urn:cspace:c.anthro.collectionspace.org:placeauthorities:name(place):item:name(Early1599824413345)'Early'</nagpraClaimSiteName>
         <nagpraClaimSiteNote/>
       </nagpraClaimSiteGroup>
     </nagpraClaimSiteGroupList>
@@ -93,11 +93,11 @@
     </nagpraClaimSentToLocalGroupList>
     <siteFileResearchCompleted>true</siteFileResearchCompleted>
     <nagpraClaimTypes>
-      <nagpraClaimType>urn:cspace:anthro.collectionspace.org:vocabularies:name(nagpraclaimtype):item:name(affiliatedHsr)'affiliated human skeletal remains (HSR)'</nagpraClaimType>
-      <nagpraClaimType>urn:cspace:anthro.collectionspace.org:vocabularies:name(nagpraclaimtype):item:name(needsFurtherResearch)'needs further research'</nagpraClaimType>
-      <nagpraClaimType>urn:cspace:anthro.collectionspace.org:vocabularies:name(nagpraclaimtype):item:name(nonNagpra)'not subject to NAGPRA'</nagpraClaimType>
-      <nagpraClaimType>urn:cspace:anthro.collectionspace.org:vocabularies:name(nagpraclaimtype):item:name(objectOfCulturalPatrimony)'object of cultural patrimony'</nagpraClaimType>
-      <nagpraClaimType>urn:cspace:anthro.collectionspace.org:vocabularies:name(nagpraclaimtype):item:name(ufo)'unassociated funerary object (UFO)'</nagpraClaimType>
+      <nagpraClaimType>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(nagpraclaimtype):item:name(affiliatedHsr)'affiliated human skeletal remains (HSR)'</nagpraClaimType>
+      <nagpraClaimType>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(nagpraclaimtype):item:name(needsFurtherResearch)'needs further research'</nagpraClaimType>
+      <nagpraClaimType>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(nagpraclaimtype):item:name(nonNagpra)'not subject to NAGPRA'</nagpraClaimType>
+      <nagpraClaimType>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(nagpraclaimtype):item:name(objectOfCulturalPatrimony)'object of cultural patrimony'</nagpraClaimType>
+      <nagpraClaimType>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(nagpraclaimtype):item:name(ufo)'unassociated funerary object (UFO)'</nagpraClaimType>
     </nagpraClaimTypes>
     <surroundingTribesContactedNote>tribes contacted</surroundingTribesContactedNote>
     <nagpraClaimNatlRespGroupList>
@@ -109,11 +109,11 @@
     <nagpraClaimGroupGroupList>
       <nagpraClaimGroupGroup>
         <nagpraClaimGroupNote>Come</nagpraClaimGroupNote>
-        <nagpraClaimGroupName>urn:cspace:anthro.collectionspace.org:conceptauthorities:name(ethculture):item:name(Hero1599824418804)'Hero'</nagpraClaimGroupName>
+        <nagpraClaimGroupName>urn:cspace:c.anthro.collectionspace.org:conceptauthorities:name(ethculture):item:name(Hero1599824418804)'Hero'</nagpraClaimGroupName>
       </nagpraClaimGroupGroup>
       <nagpraClaimGroupGroup>
         <nagpraClaimGroupNote/>
-        <nagpraClaimGroupName>urn:cspace:anthro.collectionspace.org:conceptauthorities:name(ethculture):item:name(Got1599824429903)'Got'</nagpraClaimGroupName>
+        <nagpraClaimGroupName>urn:cspace:c.anthro.collectionspace.org:conceptauthorities:name(ethculture):item:name(Got1599824429903)'Got'</nagpraClaimGroupName>
       </nagpraClaimGroupGroup>
     </nagpraClaimGroupGroupList>
     <objectsConsolidatedNote>Objects consolidated</objectsConsolidatedNote>
@@ -150,7 +150,7 @@
           <dateAssociation/>
           <dateLatestDay/>
           <dateEarliestSingleMonth>1</dateEarliestSingleMonth>
-          <dateEarliestSingleEra>urn:cspace:anthro.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+          <dateEarliestSingleEra>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
           <dateLatestYear/>
           <dateLatestQualifierUnit/>
           <dateNote/>
@@ -183,38 +183,38 @@
     <claimantGroupList>
       <claimantGroup>
         <claimantNote>Moro</claimantNote>
-        <claimFiledBy>urn:cspace:anthro.collectionspace.org:personauthorities:name(person):item:name(Tegla1599824325923)'Tegla'</claimFiledBy>
-        <claimFiledOnBehalfOf>urn:cspace:anthro.collectionspace.org:personauthorities:name(person):item:name(Tom1599824331955)'Tom'</claimFiledOnBehalfOf>
+        <claimFiledBy>urn:cspace:c.anthro.collectionspace.org:personauthorities:name(person):item:name(Tegla1599824325923)'Tegla'</claimFiledBy>
+        <claimFiledOnBehalfOf>urn:cspace:c.anthro.collectionspace.org:personauthorities:name(person):item:name(Tom1599824331955)'Tom'</claimFiledOnBehalfOf>
       </claimantGroup>
       <claimantGroup>
         <claimantNote>n1</claimantNote>
-        <claimFiledBy>urn:cspace:anthro.collectionspace.org:personauthorities:name(person):item:name(AnnAnalyst1594848799340)'Ann Analyst'</claimFiledBy>
-        <claimFiledOnBehalfOf>urn:cspace:anthro.collectionspace.org:orgauthorities:name(organization):item:name(Organization11587136583004)'Organization 1'</claimFiledOnBehalfOf>
+        <claimFiledBy>urn:cspace:c.anthro.collectionspace.org:personauthorities:name(person):item:name(AnnAnalyst1594848799340)'Ann Analyst'</claimFiledBy>
+        <claimFiledOnBehalfOf>urn:cspace:c.anthro.collectionspace.org:orgauthorities:name(organization):item:name(Organization11587136583004)'Organization 1'</claimFiledOnBehalfOf>
       </claimantGroup>
       <claimantGroup>
         <claimantNote>n2</claimantNote>
-        <claimFiledBy>urn:cspace:anthro.collectionspace.org:personauthorities:name(person):item:name(BuckJane1590698328896)'Buck, Jane'</claimFiledBy>
-        <claimFiledOnBehalfOf>urn:cspace:anthro.collectionspace.org:personauthorities:name(person):item:name(GabrielSolares1594848906847)'Gabriel Solares'</claimFiledOnBehalfOf>
+        <claimFiledBy>urn:cspace:c.anthro.collectionspace.org:personauthorities:name(person):item:name(BuckJane1590698328896)'Buck, Jane'</claimFiledBy>
+        <claimFiledOnBehalfOf>urn:cspace:c.anthro.collectionspace.org:personauthorities:name(person):item:name(GabrielSolares1594848906847)'Gabriel Solares'</claimFiledOnBehalfOf>
       </claimantGroup>
       <claimantGroup>
         <claimantNote/>
         <claimFiledBy/>
-        <claimFiledOnBehalfOf>urn:cspace:anthro.collectionspace.org:orgauthorities:name(organization):item:name(Hola1599824351945)'Hola'</claimFiledOnBehalfOf>
+        <claimFiledOnBehalfOf>urn:cspace:c.anthro.collectionspace.org:orgauthorities:name(organization):item:name(Hola1599824351945)'Hola'</claimFiledOnBehalfOf>
       </claimantGroup>
       <claimantGroup>
         <claimantNote>Kioneki</claimantNote>
-        <claimFiledBy>urn:cspace:anthro.collectionspace.org:orgauthorities:name(organization):item:name(chores1599824370125)'chores'</claimFiledBy>
+        <claimFiledBy>urn:cspace:c.anthro.collectionspace.org:orgauthorities:name(organization):item:name(chores1599824370125)'chores'</claimFiledBy>
         <claimFiledOnBehalfOf/>
       </claimantGroup>
       <claimantGroup>
         <claimantNote>n3</claimantNote>
-        <claimFiledBy>urn:cspace:anthro.collectionspace.org:orgauthorities:name(organization):item:name(Organization11587136583004)'Organization 1'</claimFiledBy>
-        <claimFiledOnBehalfOf>urn:cspace:anthro.collectionspace.org:personauthorities:name(person):item:name(AnnAnalyst1594848799340)'Ann Analyst'</claimFiledOnBehalfOf>
+        <claimFiledBy>urn:cspace:c.anthro.collectionspace.org:orgauthorities:name(organization):item:name(Organization11587136583004)'Organization 1'</claimFiledBy>
+        <claimFiledOnBehalfOf>urn:cspace:c.anthro.collectionspace.org:personauthorities:name(person):item:name(AnnAnalyst1594848799340)'Ann Analyst'</claimFiledOnBehalfOf>
       </claimantGroup>
       <claimantGroup>
         <claimantNote>n4</claimantNote>
-        <claimFiledBy>urn:cspace:anthro.collectionspace.org:orgauthorities:name(organization):item:name(Organization21587136613707)'Organization 2'</claimFiledBy>
-        <claimFiledOnBehalfOf>urn:cspace:anthro.collectionspace.org:orgauthorities:name(organization):item:name(Organization11587136583004)'Organization 1'</claimFiledOnBehalfOf>
+        <claimFiledBy>urn:cspace:c.anthro.collectionspace.org:orgauthorities:name(organization):item:name(Organization21587136613707)'Organization 2'</claimFiledBy>
+        <claimFiledOnBehalfOf>urn:cspace:c.anthro.collectionspace.org:orgauthorities:name(organization):item:name(Organization11587136583004)'Organization 1'</claimFiledOnBehalfOf>
       </claimantGroup>
     </claimantGroupList>
     <claimNumber>CL2020.1.4</claimNumber>

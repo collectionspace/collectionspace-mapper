@@ -67,10 +67,6 @@ module CollectionSpace
       data.merged_data = mdata.compact.transform_keys(&:downcase)
       data
     end
-
-    def term_key(term)
-      "#{term[:refname].type}-#{term[:refname].subtype}-#{term[:refname].display_name}"
-    end
   end
 
   loader = Zeitwerk::Loader.new

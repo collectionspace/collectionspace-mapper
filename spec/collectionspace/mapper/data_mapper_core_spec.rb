@@ -6,12 +6,11 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
   let(:config){ {delimiter: ';'} }
 
   context 'core profile' do
-    let(:client){ core_client }
-    let(:cache){ core_cache }
     let(:handler) do
       CollectionSpace::Mapper::DataHandler.new(record_mapper: mapper,
-                                               client: client,
-                                               cache: cache,
+                                               client: core_client,
+                                               cache: core_cache,
+                                               csid_cache: core_csid_cache,
                                                config: config)
     end
     let(:datahash){ get_datahash(path: hashpath) }

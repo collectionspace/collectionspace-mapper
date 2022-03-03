@@ -23,10 +23,10 @@ module CollectionSpace
 
         def lookup_authority(term)
           csid = csid_cache.get_auth_term(type, subtype, term)
-          refname = refname_cache.get_auth_term(term, subtype, term)
+          refname = refname_cache.get_auth_term(type, subtype, term)
 
           if csid || refname
-            reportable_result({'csid' => csid, 'refname' => refname})
+            reportable_result({'csid' => csid, 'refName' => refname})
           else
             reportable_result
           end

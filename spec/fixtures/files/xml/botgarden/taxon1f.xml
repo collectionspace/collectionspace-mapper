@@ -6,7 +6,7 @@
     <createdBy>admin@botgarden.collectionspace.org</createdBy>
     <workflowState>project</workflowState>
     <tenantId>3500</tenantId>
-    <refName>urn:cspace:botgarden.collectionspace.org:taxonomyauthority:name(taxon):item:name(Achilleamillefolium1599238819466)'Achillea millefolium'</refName>
+    <refName>urn:cspace:c.botgarden.collectionspace.org:taxonomyauthority:name(taxon):item:name(Achilleamillefolium1599238819466)'Achillea millefolium'</refName>
     <uri>/taxonomyauthority/c43760e0-45f4-48ad-bb3d/items/3a28e472-1aa0-41ff-a578</uri>
     <updatedAt>2020-09-04T17:00:19.465Z</updatedAt>
   </ns2:collectionspace_core>
@@ -23,14 +23,14 @@
         <termFormattedDisplayName>Achillea millefolium</termFormattedDisplayName>
         <termType>descriptor</termType>
         <taxonomicStatus>accepted</taxonomicStatus>
-        <termSource>urn:cspace:botgarden.collectionspace.org:citationauthorities:name(citation):item:name(SpPl289917531599238184211)'Sp. Pl. 2: 899. 1753'</termSource>
+        <termSource>urn:cspace:c.botgarden.collectionspace.org:citationauthorities:name(citation):item:name(SpPl289917531599238184211)'Sp. Pl. 2: 899. 1753'</termSource>
         <termStatus>accepted</termStatus>
-        <termLanguage>urn:cspace:botgarden.collectionspace.org:vocabularies:name(languages):item:name(lat)'Latin'</termLanguage>
+        <termLanguage>urn:cspace:c.botgarden.collectionspace.org:vocabularies:name(languages):item:name(lat)'Latin'</termLanguage>
         <termName/>
         <termQualifier>qualifier</termQualifier>
         <termPrefForLang>true</termPrefForLang>
         <termDisplayName>Achillea millefolium</termDisplayName>
-        <termFlag>urn:cspace:botgarden.collectionspace.org:vocabularies:name(taxontermflag):item:name(valid)'valid'</termFlag>
+        <termFlag>urn:cspace:c.botgarden.collectionspace.org:vocabularies:name(taxontermflag):item:name(valid)'valid'</termFlag>
       </taxonTermGroup>
       <taxonTermGroup>
         <termSourceID>7878903</termSourceID>
@@ -39,40 +39,40 @@
         <termFormattedDisplayName>Achillea alpicola</termFormattedDisplayName>
         <termType>used for term</termType>
         <taxonomicStatus>invalid</taxonomicStatus>
-        <termSource>urn:cspace:botgarden.collectionspace.org:citationauthorities:name(citation):item:name(BullTorreyBotClub1599238643864)'Bull. Torrey Bot. Club'</termSource>
+        <termSource>urn:cspace:c.botgarden.collectionspace.org:citationauthorities:name(citation):item:name(BullTorreyBotClub1599238643864)'Bull. Torrey Bot. Club'</termSource>
         <termStatus>accepted</termStatus>
-        <termLanguage>urn:cspace:botgarden.collectionspace.org:vocabularies:name(languages):item:name(lat)'Latin'</termLanguage>
+        <termLanguage>urn:cspace:c.botgarden.collectionspace.org:vocabularies:name(languages):item:name(lat)'Latin'</termLanguage>
         <termName/>
         <termQualifier>q2</termQualifier>
         <termPrefForLang>false</termPrefForLang>
         <termDisplayName>Achillea alpicola</termDisplayName>
-        <termFlag>urn:cspace:botgarden.collectionspace.org:vocabularies:name(taxontermflag):item:name(invalid)'invalid'</termFlag>
+        <termFlag>urn:cspace:c.botgarden.collectionspace.org:vocabularies:name(taxontermflag):item:name(invalid)'invalid'</termFlag>
       </taxonTermGroup>
     </taxonTermGroupList>
     <commonNameGroupList>
       <commonNameGroup>
         <commonName>Common yarrow</commonName>
-        <commonNameLanguage>urn:cspace:botgarden.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</commonNameLanguage>
+        <commonNameLanguage>urn:cspace:c.botgarden.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</commonNameLanguage>
         <commonNameSourceDetail>p. 493</commonNameSourceDetail>
-        <commonNameSource>urn:cspace:botgarden.collectionspace.org:citationauthorities:name(citation):item:name(FNAVolume191599238760383)'FNA Volume 19'</commonNameSource>
+        <commonNameSource>urn:cspace:c.botgarden.collectionspace.org:citationauthorities:name(citation):item:name(FNAVolume191599238760383)'FNA Volume 19'</commonNameSource>
       </commonNameGroup>
       <commonNameGroup>
         <commonName>achillée millefeuille</commonName>
-        <commonNameLanguage>urn:cspace:botgarden.collectionspace.org:vocabularies:name(languages):item:name(fra)'French'</commonNameLanguage>
+        <commonNameLanguage>urn:cspace:c.botgarden.collectionspace.org:vocabularies:name(languages):item:name(fra)'French'</commonNameLanguage>
         <commonNameSourceDetail/>
         <commonNameSource/>
       </commonNameGroup>
       <commonNameGroup>
         <commonName>herbe-à-dinde</commonName>
-        <commonNameLanguage>urn:cspace:botgarden.collectionspace.org:vocabularies:name(languages):item:name(fra)'French'</commonNameLanguage>
+        <commonNameLanguage>urn:cspace:c.botgarden.collectionspace.org:vocabularies:name(languages):item:name(fra)'French'</commonNameLanguage>
         <commonNameSourceDetail>p. 493</commonNameSourceDetail>
-        <commonNameSource>urn:cspace:botgarden.collectionspace.org:citationauthorities:name(citation):item:name(FNAVolume191599238760383)'FNA Volume 19'</commonNameSource>
+        <commonNameSource>urn:cspace:c.botgarden.collectionspace.org:citationauthorities:name(citation):item:name(FNAVolume191599238760383)'FNA Volume 19'</commonNameSource>
       </commonNameGroup>
     </commonNameGroupList>
     <csid>3a28e472-1aa0-41ff-a578</csid>
     <taxonRank>species</taxonRank>
     <taxonCitationList>
-      <taxonCitation>urn:cspace:botgarden.collectionspace.org:citationauthorities:name(citation):item:name(SpPl289917531599238184211)'Sp. Pl. 2: 899. 1753'</taxonCitation>
+      <taxonCitation>urn:cspace:c.botgarden.collectionspace.org:citationauthorities:name(citation):item:name(SpPl289917531599238184211)'Sp. Pl. 2: 899. 1753'</taxonCitation>
     </taxonCitationList>
     <taxonIsNamedHybrid>false</taxonIsNamedHybrid>
     <taxonRecordTypes/>
@@ -82,10 +82,10 @@
     <taxonAuthorGroupList>
       <taxonAuthorGroup>
         <taxonAuthorType/>
-        <taxonAuthor>urn:cspace:botgarden.collectionspace.org:personauthorities:name(person):item:name(LinnaeusCarl1599238374086)'Linnaeus, Carl'</taxonAuthor>
+        <taxonAuthor>urn:cspace:c.botgarden.collectionspace.org:personauthorities:name(person):item:name(LinnaeusCarl1599238374086)'Linnaeus, Carl'</taxonAuthor>
       </taxonAuthorGroup>
     </taxonAuthorGroupList>
-    <refName>urn:cspace:botgarden.collectionspace.org:taxonomyauthority:name(taxon):item:name(Achilleamillefolium1599238819466)'Achillea millefolium'</refName>
+    <refName>urn:cspace:c.botgarden.collectionspace.org:taxonomyauthority:name(taxon):item:name(Achilleamillefolium1599238819466)'Achillea millefolium'</refName>
     <inAuthority>c43760e0-45f4-48ad-bb3d</inAuthority>
   </ns2:taxon_common>
   <ns2:account_permission xmlns:ns2="http://collectionspace.org/services/authorization">

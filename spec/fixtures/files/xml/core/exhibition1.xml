@@ -6,7 +6,7 @@
     <createdBy>admin@core.collectionspace.org</createdBy>
     <workflowState>project</workflowState>
     <tenantId>1</tenantId>
-    <refName>urn:cspace:core.collectionspace.org:exhibitions:id(7acf4d4d-9239-4066-aa91)</refName>
+    <refName>urn:cspace:c.core.collectionspace.org:exhibitions:id(7acf4d4d-9239-4066-aa91)</refName>
     <uri>/exhibitions/7acf4d4d-9239-4066-aa91</uri>
     <updatedAt>2020-09-08T20:19:37.845Z</updatedAt>
   </ns2:collectionspace_core>
@@ -39,7 +39,7 @@
     </exhibitionObjectGroupList>
     <venueGroupList>
       <venueGroup>
-        <venue>urn:cspace:core.collectionspace.org:locationauthorities:name(location):item:name(Khago1599559772718)'Khago'</venue>
+        <venue>urn:cspace:c.core.collectionspace.org:locationauthorities:name(location):item:name(Khago1599559772718)'Khago'</venue>
         <venueOpeningDate/>
         <venueUrl>http//url.com</venueUrl>
         <venueAttendance>gate</venueAttendance>
@@ -53,7 +53,7 @@
         <venueClosingDate>2020-09-24T00:00:00.000Z</venueClosingDate>
       </venueGroup>
       <venueGroup>
-        <venue>urn:cspace:core.collectionspace.org:locationauthorities:name(offsite_sla):item:name(Stay1599559824865)'Stay'</venue>
+        <venue>urn:cspace:c.core.collectionspace.org:locationauthorities:name(offsite_sla):item:name(Stay1599559824865)'Stay'</venue>
         <venueOpeningDate/>
         <venueUrl>http//url2.com</venueUrl>
         <venueAttendance>bye</venueAttendance>
@@ -63,14 +63,14 @@
     <generalNote>Need me right here</generalNote>
     <exhibitionReferenceGroupList>
       <exhibitionReferenceGroup>
-        <exhibitionReference>urn:cspace:core.collectionspace.org:citationauthorities:name(citation):item:name(Wanting1599560009399)'Wanting'</exhibitionReference>
+        <exhibitionReference>urn:cspace:c.core.collectionspace.org:citationauthorities:name(citation):item:name(Wanting1599560009399)'Wanting'</exhibitionReference>
         <exhibitionReferenceNote>Clap</exhibitionReferenceNote>
-        <exhibitionReferenceType>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionreferencetype):item:name(newsarticle)'News article'</exhibitionReferenceType>
+        <exhibitionReferenceType>urn:cspace:c.core.collectionspace.org:vocabularies:name(exhibitionreferencetype):item:name(newsarticle)'News article'</exhibitionReferenceType>
       </exhibitionReferenceGroup>
       <exhibitionReferenceGroup>
-        <exhibitionReference>urn:cspace:core.collectionspace.org:citationauthorities:name(worldcat):item:name(Patiently1599559993332)'Patiently'</exhibitionReference>
+        <exhibitionReference>urn:cspace:c.core.collectionspace.org:citationauthorities:name(worldcat):item:name(Patiently1599559993332)'Patiently'</exhibitionReference>
         <exhibitionReferenceNote>Cuddle</exhibitionReferenceNote>
-        <exhibitionReferenceType>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionreferencetype):item:name(pressrelease)'Press release'</exhibitionReferenceType>
+        <exhibitionReferenceType>urn:cspace:c.core.collectionspace.org:vocabularies:name(exhibitionreferencetype):item:name(pressrelease)'Press release'</exhibitionReferenceType>
       </exhibitionReferenceGroup>
     </exhibitionReferenceGroupList>
     <galleryRotationGroupList>
@@ -186,14 +186,14 @@
     <exhibitionNumber>EXH2020.3</exhibitionNumber>
     <planningNote>Perfect condition</planningNote>
     <title>Between the lines</title>
-    <type>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitiontype):item:name(temporary)'Temporary'</type>
+    <type>urn:cspace:c.core.collectionspace.org:vocabularies:name(exhibitiontype):item:name(temporary)'Temporary'</type>
     <sponsors>
-      <sponsor>urn:cspace:core.collectionspace.org:personauthorities:name(ulan_pa):item:name(Chrus1599559702930)'Chrus'</sponsor>
-      <sponsor>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Martin1599559712783)'Martin'</sponsor>
+      <sponsor>urn:cspace:c.core.collectionspace.org:personauthorities:name(ulan_pa):item:name(Chrus1599559702930)'Chrus'</sponsor>
+      <sponsor>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(Martin1599559712783)'Martin'</sponsor>
     </sponsors>
     <exhibitionStatusGroupList>
       <exhibitionStatusGroup>
-        <exhibitionStatus>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionstatus):item:name(preliminaryobjectlistcreated)'Preliminary object list created'</exhibitionStatus>
+        <exhibitionStatus>urn:cspace:c.core.collectionspace.org:vocabularies:name(exhibitionstatus):item:name(preliminaryobjectlistcreated)'Preliminary object list created'</exhibitionStatus>
         <exhibitionStatusDate>2020-09-25T00:00:00.000Z</exhibitionStatusDate>
         <exhibitionStatusNote>Dinner</exhibitionStatusNote>
       </exhibitionStatusGroup>
@@ -203,14 +203,14 @@
         <exhibitionStatusNote>Fathers</exhibitionStatusNote>
       </exhibitionStatusGroup>
       <exhibitionStatusGroup>
-        <exhibitionStatus>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionstatus):item:name(preliminaryobjectlistcreated)'Preliminary object list created'</exhibitionStatus>
+        <exhibitionStatus>urn:cspace:c.core.collectionspace.org:vocabularies:name(exhibitionstatus):item:name(preliminaryobjectlistcreated)'Preliminary object list created'</exhibitionStatus>
         <exhibitionStatusDate/>
         <exhibitionStatusNote>Hero</exhibitionStatusNote>
       </exhibitionStatusGroup>
     </exhibitionStatusGroupList>
     <organizers>
-      <organizer>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Busy1599559723432)'Busy'</organizer>
-      <organizer>urn:cspace:core.collectionspace.org:orgauthorities:name(ulan_oa):item:name(Signal1599559737158)'Signal'</organizer>
+      <organizer>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Busy1599559723432)'Busy'</organizer>
+      <organizer>urn:cspace:c.core.collectionspace.org:orgauthorities:name(ulan_oa):item:name(Signal1599559737158)'Signal'</organizer>
       <organizer/>
     </organizers>
     <exhibitionSectionGroupList>
@@ -233,16 +233,16 @@
         <workingGroupNote>Outweighs the bad</workingGroupNote>
         <exhibitionPersonGroupList>
           <exhibitionPersonGroup>
-            <exhibitionPersonRole>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionpersonrole):item:name(educator)'Educator'</exhibitionPersonRole>
-            <exhibitionPerson>urn:cspace:core.collectionspace.org:personauthorities:name(ulan_pa):item:name(Wego1599559866517)'We go'</exhibitionPerson>
+            <exhibitionPersonRole>urn:cspace:c.core.collectionspace.org:vocabularies:name(exhibitionpersonrole):item:name(educator)'Educator'</exhibitionPersonRole>
+            <exhibitionPerson>urn:cspace:c.core.collectionspace.org:personauthorities:name(ulan_pa):item:name(Wego1599559866517)'We go'</exhibitionPerson>
           </exhibitionPersonGroup>
           <exhibitionPersonGroup>
             <exhibitionPersonRole/>
-            <exhibitionPerson>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(breakup1599559909048)'breakup'</exhibitionPerson>
+            <exhibitionPerson>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(breakup1599559909048)'breakup'</exhibitionPerson>
           </exhibitionPersonGroup>
           <exhibitionPersonGroup>
-            <exhibitionPersonRole>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionpersonrole):item:name(publicprogramscoordinator)'Public programs coordinator'</exhibitionPersonRole>
-            <exhibitionPerson>urn:cspace:core.collectionspace.org:orgauthorities:name(ulan_oa):item:name(Again1599559881266)'Again'</exhibitionPerson>
+            <exhibitionPersonRole>urn:cspace:c.core.collectionspace.org:vocabularies:name(exhibitionpersonrole):item:name(publicprogramscoordinator)'Public programs coordinator'</exhibitionPersonRole>
+            <exhibitionPerson>urn:cspace:c.core.collectionspace.org:orgauthorities:name(ulan_oa):item:name(Again1599559881266)'Again'</exhibitionPerson>
           </exhibitionPersonGroup>
         </exhibitionPersonGroupList>
         <workingGroupTitle>Good</workingGroupTitle>

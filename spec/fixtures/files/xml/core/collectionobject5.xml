@@ -7,7 +7,7 @@
         <createdBy>ks-import@lyrasistechnology.org</createdBy>
         <workflowState>project</workflowState>
         <tenantId>100015</tenantId>
-        <refName>urn:cspace:core.collectionspace.org:collectionobjects:id(aae17169-0ffe-41b3-a212)'OBJ187'</refName>
+        <refName>urn:cspace:c.core.collectionspace.org:collectionobjects:id(aae17169-0ffe-41b3-a212)'OBJ187'</refName>
         <uri>/collectionobjects/aae17169-0ffe-41b3-a212</uri>
         <updatedAt>2021-06-07T15:37:57.306Z</updatedAt>
     </ns2:collectionspace_core>
@@ -16,13 +16,13 @@
         <objectNumber>OBJ187</objectNumber>
         <referenceGroupList>
             <referenceGroup>
-                <reference>urn:cspace:core.collectionspace.org:citationauthorities:name(citation):item:name(Harding2510592089)'Harding'</reference>
+                <reference>urn:cspace:c.core.collectionspace.org:citationauthorities:name(citation):item:name(Harding2510592089)'Harding'</reference>
                 <referenceNote>page 56
 object illustrated
 figure number: 120</referenceNote>
             </referenceGroup>
             <referenceGroup>
-                <reference>urn:cspace:core.collectionspace.org:citationauthorities:name(citation):item:name(Arthur62605812848)'Arthur'</reference>
+                <reference>urn:cspace:c.core.collectionspace.org:citationauthorities:name(citation):item:name(Arthur62605812848)'Arthur'</reference>
                 <referenceNote>Reference to related bibliography</referenceNote>
             </referenceGroup>
             <referenceGroup>

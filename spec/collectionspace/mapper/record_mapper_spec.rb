@@ -6,7 +6,7 @@ RSpec.describe CollectionSpace::Mapper::RecordMapper do
   let(:path){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json' }
   let(:jsonmapper){ get_json_record_mapper(path) }
   let(:client){ anthro_client }
-  let(:mapper){ mapr = described_class.new(mapper: jsonmapper, csclient: client, termcache: anthro_cache) }
+  let(:mapper){ described_class.new(mapper: jsonmapper, csclient: client, termcache: anthro_cache) }
 
   it 'has expected instance variables' do
     expected = %i[@xpath @config @xml_template @mappings @batchconfig @csclient @termcache @csidcache].sort
