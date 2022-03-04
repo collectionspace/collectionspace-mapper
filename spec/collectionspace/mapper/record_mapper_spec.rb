@@ -13,24 +13,24 @@ RSpec.describe CollectionSpace::Mapper::RecordMapper do
     expect(mapper.instance_variables.sort).to eq(expected)
   end
 
-  describe '#service_type' do
+  describe '#service_type_extension' do
     context 'when initialized with authority mapper' do
       let(:path){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_citation-local.json' }
       it 'returns Authority module name' do
-        expect(mapper.service_type).to eq(CS::Mapper::Authority)
+        expect(mapper.service_type_extension).to eq(CS::Mapper::Authority)
       end
     end
 
     context 'when initialized with relationship mapper' do
       let(:path){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_authorityhierarchy.json' }
       it 'returns Relationship module name' do
-        expect(mapper.service_type).to eq(CS::Mapper::Relationship)
+        expect(mapper.service_type_extension).to eq(CS::Mapper::Relationship)
       end
     end
 
     context 'when initialized with any other mapper' do
       it 'returns nil' do
-        expect(mapper.service_type).to be_nil
+        expect(mapper.service_type_extension).to be_nil
       end
     end
   end

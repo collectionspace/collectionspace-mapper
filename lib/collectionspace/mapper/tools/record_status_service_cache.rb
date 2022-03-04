@@ -19,7 +19,7 @@ module CollectionSpace
             lookup_authority(value)
           elsif type == 'collectionobjects'
             lookup_object(value)
-          elsif mapper.service_type.to_s == 'CollectionSpace::Mapper::Relationship'
+          elsif mapper.config.service_type == 'relation'
             lookup_relation(value)
           else
             lookup_procedure(value)

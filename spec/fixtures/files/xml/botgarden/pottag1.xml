@@ -11,6 +11,7 @@
     <updatedAt>2020-09-10T15:03:47.554Z</updatedAt>
   </ns2:collectionspace_core>
   <ns2:pottags_common xmlns:ns2="http://collectionspace.org/services/pottag" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <potTagNumber>123</potTagNumber>
     <numberOfLabels>2</numberOfLabels>
     <commonName>Hillarious</commonName>
     <printLabels>yes</printLabels>

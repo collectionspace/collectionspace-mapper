@@ -35,14 +35,14 @@ module CollectionSpace
         # Given Response object, returns the value needed to look up record's status
         # @param response [CollectionSpace::Mapper::Response]
         def get_value_for_record_status(response)
-          case mapper.service_type.to_s
-          when 'CollectionSpace::Mapper::Relationship'
+          case mapper.config.service_type
+          when 'relation'
             {
               sub: response.combined_data['relations_common']['subjectCsid'][0],
               obj: response.combined_data['relations_common']['objectCsid'][0],
               prd: response.combined_data['relations_common']['relationshipType'][0]
             }
-          when 'CollectionSpace::Mapper::Authority'
+          when 'authority'
             response.split_data['termdisplayname'].first
           else
             response.identifier

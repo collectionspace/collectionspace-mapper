@@ -2,15 +2,15 @@
 
 require 'spec_helper'
 
-RSpec.describe CollectionSpace::Mapper::DataMapper do
+RSpec.describe CollectionSpace::Mapper::DataMapper, :integration do
   let(:config){ {delimiter: ';'} }
-  let(:jsonmapper){ get_json_record_mapper(mapper_path) }
+  let(:mapper){ get_json_record_mapper(mapper_path) }
   let(:handler) do
     CollectionSpace::Mapper::DataHandler.new(
-      record_mapper: jsonmapper,
-      client: client,
-      cache: cache,
-      csid_cache: csid_cache,
+      record_mapper: mapper,
+      client: anthro_client,
+      cache: anthro_cache,
+      csid_cache: anthro_csid_cache,
       config: config
     )
   end
@@ -25,10 +25,6 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
   let(:diff){ mapped_xpaths - fixture_xpaths }
   
   context 'anthro profile' do
-    let(:client){ anthro_client }
-    let(:cache){ anthro_cache }
-    let(:csid_cache){ anthro_csid_cache }
-
     context 'claim record' do
       # Tests for claim record are pending because changes must be made to
       # handling of repeating field groups which contain more than one

@@ -16,7 +16,7 @@ module CollectionSpace
         @cache = @handler.mapper.termcache
 
         @xphash.each{ |xpath, hash| map(xpath, hash) }
-        add_short_id if @handler.mapper.service_type == CS::Mapper::Authority
+        add_short_id if @handler.mapper.config.service_type == 'authority'
         set_response_identifier
         clean_doc
         defuse_bomb
@@ -27,7 +27,7 @@ module CollectionSpace
       private
 
       def set_response_identifier
-        if @handler.mapper.service_type == CS::Mapper::Relationship
+        if @handler.mapper.config.service_type == 'relation'
           set_relation_id
         else
           id_field = @handler.mapper.config.identifier_field

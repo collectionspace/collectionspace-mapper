@@ -78,13 +78,13 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings do
 
   before do
     allow(recordmapper).to receive(:config).and_return(mapperconfig)
-    allow(recordmapper).to receive(:service_type).and_return(nil)
+    allow(recordmapper).to receive(:service_type_extension).and_return(nil)
   end
 
   context 'when initialized from authority RecordMapper' do
     it 'adds shortIdentifier to mappings' do
       allow(mapperconfig).to receive(:common_namespace).and_return('citations_common')
-      allow(recordmapper).to receive(:service_type).and_return(CS::Mapper::Authority)
+      allow(recordmapper).to receive(:service_type_extension).and_return(CS::Mapper::Authority)
       authmappings = described_class.new(mappings: mappings,
                                          mapper: recordmapper)
       expect(authmappings.known_columns.include?('shortidentifier')).to be true
@@ -129,7 +129,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings do
 
     it 'adds mediaFileURI to mappings' do
       allow(mapperconfig).to receive(:common_namespace).and_return('media_common')
-      allow(recordmapper).to receive(:service_type).and_return(CS::Mapper::Media)
+      allow(recordmapper).to receive(:service_type_extension).and_return(CS::Mapper::Media)
 
       mediamappings = described_class.new(mappings: mappings,
                                           mapper: recordmapper)

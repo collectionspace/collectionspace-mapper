@@ -15,10 +15,12 @@ module CollectionSpace
 
       def initialize(opts = {})
         @mapper = opts[:mapper]
-        @config = @mapper.config
-        self.service_type = @mapper.service_type
+        @config = mapper.config
+        extension = mapper.service_type_extension
+        extend extension if extension
+        
         @all = []
-        @lookup = {}
+        @lkup = {}
         opts[:mappings].each{ |mapping_hash| add_mapping(mapping_hash) }
         special_mappings.each{ |mapping| add_mapping(mapping) }
       end
@@ -28,32 +30,28 @@ module CollectionSpace
       end
 
       def known_columns
-        @all.map(&:datacolumn)
+        all.map(&:datacolumn)
       end
 
       def lookup(columnname)
-        @lookup[columnname.downcase]
+        lkup[columnname.downcase]
       end
 
       # columns that are required for initial processing of CSV data
       # For non-hierarchical relationships and authority hierarchy relationships, includes some columns
       #   that do not ultimately get mapped to XML
       def required_columns
-        @all.select(&:required?)
+        all.select(&:required?)
       end
 
       private
 
-      def service_type=(mawdule)
-        return unless mawdule
-
-        extend(mawdule)
-      end
+      attr_reader :mapper, :config, :all, :lkup
 
       def add_mapping(mapping_hash)
-        mapobj = CS::Mapper::ColumnMapping.new(mapping_hash, @mapper)
-        @all << mapobj
-        @lookup[mapobj.datacolumn] = mapobj
+        mapobj = CS::Mapper::ColumnMapping.new(mapping_hash, mapper)
+        all << mapobj
+        lkup[mapobj.datacolumn] = mapobj
       end
 
       def special_mappings

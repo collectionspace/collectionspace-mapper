@@ -2,26 +2,29 @@
 
 require 'spec_helper'
 
-RSpec.describe CollectionSpace::Mapper::DataMapper do
+RSpec.describe CollectionSpace::Mapper::DataMapper, :integration do
   let(:config){ {delimiter: ';'} }
   let(:mapper){ get_json_record_mapper(mapper_path) }
+  let(:handler) do
+    CollectionSpace::Mapper::DataHandler.new(
+      record_mapper: mapper,
+      client: core_client,
+      cache: core_cache,
+      csid_cache: core_csid_cache,
+      config: config
+    )
+  end
   let(:datahash){ get_datahash(path: hashpath) }
+  let(:prepper){ CollectionSpace::Mapper::DataPrepper.new(datahash, handler) }
+  let(:datamapper){ described_class.new(prepper.prep.response, handler, prepper.xphash) }
   let(:response){ handler.process(datahash) }
   let(:mapped_doc){ remove_namespaces(response.doc) }
   let(:mapped_xpaths){ list_xpaths(mapped_doc) }
   let(:fixture_doc){ get_xml_fixture(fixturepath) }
   let(:fixture_xpaths){ test_xpaths(fixture_doc, handler.mapper.mappings) }
-  let(:diff){ mapped_xpaths - fixture_xpaths }
+  let(:diff){ mapped_xpaths - fixture_xpaths }	
 
   context 'core profile' do
-    let(:handler) do
-      CollectionSpace::Mapper::DataHandler.new(record_mapper: mapper,
-                                               client: core_client,
-                                               cache: core_cache,
-                                               csid_cache: core_csid_cache,
-                                               config: config)
-    end
-
     context 'non-hierarchical relationship record', services_call: true do
       # NOTE!
       # These tests are prone to failing if one of the records used in the test in core.dev is deleted

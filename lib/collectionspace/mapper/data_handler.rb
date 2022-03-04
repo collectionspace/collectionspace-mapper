@@ -9,7 +9,7 @@ module CollectionSpace
       #  xpath hash
       attr_accessor :mapper
 
-      def initialize(record_mapper:, client:, cache: nil, csid_cache: nil, config: {})
+      def initialize(record_mapper:, client:, cache:, csid_cache:, config: {})
         @mapper = CollectionSpace::Mapper::RecordMapper.new(mapper: record_mapper, batchconfig: config,
                                                             csclient: client, termcache: cache,
                                                             csidcache: csid_cache )

@@ -9,6 +9,7 @@ module CollectionSpace
 
       attr_reader :mapper, :cache, :required_fields
 
+      # @todo remove cache argument
       def initialize(record_mapper, cache)
         @mapper = record_mapper
         @cache = cache

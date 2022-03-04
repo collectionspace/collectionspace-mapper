@@ -93,21 +93,21 @@ RSpec.describe CollectionSpace::Mapper::Config do
   end
 
   context 'when initialized as object hierarchy' do
-    let(:opts){ {record_type: CS::Mapper::ObjectHierarchy} }
+    let(:opts){ {record_type: 'objecthierarchy'} }
     it 'sets special defaults' do
       expect(config.default_values.length).to eq(3)
     end
   end
 
   context 'when initialized as authority hierarchy' do
-    let(:opts){ {record_type: CS::Mapper::AuthorityHierarchy} }
+    let(:opts){ {record_type: 'authorityhierarchy'} }
     it 'sets special defaults' do
       expect(config.default_values['relationshiptype']).to eq('hasBroader')
     end
   end
 
   context 'when initialized as non-hierarchical relationship' do
-    let(:opts){ {record_type: CS::Mapper::NonHierarchicalRelationship} }
+    let(:opts){ {record_type: 'nonhierarchicalrelationship'} }
     it 'sets special defaults' do
       expect(config.default_values['relationshiptype']).to eq('affects')
     end

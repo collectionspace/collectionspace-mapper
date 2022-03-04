@@ -52,9 +52,11 @@ module CollectionSpace
 
       def initialize(opts = {})
         config = opts[:config] || DEFAULT_CONFIG
-        self.record_type = opts[:record_type]
-
         @default_values = {}
+        @record_type = opts[:record_type]
+        extension = record_type_extension
+        extend extension if extension
+
 
         if config.is_a?(String)
           set_instance_variables(JSON.parse(config))
@@ -85,12 +87,6 @@ module CollectionSpace
       end
 
       private
-
-      def record_type=(mawdule)
-        return unless mawdule
-
-        extend(mawdule)
-      end
 
       def to_h
         hash = {}
@@ -136,6 +132,21 @@ module CollectionSpace
         raise ConfigKeyMissingError.new('Config missing key', missing_keys) unless missing_keys.empty?
       end
 
+      def record_type_extension
+        case record_type
+        when 'media'
+          CS::Mapper::Media
+        when 'objecthierarchy'
+          CS::Mapper::ObjectHierarchy
+        when 'authorityhierarchy'
+          CS::Mapper::AuthorityHierarchy
+        when 'nonhierarchicalrelationship'
+          CS::Mapper::NonHierarchicalRelationship
+        else
+          nil
+        end
+      end
+      
       def special_defaults
         {}
       end
