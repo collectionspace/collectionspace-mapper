@@ -2,16 +2,6 @@
 
 module CollectionSpace
   module Mapper
-    class MultipleCsRecordsFoundError < StandardError
-      attr_reader :message
-
-      def initialize(count)
-        @message = "#{count} matching records found in CollectionSpace. Cannot determine which to update."
-      end
-    end
-
-    class NoClientServiceError < StandardError; end
-
     module Tools
       class RecordStatusServiceClient < CS::Mapper::Tools::RecordStatusServiceBuilder
         def initialize(client, mapper)
