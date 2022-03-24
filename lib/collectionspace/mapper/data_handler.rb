@@ -162,6 +162,12 @@ module CollectionSpace
         h
       end
 
+      def to_s
+        cfg = mapper.config
+        id = "#{cfg.recordtype} #{mapper.csclient.config.base_uri}"
+        "<##{self.class}:#{self.object_id.to_s(8)} #{id}>"
+      end
+
       private
 
       def set_record_status(response)
