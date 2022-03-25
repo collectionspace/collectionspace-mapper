@@ -13,6 +13,7 @@ module CollectionSpace
         @mapper = CollectionSpace::Mapper::RecordMapper.new(mapper: record_mapper, batchconfig: config,
                                                             csclient: client, termcache: cache,
                                                             csidcache: csid_cache )
+        @validator = CS::Mapper::DataValidator.new(@mapper, @mapper.termcache)
         @date_handler = CS::Mapper::Dates::StructuredDateHandler.new(
           client: client,
           cache: cache,
@@ -77,8 +78,8 @@ module CollectionSpace
       end
 
       def validate(data)
-        response = CollectionSpace::Mapper.setup_data(data, @mapper.batchconfig)
-        validator.validate(response)
+#        response = CollectionSpace::Mapper.setup_data(data, @mapper.batchconfig)
+        validator.validate(data)
       end
 
       def mappings
@@ -170,6 +171,8 @@ module CollectionSpace
 
       private
 
+      attr_reader :validator
+
       def set_record_status(response)
         @status_checker.call(response)
       end
@@ -186,10 +189,6 @@ module CollectionSpace
         end
 
         result.terms = terms
-      end
-
-      def validator
-        @validator ||= CS::Mapper::DataValidator.new(@mapper, @mapper.termcache)
       end
 
       # you can specify per-data-key transforms in your config.json
