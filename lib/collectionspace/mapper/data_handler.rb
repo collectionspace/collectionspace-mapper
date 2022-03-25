@@ -78,7 +78,6 @@ module CollectionSpace
       end
 
       def validate(data)
-#        response = CollectionSpace::Mapper.setup_data(data, @mapper.batchconfig)
         validator.validate(data)
       end
 
