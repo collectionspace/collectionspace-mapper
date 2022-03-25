@@ -147,15 +147,13 @@ module CollectionSpace
       end
 
       private def add_missing_record_error(category, val)
-        datacolumn = column ||= 'data'
-
         errors << {
           category: "no_records_found_for_#{category}".to_sym,
-          field: '',
-          type: '',
-          subtype: '',
+          field: @column,
+          type: type,
+          subtype: subtype,
           value: val,
-          message: "#{val} (#{type_subtype} in #{datacolumn} column)"
+          message: "#{val} (#{type_subtype} in #{@column} column)"
         }
       end
 
@@ -165,7 +163,7 @@ module CollectionSpace
         unless term_ct
           errors << {
             category: "unsuccessful_csid_lookup_for_#{category}".to_sym,
-            field: '',
+            field: @column,
             type: type,
             subtype: subtype,
             value: val,
@@ -185,7 +183,7 @@ module CollectionSpace
           using_uri = "#{@client.config.base_uri}#{rec['uri']}"
           warnings << {
             category: "multiple_records_found_for_#{category}".to_sym,
-            field: '',
+            field: @column,
             type: type,
             subtype: subtype,
             value: val,
