@@ -173,7 +173,7 @@ module CollectionSpace
       attr_reader :validator
 
       def set_record_status(response)
-        @status_checker.call(response)
+        response.merge_status_data(@status_checker.call(response))
       end
 
       def tag_terms(result)

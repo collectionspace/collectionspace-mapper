@@ -17,34 +17,9 @@ module CollectionSpace
 
         def call(response)
           value = get_value_for_record_status(response)
-
-          begin
-            searchresult = lookup(value)
-          rescue CollectionSpace::Mapper::MultipleCsRecordsFoundError => e
-            err = {
-              category: :multiple_matching_recs,
-              field: search_field,
-              type: nil,
-              subtype: nil,
-              value: value,
-              message: e.message
-            }
-            response.errors << err
-          else
-            status = searchresult[:status]
-            response.record_status = status
-            return if status == :new
-
-            response.csid = searchresult[:csid]
-            response.uri = searchresult[:uri]
-            response.refname = searchresult[:refname]
-            num_found = searchresult[:multiple_recs_found]
-            return unless num_found
-
-            response.add_multi_rec_found_warning(num_found)
-          end
+          lookup(value)
         end
-
+        
         private
 
         attr_reader :client, :search_field, :ns_prefix, :path, :response_top, :response_nested
