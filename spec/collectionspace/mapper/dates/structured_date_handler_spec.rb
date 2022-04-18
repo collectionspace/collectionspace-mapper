@@ -7,7 +7,8 @@ RSpec.describe CollectionSpace::Mapper::Dates::StructuredDateHandler do
   let(:cache){ anthro_cache }
   let(:csid_cache){ anthro_csid_cache }
   let(:config){ CS::Mapper::Config.new }
-  let(:handler){ described_class.new(client: client, cache: cache, csid_cache: csid_cache, config: config) }
+  let(:searcher) { CS::Mapper::Searcher.new(client: client, config: config) }
+  let(:handler){ described_class.new(client: client, cache: cache, csid_cache: csid_cache, config: config, searcher: searcher) }
   
   describe '#ce' do
     let(:result){ handler.ce }

@@ -7,8 +7,15 @@ RSpec.describe CollectionSpace::Mapper::Tools::Dates do
   let(:cache){ anthro_cache }
   let(:csid_cache){ anthro_csid_cache }
   let(:config){ CS::Mapper::Config.new }
+  let(:searcher) { CS::Mapper::Searcher.new(client: client, config: config) }
   let(:handler) do
-    CS::Mapper::Dates::StructuredDateHandler.new(client: client, cache: cache, csid_cache: csid_cache, config: config)
+    CS::Mapper::Dates::StructuredDateHandler.new(
+      client: client,
+      cache: cache,
+      csid_cache: csid_cache,
+      config: config,
+      searcher: searcher
+    )
   end
   
   describe CollectionSpace::Mapper::Tools::Dates::CspaceDate do

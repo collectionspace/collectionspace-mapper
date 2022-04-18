@@ -48,7 +48,12 @@ module CollectionSpace
       # @param val [String] termDisplayName value to search for
       # @param return_type [Symbol<:csid, :refname>] 
       def searched_term(val, return_type, termtype = type, termsubtype = subtype)
-        response = term_search_response(val, termtype, termsubtype)
+        response = searcher.call(
+          value: val,
+          type: termtype,
+          subtype: termsubtype
+        )
+        return nil unless response
 
         rec = rec_from_response('term', val, response)
         return nil unless rec
@@ -63,36 +68,6 @@ module CollectionSpace
         string.match?(/[A-Z]/) ? string.downcase : string.capitalize
       end
 
-      private def term_search_response(val, termtype = type, termsubtype = subtype)
-                as_is = get_term_response(val, termtype, termsubtype)
-                return as_is if term_response_usable?(as_is)
-
-                get_term_response(case_swap(val), termtype, termsubtype)
-              end
-
-      private def get_term_response(val, termtype = type, termsubtype = subtype)
-        response = @client.find(
-          type: termtype,
-          subtype: termsubtype,
-          value: val,
-          field: search_field(termtype)
-        )
-      rescue StandardError => e
-        puts e.message
-        nil
-      else
-        parse_response(response)
-      end
-
-      private def parse_response(response)
-        parsed = response.parsed['abstract_common_list']
-      rescue StandardError => e
-        puts e.message
-        nil
-      else
-        parsed
-      end
-
       def obj_csid(objnum, type)
         cached = @csid_cache.get(type, '', objnum)
         return cached if cached
@@ -102,9 +77,10 @@ module CollectionSpace
 
       def lookup_obj_or_procedure_csid(objnum, type)
         category = 'object_or_procedure'
-        response = @client.find(type: type, value: objnum)
-        if response.result.success?
-          rec = rec_from_response(category, objnum, parse_response(response))
+        response = searcher.call(type: type, value: objnum)
+
+        if response
+          rec = rec_from_response(category, objnum, response)
           return nil unless rec
 
           csid = rec['csid']
@@ -129,14 +105,6 @@ module CollectionSpace
         return cached if cached
 
         searched_term(term, :csid)
-      end
-
-      private def term_response_usable?(response)
-        ct = response_item_count(response)
-        return false unless ct
-        return false if ct == 0
-
-        true
       end
 
       private def response_item_count(response)
@@ -192,14 +160,6 @@ module CollectionSpace
         end
 
         rec
-      end
-
-      private def search_field(termtype = type)
-        field = CollectionSpace::Service.get(type: termtype)[:term]
-      rescue StandardError => e
-        puts e.message
-      else
-        field
       end
 
       # added toward refactoring that isn't done yet

@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 class TermClass
-  attr_reader :cache, :client
+  attr_reader :cache, :client, :searcher
   attr_accessor :type, :subtype, :errors
 
   include CS::Mapper::TermSearchable
@@ -15,6 +15,7 @@ class TermClass
     @type = type
     @subtype = subtype
     @errors = []
+    @searcher = CS::Mapper::Searcher.new(client: client)
   end
 end
 
@@ -96,7 +97,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
   describe '#searched_term' do
     let(:termtype){ 'vocabularies' }
     let(:termsubtype){ 'publishto' }
-    let(:result){ term.searched_term(val, :refname) }
+    let(:result){ term.searched_term(val, :refname, termtype, termsubtype) }
 
     context 'when val exists in instance' do
       let(:val){ 'All' }

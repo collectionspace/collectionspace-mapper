@@ -4,7 +4,7 @@ module CollectionSpace
   module Mapper
     # given a RecordMapper hash and a data hash, returns CollectionSpace XML document
     class DataHandler
-      attr_reader :date_handler
+      attr_reader :date_handler, :searcher
       # this is an accessor rather than a reader until I refactor away the hideous
       #  xpath hash
       attr_accessor :mapper
@@ -14,11 +14,13 @@ module CollectionSpace
                                                             csclient: client, termcache: cache,
                                                             csidcache: csid_cache )
         @validator = CS::Mapper::DataValidator.new(@mapper, @mapper.termcache)
+        @searcher = CS::Mapper::Searcher.new(client: client, config: mapper.batchconfig)
         @date_handler = CS::Mapper::Dates::StructuredDateHandler.new(
           client: client,
           cache: cache,
           csid_cache: csid_cache,
-          config: mapper.batchconfig)
+          config: mapper.batchconfig,
+          searcher: searcher)
         @mapper.xpath = xpath_hash
         merge_config_transforms
         @new_terms = {}
@@ -40,16 +42,16 @@ module CollectionSpace
         if response.valid?
           case @mapper.record_type
           when 'authorityhierarchy'
-            prepper = CollectionSpace::Mapper::AuthorityHierarchyPrepper.new(response, self)
+            prepper = CollectionSpace::Mapper::AuthorityHierarchyPrepper.new(response, searcher, self)
             prepper.prep
           when 'nonhierarchicalrelationship'
-            prepper = CollectionSpace::Mapper::NonHierarchicalRelationshipPrepper.new(response, self)
+            prepper = CollectionSpace::Mapper::NonHierarchicalRelationshipPrepper.new(response, searcher, self)
             prepper.prep
           when 'objecthierarchy'
-            prepper = CollectionSpace::Mapper::ObjectHierarchyDataPrepper.new(response, self)
+            prepper = CollectionSpace::Mapper::ObjectHierarchyDataPrepper.new(response, searcher, self)
             prepper.prep
           else
-            prepper = CollectionSpace::Mapper::DataPrepper.new(response, self)
+            prepper = CollectionSpace::Mapper::DataPrepper.new(response, searcher, self)
             prepper.prep
           end
         else

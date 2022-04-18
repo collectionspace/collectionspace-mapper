@@ -14,11 +14,14 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
                                  csidcache: csidcache)
   end
   let(:colmapping){ recmapper.mappings.lookup(colname) }
+  let(:searcher){ CS::Mapper::Searcher.new(client: client)}
   let(:th) do
     CS::Mapper::TermHandler.new(mapping: colmapping,
                                 data: data,
                                 client: client,
-                                mapper: recmapper)
+                                mapper: recmapper,
+                                searcher: searcher
+                               )
   end
   # before(:all) do
   #    @config = @handler.mapper.batchconfig
@@ -112,7 +115,9 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
           first_handler = CS::Mapper::TermHandler.new(mapping: colmapping,
                                                       data: data,
                                                       client: client,
-                                                      mapper: recmapper)
+                                                      mapper: recmapper,
+                                                      searcher: searcher
+                                                     )
 
           chk = terms.select{ |h| h[:found] }
           expect(chk.length).to eq(2)

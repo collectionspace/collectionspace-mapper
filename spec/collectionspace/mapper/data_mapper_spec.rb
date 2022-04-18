@@ -15,7 +15,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     )
   end
   let(:datahash){ get_datahash(path: datahash_path) }
-  let(:prepper){ CollectionSpace::Mapper::DataPrepper.new(datahash, handler) }
+  let(:prepper){ CollectionSpace::Mapper::DataPrepper.new(datahash, handler.searcher, handler) }
   let(:datamapper){ described_class.new(prepper.prep.response, handler, prepper.xphash) }
   let(:response){ datamapper.response }
   let(:mapped_doc){ remove_namespaces(response.doc) }
@@ -37,7 +37,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
         data2 = JSON.parse('{"creditline":"","accessiondategroup":"","acquisitionmethod":"unknown-provenance","acquisitionreferencenumber":"ACC215 (migrated accession)","acquisitionsourceperson":"","acquisitionsourceorganization":"","acquisitionauthorizer":"","acquisitionnote":""}')
         data3 = JSON.parse('{"creditline":"Gift of Elizabeth, 1985","accessiondategroup":"1985","acquisitionmethod":"gift","acquisitionreferencenumber":"ACC208 (migrated accession)","acquisitionsourceperson":"Elizabeth","acquisitionsourceorganization":"","acquisitionauthorizer":"","acquisitionnote":"Acquisition source role(s): Donor"}')
         data = [data1, data2, data3]
-        preppers = data.map{ |d| CollectionSpace::Mapper::DataPrepper.new(d, handler) }
+        preppers = data.map{ |d| CollectionSpace::Mapper::DataPrepper.new(d, handler.searcher, handler) }
         mappers = preppers.map do |prepper|
           CollectionSpace::Mapper::DataMapper.new(prepper.prep.response, handler, prepper.xphash)
         end

@@ -6,16 +6,17 @@ module CollectionSpace
       class StructuredDateHandler
         include CollectionSpace::Mapper::TermSearchable
 
-        attr_reader :client, :cache, :config
+        attr_reader :client, :cache, :config, :searcher
         
         # @param client [CollectionSpace::Client]
         # @param cache [CollectionSpace::RefCache]
         # @param config [CollectionSpace::Mapper::Config]
-        def initialize(client:, cache:, csid_cache:, config:)
+        def initialize(client:, cache:, csid_cache:, config:, searcher:)
           @client = client
           @cache = cache
           @csid_cache = csid_cache
           @config = config
+          @searcher = searcher
         end
 
         def ce

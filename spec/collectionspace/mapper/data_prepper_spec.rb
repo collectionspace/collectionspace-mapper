@@ -21,7 +21,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
                                              csid_cache: csid_cache,
                                              config: config)
   end
-  let(:prepper){ CollectionSpace::Mapper::DataPrepper.new(datahash, handler) }
+  let(:prepper){ CollectionSpace::Mapper::DataPrepper.new(datahash, handler.searcher, handler) }
   let(:datahash){ {'objectNumber' => '123'} }
 
   describe '#merge_default_values' do

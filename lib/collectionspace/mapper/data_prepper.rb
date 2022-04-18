@@ -3,11 +3,12 @@
 module CollectionSpace
   module Mapper
     class DataPrepper
-      attr_reader :data, :handler, :config, :cache, :csid_cache, :client
+      attr_reader :data, :handler, :config, :cache, :csid_cache, :client, :searcher
       attr_accessor :response, :xphash
 
-      def initialize(data, handler)
+      def initialize(data, searcher, handler)
         @handler = handler
+        @searcher = searcher
         @config = handler.mapper.batchconfig
         @cache = handler.mapper.termcache
         @csid_cache = handler.mapper.csidcache
@@ -228,7 +229,8 @@ module CollectionSpace
           th = CollectionSpace::Mapper::TermHandler.new(mapping: mapping,
                                                         data: data,
                                                         client: @client,
-                                                        mapper: @handler.mapper)
+                                                        mapper: @handler.mapper,
+                                                        searcher: searcher)
           
           @response.transformed_data[column] = th.result
           @response.terms << th.terms

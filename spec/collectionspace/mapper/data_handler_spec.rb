@@ -327,7 +327,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
 
   describe '#map', services_call: true do
     let(:data){ {'objectNumber' => '123'} }
-    let(:prepper){ CollectionSpace::Mapper::DataPrepper.new(data, handler) }
+    let(:prepper){ CollectionSpace::Mapper::DataPrepper.new(data, handler.searcher, handler) }
     let(:prepped){ handler.prep(data).response }
     let(:result){ handler.map(prepped, prepper.xphash) }
 

@@ -15,7 +15,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, :integration do
     )
   end
   let(:datahash){ get_datahash(path: hashpath) }
-  let(:prepper){ CollectionSpace::Mapper::DataPrepper.new(datahash, handler) }
+  let(:prepper){ CollectionSpace::Mapper::DataPrepper.new(datahash, handler.searcher, handler) }
   let(:datamapper){ described_class.new(prepper.prep.response, handler, prepper.xphash) }
   let(:response){ handler.process(datahash) }
   let(:mapped_doc){ remove_namespaces(response.doc) }

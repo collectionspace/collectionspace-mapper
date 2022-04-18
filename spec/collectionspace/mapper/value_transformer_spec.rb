@@ -14,7 +14,7 @@ RSpec.describe CollectionSpace::Mapper::ValueTransformer do
       config: {}
     )
   end
-  let(:prepper){ CS::Mapper::DataPrepper.new({}, handler) }
+  let(:prepper){ CS::Mapper::DataPrepper.new({}, handler.searcher, handler) }
   let(:transformer){ described_class.new(value, transforms, prepper) }
   let(:result){ transformer.result }
 

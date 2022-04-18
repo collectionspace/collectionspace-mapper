@@ -13,11 +13,13 @@ module CollectionSpace
       # @param data [Array<String>]
       # @param client [CollectionSpace::Client]
       # @param mapper [CollectionSpace::Mapper::RecordMapper]
-      def initialize(mapping:, data:, client:, mapper:)
+      def initialize(mapping:, data:, client:, mapper:, searcher:)
         @mapping = mapping
         @data = data
         @client = client
         @mapper = mapper
+        @searcher = searcher
+        
         @cache = mapper.termcache
         @csid_cache = mapper.csidcache
 
@@ -42,6 +44,8 @@ module CollectionSpace
 
       private
 
+      attr_reader :searcher
+      
       def handle_terms
         @result = if @data.first.is_a?(String)
                     @data.map{ |val| handle_term(val) }
