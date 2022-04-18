@@ -25,7 +25,8 @@ A JSON config hash may be passed to a new `Mapper::DataHandler` to control vario
   "strip_id_values": true,
   "multiple_recs_found": "fail",
   "check_record_status" : true,
-  "status_check_method" : 'client'
+  "status_check_method" : 'client',
+  "search_if_not_cached": true,
   "force_defaults": false,
   "date_format": "month day year",
   "two_digit_year_handling": "convert to four digit",
@@ -48,6 +49,48 @@ A JSON config hash may be passed to a new `Mapper::DataHandler` to control vario
 }
 ----
 
+== check_record_status
+
+If `true`, looks up each record via cspace-services API and sets `Response.record_status` to `:exists` if the record is found, or `:new` if it is not. 
+
+If `false`, does not search services API for the record. Sets `Response.record_status` to `:new`.
+
+[NOTE]
+====
+Set this to false only if you are certain no records in your data exist in CollectionSpace. Otherwise, `cspace-batch-import` record transfer processes will fail for records that already exist.
+====
+
+- *Required?:* yes
+- *Defaults to:* true
+- *Data type*: boolean
+- *Allowed values*: `true`, `false`
+
+== date_format
+
+Only has an effect on dates like: 3/4/2020 or 03-04-2020.
+
+If `month day year`, these dates would be interpreted as March 4, 2020.
+
+If `day month year`, these dates would be interpreted as April 3, 2020.
+
+- *Required?:* yes
+- *Defaults to:* `month day year`
+- *Data type*: string
+- *Allowed values*: `month day year`, `day month year`
+
+== default_values
+
+Typically, it is preferred that you set default values in your prepared source data. However, you can also specify default values to be applied to all fields via this config option.
+
+* *Required?:* no
+* *Defaults to:* empty/nothing
+* *Data type*: Hash
+* *Allowed values*:
+** Hash key: String data type. The CSV column name (i.e. data hash field) to which specified transform(s) should be applied
+** Hash value: String data type. The default value
+
+See also <<force_defaults>>.
+
 == delimiter
 
 Delimiter character or string used to split repeatable values within the cell of a CSV. 
@@ -56,44 +99,20 @@ Delimiter character or string used to split repeatable values within the cell of
 - *Defaults to:* |
 - *Data type*: string
 
-== subgroup_delimiter
+See also <<subgroup_delimiter>>.
 
-Delimiter character or string used to split repeatable values nested inside other repeatable values (example: titleTranslation, titleTranslationLanguage).
+== force_defaults
 
-This is only used when if you are importing data into a repeatable field group within a larger repeatable field group.
+Only has an effect if you are also providing <<default_values>> in your config.
 
-- *Required?:* yes
-- *Defaults to:* ^^
-- *Data type*: string
+Relevant if some fields for which you are providing `default_values` have other values in the source data (CSV). 
 
-== response_mode
+If `false`, default values will not replace or be added to values passed in via the data hash; default value will be inserted if field is missing or empty in data hash.
 
-If `normal`, `Mapper::Response.orig_data` returns the original data hash, and `Mapper::Response.doc` returns the resulting XML document.
-
-If `verbose`, `Mapper::Response` also has the following attributes, which may be helpful in debugging:
-
-- `.merged_data` - result of merging any default values into `orig_data`.
-- `.split_data` - result of splitting `merged_data` using `delimiter` and `subgroup_delimiter`. All field values are now arrays.
-- `.transformed_data` - result of any transformations applied to `split_data`.
-- `.combined_data` - result of combining separate data columns (such as `approvedByPerson` and `approvedByOrganization`) into one CollectionSpace field (`approvedBy`).  
+If `true`, default value will replace any data hash values.
 
 - *Required?:* yes
-- *Defaults to:* normal
-- *Data type*: string
-- *Allowed values*: `normal`, `verbose`
-
-== strip_id_values
-
-Controls whether or not leading and trailing spaces are removed from values in record identifier fields before processing.
-
-The use case for this is when you need to update records that have been created in the UI with a space at the beginning or end of the record identifier field value.
-
-If the mapper strips the spaces off, then the record will not match the existing record and the CSV Importer will only be able to create the record as a new record.
-
-If you get existing records that unexpectedly cannot be transfered as updates, check whether they are being flagged as new records because spaces are messing up the matching. If this is the case, setting this to `false` may allow you to to update those records.
-
-- *Required?:* no
-- *Defaults to:* true
+- *Defaults to:* false
 - *Data type*: boolean
 - *Allowed values*: `true`, `false`
 
@@ -118,16 +137,29 @@ While it is possible to use this setting to batch update existing records that d
 - *Data type*: string
 - *Allowed values*: `fail`, `use_first`
 
-== check_record_status
+== response_mode
 
-If `true`, looks up each record via cspace-services API and sets `Response.record_status` to `:exists` if the record is found, or `:new` if it is not. 
+If `normal`, `Mapper::Response.orig_data` returns the original data hash, and `Mapper::Response.doc` returns the resulting XML document.
 
-If `false`, does not search services API for the record. Sets `Response.record_status` to `:new`.
+If `verbose`, `Mapper::Response` also has the following attributes, which may be helpful in debugging:
 
-[NOTE]
-====
-Set this to false only if you are certain no records in your data exist in CollectionSpace. Otherwise, `cspace-batch-import` record transfer processes will fail for records that already exist.
-====
+- `.merged_data` - result of merging any default values into `orig_data`.
+- `.split_data` - result of splitting `merged_data` using `delimiter` and `subgroup_delimiter`. All field values are now arrays.
+- `.transformed_data` - result of any transformations applied to `split_data`.
+- `.combined_data` - result of combining separate data columns (such as `approvedByPerson` and `approvedByOrganization`) into one CollectionSpace field (`approvedBy`).  
+
+- *Required?:* yes
+- *Defaults to:* normal
+- *Data type*: string
+- *Allowed values*: `normal`, `verbose`
+
+== search_if_not_cached
+
+Controls whether an search is done via the Services API (via collectionspace-client) to retrieve the refname or csid of terms or records for which no cache entry exists.
+
+WARNING: Only set this to `false` if you have cached all existing data values prior to mapping, and the cache lifetime is long enough that values will remained cached throughout the mapping process
+
+IMPORTANT: If using the CollectionSpace CSV Importer, leave this `true`. Because it assumes it is being used on live production data which may be changing, that tool does not cache all values in your instance before mapping, and the cache lifetime is quite short.
 
 - *Required?:* yes
 - *Defaults to:* true
@@ -153,33 +185,43 @@ If you use this in other circumstances, it is possible to inadvertently add dupl
 - *Data type*: boolean
 - *Allowed values*: `client`, `cache`
 
-== force_defaults
+== strip_id_values
 
-Only has an effect if you are also providing `default_values` in your config.
+Controls whether or not leading and trailing spaces are removed from values in record identifier fields before processing.
 
-Relevant if some fields for which you are providing `default_values` have other values in the source data (CSV). 
+The use case for this is when you need to update records that have been created in the UI with a space at the beginning or end of the record identifier field value.
 
-If `false`, default values will not replace or be added to values passed in via the data hash; default value will be inserted if field is missing or empty in data hash.
+If the mapper strips the spaces off, then the record will not match the existing record and the CSV Importer will only be able to create the record as a new record.
 
-If `true`, default value will replace any data hash values.
+If you get existing records that unexpectedly cannot be transfered as updates, check whether they are being flagged as new records because spaces are messing up the matching. If this is the case, setting this to `false` may allow you to to update those records.
 
-- *Required?:* yes
-- *Defaults to:* false
+- *Required?:* no
+- *Defaults to:* true
 - *Data type*: boolean
 - *Allowed values*: `true`, `false`
 
-== date_format
+== subgroup_delimiter
 
-Only has an effect on dates like: 3/4/2020 or 03-04-2020.
+Delimiter character or string used to split repeatable values nested inside other repeatable values (example: titleTranslation, titleTranslationLanguage).
 
-If `month day year`, these dates would be interpreted as March 4, 2020.
-
-If `day month year`, these dates would be interpreted as April 3, 2020.
+This is only used when if you are importing data into a repeatable field group within a larger repeatable field group.
 
 - *Required?:* yes
-- *Defaults to:* `month day year`
+- *Defaults to:* ^^
 - *Data type*: string
-- *Allowed values*: `month day year`, `day month year`
+
+See also <<delimiter>>.
+
+== transforms
+
+While it is typically preferred to prepare your source data as required prior to mapping, this lets you specify some simple data transformations that can be applied as part of the mapping process.
+
+* *Required?:* no
+* *Defaults to:* empty/nothing
+* *Data type*: Hash
+* *Allowed values*:
+** Hash key: String data type. The CSV column name (i.e. data hash field) to which specified transform(s) should be applied
+** Hash value: Hash data type. Structured transformation instructions to be applied.
 
 == two_digit_year_handling
 
@@ -199,10 +241,5 @@ Setting this to `coerce` results in the years being parsed as 2019 and 1945 via 
 - *Defaults to:* `coerce`
 - *Data type*: string
 - *Allowed values*: `coerce`, `literal`
-
-
-
-- `:transforms` - optional - Hash - Key (String) is the data hash field to which the transforms should be applied. Value (Hash) is structured transformation instructions.
-- `:default_values` - optional - Hash - Key (String) is the data hash field that should be populated. Value (String) is the default value for the field.
 
 

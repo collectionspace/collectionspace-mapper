@@ -12,7 +12,7 @@ module CollectionSpace
     # :reek:InstanceVariableAssumption - instance variables are set during initialization
     class Config
       attr_reader :delimiter, :subgroup_delimiter, :response_mode, :strip_id_values, :multiple_recs_found,
-        :force_defaults, :check_record_status, :status_check_method, :date_format,
+        :force_defaults, :check_record_status, :status_check_method, :search_if_not_cached, :date_format,
         :two_digit_year_handling, :transforms, :default_values, :record_type
 
       # TODO: move default config in here
@@ -26,6 +26,7 @@ module CollectionSpace
         multiple_recs_found: 'fail',
         check_record_status: true,
         status_check_method: 'client',
+        search_if_not_cached: true,
         force_defaults: false,
         date_format: 'month day year',
         two_digit_year_handling: 'coerce'

@@ -12,6 +12,7 @@ RSpec.describe CollectionSpace::Mapper::Config do
                        "force_defaults": false,
                        "check_record_status": true,
                        "status_check_method": "client",
+                       "search_if_not_cached": true,
                        "check_terms": true,
                        "date_format": "month day year",
                        "two_digit_year_handling": "convert to four digit",
@@ -116,7 +117,7 @@ RSpec.describe CollectionSpace::Mapper::Config do
   describe '#hash' do
     let(:expected_hash) do
       {delimiter: ';', subgroup_delimiter: '^^', response_mode: 'verbose', strip_id_values: true,
-       multiple_recs_found: 'fail', force_defaults: false, check_record_status: true, status_check_method: 'client', check_terms: true, date_format: 'month day year', two_digit_year_handling: 'convert to four digit', transforms: {'collection' => {special: ['downcase_value'], replacements: [{find: ' ', replace: '-', type: 'plain'}]}}, default_values: {'publishto' => 'DPLA;Omeka', 'collection' => 'library-collection'}}
+       multiple_recs_found: 'fail', force_defaults: false, check_record_status: true, status_check_method: 'client', search_if_not_cached: true, check_terms: true, date_format: 'month day year', two_digit_year_handling: 'convert to four digit', transforms: {'collection' => {special: ['downcase_value'], replacements: [{find: ' ', replace: '-', type: 'plain'}]}}, default_values: {'publishto' => 'DPLA;Omeka', 'collection' => 'library-collection'}}
     end
 
     it 'returns expected hash' do
