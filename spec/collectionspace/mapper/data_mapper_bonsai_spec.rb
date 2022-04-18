@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe CollectionSpace::Mapper::DataMapper, :integration do
+RSpec.describe CollectionSpace::Mapper::DataMapper, type: 'integration' do
   let(:config) {{delimiter: ';'}}
   let(:jsonmapper){ get_json_record_mapper(mapper_path) }
   let(:handler) do

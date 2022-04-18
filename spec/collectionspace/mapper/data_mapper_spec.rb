@@ -29,7 +29,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     let(:cache){ fcart_cache }
     let(:csid_cache){ fcart_csid_cache }
     
-    context 'acquisition record' do
+    context 'acquisition record', type: 'integration' do
       let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/fcart/fcart_3-0-1_acquisition.json' }
 
       it 'maps records as expected in sequence' do
@@ -58,7 +58,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     let(:cache){ core_cache }
     let(:csid_cache){ core_csid_cache }
 
-    context 'collectionobject record' do
+    context 'collectionobject record', type: 'integration' do
       let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json' }
 
       context 'overflow subgroup record with uneven subgroup values' do
@@ -96,7 +96,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
       end
     end
 
-    context 'media record' do
+    context 'media record', type: 'integration' do
       let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_media.json' }
 
       context 'sending through the bomb emoji' do
@@ -113,7 +113,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     end
   end
 
-  context 'lhmc profile' do
+  context 'lhmc profile', type: 'integration' do
     let(:client){ lhmc_client }
     let(:cache){ lhmc_cache }
     let(:csid_cache){ lhmc_csid_cache }
@@ -163,7 +163,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     end
   end
 
-  context 'anthro profile' do
+  context 'anthro profile', type: 'integration' do
     let(:client){ anthro_client }
     let(:cache){ anthro_cache }
     let(:csid_cache){ anthro_csid_cache }
