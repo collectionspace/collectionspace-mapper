@@ -111,6 +111,7 @@ module CollectionSpace
         )
         urn = unknown_term.urn
         @terms << term_report.merge({found: false, refname: unknown_term})
+        add_missing_record_error('term', val)
         [val, case_swap(val)].each{ |value| @cache.put('unknownvalue', type_subtype, value, urn) }
       end
 
