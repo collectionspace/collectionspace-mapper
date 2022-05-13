@@ -1,23 +1,30 @@
 # frozen_string_literal: true
 
-require 'collectionspace/mapper/tools/record_status_service'
-require 'collectionspace/mapper/tools/dates'
-
 module CollectionSpace
   module Mapper
     # given a RecordMapper hash and a data hash, returns CollectionSpace XML document
     class DataHandler
+      attr_reader :date_handler, :searcher
       # this is an accessor rather than a reader until I refactor away the hideous
       #  xpath hash
       attr_accessor :mapper
 
-      def initialize(record_mapper:, client:, cache: nil, config: {})
+      def initialize(record_mapper:, client:, cache:, csid_cache:, config: {})
         @mapper = CollectionSpace::Mapper::RecordMapper.new(mapper: record_mapper, batchconfig: config,
-                                                            csclient: client, termcache: cache)
+                                                            csclient: client, termcache: cache,
+                                                            csidcache: csid_cache )
+        @validator = CS::Mapper::DataValidator.new(@mapper, @mapper.termcache)
+        @searcher = CS::Mapper::Searcher.new(client: client, config: mapper.batchconfig)
+        @date_handler = CS::Mapper::Dates::StructuredDateHandler.new(
+          client: client,
+          cache: cache,
+          csid_cache: csid_cache,
+          config: mapper.batchconfig,
+          searcher: searcher)
         @mapper.xpath = xpath_hash
         merge_config_transforms
         @new_terms = {}
-        @status_checker = CollectionSpace::Mapper::Tools::RecordStatusService.new(@mapper.csclient, @mapper)
+        @status_checker = CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder.call(@mapper.csclient, @mapper)
       end
 
       def process(data)
@@ -35,16 +42,16 @@ module CollectionSpace
         if response.valid?
           case @mapper.record_type
           when 'authorityhierarchy'
-            prepper = CollectionSpace::Mapper::AuthorityHierarchyPrepper.new(response, self)
+            prepper = CollectionSpace::Mapper::AuthorityHierarchyPrepper.new(response, searcher, self)
             prepper.prep
           when 'nonhierarchicalrelationship'
-            prepper = CollectionSpace::Mapper::NonHierarchicalRelationshipPrepper.new(response, self)
+            prepper = CollectionSpace::Mapper::NonHierarchicalRelationshipPrepper.new(response, searcher, self)
             prepper.prep
           when 'objecthierarchy'
-            prepper = CollectionSpace::Mapper::ObjectHierarchyPrepper.new(response, self)
+            prepper = CollectionSpace::Mapper::ObjectHierarchyDataPrepper.new(response, searcher, self)
             prepper.prep
           else
-            prepper = CollectionSpace::Mapper::DataPrepper.new(response, self)
+            prepper = CollectionSpace::Mapper::DataPrepper.new(response, searcher, self)
             prepper.prep
           end
         else
@@ -73,8 +80,7 @@ module CollectionSpace
       end
 
       def validate(data)
-        response = CollectionSpace::Mapper.setup_data(data, @mapper.batchconfig)
-        validator.validate(response)
+        validator.validate(data)
       end
 
       def mappings
@@ -158,44 +164,18 @@ module CollectionSpace
         h
       end
 
+      def to_s
+        cfg = mapper.config
+        id = "#{cfg.recordtype} #{mapper.csclient.config.base_uri}"
+        "<##{self.class}:#{self.object_id.to_s(8)} #{id}>"
+      end
+
       private
 
+      attr_reader :validator
+
       def set_record_status(response)
-        if @mapper.service_type == CS::Mapper::Authority
-          value = response.split_data['termdisplayname'].first
-        elsif @mapper.service_type == CS::Mapper::Relationship
-          value = {}
-          value[:sub] = response.combined_data['relations_common']['subjectCsid'][0]
-          value[:obj] = response.combined_data['relations_common']['objectCsid'][0]
-        else
-          value = response.identifier
-        end
-
-        begin
-          searchresult = @status_checker.lookup(value)
-        rescue CollectionSpace::Mapper::MultipleCsRecordsFoundError => e
-          err = {
-            category: :multiple_matching_recs,
-            field: @mapper.config.search_field,
-            type: nil,
-            subtype: nil,
-            value: value,
-            message: e.message
-          }
-          response.errors << err
-        else
-          status = searchresult[:status]
-          response.record_status = status
-          return if status == :new
-
-          response.csid = searchresult[:csid]
-          response.uri = searchresult[:uri]
-          response.refname = searchresult[:refname]
-          num_found = searchresult[:multiple_recs_found]
-          return unless num_found
-
-          response.add_multi_rec_found_warning(num_found)
-        end
+        response.merge_status_data(@status_checker.call(response))
       end
 
       def tag_terms(result)
@@ -203,17 +183,13 @@ module CollectionSpace
         return if terms.empty?
 
         terms.select{ |t| !t[:found] }.each do |term|
-          @new_terms[CollectionSpace::Mapper.term_key(term)] = nil
+          @new_terms[term[:refname].key] = nil
         end
         terms.select{ |t| t[:found] }.each do |term|
-          term[:found] = false if @new_terms.key?(CollectionSpace::Mapper.term_key(term))
+          term[:found] = false if @new_terms.key?(term[:refname].key)
         end
 
         result.terms = terms
-      end
-
-      def validator
-        @validator ||= CS::Mapper::DataValidator.new(@mapper, @mapper.termcache)
       end
 
       # you can specify per-data-key transforms in your config.json

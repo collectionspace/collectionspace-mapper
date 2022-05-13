@@ -72,7 +72,7 @@ module CollectionSpace
           type: 'option list value',
           subtype: '',
           value: val,
-          message: "Unknown value in option list `#{@column}` column"
+          message: "Unknown value `#{val}` in option list `#{@column}` column"
         }
       end
     end

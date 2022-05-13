@@ -2,9 +2,9 @@
 
 require 'spec_helper'
 
-RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_call: true do
+RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient, services_call: true do
   let(:client){ core_client }
-  let(:service){ CollectionSpace::Mapper::Tools::RecordStatusService.new(client, mapper) }
+  let(:service){ CollectionSpace::Mapper::Tools::RecordStatusServiceClient.new(client, mapper) }
 
   context 'when mapper service_path not handled by collectionspace-client' do
     let(:mapper) do
@@ -15,11 +15,12 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_cal
 
     it 'raises NoClientServiceError' do
       expect do
-        CS::Mapper::Tools::RecordStatusService.new(client, mapper)
+        CS::Mapper::Tools::RecordStatusServiceClient.new(client, mapper)
       end.to raise_error(CS::Mapper::NoClientServiceError)
     end
   end
 
+  # @todo fix these tests so they are not on the now-private method
   describe '#lookup' do
     context 'when mapper is for an authority' do
       let(:mapper) do
@@ -29,7 +30,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_cal
       end
 
       context 'and one result is found' do
-        let(:report){ service.lookup('John Doe') }
+        let(:report){ service.send(:lookup, 'John Doe') }
 
         it 'status = :existing' do
           expect(report[:status]).to eq(:existing)
@@ -48,8 +49,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_cal
 
       context 'and no result is found' do
         it 'status = :new' do
-          status = service.lookup('Chickweed Guineafowl')[:status]
-          expect(status).to eq(:new)
+          res = service.send(:lookup, 'Chickweed Guineafowl')
+          expect(res[:status]).to eq(:new)
         end
       end
 
@@ -60,7 +61,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_cal
         context 'with default config' do
           it 'raises error because we cannot know what to do with imported record' do
             expect do
-              service.lookup('Inkpot Guineafowl')
+              service.send(:lookup, 'Inkpot Guineafowl')
             end.to raise_error(CollectionSpace::Mapper::MultipleCsRecordsFoundError)
           end
         end
@@ -76,7 +77,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_cal
               batchconfig: {multiple_recs_found: 'use_first'}
             )
           end
-          let(:result){ service.lookup('Inkpot Guineafowl').keys.any?(:multiple_recs_found) }
+          let(:result){ service.send(:lookup, 'Inkpot Guineafowl').keys.any?(:multiple_recs_found) }
           it 'returns result with count of records found' do
             expect(result).to be true
           end
@@ -92,7 +93,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_cal
       end
 
       it 'works the same' do
-        res = service.lookup('2000.1')
+        res = service.send(:lookup, '2000.1')
         expect(res[:status]).to eq(:existing)
       end
     end
@@ -105,7 +106,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_cal
       end
 
       it 'works the same' do
-        res = service.lookup('2000.001')
+        res = service.send(:lookup, '2000.001')
         expect(res[:status]).to eq(:existing)
       end
     end
@@ -118,7 +119,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusService, services_cal
       end
 
       it 'works the same' do
-        res = service.lookup({sub: '56c04f5f-32b9-4f1d-8a4b', obj: '6f0ce7b3-0130-444d-8633'})
+        res = service.send(:lookup, {sub: '56c04f5f-32b9-4f1d-8a4b', obj: '6f0ce7b3-0130-444d-8633', prd: 'affects'})
         expect(res[:status]).to eq(:existing)
       end
     end

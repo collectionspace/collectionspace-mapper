@@ -6,7 +6,7 @@
     <createdBy>admin@core.collectionspace.org</createdBy>
     <workflowState>project</workflowState>
     <tenantId>1</tenantId>
-    <refName>urn:cspace:core.collectionspace.org:collectionobjects:id(998b6cad-4a55-4904-93b2)'36548'</refName>
+    <refName>urn:cspace:c.core.collectionspace.org:collectionobjects:id(998b6cad-4a55-4904-93b2)'36548'</refName>
     <uri>/collectionobjects/998b6cad-4a55-4904-93b2</uri>
     <updatedAt>2020-09-09T11:28:51.773Z</updatedAt>
   </ns2:collectionspace_core>
@@ -27,7 +27,7 @@
       <dateAssociation/>
       <dateLatestDay/>
       <dateEarliestSingleMonth>8</dateEarliestSingleMonth>
-      <dateEarliestSingleEra>urn:cspace:core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+      <dateEarliestSingleEra>urn:cspace:c.core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
       <dateLatestYear/>
       <dateLatestQualifierUnit/>
       <dateNote/>
@@ -37,12 +37,12 @@
       <dateLatestMonth/>
     </fieldCollectionDateGroup>
     <owners>
-      <owner>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Dudu1599645410044)'Dudu'</owner>
-      <owner>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(pupu1599645415676)'pupu'</owner>
+      <owner>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Dudu1599645410044)'Dudu'</owner>
+      <owner>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(pupu1599645415676)'pupu'</owner>
     </owners>
     <fieldCollectionMethods>
-      <fieldCollectionMethod>urn:cspace:core.collectionspace.org:vocabularies:name(collectionmethod):item:name(excavation)'excavation'</fieldCollectionMethod>
-      <fieldCollectionMethod>urn:cspace:core.collectionspace.org:vocabularies:name(collectionmethod):item:name(donation)'donation'</fieldCollectionMethod>
+      <fieldCollectionMethod>urn:cspace:c.core.collectionspace.org:vocabularies:name(collectionmethod):item:name(excavation)'excavation'</fieldCollectionMethod>
+      <fieldCollectionMethod>urn:cspace:c.core.collectionspace.org:vocabularies:name(collectionmethod):item:name(donation)'donation'</fieldCollectionMethod>
       <fieldCollectionMethod/>
     </fieldCollectionMethods>
     <contentActivities>
@@ -66,7 +66,7 @@
         <dateAssociation/>
         <dateLatestDay/>
         <dateEarliestSingleMonth>5</dateEarliestSingleMonth>
-        <dateEarliestSingleEra>urn:cspace:core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+        <dateEarliestSingleEra>urn:cspace:c.core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
         <dateLatestYear/>
         <dateLatestQualifierUnit/>
         <dateNote/>
@@ -77,7 +77,7 @@
       </objectProductionDateGroup>
     </objectProductionDateGroupList>
     <contentConcepts>
-      <contentConcept>urn:cspace:core.collectionspace.org:conceptauthorities:name(concept):item:name(Uno1599645111177)'Uno'</contentConcept>
+      <contentConcept>urn:cspace:c.core.collectionspace.org:conceptauthorities:name(concept):item:name(Uno1599645111177)'Uno'</contentConcept>
       <contentConcept/>
     </contentConcepts>
     <ownersContributionNote>contribution</ownersContributionNote>
@@ -101,12 +101,12 @@
     <ownershipExchangeNote>chuma</ownershipExchangeNote>
     <ownershipExchangeMethod>exchange</ownershipExchangeMethod>
     <editionNumber>26453</editionNumber>
-    <fieldCollectionPlace>urn:cspace:core.collectionspace.org:placeauthorities:name(tgn_place):item:name(mzingga1599645587502)'mzingga'</fieldCollectionPlace>
+    <fieldCollectionPlace>urn:cspace:c.core.collectionspace.org:placeauthorities:name(tgn_place):item:name(mzingga1599645587502)'mzingga'</fieldCollectionPlace>
     <objectProductionReasons>
       <objectProductionReason>Veve</objectProductionReason>
     </objectProductionReasons>
     <assocPlaceGroupList/>
-    <ageQualifier>urn:cspace:core.collectionspace.org:vocabularies:name(agequalifier):item:name(olderthan)'older than'</ageQualifier>
+    <ageQualifier>urn:cspace:c.core.collectionspace.org:vocabularies:name(agequalifier):item:name(olderthan)'older than'</ageQualifier>
     <copyNumber>75984</copyNumber>
     <objectNameList>
       <objectNameGroup>
@@ -116,7 +116,7 @@
         <objectNameCurrency>archaic</objectNameCurrency>
         <objectNameNote>turi turi</objectNameNote>
         <objectNameLevel>subgroup</objectNameLevel>
-        <objectNameLanguage>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(hye)'Armenian'</objectNameLanguage>
+        <objectNameLanguage>urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(hye)'Armenian'</objectNameLanguage>
       </objectNameGroup>
     </objectNameList>
     <styles>
@@ -148,7 +148,7 @@
       </assocObjectGroup>
     </assocObjectGroupList>
     <fieldCollectors>
-      <fieldCollector>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(giri1599645613143)'giri'</fieldCollector>
+      <fieldCollector>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(giri1599645613143)'giri'</fieldCollector>
     </fieldCollectors>
     <responsibleDepartments>
       <responsibleDepartment/>
@@ -160,7 +160,7 @@
     <textualInscriptionGroupList>
       <textualInscriptionGroup>
         <inscriptionContentScript>roman-cursive</inscriptionContentScript>
-        <inscriptionContentInscriber>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Scribe1599645240974)'Scribe'</inscriptionContentInscriber>
+        <inscriptionContentInscriber>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Scribe1599645240974)'Scribe'</inscriptionContentInscriber>
         <inscriptionContentTransliteration>Passifier</inscriptionContentTransliteration>
         <inscriptionContentType>estate-stamp</inscriptionContentType>
         <inscriptionContentDateGroup>
@@ -179,7 +179,7 @@
           <dateAssociation/>
           <dateLatestDay/>
           <dateEarliestSingleMonth>5</dateEarliestSingleMonth>
-          <dateEarliestSingleEra>urn:cspace:core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+          <dateEarliestSingleEra>urn:cspace:c.core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
           <dateLatestYear/>
           <dateLatestQualifierUnit/>
           <dateNote/>
@@ -192,7 +192,7 @@
         <inscriptionContentTranslation>Translate</inscriptionContentTranslation>
         <inscriptionContentInterpretation>Mwepesi</inscriptionContentInterpretation>
         <inscriptionContentPosition>bottom</inscriptionContentPosition>
-        <inscriptionContentLanguage>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(hye)'Armenian'</inscriptionContentLanguage>
+        <inscriptionContentLanguage>urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(hye)'Armenian'</inscriptionContentLanguage>
         <inscriptionContentMethod>Onjivo</inscriptionContentMethod>
       </textualInscriptionGroup>
     </textualInscriptionGroupList>
@@ -221,11 +221,11 @@
     </objectProductionPlaceGroupList>
     <referenceGroupList>
       <referenceGroup>
-        <reference>urn:cspace:core.collectionspace.org:citationauthorities:name(citation):item:name(makasi1599645537547)'makasi'</reference>
+        <reference>urn:cspace:c.core.collectionspace.org:citationauthorities:name(citation):item:name(makasi1599645537547)'makasi'</reference>
         <referenceNote>bad man</referenceNote>
       </referenceGroup>
       <referenceGroup>
-        <reference>urn:cspace:core.collectionspace.org:citationauthorities:name(worldcat):item:name(Chelse1599645525740)'Chelse'</reference>
+        <reference>urn:cspace:c.core.collectionspace.org:citationauthorities:name(worldcat):item:name(Chelse1599645525740)'Chelse'</reference>
         <referenceNote>risasi</referenceNote>
       </referenceGroup>
     </referenceGroupList>
@@ -268,8 +268,8 @@
     <fieldCollectionNumber>meza number</fieldCollectionNumber>
     <sex>female</sex>
     <contentLanguages>
-      <contentLanguage>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(grc)'Ancient Greek'</contentLanguage>
-      <contentLanguage>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(hye)'Armenian'</contentLanguage>
+      <contentLanguage>urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(grc)'Ancient Greek'</contentLanguage>
+      <contentLanguage>urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(hye)'Armenian'</contentLanguage>
     </contentLanguages>
     <ownershipPlace>place</ownershipPlace>
     <recordStatus>new</recordStatus>
@@ -278,7 +278,7 @@
       <assocPersonGroup>
         <assocPersonNote>mandela</assocPersonNote>
         <assocPersonType>garvey</assocPersonType>
-        <assocPerson>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(marcus1599650918612)'marcus'</assocPerson>
+        <assocPerson>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(marcus1599650918612)'marcus'</assocPerson>
       </assocPersonGroup>
     </assocPersonGroupList>
     <viewersPersonalResponse>response</viewersPersonalResponse>
@@ -287,15 +287,15 @@
         <titleTranslationSubGroupList>
           <titleTranslationSubGroup>
             <titleTranslation>Alehandro</titleTranslation>
-            <titleTranslationLanguage>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(spa)'Spanish'</titleTranslationLanguage>
+            <titleTranslationLanguage>urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(spa)'Spanish'</titleTranslationLanguage>
           </titleTranslationSubGroup>
           <titleTranslationSubGroup>
             <titleTranslation>Pata pesa</titleTranslation>
-            <titleTranslationLanguage>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(swa)'Swahili'</titleTranslationLanguage>
+            <titleTranslationLanguage>urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(swa)'Swahili'</titleTranslationLanguage>
           </titleTranslationSubGroup>
         </titleTranslationSubGroupList>
         <titleType>generic</titleType>
-        <titleLanguage>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(swa)'Swahili'</titleLanguage>
+        <titleLanguage>urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(swa)'Swahili'</titleLanguage>
         <title>Si urembo</title>
       </titleGroup>
     </titleGroupList>
@@ -303,7 +303,7 @@
     <fieldCollectionNote>collection note</fieldCollectionNote>
     <assocConceptGroupList>
       <assocConceptGroup>
-        <assocConcept>urn:cspace:core.collectionspace.org:conceptauthorities:name(concept):item:name(Test1599650854716)'Test'</assocConcept>
+        <assocConcept>urn:cspace:c.core.collectionspace.org:conceptauthorities:name(concept):item:name(Test1599650854716)'Test'</assocConcept>
         <assocConceptNote>men</assocConceptNote>
         <assocConceptType>Great</assocConceptType>
       </assocConceptGroup>
@@ -339,8 +339,8 @@
     <assocPeopleGroupList/>
     <ageUnit>months</ageUnit>
     <assocEventOrganizations>
-      <assocEventOrganization>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Astroworld1599650794829)'Astroworld'</assocEventOrganization>
-      <assocEventOrganization>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Ibiza1599650806827)'Ibiza'</assocEventOrganization>
+      <assocEventOrganization>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(Astroworld1599650794829)'Astroworld'</assocEventOrganization>
+      <assocEventOrganization>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(Ibiza1599650806827)'Ibiza'</assocEventOrganization>
     </assocEventOrganizations>
     <assocEventNameType>tremor</assocEventNameType>
     <contentPeoples>
@@ -348,7 +348,7 @@
       <contentPeople>Rollit</contentPeople>
     </contentPeoples>
     <namedCollections>
-      <namedCollection>urn:cspace:core.collectionspace.org:workauthorities:name(work):item:name(Makeup1608768998350)'Makeup'</namedCollection>
+      <namedCollection>urn:cspace:c.core.collectionspace.org:workauthorities:name(work):item:name(Makeup1608768998350)'Makeup'</namedCollection>
     </namedCollections>
     <measuredPartGroupList>
       <measuredPartGroup>
@@ -359,7 +359,7 @@
             <dimensionNote/>
             <valueQualifier>two</valueQualifier>
             <valueDate>2020-09-23T00:00:00.000Z</valueDate>
-            <measuredBy>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(afa1599645004939)'afa'</measuredBy>
+            <measuredBy>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(afa1599645004939)'afa'</measuredBy>
             <dimension>circumference</dimension>
             <value>32</value>
             <measurementMethod>standard_mesh_screen</measurementMethod>
@@ -369,7 +369,7 @@
             <dimensionNote/>
             <valueQualifier/>
             <valueDate>2020-09-25T00:00:00.000Z</valueDate>
-            <measuredBy>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(pandemic1599645036126)'pandemic'</measuredBy>
+            <measuredBy>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(pandemic1599645036126)'pandemic'</measuredBy>
             <dimension/>
             <value/>
             <measurementMethod>standard_mesh_screen</measurementMethod>
@@ -402,7 +402,7 @@
         <dateAssociation/>
         <dateLatestDay/>
         <dateEarliestSingleMonth>5</dateEarliestSingleMonth>
-        <dateEarliestSingleEra>urn:cspace:core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+        <dateEarliestSingleEra>urn:cspace:c.core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
         <dateLatestYear/>
         <dateLatestQualifierUnit/>
         <dateNote/>
@@ -458,23 +458,23 @@
       </nonTextualInscriptionGroup>
     </nonTextualInscriptionGroupList>
     <assocEventPersons>
-      <assocEventPerson>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(rights1599650868011)'rights'</assocEventPerson>
-      <assocEventPerson>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(marley1599650874712)'marley'</assocEventPerson>
+      <assocEventPerson>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(rights1599650868011)'rights'</assocEventPerson>
+      <assocEventPerson>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(marley1599650874712)'marley'</assocEventPerson>
     </assocEventPersons>
     <ownershipCategory>private</ownershipCategory>
     <objectProductionPersonGroupList>
       <objectProductionPersonGroup>
-        <objectProductionPerson>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Lima1599645323459)'Lima'</objectProductionPerson>
+        <objectProductionPerson>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Lima1599645323459)'Lima'</objectProductionPerson>
         <objectProductionPersonRole>Chief</objectProductionPersonRole>
       </objectProductionPersonGroup>
     </objectProductionPersonGroupList>
     <viewersRole>Viewer's</viewersRole>
     <contentPersons>
-      <contentPerson>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Switch1599645085995)'Switch'</contentPerson>
-      <contentPerson>urn:cspace:core.collectionspace.org:personauthorities:name(ulan_pa):item:name(pandanayo1599645094507)'panda nayo'</contentPerson>
+      <contentPerson>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Switch1599645085995)'Switch'</contentPerson>
+      <contentPerson>urn:cspace:c.core.collectionspace.org:personauthorities:name(ulan_pa):item:name(pandanayo1599645094507)'panda nayo'</contentPerson>
     </contentPersons>
     <fieldCollectionSources>
-      <fieldCollectionSource>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(highgrade1599645597889)'high grade'</fieldCollectionSource>
+      <fieldCollectionSource>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(highgrade1599645597889)'high grade'</fieldCollectionSource>
     </fieldCollectionSources>
     <contentEventNameGroupList>
       <contentEventNameGroup>
@@ -496,27 +496,27 @@
     <objectProductionOrganizationGroupList>
       <objectProductionOrganizationGroup>
         <objectProductionOrganizationRole>trop</objectProductionOrganizationRole>
-        <objectProductionOrganization>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Podoa1599645346399)'Podoa'</objectProductionOrganization>
+        <objectProductionOrganization>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(Podoa1599645346399)'Podoa'</objectProductionOrganization>
       </objectProductionOrganizationGroup>
     </objectProductionOrganizationGroupList>
-    <computedCurrentLocation>urn:cspace:indeterminate:locationauthorities:name(indeterminate):item:name(indeterminate)'~Indeterminate Location~'</computedCurrentLocation>
+    <computedCurrentLocation>urn:cspace:c.indeterminate:locationauthorities:name(indeterminate):item:name(indeterminate)'~Indeterminate Location~'</computedCurrentLocation>
     <viewersContributionNote>Viewer's contribution note
 Next line</viewersContributionNote>
     <publishToList>
-      <publishTo>urn:cspace:core.collectionspace.org:vocabularies:name(publishto):item:name(none)'None'</publishTo>
-      <publishTo>urn:cspace:core.collectionspace.org:vocabularies:name(publishto):item:name(cultureobject)'Culture Object'</publishTo>
-      <publishTo>urn:cspace:core.collectionspace.org:vocabularies:name(publishto):item:name(cultureobject)'Culture Object'</publishTo>
+      <publishTo>urn:cspace:c.core.collectionspace.org:vocabularies:name(publishto):item:name(none)'None'</publishTo>
+      <publishTo>urn:cspace:c.core.collectionspace.org:vocabularies:name(publishto):item:name(cultureobject)'Culture Object'</publishTo>
+      <publishTo>urn:cspace:c.core.collectionspace.org:vocabularies:name(publishto):item:name(cultureobject)'Culture Object'</publishTo>
     </publishToList>
     <assocOrganizationGroupList>
       <assocOrganizationGroup>
-        <assocOrganization>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Oval1599650891221)'Oval'</assocOrganization>
+        <assocOrganization>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(Oval1599650891221)'Oval'</assocOrganization>
         <assocOrganizationType>music</assocOrganizationType>
         <assocOrganizationNote>Perry</assocOrganizationNote>
       </assocOrganizationGroup>
     </assocOrganizationGroupList>
     <contentOrganizations>
-      <contentOrganization>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Walai1599645181370)'Walai'</contentOrganization>
-      <contentOrganization>urn:cspace:core.collectionspace.org:orgauthorities:name(ulan_oa):item:name(Veryfats1599645188567)'Very fats'</contentOrganization>
+      <contentOrganization>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(Walai1599645181370)'Walai'</contentOrganization>
+      <contentOrganization>urn:cspace:c.core.collectionspace.org:orgauthorities:name(ulan_oa):item:name(Veryfats1599645188567)'Very fats'</contentOrganization>
     </contentOrganizations>
     <contentPlaces>
       <contentPlace>Fire</contentPlace>
@@ -527,7 +527,7 @@ Next line</viewersContributionNote>
         <contentOther>Goshodo</contentOther>
       </contentOtherGroup>
     </contentOtherGroupList>
-    <ownershipExchangePriceCurrency>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(GBP)'Pound Sterling'</ownershipExchangePriceCurrency>
+    <ownershipExchangePriceCurrency>urn:cspace:c.core.collectionspace.org:vocabularies:name(currency):item:name(GBP)'Pound Sterling'</ownershipExchangePriceCurrency>
     <contentDescription>Joe party</contentDescription>
     <contentDateGroup>
       <scalarValuesComputed>true</scalarValuesComputed>
@@ -545,7 +545,7 @@ Next line</viewersContributionNote>
       <dateAssociation/>
       <dateLatestDay/>
       <dateEarliestSingleMonth>11</dateEarliestSingleMonth>
-      <dateEarliestSingleEra>urn:cspace:core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+      <dateEarliestSingleEra>urn:cspace:c.core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
       <dateLatestYear/>
       <dateLatestQualifierUnit/>
       <dateNote/>
@@ -580,9 +580,9 @@ Next line</viewersContributionNote>
       </techniqueGroup>
     </techniqueGroupList>
     <inventoryStatusList>
-      <inventoryStatus>urn:cspace:core.collectionspace.org:vocabularies:name(inventorystatus):item:name(unknown)'unknown'</inventoryStatus>
-      <inventoryStatus>urn:cspace:core.collectionspace.org:vocabularies:name(inventorystatus):item:name(accessionstatusunclear)'accession status unclear'</inventoryStatus>
-      <inventoryStatus>urn:cspace:core.collectionspace.org:vocabularies:name(inventorystatus):item:name(destroyed)'destroyed'</inventoryStatus>
+      <inventoryStatus>urn:cspace:c.core.collectionspace.org:vocabularies:name(inventorystatus):item:name(unknown)'unknown'</inventoryStatus>
+      <inventoryStatus>urn:cspace:c.core.collectionspace.org:vocabularies:name(inventorystatus):item:name(accessionstatusunclear)'accession status unclear'</inventoryStatus>
+      <inventoryStatus>urn:cspace:c.core.collectionspace.org:vocabularies:name(inventorystatus):item:name(destroyed)'destroyed'</inventoryStatus>
     </inventoryStatusList>
     <viewersPersonalExperience>personal</viewersPersonalExperience>
     <contentPositions>

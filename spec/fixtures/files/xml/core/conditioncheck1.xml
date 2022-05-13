@@ -6,7 +6,7 @@
     <createdBy>admin@core.collectionspace.org</createdBy>
     <workflowState>project</workflowState>
     <tenantId>1</tenantId>
-    <refName>urn:cspace:core.collectionspace.org:conditionchecks:id(894dba3c-8686-4564-b088)</refName>
+    <refName>urn:cspace:c.core.collectionspace.org:conditionchecks:id(894dba3c-8686-4564-b088)</refName>
     <uri>/conditionchecks/894dba3c-8686-4564-b088</uri>
     <updatedAt>2020-09-08T16:08:31.851Z</updatedAt>
   </ns2:collectionspace_core>
@@ -72,7 +72,7 @@
       </legalReqsHeldGroup>
     </legalReqsHeldGroupList>
     <conditionCheckNote>Passionately okay.</conditionCheckNote>
-    <conditionChecker>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Glock1599580905730)'Glock'</conditionChecker>
+    <conditionChecker>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Glock1599580905730)'Glock'</conditionChecker>
     <techAssessmentGroupList>
       <techAssessmentGroup>
         <techAssessment>Strong</techAssessment>

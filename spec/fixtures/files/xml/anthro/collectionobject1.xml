@@ -6,7 +6,7 @@
     <createdBy>admin@anthro.collectionspace.org</createdBy>
     <workflowState>project</workflowState>
     <tenantId>1500</tenantId>
-    <refName>urn:cspace:anthro.collectionspace.org:collectionobjects:id(db433216-166e-4fe7-b795)'20CS.001.0001'</refName>
+    <refName>urn:cspace:c.anthro.collectionspace.org:collectionobjects:id(db433216-166e-4fe7-b795)'20CS.001.0001'</refName>
     <uri>/collectionobjects/db433216-166e-4fe7-b795</uri>
     <updatedAt>2020-08-25T21:13:34.159Z</updatedAt>
   </ns2:collectionspace_core>
@@ -67,8 +67,8 @@
       </objectProductionDateGroup>
     </objectProductionDateGroupList>
     <contentConcepts>
-      <contentConcept>urn:cspace:anthro.collectionspace.org:conceptauthorities:name(concept):item:name(Birds1598386997058)'Birds'</contentConcept>
-      <contentConcept>urn:cspace:anthro.collectionspace.org:conceptauthorities:name(material_ca):item:name(Feathers1598387004747)'Feathers'</contentConcept>
+      <contentConcept>urn:cspace:c.anthro.collectionspace.org:conceptauthorities:name(concept):item:name(Birds1598386997058)'Birds'</contentConcept>
+      <contentConcept>urn:cspace:c.anthro.collectionspace.org:conceptauthorities:name(material_ca):item:name(Feathers1598387004747)'Feathers'</contentConcept>
     </contentConcepts>
     <assocEventPlaces/>
     <assocActivityGroupList/>
@@ -166,30 +166,30 @@
         <titleTranslationSubGroupList>
           <titleTranslationSubGroup>
             <titleTranslation>Un Homme</titleTranslation>
-            <titleTranslationLanguage>urn:cspace:anthro.collectionspace.org:vocabularies:name(languages):item:name(fra)'French'</titleTranslationLanguage>
+            <titleTranslationLanguage>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(languages):item:name(fra)'French'</titleTranslationLanguage>
           </titleTranslationSubGroup>
           <titleTranslationSubGroup>
             <titleTranslation>Hombre</titleTranslation>
-            <titleTranslationLanguage>urn:cspace:anthro.collectionspace.org:vocabularies:name(languages):item:name(spa)'Spanish'</titleTranslationLanguage>
+            <titleTranslationLanguage>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(languages):item:name(spa)'Spanish'</titleTranslationLanguage>
           </titleTranslationSubGroup>
         </titleTranslationSubGroupList>
         <titleType>collection</titleType>
-        <titleLanguage>urn:cspace:anthro.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</titleLanguage>
+        <titleLanguage>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</titleLanguage>
         <title>A "Man"</title>
       </titleGroup>
       <titleGroup>
         <titleTranslationSubGroupList>
           <titleTranslationSubGroup>
             <titleTranslation>Une Femme</titleTranslation>
-            <titleTranslationLanguage>urn:cspace:anthro.collectionspace.org:vocabularies:name(languages):item:name(fra)'French'</titleTranslationLanguage>
+            <titleTranslationLanguage>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(languages):item:name(fra)'French'</titleTranslationLanguage>
           </titleTranslationSubGroup>
           <titleTranslationSubGroup>
             <titleTranslation>Fraulein</titleTranslation>
-            <titleTranslationLanguage>urn:cspace:anthro.collectionspace.org:vocabularies:name(languages):item:name(deu)'German'</titleTranslationLanguage>
+            <titleTranslationLanguage>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(languages):item:name(deu)'German'</titleTranslationLanguage>
           </titleTranslationSubGroup>
         </titleTranslationSubGroupList>
         <titleType>generic</titleType>
-        <titleLanguage>urn:cspace:anthro.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</titleLanguage>
+        <titleLanguage>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</titleLanguage>
         <title>A Woman</title>
       </titleGroup>
     </titleGroupList>
@@ -208,12 +208,12 @@
     </otherNumberList>
     <objectProductionPeopleGroupList>
       <objectProductionPeopleGroup>
-        <objectProductionPeople>urn:cspace:anthro.collectionspace.org:conceptauthorities:name(archculture):item:name(Blackfoot1594051318425)'Blackfoot'</objectProductionPeople>
-        <objectProductionPeopleRole>urn:cspace:anthro.collectionspace.org:vocabularies:name(prodpeoplerole):item:name(traditionalMakers)'traditional makers'</objectProductionPeopleRole>
+        <objectProductionPeople>urn:cspace:c.anthro.collectionspace.org:conceptauthorities:name(archculture):item:name(Blackfoot1594051318425)'Blackfoot'</objectProductionPeople>
+        <objectProductionPeopleRole>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(prodpeoplerole):item:name(traditionalMakers)'traditional makers'</objectProductionPeopleRole>
       </objectProductionPeopleGroup>
       <objectProductionPeopleGroup>
-        <objectProductionPeople>urn:cspace:anthro.collectionspace.org:conceptauthorities:name(ethculture):item:name(Batak1594051331018)'Batak'</objectProductionPeople>
-        <objectProductionPeopleRole>urn:cspace:anthro.collectionspace.org:vocabularies:name(prodpeoplerole):item:name(designedAfter)'designed after'</objectProductionPeopleRole>
+        <objectProductionPeople>urn:cspace:c.anthro.collectionspace.org:conceptauthorities:name(ethculture):item:name(Batak1594051331018)'Batak'</objectProductionPeople>
+        <objectProductionPeopleRole>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(prodpeoplerole):item:name(designedAfter)'designed after'</objectProductionPeopleRole>
       </objectProductionPeopleGroup>
     </objectProductionPeopleGroupList>
     <assocPeopleGroupList/>
@@ -387,10 +387,10 @@
     <ownersReferences/>
     <viewersReferences/>
     <objectProductionOrganizationGroupList/>
-    <computedCurrentLocation>urn:cspace:indeterminate:locationauthorities:name(indeterminate):item:name(indeterminate)'~Indeterminate Location~'</computedCurrentLocation>
+    <computedCurrentLocation>urn:cspace:c.indeterminate:locationauthorities:name(indeterminate):item:name(indeterminate)'~Indeterminate Location~'</computedCurrentLocation>
     <publishToList>
-      <publishTo>urn:cspace:anthro.collectionspace.org:vocabularies:name(publishto):item:name(dpla)'DPLA'</publishTo>
-      <publishTo>urn:cspace:anthro.collectionspace.org:vocabularies:name(publishto):item:name(omeka)'Omeka'</publishTo>
+      <publishTo>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(publishto):item:name(dpla)'DPLA'</publishTo>
+      <publishTo>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(publishto):item:name(omeka)'Omeka'</publishTo>
     </publishToList>
     <assocOrganizationGroupList/>
     <contentOrganizations/>
@@ -427,7 +427,7 @@
     <assocEventPeoples/>
     <techniqueGroupList/>
     <inventoryStatusList>
-      <inventoryStatus>urn:cspace:anthro.collectionspace.org:vocabularies:name(inventorystatus):item:name(accessioned)'accessioned'</inventoryStatus>
+      <inventoryStatus>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(inventorystatus):item:name(accessioned)'accessioned'</inventoryStatus>
     </inventoryStatusList>
     <contentPositions/>
     <forms/>
@@ -436,19 +436,19 @@
     <accessLimitationsGroupList>
       <accessLimitationsGroup>
         <requester/>
-        <limitationLevel>urn:cspace:anthro.collectionspace.org:vocabularies:name(limitationlevel):item:name(restriction)'restriction'</limitationLevel>
+        <limitationLevel>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(limitationlevel):item:name(restriction)'restriction'</limitationLevel>
         <requestOnBehalfOf/>
         <limitationDetails/>
         <requestDate/>
-        <limitationType>urn:cspace:anthro.collectionspace.org:vocabularies:name(limitationtype):item:name(lending)'lending'</limitationType>
+        <limitationType>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(limitationtype):item:name(lending)'lending'</limitationType>
       </accessLimitationsGroup>
       <accessLimitationsGroup>
         <requester/>
-        <limitationLevel>urn:cspace:anthro.collectionspace.org:vocabularies:name(limitationlevel):item:name(recommendation)'recommendation'</limitationLevel>
+        <limitationLevel>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(limitationlevel):item:name(recommendation)'recommendation'</limitationLevel>
         <requestOnBehalfOf/>
         <limitationDetails>Cite</limitationDetails>
         <requestDate/>
-        <limitationType>urn:cspace:anthro.collectionspace.org:vocabularies:name(limitationtype):item:name(publication)'publication'</limitationType>
+        <limitationType>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(limitationtype):item:name(publication)'publication'</limitationType>
       </accessLimitationsGroup>
     </accessLimitationsGroupList>
     <culturalCareNotes>
@@ -459,15 +459,15 @@
   <ns2:collectionobjects_annotation xmlns:ns2="http://collectionspace.org/services/collectionobject/domain/annotation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <annotationGroupList>
       <annotationGroup>
-        <annotationAuthor>urn:cspace:anthro.collectionspace.org:personauthorities:name(person):item:name(AnnAnalyst1594848799340)'Ann Analyst'</annotationAuthor>
+        <annotationAuthor>urn:cspace:c.anthro.collectionspace.org:personauthorities:name(person):item:name(AnnAnalyst1594848799340)'Ann Analyst'</annotationAuthor>
         <annotationDate>2019-12-19T00:00:00.000Z</annotationDate>
-        <annotationType>urn:cspace:anthro.collectionspace.org:vocabularies:name(annotationtype):item:name(type)'type'</annotationType>
+        <annotationType>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(annotationtype):item:name(type)'type'</annotationType>
         <annotationNote>Stored in coffee can</annotationNote>
       </annotationGroup>
       <annotationGroup>
-        <annotationAuthor>urn:cspace:anthro.collectionspace.org:personauthorities:name(person):item:name(GabrielSolares1594848906847)'Gabriel Solares'</annotationAuthor>
+        <annotationAuthor>urn:cspace:c.anthro.collectionspace.org:personauthorities:name(person):item:name(GabrielSolares1594848906847)'Gabriel Solares'</annotationAuthor>
         <annotationDate>2019-12-10T00:00:00.000Z</annotationDate>
-        <annotationType>urn:cspace:anthro.collectionspace.org:vocabularies:name(annotationtype):item:name(image_made)'image made'</annotationType>
+        <annotationType>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(annotationtype):item:name(image_made)'image made from cache'</annotationType>
         <annotationNote>Photographed by staff</annotationNote>
       </annotationGroup>
     </annotationGroupList>
@@ -489,7 +489,7 @@
       <dateAssociation/>
       <dateLatestDay/>
       <dateEarliestSingleMonth>1</dateEarliestSingleMonth>
-      <dateEarliestSingleEra>urn:cspace:anthro.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+      <dateEarliestSingleEra>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
       <dateLatestYear/>
       <dateLatestQualifierUnit/>
       <dateNote/>
@@ -505,10 +505,10 @@
       <repatriationNote>Repatriation note 2</repatriationNote>
     </repatriationNotes>
     <nagpraCategories>
-      <nagpraCategory>urn:cspace:anthro.collectionspace.org:vocabularies:name(nagpracategory):item:name(subjectToNAGPRA)'subject to NAGPRA (unspec.)'</nagpraCategory>
-      <nagpraCategory>urn:cspace:anthro.collectionspace.org:vocabularies:name(nagpracategory):item:name(nonNagpra)'not subject to NAGPRA'</nagpraCategory>
+      <nagpraCategory>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(nagpracategory):item:name(subjectToNAGPRA)'subject to NAGPRA (unspec.)'</nagpraCategory>
+      <nagpraCategory>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(nagpracategory):item:name(nonNagpra)'not subject to NAGPRA'</nagpraCategory>
     </nagpraCategories>
-    <nagpraReportFiledBy>urn:cspace:anthro.collectionspace.org:personauthorities:name(person):item:name(AnnAnalyst1594848799340)'Ann Analyst'</nagpraReportFiledBy>
+    <nagpraReportFiledBy>urn:cspace:c.anthro.collectionspace.org:personauthorities:name(person):item:name(AnnAnalyst1594848799340)'Ann Analyst'</nagpraReportFiledBy>
     <nagpraInventoryNames/>
     <nagpraDetermGroupList/>
   </ns2:collectionobjects_nagpra>
@@ -579,7 +579,7 @@
         <vOtherCoords/>
         <vDistanceAboveSurface/>
         <footprintSRS/>
-        <fieldLocPlace>urn:cspace:anthro.collectionspace.org:placeauthorities:name(place):item:name(YorkCountyPennsylvania1598387972721)'York County, Pennsylvania'</fieldLocPlace>
+        <fieldLocPlace>urn:cspace:c.anthro.collectionspace.org:placeauthorities:name(place):item:name(YorkCountyPennsylvania1598387972721)'York County, Pennsylvania'</fieldLocPlace>
         <depthUnit/>
         <footprintSpatialFit/>
         <coordUncertainty/>
@@ -591,18 +591,18 @@
     </localityGroupList>
     <commingledRemainsGroupList>
       <commingledRemainsGroup>
-        <ageRange>urn:cspace:anthro.collectionspace.org:vocabularies:name(agerange):item:name(adolescent_26_75)'adolescent 26-75%'</ageRange>
-        <behrensmeyerUpper>urn:cspace:anthro.collectionspace.org:vocabularies:name(behrensmeyer):item:name(2)'2 - longitudinal cracks, exfoliation on surface'</behrensmeyerUpper>
+        <ageRange>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(agerange):item:name(adolescent_26_75)'adolescent 26-75%'</ageRange>
+        <behrensmeyerUpper>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(behrensmeyer):item:name(2)'2 - longitudinal cracks, exfoliation on surface'</behrensmeyerUpper>
         <side/>
-        <behrensmeyerSingleLower>urn:cspace:anthro.collectionspace.org:vocabularies:name(behrensmeyer):item:name(1)'1 - longitudinal and/or mosaic cracking present on surface'</behrensmeyerSingleLower>
+        <behrensmeyerSingleLower>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(behrensmeyer):item:name(1)'1 - longitudinal and/or mosaic cracking present on surface'</behrensmeyerSingleLower>
         <commingledRemainsNote>crnote1</commingledRemainsNote>
         <mortuaryTreatmentGroupList>
           <mortuaryTreatmentGroup>
-            <mortuaryTreatment>urn:cspace:anthro.collectionspace.org:vocabularies:name(mortuarytreatment):item:name(burnedunburnedbonemixture)'burned/unburned bone mixture'</mortuaryTreatment>
+            <mortuaryTreatment>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(mortuarytreatment):item:name(burnedunburnedbonemixture)'burned/unburned bone mixture'</mortuaryTreatment>
             <mortuaryTreatmentNote>mtnote1</mortuaryTreatmentNote>
           </mortuaryTreatmentGroup>
           <mortuaryTreatmentGroup>
-            <mortuaryTreatment>urn:cspace:anthro.collectionspace.org:vocabularies:name(mortuarytreatment):item:name(enbalmed)'enbalmed'</mortuaryTreatment>
+            <mortuaryTreatment>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(mortuarytreatment):item:name(enbalmed)'enbalmed'</mortuaryTreatment>
             <mortuaryTreatmentNote>mtnote2</mortuaryTreatmentNote>
           </mortuaryTreatmentGroup>
         </mortuaryTreatmentGroupList>
@@ -613,18 +613,18 @@
         <bone/>
       </commingledRemainsGroup>
       <commingledRemainsGroup>
-        <ageRange>urn:cspace:anthro.collectionspace.org:vocabularies:name(agerange):item:name(adult_0_25)'adult 0-25%'</ageRange>
-        <behrensmeyerUpper>urn:cspace:anthro.collectionspace.org:vocabularies:name(behrensmeyer):item:name(5)'5 - bone crumbling in situ, large splinters'</behrensmeyerUpper>
-        <side>urn:cspace:anthro.collectionspace.org:vocabularies:name(bodyside):item:name(midline)'midline'</side>
-        <behrensmeyerSingleLower>urn:cspace:anthro.collectionspace.org:vocabularies:name(behrensmeyer):item:name(3)'3 - fibrous texture, extensive exfoliation'</behrensmeyerSingleLower>
+        <ageRange>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(agerange):item:name(adult_0_25)'adult 0-25%'</ageRange>
+        <behrensmeyerUpper>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(behrensmeyer):item:name(5)'5 - bone crumbling in situ, large splinters'</behrensmeyerUpper>
+        <side>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(bodyside):item:name(midline)'midline'</side>
+        <behrensmeyerSingleLower>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(behrensmeyer):item:name(3)'3 - fibrous texture, extensive exfoliation'</behrensmeyerSingleLower>
         <commingledRemainsNote>crnote2</commingledRemainsNote>
         <mortuaryTreatmentGroupList>
           <mortuaryTreatmentGroup>
-            <mortuaryTreatment>urn:cspace:anthro.collectionspace.org:vocabularies:name(mortuarytreatment):item:name(excarnated)'excarnated'</mortuaryTreatment>
+            <mortuaryTreatment>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(mortuarytreatment):item:name(excarnated)'excarnated'</mortuaryTreatment>
             <mortuaryTreatmentNote>mtnote3</mortuaryTreatmentNote>
           </mortuaryTreatmentGroup>
           <mortuaryTreatmentGroup>
-            <mortuaryTreatment>urn:cspace:anthro.collectionspace.org:vocabularies:name(mortuarytreatment):item:name(mummified)'mummified'</mortuaryTreatment>
+            <mortuaryTreatment>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(mortuarytreatment):item:name(mummified)'mummified'</mortuaryTreatment>
             <mortuaryTreatmentNote>mtnote4</mortuaryTreatmentNote>
           </mortuaryTreatmentGroup>
         </mortuaryTreatmentGroupList>
@@ -737,7 +737,7 @@
           <dateAssociation/>
           <dateLatestDay/>
           <dateEarliestSingleMonth>9</dateEarliestSingleMonth>
-          <dateEarliestSingleEra>urn:cspace:anthro.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+          <dateEarliestSingleEra>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
           <dateLatestYear/>
           <dateLatestQualifierUnit/>
           <dateNote/>
@@ -777,7 +777,7 @@
           <dateAssociation/>
           <dateLatestDay/>
           <dateEarliestSingleMonth>4</dateEarliestSingleMonth>
-          <dateEarliestSingleEra>urn:cspace:anthro.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+          <dateEarliestSingleEra>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
           <dateLatestYear/>
           <dateLatestQualifierUnit/>
           <dateNote/>

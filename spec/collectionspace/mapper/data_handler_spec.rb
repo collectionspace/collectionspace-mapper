@@ -4,7 +4,8 @@ require 'spec_helper'
 
 RSpec.describe CollectionSpace::Mapper::DataHandler do
   let(:client){ core_client }
-  let(:cache){ core_cache_search }
+  let(:cache){ core_cache }
+  let(:csid_cache){ core_csid_cache }
   let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json' }
   let(:mapper){ get_json_record_mapper(mapperpath) }
   let(:config){ {delimiter: '|'} }
@@ -12,6 +13,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
     CollectionSpace::Mapper::DataHandler.new(record_mapper: mapper,
                                              client: client,
                                              cache: cache,
+                                             csid_cache: csid_cache,
                                              config: config)
   end
 
@@ -52,7 +54,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
     end
   end
 
-  it 'tags all un-found terms as such', services_call: true do
+  it 'tags all un-found terms as such', services_call: true  do
     data1 = {
       'objectNumber' => '1',
       'publishTo' => 'All', # vocabulary - in instance, not in cache
@@ -62,7 +64,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
       'objectNumber' => '2',
       'publishTo' => 'All', # vocabulary - now in cache
       'namedCollection' => 'QA TARGET Work', # authority - now in cache
-      'contentConceptAssociated' => 'Birds' # authority - not in instance, not in cache
+      'contentConceptAssociated' => 'Birbs' # authority - not in instance, not in cache
     }
 
     handler.process(data1)
@@ -325,7 +327,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
 
   describe '#map', services_call: true do
     let(:data){ {'objectNumber' => '123'} }
-    let(:prepper){ CollectionSpace::Mapper::DataPrepper.new(data, handler) }
+    let(:prepper){ CollectionSpace::Mapper::DataPrepper.new(data, handler.searcher, handler) }
     let(:prepped){ handler.prep(data).response }
     let(:result){ handler.map(prepped, prepper.xphash) }
 

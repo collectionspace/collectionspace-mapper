@@ -16,16 +16,16 @@ module CollectionSpace
     class RecordMapper
       include Tools::Symbolizable
 
-      attr_reader :batchconfig, :config, :termcache, :mappings, :xml_template, :csclient
-
+      attr_reader :batchconfig, :config, :termcache, :csidcache, :mappings, :xml_template, :csclient
       attr_accessor :xpath
 
       def initialize(opts)
         jhash = opts[:mapper].is_a?(Hash) ? opts[:mapper] : JSON.parse(opts[:mapper])
         convert(jhash)
-        @batchconfig = CS::Mapper::Config.new(config: opts[:batchconfig], record_type: record_type_extension)
+        @batchconfig = CS::Mapper::Config.new(config: opts[:batchconfig], record_type: record_type)
         @csclient = opts[:csclient]
         @termcache = opts[:termcache]
+        @csidcache = opts[:csidcache]
         @xpath = {}
       end
 
@@ -35,14 +35,14 @@ module CollectionSpace
 
       # The value returned here is used to enable module extension when creating
       #  other classes using RecordMapper
-      def service_type
-        case @config.service_type
+      def service_type_extension
+        case config.service_type
         when 'authority'
           CS::Mapper::Authority
         when 'relation'
           CS::Mapper::Relationship
         when 'procedure'
-          record_type_extension
+          CS::Mapper::Media if record_type == 'media'
         end
       end
 
@@ -54,19 +54,6 @@ module CollectionSpace
         @xml_template = CS::Mapper::XmlTemplate.new(hash[:docstructure])
         @mappings = CS::Mapper::ColumnMappings.new(mappings: hash[:mappings],
                                                    mapper: self)
-      end
-
-      def record_type_extension
-        case record_type
-        when 'media'
-          CS::Mapper::Media
-        when 'objecthierarchy'
-          CS::Mapper::ObjectHierarchy
-        when 'authorityhierarchy'
-          CS::Mapper::AuthorityHierarchy
-        when 'nonhierarchicalrelationship'
-          CS::Mapper::NonHierarchicalRelationship
-        end
       end
     end
   end

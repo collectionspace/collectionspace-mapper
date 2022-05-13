@@ -18,87 +18,74 @@ module CollectionSpace
         false
       end
 
+      def cached_unknown(type_subtype, val)
+        @cache.get('unknownvalue', type_subtype, val)
+      end
+
       private def type_subtype
         "#{type}/#{subtype}"
       end
 
       # returns refName of cached term
-      def cached_term(val, return_key = :refname, termtype = type, termsubtype = subtype)
-        returned = @cache.get(termtype, termsubtype, val, search: false)
-        return convert_cached_value(returned)[return_key] if returned
+      def cached_term(val, termtype = type, termsubtype = subtype)
+        returned = @cache.get(termtype, termsubtype, val)
+        return returned if returned
 
-        returned = @cache.get(termtype, termsubtype, case_swap(val), search: false)
-        return convert_cached_value(returned)[return_key] if returned
+        returned = @cache.get(termtype, termsubtype, case_swap(val))
+        return returned if returned
       end
 
-      private def convert_cached_value(cache_response)
-        return cache_response if cache_response.is_a?(Hash)
+      # returns csid of cached term
+      def cached_term_csid(val, termtype = type, termsubtype = subtype)
+        returned = @csid_cache.get(termtype, termsubtype, val)
+        return returned if returned
 
-        instance_eval(cache_response)
+        returned = @csid_cache.get(termtype, termsubtype, case_swap(val))
+        return returned if returned
       end
 
-      # returns refName of searched (term)
-      def searched_term(val, return_key = :refname)
-        response = term_search_response(val)
+      # returns specified data type (:csid or :refname) for searched term
+      # @param val [String] termDisplayName value to search for
+      # @param return_type [Symbol<:csid, :refname>] 
+      def searched_term(val, return_type, termtype = type, termsubtype = subtype)
+        response = searcher.call(
+          value: val,
+          type: termtype,
+          subtype: termsubtype
+        )
+        return nil unless response
 
         rec = rec_from_response('term', val, response)
         return nil unless rec
 
-        cache_value = {refname: rec['refName'], csid: rec['csid']}
-        @cache.put(type, subtype, val, cache_value)
-        cache_value[return_key]
+        values = {refname: rec['refName'], csid: rec['csid']}
+        @cache.put(termtype, termsubtype, val, values[:refname])
+        @csid_cache.put(termtype, termsubtype, val, values[:csid])
+        values[return_type]
       end
 
       private def case_swap(string)
         string.match?(/[A-Z]/) ? string.downcase : string.capitalize
       end
 
-      private def term_search_response(val)
-        as_is = get_term_response(val)
-        return as_is if term_response_usable?(as_is)
-
-        get_term_response(case_swap(val))
-      end
-
-      private def get_term_response(val)
-        response = @client.find(
-          type: type,
-          subtype: subtype,
-          value: val,
-          field: search_field
-        )
-      rescue StandardError => e
-        puts e.message
-        nil
-      else
-        parse_response(response)
-      end
-
-      private def parse_response(response)
-        parsed = response.parsed['abstract_common_list']
-      rescue StandardError => e
-        puts e.message
-        nil
-      else
-        parsed
-      end
-
       def obj_csid(objnum, type)
-        cached = @cache.get(type, '', objnum, search: false)
-        return convert_cached_value(cached)[:csid] if cached
+        cached = @csid_cache.get(type, '', objnum)
+        return cached if cached
 
         lookup_obj_or_procedure_csid(objnum, type)
       end
 
       def lookup_obj_or_procedure_csid(objnum, type)
         category = 'object_or_procedure'
-        response = @client.find(type: type, value: objnum)
-        if response.result.success?
-          rec = rec_from_response(category, objnum, parse_response(response))
+        response = searcher.call(type: type, value: objnum)
+
+        if response
+          rec = rec_from_response(category, objnum, response)
           return nil unless rec
 
           csid = rec['csid']
-          @cache.put(type, '', objnum, {refname: rec['refName'], csid: csid})
+          @csid_cache.put(type, '', objnum, csid)
+          @cache.put(type, '', objnum, rec['refName'])
           csid
         else
           errors << {
@@ -114,18 +101,10 @@ module CollectionSpace
       end
 
       def term_csid(term)
-        cached = cached_term(term, :csid)
+        cached = cached_term_csid(term)
         return cached if cached
 
         searched_term(term, :csid)
-      end
-
-      private def term_response_usable?(response)
-        ct = response_item_count(response)
-        return false unless ct
-        return false if ct == 0
-
-        true
       end
 
       private def response_item_count(response)
@@ -136,15 +115,13 @@ module CollectionSpace
       end
 
       private def add_missing_record_error(category, val)
-        datacolumn = column ||= 'data'
-
         errors << {
           category: "no_records_found_for_#{category}".to_sym,
-          field: '',
-          type: '',
-          subtype: '',
+          field: @column,
+          type: type,
+          subtype: subtype,
           value: val,
-          message: "#{val} (#{type_subtype} in #{datacolumn} column)"
+          message: "#{val} (#{type_subtype} in #{@column} column)"
         }
       end
 
@@ -154,7 +131,7 @@ module CollectionSpace
         unless term_ct
           errors << {
             category: "unsuccessful_csid_lookup_for_#{category}".to_sym,
-            field: '',
+            field: @column,
             type: type,
             subtype: subtype,
             value: val,
@@ -174,7 +151,7 @@ module CollectionSpace
           using_uri = "#{@client.config.base_uri}#{rec['uri']}"
           warnings << {
             category: "multiple_records_found_for_#{category}".to_sym,
-            field: '',
+            field: @column,
             type: type,
             subtype: subtype,
             value: val,
@@ -183,14 +160,6 @@ module CollectionSpace
         end
 
         rec
-      end
-
-      private def search_field
-        field = CollectionSpace::Service.get(type: type)[:term]
-      rescue StandardError => e
-        puts e.message
-      else
-        field
       end
 
       # added toward refactoring that isn't done yet

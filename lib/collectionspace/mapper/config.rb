@@ -6,24 +6,37 @@ module CollectionSpace
   module Mapper
     # This is the default config, which is modified for object or authority hierarchy,
     #   or non-hierarchichal relationships via module extension
+    #
+    # Passed in per batch (as Hash parsed from JSON) by collectionspace-csv-importer
+    #
     # :reek:InstanceVariableAssumption - instance variables are set during initialization
     class Config
-      attr_reader :delimiter, :subgroup_delimiter, :response_mode, :strip_id_values, :multiple_recs_found, :force_defaults,
-                  :check_record_status, :date_format, :two_digit_year_handling, :transforms, :default_values,
-                  :record_type
+      attr_reader :delimiter, :subgroup_delimiter, :response_mode, :strip_id_values, :multiple_recs_found,
+        :force_defaults, :check_record_status, :status_check_method, :search_if_not_cached, :date_format,
+        :two_digit_year_handling, :transforms, :default_values, :record_type
 
       # TODO: move default config in here
       include Tools::Symbolizable
 
-      DEFAULT_CONFIG = {delimiter: '|',
-                        subgroup_delimiter: '^^',
-                        response_mode: 'normal',
-                        strip_id_values: true,
-                        multiple_recs_found: 'fail',
-                        check_record_status: true,
-                        force_defaults: false,
-                        date_format: 'month day year',
-                        two_digit_year_handling: 'coerce'}
+      DEFAULT_CONFIG = {
+        delimiter: '|',
+        subgroup_delimiter: '^^',
+        response_mode: 'normal',
+        strip_id_values: true,
+        multiple_recs_found: 'fail',
+        check_record_status: true,
+        status_check_method: 'client',
+        search_if_not_cached: true,
+        force_defaults: false,
+        date_format: 'month day year',
+        two_digit_year_handling: 'coerce'
+      }
+
+      VALID_VALUES = {
+        response_mode: %w[normal verbose],
+        status_check_method: %w[client cache]
+      }
+
 
       class ConfigKeyMissingError < StandardError
         attr_reader :keys
@@ -34,15 +47,17 @@ module CollectionSpace
         end
       end
 
-      class ConfigResponseModeError < StandardError; end
+      class ConfigValueError < StandardError; end
 
       class UnhandledConfigFormatError < StandardError; end
 
       def initialize(opts = {})
         config = opts[:config] || DEFAULT_CONFIG
-        self.record_type = opts[:record_type]
-
         @default_values = {}
+        @record_type = opts[:record_type]
+        extension = record_type_extension
+        extend extension if extension
+
 
         if config.is_a?(String)
           set_instance_variables(JSON.parse(config))
@@ -74,12 +89,6 @@ module CollectionSpace
 
       private
 
-      def record_type=(mawdule)
-        return unless mawdule
-
-        extend(mawdule)
-      end
-
       def to_h
         hash = {}
         instance_variables.each do |var|
@@ -102,27 +111,43 @@ module CollectionSpace
           e.keys.each{ |key| instance_variable_set("@#{key}", DEFAULT_CONFIG[key]) }
         end
 
-        begin
-          valid_response_mode
-        rescue ConfigResponseModeError => e
-          replacement_value = DEFAULT_CONFIG[:response_mode]
-          @response_mode = replacement_value
-        end
+        validate_setting(:response_mode)
+        validate_setting(:status_check_method)
       end
 
-      def valid_response_mode
-        valid = %w[normal verbose]
-        unless valid.any?(@response_mode)
-          raise ConfigResponseModeError, "Invalid response_mode value in config: #{@response_mode}"
+      # @param setting [Symbol]
+      def validate_setting(setting)
+        valid = VALID_VALUES[setting]
+        setting_variable = "@#{setting}".to_sym
+        setting_value = instance_variable_get(setting_variable)
+        unless valid.any?(setting_value)
+          replacement = DEFAULT_CONFIG[setting]
+          warn("Config: invalid #{setting} value: #{setting_value}. Using default value (#{replacement})")
+          instance_variable_set(setting_variable, replacement)
         end
       end
-
+      
       def has_required_attributes
         required_keys = DEFAULT_CONFIG.keys
-        remaining_keys = required_keys - hash.keys
-        raise ConfigKeyMissingError.new('Config missing key', remaining_keys) unless remaining_keys.empty?
+        missing_keys = required_keys - hash.keys
+        raise ConfigKeyMissingError.new('Config missing key', missing_keys) unless missing_keys.empty?
       end
 
+      def record_type_extension
+        case record_type
+        when 'media'
+          CS::Mapper::Media
+        when 'objecthierarchy'
+          CS::Mapper::ObjectHierarchy
+        when 'authorityhierarchy'
+          CS::Mapper::AuthorityHierarchy
+        when 'nonhierarchicalrelationship'
+          CS::Mapper::NonHierarchicalRelationship
+        else
+          nil
+        end
+      end
+      
       def special_defaults
         {}
       end

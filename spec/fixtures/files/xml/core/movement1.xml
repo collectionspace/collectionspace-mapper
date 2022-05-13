@@ -6,24 +6,24 @@
     <createdBy>admin@core.collectionspace.org</createdBy>
     <workflowState>project</workflowState>
     <tenantId>1</tenantId>
-    <refName>urn:cspace:core.collectionspace.org:movements:id(8de2da87-c2ca-4bae-a973)</refName>
+    <refName>urn:cspace:c.core.collectionspace.org:movements:id(8de2da87-c2ca-4bae-a973)</refName>
     <uri>/movements/8de2da87-c2ca-4bae-a973</uri>
     <updatedAt>2020-09-08T09:38:57.666Z</updatedAt>
   </ns2:collectionspace_core>
   <ns2:movements_common xmlns:ns2="http://collectionspace.org/services/movement" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <inventoryContactList>
-      <inventoryContact>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Lebron1599557725925)'Lebron'</inventoryContact>
-      <inventoryContact>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Joel1599557736045)'Joel'</inventoryContact>
+      <inventoryContact>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Lebron1599557725925)'Lebron'</inventoryContact>
+      <inventoryContact>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Joel1599557736045)'Joel'</inventoryContact>
     </inventoryContactList>
     <inventoryDate>2020-10-02T00:00:00.000Z</inventoryDate>
-    <normalLocation>urn:cspace:core.collectionspace.org:locationauthorities:name(offsite_sla):item:name(Ngong1599557586466)'Ngong'</normalLocation>
+    <normalLocation>urn:cspace:c.core.collectionspace.org:locationauthorities:name(offsite_sla):item:name(Ngong1599557586466)'Ngong'</normalLocation>
     <movementMethods>
       <movementMethod>forklift</movementMethod>
       <movementMethod/>
       <movementMethod>trolley</movementMethod>
     </movementMethods>
     <inventoryActionRequired>re-housing</inventoryActionRequired>
-    <currentLocation>urn:cspace:core.collectionspace.org:locationauthorities:name(location):item:name(Abardares1599557570049)'Abardares'</currentLocation>
+    <currentLocation>urn:cspace:c.core.collectionspace.org:locationauthorities:name(location):item:name(Abardares1599557570049)'Abardares'</currentLocation>
     <plannedRemovalDate>2020-09-23T00:00:00.000Z</plannedRemovalDate>
     <frequencyForInventory>monthly</frequencyForInventory>
     <removalDate>2020-09-30T00:00:00.000Z</removalDate>
@@ -31,7 +31,7 @@
     <currentLocationFitness>suitable</currentLocationFitness>
     <movementNote>Unuh fi go home</movementNote>
     <nextInventoryDate>2020-10-03T00:00:00.000Z</nextInventoryDate>
-    <movementContact>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Alexa1599557607978)'Alexa'</movementContact>
+    <movementContact>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Alexa1599557607978)'Alexa'</movementContact>
     <locationDate>2020-09-24T00:00:00.000Z</locationDate>
     <movementReferenceNumber>MV2020.1</movementReferenceNumber>
     <reasonForMove>exhibition</reasonForMove>

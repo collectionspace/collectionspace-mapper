@@ -22,7 +22,7 @@ Requires:
 
 Examples of setting up client and refcache are available in https://github.com/collectionspace/collectionspace-refcache/blob/master/doc/REFCACHE.md[the REFCACHE doc] and in https://github.com/collectionspace/collectionspace-mapper/blob/master/spec/helpers.rb[`/spec/helpers.rb`] in this repo.
 
-- a `cspace-config-untangler` RecordMapper, parsed
+- a parsed `cspace-config-untangler` RecordMapper
 
 RecordMapper JSON files for all current profile/rectype combinations can be found in: https://github.com/collectionspace/collectionspace-mapper/tree/master/spec/fixtures/files/mappers[`spec/fixtures/files/mappers`].
 
@@ -32,7 +32,7 @@ Sample simple setup could look like:
 
 [source,ruby]
 ----
-client = CollectionSpace::Client.new(
+cs_client_object = CollectionSpace::Client.new(
   CollectionSpace::Configuration.new(
     base_uri: 'https://core.dev.collectionspace.org/cspace-services',
     username: 'admin@core.collectionspace.org',
@@ -40,39 +40,45 @@ client = CollectionSpace::Client.new(
   )
 )
 
-cache_config = { domain: 'core.collectionspace.org' }
-cache = CollectionSpace::RefCache.new(config: cache_config, client: client)
+refname_cache_config = { domain: 'core.collectionspace.org' }
+refname_cache = CollectionSpace::RefCache.new(config: refname_cache_config)
+
+csid_cache_config = { domain: 'core.collectionspace.org' }
+csid_cache = CollectionSpace::RefCache.new(config: csid_cache_config)
 
 record_mapper = JSON.parse(File.read('spec/fixtures/files/mappers/release_6_1/core/core_6_1_0-collectionobject.json'))
 ----
 
+[IMPORTANT]
+====
+The above will create in-memory https://github.com/yegor256/zache[Zache] caches.
+
+If using Redis as the CollectionSpace::RefCache backend, you need to make sure you are using two different Redis instances for the two caches, OR two different databases inside the same Redis instance.
+====
+
 == Create DataHandler for batch
 
-The DataHandler object sets up all the stuff that only needs to be done once per batch, regardless of how many records are in the batch.
+The `DataHandler` object sets up all the stuff that only needs to be done once per batch, regardless of how many records are in the batch.
 
 You also send each row/record through DataHandler methods for processing.
 
 [source,ruby]
-.Creating a DataHandler with default config
+.Creating a DataHandler with default config, given the above sample setup
 ----
-handler = DataHandler.new(record_mapper: mapper_json, client: cs_client_object, cache: cs_refcache_object)
-----
-
-If you do not initialize new `DataHandler` with a specific, pre-created `collectionspace-refcache` object, one will be generated from the settings in the required `collectionspace-client`.
-
-[source,ruby]
-.Creating a DataHandler without pre-created cache
-----
-handler = DataHandler.new(record_mapper: mapper_json, client: cs_client_object)
+handler = DataHandler.new(
+  record_mapper: record_mapper,
+  client: cs_client_object,
+  cache: refname_cache,
+  csid_cache: csid_cache)
 ----
 
-=== DataHandler config parameter
+=== Custom DataHandler config
 
 A dataset-specific configuration hash may be passed in when creating a new DataHandler. This hash contains settings that control how the Mapper will parsed and transform the data.
 
 Details on available config options and how to format them are in the https://github.com/collectionspace/collectionspace-mapper/blob/master/doc/batch_configuration.adoc[batch configuration documentation].
 
-If no config parameter is passed in, the following minimum required default configuration from https://github.com/collectionspace/collectionspace-mapper/blob/master/lib/collectionspace/mapper.rb[`mapper.rb`] will be applied:
+If no config parameter is passed in, the default configuration from https://github.com/collectionspace/collectionspace-mapper/blob/main/lib/collectionspace/mapper/config.rb[`lib/collectionspace/mapper/config.rb`] will be applied.
 
 
 [source,ruby]
@@ -83,9 +89,13 @@ config = {
   subgroup_delimiter: '~'
 }
 
-handler = DataHandler.new(record_mapper: mapper_json, client: cs_client_object, cache: cs_refcache_object, config: config)
+handler = DataHandler.new(
+  record_mapper: record_mapper,
+  client: cs_client_object,
+  cache: refname_cache,
+  csid_cache: csid_cache,
+  config: config)
 ----
-
 
 == Row/record data
 
@@ -122,29 +132,24 @@ Currently validation only checks for the presence of required field(s) and value
 .Valid record
 ----
 data = { 'objectNumber' => '123', 'recordStatus' => 'test' }
-validated = handler.validate(data) # <1>
-errors = validated.errors # <2>
-valid = validated.valid? # <3>
+validated = handler.validate(data)
+  => CollectionSpace::Mapper::Response
+validated.errors
+  => []
+validated.valid?
+  => true
 ----
-<1> Returns a CollectionSpace::Mapper::Response object
-<2> Returns empty Array
-<3> Returns Boolean true
 
 [source,ruby]
 .Invalid record - required field missing
 ----
 data = { 'objectId' => '123', 'recordStatus' => 'test' }
 validated = handler.validate(data)
-errors = validated.errors # <1>
-valid = validated.valid? # <2>
-----
-<1> Returns Array containing one error message String (shown below)
-<2> Returns Boolean false
-
-[source,ruby]
-.errors - Array of error message Strings - example for missing field
-----
-['required field missing: objectNumber must be present']
+  => CollectionSpace::Mapper::Response
+validated.errors
+  => ['required field missing: objectNumber must be present']
+validated.valid?
+  => false
 ----
 
 [source,ruby]
@@ -152,16 +157,11 @@ valid = validated.valid? # <2>
 ----
 data = { 'objectNumber' => '', 'recordStatus' => 'test' }
 validated = handler.validate(data)
-errors = validated.errors # <1>
-valid = validated.valid? # <2>
-----
-<1> Returns Array containing one error message String (shown below)
-<2> Returns Boolean false
-
-[source,ruby]
-.errors - Array of error message Strings - example for empty field
-----
-['required field empty: objectNumber must be populated']
+  => CollectionSpace::Mapper::Response
+validated.errors
+  => ['required field empty: objectNumber must be populated']
+validated.valid?
+  => false
 ----
 
 === Processing a record
@@ -170,7 +170,7 @@ valid = validated.valid? # <2>
 ====
 Processing an invalid record will have unpredictable results and may completely blow up.
 
-Failure is not graceful yet.
+Failure is not always graceful yet.
 ====
 
 Processing a record causes the following to happen:

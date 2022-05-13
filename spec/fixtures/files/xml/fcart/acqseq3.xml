@@ -2,7 +2,7 @@
 <document>
   <acquisitions_common>
     <acquisitionSources>
-      <acquisitionSource>urn:cspace:fcart.collectionspace.org:personauthorities:name(person):item:name(Elizabeth123)'Elizabeth'</acquisitionSource>
+      <acquisitionSource>urn:cspace:c.fcart.collectionspace.org:personauthorities:name(person):item:name(Elizabeth123)'Elizabeth'</acquisitionSource>
     </acquisitionSources>
     <acquisitionReferenceNumber>ACC208 (migrated accession)</acquisitionReferenceNumber>
     <accessionDateGroup>
@@ -10,11 +10,11 @@
       <dateEarliestSingleYear>1985</dateEarliestSingleYear>
       <dateEarliestSingleMonth>1</dateEarliestSingleMonth>
       <dateEarliestSingleDay>1</dateEarliestSingleDay>
-      <dateEarliestSingleEra>urn:cspace:fcart.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+      <dateEarliestSingleEra>urn:cspace:c.fcart.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
       <dateLatestYear>1985</dateLatestYear>
       <dateLatestMonth>12</dateLatestMonth>
       <dateLatestDay>31</dateLatestDay>
-      <dateLatestEra>urn:cspace:fcart.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateLatestEra>
+      <dateLatestEra>urn:cspace:c.fcart.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateLatestEra>
       <dateEarliestScalarValue>1985-01-01T00:00:00.000Z</dateEarliestScalarValue>
       <dateLatestScalarValue>1986-01-01T00:00:00.000Z</dateLatestScalarValue>
       <scalarValuesComputed>true</scalarValuesComputed>

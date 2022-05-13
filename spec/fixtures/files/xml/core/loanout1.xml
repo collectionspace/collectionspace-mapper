@@ -6,41 +6,41 @@
     <createdBy>admin@core.collectionspace.org</createdBy>
     <workflowState>project</workflowState>
     <tenantId>1</tenantId>
-    <refName>urn:cspace:core.collectionspace.org:loansout:id(79e0f379-1af1-4aaa-ab43)</refName>
+    <refName>urn:cspace:c.core.collectionspace.org:loansout:id(79e0f379-1af1-4aaa-ab43)</refName>
     <uri>/loansout/79e0f379-1af1-4aaa-ab43</uri>
     <updatedAt>2020-09-04T12:13:18.715Z</updatedAt>
   </ns2:collectionspace_core>
   <ns2:loansout_common xmlns:ns2="http://collectionspace.org/services/loanout" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <borrowersAuthorizer>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Kali1599221504661)'Kali'</borrowersAuthorizer>
+    <borrowersAuthorizer>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Kali1599221504661)'Kali'</borrowersAuthorizer>
     <specialConditionsOfLoan>Collateral</specialConditionsOfLoan>
-    <borrower>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Broker1599221487572)'Broker'</borrower>
-    <lendersAuthorizer>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Jamo1599221465693)'Jamo'</lendersAuthorizer>
+    <borrower>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(Broker1599221487572)'Broker'</borrower>
+    <lendersAuthorizer>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Jamo1599221465693)'Jamo'</lendersAuthorizer>
     <lendersAuthorizationDate>2020-09-23T00:00:00.000Z</lendersAuthorizationDate>
     <loanOutNote>Related</loanOutNote>
     <loanRenewalApplicationDate>2020-10-03T00:00:00.000Z</loanRenewalApplicationDate>
     <loanOutDate>2020-09-23T00:00:00.000Z</loanOutDate>
     <loanPurpose>scientificorexhibitpreparation</loanPurpose>
-    <borrowersContact>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Trepoz1599221497512)'Trepoz'</borrowersContact>
+    <borrowersContact>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Trepoz1599221497512)'Trepoz'</borrowersContact>
     <loanStatusGroupList>
       <loanStatusGroup>
-        <loanStatus>urn:cspace:core.collectionspace.org:vocabularies:name(loanoutstatus):item:name(authorized)'Authorized'</loanStatus>
+        <loanStatus>urn:cspace:c.core.collectionspace.org:vocabularies:name(loanoutstatus):item:name(authorized)'Authorized'</loanStatus>
         <loanStatusDate>2020-09-15T00:00:00.000Z</loanStatusDate>
         <loanStatusNote>Cool</loanStatusNote>
         <loanIndividual/>
-        <loanGroup>urn:cspace:core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(board_of_trustees)'board of trustees'</loanGroup>
+        <loanGroup>urn:cspace:c.core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(board_of_trustees)'board of trustees'</loanGroup>
       </loanStatusGroup>
       <loanStatusGroup>
-        <loanStatus>urn:cspace:core.collectionspace.org:vocabularies:name(loanoutstatus):item:name(photographyrequested)'Photography requested'</loanStatus>
+        <loanStatus>urn:cspace:c.core.collectionspace.org:vocabularies:name(loanoutstatus):item:name(photographyrequested)'Photography requested'</loanStatus>
         <loanStatusDate>2020-09-22T00:00:00.000Z</loanStatusDate>
         <loanStatusNote>Kuliendaje</loanStatusNote>
-        <loanIndividual>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Broooks1599221558583)'Broooks'</loanIndividual>
+        <loanIndividual>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Broooks1599221558583)'Broooks'</loanIndividual>
         <loanGroup/>
       </loanStatusGroup>
     </loanStatusGroupList>
     <loanOutNumber>LO2020.1.70</loanOutNumber>
     <borrowersAuthorizationDate>2020-09-25T00:00:00.000Z</borrowersAuthorizationDate>
     <loanReturnDate>2020-09-30T00:00:00.000Z</loanReturnDate>
-    <lendersContact>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Clemo1599221473000)'Clemo'</lendersContact>
+    <lendersContact>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Clemo1599221473000)'Clemo'</lendersContact>
   </ns2:loansout_common>
   <ns2:account_permission xmlns:ns2="http://collectionspace.org/services/authorization">
     <account>

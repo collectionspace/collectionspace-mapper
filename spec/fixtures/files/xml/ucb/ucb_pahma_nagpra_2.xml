@@ -6,7 +6,7 @@
     <createdBy>admin@pahma.cspace.berkeley.edu</createdBy>
     <workflowState>project</workflowState>
     <tenantId>15</tenantId>
-    <refName>urn:cspace:pahma.cspace.berkeley.edu:collectionobjects:id(83599205-9d3b-496e-8440)'REM-1'</refName>
+    <refName>urn:cspace:c.pahma.cspace.berkeley.edu:collectionobjects:id(83599205-9d3b-496e-8440)'REM-1'</refName>
     <uri>/collectionobjects/83599205-9d3b-496e-8440</uri>
     <updatedAt>2020-12-10T01:51:53.725Z</updatedAt>
   </ns2:collectionspace_core>
@@ -79,7 +79,7 @@
         <objectNameCurrency>current</objectNameCurrency>
         <objectNameNote/>
         <objectNameLevel>whole</objectNameLevel>
-        <objectNameLanguage>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(languages):item:name(eng)'English'</objectNameLanguage>
+        <objectNameLanguage>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(languages):item:name(eng)'English'</objectNameLanguage>
       </objectNameGroup>
     </objectNameList>
     <styles/>
@@ -122,7 +122,7 @@
         <inscriptionContentTranslation/>
         <inscriptionContentInterpretation/>
         <inscriptionContentPosition/>
-        <inscriptionContentLanguage>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(languages):item:name(eng)'English'</inscriptionContentLanguage>
+        <inscriptionContentLanguage>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(languages):item:name(eng)'English'</inscriptionContentLanguage>
         <inscriptionContentMethod/>
       </textualInscriptionGroup>
     </textualInscriptionGroupList>
@@ -133,7 +133,7 @@
     <objectProductionPlaceGroupList/>
     <referenceGroupList>
       <referenceGroup>
-        <reference>urn:cspace:pahma.cspace.berkeley.edu:citationauthorities:name(citation):item:name(YoyoMeWeekly1607547392682)'Yoyo Me Weekly'</reference>
+        <reference>urn:cspace:c.pahma.cspace.berkeley.edu:citationauthorities:name(citation):item:name(YoyoMeWeekly1607547392682)'Yoyo Me Weekly'</reference>
         <referenceNote>bibilo note #1</referenceNote>
       </referenceGroup>
     </referenceGroupList>
@@ -170,7 +170,7 @@
     </assocDateGroupList>
     <briefDescriptions/>
     <contentLanguages>
-      <contentLanguage>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(languages):item:name(eng)'English'</contentLanguage>
+      <contentLanguage>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(languages):item:name(eng)'English'</contentLanguage>
     </contentLanguages>
     <recordStatus>minimalInProgress</recordStatus>
     <assocPersonGroupList/>
@@ -179,11 +179,11 @@
         <titleTranslationSubGroupList>
           <titleTranslationSubGroup>
             <titleTranslation/>
-            <titleTranslationLanguage>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(languages):item:name(eng)'English'</titleTranslationLanguage>
+            <titleTranslationLanguage>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(languages):item:name(eng)'English'</titleTranslationLanguage>
           </titleTranslationSubGroup>
         </titleTranslationSubGroupList>
         <titleType/>
-        <titleLanguage>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(languages):item:name(eng)'English'</titleLanguage>
+        <titleLanguage>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(languages):item:name(eng)'English'</titleLanguage>
         <title/>
       </titleGroup>
     </titleGroupList>
@@ -269,7 +269,7 @@
     <viewersReferences/>
     <objectProductionOrganizationGroupList/>
     <publishToList>
-      <publishTo>urn:cspace:core.collectionspace.org:vocabularies:name(publishto):item:name(none)'None'</publishTo>
+      <publishTo>urn:cspace:c.core.collectionspace.org:vocabularies:name(publishto):item:name(none)'None'</publishTo>
     </publishToList>
     <assocOrganizationGroupList/>
     <contentOrganizations/>
@@ -306,7 +306,7 @@
     <assocEventPeoples/>
     <techniqueGroupList/>
     <inventoryStatusList>
-      <inventoryStatus>urn:cspace:core.collectionspace.org:vocabularies:name(inventorystatus):item:name(unknown)'unknown'</inventoryStatus>
+      <inventoryStatus>urn:cspace:c.core.collectionspace.org:vocabularies:name(inventorystatus):item:name(unknown)'unknown'</inventoryStatus>
     </inventoryStatusList>
     <contentPositions/>
     <forms/>
@@ -319,10 +319,10 @@
   </ns2:collectionobjects_accessionuse>
   <ns2:collectionobjects_nagpra xmlns:ns2="http://collectionspace.org/services/collectionobject/domain/nagpra" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <graveAssocCodes>
-      <graveAssocCode>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(pahmaNagpraCodeLegacies):item:name(pahmaNagpraCodeLegacies02)'  1: associated funerary object (AFO)'</graveAssocCode>
-      <graveAssocCode>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(pahmaNagpraCodeLegacies):item:name(pahmaNagpraCodeLegacies03)'  2: unassociated funerary object (UFO) with designated burial'</graveAssocCode>
-      <graveAssocCode>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(pahmaNagpraCodeLegacies):item:name(pahmaNagpraCodeLegacies04)'  3: unassociated funerary object (UFO) with undesignated burial'</graveAssocCode>
-      <graveAssocCode>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(pahmaNagpraCodeLegacies):item:name(pahmaNagpraCodeLegacies05)'  4: unassociated funerary object (UFO)/cemetery'</graveAssocCode>
+      <graveAssocCode>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(pahmaNagpraCodeLegacies):item:name(pahmaNagpraCodeLegacies02)'  1: associated funerary object (AFO)'</graveAssocCode>
+      <graveAssocCode>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(pahmaNagpraCodeLegacies):item:name(pahmaNagpraCodeLegacies03)'  2: unassociated funerary object (UFO) with designated burial'</graveAssocCode>
+      <graveAssocCode>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(pahmaNagpraCodeLegacies):item:name(pahmaNagpraCodeLegacies04)'  3: unassociated funerary object (UFO) with undesignated burial'</graveAssocCode>
+      <graveAssocCode>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(pahmaNagpraCodeLegacies):item:name(pahmaNagpraCodeLegacies05)'  4: unassociated funerary object (UFO)/cemetery'</graveAssocCode>
     </graveAssocCodes>
     <repatriationNotes>
       <repatriationNote>repat note #1</repatriationNote>
@@ -330,11 +330,11 @@
       <repatriationNote>repat note #1</repatriationNote>
     </repatriationNotes>
     <nagpraCategories>
-      <nagpraCategory>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(nagpraPahmaApplicabilities):item:name(nagpraPahmaApplicabilities01)'affiliated human skeletal remains (HSR)'</nagpraCategory>
+      <nagpraCategory>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(nagpraPahmaApplicabilities):item:name(nagpraPahmaApplicabilities01)'affiliated human skeletal remains (HSR)'</nagpraCategory>
     </nagpraCategories>
     <nagpraReportFiledGroupList>
       <nagpraReportFiledGroup>
-        <nagpraReportFiledWith>urn:cspace:pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(PAHMANAGPRAStaff1607458895367)'PAHMA-NAGPRA Staff'</nagpraReportFiledWith>
+        <nagpraReportFiledWith>urn:cspace:c.pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(PAHMANAGPRAStaff1607458895367)'PAHMA-NAGPRA Staff'</nagpraReportFiledWith>
         <nagpraReportFiledNote>RH #1</nagpraReportFiledNote>
         <nagpraReportFiledDate>
           <scalarValuesComputed>true</scalarValuesComputed>
@@ -352,7 +352,7 @@
           <dateAssociation/>
           <dateLatestDay/>
           <dateEarliestSingleMonth>3</dateEarliestSingleMonth>
-          <dateEarliestSingleEra>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+          <dateEarliestSingleEra>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
           <dateLatestYear/>
           <dateLatestQualifierUnit/>
           <dateNote/>
@@ -362,10 +362,10 @@
           <dateLatestMonth/>
         </nagpraReportFiledDate>
         <nagpraReportFiled>true</nagpraReportFiled>
-        <nagpraReportFiledBy>urn:cspace:pahma.cspace.berkeley.edu:personauthorities:name(person):item:name(SallieFrancesdeVine1607458904769)'Sallie Frances de Vine'</nagpraReportFiledBy>
+        <nagpraReportFiledBy>urn:cspace:c.pahma.cspace.berkeley.edu:personauthorities:name(person):item:name(SallieFrancesdeVine1607458904769)'Sallie Frances de Vine'</nagpraReportFiledBy>
       </nagpraReportFiledGroup>
       <nagpraReportFiledGroup>
-        <nagpraReportFiledWith>urn:cspace:pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(OMCA1607458925884)'OMCA'</nagpraReportFiledWith>
+        <nagpraReportFiledWith>urn:cspace:c.pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(OMCA1607458925884)'OMCA'</nagpraReportFiledWith>
         <nagpraReportFiledNote>RH #2</nagpraReportFiledNote>
         <nagpraReportFiledDate>
           <scalarValuesComputed>true</scalarValuesComputed>
@@ -383,7 +383,7 @@
           <dateAssociation/>
           <dateLatestDay/>
           <dateEarliestSingleMonth>2</dateEarliestSingleMonth>
-          <dateEarliestSingleEra>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+          <dateEarliestSingleEra>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
           <dateLatestYear/>
           <dateLatestQualifierUnit/>
           <dateNote/>
@@ -393,10 +393,10 @@
           <dateLatestMonth/>
         </nagpraReportFiledDate>
         <nagpraReportFiled>false</nagpraReportFiled>
-        <nagpraReportFiledBy>urn:cspace:pahma.cspace.berkeley.edu:personauthorities:name(person):item:name(JuliaADufour1607458932333)'Julia A. Dufour'</nagpraReportFiledBy>
+        <nagpraReportFiledBy>urn:cspace:c.pahma.cspace.berkeley.edu:personauthorities:name(person):item:name(JuliaADufour1607458932333)'Julia A. Dufour'</nagpraReportFiledBy>
       </nagpraReportFiledGroup>
       <nagpraReportFiledGroup>
-        <nagpraReportFiledWith>urn:cspace:pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(kron1607537878236)'kron'</nagpraReportFiledWith>
+        <nagpraReportFiledWith>urn:cspace:c.pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(kron1607537878236)'kron'</nagpraReportFiledWith>
         <nagpraReportFiledNote/>
         <nagpraReportFiledDate>
           <scalarValuesComputed>false</scalarValuesComputed>
@@ -424,10 +424,10 @@
           <dateLatestMonth/>
         </nagpraReportFiledDate>
         <nagpraReportFiled>false</nagpraReportFiled>
-        <nagpraReportFiledBy>urn:cspace:pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(Samsung1607537896368)'Samsung'</nagpraReportFiledBy>
+        <nagpraReportFiledBy>urn:cspace:c.pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(Samsung1607537896368)'Samsung'</nagpraReportFiledBy>
       </nagpraReportFiledGroup>
       <nagpraReportFiledGroup>
-        <nagpraReportFiledWith>urn:cspace:pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(kqed1607537918935)'kqed'</nagpraReportFiledWith>
+        <nagpraReportFiledWith>urn:cspace:c.pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(kqed1607537918935)'kqed'</nagpraReportFiledWith>
         <nagpraReportFiledNote/>
         <nagpraReportFiledDate>
           <scalarValuesComputed>false</scalarValuesComputed>
@@ -468,7 +468,7 @@
           <dateLatestScalarValue>2020-04-01T00:00:00.000Z</dateLatestScalarValue>
           <dateEarliestSingleQualifierValue/>
           <datePeriod/>
-          <dateLatestEra>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(dateera):item:name(ce)'CE'</dateLatestEra>
+          <dateLatestEra>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(dateera):item:name(ce)'CE'</dateLatestEra>
           <dateEarliestSingleDay>1</dateEarliestSingleDay>
           <dateEarliestSingleQualifier/>
           <dateEarliestSingleYear>2020</dateEarliestSingleYear>
@@ -476,7 +476,7 @@
           <dateAssociation/>
           <dateLatestDay>31</dateLatestDay>
           <dateEarliestSingleMonth>3</dateEarliestSingleMonth>
-          <dateEarliestSingleEra>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+          <dateEarliestSingleEra>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
           <dateLatestYear>2020</dateLatestYear>
           <dateLatestQualifierUnit/>
           <dateNote/>
@@ -489,7 +489,7 @@
         <nagpraReportFiledBy/>
       </nagpraReportFiledGroup>
       <nagpraReportFiledGroup>
-        <nagpraReportFiledWith>urn:cspace:pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(kcbs1607537947405)'kcbs'</nagpraReportFiledWith>
+        <nagpraReportFiledWith>urn:cspace:c.pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(kcbs1607537947405)'kcbs'</nagpraReportFiledWith>
         <nagpraReportFiledNote/>
         <nagpraReportFiledDate>
           <scalarValuesComputed>true</scalarValuesComputed>
@@ -499,7 +499,7 @@
           <dateLatestScalarValue>2003-01-01T00:00:00.000Z</dateLatestScalarValue>
           <dateEarliestSingleQualifierValue/>
           <datePeriod/>
-          <dateLatestEra>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(dateera):item:name(ce)'CE'</dateLatestEra>
+          <dateLatestEra>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(dateera):item:name(ce)'CE'</dateLatestEra>
           <dateEarliestSingleDay>1</dateEarliestSingleDay>
           <dateEarliestSingleQualifier/>
           <dateEarliestSingleYear>2002</dateEarliestSingleYear>
@@ -507,7 +507,7 @@
           <dateAssociation/>
           <dateLatestDay>31</dateLatestDay>
           <dateEarliestSingleMonth>1</dateEarliestSingleMonth>
-          <dateEarliestSingleEra>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+          <dateEarliestSingleEra>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
           <dateLatestYear>2002</dateLatestYear>
           <dateLatestQualifierUnit/>
           <dateNote/>
@@ -517,7 +517,7 @@
           <dateLatestMonth>12</dateLatestMonth>
         </nagpraReportFiledDate>
         <nagpraReportFiled>false</nagpraReportFiled>
-        <nagpraReportFiledBy>urn:cspace:pahma.cspace.berkeley.edu:personauthorities:name(person):item:name(SamRight1607537959124)'Sam Right'</nagpraReportFiledBy>
+        <nagpraReportFiledBy>urn:cspace:c.pahma.cspace.berkeley.edu:personauthorities:name(person):item:name(SamRight1607537959124)'Sam Right'</nagpraReportFiledBy>
       </nagpraReportFiledGroup>
     </nagpraReportFiledGroupList>
     <nagpraCulturalDeterminations>
@@ -525,39 +525,39 @@
       <nagpraCulturalDetermination>PAHMA cultural det note #2</nagpraCulturalDetermination>
     </nagpraCulturalDeterminations>
     <nagpraInventoryNames>
-      <nagpraInventoryName>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(nagpraPahmaInventoryNames):item:name(nagpraPahmaInventoryNames01)'AK-Alaska'</nagpraInventoryName>
-      <nagpraInventoryName>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(nagpraPahmaInventoryNames):item:name(nagpraPahmaInventoryNames02)'AK-Alaska Native'</nagpraInventoryName>
+      <nagpraInventoryName>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(nagpraPahmaInventoryNames):item:name(nagpraPahmaInventoryNames01)'AK-Alaska'</nagpraInventoryName>
+      <nagpraInventoryName>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(nagpraPahmaInventoryNames):item:name(nagpraPahmaInventoryNames02)'AK-Alaska Native'</nagpraInventoryName>
     </nagpraInventoryNames>
     <nagpraDetermGroupList>
       <nagpraDetermGroup>
-        <nagpraDetermType>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(nagpradetermtype):item:name(unknown1)'unknown1'</nagpraDetermType>
-        <nagpraDetermBy>urn:cspace:pahma.cspace.berkeley.edu:personauthorities:name(person):item:name(RichardMillet1607458849540)'Richard Millet'</nagpraDetermBy>
+        <nagpraDetermType>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(nagpradetermtype):item:name(unknown1)'unknown1'</nagpraDetermType>
+        <nagpraDetermBy>urn:cspace:c.pahma.cspace.berkeley.edu:personauthorities:name(person):item:name(RichardMillet1607458849540)'Richard Millet'</nagpraDetermBy>
         <nagpraDetermNote>CD note #1</nagpraDetermNote>
-        <nagpraDetermCulture>urn:cspace:pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(Chumash1607458832492)'Chumash'</nagpraDetermCulture>
+        <nagpraDetermCulture>urn:cspace:c.pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(Chumash1607458832492)'Chumash'</nagpraDetermCulture>
       </nagpraDetermGroup>
       <nagpraDetermGroup>
         <nagpraDetermType/>
-        <nagpraDetermBy>urn:cspace:pahma.cspace.berkeley.edu:personauthorities:name(person):item:name(PaulAsicksik1607458879050)'Paul Asicksik'</nagpraDetermBy>
+        <nagpraDetermBy>urn:cspace:c.pahma.cspace.berkeley.edu:personauthorities:name(person):item:name(PaulAsicksik1607458879050)'Paul Asicksik'</nagpraDetermBy>
         <nagpraDetermNote>CD note #2</nagpraDetermNote>
-        <nagpraDetermCulture>urn:cspace:pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(ChilkatIndianVillageofKlukwanIRA1607458868268)'Chilkat Indian Village of Klukwan (IRA)'</nagpraDetermCulture>
+        <nagpraDetermCulture>urn:cspace:c.pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(ChilkatIndianVillageofKlukwanIRA1607458868268)'Chilkat Indian Village of Klukwan (IRA)'</nagpraDetermCulture>
       </nagpraDetermGroup>
       <nagpraDetermGroup>
-        <nagpraDetermType>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(nagpradetermtype):item:name(unknown3)'unknown3'</nagpraDetermType>
-        <nagpraDetermBy>urn:cspace:pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(Chumash1607458832492)'Chumash'</nagpraDetermBy>
+        <nagpraDetermType>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(nagpradetermtype):item:name(unknown3)'unknown3'</nagpraDetermType>
+        <nagpraDetermBy>urn:cspace:c.pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(Chumash1607458832492)'Chumash'</nagpraDetermBy>
         <nagpraDetermNote/>
-        <nagpraDetermCulture>urn:cspace:pahma.cspace.berkeley.edu:personauthorities:name(person):item:name(FlonderSanders1607537744137)'Flonder Sanders'</nagpraDetermCulture>
+        <nagpraDetermCulture>urn:cspace:c.pahma.cspace.berkeley.edu:personauthorities:name(person):item:name(FlonderSanders1607537744137)'Flonder Sanders'</nagpraDetermCulture>
       </nagpraDetermGroup>
       <nagpraDetermGroup>
         <nagpraDetermType/>
-        <nagpraDetermBy>urn:cspace:pahma.cspace.berkeley.edu:personauthorities:name(person):item:name(TomHall1607537805150)'Tom Hall'</nagpraDetermBy>
+        <nagpraDetermBy>urn:cspace:c.pahma.cspace.berkeley.edu:personauthorities:name(person):item:name(TomHall1607537805150)'Tom Hall'</nagpraDetermBy>
         <nagpraDetermNote>CD note #4</nagpraDetermNote>
-        <nagpraDetermCulture>urn:cspace:pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(Drake1607537761554)'Drake'</nagpraDetermCulture>
+        <nagpraDetermCulture>urn:cspace:c.pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(Drake1607537761554)'Drake'</nagpraDetermCulture>
       </nagpraDetermGroup>
       <nagpraDetermGroup>
         <nagpraDetermType/>
-        <nagpraDetermBy>urn:cspace:pahma.cspace.berkeley.edu:personauthorities:name(person):item:name(RonKali1607537852017)'Ron Kali'</nagpraDetermBy>
+        <nagpraDetermBy>urn:cspace:c.pahma.cspace.berkeley.edu:personauthorities:name(person):item:name(RonKali1607537852017)'Ron Kali'</nagpraDetermBy>
         <nagpraDetermNote/>
-        <nagpraDetermCulture>urn:cspace:pahma.cspace.berkeley.edu:personauthorities:name(person):item:name(KamiSouras1607537839592)'Kami Souras'</nagpraDetermCulture>
+        <nagpraDetermCulture>urn:cspace:c.pahma.cspace.berkeley.edu:personauthorities:name(person):item:name(KamiSouras1607537839592)'Kami Souras'</nagpraDetermCulture>
       </nagpraDetermGroup>
     </nagpraDetermGroupList>
   </ns2:collectionobjects_nagpra>
@@ -569,7 +569,7 @@
         <ownershipMethod/>
         <previousOwner/>
         <ownershipCategory/>
-        <ownershipPriceCurrency>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(currency):item:name(usd)'US Dollar ($)'</ownershipPriceCurrency>
+        <ownershipPriceCurrency>urn:cspace:c.pahma.cspace.berkeley.edu:vocabularies:name(currency):item:name(usd)'US Dollar ($)'</ownershipPriceCurrency>
         <ownershipNote/>
         <ownershipDateGroup>
           <scalarValuesComputed>false</scalarValuesComputed>

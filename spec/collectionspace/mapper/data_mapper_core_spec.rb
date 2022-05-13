@@ -2,36 +2,35 @@
 
 require 'spec_helper'
 
-RSpec.describe CollectionSpace::Mapper::DataMapper do
+RSpec.describe CollectionSpace::Mapper::DataMapper, type: 'integration' do
   let(:config){ {delimiter: ';'} }
+  let(:mapper){ get_json_record_mapper(mapper_path) }
+  let(:handler) do
+    CollectionSpace::Mapper::DataHandler.new(
+      record_mapper: mapper,
+      client: core_client,
+      cache: core_cache,
+      csid_cache: core_csid_cache,
+      config: config
+    )
+  end
+  let(:datahash){ get_datahash(path: hashpath) }
+  let(:prepper){ CollectionSpace::Mapper::DataPrepper.new(datahash, handler.searcher, handler) }
+  let(:datamapper){ described_class.new(prepper.prep.response, handler, prepper.xphash) }
+  let(:response){ handler.process(datahash) }
+  let(:mapped_doc){ remove_namespaces(response.doc) }
+  let(:mapped_xpaths){ list_xpaths(mapped_doc) }
+  let(:fixture_doc){ get_xml_fixture(fixturepath) }
+  let(:fixture_xpaths){ test_xpaths(fixture_doc, handler.mapper.mappings) }
+  let(:diff){ mapped_xpaths - fixture_xpaths }	
 
   context 'core profile' do
-    let(:client){ core_client }
-    let(:cache){ core_cache }
-    let(:handler) do
-      CollectionSpace::Mapper::DataHandler.new(record_mapper: mapper,
-                                               client: client,
-                                               cache: cache,
-                                               config: config)
-    end
-    let(:datahash){ get_datahash(path: hashpath) }
-    let(:response){ handler.process(datahash) }
-    let(:mapped_doc){ remove_namespaces(response.doc) }
-    let(:mapped_xpaths){ list_xpaths(mapped_doc) }
-    let(:fixture_doc){ get_xml_fixture(fixturepath) }
-    let(:fixture_xpaths){ test_xpaths(fixture_doc, handler.mapper.mappings) }
-    let(:diff){ mapped_xpaths - fixture_xpaths }
-
     context 'non-hierarchical relationship record', services_call: true do
       # NOTE!
       # These tests are prone to failing if one of the records used in the test in core.dev is deleted
       # If a UUID is expected but you get blank, recreate the record in core.dev, rerun the test to
       #   get the UUID for the new record, and replace the old UUID in both fixture XML files used.
-      let(:mapper) do
-        get_json_record_mapper(
-          'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_nonhierarchicalrelationship.json'
-        )
-      end
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_nonhierarchicalrelationship.json' }
 
       context 'when all IDs found' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/nonHierarchicalRelationship1.json' }
@@ -135,9 +134,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     end
 
     context 'authority hierarchy record', services_call: true do
-      let(:mapper) do
-        get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_authorityhierarchy.json')
-      end
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_authorityhierarchy.json' }
 
       context 'with existing terms' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/authorityHierarchy1.json' }
@@ -183,9 +180,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     end
 
     context 'object hierarchy record', services_call: true do
-      let(:mapper) do
-        get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_objecthierarchy.json')
-      end
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_objecthierarchy.json' }
 
       context 'with existing records' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/objectHierarchy1.json' }
@@ -231,7 +226,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     end
 
     context 'acquisition record', services_call: true do
-      let(:mapper){ get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_acquisition.json') }
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_acquisition.json' }
 
       context 'record 1' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/acquisition1.json' }
@@ -252,9 +247,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     end
 
     context 'collectionobject record' do
-      let(:mapper) do
-        get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json')
-      end
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json' }
 
       context 'record 1' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/collectionobject1.json' }
@@ -310,9 +303,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     end
 
     context 'conditioncheck record', services_call: true do
-      let(:mapper) do
-        get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_conditioncheck.json')
-      end
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_conditioncheck.json' }
 
       context 'record 1' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/conditioncheck1.json' }
@@ -333,9 +324,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     end
 
     context 'conservation record', services_call: true do
-      let(:mapper) do
-        get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_conservation.json')
-      end
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_conservation.json' }
 
       context 'record 1' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/conservation1.json' }
@@ -356,7 +345,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     end
 
     context 'exhibition record', services_call: true do
-      let(:mapper){ get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_exhibition.json') }
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_exhibition.json' }
 
       context 'record 1' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/exhibition1.json' }
@@ -377,7 +366,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     end
 
     context 'group record' do
-      let(:mapper){ get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_group.json') }
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_group.json' }
 
       context 'record 1' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/group1.json' }
@@ -398,7 +387,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     end
 
     context 'intake record' do
-      let(:mapper){ get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_intake.json') }
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_intake.json' }
 
       context 'record 1' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/intake1.json' }
@@ -419,7 +408,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     end
 
     context 'loanin record' do
-      let(:mapper){ get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_loanin.json') }
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_loanin.json' }
 
       context 'record 1' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/loanin1.json' }
@@ -440,7 +429,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     end
 
     context 'loanout record' do
-      let(:mapper){ get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_loanout.json') }
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_loanout.json' }
 
       context 'record 1' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/loanout1.json' }
@@ -461,7 +450,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     end
 
     context 'movement record' do
-      let(:mapper){ get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_movement.json') }
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_movement.json' }
 
       context 'record 1' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/movement1.json' }
@@ -482,7 +471,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     end
 
     context 'media record' do
-      let(:mapper){ get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_media.json') }
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_media.json' }
 
       context 'record 1' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/media1.json' }
@@ -503,7 +492,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     end
 
     context 'objectexit record' do
-      let(:mapper){ get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_objectexit.json') }
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_objectexit.json' }
 
       context 'record 1' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/objectexit1.json' }
@@ -527,7 +516,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     end
 
     context 'uoc record' do
-      let(:mapper){ get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_uoc.json') }
+      let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_uoc.json' }
 
       context 'record 1' do
         let(:hashpath){ 'spec/fixtures/files/datahashes/core/uoc1.json' }

@@ -20,6 +20,17 @@ module CollectionSpace
         @identifier = ''
       end
 
+      def add_warning(warning)
+        warnings << warning
+      end
+
+      def merge_status_data(status_data)
+        @record_status = status_data[:status]
+        @csid = status_data[:csid]
+        @uri = status_data[:uri]
+        @refname = status_data[:refname]
+      end
+      
       def valid?
         @errors.empty? ? true : false
       end

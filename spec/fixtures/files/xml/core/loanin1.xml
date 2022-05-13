@@ -6,51 +6,51 @@
     <createdBy>admin@core.collectionspace.org</createdBy>
     <workflowState>project</workflowState>
     <tenantId>1</tenantId>
-    <refName>urn:cspace:core.collectionspace.org:loansin:id(89c40d2e-3c48-4d11-af1f)</refName>
+    <refName>urn:cspace:c.core.collectionspace.org:loansin:id(89c40d2e-3c48-4d11-af1f)</refName>
     <uri>/loansin/89c40d2e-3c48-4d11-af1f</uri>
     <updatedAt>2020-09-04T09:17:38.370Z</updatedAt>
   </ns2:collectionspace_core>
   <ns2:loansin_common xmlns:ns2="http://collectionspace.org/services/loanin" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <borrowersAuthorizer>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Karanja1599211015378)'Karanja'</borrowersAuthorizer>
+    <borrowersAuthorizer>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Karanja1599211015378)'Karanja'</borrowersAuthorizer>
     <loanInDate>2020-10-02T00:00:00.000Z</loanInDate>
     <loanRenewalApplicationDate>2021-10-02T00:00:00.000Z</loanRenewalApplicationDate>
     <loanInConditions>burned</loanInConditions>
     <loanPurpose>photography</loanPurpose>
-    <borrowersContact>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Kimonda1599211004900)'Kimonda'</borrowersContact>
+    <borrowersContact>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Kimonda1599211004900)'Kimonda'</borrowersContact>
     <loanInNumber>LI2020.1.13</loanInNumber>
     <loanStatusGroupList>
       <loanStatusGroup>
-        <loanStatus>urn:cspace:core.collectionspace.org:vocabularies:name(loanoutstatus):item:name(refused)'Refused'</loanStatus>
+        <loanStatus>urn:cspace:c.core.collectionspace.org:vocabularies:name(loanoutstatus):item:name(refused)'Refused'</loanStatus>
         <loanStatusDate>2020-09-16T00:00:00.000Z</loanStatusDate>
         <loanStatusNote>Denied</loanStatusNote>
         <loanIndividual/>
-        <loanGroup>urn:cspace:core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(collection_committee)'collection committee'</loanGroup>
+        <loanGroup>urn:cspace:c.core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(collection_committee)'collection committee'</loanGroup>
       </loanStatusGroup>
       <loanStatusGroup>
-        <loanStatus>urn:cspace:core.collectionspace.org:vocabularies:name(loanoutstatus):item:name(returned)'Returned'</loanStatus>
+        <loanStatus>urn:cspace:c.core.collectionspace.org:vocabularies:name(loanoutstatus):item:name(returned)'Returned'</loanStatus>
         <loanStatusDate>2020-09-24T00:00:00.000Z</loanStatusDate>
         <loanStatusNote>Allowed</loanStatusNote>
-        <loanIndividual>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(JohnKay1599210868122)'John Kay'</loanIndividual>
+        <loanIndividual>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(JohnKay1599210868122)'John Kay'</loanIndividual>
         <loanGroup/>
       </loanStatusGroup>
       <loanStatusGroup>
-        <loanStatus>urn:cspace:core.collectionspace.org:vocabularies:name(loanoutstatus):item:name(authorized)'Authorized'</loanStatus>
+        <loanStatus>urn:cspace:c.core.collectionspace.org:vocabularies:name(loanoutstatus):item:name(authorized)'Authorized'</loanStatus>
         <loanStatusDate>2020-09-25T00:00:00.000Z</loanStatusDate>
         <loanStatusNote>Perfect</loanStatusNote>
-        <loanIndividual>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Loan1599210896616)'Loan'</loanIndividual>
-        <loanGroup>urn:cspace:core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(executive_committee)'executive committee'</loanGroup>
+        <loanIndividual>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Loan1599210896616)'Loan'</loanIndividual>
+        <loanGroup>urn:cspace:c.core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(executive_committee)'executive committee'</loanGroup>
       </loanStatusGroup>
     </loanStatusGroupList>
     <lenderGroupList>
       <lenderGroup>
-        <lender>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Kimani1599210926973)'Kimani'</lender>
-        <lendersAuthorizer>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(James1599210943727)'James'</lendersAuthorizer>
+        <lender>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Kimani1599210926973)'Kimani'</lender>
+        <lendersAuthorizer>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(James1599210943727)'James'</lendersAuthorizer>
         <lendersAuthorizationDate>2020-09-18T00:00:00.000Z</lendersAuthorizationDate>
-        <lendersContact>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Henry1599210937770)'Henry'</lendersContact>
+        <lendersContact>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Henry1599210937770)'Henry'</lendersContact>
       </lenderGroup>
       <lenderGroup>
-        <lender>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Sidarec1599210955079)'Sidarec'</lender>
-        <lendersAuthorizer>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Nyauma1599210983879)'Nyauma'</lendersAuthorizer>
+        <lender>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(Sidarec1599210955079)'Sidarec'</lender>
+        <lendersAuthorizer>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Nyauma1599210983879)'Nyauma'</lendersAuthorizer>
         <lendersAuthorizationDate>2020-09-25T00:00:00.000Z</lendersAuthorizationDate>
         <lendersContact/>
       </lenderGroup>

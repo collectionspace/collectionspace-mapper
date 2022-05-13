@@ -8,8 +8,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This project bumps the version number for any changes (including documentation updates and refactorings). Versions with only documentation or refactoring changes may not be released. Versions with bugfixes will be released. Changes made to unreleased versions will be indicated by version number under each release that includes those changes.
 
+## [Planned]
+- accept optional CSID cache
+- if CSID cache given, lookup existence/status of records in that instead of client
+
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
-- nothing
+- none
+
+## [4.0.0] - 2022-05-13
+
+See [PR 137](https://github.com/collectionspace/collectionspace-mapper/pull/137) for more details on changes.
+
+### Breaking
+- Initializing a `DataHander` now requires a `csid_cache` in addition to (refname) `cache` parameter. 
+
+### Added
+- Rspec binstub
+- New configuration option: `status_check_method` (defaults to `client`, but may be also set to `cache` for use with `collectionspace_migration_tools` (and code to support this configurable functionality)
+- New configuration option: `search_if_not_cached` (defaults to `true`, but may be set to `false` for use with `collectionspace_migration_tools` (and code to support this configurable functionality)
+
+### Changed
+- Initializing a `DataHander` now requires a `csid_cache` in addition to (refname) `cache` parameter. 
+- Use `zeitwerk` for autoloading
+- Refactoring to support configurable record status checkig via client API calls or cache
+- When searching for relations (`client.find_relation`), sends the relation type 
+- All searching of CS instance moved to use `collectionspace-client` instead of `collectionspace-refcache`'s fallback searching. All search functionality has been removed from `collectionspace-refcache`
+- All record status check logic moved out of `DataHandler`
+- Test style consistency improved, and `integration` tag added to tests that compare full record mappings to fixture XML
+
+### Deleted
 
 ## [3.0.0] - 2022-01-20
 

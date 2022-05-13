@@ -6,17 +6,18 @@
     <createdBy>admin@botgarden.collectionspace.org</createdBy>
     <workflowState>project</workflowState>
     <tenantId>3500</tenantId>
-    <refName>urn:cspace:botgarden.collectionspace.org:pottags:id(fc2d40b5-55e0-4369-a7db)</refName>
+    <refName>urn:cspace:c.botgarden.collectionspace.org:pottags:id(fc2d40b5-55e0-4369-a7db)</refName>
     <uri>/pottags/fc2d40b5-55e0-4369-a7db</uri>
     <updatedAt>2020-09-10T15:03:47.554Z</updatedAt>
   </ns2:collectionspace_core>
   <ns2:pottags_common xmlns:ns2="http://collectionspace.org/services/pottag" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <potTagNumber>123</potTagNumber>
     <numberOfLabels>2</numberOfLabels>
     <commonName>Hillarious</commonName>
     <printLabels>yes</printLabels>
     <labelData>Liqourous</labelData>
-    <taxonName>urn:cspace:botgarden.collectionspace.org:taxonomyauthority:name(taxon):item:name(Tropez1599750195530)'Tropez'</taxonName>
-    <family>urn:cspace:botgarden.collectionspace.org:taxonomyauthority:name(taxon):item:name(Domestic1599750187683)'Domestic'</family>
+    <taxonName>urn:cspace:c.botgarden.collectionspace.org:taxonomyauthority:name(taxon):item:name(Tropez1599750195530)'Tropez'</taxonName>
+    <family>urn:cspace:c.botgarden.collectionspace.org:taxonomyauthority:name(taxon):item:name(Domestic1599750187683)'Domestic'</family>
     <locale>Mozzale</locale>
   </ns2:pottags_common>
   <ns2:account_permission xmlns:ns2="http://collectionspace.org/services/authorization">

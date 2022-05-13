@@ -5,19 +5,23 @@ require 'spec_helper'
 RSpec.describe CollectionSpace::Mapper::TermHandler do
   let(:client){ core_client }
   let(:termcache){ core_cache }
+  let(:csidcache){ core_csid_cache }
   let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json' }
   let(:recmapper) do
     CS::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
                                  csclient: client,
-                                 termcache: termcache)
+                                 termcache: termcache,
+                                 csidcache: csidcache)
   end
   let(:colmapping){ recmapper.mappings.lookup(colname) }
+  let(:searcher){ CS::Mapper::Searcher.new(client: client)}
   let(:th) do
     CS::Mapper::TermHandler.new(mapping: colmapping,
                                 data: data,
                                 client: client,
-                                cache: termcache,
-                                mapper: recmapper)
+                                mapper: recmapper,
+                                searcher: searcher
+                               )
   end
   # before(:all) do
   #    @config = @handler.mapper.batchconfig
@@ -63,26 +67,22 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
 
       it 'result is the transformed value for mapping' do
         expected = [['',
-                     "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(swa)'Swahili'"],
-                    ["urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(Klingon)'Klingon'",
-                     "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(spa)'Spanish'"],
+                     "urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(swa)'Swahili'"],
+                    ['',
+                     "urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(spa)'Spanish'"],
                     [CS::Mapper::THE_BOMB]]
         expect(th.result).to eq(expected)
-      end
-      it 'all values are refnames, blanks, or the bomb' do
-        chk = th.result.flatten.select{ |v| v.start_with?('urn:') || v.empty? || v = CS::Mapper::THE_BOMB }
-        expect(chk.length).to eq(5)
       end
     end
 
     context 'reference (authority, field group)' do
       let(:colname){ 'referenceLocal' }
-      let(:data){ ['Reference 1', 'Reference 2', '%NULLVALUE%'] }
+      let(:data){ ['Arthur', 'Harding', '%NULLVALUE%'] }
 
       it 'result is the transformed value for mapping' do
         expected = [
-          "urn:cspace:core.collectionspace.org:citationauthorities:name(citation):item:name(Reference11143445083)'Reference 1'",
-          "urn:cspace:core.collectionspace.org:citationauthorities:name(citation):item:name(Reference22573957271)'Reference 2'",
+          "urn:cspace:c.core.collectionspace.org:citationauthorities:name(citation):item:name(Arthur62605812848)'Arthur'",
+          "urn:cspace:c.core.collectionspace.org:citationauthorities:name(citation):item:name(Harding2510592089)'Harding'",
           ''
         ]
         expect(th.result).to eq(expected)
@@ -106,7 +106,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
           not_found = terms.select{ |h| !h[:found] }
           expect(terms.length).to eq(3)
           expect(found.length).to eq(2)
-          expect(not_found.first[:refname].display_name).to eq('Sanza')
+          expect(not_found.first[:refname].urn).to eq('vocabularies|||languages|||Sanza')
         end
       end
 
@@ -115,8 +115,9 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
           first_handler = CS::Mapper::TermHandler.new(mapping: colmapping,
                                                       data: data,
                                                       client: client,
-                                                      cache: termcache,
-                                                      mapper: recmapper)
+                                                      mapper: recmapper,
+                                                      searcher: searcher
+                                                     )
 
           chk = terms.select{ |h| h[:found] }
           expect(chk.length).to eq(2)

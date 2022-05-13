@@ -6,7 +6,7 @@
     <createdBy>admin@core.collectionspace.org</createdBy>
     <workflowState>project</workflowState>
     <tenantId>1</tenantId>
-    <refName>urn:cspace:core.collectionspace.org:collectionobjects:id(998b6cad-4a55-4904-93b2)'36548'</refName>
+    <refName>urn:cspace:c.core.collectionspace.org:collectionobjects:id(998b6cad-4a55-4904-93b2)'36548'</refName>
     <uri>/collectionobjects/998b6cad-4a55-4904-93b2</uri>
     <updatedAt>2020-09-09T11:28:51.773Z</updatedAt>
   </ns2:collectionspace_core>
@@ -17,17 +17,17 @@
         <titleTranslationSubGroupList>
           <titleTranslationSubGroup>
             <titleTranslation>Chat</titleTranslation>
-            <titleTranslationLanguage>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(fra)'French'</titleTranslationLanguage>
+            <titleTranslationLanguage>urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(fra)'French'</titleTranslationLanguage>
           </titleTranslationSubGroup>
           <titleTranslationSubGroup>
             <titleTranslation>Mow mow</titleTranslation>
           </titleTranslationSubGroup>
           <titleTranslationSubGroup>
             <titleTranslation>Gato</titleTranslation>
-            <titleTranslationLanguage>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(spa)'Spanish'</titleTranslationLanguage>
+            <titleTranslationLanguage>urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(spa)'Spanish'</titleTranslationLanguage>
           </titleTranslationSubGroup>
         </titleTranslationSubGroupList>
-        <titleLanguage>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</titleLanguage>
+        <titleLanguage>urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</titleLanguage>
         <title>Cat</title>
       </titleGroup>
     </titleGroupList>

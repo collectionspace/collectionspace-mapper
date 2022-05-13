@@ -6,7 +6,7 @@
     <createdBy>admin@core.collectionspace.org</createdBy>
     <workflowState>project</workflowState>
     <tenantId>1</tenantId>
-    <refName>urn:cspace:core.collectionspace.org:uoc:id(a012d39a-44ba-4632-9a3a)</refName>
+    <refName>urn:cspace:c.core.collectionspace.org:uoc:id(a012d39a-44ba-4632-9a3a)</refName>
     <uri>/uoc/a012d39a-44ba-4632-9a3a</uri>
     <updatedAt>2020-09-10T10:38:23.255Z</updatedAt>
   </ns2:collectionspace_core>
@@ -14,8 +14,8 @@
     <staffGroupList>
       <staffGroup>
         <staffNote>Stafftest</staffNote>
-        <staffRole>urn:cspace:core.collectionspace.org:vocabularies:name(uocstaffroles):item:name(greeter)'greeter'</staffRole>
-        <staffName>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Soi1599734190999)'Soi'</staffName>
+        <staffRole>urn:cspace:c.core.collectionspace.org:vocabularies:name(uocstaffroles):item:name(greeter)'greeter'</staffRole>
+        <staffName>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Soi1599734190999)'Soi'</staffName>
         <staffHours>5</staffHours>
       </staffGroup>
     </staffGroupList>
@@ -25,18 +25,18 @@
     <obligationsFulfilled>true</obligationsFulfilled>
     <title>Pipeline</title>
     <materialTypeList>
-      <materialType>urn:cspace:core.collectionspace.org:vocabularies:name(uocmaterialtypes):item:name(bulb)'bulb'</materialType>
+      <materialType>urn:cspace:c.core.collectionspace.org:vocabularies:name(uocmaterialtypes):item:name(bulb)'bulb'</materialType>
     </materialTypeList>
-    <subcollection>urn:cspace:core.collectionspace.org:vocabularies:name(uocsubcollections):item:name(uocsubcollection02)'Asia'</subcollection>
+    <subcollection>urn:cspace:c.core.collectionspace.org:vocabularies:name(uocsubcollections):item:name(uocsubcollection02)'Asia'</subcollection>
     <result>Resulltstest</result>
     <locationList>
-      <location>urn:cspace:core.collectionspace.org:locationauthorities:name(location):item:name(Kalif1599734233745)'Kalif'</location>
+      <location>urn:cspace:c.core.collectionspace.org:locationauthorities:name(location):item:name(Kalif1599734233745)'Kalif'</location>
     </locationList>
     <feeGroupList>
       <feeGroup>
         <feeNote>LocationTest</feeNote>
         <feePaid>false</feePaid>
-        <feeCurrency>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(EUR)'Euro'</feeCurrency>
+        <feeCurrency>urn:cspace:c.core.collectionspace.org:vocabularies:name(currency):item:name(EUR)'Euro'</feeCurrency>
         <feeValue>10</feeValue>
       </feeGroup>
     </feeGroupList>
@@ -54,29 +54,29 @@
     <authorizationGroupList>
       <authorizationGroup>
         <authorizationNote>authorizedtest</authorizationNote>
-        <authorizedBy>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Erick1599734121151)'Erick'</authorizedBy>
+        <authorizedBy>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Erick1599734121151)'Erick'</authorizedBy>
         <authorizationDate>2020-09-01T00:00:00.000Z</authorizationDate>
-        <authorizationStatus>urn:cspace:core.collectionspace.org:vocabularies:name(uocauthorizationstatuses):item:name(approved)'Approved'</authorizationStatus>
+        <authorizationStatus>urn:cspace:c.core.collectionspace.org:vocabularies:name(uocauthorizationstatuses):item:name(approved)'Approved'</authorizationStatus>
       </authorizationGroup>
     </authorizationGroupList>
     <dateCompleted>2020-09-01T00:00:00.000Z</dateCompleted>
     <projectDescription>Test</projectDescription>
     <userGroupList>
       <userGroup>
-        <userInstitution>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Tasia1599734050597)'Tasia'</userInstitution>
-        <userInstitutionRole>urn:cspace:core.collectionspace.org:vocabularies:name(uocusertypes):item:name(lecturer)'lecturer'</userInstitutionRole>
-        <userUocRole>urn:cspace:core.collectionspace.org:vocabularies:name(uocuserroles):item:name(faculty)'faculty'</userUocRole>
-        <user>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Kinuthia1599734017515)'Kinuthia'</user>
+        <userInstitution>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(Tasia1599734050597)'Tasia'</userInstitution>
+        <userInstitutionRole>urn:cspace:c.core.collectionspace.org:vocabularies:name(uocusertypes):item:name(lecturer)'lecturer'</userInstitutionRole>
+        <userUocRole>urn:cspace:c.core.collectionspace.org:vocabularies:name(uocuserroles):item:name(faculty)'faculty'</userUocRole>
+        <user>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Kinuthia1599734017515)'Kinuthia'</user>
       </userGroup>
     </userGroupList>
     <occasionList>
-      <occasion>urn:cspace:core.collectionspace.org:conceptauthorities:name(occasion):item:name(Computer1599734104251)'Computer'</occasion>
+      <occasion>urn:cspace:c.core.collectionspace.org:conceptauthorities:name(occasion):item:name(Computer1599734104251)'Computer'</occasion>
     </occasionList>
     <methodList>
-      <method>urn:cspace:core.collectionspace.org:vocabularies:name(uocmethods):item:name(class)'class'</method>
+      <method>urn:cspace:c.core.collectionspace.org:vocabularies:name(uocmethods):item:name(class)'class'</method>
     </methodList>
     <collectionTypeList>
-      <collectionType>urn:cspace:core.collectionspace.org:vocabularies:name(uoccollectiontypes):item:name(uocarcheology)'archeology'</collectionType>
+      <collectionType>urn:cspace:c.core.collectionspace.org:vocabularies:name(uoccollectiontypes):item:name(uocarcheology)'archeology'</collectionType>
     </collectionTypeList>
   </ns2:uoc_common>
   <ns2:account_permission xmlns:ns2="http://collectionspace.org/services/authorization">

@@ -6,7 +6,7 @@
     <createdBy>admin@core.collectionspace.org</createdBy>
     <workflowState>project</workflowState>
     <tenantId>1</tenantId>
-    <refName>urn:cspace:core.collectionspace.org:intakes:id(882a762a-dd57-4b62-bb8c)</refName>
+    <refName>urn:cspace:c.core.collectionspace.org:intakes:id(882a762a-dd57-4b62-bb8c)</refName>
     <uri>/intakes/882a762a-dd57-4b62-bb8c</uri>
     <updatedAt>2020-09-03T15:36:22.272Z</updatedAt>
   </ns2:collectionspace_core>
@@ -14,28 +14,28 @@
     <fieldCollectionDate>2020-09-10T00:00:00.000Z</fieldCollectionDate>
     <fieldCollectionNote>Take home</fieldCollectionNote>
     <conditionCheckersOrAssessors>
-      <conditionCheckerOrAssessor>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(MarkSmith1599145480175)'Mark Smith'</conditionCheckerOrAssessor>
+      <conditionCheckerOrAssessor>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(MarkSmith1599145480175)'Mark Smith'</conditionCheckerOrAssessor>
     </conditionCheckersOrAssessors>
     <fieldCollectors>
-      <fieldCollector>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(AndrewWatts1599144553996)'Andrew Watts'</fieldCollector>
-      <fieldCollector>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Tesla1599144565539)'Tesla'</fieldCollector>
+      <fieldCollector>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(AndrewWatts1599144553996)'Andrew Watts'</fieldCollector>
+      <fieldCollector>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(Tesla1599144565539)'Tesla'</fieldCollector>
     </fieldCollectors>
-    <valuer>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(CooperPhil1599144599479)'Cooper Phil'</valuer>
+    <valuer>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(CooperPhil1599144599479)'Cooper Phil'</valuer>
     <depositorGroupList>
       <depositorGroup>
         <depositorsRequirements>All needed</depositorsRequirements>
-        <depositor>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Troy1599144360617)'Troy'</depositor>
+        <depositor>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Troy1599144360617)'Troy'</depositor>
       </depositorGroup>
       <depositorGroup>
         <depositorsRequirements>Met</depositorsRequirements>
-        <depositor>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Ninja1599147339325)'Ninja'</depositor>
+        <depositor>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(Ninja1599147339325)'Ninja'</depositor>
       </depositorGroup>
     </depositorGroupList>
-    <normalLocation>urn:cspace:core.collectionspace.org:placeauthorities:name(place):item:name(Chillspot1599145441945)'Chillspot'</normalLocation>
+    <normalLocation>urn:cspace:c.core.collectionspace.org:placeauthorities:name(place):item:name(Chillspot1599145441945)'Chillspot'</normalLocation>
     <valuationReferenceNumber>100250</valuationReferenceNumber>
     <fieldCollectionMethods>
-      <fieldCollectionMethod>urn:cspace:core.collectionspace.org:vocabularies:name(collectionmethod):item:name(donation)'donation'</fieldCollectionMethod>
-      <fieldCollectionMethod>urn:cspace:core.collectionspace.org:vocabularies:name(collectionmethod):item:name(excavation)'excavation'</fieldCollectionMethod>
+      <fieldCollectionMethod>urn:cspace:c.core.collectionspace.org:vocabularies:name(collectionmethod):item:name(donation)'donation'</fieldCollectionMethod>
+      <fieldCollectionMethod>urn:cspace:c.core.collectionspace.org:vocabularies:name(collectionmethod):item:name(excavation)'excavation'</fieldCollectionMethod>
       <fieldCollectionMethod/>
     </fieldCollectionMethods>
     <insuranceNote>Insured</insuranceNote>
@@ -43,22 +43,22 @@
     <returnDate>2020-09-17T00:00:00.000Z</returnDate>
     <insuranceReferenceNumber>505650</insuranceReferenceNumber>
     <entryMethods>
-      <entryMethod>urn:cspace:core.collectionspace.org:vocabularies:name(entrymethod):item:name(post)'Post'</entryMethod>
-      <entryMethod>urn:cspace:core.collectionspace.org:vocabularies:name(entrymethod):item:name(foundondoorstep)'Found on doorstep'</entryMethod>
+      <entryMethod>urn:cspace:c.core.collectionspace.org:vocabularies:name(entrymethod):item:name(post)'Post'</entryMethod>
+      <entryMethod>urn:cspace:c.core.collectionspace.org:vocabularies:name(entrymethod):item:name(foundondoorstep)'Found on doorstep'</entryMethod>
       <entryMethod/>
     </entryMethods>
     <insurancePolicyNumber>08089</insurancePolicyNumber>
     <insurers>
-      <insurer>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(TImHerod1599144655199)'TIm Herod'</insurer>
+      <insurer>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(TImHerod1599144655199)'TIm Herod'</insurer>
     </insurers>
     <conditionCheckReferenceNumber>0585852</conditionCheckReferenceNumber>
     <conditionCheckReasons>
-      <conditionCheckReason>urn:cspace:core.collectionspace.org:vocabularies:name(conditioncheckreason):item:name(damagedintransit)'Damaged in transit'</conditionCheckReason>
+      <conditionCheckReason>urn:cspace:c.core.collectionspace.org:vocabularies:name(conditioncheckreason):item:name(damagedintransit)'Damaged in transit'</conditionCheckReason>
       <conditionCheckReason/>
     </conditionCheckReasons>
     <entryReason>consideration</entryReason>
     <conditionCheckMethods>
-      <conditionCheckMethod>urn:cspace:core.collectionspace.org:vocabularies:name(conditioncheckmethod):item:name(observed)'Observed'</conditionCheckMethod>
+      <conditionCheckMethod>urn:cspace:c.core.collectionspace.org:vocabularies:name(conditioncheckmethod):item:name(observed)'Observed'</conditionCheckMethod>
       <conditionCheckMethod/>
     </conditionCheckMethods>
     <fieldCollectionEventNames>
@@ -70,37 +70,37 @@
     <currentLocationGroupList>
       <currentLocationGroup>
         <currentLocationNote>Good</currentLocationNote>
-        <currentLocationFitness>urn:cspace:core.collectionspace.org:vocabularies:name(conditionfitness):item:name(reasonable)'Reasonable'</currentLocationFitness>
-        <currentLocation>urn:cspace:core.collectionspace.org:locationauthorities:name(offsite_sla):item:name(Lavington1599144699983)'Lavington'</currentLocation>
+        <currentLocationFitness>urn:cspace:c.core.collectionspace.org:vocabularies:name(conditionfitness):item:name(reasonable)'Reasonable'</currentLocationFitness>
+        <currentLocation>urn:cspace:c.core.collectionspace.org:locationauthorities:name(offsite_sla):item:name(Lavington1599144699983)'Lavington'</currentLocation>
       </currentLocationGroup>
     </currentLocationGroupList>
     <fieldCollectionPlace>Toronto</fieldCollectionPlace>
     <conditionCheckNote>Water destroyed</conditionCheckNote>
     <entryNote>Available for pickup</entryNote>
     <currentOwners>
-      <currentOwner>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(20201599147149106)'2020'</currentOwner>
-      <currentOwner>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(20211599147173971)'2021'</currentOwner>
+      <currentOwner>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(20201599147149106)'2020'</currentOwner>
+      <currentOwner>urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(20211599147173971)'2021'</currentOwner>
       <currentOwner/>
     </currentOwners>
     <insuranceRenewalDate>2021-09-24T00:00:00.000Z</insuranceRenewalDate>
     <approvalGroupList>
       <approvalGroup>
-        <approvalStatus>urn:cspace:core.collectionspace.org:vocabularies:name(deaccessionapprovalstatus):item:name(not_approved)'not approved'</approvalStatus>
-        <approvalGroup>urn:cspace:core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(board_of_trustees)'board of trustees'</approvalGroup>
+        <approvalStatus>urn:cspace:c.core.collectionspace.org:vocabularies:name(deaccessionapprovalstatus):item:name(not_approved)'not approved'</approvalStatus>
+        <approvalGroup>urn:cspace:c.core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(board_of_trustees)'board of trustees'</approvalGroup>
         <approvalNote>Too old</approvalNote>
         <approvalDate>2020-09-17T00:00:00.000Z</approvalDate>
-        <approvalIndividual>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(JohnAllen1599144390263)'John Allen'</approvalIndividual>
+        <approvalIndividual>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(JohnAllen1599144390263)'John Allen'</approvalIndividual>
       </approvalGroup>
       <approvalGroup>
         <approvalStatus/>
-        <approvalGroup>urn:cspace:core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(executive_committee)'executive committee'</approvalGroup>
+        <approvalGroup>urn:cspace:c.core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(executive_committee)'executive committee'</approvalGroup>
         <approvalNote>Member</approvalNote>
         <approvalDate>2020-09-24T00:00:00.000Z</approvalDate>
-        <approvalIndividual>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TimJoes1599144424859)'Tim Joes'</approvalIndividual>
+        <approvalIndividual>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(TimJoes1599144424859)'Tim Joes'</approvalIndividual>
       </approvalGroup>
       <approvalGroup>
-        <approvalStatus>urn:cspace:core.collectionspace.org:vocabularies:name(deaccessionapprovalstatus):item:name(not_required)'not required'</approvalStatus>
-        <approvalGroup>urn:cspace:core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(collection_committee)'collection committee'</approvalGroup>
+        <approvalStatus>urn:cspace:c.core.collectionspace.org:vocabularies:name(deaccessionapprovalstatus):item:name(not_required)'not required'</approvalStatus>
+        <approvalGroup>urn:cspace:c.core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup):item:name(collection_committee)'collection committee'</approvalGroup>
         <approvalNote>Helper</approvalNote>
         <approvalDate>2020-09-17T00:00:00.000Z</approvalDate>
         <approvalIndividual/>
@@ -108,8 +108,8 @@
     </approvalGroupList>
     <conditionCheckDate>2020-09-24T00:00:00.000Z</conditionCheckDate>
     <fieldCollectionSources>
-      <fieldCollectionSource>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(HomeAlone1599144524188)'Home Alone'</fieldCollectionSource>
-      <fieldCollectionSource>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Trevor1599144536281)'Trevor'</fieldCollectionSource>
+      <fieldCollectionSource>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(HomeAlone1599144524188)'Home Alone'</fieldCollectionSource>
+      <fieldCollectionSource>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Trevor1599144536281)'Trevor'</fieldCollectionSource>
     </fieldCollectionSources>
     <entryNumber>IN2020.21</entryNumber>
     <locationDate>2020-09-10T00:00:00.000Z</locationDate>

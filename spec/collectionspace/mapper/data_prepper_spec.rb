@@ -6,6 +6,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   let(:delimiter){ ';' }
   let(:client){ anthro_client }
   let(:cache){ anthro_cache }
+  let(:csid_cache){ anthro_csid_cache }
   let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json' }
   let(:mapper){ get_json_record_mapper(mapperpath) }
   let(:config) do
@@ -17,9 +18,10 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
     CollectionSpace::Mapper::DataHandler.new(record_mapper: mapper,
                                              client: client,
                                              cache: cache,
+                                             csid_cache: csid_cache,
                                              config: config)
   end
-  let(:prepper){ CollectionSpace::Mapper::DataPrepper.new(datahash, handler) }
+  let(:prepper){ CollectionSpace::Mapper::DataPrepper.new(datahash, handler.searcher, handler) }
   let(:datahash){ {'objectNumber' => '123'} }
 
   describe '#merge_default_values' do
@@ -119,10 +121,10 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
     end
     it 'returns expected result for mapping' do
       res = prepper.prep.response.transformed_data['titletranslationlanguage']
-      expected = [["urn:cspace:anthro.collectionspace.org:vocabularies:name(languages):item:name(fra)'French'",
-                   "urn:cspace:anthro.collectionspace.org:vocabularies:name(languages):item:name(spa)'Spanish'"],
-                  ["urn:cspace:anthro.collectionspace.org:vocabularies:name(languages):item:name(fra)'French'",
-                   "urn:cspace:anthro.collectionspace.org:vocabularies:name(languages):item:name(deu)'German'"]]
+      expected = [["urn:cspace:c.anthro.collectionspace.org:vocabularies:name(languages):item:name(fra)'French'",
+                   "urn:cspace:c.anthro.collectionspace.org:vocabularies:name(languages):item:name(spa)'Spanish'"],
+                  ["urn:cspace:c.anthro.collectionspace.org:vocabularies:name(languages):item:name(fra)'French'",
+                   "urn:cspace:c.anthro.collectionspace.org:vocabularies:name(languages):item:name(deu)'German'"]]
       expect(res).to eq(expected)
     end
 
@@ -171,9 +173,9 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
         xpath = 'collectionobjects_common/fieldCollectors'
         result = prepper.prep.response.combined_data[xpath]['fieldCollector']
         expected = [
-          "urn:cspace:anthro.collectionspace.org:personauthorities:name(person):item:name(AnnAnalyst1594848799340)'Ann Analyst'",
-          "urn:cspace:anthro.collectionspace.org:personauthorities:name(person):item:name(GabrielSolares1594848906847)'Gabriel Solares'",
-          "urn:cspace:anthro.collectionspace.org:orgauthorities:name(organization):item:name(Organization11587136583004)'Organization 1'"
+          "urn:cspace:c.anthro.collectionspace.org:personauthorities:name(person):item:name(AnnAnalyst1594848799340)'Ann Analyst'",
+          "urn:cspace:c.anthro.collectionspace.org:personauthorities:name(person):item:name(GabrielSolares1594848906847)'Gabriel Solares'",
+          "urn:cspace:c.anthro.collectionspace.org:orgauthorities:name(organization):item:name(Organization11587136583004)'Organization 1'"
         ]
         expect(result).to eq(expected)
       end
@@ -184,8 +186,8 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
         xpath = 'collectionobjects_common/objectProductionPeopleGroupList/objectProductionPeopleGroup'
         result = prepper.prep.response.combined_data[xpath]['objectProductionPeople']
         expected = [
-          "urn:cspace:anthro.collectionspace.org:conceptauthorities:name(archculture):item:name(Blackfoot1576172504869)'Blackfoot'",
-          "urn:cspace:anthro.collectionspace.org:conceptauthorities:name(ethculture):item:name(Batak1576172496916)'Batak'"
+          "urn:cspace:c.anthro.collectionspace.org:conceptauthorities:name(archculture):item:name(Blackfoot1576172504869)'Blackfoot'",
+          "urn:cspace:c.anthro.collectionspace.org:conceptauthorities:name(ethculture):item:name(Batak1576172496916)'Batak'"
         ]
         expect(result).to eq(expected)
       end
@@ -243,14 +245,14 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
           result = prepper.prep.response.combined_data[xpath]['measuredBy']
           expected = [
             [
-              "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Gomongo1599463746195)'Gomongo'",
-              "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Comodore1599463826401)'Comodore'",
-              "urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Cuckoo1599463786824)'Cuckoo'",
+              "urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Gomongo1599463746195)'Gomongo'",
+              "urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Comodore1599463826401)'Comodore'",
+              "urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(Cuckoo1599463786824)'Cuckoo'",
               ''
             ],
             [
-              "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Gomongo1599463746195)'Gomongo'",
-              "urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Cuckoo1599463786824)'Cuckoo'"
+              "urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Gomongo1599463746195)'Gomongo'",
+              "urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(Cuckoo1599463786824)'Cuckoo'"
             ]
           ]
           expect(result).to eq(expected)
@@ -278,9 +280,9 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
           result = prepper.prep.response.combined_data[xpath]['measuredBy']
           expected = [
             [
-              "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Gomongo1599463746195)'Gomongo'",
-              "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Comodore1599463826401)'Comodore'",
-              "urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(Cuckoo1599463786824)'Cuckoo'",
+              "urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Gomongo1599463746195)'Gomongo'",
+              "urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Comodore1599463826401)'Comodore'",
+              "urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(Cuckoo1599463786824)'Cuckoo'",
               ''
             ]
           ]
