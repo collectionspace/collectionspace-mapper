@@ -4,9 +4,18 @@ module CollectionSpace
   module Mapper
     class UnknownTerm
 
+      class ReconstituteNilError < CS::Mapper::Error
+        def initialize
+          msg = "Cannot reconstitute from NilValue"
+          super(msg)
+        end
+      end
+
       # Reconstitute UnknownTerm object from cached string
       # @param str [String] of form: type|||subtype|||term
       def self.from_string(str)
+        fail(ReconstituteNilError.new) if str.nil?
+        
         parts = str.split('|||')
         self.new(type: parts[0], subtype: parts[1], term: parts[2])
       end
