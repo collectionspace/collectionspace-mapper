@@ -14,6 +14,13 @@ This project bumps the version number for any changes (including documentation u
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 - none
 
+## [4.0.1] - 2022-05-23
+
+See [PR 138](https://github.com/collectionspace/collectionspace-mapper/pull/138) for more details on changes.
+
+### Changed
+- BUGFIX: Fixes error that could occur if an unknown term using different cases (i.e. U.S. Equestian Team vs. U.S. Equestrian team). TermHandler would check whether the second value was cached as unknown with case-swapping, and would return true. However, when actually fetching the cached value, case-swapping wasn't used, so a nil value would be returned and passed on, later causing a MethodMissing on nil error.
+
 ## [4.0.0] - 2022-05-13
 
 See [PR 137](https://github.com/collectionspace/collectionspace-mapper/pull/137) for more details on changes.
