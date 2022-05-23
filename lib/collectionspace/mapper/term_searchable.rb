@@ -19,7 +19,11 @@ module CollectionSpace
       end
 
       def cached_unknown(type_subtype, val)
-        @cache.get('unknownvalue', type_subtype, val)
+        returned = @cache.get('unknownvalue', type_subtype, val)
+        return returned if returned
+
+        returned = @cache.get('unknownvalue', type_subtype, case_swap(val))
+        return returned if returned
       end
 
       private def type_subtype
