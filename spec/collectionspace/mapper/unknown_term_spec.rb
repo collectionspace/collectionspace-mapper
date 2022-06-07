@@ -22,7 +22,7 @@ RSpec.describe CollectionSpace::Mapper::UnknownTerm do
       let(:str){ nil }
 
       it 'fails', :aggregate_failures do
-        expect{ result }.to raise_error(CS::Mapper::UnknownTerm::ReconstituteNilError)
+        expect{ result }.to raise_error(CollectionSpace::Mapper::UnknownTerm::ReconstituteNilError)
       end
     end
   end

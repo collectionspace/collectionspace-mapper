@@ -4,7 +4,7 @@ module CollectionSpace
   module Mapper
     module Dates
       class TwoDigitYearHandler
-        include CS::Mapper::Dates::Mappable
+        include CollectionSpace::Mapper::Dates::Mappable
 
         attr_reader :mappable
         
@@ -13,9 +13,9 @@ module CollectionSpace
           @year_handling = handler.config.two_digit_year_handling
 
           if literal?
-            @mappable = CS::Mapper::Dates::ServicesParser.new(date_string, handler).mappable
+            @mappable = CollectionSpace::Mapper::Dates::ServicesParser.new(date_string, handler).mappable
           elsif coerce?
-            mappable = CS::Mapper::Dates::ChronicParser.new(coerced_year_date, handler).mappable
+            mappable = CollectionSpace::Mapper::Dates::ChronicParser.new(coerced_year_date, handler).mappable
             mappable['dateDisplayDate'] = date_string
             @mappable = mappable
           else

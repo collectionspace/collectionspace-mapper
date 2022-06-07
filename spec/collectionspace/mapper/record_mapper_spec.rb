@@ -17,14 +17,14 @@ RSpec.describe CollectionSpace::Mapper::RecordMapper do
     context 'when initialized with authority mapper' do
       let(:path){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_citation-local.json' }
       it 'returns Authority module name' do
-        expect(mapper.service_type_extension).to eq(CS::Mapper::Authority)
+        expect(mapper.service_type_extension).to eq(CollectionSpace::Mapper::Authority)
       end
     end
 
     context 'when initialized with relationship mapper' do
       let(:path){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_authorityhierarchy.json' }
       it 'returns Relationship module name' do
-        expect(mapper.service_type_extension).to eq(CS::Mapper::Relationship)
+        expect(mapper.service_type_extension).to eq(CollectionSpace::Mapper::Relationship)
       end
     end
 

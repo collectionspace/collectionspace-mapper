@@ -14,6 +14,9 @@ This project bumps the version number for any changes (including documentation u
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 - none
 
+## [4.0.2] - 2022-06-07
+Uses Zeitwerk eager loading (and custom inflection on version.rb to VERSION) to make `rails:zeitwerk` check pass when used with collectionspace-csv-importer.
+
 ## [4.0.1] - 2022-05-23
 
 See [PR 138](https://github.com/collectionspace/collectionspace-mapper/pull/138) for more details on changes.

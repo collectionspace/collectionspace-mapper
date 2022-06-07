@@ -25,21 +25,21 @@ module CollectionSpace
 
         def call(date_string)
           if date_string == '%NULLVALUE%'
-            CS::Mapper::Dates::NullDate.new
+            CollectionSpace::Mapper::Dates::NullDate.new
           elsif date_string == THE_BOMB
-            CS::Mapper::Dates::DateBomber.new
+            CollectionSpace::Mapper::Dates::DateBomber.new
           elsif date_formats.any?{ |re| date_string.match?(re) }
-            CS::Mapper::Dates::ChronicParser.new(date_string, self)
+            CollectionSpace::Mapper::Dates::ChronicParser.new(date_string, self)
           elsif two_digit_year_date_formats.any?{ |re| date_string.match?(re) }
-            CS::Mapper::Dates::TwoDigitYearHandler.new(date_string, self)
+            CollectionSpace::Mapper::Dates::TwoDigitYearHandler.new(date_string, self)
           elsif service_parseable_month_formats.any?{ |re| date_string.match?(re) }
-            CS::Mapper::Dates::ServicesParser.new(date_string, self)
+            CollectionSpace::Mapper::Dates::ServicesParser.new(date_string, self)
           elsif other_month_formats.any?{ |re| date_string.match?(re) }
-            CS::Mapper::Dates::YearMonthDateCreator.new(date_string, self)
+            CollectionSpace::Mapper::Dates::YearMonthDateCreator.new(date_string, self)
           elsif date_string.match?(/^\d{4}$/)
-            CS::Mapper::Dates::YearDateCreator.new(date_string, self)
+            CollectionSpace::Mapper::Dates::YearDateCreator.new(date_string, self)
           else
-            CS::Mapper::Dates::ServicesParser.new(date_string, self)
+            CollectionSpace::Mapper::Dates::ServicesParser.new(date_string, self)
           end
         end
 

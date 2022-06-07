@@ -22,7 +22,7 @@ module CollectionSpace
       def initialize(opts)
         jhash = opts[:mapper].is_a?(Hash) ? opts[:mapper] : JSON.parse(opts[:mapper])
         convert(jhash)
-        @batchconfig = CS::Mapper::Config.new(config: opts[:batchconfig], record_type: record_type)
+        @batchconfig = CollectionSpace::Mapper::Config.new(config: opts[:batchconfig], record_type: record_type)
         @csclient = opts[:csclient]
         @termcache = opts[:termcache]
         @csidcache = opts[:csidcache]
@@ -38,11 +38,11 @@ module CollectionSpace
       def service_type_extension
         case config.service_type
         when 'authority'
-          CS::Mapper::Authority
+          CollectionSpace::Mapper::Authority
         when 'relation'
-          CS::Mapper::Relationship
+          CollectionSpace::Mapper::Relationship
         when 'procedure'
-          CS::Mapper::Media if record_type == 'media'
+          CollectionSpace::Mapper::Media if record_type == 'media'
         end
       end
 
@@ -50,9 +50,9 @@ module CollectionSpace
 
       def convert(json)
         hash = symbolize(json)
-        @config = CS::Mapper::RecordMapperConfig.new(hash[:config])
-        @xml_template = CS::Mapper::XmlTemplate.new(hash[:docstructure])
-        @mappings = CS::Mapper::ColumnMappings.new(mappings: hash[:mappings],
+        @config = CollectionSpace::Mapper::RecordMapperConfig.new(hash[:config])
+        @xml_template = CollectionSpace::Mapper::XmlTemplate.new(hash[:docstructure])
+        @mappings = CollectionSpace::Mapper::ColumnMappings.new(mappings: hash[:mappings],
                                                    mapper: self)
       end
     end

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe CS::Mapper::Tools::Symbolizable do
+RSpec.describe CollectionSpace::Mapper::Tools::Symbolizable do
   let(:config) do
     JSON.parse('{
                                "delimiter": ";",
@@ -31,7 +31,7 @@ RSpec.describe CS::Mapper::Tools::Symbolizable do
                              }')
   end
 
-  let(:symconfig){ CS::Mapper::Tools::Symbolizable.symbolize(config) }
+  let(:symconfig){ CollectionSpace::Mapper::Tools::Symbolizable.symbolize(config) }
   describe '#symbolize' do
     it 'turns hash keys into symbols' do
       expected = %i[delimiter subgroup_delimiter response_mode force_defaults check_record_status
@@ -47,7 +47,7 @@ RSpec.describe CS::Mapper::Tools::Symbolizable do
                         replacements: [{find: ' ', replace: '-', type: 'plain'}]}}
     end
     it 'transforms as expected' do
-      expect(CS::Mapper::Tools::Symbolizable.symbolize_transforms(transforms)).to eq(expected)
+      expect(CollectionSpace::Mapper::Tools::Symbolizable.symbolize_transforms(transforms)).to eq(expected)
     end
   end
 end

@@ -4,7 +4,7 @@ module CollectionSpace
   module Mapper
     module Dates
       class ServicesParser
-        include CS::Mapper::Dates::Mappable
+        include CollectionSpace::Mapper::Dates::Mappable
         
         attr_reader :mappable
         def initialize(date_string, handler)

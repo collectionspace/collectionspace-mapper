@@ -6,14 +6,14 @@ module CollectionSpace
   module Mapper
     module Dates
       class ChronicParser
-        include CS::Mapper::Dates::Mappable
+        include CollectionSpace::Mapper::Dates::Mappable
         
         attr_reader :mappable
         def initialize(date_string, handler)
           @date_string = date_string
           @handler = handler
           parsed = parse
-          return CS::Mapper::Dates::ServicesParser.new(date_string, handler) unless parsed
+          return CollectionSpace::Mapper::Dates::ServicesParser.new(date_string, handler) unless parsed
 
           @mappable = map_timestamp(parsed)
           self

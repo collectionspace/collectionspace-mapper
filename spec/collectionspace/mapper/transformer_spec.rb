@@ -7,7 +7,7 @@ RSpec.describe CollectionSpace::Mapper::Transformer do
   let(:cache){ anthro_cache }
   let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject_transforms.json' }
   let(:recmapper) do
-    CS::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
+    CollectionSpace::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
                                  csclient: client,
                                  termcache: cache)
   end
@@ -24,7 +24,7 @@ RSpec.describe CollectionSpace::Mapper::Transformer do
       let(:transform){ %w[personauthorities person] }
 
       it 'returns an AuthorityTransformer' do
-        expect(creator).to be_a(CS::Mapper::AuthorityTransformer)
+        expect(creator).to be_a(CollectionSpace::Mapper::AuthorityTransformer)
       end
     end
 
@@ -32,7 +32,7 @@ RSpec.describe CollectionSpace::Mapper::Transformer do
       let(:type){ :vocabulary }
       let(:transform){ 'behrensmeyer' }
       it 'returns a VocabularyTransformer' do
-        expect(creator).to be_a(CS::Mapper::VocabularyTransformer)
+        expect(creator).to be_a(CollectionSpace::Mapper::VocabularyTransformer)
       end
     end
 
@@ -40,8 +40,8 @@ RSpec.describe CollectionSpace::Mapper::Transformer do
       let(:type){ :special }
       let(:transform){ %w[downcase_value boolean behrensmeyer_translate] }
       it 'returns array of expected transformers' do
-        expected = [CS::Mapper::DowncaseTransformer, CS::Mapper::BooleanTransformer,
-                    CS::Mapper::BehrensmeyerTransformer]
+        expected = [CollectionSpace::Mapper::DowncaseTransformer, CollectionSpace::Mapper::BooleanTransformer,
+                    CollectionSpace::Mapper::BehrensmeyerTransformer]
         expect(creator.map(&:class)).to eq(expected)
       end
     end
@@ -50,7 +50,7 @@ RSpec.describe CollectionSpace::Mapper::Transformer do
       let(:type){ :replacements }
       let(:transform){ [{find: ' ', replace: '-', type: 'plain'}] }
       it 'returns a FindReplaceTransformer' do
-        expect(creator).to be_a(CS::Mapper::FindReplaceTransformer)
+        expect(creator).to be_a(CollectionSpace::Mapper::FindReplaceTransformer)
       end
     end
   end

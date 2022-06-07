@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe CollectionSpace::Mapper::SimpleSplitter do
   before(:all) do
-    @config = CS::Mapper::Config.new(config: {delimiter: ';', subgroup_delimiter: '^^'})
+    @config = CollectionSpace::Mapper::Config.new(config: {delimiter: ';', subgroup_delimiter: '^^'})
   end
 
   describe '#result' do
@@ -49,7 +49,7 @@ end
 
 RSpec.describe CollectionSpace::Mapper::SubgroupSplitter do
   before(:all) do
-    @config = CS::Mapper::Config.new(config: {delimiter: ';', subgroup_delimiter: '^^'})
+    @config = CollectionSpace::Mapper::Config.new(config: {delimiter: ';', subgroup_delimiter: '^^'})
   end
 
   describe '#result' do

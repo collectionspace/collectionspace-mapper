@@ -8,15 +8,15 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient, servic
 
   context 'when mapper service_path not handled by collectionspace-client' do
     let(:mapper) do
-      CS::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
+      CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
         'spec/fixtures/files/mappers/core_6-1-0_aardvark.json'
       ), termcache: core_cache)
     end
 
     it 'raises NoClientServiceError' do
       expect do
-        CS::Mapper::Tools::RecordStatusServiceClient.new(client, mapper)
-      end.to raise_error(CS::Mapper::NoClientServiceError)
+        CollectionSpace::Mapper::Tools::RecordStatusServiceClient.new(client, mapper)
+      end.to raise_error(CollectionSpace::Mapper::NoClientServiceError)
     end
   end
 

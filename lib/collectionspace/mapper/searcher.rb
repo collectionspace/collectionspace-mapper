@@ -3,7 +3,7 @@
 module CollectionSpace
   module Mapper
     class Searcher
-      def initialize(client:, config: CS::Mapper::Config.new({}))
+      def initialize(client:, config: CollectionSpace::Mapper::Config.new({}))
         @client = client
         @active = config.search_if_not_cached
         @search_fields = {}

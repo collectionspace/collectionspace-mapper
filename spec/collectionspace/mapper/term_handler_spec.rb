@@ -8,15 +8,15 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
   let(:csidcache){ core_csid_cache }
   let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json' }
   let(:recmapper) do
-    CS::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
+    CollectionSpace::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
                                  csclient: client,
                                  termcache: termcache,
                                  csidcache: csidcache)
   end
   let(:colmapping){ recmapper.mappings.lookup(colname) }
-  let(:searcher){ CS::Mapper::Searcher.new(client: client)}
+  let(:searcher){ CollectionSpace::Mapper::Searcher.new(client: client)}
   let(:th) do
-    CS::Mapper::TermHandler.new(mapping: colmapping,
+    CollectionSpace::Mapper::TermHandler.new(mapping: colmapping,
                                 data: data,
                                 client: client,
                                 mapper: recmapper,
@@ -63,14 +63,14 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
   describe '#result' do
     context 'titletranslationlanguage (vocabulary, field subgroup)' do
       let(:colname){ 'titleTranslationLanguage' }
-      let(:data){ [['%NULLVALUE%', 'Swahili'], %w[Klingon Spanish], [CS::Mapper::THE_BOMB]] }
+      let(:data){ [['%NULLVALUE%', 'Swahili'], %w[Klingon Spanish], [CollectionSpace::Mapper::THE_BOMB]] }
 
       it 'result is the transformed value for mapping' do
         expected = [['',
                      "urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(swa)'Swahili'"],
                     ['',
                      "urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(spa)'Spanish'"],
-                    [CS::Mapper::THE_BOMB]]
+                    [CollectionSpace::Mapper::THE_BOMB]]
         expect(th.result).to eq(expected)
       end
     end
@@ -98,7 +98,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
     let(:terms){ th.terms }
     context 'titletranslationlanguage (vocabulary, field subgroup)' do
       let(:colname){ 'titleTranslationLanguage' }
-      let(:data){ [['%NULLVALUE%', 'Swahili'], %w[Sanza Spanish], [CS::Mapper::THE_BOMB]] }
+      let(:data){ [['%NULLVALUE%', 'Swahili'], %w[Sanza Spanish], [CollectionSpace::Mapper::THE_BOMB]] }
 
       context 'when new term (Sanza) is initially encountered' do
         it 'returns terms as expected' do
@@ -112,7 +112,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
 
       context 'when new term is subsequently encountered' do
         it 'the term is still treated as not found' do
-          first_handler = CS::Mapper::TermHandler.new(mapping: colmapping,
+          first_handler = CollectionSpace::Mapper::TermHandler.new(mapping: colmapping,
                                                       data: data,
                                                       client: client,
                                                       mapper: recmapper,

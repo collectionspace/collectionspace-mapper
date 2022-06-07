@@ -13,9 +13,9 @@ module CollectionSpace
         @mapper = CollectionSpace::Mapper::RecordMapper.new(mapper: record_mapper, batchconfig: config,
                                                             csclient: client, termcache: cache,
                                                             csidcache: csid_cache )
-        @validator = CS::Mapper::DataValidator.new(@mapper, @mapper.termcache)
-        @searcher = CS::Mapper::Searcher.new(client: client, config: mapper.batchconfig)
-        @date_handler = CS::Mapper::Dates::StructuredDateHandler.new(
+        @validator = CollectionSpace::Mapper::DataValidator.new(@mapper, @mapper.termcache)
+        @searcher = CollectionSpace::Mapper::Searcher.new(client: client, config: mapper.batchconfig)
+        @date_handler = CollectionSpace::Mapper::Dates::StructuredDateHandler.new(
           client: client,
           cache: cache,
           csid_cache: csid_cache,

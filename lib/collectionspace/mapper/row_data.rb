@@ -10,7 +10,7 @@ module CollectionSpace
       def initialize(datahash, recmapper)
         @recmapper = recmapper
         @columns = datahash.map do |column, value|
-          CS::Mapper::ColumnValue.create(column: column,
+          CollectionSpace::Mapper::ColumnValue.create(column: column,
                                          value: value,
                                          recmapper: @recmapper,
                                          mapping: @recmapper.mappings.lookup(column))

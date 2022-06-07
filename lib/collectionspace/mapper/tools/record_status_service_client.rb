@@ -3,7 +3,7 @@
 module CollectionSpace
   module Mapper
     module Tools
-      class RecordStatusServiceClient < CS::Mapper::Tools::RecordStatusServiceBuilder
+      class RecordStatusServiceClient < CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder
         def initialize(client, mapper)
           super
           @client = client
@@ -32,14 +32,14 @@ module CollectionSpace
                 subtype: subtype
               )
             rescue KeyError
-              raise CS::Mapper::NoClientServiceError,
+              raise CollectionSpace::Mapper::NoClientServiceError,
                 "#{type} > #{subtype}"
             end
           else
             begin
               client.service(type: type)
             rescue KeyError
-              raise CS::Mapper::NoClientServiceError, type
+              raise CollectionSpace::Mapper::NoClientServiceError, type
             end
           end
         end

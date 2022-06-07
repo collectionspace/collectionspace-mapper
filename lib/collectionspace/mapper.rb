@@ -15,11 +15,16 @@ require 'nokogiri'
 require 'xxhash'
 require 'zeitwerk'
 
+loader = Zeitwerk::Loader.new
+loader.inflector.inflect(
+  "version"   => "VERSION"
+)
+loader.push_dir("#{__dir__}/mapper", namespace: CollectionSpace::Mapper)
+loader.setup
+loader.eager_load
+
 module CollectionSpace
-  ::CS = CollectionSpace
   module Mapper
-    
-    
     LOGGER = Logger.new(STDERR)
 
     THE_BOMB = "\u{1F4A3}"
@@ -68,8 +73,4 @@ module CollectionSpace
       data
     end
   end
-
-  loader = Zeitwerk::Loader.new
-  loader.push_dir("#{__dir__}/mapper", namespace: CollectionSpace::Mapper)
-  loader.setup
 end

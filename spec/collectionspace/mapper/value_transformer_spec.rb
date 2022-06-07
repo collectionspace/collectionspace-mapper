@@ -6,7 +6,7 @@ RSpec.describe CollectionSpace::Mapper::ValueTransformer do
   let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json' }
   let(:mapper){ get_json_record_mapper(mapper_path) }
   let(:handler) do
-    CS::Mapper::DataHandler.new(
+    CollectionSpace::Mapper::DataHandler.new(
       record_mapper: mapper,
       client: anthro_client,
       cache: anthro_cache,
@@ -14,7 +14,7 @@ RSpec.describe CollectionSpace::Mapper::ValueTransformer do
       config: {}
     )
   end
-  let(:prepper){ CS::Mapper::DataPrepper.new({}, handler.searcher, handler) }
+  let(:prepper){ CollectionSpace::Mapper::DataPrepper.new({}, handler.searcher, handler) }
   let(:transformer){ described_class.new(value, transforms, prepper) }
   let(:result){ transformer.result }
 

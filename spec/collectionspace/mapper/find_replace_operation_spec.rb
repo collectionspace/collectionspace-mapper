@@ -11,14 +11,14 @@ RSpec.describe CollectionSpace::Mapper::FindReplaceOperation do
     context 'given a plain operation' do
       let(:opspec){ {find: ' ', replace: '-', type: 'plain'} }
       it 'returns a FindReplaceOperation' do
-        expect(creator).to be_a(CS::Mapper::FindReplaceOperation)
+        expect(creator).to be_a(CollectionSpace::Mapper::FindReplaceOperation)
       end
     end
 
     context 'given a regex operation' do
       let(:opspec){ {find: '(\d)-A', replace: '\1 A', type: 'regex'} }
       it 'returns a RegexFindReplaceOperation' do
-        expect(creator).to be_a(CS::Mapper::RegexFindReplaceOperation)
+        expect(creator).to be_a(CollectionSpace::Mapper::RegexFindReplaceOperation)
       end
     end
   end

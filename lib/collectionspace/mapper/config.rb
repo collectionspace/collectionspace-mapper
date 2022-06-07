@@ -136,13 +136,13 @@ module CollectionSpace
       def record_type_extension
         case record_type
         when 'media'
-          CS::Mapper::Media
+          CollectionSpace::Mapper::Media
         when 'objecthierarchy'
-          CS::Mapper::ObjectHierarchy
+          CollectionSpace::Mapper::ObjectHierarchy
         when 'authorityhierarchy'
-          CS::Mapper::AuthorityHierarchy
+          CollectionSpace::Mapper::AuthorityHierarchy
         when 'nonhierarchicalrelationship'
-          CS::Mapper::NonHierarchicalRelationship
+          CollectionSpace::Mapper::NonHierarchicalRelationship
         else
           nil
         end
