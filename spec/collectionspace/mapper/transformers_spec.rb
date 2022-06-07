@@ -7,7 +7,7 @@ RSpec.describe CollectionSpace::Mapper::Transformers do
   let(:cache){ anthro_cache }
   let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject_transforms.json' }
   let(:recmapper) do
-    CS::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
+    CollectionSpace::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
                                  csclient: client,
                                  termcache: cache)
   end
@@ -22,7 +22,7 @@ RSpec.describe CollectionSpace::Mapper::Transformers do
     context 'when measuredByPerson column' do
       let(:colname){ 'measuredByPerson' }
       it 'contains only AuthorityTransformer' do
-        expect(xforms.queue.map(&:class)).to eq([CS::Mapper::AuthorityTransformer])
+        expect(xforms.queue.map(&:class)).to eq([CollectionSpace::Mapper::AuthorityTransformer])
       end
     end
 
@@ -31,7 +31,7 @@ RSpec.describe CollectionSpace::Mapper::Transformers do
       # let(:result) { xforms.queue }
       let(:result){ xforms.queue.map(&:class) }
       it 'expected elements are in expected order' do
-        expect(result).to eq([CS::Mapper::BehrensmeyerTransformer, CS::Mapper::VocabularyTransformer])
+        expect(result).to eq([CollectionSpace::Mapper::BehrensmeyerTransformer, CollectionSpace::Mapper::VocabularyTransformer])
       end
     end
   end

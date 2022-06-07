@@ -8,7 +8,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder do
   
   describe '.call' do
     let(:mapper) do
-      CS::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
+      CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(
         'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_group.json'
       ), termcache: core_cache, csidcache: 'foo', batchconfig: config)
     end
@@ -18,14 +18,14 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder do
       let(:config){ {status_check_method: 'client'} }
       
       it 'raises returns RecordStatusServiceClient' do
-        expect(result).to be_a(CS::Mapper::Tools::RecordStatusServiceClient)
+        expect(result).to be_a(CollectionSpace::Mapper::Tools::RecordStatusServiceClient)
       end
     end
 
     context 'when status_check_method = cache' do
       let(:config){ {status_check_method: 'cache'} }
       it 'raises returns RecordStatusServiceCache' do
-        expect(result).to be_a(CS::Mapper::Tools::RecordStatusServiceCache)
+        expect(result).to be_a(CollectionSpace::Mapper::Tools::RecordStatusServiceCache)
       end
     end
   end

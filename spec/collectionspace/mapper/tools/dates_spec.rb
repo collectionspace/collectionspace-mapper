@@ -6,10 +6,10 @@ RSpec.describe CollectionSpace::Mapper::Tools::Dates do
   let(:client){ anthro_client }
   let(:cache){ anthro_cache }
   let(:csid_cache){ anthro_csid_cache }
-  let(:config){ CS::Mapper::Config.new }
-  let(:searcher) { CS::Mapper::Searcher.new(client: client, config: config) }
+  let(:config){ CollectionSpace::Mapper::Config.new }
+  let(:searcher) { CollectionSpace::Mapper::Searcher.new(client: client, config: config) }
   let(:handler) do
-    CS::Mapper::Dates::StructuredDateHandler.new(
+    CollectionSpace::Mapper::Dates::StructuredDateHandler.new(
       client: client,
       cache: cache,
       csid_cache: csid_cache,
@@ -72,7 +72,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::Dates do
         end
 
         context 'when date_format in config = day month year' do
-          let(:config){ CS::Mapper::Config.new(config: {date_format: 'day month year'}) }
+          let(:config){ CollectionSpace::Mapper::Config.new(config: {date_format: 'day month year'}) }
           
           it 'interprets as D/M/Y' do
             expect(csdate.mappable['dateEarliestScalarValue']).to start_with('2020-02-01')
@@ -91,7 +91,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::Dates do
       end
 
       context 'when config[:two_digit_year_handling] = literal', services_call: true do
-        let(:config){ CS::Mapper::Config.new(config: {two_digit_year_handling: 'literal'}) }
+        let(:config){ CollectionSpace::Mapper::Config.new(config: {two_digit_year_handling: 'literal'}) }
 
         it 'Services parses date with uncoerced 2-digit year' do
           expect(csdate.mappable['dateEarliestSingleYear']).to eq('91')

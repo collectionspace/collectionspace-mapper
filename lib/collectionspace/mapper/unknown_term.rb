@@ -4,7 +4,7 @@ module CollectionSpace
   module Mapper
     class UnknownTerm
 
-      class ReconstituteNilError < CS::Mapper::Error
+      class ReconstituteNilError < CollectionSpace::Mapper::Error
         def initialize
           msg = "Cannot reconstitute from NilValue"
           super(msg)
@@ -27,7 +27,7 @@ module CollectionSpace
         @subtype = subtype
         @display_name = term
         @identifier = term
-        # Named "urn" to be used the same way as CS::Mapper::Tools::RefName
+        # Named "urn" to be used the same way as CollectionSpace::Mapper::Tools::RefName
         # This value gets cached and can be reconstituted into an UnknownTerm object
         @urn = "#{type}|||#{subtype}|||#{term}"
       end

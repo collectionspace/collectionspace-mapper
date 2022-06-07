@@ -6,7 +6,7 @@ class TermClass
   attr_reader :cache, :client, :searcher
   attr_accessor :type, :subtype, :errors
 
-  include CS::Mapper::TermSearchable
+  include CollectionSpace::Mapper::TermSearchable
 
   def initialize(cache, csid_cache, client, type, subtype)
     @cache = cache
@@ -15,7 +15,7 @@ class TermClass
     @type = type
     @subtype = subtype
     @errors = []
-    @searcher = CS::Mapper::Searcher.new(client: client)
+    @searcher = CollectionSpace::Mapper::Searcher.new(client: client)
   end
 end
 

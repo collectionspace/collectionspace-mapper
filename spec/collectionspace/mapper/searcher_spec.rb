@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe CollectionSpace::Mapper::Searcher do
   let(:client){ core_client }
-  let(:config){ CS::Mapper::Config.new(config: config_hash) }
+  let(:config){ CollectionSpace::Mapper::Config.new(config: config_hash) }
   let(:klass){ described_class.new(client: client, config: config) }
 
   describe '#.call' do

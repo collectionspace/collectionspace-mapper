@@ -6,7 +6,7 @@ RSpec.describe CollectionSpace::Mapper::GroupMultivalColumnValue do
   let(:mapperpath){ 'spec/fixtures/files/mappers/release_6_1/bonsai/bonsai_4-1-1_conservation.json' }
   let(:config){ {delimiter: '|', subgroup_delimiter: '^^'} }
   let(:recmapper) do
-    CS::Mapper::RecordMapper.new(mapper: get_json_record_mapper(mapperpath),
+    CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(mapperpath),
                                  batchconfig: config,
                                  termcache: bonsai_cache)
   end

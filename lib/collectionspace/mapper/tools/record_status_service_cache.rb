@@ -6,7 +6,7 @@ module CollectionSpace
       # Returns status of records, based on presence in CSID Cache.
       # @note This should **only** be used with expert migration tooling with which you can
       #   confidently ensure the CSID Cache is accurately populated with all existing records
-      class RecordStatusServiceCache < CS::Mapper::Tools::RecordStatusServiceBuilder
+      class RecordStatusServiceCache < CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder
         def initialize(mapper)
           super
           @refname_cache = mapper.termcache

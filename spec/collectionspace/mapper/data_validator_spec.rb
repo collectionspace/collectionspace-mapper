@@ -9,7 +9,7 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
   let(:csid_cache){ anthro_csid_cache }
   let(:mapper){ get_json_record_mapper(mapper_path) }
   let(:recordmapper) do
-    CS::Mapper::RecordMapper.new(
+    CollectionSpace::Mapper::RecordMapper.new(
       mapper: mapper,
       csclient: client,
       termcache: cache,
@@ -89,7 +89,7 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
         let(:mapper_path){ 'spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_authorityhierarchy.json' }
         let(:data) do
           raw = get_datahash(path: 'spec/fixtures/files/datahashes/core/authorityHierarchy1.json')
-          CS::Mapper.setup_data(raw, recordmapper.batchconfig)
+          CollectionSpace::Mapper.setup_data(raw, recordmapper.batchconfig)
         end
 
         it 'no required field error returned', services_call: true do

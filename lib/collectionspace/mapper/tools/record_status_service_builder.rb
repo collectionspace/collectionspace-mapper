@@ -7,9 +7,9 @@ module CollectionSpace
         class << self
           def call(client, mapper)
             if mapper.batchconfig.status_check_method == 'client'
-              CS::Mapper::Tools::RecordStatusServiceClient.new(client, mapper)
+              CollectionSpace::Mapper::Tools::RecordStatusServiceClient.new(client, mapper)
             else
-              CS::Mapper::Tools::RecordStatusServiceCache.new(mapper)
+              CollectionSpace::Mapper::Tools::RecordStatusServiceCache.new(mapper)
             end
           end
         end

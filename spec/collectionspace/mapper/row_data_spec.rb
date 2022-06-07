@@ -21,7 +21,7 @@ RSpec.describe CollectionSpace::Mapper::RowData do
       expect(row.columns).to be_a(Array)
     end
     it 'of ColumnValues' do
-      expect(row.columns.any?{ |col| !col.is_a?(CS::Mapper::ColumnValue) }).to be false
+      expect(row.columns.any?{ |col| !col.is_a?(CollectionSpace::Mapper::ColumnValue) }).to be false
     end
     it '2 elements long' do
       expect(row.columns.length).to eq(4)

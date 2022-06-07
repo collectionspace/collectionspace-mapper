@@ -4,7 +4,7 @@ module CollectionSpace
   module Mapper
     module Dates
       class YearDateCreator
-        include CS::Mapper::Dates::Mappable
+        include CollectionSpace::Mapper::Dates::Mappable
 
         attr_reader :mappable
         

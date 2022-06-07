@@ -16,7 +16,6 @@ require 'xxhash'
 require 'zeitwerk'
 
 module CollectionSpace
-  ::CS = CollectionSpace
   module Mapper
     
     

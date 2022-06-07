@@ -25,7 +25,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnValue do
       let(:colname){ 'collection' }
       let(:colvalue){ 'blah' }
       it 'returns ColumnValue' do
-        expect(creator).to be_a(CS::Mapper::ColumnValue)
+        expect(creator).to be_a(CollectionSpace::Mapper::ColumnValue)
       end
     end
 
@@ -33,7 +33,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnValue do
       let(:colname){ 'comment' }
       let(:colvalue){ 'blah' }
       it 'returns MultivalColumnValue' do
-        expect(creator).to be_a(CS::Mapper::MultivalColumnValue)
+        expect(creator).to be_a(CollectionSpace::Mapper::MultivalColumnValue)
       end
     end
 
@@ -41,7 +41,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnValue do
       let(:colname){ 'title' }
       let(:colvalue){ 'blah' }
       it 'returns GroupColumnValue' do
-        expect(creator).to be_a(CS::Mapper::GroupColumnValue)
+        expect(creator).to be_a(CollectionSpace::Mapper::GroupColumnValue)
       end
     end
 
@@ -50,7 +50,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnValue do
       let(:colname){ 'fertilizerToBeUsed' }
       let(:colvalue){ 'blah' }
       it 'returns GroupMultivalColumnValue' do
-        expect(creator).to be_a(CS::Mapper::GroupMultivalColumnValue)
+        expect(creator).to be_a(CollectionSpace::Mapper::GroupMultivalColumnValue)
       end
     end
 
@@ -58,7 +58,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnValue do
       let(:colname){ 'titleTranslation' }
       let(:colvalue){ 'blah' }
       it 'returns SubgroupColumnValue' do
-        expect(creator).to be_a(CS::Mapper::SubgroupColumnValue)
+        expect(creator).to be_a(CollectionSpace::Mapper::SubgroupColumnValue)
       end
     end
   end

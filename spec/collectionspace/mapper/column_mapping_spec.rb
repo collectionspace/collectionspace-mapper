@@ -16,7 +16,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMapping do
   #      :opt_list_values=>[],
   #      :datacolumn=>"numberValue",
   #      :required=>"n"
-  let(:recordmapper){ instance_double('CS::Mapper::RecordMapper') }
+  let(:recordmapper){ instance_double('CollectionSpace::Mapper::RecordMapper') }
   let(:mapping){ described_class.new(hash, recordmapper) }
 
   describe '#datacolumn' do

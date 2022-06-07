@@ -49,7 +49,7 @@ module CollectionSpace
       attr_reader :mapper, :config, :all, :lkup
 
       def add_mapping(mapping_hash)
-        mapobj = CS::Mapper::ColumnMapping.new(mapping_hash, mapper)
+        mapobj = CollectionSpace::Mapper::ColumnMapping.new(mapping_hash, mapper)
         all << mapobj
         lkup[mapobj.datacolumn] = mapobj
       end
