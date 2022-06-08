@@ -12,7 +12,8 @@ This project bumps the version number for any changes (including documentation u
 - none
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
-- none
+- Handle all dependencies in Gemfile and remove .gemspec since this will never be released as a gem - [PR 141](https://github.com/collectionspace/collectionspace-mapper/pull/141)
+- Replace `facets` gem with `activesupport` - [PR 141](https://github.com/collectionspace/collectionspace-mapper/pull/141)
 
 ## [4.0.2] - 2022-06-07
 Uses Zeitwerk eager loading (and custom inflection on version.rb to VERSION) to make `rails:zeitwerk` check pass when used with collectionspace-csv-importer.

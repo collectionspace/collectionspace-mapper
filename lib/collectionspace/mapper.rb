@@ -4,13 +4,14 @@ require 'collectionspace/mapper/version'
 require 'collectionspace/client'
 require 'collectionspace/refcache'
 
+require 'active_support'
+require 'active_support/core_ext/object/blank'
+
 require 'benchmark'
 require 'json'
 require 'logger'
 require 'pp'
 
-require 'facets/array/before'
-require 'facets/kernel/blank'
 require 'nokogiri'
 require 'xxhash'
 require 'zeitwerk'

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'chronic'
-require 'facets/date'
-require 'facets/time'
 
 module CollectionSpace
   module Mapper
