@@ -16,8 +16,8 @@ module CollectionSpace
             'dateEarliestSingleMonth' => date.month.to_s,
             'dateEarliestSingleDay' => date.day.to_s,
             'dateEarliestSingleEra' => handler.ce,
-            'dateEarliestScalarValue' => "#{date.stamp(:db)}#{handler.timestamp_suffix}",
-            'dateLatestScalarValue' => "#{next_day.stamp(:db)}#{handler.timestamp_suffix}",
+            'dateEarliestScalarValue' => "#{date.iso8601}#{handler.timestamp_suffix}",
+            'dateLatestScalarValue' => "#{next_day.iso8601}#{handler.timestamp_suffix}",
             'scalarValuesComputed' => 'true'
           }
         end
