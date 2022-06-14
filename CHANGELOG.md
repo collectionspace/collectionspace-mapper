@@ -12,7 +12,7 @@ This project bumps the version number for any changes (including documentation u
 - none
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
-- Handle all dependencies in Gemfile and remove .gemspec since this will never be released as a gem - [PR 141](https://github.com/collectionspace/collectionspace-mapper/pull/141)
+- <del>Handle all dependencies in Gemfile and remove .gemspec since this will never be released as a gem - [PR 141](https://github.com/collectionspace/collectionspace-mapper/pull/141)</del> -- Reverted in [PR 142](https://github.com/collectionspace/collectionspace-mapper/pull/142)
 - Replace `facets` gem with `activesupport` - [PR 141](https://github.com/collectionspace/collectionspace-mapper/pull/141)
 
 ## [4.0.2] - 2022-06-07
