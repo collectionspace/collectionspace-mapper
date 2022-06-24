@@ -13,9 +13,11 @@ module CollectionSpace
           @date_string = date_string
           @handler = handler
           parsed = parse
-          return CollectionSpace::Mapper::Dates::ServicesParser.new(date_string, handler) unless parsed
-
-          @mappable = map_timestamp(parsed)
+          if parsed.nil?
+            @mappable = CollectionSpace::Mapper::Dates::ServicesParser.new(date_string, handler).mappable
+          else
+            @mappable = map_timestamp(parsed)
+          end
           self
         end
 
@@ -32,7 +34,6 @@ module CollectionSpace
 
           Chronic.parse(date_string)
         end
-
       end
     end
   end
