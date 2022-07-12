@@ -20,7 +20,7 @@ module CollectionSpace
         self.new(type: parts[0], subtype: parts[1], term: parts[2])
       end
       
-      attr_reader :type, :subtype, :display_name, :urn
+      attr_reader :type, :subtype, :identifier, :display_name, :urn
       
       def initialize(type:, subtype:, term:)
         @type = type
