@@ -17,6 +17,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::StructuredDateHandler do
     context 'when term is cached' do
       let(:domain){ 'c.anthro.collectionspace.org' }
       it 'returns expected refname' do
+        cache.put_vocab_term('dateera', 'CE', refname)
         expect(result).to eq(refname)
       end
     end
