@@ -24,6 +24,10 @@ RSpec.configure do |config|
     c.max_formatted_output_length = nil
   end
 
+  config.define_derived_metadata do |meta|
+    meta[:aggregate_failures] = true
+  end
+
   # Many RSpec users commonly either run the entire suite or an individual
   # file, and it's useful to allow more verbose output when running an
   # individual spec file.

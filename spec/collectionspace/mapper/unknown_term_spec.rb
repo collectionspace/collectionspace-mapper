@@ -9,7 +9,7 @@ RSpec.describe CollectionSpace::Mapper::UnknownTerm do
     context 'with valid string (3 parts, separated by `|||`)' do
       let(:str){ 'a|||b|||c' }
 
-      it 'creates new as expected', :aggregate_failures do
+      it 'creates new as expected' do
         expect(result).to be_a(described_class)
         expect(result.type).to eq('a')
         expect(result.subtype).to eq('b')
@@ -21,7 +21,7 @@ RSpec.describe CollectionSpace::Mapper::UnknownTerm do
     context 'with nil' do
       let(:str){ nil }
 
-      it 'fails', :aggregate_failures do
+      it 'fails' do
         expect{ result }.to raise_error(CollectionSpace::Mapper::UnknownTerm::ReconstituteNilError)
       end
     end

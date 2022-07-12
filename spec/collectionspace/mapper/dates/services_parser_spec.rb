@@ -23,7 +23,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::ServicesParser do
     context 'with 01-00-2000' do
       let(:str){ '01-00-2000' }
 
-      it 'returns expected', :aggregate_failures do
+      it 'returns expected' do
         expect(parser.mappable['dateDisplayDate']).to eq(str)
         expect(parser.mappable['scalarValuesComputed']).to eq('false')
       end

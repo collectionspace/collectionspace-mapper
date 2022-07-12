@@ -24,7 +24,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::Dates do
     context 'with one digit month' do
       let(:date_string){ '2019-5-20' }
 
-      it 'parses as expected', :aggregate_failures do
+      it 'parses as expected' do
         expect(csdate.mappable['dateEarliestScalarValue']).to start_with('2019-05-20')
         expect(csdate.mappable['dateDisplayDate']).to eq(date_string)
       end
