@@ -72,6 +72,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
                      "urn:cspace:c.core.collectionspace.org:vocabularies:name(languages):item:name(spa)'Spanish'"],
                     [CollectionSpace::Mapper::THE_BOMB]]
         expect(th.result).to eq(expected)
+        expect(th.errors.length).to eq(1)
       end
     end
 
