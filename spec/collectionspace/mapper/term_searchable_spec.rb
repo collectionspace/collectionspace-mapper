@@ -56,6 +56,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
 
     context 'when not cached as unknown value' do
       it 'returns false' do
+        cache.remove('unknownvalue', "#{termtype}/#{termsubtype}", val)
         expect(result).to be false
       end
     end

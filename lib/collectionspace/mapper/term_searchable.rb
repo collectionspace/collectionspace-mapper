@@ -146,7 +146,6 @@ module CollectionSpace
 
         case term_ct
         when 0
-          add_missing_record_error(category, val)
           rec = nil
         when 1
           rec = response['list_item']

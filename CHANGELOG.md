@@ -13,6 +13,11 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 
+## [4.0.4] - 2022-07-12
+- Stop adding duplicate "missing term" errors at point of retrieving client search results and later processing those results
+- Ensure equivalence of interface (duck typing) for RefName and UnknownTerm classes
+- Dev: clean up old comments/commented out code; run tests in deterministic random order (i.e. with reported seed); aggregate failures in tests globally via config
+
 ## [4.0.3] - 2022-06-23
 - BUGFIX: Fixes error when calling `mappable` on a `ChronicParser` initialized with a date string Chronic cannot parse  - [PR 144](https://github.com/collectionspace/collectionspace-mapper/pull/144)
 - Replace `facets` gem with `activesupport` - [PR 141](https://github.com/collectionspace/collectionspace-mapper/pull/141)
