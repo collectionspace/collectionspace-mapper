@@ -98,11 +98,6 @@ module CollectionSpace
         @terms << term_report.merge({found: found, refname: refname_obj})
       end
 
-      # the next two methods need to be updated when not-found terms become blocking errors instead
-      #  of warnings. At that point, we no longer want to generate and store a refname for the
-      #  term, since it will not be mapped.
-      # at the point of switching error, the termtype and termsubtype parameters can be removed from
-      #  cached_term
       def add_new_unknown_term(val, term_report)
         unknown_term = CollectionSpace::Mapper::UnknownTerm.new(
           type: type,
@@ -123,18 +118,6 @@ module CollectionSpace
         add_missing_record_error('term', val)
         unknown_term_str
       end
-
-      # def add_new_unknown_term(val, term_report)
-      #   @terms << term_report.merge({found: false, refname: 'null'})
-      #   @cache.put('unknownvalue', type_subtype, val, 'null')
-      #   'null'
-      # end
-
-      # def add_known_unknown_term(val, term_report)
-      #   @terms << term_report.merge({found: false, refname: 'null'})
-      #   add_missing_record_error('term', val)
-      #   'null'
-      # end
     end
   end
 end
