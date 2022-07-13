@@ -9,14 +9,7 @@ module CollectionSpace
         end
       end
 
-      class UnparseableUrnError < CollectionSpace::Mapper::Error
-        attr_reader :urn
-
-        def initialize(urn)
-          @urn = urn
-          super
-        end
-      end
+      class UnparseableUrnError < CollectionSpace::Mapper::Error; end
 
       class RefName
         attr_reader :domain, :type, :subtype, :identifier, :display_name, :urn
@@ -68,7 +61,7 @@ module CollectionSpace
           elsif /^urn:cspace:([^:]+):([^:]+):id\(([^)]+)\)(.*)/.match?(@urn)
             non_term_parts_from_urn
           else
-            raise UnparseableUrnError.new(@urn)
+            raise UnparseableUrnError.new("Tried to parse: #{@urn}")
           end
         end
 

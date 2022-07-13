@@ -13,8 +13,8 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 
-## [4.0.5] - 2022-07-13
-- `UnparseableUrnError` includes the unparseable URN it was given
+## [4.0.5, 4.0.6] - 2022-07-13
+- `UnparseableUrnError` includes the unparseable URN it was given. 4.0.5 added a `:urn` attribute to to error class. 4.0.6 removed that and just puts the attempted URN in the error message attribute.
 
 ## [4.0.4] - 2022-07-12
 - Stop adding duplicate "missing term" errors at point of retrieving client search results and later processing those results
