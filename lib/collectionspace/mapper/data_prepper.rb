@@ -195,22 +195,32 @@ module CollectionSpace
         sourcedata = @response.transformed_data
 
         xphash[:mappings].each do |mapping|
-          column = mapping.datacolumn
           type = mapping.data_type
+          next unless type['date']
 
-          data = sourcedata.fetch(column, nil)
+          column = mapping.datacolumn
+          data = sourcedata[column]
           next if data.blank?
 
-          if type['date']
-            case type
-            when 'structured date group'
-              sourcedata[column] = structured_date_transform(data)
-            when 'date'
-              sourcedata[column] = unstructured_date_transform(data)
+          subgroup = data.first.is_a?(String) ? false : true
+
+          csdates = [data].flatten
+            .map do |dateval|
+              CollectionSpace::Mapper::Dates::CspaceDate.new(
+                dateval,
+                @handler.date_handler
+              )
             end
-          else
-            sourcedata[column] = data
+
+          case type
+          when 'structured date group'
+            datevals = csdates.map{ |csd| csd.mappable }
+          when 'date'
+            datevals = csdates.map{ |csd| csd.stamp }
           end
+
+          val = subgroup ? [datevals] : datevals
+          sourcedata[column] = val
         end
       end
 
@@ -245,42 +255,6 @@ module CollectionSpace
           source_type_string.to_sym
         when 'vocabulary'
           source_type_string.to_sym
-        end
-      end
-
-      def structured_date_transform(data)
-        data.map do |d|
-          if d.is_a?(String)
-            CollectionSpace::Mapper::Dates::CspaceDate.new(
-              d,
-              @handler.date_handler
-            ).mappable
-          else
-            d.map do |v|
-              CollectionSpace::Mapper::Dates::CspaceDate.new(
-                v,
-                @handler.date_handler
-              ).mappable
-            end
-          end
-        end
-      end
-
-      def unstructured_date_transform(data)
-        data.map do |d|
-          if d.is_a?(String)
-            CollectionSpace::Mapper::Dates::CspaceDate.new(
-              d,
-              @handler.date_handler
-            ).stamp
-          else
-            d.map do |v|
-              CollectionSpace::Mapper::Dates::CspaceDate.new(
-                v,
-                @handler.date_handler
-              ).stamp
-            end
-          end
         end
       end
 
