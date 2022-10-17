@@ -231,7 +231,7 @@ module CollectionSpace
                                                         client: @client,
                                                         mapper: @handler.mapper,
                                                         searcher: searcher)
-          
+
           @response.transformed_data[column] = th.result
           @response.terms << th.terms
           @response.warnings << th.warnings unless th.warnings.empty?
@@ -251,12 +251,16 @@ module CollectionSpace
       def structured_date_transform(data)
         data.map do |d|
           if d.is_a?(String)
-            CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(d,
-                                                                  @handler.date_handler).mappable
+            CollectionSpace::Mapper::Dates::CspaceDate.new(
+              d,
+              @handler.date_handler
+            ).mappable
           else
             d.map do |v|
-              CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(v,
-                                                                    @handler.date_handler).mappable
+              CollectionSpace::Mapper::Dates::CspaceDate.new(
+                v,
+                @handler.date_handler
+              ).mappable
             end
           end
         end
@@ -265,12 +269,16 @@ module CollectionSpace
       def unstructured_date_transform(data)
         data.map do |d|
           if d.is_a?(String)
-            CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(d,
-                                                                  @handler.date_handler).stamp
+            CollectionSpace::Mapper::Dates::CspaceDate.new(
+              d,
+              @handler.date_handler
+            ).stamp
           else
             d.map do |v|
-              CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(v,
-                                                                    @handler.date_handler).stamp
+              CollectionSpace::Mapper::Dates::CspaceDate.new(
+                v,
+                @handler.date_handler
+              ).stamp
             end
           end
         end
