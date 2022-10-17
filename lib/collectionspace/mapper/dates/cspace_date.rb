@@ -8,7 +8,7 @@ module CollectionSpace
       extend self
 
       class CspaceDate
-        attr_reader :date_string, :client, :cache, :config, :date_handler, :timestamp, :stamp
+        attr_reader :date_string, :date_handler, :stamp
         attr_accessor :mappable
 
         # datehandler is temporary, for testing development
