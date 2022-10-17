@@ -20,6 +20,14 @@ RSpec.describe CollectionSpace::Mapper::Dates::ServicesParser do
       end
     end
 
+    context 'with 1-2-20' do
+      let(:str){ '1-2-20' }
+
+      it 'returns expected' do
+        expect(parser.mappable['dateEarliestScalarValue']).to eq('0020-01-02T00:00:00.000Z')
+      end
+    end
+
     context 'with 01-00-2000' do
       let(:str){ '01-00-2000' }
 

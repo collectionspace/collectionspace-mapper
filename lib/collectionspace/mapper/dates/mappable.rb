@@ -25,7 +25,8 @@ module CollectionSpace
         def no_mappable_date
           {
             'dateDisplayDate' => date_string,
-            'scalarValuesComputed' => 'false'
+            'scalarValuesComputed' => 'false',
+            'dateNote' => 'date unparseable in data migration'
           }
         end
 
@@ -36,4 +37,3 @@ module CollectionSpace
     end
   end
 end
-
