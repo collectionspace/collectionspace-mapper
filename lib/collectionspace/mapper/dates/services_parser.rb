@@ -5,7 +5,7 @@ module CollectionSpace
     module Dates
       class ServicesParser
         include CollectionSpace::Mapper::Dates::Mappable
-        
+
         attr_reader :mappable
         def initialize(date_string, handler)
           @date_string = date_string
@@ -14,8 +14,8 @@ module CollectionSpace
           self
         end
 
-        private        
-        
+        private
+
         attr_reader :date_string, :handler
 
         def fix_services_scalars(services_result)
@@ -35,7 +35,7 @@ module CollectionSpace
         rescue
           nil
         end
-        
+
         def parse
           response = get_response
           return no_mappable_date unless response
@@ -51,4 +51,3 @@ module CollectionSpace
     end
   end
 end
-
