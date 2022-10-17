@@ -6,13 +6,15 @@ module CollectionSpace
       class YearMonthDateCreator
         include CollectionSpace::Mapper::Dates::Mappable
 
-        attr_reader :mappable
-        
         def initialize(date_string, handler)
           @date_string = date_string
           @handler = handler
-          @mappable = {
-            'dateDisplayDate' => @date_string,
+          self
+        end
+
+        def mappable
+          {
+            'dateDisplayDate' => date_string,
             'dateEarliestSingleYear' => year.to_s,
             'dateEarliestSingleMonth' => month.to_s,
             'dateEarliestSingleDay' => '1',
@@ -25,17 +27,18 @@ module CollectionSpace
             'dateLatestScalarValue' => "#{year}-#{next_month.to_s.rjust(2, '0')}-01#{handler.timestamp_suffix}",
             'scalarValuesComputed' => 'true'
           }
-          self
+        rescue Date::Error
+          no_mappable_date
         end
 
         private
-        
+
         attr_reader :date_string, :handler
 
         def last_day_of_month
           Date.new(year, month, -1).day
         end
-        
+
         def month
           @month ||= date_string.sub(year.to_s, '').match(/(\d{1,2})/)[1].to_i
         end
@@ -43,7 +46,7 @@ module CollectionSpace
         def next_month
           month + 1
         end
-        
+
         def year
           @year ||= date_string.match(/(\d{4})/)[1].to_i
         end
