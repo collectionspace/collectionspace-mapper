@@ -26,7 +26,7 @@ module CollectionSpace
           {
             'dateDisplayDate' => date_string,
             'scalarValuesComputed' => 'false',
-            'dateNote' => 'date unparseable in data migration'
+            'dateNote' => 'date unparseable by batch import processor'
           }
         end
 
