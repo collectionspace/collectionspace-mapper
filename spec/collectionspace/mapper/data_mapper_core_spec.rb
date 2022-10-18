@@ -22,7 +22,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: 'integration' do
   let(:mapped_xpaths){ list_xpaths(mapped_doc) }
   let(:fixture_doc){ get_xml_fixture(fixturepath) }
   let(:fixture_xpaths){ test_xpaths(fixture_doc, handler.mapper.mappings) }
-  let(:diff){ mapped_xpaths - fixture_xpaths }	
+  let(:diff){ mapped_xpaths - fixture_xpaths }
 
   context 'core profile' do
     context 'non-hierarchical relationship record', services_call: true do
@@ -242,6 +242,51 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: 'integration' do
             mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
             expect(mapped_node).to eq(fixture_node)
           end
+        end
+      end
+
+      context 'record 2' do
+        let(:hashpath){ 'spec/fixtures/files/datahashes/core/acquisition2.json' }
+        let(:fixturepath){ 'core/acquisition2.xml' }
+
+        it 'does not map unexpected fields' do
+          expect(diff).to eq([])
+        end
+
+        it 'maps as expected' do
+          fixture_xpaths.each do |xpath|
+            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
+            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
+            expect(mapped_node).to eq(fixture_node)
+          end
+        end
+
+        it 'response has unparseable date error' do
+          errors = response.errors
+          expect(errors.length).to eq(1)
+          err = errors.first
+          ex_err = {
+            category: :unparseable_date,
+            field: 'approvaldate',
+            value: '1881-',
+            message: 'Unparseable date value in approvaldate: `1881-`'
+          }
+          expect(err).to eq(ex_err)
+        end
+
+        it 'response has unparseable structured date warning' do
+          warnings = response.warnings
+          expect(warnings.length).to eq(1)
+          wrn = warnings.first
+          ex_err = {
+            category: :unparseable_structured_date,
+            field: 'approvaldate',
+            value: '1881-',
+            message: 'Unparseable date value in approvaldate: `1881-`'
+          }
+          expect(wrn[:category]).to eq(:unparseable_structured_date)
+          expect(wrn[:field]).to eq('acquisitiondategroup')
+          expect(wrn[:value]).to eq('1881-')
         end
       end
     end

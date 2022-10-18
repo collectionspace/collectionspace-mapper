@@ -24,74 +24,6 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   let(:prepper){ CollectionSpace::Mapper::DataPrepper.new(datahash, handler.searcher, handler) }
   let(:datahash){ {'objectNumber' => '123'} }
 
-  describe '#merge_default_values' do
-    let(:datahash) do
-      {
-        'objectNumber' => '123',
-        'collection' => 'Permanent Collection'
-      }
-    end
-
-    context 'when no default_values specified in config' do
-      it 'does not fall over' do
-        res = prepper.prep.response.merged_data['collection']
-        ex = 'Permanent Collection'
-        expect(res).to eq(ex)
-      end
-    end
-
-    context 'when default_values for a field is specified in config' do
-      let(:config) do
-        {
-          delimiter: ';',
-          default_values: {
-            'publishTo' => 'DPLA;Omeka'
-          }
-        }
-      end
-      context 'and no value is given for that field in the incoming data' do
-        it 'maps the default values' do
-          res = prepper.prep.response.merged_data['publishto']
-          ex = 'DPLA;Omeka'
-          expect(res).to eq(ex)
-        end
-      end
-      context 'and value is given for that field in the incoming data' do
-        let(:datahash) do
-          {
-            'objectNumber' => '20CS.001.0001',
-            'publishto' => 'foo'
-          }
-        end
-
-        context 'and :force_defaults = false' do
-          it 'maps the value in the incoming data' do
-            res = prepper.prep.response.merged_data['publishto']
-            ex = 'foo'
-            expect(res).to eq(ex)
-          end
-        end
-
-        context 'and :force_defaults = true' do
-          let(:config) do
-            {
-              delimiter: ';',
-              default_values: {
-                'publishTo' => 'DPLA;Omeka'
-              },
-              force_defaults: true
-            }
-          end
-          it 'maps the default value, overwriting value in the incoming data', services_call: true do
-            res = prepper.prep.response.merged_data['publishto']
-            ex = 'DPLA;Omeka'
-            expect(res).to eq(ex)
-          end
-        end
-      end
-    end
-  end
-
   describe '#process_xpaths' do
     context 'when authority record' do
       let(:client){ core_client }
@@ -154,6 +86,44 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
         res = prepper.prep.response.transformed_data['annotationdate']
         chk = res.select{ |e| e['T00:00:00.000Z'] }
         expect(chk.size).to eq(2)
+      end
+    end
+
+    context 'when field is an unparseable unstructured date' do
+      let(:datahash) do
+        {
+          'objectnumber' => '123',
+          'annotationdate' => '1881-',
+        }
+      end
+
+      it 'adds error to response' do
+          errors = prepper.prep.response.errors
+          expect(errors.length).to eq(1)
+          err = errors.first
+          ex_err = {
+            category: :unparseable_date,
+            field: 'annotationdate',
+            value: '1881-',
+            message: 'Unparseable date value in annotationdate: `1881-`'
+          }
+          expect(err).to eq(ex_err)
+      end
+    end
+
+    context 'when field is an unparseable structured date' do
+      let(:datahash) do
+        {
+          'objectnumber' => '123',
+          'objectproductiondategroup' => '1881-',
+        }
+      end
+
+      it 'adds warning to response' do
+        warnings = prepper.prep.response.warnings
+        expect(warnings.length).to eq(1)
+        wrn = warnings.first
+        expect(wrn[:category]).to eq(:unparseable_structured_date)
       end
     end
   end

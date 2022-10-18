@@ -43,7 +43,7 @@ module CollectionSpace
     end
 
     module_function
-    
+
     def setup_data(data, config = Mapper::Config.new)
       if data.is_a?(Hash)
         response = Response.new(data)

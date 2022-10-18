@@ -7,7 +7,7 @@ module CollectionSpace
         include CollectionSpace::Mapper::TermSearchable
 
         attr_reader :client, :cache, :config, :searcher
-        
+
         # @param client [CollectionSpace::Client]
         # @param cache [CollectionSpace::RefCache]
         # @param config [CollectionSpace::Mapper::Config]
@@ -24,31 +24,31 @@ module CollectionSpace
         end
 
         def call(date_string)
-          if date_string == '%NULLVALUE%'
+          if date_string.blank? || date_string == '%NULLVALUE%'
             CollectionSpace::Mapper::Dates::NullDate.new
           elsif date_string == THE_BOMB
             CollectionSpace::Mapper::Dates::DateBomber.new
           elsif date_formats.any?{ |re| date_string.match?(re) }
             CollectionSpace::Mapper::Dates::ChronicParser.new(date_string, self)
           elsif two_digit_year_date_formats.any?{ |re| date_string.match?(re) }
-            CollectionSpace::Mapper::Dates::TwoDigitYearHandler.new(date_string, self)
+            CollectionSpace::Mapper::Dates::TwoDigitYearHandler.new(
+              date_string,
+              self,
+              config.two_digit_year_handling
+            )
           elsif service_parseable_month_formats.any?{ |re| date_string.match?(re) }
             CollectionSpace::Mapper::Dates::ServicesParser.new(date_string, self)
           elsif other_month_formats.any?{ |re| date_string.match?(re) }
             CollectionSpace::Mapper::Dates::YearMonthDateCreator.new(date_string, self)
-          elsif date_string.match?(/^\d{4}$/)
+          elsif date_string.match?(/^\d{1,4}$/)
             CollectionSpace::Mapper::Dates::YearDateCreator.new(date_string, self)
           else
             CollectionSpace::Mapper::Dates::ServicesParser.new(date_string, self)
           end
         end
 
-        def timestamp_suffix
-          'T00:00:00.000Z'
-        end
-
         private
-        
+
         # @todo memowise this and other methods?
         def date_formats
           @date_formats ||= [
@@ -81,7 +81,7 @@ module CollectionSpace
             '^\d{4} \w+$'
           ].map{ |f| Regexp.new(f) }
         end
-        
+
         def other_month_formats
           @other_month_formats ||= [
             '^\d{4}-\d{2}$',
@@ -92,4 +92,3 @@ module CollectionSpace
     end
   end
 end
-

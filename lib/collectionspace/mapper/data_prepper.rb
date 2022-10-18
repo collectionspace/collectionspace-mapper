@@ -195,24 +195,62 @@ module CollectionSpace
         sourcedata = @response.transformed_data
 
         xphash[:mappings].each do |mapping|
-          column = mapping.datacolumn
           type = mapping.data_type
+          next unless type['date']
 
-          data = sourcedata.fetch(column, nil)
+          column = mapping.datacolumn
+          data = sourcedata[column]
           next if data.blank?
 
-          if type['date']
-            case type
-            when 'structured date group'
-              sourcedata[column] = structured_date_transform(data)
-            when 'date'
-              sourcedata[column] = unstructured_date_transform(data)
+          subgroup = data.first.is_a?(String) ? false : true
+
+          csdates = [data].flatten
+            .map do |dateval|
+              CollectionSpace::Mapper::Dates::CspaceDate.new(
+                dateval,
+                @handler.date_handler
+              )
             end
+
+          case type
+          when 'structured date group'
+            datevals = map_structured_dates(csdates, column)
+          when 'date'
+            datevals = map_unstructured_dates(csdates, column)
+          end
+
+          val = subgroup ? [datevals] : datevals
+          sourcedata[column] = val
+        end
+      end
+
+      def map_structured_dates(csdates, column)
+        csdates.map do |csd|
+          result = csd.mappable
+        rescue Dates::UnparseableStructuredDateError => err
+          err.column = column
+          @response.warnings << err.to_h
+          err.mappable
+        else
+          result
+        end
+      end
+      private :map_structured_dates
+
+      def map_unstructured_dates(csdates, column)
+        csdates.map do |csd|
+          begin
+            result = csd.stamp
+          rescue CollectionSpace::Mapper::Dates::UnparseableDateError => err
+            err.column = column
+            @response.errors << err.to_h
+            next
           else
-            sourcedata[column] = data
+            result
           end
         end
       end
+      private :map_unstructured_dates
 
       def do_term_handling(xphash)
         sourcedata = @response.transformed_data
@@ -231,7 +269,7 @@ module CollectionSpace
                                                         client: @client,
                                                         mapper: @handler.mapper,
                                                         searcher: searcher)
-          
+
           @response.transformed_data[column] = th.result
           @response.terms << th.terms
           @response.warnings << th.warnings unless th.warnings.empty?
@@ -245,34 +283,6 @@ module CollectionSpace
           source_type_string.to_sym
         when 'vocabulary'
           source_type_string.to_sym
-        end
-      end
-
-      def structured_date_transform(data)
-        data.map do |d|
-          if d.is_a?(String)
-            CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(d,
-                                                                  @handler.date_handler).mappable
-          else
-            d.map do |v|
-              CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(v,
-                                                                    @handler.date_handler).mappable
-            end
-          end
-        end
-      end
-
-      def unstructured_date_transform(data)
-        data.map do |d|
-          if d.is_a?(String)
-            CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(d,
-                                                                  @handler.date_handler).stamp
-          else
-            d.map do |v|
-              CollectionSpace::Mapper::Tools::Dates::CspaceDate.new(v,
-                                                                    @handler.date_handler).stamp
-            end
-          end
         end
       end
 

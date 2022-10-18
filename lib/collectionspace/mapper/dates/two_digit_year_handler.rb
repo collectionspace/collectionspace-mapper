@@ -6,30 +6,39 @@ module CollectionSpace
       class TwoDigitYearHandler
         include CollectionSpace::Mapper::Dates::Mappable
 
-        attr_reader :mappable
-        
-        def initialize(date_string, handler)
+        def initialize(date_string, handler, year_handling)
           @date_string = date_string
-          @year_handling = handler.config.two_digit_year_handling
-
-          if literal?
-            @mappable = CollectionSpace::Mapper::Dates::ServicesParser.new(date_string, handler).mappable
-          elsif coerce?
-            mappable = CollectionSpace::Mapper::Dates::ChronicParser.new(coerced_year_date, handler).mappable
-            mappable['dateDisplayDate'] = date_string
-            @mappable = mappable
-          else
-            @mappable = no_mappable_date
-          end
+          @handler = handler
+          @year_handling = year_handling
           self
         end
 
-        private
-        
-        attr_reader :date_string, :year_handling
+        def mappable
+          case year_handling
+          when 'literal'
+            literal_mappable
+          when 'coerce'
+            coerced_mappable
+          else
+            fail UnparseableStructuredDateError.new(
+              date_string: date_string,
+              mappable: no_mappable_date
+            )
+          end
+        end
 
-        def coerce?
-          year_handling == 'coerce'
+        private
+
+        attr_reader :date_string, :handler, :year_handling
+
+        def coerced_mappable
+            result = CollectionSpace::Mapper::Dates::ChronicParser.new(
+              coerced_year_date, handler
+            ).mappable
+            result['dateDisplayDate'] = date_string
+            result
+        rescue UnparseableStructuredDate => err
+          raise err
         end
 
         def coerced_year_date
@@ -47,8 +56,12 @@ module CollectionSpace
           val.join('-')
         end
 
-        def literal?
-          year_handling == 'literal'
+        def literal_mappable
+          CollectionSpace::Mapper::Dates::ServicesParser.new(
+              date_string, handler
+            ).mappable
+        rescue UnparseableStructuredDate => err
+          raise err
         end
       end
     end
