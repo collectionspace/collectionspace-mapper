@@ -6,33 +6,40 @@ module CollectionSpace
       class TwoDigitYearHandler
         include CollectionSpace::Mapper::Dates::Mappable
 
-        attr_reader :mappable
-
         def initialize(date_string, handler, year_handling)
           @date_string = date_string
           @handler = handler
           @year_handling = year_handling
+          self
+        end
 
+        def mappable
           case year_handling
           when 'literal'
-            @mappable = CollectionSpace::Mapper::Dates::ServicesParser.new(
-              date_string, handler
-            ).mappable
+            literal_mappable
           when 'coerce'
-            mappable = CollectionSpace::Mapper::Dates::ChronicParser.new(
-              coerced_year_date, handler
-            ).mappable
-            mappable['dateDisplayDate'] = date_string
-            @mappable = mappable
+            coerced_mappable
           else
-            @mappable = no_mappable_date
+            fail UnparseableStructuredDateError.new(
+              date_string: date_string,
+              mappable: no_mappable_date
+            )
           end
-          self
         end
 
         private
 
         attr_reader :date_string, :handler, :year_handling
+
+        def coerced_mappable
+            result = CollectionSpace::Mapper::Dates::ChronicParser.new(
+              coerced_year_date, handler
+            ).mappable
+            result['dateDisplayDate'] = date_string
+            result
+        rescue UnparseableStructuredDate => err
+          raise err
+        end
 
         def coerced_year_date
           val = date_string.gsub('/', '-').split('-')
@@ -49,6 +56,13 @@ module CollectionSpace
           val.join('-')
         end
 
+        def literal_mappable
+          CollectionSpace::Mapper::Dates::ServicesParser.new(
+              date_string, handler
+            ).mappable
+        rescue UnparseableStructuredDate => err
+          raise err
+        end
       end
     end
   end

@@ -46,9 +46,9 @@ RSpec.describe CollectionSpace::Mapper::Dates::TwoDigitYearHandler do
     context 'with foo' do
       let(:handling){ 'foo' }
 
-      it 'returns expected' do
-        expect(result['dateDisplayDate']).to eq(str)
-        expect(result['scalarValuesComputed']).to eq('false')
+      it 'raises error' do
+        cst = CollectionSpace::Mapper::Dates::UnparseableStructuredDateError
+        expect{ result }.to raise_error(cst)
       end
     end
   end
