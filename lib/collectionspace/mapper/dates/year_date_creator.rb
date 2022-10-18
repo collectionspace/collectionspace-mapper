@@ -29,7 +29,10 @@ module CollectionSpace
               'scalarValuesComputed' => 'true'
             }
           else
-            no_mappable_date
+            fail UnparseableStructuredDateError.new(
+              date_string: date_string,
+              mappable: no_mappable_date
+            )
           end
         end
 
