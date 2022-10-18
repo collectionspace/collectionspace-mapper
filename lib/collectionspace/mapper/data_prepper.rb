@@ -214,33 +214,43 @@ module CollectionSpace
 
           case type
           when 'structured date group'
-            datevals = csdates.map do |csd|
-              result = csd.mappable
-            rescue Dates::UnparseableStructuredDateError => err
-              err.column = column
-              @response.warnings << err.to_h
-              err.mappable
-            else
-              result
-            end
+            datevals = map_structured_dates(csdates, column)
           when 'date'
-            datevals = csdates.map do |csd|
-              begin
-                result = csd.stamp
-              rescue CollectionSpace::Mapper::Dates::UnparseableDateError => err
-                err.column = column
-                @response.errors << err.to_h
-                next
-              else
-                result
-              end
-            end
+            datevals = map_unstructured_dates(csdates, column)
           end
 
           val = subgroup ? [datevals] : datevals
           sourcedata[column] = val
         end
       end
+
+      def map_structured_dates(csdates, column)
+        csdates.map do |csd|
+          result = csd.mappable
+        rescue Dates::UnparseableStructuredDateError => err
+          err.column = column
+          @response.warnings << err.to_h
+          err.mappable
+        else
+          result
+        end
+      end
+      private :map_structured_dates
+
+      def map_unstructured_dates(csdates, column)
+        csdates.map do |csd|
+          begin
+            result = csd.stamp
+          rescue CollectionSpace::Mapper::Dates::UnparseableDateError => err
+            err.column = column
+            @response.errors << err.to_h
+            next
+          else
+            result
+          end
+        end
+      end
+      private :map_unstructured_dates
 
       def do_term_handling(xphash)
         sourcedata = @response.transformed_data
