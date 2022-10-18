@@ -31,12 +31,6 @@ module CollectionSpace
         def message
           base = "Unparseable structured date "\
             "in #{column}: `#{date_string}`"
-          [base,
-           desc,
-           message_from_err,
-           backtrace.first(5).join("\n")
-          ].compact
-            .join("\n")
         end
 
         def message_from_err
