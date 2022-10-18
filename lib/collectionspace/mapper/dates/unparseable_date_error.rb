@@ -11,6 +11,15 @@ module CollectionSpace
           super
         end
 
+        def to_h
+          {
+            category: :unparseable_date,
+            field: column,
+            value: date_string,
+            message: message
+          }
+        end
+
         def message
           "Unparseable date value in #{column}: `#{date_string}`"
         end

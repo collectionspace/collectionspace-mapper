@@ -229,12 +229,7 @@ module CollectionSpace
                 result = csd.stamp
               rescue CollectionSpace::Mapper::Dates::UnparseableDateError => err
                 err.column = column
-                @response.errors << {
-                  category: :unparseable_date,
-                  field: column,
-                  value: err.date_string,
-                  message: err.message
-                }
+                @response.errors << err.to_h
                 next
               else
                 result
