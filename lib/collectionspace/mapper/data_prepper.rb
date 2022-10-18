@@ -216,7 +216,22 @@ module CollectionSpace
           when 'structured date group'
             datevals = csdates.map{ |csd| csd.mappable }
           when 'date'
-            datevals = csdates.map{ |csd| csd.stamp }
+            datevals = csdates.map do |csd|
+              begin
+                result = csd.stamp
+              rescue CollectionSpace::Mapper::Dates::UnparseableDateError => err
+                err.column = column
+                @response.errors << {
+                  category: :unparseable_date,
+                  field: column,
+                  value: err.date_string,
+                  message: err.message
+                }
+                next
+              else
+                result
+              end
+            end
           end
 
           val = subgroup ? [datevals] : datevals

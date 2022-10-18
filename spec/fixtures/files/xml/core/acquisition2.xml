@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document name="acquisitions">
+  <ns2:collectionspace_core xmlns:ns2="http://collectionspace.org/collectionspace_core/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <createdAt>2020-09-09T15:25:01.763Z</createdAt>
+    <updatedBy>admin@core.collectionspace.org</updatedBy>
+    <createdBy>admin@core.collectionspace.org</createdBy>
+    <workflowState>project</workflowState>
+    <tenantId>1</tenantId>
+    <refName>urn:cspace:c.core.collectionspace.org:acquisitions:id(4a5f3216-1fa3-4b3f-9b2c)</refName>
+    <uri>/acquisitions/4a5f3216-1fa3-4b3f-9b2c</uri>
+    <updatedAt>2020-09-10T13:46:18.382Z</updatedAt>
+  </ns2:collectionspace_core>
+  <ns2:acquisitions_common xmlns:ns2="http://collectionspace.org/services/acquisition" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <acquisitionReferenceNumber>123</acquisitionReferenceNumber>
+    <acquisitionDateGroupList>
+      <acquisitionDateGroup>
+        <scalarValuesComputed>false</scalarValuesComputed>
+        <dateEarliestSingleCertainty/>
+        <dateEarliestSingleQualifierUnit/>
+        <dateDisplayDate>1881-</dateDisplayDate>
+        <dateLatestScalarValue/>
+        <dateEarliestSingleQualifierValue/>
+        <datePeriod/>
+        <dateLatestEra/>
+        <dateEarliestSingleDay/>
+        <dateEarliestSingleQualifier/>
+        <dateEarliestSingleYear/>
+        <dateLatestCertainty/>
+        <dateAssociation/>
+        <dateLatestDay/>
+        <dateEarliestSingleMonth/>
+        <dateEarliestSingleEra/>
+        <dateLatestYear/>
+        <dateLatestQualifierUnit/>
+        <dateNote>date unparseable by batch import processor</dateNote>
+        <dateLatestQualifierValue/>
+        <dateLatestQualifier/>
+        <dateEarliestScalarValue/>
+        <dateLatestMonth/>
+      </acquisitionDateGroup>
+    </acquisitionDateGroupList>
+    <approvalGroupList>
+      <approvalGroup>
+        <approvalDate/>
+      </approvalGroup>
+    </approvalGroupList>
+
+  </ns2:acquisitions_common>
+  <ns2:account_permission xmlns:ns2="http://collectionspace.org/services/authorization">
+    <account>
+      <accountId>d884e854-a10b-49c8-87e7-e7a900ffdc52</accountId>
+      <screenName>Administrator</screenName>
+      <userId>admin@core.collectionspace.org</userId>
+      <tenantId>1</tenantId>
+    </account>
+  </ns2:account_permission>
+</document>

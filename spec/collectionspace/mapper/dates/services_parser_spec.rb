@@ -28,6 +28,18 @@ RSpec.describe CollectionSpace::Mapper::Dates::ServicesParser do
       end
     end
 
+    context 'with 1881-' do
+      let(:str){ '1881-' }
+
+      it 'returns expected' do
+        expect(parser.mappable['dateDisplayDate']).to eq(str)
+        expect(parser.mappable['scalarValuesComputed']).to eq('false')
+        note = 'date unparseable by batch import processor'
+        expect(parser.mappable['dateNote']).to eq(note)
+        expect(parser.mappable.key?('dateEarliestScalarValue')).to be false
+      end
+    end
+
     context 'with 01-00-2000' do
       let(:str){ '01-00-2000' }
 

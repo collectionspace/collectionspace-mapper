@@ -31,7 +31,12 @@ module CollectionSpace
         end
 
         def stamp
-          mappable['dateEarliestScalarValue'] ||= date_string
+          desv = mappable['dateEarliestScalarValue']
+          if desv.blank?
+            fail(UnparseableDateError.new(date_string))
+          else
+            desv
+          end
         end
       end
     end

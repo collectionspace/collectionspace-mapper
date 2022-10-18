@@ -88,6 +88,28 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
         expect(chk.size).to eq(2)
       end
     end
+
+    context 'when field is an unparseable unstructured date' do
+      let(:datahash) do
+        {
+          'objectnumber' => '123',
+          'annotationdate' => '1881-',
+        }
+      end
+
+      it 'results in array of datestamp strings' do
+          errors = prepper.prep.response.errors
+          expect(errors.length).to eq(1)
+          err = errors.first
+          ex_err = {
+            category: :unparseable_date,
+            field: 'annotationdate',
+            value: '1881-',
+            message: 'Unparseable date value in annotationdate: `1881-`'
+          }
+          expect(err).to eq(ex_err)
+      end
+    end
   end
 
   describe '#combine_data_values' do
