@@ -13,6 +13,9 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 
+## [4.0.7] - 2022-10-18
+- BUGFIX for #129 and #142
+
 ## [4.0.5, 4.0.6] - 2022-07-13
 - `UnparseableUrnError` includes the unparseable URN it was given. 4.0.5 added a `:urn` attribute to to error class. 4.0.6 removed that and just puts the attempted URN in the error message attribute.
 
@@ -42,7 +45,7 @@ See [PR 138](https://github.com/collectionspace/collectionspace-mapper/pull/138)
 See [PR 137](https://github.com/collectionspace/collectionspace-mapper/pull/137) for more details on changes.
 
 ### Breaking
-- Initializing a `DataHander` now requires a `csid_cache` in addition to (refname) `cache` parameter. 
+- Initializing a `DataHander` now requires a `csid_cache` in addition to (refname) `cache` parameter.
 
 ### Added
 - Rspec binstub
@@ -50,10 +53,10 @@ See [PR 137](https://github.com/collectionspace/collectionspace-mapper/pull/137)
 - New configuration option: `search_if_not_cached` (defaults to `true`, but may be set to `false` for use with `collectionspace_migration_tools` (and code to support this configurable functionality)
 
 ### Changed
-- Initializing a `DataHander` now requires a `csid_cache` in addition to (refname) `cache` parameter. 
+- Initializing a `DataHander` now requires a `csid_cache` in addition to (refname) `cache` parameter.
 - Use `zeitwerk` for autoloading
 - Refactoring to support configurable record status checkig via client API calls or cache
-- When searching for relations (`client.find_relation`), sends the relation type 
+- When searching for relations (`client.find_relation`), sends the relation type
 - All searching of CS instance moved to use `collectionspace-client` instead of `collectionspace-refcache`'s fallback searching. All search functionality has been removed from `collectionspace-refcache`
 - All record status check logic moved out of `DataHandler`
 - Test style consistency improved, and `integration` tag added to tests that compare full record mappings to fixture XML
@@ -84,13 +87,13 @@ Details: https://github.com/collectionspace/collectionspace-mapper/compare/v2.5.
 
 ## [2.5.2] - 2022-01-14
 ### Added
-- `strip_id_values` batch configuration option added. Setting this to `false` allows update of existing records with leading/trailing spaces on the record ID field values. 
+- `strip_id_values` batch configuration option added. Setting this to `false` allows update of existing records with leading/trailing spaces on the record ID field values.
 
 ## [2.5.1] - 2021-10-13
 ### Changed
 - accept and handle collectionspace-refcache passed in from collectionspace-csv-importer
 - bug fixes for dealing with cached data
-- refactoring 
+- refactoring
 
 ## [2.5.0] - 2021-09-23
 ### Added
@@ -167,7 +170,7 @@ Details: https://github.com/collectionspace/collectionspace-mapper/compare/v2.4.
 Details: https://github.com/collectionspace/collectionspace-mapper/compare/v2.3.2...v2.4.0
 
 ## [2.3.1], [2.3.2] - 2021-05-17
-### Deleted 
+### Deleted
 - Development dependency on ruby-prof that should not have been committed
 
 Details: https://github.com/collectionspace/collectionspace-mapper/compare/v2.3.0...v2.3.2
