@@ -273,6 +273,21 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: 'integration' do
           }
           expect(err).to eq(ex_err)
         end
+
+        it 'response has unparseable structured date warning' do
+          warnings = response.warnings
+          expect(warnings.length).to eq(1)
+          wrn = warnings.first
+          ex_err = {
+            category: :unparseable_structured_date,
+            field: 'approvaldate',
+            value: '1881-',
+            message: 'Unparseable date value in approvaldate: `1881-`'
+          }
+          expect(wrn[:category]).to eq(:unparseable_structured_date)
+          expect(wrn[:field]).to eq('acquisitiondategroup')
+          expect(wrn[:value]).to eq('1881-')
+        end
       end
     end
 

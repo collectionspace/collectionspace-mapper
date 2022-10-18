@@ -31,13 +31,20 @@ module CollectionSpace
         end
 
         def stamp
-          desv = mappable['dateEarliestScalarValue']
+          desv = get_earliest_scalar
           if desv.blank?
             fail(UnparseableDateError.new(date_string))
           else
             desv
           end
         end
+
+        def get_earliest_scalar
+          mappable['dateEarliestScalarValue']
+        rescue UnparseableStructuredDateError
+          nil
+        end
+        private :get_earliest_scalar
       end
     end
   end

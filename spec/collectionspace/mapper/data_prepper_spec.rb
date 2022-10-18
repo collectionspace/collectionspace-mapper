@@ -97,7 +97,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
         }
       end
 
-      it 'results in array of datestamp strings' do
+      it 'adds error to response' do
           errors = prepper.prep.response.errors
           expect(errors.length).to eq(1)
           err = errors.first
@@ -108,6 +108,22 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
             message: 'Unparseable date value in annotationdate: `1881-`'
           }
           expect(err).to eq(ex_err)
+      end
+    end
+
+    context 'when field is an unparseable structured date' do
+      let(:datahash) do
+        {
+          'objectnumber' => '123',
+          'objectproductiondategroup' => '1881-',
+        }
+      end
+
+      it 'adds warning to response' do
+        warnings = prepper.prep.response.warnings
+        expect(warnings.length).to eq(1)
+        wrn = warnings.first
+        expect(wrn[:category]).to eq(:unparseable_structured_date)
       end
     end
   end

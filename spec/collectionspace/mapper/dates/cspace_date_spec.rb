@@ -108,14 +108,9 @@ RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
     context 'date = VIII.XIV.MMXX' do
       let(:date_string){ 'VIII.XIV.MMXX' }
 
-      it 'processed as expected' do
-        expect(csdate.mappable).to be_a(Hash)
-        expect(csdate.mappable['dateDisplayDate']).to eq('VIII.XIV.MMXX')
-        expect(csdate.mappable['scalarValuesComputed']).to eq('false')
-        note = 'date unparseable by batch import processor'
-        expect(csdate.mappable['dateNote']).to eq(note)
-        const = CollectionSpace::Mapper::Dates::UnparseableDateError
-        expect{ csdate.stamp }.to raise_error(const)
+      it 'raises error' do
+        cst = CollectionSpace::Mapper::Dates::UnparseableStructuredDateError
+        expect{ csdate.mappable }.to raise_error(cst)
       end
     end
   end

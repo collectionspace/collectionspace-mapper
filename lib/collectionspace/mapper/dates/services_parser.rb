@@ -6,12 +6,32 @@ module CollectionSpace
       class ServicesParser
         include CollectionSpace::Mapper::Dates::Mappable
 
-        attr_reader :mappable
         def initialize(date_string, handler)
           @date_string = date_string
           @handler = handler
-          @mappable = parse
           self
+        end
+
+        def mappable
+          response = get_response
+          unless response
+            fail UnparseableStructuredDateError.new(
+              date_string: date_string,
+              desc: 'StructuredDate API error or blank response',
+              mappable: no_mappable_date
+            )
+          end
+
+          if response.status_code == 200
+            result = response.result['structureddate_common']
+            fix_services_scalars(result)
+          else
+            fail UnparseableStructuredDateError.new(
+              date_string: date_string,
+              desc: response.parsed,
+              mappable: no_mappable_date
+            )
+          end
         end
 
         private
@@ -21,7 +41,7 @@ module CollectionSpace
         def fix_services_scalars(services_result)
           new_hash = {}
           services_result.each do |k, v|
-            new_hash[k] = if k.end_with?('ScalarValue')
+            new_hash[k] = if k.end_with?('ScalarValue') && !v.end_with?('Z')
                             "#{v}#{handler.timestamp_suffix}"
                           else
                             v
@@ -34,18 +54,6 @@ module CollectionSpace
           handler.client.get("structureddates?displayDate=#{date_string}")
         rescue
           nil
-        end
-
-        def parse
-          response = get_response
-          return no_mappable_date unless response
-
-          if response.status_code == 200
-            result = response.result['structureddate_common']
-            fix_services_scalars(result)
-          else
-            no_mappable_date
-          end
         end
       end
     end

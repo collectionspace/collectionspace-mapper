@@ -214,7 +214,15 @@ module CollectionSpace
 
           case type
           when 'structured date group'
-            datevals = csdates.map{ |csd| csd.mappable }
+            datevals = csdates.map do |csd|
+              result = csd.mappable
+            rescue Dates::UnparseableStructuredDateError => err
+              err.column = column
+              @response.warnings << err.to_h
+              err.mappable
+            else
+              result
+            end
           when 'date'
             datevals = csdates.map do |csd|
               begin
