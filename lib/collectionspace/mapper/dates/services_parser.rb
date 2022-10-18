@@ -24,7 +24,7 @@ module CollectionSpace
 
           if response.status_code == 200
             result = response.result['structureddate_common']
-            fix_services_scalars(result)
+            add_timestamp_to_scalar_values(result)
           else
             fail UnparseableStructuredDateError.new(
               date_string: date_string,
@@ -37,18 +37,6 @@ module CollectionSpace
         private
 
         attr_reader :date_string, :handler
-
-        def fix_services_scalars(services_result)
-          new_hash = {}
-          services_result.each do |k, v|
-            new_hash[k] = if k.end_with?('ScalarValue') && !v.end_with?('Z')
-                            "#{v}#{handler.timestamp_suffix}"
-                          else
-                            v
-                          end
-          end
-          new_hash
-        end
 
         def get_response
           handler.client.get("structureddates?displayDate=#{date_string}")

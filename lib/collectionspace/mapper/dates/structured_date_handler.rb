@@ -47,10 +47,6 @@ module CollectionSpace
           end
         end
 
-        def timestamp_suffix
-          'T00:00:00.000Z'
-        end
-
         private
 
         # @todo memowise this and other methods?

@@ -13,7 +13,7 @@ module CollectionSpace
         end
 
         def mappable
-          {
+          maphash = {
             'dateDisplayDate' => date_string,
             'dateEarliestSingleYear' => year.to_s,
             'dateEarliestSingleMonth' => month.to_s,
@@ -23,10 +23,13 @@ module CollectionSpace
             'dateLatestMonth' => month.to_s,
             'dateLatestDay' => last_day_of_month.to_s,
             'dateLatestEra' => handler.ce,
-            'dateEarliestScalarValue' => "#{year}-#{month.to_s.rjust(2, '0')}-01#{handler.timestamp_suffix}",
-            'dateLatestScalarValue' => "#{year}-#{next_month.to_s.rjust(2, '0')}-01#{handler.timestamp_suffix}",
+            'dateEarliestScalarValue' =>
+              "#{year}-#{month.to_s.rjust(2, '0')}-01",
+            'dateLatestScalarValue' =>
+              "#{year}-#{next_month.to_s.rjust(2, '0')}-01",
             'scalarValuesComputed' => 'true'
           }
+          add_timestamp_to_scalar_values(maphash)
         rescue Date::Error
             fail UnparseableStructuredDateError.new(
               date_string: date_string,

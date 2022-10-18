@@ -14,7 +14,7 @@ module CollectionSpace
 
         def mappable
           if date_string.match?(/^\d{1,4}$/)
-            {
+            maphash = {
               'dateDisplayDate' => date_string,
               'dateEarliestSingleYear' => date_string,
               'dateEarliestSingleMonth' => '1',
@@ -24,10 +24,11 @@ module CollectionSpace
               'dateLatestMonth' => '12',
               'dateLatestDay' => '31',
               'dateLatestEra' => handler.ce,
-              'dateEarliestScalarValue' => "#{date_string}-01-01#{handler.timestamp_suffix}",
-              'dateLatestScalarValue' => "#{next_year}-01-01#{handler.timestamp_suffix}",
+              'dateEarliestScalarValue' => "#{date_string}-01-01",
+              'dateLatestScalarValue' => "#{next_year}-01-01",
               'scalarValuesComputed' => 'true'
             }
+            add_timestamp_to_scalar_values(maphash)
           else
             fail UnparseableStructuredDateError.new(
               date_string: date_string,
