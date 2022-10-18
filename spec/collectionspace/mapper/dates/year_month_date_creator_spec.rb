@@ -28,17 +28,33 @@ RSpec.describe CollectionSpace::Mapper::Dates::YearMonthDateCreator do
       let(:str){ '2022-06' }
 
       it 'returns expected' do
-        expected = '2022-06-01T00:00:00.000Z'
-        expect(result['dateEarliestScalarValue']).to eq(expected)
+        expected = {
+          "dateDisplayDate"=>"2022-06",
+          "dateEarliestSingleYear"=>"2022",
+          "dateEarliestSingleMonth"=>"6",
+          "dateEarliestSingleDay"=>"1",
+          "dateEarliestSingleEra"=>"urn:cspace:c.anthro.collectionspace.org"\
+            ":vocabularies:name(dateera):item:name(ce)'CE'",
+          "dateLatestYear"=>"2022",
+          "dateLatestMonth"=>"6",
+          "dateLatestDay"=>"30",
+          "dateLatestEra"=>"urn:cspace:c.anthro.collectionspace.org"\
+            ":vocabularies:name(dateera):item:name(ce)'CE'",
+          "dateEarliestScalarValue"=>"2022-06-01T00:00:00.000Z",
+          "dateLatestScalarValue"=>"2022-07-01T00:00:00.000Z",
+          "scalarValuesComputed"=>"true"
+        }
+
+        expect(result).to eq(expected)
       end
     end
 
     context 'with 1865-75' do
       let(:str){ '1865-75' }
 
-      it 'returns expected' do
-        expect(result['dateDisplayDate']).to eq(str)
-        expect(result['scalarValuesComputed']).to eq('false')
+      it 'raises error' do
+        cst = CollectionSpace::Mapper::Dates::UnparseableStructuredDateError
+        expect{ result }.to raise_error(cst)
       end
     end
   end
