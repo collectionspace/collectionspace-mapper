@@ -57,4 +57,26 @@ RSpec.describe CollectionSpace::Mapper::Dates::YearDateCreator do
       end
     end
   end
+
+  describe '#stamp' do
+    let(:result){ creator.stamp }
+
+    context 'with 2022' do
+      let(:str){ '2022' }
+
+      it 'returns expected' do
+        expected = '2022-01-01T00:00:00.000Z'
+        expect(result).to eq(expected)
+      end
+    end
+
+    context 'with foo' do
+      let(:str){ 'foo' }
+
+      it 'raises error' do
+        cst = CollectionSpace::Mapper::Dates::UnparseableDateError
+        expect{ result }.to raise_error(cst)
+      end
+    end
+  end
 end

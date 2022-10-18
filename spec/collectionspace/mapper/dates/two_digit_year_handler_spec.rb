@@ -52,4 +52,35 @@ RSpec.describe CollectionSpace::Mapper::Dates::TwoDigitYearHandler do
       end
     end
   end
+
+  describe '#stamp' do
+    let(:result){ creator.stamp }
+
+    context 'with literal' do
+      let(:handling){ 'literal' }
+
+      it 'returns expected' do
+        expected = '0020-03-02T00:00:00.000Z'
+        expect(result).to eq(expected)
+      end
+    end
+
+    context 'with coerce' do
+      let(:handling){ 'coerce' }
+
+      it 'returns expected' do
+        expected = '2020-03-02T00:00:00.000Z'
+        expect(result).to eq(expected)
+      end
+    end
+
+    context 'with foo' do
+      let(:handling){ 'foo' }
+
+      it 'raises error' do
+        cst = CollectionSpace::Mapper::Dates::UnparseableDateError
+        expect{ result }.to raise_error(cst)
+      end
+    end
+  end
 end

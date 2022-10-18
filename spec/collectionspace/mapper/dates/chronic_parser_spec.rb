@@ -42,4 +42,26 @@ RSpec.describe CollectionSpace::Mapper::Dates::ChronicParser do
       end
     end
   end
+
+  describe '#stamp' do
+    let(:result){ parser.stamp }
+
+    context 'with 2022-06-23' do
+      let(:str){ '2022-06-23' }
+
+      it 'returns expected' do
+        esv = '2022-06-23T00:00:00.000Z'
+        expect(result).to eq(esv)
+      end
+    end
+
+    context 'with 01-00-2000' do
+      let(:str){ '01-00-2000' }
+
+      it 'raises error' do
+        cst = CollectionSpace::Mapper::Dates::UnparseableDateError
+        expect{ result }.to raise_error(cst)
+      end
+    end
+  end
 end
