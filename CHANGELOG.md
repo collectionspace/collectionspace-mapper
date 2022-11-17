@@ -13,6 +13,9 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 
+## [4.1.0] - 2022-11-17
+- Adds ability to create new vocabulary terms. See [usage documentation](https://github.com/collectionspace/collectionspace-mapper/blob/main/doc/usage.adoc#add-vocabulary-terms).
+
 ## [4.0.7] - 2022-10-18
 - BUGFIX for #129 and #142
 
