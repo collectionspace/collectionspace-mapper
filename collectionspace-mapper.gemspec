@@ -41,6 +41,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'activesupport', '= 6.0.4.7' # version used by collectionspace-csv-importer
   spec.add_dependency 'chronic'
   spec.add_dependency 'dry-configurable', '~>0.14'
+  spec.add_dependency 'dry-monads', '~>1.4'
   spec.add_dependency 'memo_wise', '~> 1.1.0'
   spec.add_dependency 'nokogiri', '~> 1.13.3'
   spec.add_dependency 'xxhash', '>= 0.4.0'

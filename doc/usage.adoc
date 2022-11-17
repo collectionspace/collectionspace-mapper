@@ -28,7 +28,7 @@ RecordMapper JSON files for all current profile/rectype combinations can be foun
 
 These JSON files should be parsed before passing to this application.
 
-Sample simple setup could look like: 
+Sample simple setup could look like:
 
 [source,ruby]
 ----
@@ -103,7 +103,7 @@ handler = DataHandler.new(
 
 Each row or record of data to be mapped should be passed in as a Hash.
 
-Hash keys are Strings and should match headers from the CSV templates output by `cspace-config-untangler`. Keys that do not match CSV headers will not be mapped. 
+Hash keys are Strings and should match headers from the CSV templates output by `cspace-config-untangler`. Keys that do not match CSV headers will not be mapped.
 
 Hash values are Strings. You can also pass through null Hash values.
 
@@ -122,7 +122,7 @@ handler.check_fields(data)
      }
 ----
 
-A warning about the unknown `conservator` field will be very valuable to a user who doesn't realize they must use `conservatorperson` or `conservatororganization` as their CSV headers. 
+A warning about the unknown `conservator` field will be very valuable to a user who doesn't realize they must use `conservatorperson` or `conservatororganization` as their CSV headers.
 
 === Validating a record
 
@@ -288,3 +288,23 @@ pp(processed)
         :value=>"test",
         :message=>"Unknown value in option list `recordstatus` column"}]>
 ----
+
+
+== Other features
+
+=== Add vocabulary terms
+
+This example assumes you have already defined a `client`.
+
+[source,ruby]
+----
+vh = CollectionSpace::Mapper::VocabularyTerms::Handler.new(client: client)
+vh.add_term(vocab: 'Annotation Type', term: 'Credit line')
+=> Success("/vocabularies/e1401111-05c2-4d6c-bdc5/items/ef050e28-ae81-46c0-8e8b") <1>
+vh.add_term(vocab: 'annotationType', term: 'Credit line')
+=> Failure("annotationtype/Credit Line already exists") <2>
+----
+<1> When response.status_code = 201
+<2> When response.status_code = 409. For other non-success responses, the response itself will be returned in the Failure.
+
+Calling `add_term` returns a https://dry-rb.org/gems/dry-monads/main/result/[dry-monads Result Success or Failure].
