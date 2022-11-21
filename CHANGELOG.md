@@ -13,11 +13,14 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 
+## [4.1.1] - 2022-11-21
+- BUGFIX for [#151](https://github.com/collectionspace/collectionspace-mapper/issues/151)
+
 ## [4.1.0] - 2022-11-17
 - Adds ability to create new vocabulary terms. See [usage documentation](https://github.com/collectionspace/collectionspace-mapper/blob/main/doc/usage.adoc#add-vocabulary-terms).
 
 ## [4.0.7] - 2022-10-18
-- BUGFIX for #129 and #142
+- BUGFIX for [#129](https://github.com/collectionspace/collectionspace-mapper/issues/129) and [#142](https://github.com/collectionspace/collectionspace-mapper/issues/142)
 
 ## [4.0.5, 4.0.6] - 2022-07-13
 - `UnparseableUrnError` includes the unparseable URN it was given. 4.0.5 added a `:urn` attribute to to error class. 4.0.6 removed that and just puts the attempted URN in the error message attribute.

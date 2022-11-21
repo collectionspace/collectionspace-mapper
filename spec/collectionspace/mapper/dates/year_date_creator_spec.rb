@@ -48,6 +48,30 @@ RSpec.describe CollectionSpace::Mapper::Dates::YearDateCreator do
       end
     end
 
+    context 'with 1' do
+      let(:str){ '1' }
+
+      it 'returns expected' do
+        expected = {
+          'dateDisplayDate'=>'1',
+          'dateEarliestSingleYear'=>'1',
+          'dateEarliestSingleMonth'=>'1',
+          'dateEarliestSingleDay'=>'1',
+          'dateEarliestScalarValue'=>'0001-01-01T00:00:00.000Z',
+          'dateLatestYear'=>'1',
+          'dateLatestMonth'=>'12',
+          'dateLatestDay'=>'31',
+          'dateLatestScalarValue'=>'0002-01-01T00:00:00.000Z',
+          'scalarValuesComputed'=>'true',
+          'dateEarliestSingleEra' => "urn:cspace:c.anthro.collectionspace.org"\
+            ":vocabularies:name(dateera):item:name(ce)'CE'",
+          'dateLatestEra' => "urn:cspace:c.anthro.collectionspace.org"\
+            ":vocabularies:name(dateera):item:name(ce)'CE'",
+        }
+        expect(result).to eq(expected)
+      end
+    end
+
     context 'with foo' do
       let(:str){ 'foo' }
 
