@@ -24,8 +24,8 @@ module CollectionSpace
               'dateLatestMonth' => '12',
               'dateLatestDay' => '31',
               'dateLatestEra' => handler.ce,
-              'dateEarliestScalarValue' => "#{date_string}-01-01",
-              'dateLatestScalarValue' => "#{next_year}-01-01",
+              'dateEarliestScalarValue' => to_scalar(date_string),
+              'dateLatestScalarValue' => to_scalar(next_year),
               'scalarValuesComputed' => 'true'
             }
             add_timestamp_to_scalar_values(maphash)
@@ -43,6 +43,10 @@ module CollectionSpace
 
         def next_year
           date_string.to_i + 1
+        end
+
+        def to_scalar(yr)
+          "#{yr.to_s.rjust(4, '0')}-01-01"
         end
       end
     end
