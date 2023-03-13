@@ -21,8 +21,4 @@ group :development, :test do
   gem 'rspec', '~> 3.0'
 end
 
-group :development, :benchmark do
-  gem 'time_up', '~> 0.0.7'
-end
-
 gemspec
