@@ -22,7 +22,6 @@ group :development, :test do
 end
 
 group :development, :benchmark do
-  gem 'ruby-prof', '~> 1.4.3'
   gem 'time_up', '~> 0.0.7'
 end
 

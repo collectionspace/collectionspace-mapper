@@ -2,6 +2,8 @@
 
 # This is here to use to run code profiling with https://ruby-prof.github.io/
 # It should only be run manually for development purposes
+# Before running, add ruby-prof to development dependencies in Gemfile
+
 require 'ruby-prof'
 require 'bundler/setup'
 require 'collectionspace/mapper'
