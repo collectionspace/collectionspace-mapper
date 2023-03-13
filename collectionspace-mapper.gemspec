@@ -46,4 +46,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'nokogiri', '~> 1.13.3'
   spec.add_dependency 'xxhash', '>= 0.4.0'
   spec.add_dependency 'zeitwerk', '~> 2.5'
+
+  spec.add_development_dependency("pry")
+  spec.add_development_dependency("rake", "~> 13.0")
+  spec.add_development_dependency("rspec")
+  spec.add_development_dependency("rubocop")
 end
