@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Kristina Spurgin']
   spec.email         = ['kristina.spurgin@lyrasis.org']
 
-  spec.summary       = 'Generic mapper turns hash of data into CollectionSpace XML'
+  spec.summary       = 'Converts Hash of record data into CollectionSpace XML'
   spec.homepage      = 'https://github.com/lyrasis/collectionspace-mapper'
   spec.license       = 'MIT'
 
