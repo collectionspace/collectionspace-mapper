@@ -7,11 +7,12 @@ module CollectionSpace
     # Aggregate class to work with all of a RecordMapper's ColumnMapping objects
     #   in an Array-ish fashion
     class ColumnMappings
+      include Enumerable
       extend Forwardable
 
       attr_reader :config
 
-      def_delegators :@all, :each, :length, :map, :reject!, :select
+      def_delegators :@all, :each, :reject!
 
       def initialize(opts = {})
         @mapper = opts[:mapper]
