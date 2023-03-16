@@ -2,6 +2,11 @@
 
 require 'bundler/setup'
 
+require 'simplecov'
+SimpleCov.start do
+  enable_coverage :branch
+end
+
 require 'collectionspace/mapper'
 require_relative './helpers'
 
