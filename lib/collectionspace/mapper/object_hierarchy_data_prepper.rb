@@ -41,8 +41,8 @@ module CollectionSpace
         super
       end
 
-      # these mappings were needed to get data in via template for processing, but
-      #  do not actually get used to produce XML
+      # these mappings were needed to get data in via template for processing,
+      #   but do not actually get used to produce XML
       def clear_unmapped_mappings
         to_clear = %w[termType termSubType]
         @handler.mapper.mappings.reject! { |mapping|

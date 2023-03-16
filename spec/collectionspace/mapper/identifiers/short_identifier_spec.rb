@@ -11,7 +11,9 @@ RSpec.describe CollectionSpace::Mapper::Identifiers::ShortIdentifier do
       }
 
       authorities.each do |term, id|
-        expect(CollectionSpace::Mapper::Identifiers::ShortIdentifier.new(term: term).value).to eq(id)
+        expect(CollectionSpace::Mapper::Identifiers::ShortIdentifier.new(
+          term: term
+        ).value).to eq(id)
       end
     end
   end

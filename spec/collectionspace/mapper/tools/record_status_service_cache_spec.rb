@@ -7,7 +7,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache do
     CollectionSpace::Mapper::Tools::RecordStatusServiceCache.new(mapper)
   }
   let(:mapper) do
-    CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(mapper_path),
+    CollectionSpace::Mapper::RecordMapper.new(
+      mapper: get_json_record_mapper(mapper_path),
       termcache: core_cache,
       csidcache: core_csid_cache)
   end
@@ -17,7 +18,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache do
 
     context "when mapper is for an authority" do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_person-local.json"
+        "spec/fixtures/files/mappers/release_6_1/core/"\
+          "core_6-1-0_person-local.json"
       }
       let(:response) { double(:response, split_data: response_data) }
 
@@ -34,7 +36,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache do
           expect(result[:uri]).to be nil
         end
         it "sets refname" do
-          refname = "urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(JohnDoe1416422840)'John Doe'"
+          refname = "urn:cspace:c.core.collectionspace.org:personauthorities:"\
+            "name(person):item:name(JohnDoe1416422840)'John Doe'"
           expect(result[:refname]).to eq(refname)
         end
       end
@@ -49,7 +52,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache do
 
     context "when mapper is for an object" do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json"
+        "spec/fixtures/files/mappers/release_6_1/core/"\
+          "core_6-1-0_collectionobject.json"
       }
 
       context "when object is cached" do
@@ -69,7 +73,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache do
 
     context "when mapper is for a procedure" do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_acquisition.json"
+        "spec/fixtures/files/mappers/release_6_1/core/"\
+          "core_6-1-0_acquisition.json"
       }
 
       context "when cached" do
@@ -89,7 +94,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache do
 
     context "when mapper is for a hierarchical relationship" do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_objecthierarchy.json"
+        "spec/fixtures/files/mappers/release_6_1/core/"\
+          "core_6-1-0_objecthierarchy.json"
       }
       let(:response) { double(:response, combined_data: response_data) }
 
@@ -126,7 +132,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache do
 
     context "when mapper is for a non-hierarchical relationship" do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_nonhierarchicalrelationship.json"
+        "spec/fixtures/files/mappers/release_6_1/core/"\
+          "core_6-1-0_nonhierarchicalrelationship.json"
       }
       let(:response) { double(:response, combined_data: response_data) }
 

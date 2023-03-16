@@ -4,20 +4,23 @@ require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::GroupMultivalColumnValue do
   let(:mapperpath) {
-    "spec/fixtures/files/mappers/release_6_1/bonsai/bonsai_4-1-1_conservation.json"
+    "spec/fixtures/files/mappers/release_6_1/bonsai/"\
+      "bonsai_4-1-1_conservation.json"
   }
   let(:config) { {delimiter: "|", subgroup_delimiter: "^^"} }
   let(:recmapper) do
-    CollectionSpace::Mapper::RecordMapper.new(mapper: get_json_record_mapper(mapperpath),
+    CollectionSpace::Mapper::RecordMapper.new(
+      mapper: get_json_record_mapper(mapperpath),
       batchconfig: config,
-      termcache: bonsai_cache)
+      termcache: bonsai_cache
+    )
   end
   let(:mapping) { recmapper.mappings.lookup(colname) }
   let(:colval) do
     described_class.new(column: colname,
-      value: colvalue,
-      recmapper: recmapper,
-      mapping: mapping)
+                        value: colvalue,
+                        recmapper: recmapper,
+                        mapping: mapping)
   end
 
   describe "#split" do

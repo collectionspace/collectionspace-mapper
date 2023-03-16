@@ -8,10 +8,13 @@ module CollectionSpace
           def call(client, mapper)
             if mapper.batchconfig.status_check_method == "client"
               CollectionSpace::Mapper::Tools::RecordStatusServiceClient.new(
-                client, mapper
+                client,
+                mapper
               )
             else
-              CollectionSpace::Mapper::Tools::RecordStatusServiceCache.new(mapper)
+              CollectionSpace::Mapper::Tools::RecordStatusServiceCache.new(
+                mapper
+              )
             end
           end
         end
@@ -33,9 +36,11 @@ module CollectionSpace
         def authority?
           mapper.config.service_type == "authority"
         end
-
-        # Given Response object, returns the value needed to look up record's status
+        # rubocop:disable Layout/LineLength
+        # Given Response object, returns the value needed to look up record's
+        #   status
         # @param response [CollectionSpace::Mapper::Response]
+        # @todo refactor/DRY
         def get_value_for_record_status(response)
           case mapper.config.service_type
           when "relation"
@@ -50,6 +55,7 @@ module CollectionSpace
             response.identifier
           end
         end
+        # rubocop:enable Layout/LineLength
 
         def reportable_result(item = nil)
           return {status: :new} unless item

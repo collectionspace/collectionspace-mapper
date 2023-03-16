@@ -4,12 +4,13 @@ require "collectionspace/mapper/tools/symbolizable"
 
 module CollectionSpace
   module Mapper
-    # Represents a JSON RecordMapper containing the config, field mappings, and template
-    #  for transforming a hash of data into CollectionSpace XML
-    # The RecordMapper bundles up all the info needed by various other classes in order
-    #  to transform and map incoming data into CollectionSpace XML, so it gets passed
-    #  around to everything as a kind of mondo-configuration-object, which is probably
-    #  terrible OOD but better than what I had before?
+    # Represents a JSON RecordMapper containing the config, field mappings, and
+    #   template for transforming a hash of data into CollectionSpace XML
+    # The RecordMapper bundles up all the info needed by various other classes
+    #   in order to transform and map incoming data into CollectionSpace XML,
+    #   so it gets passed around to everything as a kind of
+    #   mondo-configuration-object, which is probably terrible OOD but better
+    #   than what I had before?
 
     # :reek:Attribute - when I get rid of xphash, this will go away
     # :reek:InstanceVariableAssumption - instance variable gets set by convert
@@ -21,7 +22,11 @@ module CollectionSpace
       attr_accessor :xpath
 
       def initialize(opts)
-        jhash = opts[:mapper].is_a?(Hash) ? opts[:mapper] : JSON.parse(opts[:mapper])
+        if opts[:mapper].is_a?(Hash)
+          jhash = opts[:mapper]
+        else
+          jhash = JSON.parse(opts[:mapper])
+        end
         convert(jhash)
         @batchconfig = CollectionSpace::Mapper::Config.new(
           config: opts[:batchconfig], record_type: record_type
@@ -54,9 +59,13 @@ module CollectionSpace
       def convert(json)
         hash = symbolize(json)
         @config = CollectionSpace::Mapper::RecordMapperConfig.new(hash[:config])
-        @xml_template = CollectionSpace::Mapper::XmlTemplate.new(hash[:docstructure])
-        @mappings = CollectionSpace::Mapper::ColumnMappings.new(mappings: hash[:mappings],
-          mapper: self)
+        @xml_template = CollectionSpace::Mapper::XmlTemplate.new(
+          hash[:docstructure]
+        )
+        @mappings = CollectionSpace::Mapper::ColumnMappings.new(
+          mappings: hash[:mappings],
+          mapper: self
+        )
       end
     end
   end

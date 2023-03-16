@@ -17,7 +17,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
   let(:datahash) { get_datahash(path: datahash_path) }
   let(:prepper) {
     CollectionSpace::Mapper::DataPrepper.new(datahash, handler.searcher,
-      handler)
+                                             handler)
   }
   let(:datamapper) {
     described_class.new(prepper.prep.response, handler, prepper.xphash)
@@ -32,7 +32,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
   context "botgarden profile" do
     context "pottag record" do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_7_0/botgarden/botgarden_3-0-0_pottag.json"
+        "spec/fixtures/files/mappers/release_7_0/botgarden/"\
+          "botgarden_3-0-0_pottag.json"
       }
 
       context "record 1" do
@@ -57,7 +58,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
 
     context "propagation record" do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_7_0/botgarden/botgarden_3-0-0_propagation.json"
+        "spec/fixtures/files/mappers/release_7_0/botgarden/"\
+          "botgarden_3-0-0_propagation.json"
       }
 
       context "record 1" do
@@ -69,8 +71,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         # these tests are waiting for namespace uri fixes in CCU RecordMappers
         it "does not map unexpected fields",
           skip: "something weird going on with fixture_xpaths" do
-          expect(diff).to eq([])
-        end
+            expect(diff).to eq([])
+          end
 
         it "maps as expected" do
           fixture_xpaths.each do |xpath|
@@ -84,7 +86,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
 
     context "taxon record" do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/botgarden/botgarden_2-0-1_taxon-local.json"
+        "spec/fixtures/files/mappers/release_6_1/botgarden/"\
+          "botgarden_2-0-1_taxon-local.json"
       }
 
       context "record 1" do

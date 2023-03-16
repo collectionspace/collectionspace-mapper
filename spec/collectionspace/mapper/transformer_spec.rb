@@ -6,7 +6,8 @@ RSpec.describe CollectionSpace::Mapper::Transformer do
   let(:client) { anthro_client }
   let(:cache) { anthro_cache }
   let(:mapperpath) {
-    "spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject_transforms.json"
+    "spec/fixtures/files/mappers/release_6_1/anthro/"\
+      "anthro_4-1-2_collectionobject_transforms.json"
   }
   let(:recmapper) do
     CollectionSpace::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
@@ -42,8 +43,11 @@ RSpec.describe CollectionSpace::Mapper::Transformer do
       let(:type) { :special }
       let(:transform) { %w[downcase_value boolean behrensmeyer_translate] }
       it "returns array of expected transformers" do
-        expected = [CollectionSpace::Mapper::DowncaseTransformer, CollectionSpace::Mapper::BooleanTransformer,
-          CollectionSpace::Mapper::BehrensmeyerTransformer]
+        expected = [
+          CollectionSpace::Mapper::DowncaseTransformer,
+          CollectionSpace::Mapper::BooleanTransformer,
+          CollectionSpace::Mapper::BehrensmeyerTransformer
+        ]
         expect(creator.map(&:class)).to eq(expected)
       end
     end

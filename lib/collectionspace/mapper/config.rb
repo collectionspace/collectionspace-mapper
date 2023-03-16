@@ -4,16 +4,20 @@ require_relative "tools/symbolizable"
 
 module CollectionSpace
   module Mapper
-    # This is the default config, which is modified for object or authority hierarchy,
-    #   or non-hierarchichal relationships via module extension
+    # This is the default config, which is modified for object or authority
+    #   hierarchy, or non-hierarchichal relationships via module extension
     #
-    # Passed in per batch (as Hash parsed from JSON) by collectionspace-csv-importer
+    # Passed in per batch (as Hash parsed from JSON) by
+    #   collectionspace-csv-importer
     #
-    # :reek:InstanceVariableAssumption - instance variables are set during initialization
+    # :reek:InstanceVariableAssumption - instance variables are set during
+    #   initialization
     class Config
-      attr_reader :delimiter, :subgroup_delimiter, :response_mode, :strip_id_values, :multiple_recs_found,
-        :force_defaults, :check_record_status, :status_check_method, :search_if_not_cached, :date_format,
-        :two_digit_year_handling, :transforms, :default_values, :record_type
+      attr_reader :delimiter, :subgroup_delimiter, :response_mode,
+        :strip_id_values, :multiple_recs_found, :force_defaults,
+        :check_record_status, :status_check_method, :search_if_not_cached,
+        :date_format, :two_digit_year_handling, :transforms, :default_values,
+        :record_type
 
       # TODO: move default config in here
       include Tools::Symbolizable
@@ -122,7 +126,10 @@ module CollectionSpace
         setting_value = instance_variable_get(setting_variable)
         unless valid.any?(setting_value)
           replacement = DEFAULT_CONFIG[setting]
-          warn("Config: invalid #{setting} value: #{setting_value}. Using default value (#{replacement})")
+          warn(
+            "Config: invalid #{setting} value: #{setting_value}. "\
+              "Using default value (#{replacement})"
+          )
           instance_variable_set(setting_variable, replacement)
         end
       end
@@ -132,7 +139,7 @@ module CollectionSpace
         missing_keys = required_keys - hash.keys
         unless missing_keys.empty?
           raise ConfigKeyMissingError.new("Config missing key",
-            missing_keys)
+                                          missing_keys)
         end
       end
 

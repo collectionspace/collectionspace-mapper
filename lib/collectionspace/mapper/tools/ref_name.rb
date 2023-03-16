@@ -4,7 +4,10 @@ module CollectionSpace
   module Mapper
     module Tools
       class RefNameArgumentError < ArgumentError
-        def initialize(msg = "Arguments requires either :urn OR :source_type, :type, :subtype, :term, :cache values")
+        def initialize(
+          msg = "Arguments requires either :urn OR :source_type, :type, "\
+            ":subtype, :term, :cache values"
+        )
           super
         end
       end
@@ -30,9 +33,12 @@ module CollectionSpace
             @type = args[:type]
             @subtype = args[:subtype]
             @display_name = args[:term]
-            (args[:source_type] == :authority) ? new_from_authority_term : new_from_term
+            if args[:source_type] == :authority
+              new_from_authority_term
+            else
+              new_from_term
+            end
             @urn = build_urn
-            #  new_from_term(args[:source_type])
           else
             raise RefNameArgumentError
           end
@@ -45,17 +51,25 @@ module CollectionSpace
         private
 
         def build_urn
-          "urn:cspace:#{@domain}:#{@type}:name(#{@subtype}):item:name(#{@identifier})'#{@display_name}'"
+          "urn:cspace:#{@domain}:#{@type}:name(#{@subtype}):item:name"\
+            "(#{@identifier})'#{@display_name}'"
         end
 
         def new_from_term
-          @identifier = CollectionSpace::Mapper::Identifiers::ShortIdentifier.new(term: @display_name).value
+          @identifier =
+            CollectionSpace::Mapper::Identifiers::ShortIdentifier.new(
+              term: @display_name
+            ).value
         end
 
         def new_from_authority_term
-          @identifier = CollectionSpace::Mapper::Identifiers::AuthorityShortIdentifier.new(term: @display_name).value
+          @identifier =
+            CollectionSpace::Mapper::Identifiers::AuthorityShortIdentifier.new(
+              term: @display_name
+            ).value
         end
 
+        # rubocop:disable Layout/LineLength
         def new_from_urn
           if /^urn:cspace:([^:]+):([^:]+):name\(([^)]+)\):item:name\(([^)]+)\)'/.match?(@urn)
             term_parts_from_urn
@@ -65,9 +79,12 @@ module CollectionSpace
             raise UnparseableUrnError.new("Tried to parse: #{@urn}")
           end
         end
+        # rubocop:enable Layout/LineLength
 
         def term_parts_from_urn
-          parts = @urn.match(/^urn:cspace:([^:]+):([^:]+):name\(([^)]+)\):item:name\(([^)]+)\)'/)
+          parts = @urn.match(
+            /^urn:cspace:([^:]+):([^:]+):name\(([^)]+)\):item:name\(([^)]+)\)'/
+          )
           @domain = parts[1]
           @type = parts[2]
           @subtype = parts[3]

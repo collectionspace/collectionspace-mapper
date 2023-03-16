@@ -15,7 +15,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
         term: "Mary Poole",
         cache: @cache
       }
-      refname = "urn:cspace:anthro.collectionspace.org:personauthorities:name(person):item:name(MaryPoole1796320156)'Mary Poole'"
+      refname = "urn:cspace:anthro.collectionspace.org:personauthorities:name"\
+        "(person):item:name(MaryPoole1796320156)'Mary Poole'"
       result = CollectionSpace::Mapper::Tools::RefName.new(args)
       expect(result.urn).to eq(refname)
     end
@@ -28,7 +29,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
         term: "another term",
         cache: @cache
       }
-      refname = "urn:cspace:anthro.collectionspace.org:vocabularies:name(annotationtype):item:name(anotherterm)'another term'"
+      refname = "urn:cspace:anthro.collectionspace.org:vocabularies:name"\
+        "(annotationtype):item:name(anotherterm)'another term'"
       result = CollectionSpace::Mapper::Tools::RefName.new(args)
       expect(result.urn).to eq(refname)
     end
@@ -38,7 +40,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
     context "with urn for authority term" do
       it "builds refname from URN" do
         args = {
-          urn: "urn:cspace:anthro.collectionspace.org:personauthorities:name(person):item:name(MaryPoole1796320156)'Mary Poole'"
+          urn: "urn:cspace:anthro.collectionspace.org:personauthorities:name"\
+            "(person):item:name(MaryPoole1796320156)'Mary Poole'"
         }
         result = CollectionSpace::Mapper::Tools::RefName.new(args)
         expect(result.domain).to eq("anthro.collectionspace.org")
@@ -49,7 +52,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
     context "with urn for collectionobject" do
       it "builds refname from URN" do
         args = {
-          urn: "urn:cspace:core.collectionspace.org:collectionobjects:id(9010870e-e323-4beb-b065)'2020.1.1055'"
+          urn: "urn:cspace:core.collectionspace.org:collectionobjects:id"\
+            "(9010870e-e323-4beb-b065)'2020.1.1055'"
         }
         result = CollectionSpace::Mapper::Tools::RefName.new(args)
         expect(result.domain).to eq("core.collectionspace.org")
@@ -63,7 +67,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
     context "with urn for movement" do
       it "builds refname from URN" do
         args = {
-          urn: "urn:cspace:core.collectionspace.org:movements:id(8e74756f-38f5-4dee-90d4)"
+          urn: "urn:cspace:core.collectionspace.org:movements:id"\
+            "(8e74756f-38f5-4dee-90d4)"
         }
         result = CollectionSpace::Mapper::Tools::RefName.new(args)
         expect(result.domain).to eq("core.collectionspace.org")
@@ -89,7 +94,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
   context "when initialized with non-sensical argument combination" do
     it "raises error" do
       args = {
-        urn: "urn:cspace:anthro.collectionspace.org:personauthorities:name(person):item:name(MaryPoole1796320156)'Mary Poole'",
+        urn: "urn:cspace:anthro.collectionspace.org:personauthorities:name"\
+          "(person):item:name(MaryPoole1796320156)'Mary Poole'",
         cache: @cache
       }
       expect do

@@ -37,20 +37,27 @@ module CollectionSpace
               config.two_digit_year_handling
             )
           elsif service_parseable_month_formats.any? { |re|
-                  date_string.match?(re)
-                }
-            CollectionSpace::Mapper::Dates::ServicesParser.new(date_string,
-              self)
+              date_string.match?(re)
+            }
+            CollectionSpace::Mapper::Dates::ServicesParser.new(
+              date_string,
+              self
+            )
           elsif other_month_formats.any? { |re| date_string.match?(re) }
             CollectionSpace::Mapper::Dates::YearMonthDateCreator.new(
-              date_string, self
+              date_string,
+              self
             )
           elsif date_string.match?(/^\d{1,4}$/)
-            CollectionSpace::Mapper::Dates::YearDateCreator.new(date_string,
-              self)
+            CollectionSpace::Mapper::Dates::YearDateCreator.new(
+              date_string,
+              self
+            )
           else
-            CollectionSpace::Mapper::Dates::ServicesParser.new(date_string,
-              self)
+            CollectionSpace::Mapper::Dates::ServicesParser.new(
+              date_string,
+              self
+            )
           end
         end
 
@@ -59,10 +66,14 @@ module CollectionSpace
         # @todo memowise this and other methods?
         def date_formats
           @date_formats ||= [
-            '^\d{1,2}[-\/]\d{1,2}[-\/]\d{4}$', # 02-15-2020, 2-15-2020, 2/15/2020, 02/15/2020
-            '^\d{4}-\d{1,2}-\d{2}$', # 2020-02-15
-            '^\w+ \d{1,2},? \d{4}$', # Feb 15 2020, February 15, 2020
-            '^\d{1,2} \w+ \d{4}$' # 15 Feb 2020, 15 February 2020
+            # 02-15-2020, 2-15-2020, 2/15/2020, 02/15/2020
+            '^\d{1,2}[-\/]\d{1,2}[-\/]\d{4}$',
+            # 2020-02-15
+            '^\d{4}-\d{1,2}-\d{2}$',
+            # Feb 15 2020, February 15, 2020
+            '^\w+ \d{1,2},? \d{4}$',
+            # 15 Feb 2020, 15 February 2020
+            '^\d{1,2} \w+ \d{4}$'
           ].map { |f| Regexp.new(f) }
         end
 

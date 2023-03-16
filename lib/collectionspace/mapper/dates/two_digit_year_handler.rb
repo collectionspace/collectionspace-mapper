@@ -10,7 +10,6 @@ module CollectionSpace
           @date_string = date_string
           @handler = handler
           @year_handling = year_handling
-          self
         end
 
         def mappable

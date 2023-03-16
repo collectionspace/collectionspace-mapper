@@ -30,13 +30,6 @@ module CollectionSpace
         private
 
         attr_reader :date
-
-        # # currently unused
-        # def map(_doc, _parentnode, _groupname)
-        #   @parser_result.each do |datefield, value|
-        #     value = DateTime.parse(value).iso8601(3).sub('+00:00', 'Z') if datefield['ScalarValue']
-        #   end
-        # end
       end
     end
   end

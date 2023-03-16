@@ -5,30 +5,30 @@ require "spec_helper"
 RSpec.describe CollectionSpace::Mapper::Tools::Symbolizable do
   let(:config) do
     JSON.parse('{
-                               "delimiter": ";",
-                               "subgroup_delimiter": "^^",
-                               "response_mode": "verbose",
-                               "force_defaults": false,
-                               "check_record_status": true,
-                               "date_format": "month day year",
-                               "two_digit_year_handling": "convert to four digit",
-                               "transforms": {
-                                 "collection": {
-                                   "special": [
-                                     "downcase_value"
-                                   ],
-                                   "replacements": [{
-                                     "find": " ",
-                                     "replace": "-",
-                                     "type": "plain"
-                                   }]
-                                 }
-                               },
-                               "default_values": {
-                                 "publishTo": "DPLA;Omeka",
-                                 "collection": "library-collection"
-                               }
-                             }')
+                   "delimiter": ";",
+                   "subgroup_delimiter": "^^",
+                   "response_mode": "verbose",
+                   "force_defaults": false,
+                   "check_record_status": true,
+                   "date_format": "month day year",
+                   "two_digit_year_handling": "convert to four digit",
+                   "transforms": {
+                     "collection": {
+                       "special": [
+                         "downcase_value"
+                       ],
+                       "replacements": [{
+                         "find": " ",
+                         "replace": "-",
+                         "type": "plain"
+                       }]
+                     }
+                   },
+                   "default_values": {
+                     "publishTo": "DPLA;Omeka",
+                     "collection": "library-collection"
+                   }
+                 }')
   end
 
   let(:symconfig) {
@@ -36,8 +36,9 @@ RSpec.describe CollectionSpace::Mapper::Tools::Symbolizable do
   }
   describe "#symbolize" do
     it "turns hash keys into symbols" do
-      expected = %i[delimiter subgroup_delimiter response_mode force_defaults check_record_status
-        date_format two_digit_year_handling transforms default_values]
+      expected = %i[delimiter subgroup_delimiter response_mode force_defaults
+                    check_record_status date_format two_digit_year_handling
+                    transforms default_values]
       expect(symconfig.keys).to eq(expected)
     end
   end
@@ -50,7 +51,11 @@ RSpec.describe CollectionSpace::Mapper::Tools::Symbolizable do
                                         type: "plain"}]}}
     end
     it "transforms as expected" do
-      expect(CollectionSpace::Mapper::Tools::Symbolizable.symbolize_transforms(transforms)).to eq(expected)
+      expect(
+        CollectionSpace::Mapper::Tools::Symbolizable.symbolize_transforms(
+          transforms
+        )
+      ).to eq(expected)
     end
   end
 end

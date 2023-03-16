@@ -26,8 +26,10 @@ module CollectionSpace
         @subtype = subtype
         @display_name = term
         @identifier = term
-        # Named "urn" to be used the same way as CollectionSpace::Mapper::Tools::RefName
-        # This value gets cached and can be reconstituted into an UnknownTerm object
+        # Named "urn" to be used the same way as
+        #   CollectionSpace::Mapper::Tools::RefName
+        # This value gets cached and can be reconstituted into an UnknownTerm
+        #   object
         @urn = "#{type}|||#{subtype}|||#{term}"
       end
 

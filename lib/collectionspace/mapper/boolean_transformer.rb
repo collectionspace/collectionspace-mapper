@@ -35,7 +35,8 @@ module CollectionSpace
             type: nil,
             subtype: nil,
             value: value,
-            message: "#{value} cannot be converted to boolean. Defaulting to false"
+            message: "#{value} cannot be converted to boolean. Defaulting to "\
+              "false"
           }
           "false"
         end

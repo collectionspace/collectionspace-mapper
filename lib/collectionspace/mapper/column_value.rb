@@ -2,7 +2,7 @@
 
 module CollectionSpace
   module Mapper
-    # represents a row of data from a CSV.
+    # Represents a data field from a row of a CSV.
     class ColumnValue
       def initialize(column:, value:, recmapper:, mapping:)
         @column = column.downcase
@@ -14,20 +14,41 @@ module CollectionSpace
       def self.create(column:, value:, recmapper:, mapping:)
         case mapping.xpath.length
         when 0
-          ColumnValue.new(column: column, value: value, recmapper: recmapper,
-            mapping: mapping)
+          ColumnValue.new(
+            column: column,
+            value: value,
+            recmapper: recmapper,
+            mapping: mapping
+          )
         when 1
-          MultivalColumnValue.new(column: column, value: value,
-            recmapper: recmapper, mapping: mapping)
+          MultivalColumnValue.new(
+            column: column,
+            value: value,
+            recmapper: recmapper,
+            mapping: mapping
+          )
         when 2
-          GroupColumnValue.new(column: column, value: value,
-            recmapper: recmapper, mapping: mapping)
-        when 3 # bonsai conservation fertilizerToBeUsed is the only field like this
-          GroupMultivalColumnValue.new(column: column, value: value,
-            recmapper: recmapper, mapping: mapping)
+          GroupColumnValue.new(
+            column: column,
+            value: value,
+            recmapper: recmapper,
+            mapping: mapping
+          )
+        when 3
+        # bonsai conservation fertilizerToBeUsed is the only field like this
+          GroupMultivalColumnValue.new(
+            column: column,
+            value: value,
+            recmapper: recmapper,
+            mapping: mapping
+          )
         when 4
-          SubgroupColumnValue.new(column: column, value: value,
-            recmapper: recmapper, mapping: mapping)
+          SubgroupColumnValue.new(
+            column: column,
+            value: value,
+            recmapper: recmapper,
+            mapping: mapping
+          )
         end
       end
 

@@ -4,23 +4,24 @@ require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::ColumnValue do
   let(:mapperpath) {
-    "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json"
+    "spec/fixtures/files/mappers/release_6_1/core/"\
+      "core_6-1-0_collectionobject.json"
   }
   let(:recmapper) { get_record_mapper_object(mapperpath, core_cache) }
   let(:mapping) { recmapper.mappings.lookup(colname) }
   let(:colval) do
     described_class.new(column: colname,
-      value: colvalue,
-      recmapper: recmapper,
-      mapping: mapping)
+                        value: colvalue,
+                        recmapper: recmapper,
+                        mapping: mapping)
   end
 
   describe ".create" do
     let(:creator) do
       described_class.create(column: colname,
-        value: colvalue,
-        recmapper: recmapper,
-        mapping: mapping)
+                             value: colvalue,
+                             recmapper: recmapper,
+                             mapping: mapping)
     end
 
     context "given core collectionobject collection value" do
@@ -49,12 +50,15 @@ RSpec.describe CollectionSpace::Mapper::ColumnValue do
 
     context "given bonsai conservation fertilizerToBeUsed value" do
       let(:mapperpath) {
-        "spec/fixtures/files/mappers/release_6_1/bonsai/bonsai_4-1-1_conservation.json"
+        "spec/fixtures/files/mappers/release_6_1/bonsai/"\
+          "bonsai_4-1-1_conservation.json"
       }
       let(:colname) { "fertilizerToBeUsed" }
       let(:colvalue) { "blah" }
       it "returns GroupMultivalColumnValue" do
-        expect(creator).to be_a(CollectionSpace::Mapper::GroupMultivalColumnValue)
+        expect(creator).to be_a(
+          CollectionSpace::Mapper::GroupMultivalColumnValue
+        )
       end
     end
 

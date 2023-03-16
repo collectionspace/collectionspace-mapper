@@ -24,7 +24,8 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
 
     context "with single possible required field (object)" do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json"
+        "spec/fixtures/files/mappers/release_6_1/anthro/"\
+          "anthro_4-1-2_collectionobject.json"
       }
       let(:data) { {"objectNumber" => "123"} }
 
@@ -45,7 +46,6 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
         }
 
         it "validates valid data" do
-          invalid_data = {"movementReferenceNumber" => "2"}
           expect(response.valid?).to be true
         end
       end
@@ -61,7 +61,8 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
 
     context "when recordtype has required field(s)" do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json"
+        "spec/fixtures/files/mappers/release_6_1/anthro/"\
+          "anthro_4-1-2_collectionobject.json"
       }
 
       context "and when required field present" do
@@ -78,7 +79,7 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
 
         context "and required field present but empty" do
           let(:data) { {"objectNumber" => ""} }
-          it 'required field error returned with message "required field empty"' do
+          it 'returns required field err w/ msg "required field empty"' do
             err = response.errors.select { |err|
               err.start_with?("required field empty")
             }
@@ -89,7 +90,7 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
 
       context "when required field not present in data" do
         let(:data) { {"randomField" => "random value"} }
-        it 'required field error returned with message "required field missing"' do
+        it 'returns required field error w/msg "required field missing"' do
           err = response.errors.select { |err|
             err.start_with?("required field missing")
           }
@@ -97,15 +98,18 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
         end
       end
 
-      context "when required field not present in data but provided by defaults (authority hierarchy)" do
+      context "when required field provided by defaults (auth hierarchy)" do
         let(:client) { core_client }
         let(:cache) { core_cache }
         let(:csid_cache) { core_csid_cache }
         let(:mapper_path) {
-          "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_authorityhierarchy.json"
+          "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_authorityhierarchy.json"
         }
         let(:data) do
-          raw = get_datahash(path: "spec/fixtures/files/datahashes/core/authorityHierarchy1.json")
+          raw = get_datahash(
+            path: "spec/fixtures/files/datahashes/core/authorityHierarchy1.json"
+          )
           CollectionSpace::Mapper.setup_data(raw, recordmapper.batchconfig)
         end
 
@@ -123,7 +127,8 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
       let(:cache) { botgarden_cache }
       let(:csid_cache) { botgarden_csid_cache }
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/botgarden/botgarden_2-0-1_loanout.json"
+        "spec/fixtures/files/mappers/release_6_1/botgarden/"\
+          "botgarden_2-0-1_loanout.json"
       }
 
       context "and when record id field present" do
@@ -141,7 +146,7 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
         context "and record id field present but empty" do
           let(:data) { {"loanOutNumber" => ""} }
 
-          it 'required field error returned with message "required field empty"' do
+          it 'returns required field error w/msg "required field empty"' do
             err = response.errors.select { |err|
               err.start_with?("required field empty")
             }
@@ -153,7 +158,7 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
       context "when record id field not present in data" do
         let(:data) { {"randomField" => "random value"} }
 
-        it 'required field error returned with message "required field missing"' do
+        it 'returns required field error w/msg "required field missing"' do
           err = response.errors.select { |err|
             err.start_with?("required field missing")
           }

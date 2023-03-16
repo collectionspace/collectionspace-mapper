@@ -8,7 +8,8 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   let(:cache) { anthro_cache }
   let(:csid_cache) { anthro_csid_cache }
   let(:mapperpath) {
-    "spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json"
+    "spec/fixtures/files/mappers/release_6_1/anthro/"\
+      "anthro_4-1-2_collectionobject.json"
   }
   let(:mapper) { get_json_record_mapper(mapperpath) }
   let(:config) do
@@ -18,14 +19,14 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   end
   let(:handler) do
     CollectionSpace::Mapper::DataHandler.new(record_mapper: mapper,
-      client: client,
-      cache: cache,
-      csid_cache: csid_cache,
-      config: config)
+                                             client: client,
+                                             cache: cache,
+                                             csid_cache: csid_cache,
+                                             config: config)
   end
   let(:prepper) {
     CollectionSpace::Mapper::DataPrepper.new(datahash, handler.searcher,
-      handler)
+                                             handler)
   }
   let(:datahash) { {"objectNumber" => "123"} }
 
@@ -34,14 +35,15 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
       let(:client) { core_client }
       let(:cache) { core_cache }
       let(:mapperpath) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_place-local.json"
+        "spec/fixtures/files/mappers/release_6_1/core/"\
+          "core_6-1-0_place-local.json"
       }
       let(:datahash) { {"termdisplayname" => "Silk Hope"} }
 
       it "keeps mapping for shortIdentifier in xphash" do
-        result = prepper.prep.xphash["places_common"][:mappings].select do |mapping|
-          mapping.fieldname == "shortIdentifier"
-        end
+        result = prepper.prep
+          .xphash["places_common"][:mappings]
+          .select{ |mapping| mapping.fieldname == "shortIdentifier" }
         expect(result.length).to eq(1)
       end
     end
@@ -59,11 +61,22 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
       }
     end
     it "returns expected result for mapping" do
-      res = prepper.prep.response.transformed_data["titletranslationlanguage"]
-      expected = [["urn:cspace:c.anthro.collectionspace.org:vocabularies:name(languages):item:name(fra)'French'",
-        "urn:cspace:c.anthro.collectionspace.org:vocabularies:name(languages):item:name(spa)'Spanish'"],
-        ["urn:cspace:c.anthro.collectionspace.org:vocabularies:name(languages):item:name(fra)'French'",
-          "urn:cspace:c.anthro.collectionspace.org:vocabularies:name(languages):item:name(deu)'German'"]]
+      res = prepper.prep
+        .response
+        .transformed_data["titletranslationlanguage"]
+      expected = [
+        [
+          "urn:cspace:c.anthro.collectionspace.org:vocabularies:name("\
+            "languages):item:name(fra)'French'",
+          "urn:cspace:c.anthro.collectionspace.org:vocabularies:name("\
+            "languages):item:name(spa)'Spanish'"
+        ],
+        [
+          "urn:cspace:c.anthro.collectionspace.org:vocabularies:name("\
+            "languages):item:name(fra)'French'",
+          "urn:cspace:c.anthro.collectionspace.org:vocabularies:name("\
+            "languages):item:name(deu)'German'"]
+      ]
       expect(res).to eq(expected)
     end
 
@@ -152,9 +165,13 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
         xpath = "collectionobjects_common/fieldCollectors"
         result = prepper.prep.response.combined_data[xpath]["fieldCollector"]
         expected = [
-          "urn:cspace:c.anthro.collectionspace.org:personauthorities:name(person):item:name(AnnAnalyst1594848799340)'Ann Analyst'",
-          "urn:cspace:c.anthro.collectionspace.org:personauthorities:name(person):item:name(GabrielSolares1594848906847)'Gabriel Solares'",
-          "urn:cspace:c.anthro.collectionspace.org:orgauthorities:name(organization):item:name(Organization11587136583004)'Organization 1'"
+          "urn:cspace:c.anthro.collectionspace.org:personauthorities:name("\
+            "person):item:name(AnnAnalyst1594848799340)'Ann Analyst'",
+          "urn:cspace:c.anthro.collectionspace.org:personauthorities:name("\
+            "person):item:name(GabrielSolares1594848906847)'Gabriel Solares'",
+          "urn:cspace:c.anthro.collectionspace.org:orgauthorities:name("\
+            "organization):item:name(Organization11587136583004)"\
+            "'Organization 1'"
         ]
         expect(result).to eq(expected)
       end
@@ -162,11 +179,16 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
 
     context "when multi-authority field is part of repeating field group" do
       it "combines values properly" do
-        xpath = "collectionobjects_common/objectProductionPeopleGroupList/objectProductionPeopleGroup"
-        result = prepper.prep.response.combined_data[xpath]["objectProductionPeople"]
+        xpath = "collectionobjects_common/objectProductionPeopleGroupList/"\
+          "objectProductionPeopleGroup"
+        result = prepper.prep
+          .response
+          .combined_data[xpath]["objectProductionPeople"]
         expected = [
-          "urn:cspace:c.anthro.collectionspace.org:conceptauthorities:name(archculture):item:name(Blackfoot1576172504869)'Blackfoot'",
-          "urn:cspace:c.anthro.collectionspace.org:conceptauthorities:name(ethculture):item:name(Batak1576172496916)'Batak'"
+          "urn:cspace:c.anthro.collectionspace.org:conceptauthorities:name("\
+            "archculture):item:name(Blackfoot1576172504869)'Blackfoot'",
+          "urn:cspace:c.anthro.collectionspace.org:conceptauthorities:name("\
+            "ethculture):item:name(Batak1576172496916)'Batak'"
         ]
         expect(result).to eq(expected)
       end
@@ -175,17 +197,20 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
         let(:client) { core_client }
         let(:cache) { core_cache }
         let(:mapperpath) {
-          "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_conservation.json"
+          "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_conservation.json"
         }
         let(:datahash) do
           {
             "conservationNumber" => "CT2020.7",
-            "status" => "Analysis complete;Treatment approved;;Treatment in progress",
+            "status" =>
+              "Analysis complete;Treatment approved;;Treatment in progress",
             "statusDate" => ""
           }
         end
         let(:xpath) {
-          "conservation_common/conservationStatusGroupList/conservationStatusGroup"
+          "conservation_common/conservationStatusGroupList/"\
+            "conservationStatusGroup"
         }
 
         it "removes empty fields from combined data response" do
@@ -193,7 +218,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
           expect(result).to_not include("statusDate")
         end
 
-        it "removes empty fields from fieldmapping list passed on for mapping" do
+        it "removes empty fields from fieldmapping list" do
           result = prepper.prep.xphash[xpath][:mappings]
           expect(result.length).to eq(1)
         end
@@ -207,7 +232,8 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
         "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_media.json"
       }
       let(:xpath) {
-        "media_common/measuredPartGroupList/measuredPartGroup/dimensionSubGroupList/dimensionSubGroup"
+        "media_common/measuredPartGroupList/measuredPartGroup/"\
+          "dimensionSubGroupList/dimensionSubGroup"
       }
 
       context "when there is more than one group" do
@@ -219,27 +245,40 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
             "dimension" => "base^^^^weight^^circumference;height^^width",
             "measuredByPerson" => "Gomongo^^Comodore;Gomongo",
             "measuredByOrganization" => "Cuckoo^^;Cuckoo",
-            "measurementMethod" => "sliding_calipers^^theodolite_total_station^^electronic_distance_measurement^^measuring_tape_cloth;measuring_tape_cloth^^measuring_tape_cloth",
+            "measurementMethod" =>
+              "sliding_calipers^^theodolite_total_station^^electronic_distance"\
+              "_measurement^^measuring_tape_cloth;measuring_tape_cloth^^"\
+              "measuring_tape_cloth",
             "value" => "25^^83^^56^^10;5^^5",
-            "measurementUnit" => "centimeters^^carats^^kilograms^^inches;inches^^inches",
+            "measurementUnit" =>
+              "centimeters^^carats^^kilograms^^inches;inches^^inches",
             "valueQualifier" => "cm^^ct^^kg^^in;q1^^q2",
-            "valueDate" => "2020-09-23^^2020-09-28^^2020-09-25^^2020-09-30;2020-07-21^^^2020-07-21"
+            "valueDate" =>
+              "2020-09-23^^2020-09-28^^2020-09-25^^2020-09-30;2020-07-21^^^"\
+              "2020-07-21"
           }
         end
 
         # TODO: why does this call services api?
         it "combines values properly", services_call: true do
-          result = prepper.prep.response.combined_data[xpath]["measuredBy"]
+          result = prepper.prep
+            .response
+            .combined_data[xpath]["measuredBy"]
           expected = [
             [
-              "urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Gomongo1599463746195)'Gomongo'",
-              "urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Comodore1599463826401)'Comodore'",
-              "urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(Cuckoo1599463786824)'Cuckoo'",
+              "urn:cspace:c.core.collectionspace.org:personauthorities:name"\
+                "(person):item:name(Gomongo1599463746195)'Gomongo'",
+              "urn:cspace:c.core.collectionspace.org:personauthorities:name"\
+                "(person):item:name(Comodore1599463826401)'Comodore'",
+              "urn:cspace:c.core.collectionspace.org:orgauthorities:name"\
+                "(organization):item:name(Cuckoo1599463786824)'Cuckoo'",
               ""
             ],
             [
-              "urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Gomongo1599463746195)'Gomongo'",
-              "urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(Cuckoo1599463786824)'Cuckoo'"
+              "urn:cspace:c.core.collectionspace.org:personauthorities:name"\
+                "(person):item:name(Gomongo1599463746195)'Gomongo'",
+              "urn:cspace:c.core.collectionspace.org:orgauthorities:name"\
+                "(organization):item:name(Cuckoo1599463786824)'Cuckoo'"
             ]
           ]
           expect(result).to eq(expected)
@@ -255,7 +294,9 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
             "dimension" => "base^^^^weight^^circumference",
             "measuredByPerson" => "Gomongo^^Comodore",
             "measuredByOrganization" => "Cuckoo^^",
-            "measurementMethod" => "sliding_calipers^^theodolite_total_station^^electronic_distance_measurement^^measuring_tape_cloth",
+            "measurementMethod" =>
+              "sliding_calipers^^theodolite_total_station^^electronic_distance"\
+              "_measurement^^measuring_tape_cloth",
             "value" => "25^^83^^56^^10",
             "measurementUnit" => "centimeters^^carats^^kilograms^^inches",
             "valueQualifier" => "cm^^ct^^kg^^in",
@@ -264,12 +305,17 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
         end
 
         it "combines values properly" do
-          result = prepper.prep.response.combined_data[xpath]["measuredBy"]
+          result = prepper.prep
+            .response
+            .combined_data[xpath]["measuredBy"]
           expected = [
             [
-              "urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Gomongo1599463746195)'Gomongo'",
-              "urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(Comodore1599463826401)'Comodore'",
-              "urn:cspace:c.core.collectionspace.org:orgauthorities:name(organization):item:name(Cuckoo1599463786824)'Cuckoo'",
+              "urn:cspace:c.core.collectionspace.org:personauthorities:name"\
+                "(person):item:name(Gomongo1599463746195)'Gomongo'",
+              "urn:cspace:c.core.collectionspace.org:personauthorities:name"\
+                "(person):item:name(Comodore1599463826401)'Comodore'",
+              "urn:cspace:c.core.collectionspace.org:orgauthorities:name"\
+                "(organization):item:name(Cuckoo1599463786824)'Cuckoo'",
               ""
             ]
           ]

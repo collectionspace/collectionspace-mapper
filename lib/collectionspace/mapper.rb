@@ -30,7 +30,8 @@ module CollectionSpace
 
     module Errors
       class UnprocessableDataError < StandardError
-        UnprocessableDataError = CollectionSpace::Mapper::Errors::UnprocessableDataError
+        UnprocessableDataError =
+          CollectionSpace::Mapper::Errors::UnprocessableDataError
         attr_reader :input
 
         def initialize(message, input)
@@ -48,8 +49,10 @@ module CollectionSpace
       elsif data.is_a?(CollectionSpace::Mapper::Response)
         response = data
       else
-        raise Errors::UnprocessableDataError.new("Cannot process a #{data.class}. Need a Hash or Mapper::Response",
-          data)
+        raise Errors::UnprocessableDataError.new(
+          "Cannot process a #{data.class}. Need a Hash or Mapper::Response",
+          data
+        )
       end
 
       response.merged_data.empty? ? merge_default_values(response,

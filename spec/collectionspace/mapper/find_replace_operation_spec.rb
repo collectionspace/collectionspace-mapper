@@ -18,7 +18,9 @@ RSpec.describe CollectionSpace::Mapper::FindReplaceOperation do
     context "given a regex operation" do
       let(:opspec) { {find: '(\d)-A', replace: '\1 A', type: "regex"} }
       it "returns a RegexFindReplaceOperation" do
-        expect(creator).to be_a(CollectionSpace::Mapper::RegexFindReplaceOperation)
+        expect(creator).to be_a(
+          CollectionSpace::Mapper::RegexFindReplaceOperation
+        )
       end
     end
   end

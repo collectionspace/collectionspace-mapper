@@ -48,10 +48,10 @@ module CollectionSpace
 
       def handle_terms
         @result = if @data.first.is_a?(String)
-          @data.map { |val| handle_term(val) }
-        else
-          @data.map { |arr| arr.map { |val| handle_term(val) } }
-        end
+                    @data.map { |val| handle_term(val) }
+                  else
+                    @data.map { |arr| arr.map { |val| handle_term(val) } }
+                  end
       end
 
       def handle_term(val)
@@ -74,7 +74,7 @@ module CollectionSpace
             map_val = refname_urn
           end
         elsif cached_as_unknown?(val)
-          refname_urn = add_known_unknown_term(val, term_report)
+          add_known_unknown_term(val, term_report)
           added = true
           map_val = ""
         else # not in cache
@@ -93,7 +93,9 @@ module CollectionSpace
       end
 
       def add_found_term(refname_urn, term_report)
-        refname_obj = CollectionSpace::Mapper::Tools::RefName.new(urn: refname_urn)
+        refname_obj = CollectionSpace::Mapper::Tools::RefName.new(
+          urn: refname_urn
+        )
         found = true
         @terms << term_report.merge({found: found, refname: refname_obj})
       end
@@ -115,7 +117,9 @@ module CollectionSpace
       # records the fact that this is an unknown term in the mapper response
       def add_known_unknown_term(val, term_report)
         unknown_term_str = cached_unknown(type_subtype, val)
-        unknown_term = CollectionSpace::Mapper::UnknownTerm.from_string(unknown_term_str)
+        unknown_term = CollectionSpace::Mapper::UnknownTerm.from_string(
+          unknown_term_str
+        )
         @terms << term_report.merge({found: false, refname: unknown_term})
         add_missing_record_error("term", val)
         unknown_term_str

@@ -2,14 +2,17 @@
 
 module CollectionSpace
   module Mapper
-    # mapping instructions for an individual data column
-    # :reek:InstanceVariableAssumption is spurious; we are setting the instance variables here
-    #  by iterating through the mapper hash. Given that the mapper data is created by the
-    #  Untangler, I am trusting it will be consistent and I'm not validating that expected
-    #  keys are present for now. This also makes writing tests onthe methods here a bit easier.
+    # Mapping instructions for an individual data column
+    #
+    # :reek:InstanceVariableAssumption is spurious; we are setting the
+    #   instance variables here by iterating through the mapper hash. Given that
+    #   the mapper data is created by the Untangler, I am trusting it will be
+    #   consistent and I'm not validating that expected keys are present for
+    #   now. This also makes writing tests onthe methods here a bit easier.
     class ColumnMapping
-      attr_reader :recmapper, :data_type, :fieldname, :in_repeating_group, :is_group, :namespace, :opt_list_values,
-        :repeats, :source_type, :transforms, :xpath
+      attr_reader :recmapper, :data_type, :fieldname, :in_repeating_group,
+        :is_group, :namespace, :opt_list_values, :repeats, :source_type,
+        :transforms, :xpath
 
       def initialize(mapping_hash, recmapper)
         @recmapper = recmapper

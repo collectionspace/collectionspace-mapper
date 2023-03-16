@@ -18,14 +18,18 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder do
       let(:config) { {status_check_method: "client"} }
 
       it "raises returns RecordStatusServiceClient" do
-        expect(result).to be_a(CollectionSpace::Mapper::Tools::RecordStatusServiceClient)
+        expect(result).to be_a(
+          CollectionSpace::Mapper::Tools::RecordStatusServiceClient
+        )
       end
     end
 
     context "when status_check_method = cache" do
       let(:config) { {status_check_method: "cache"} }
       it "raises returns RecordStatusServiceCache" do
-        expect(result).to be_a(CollectionSpace::Mapper::Tools::RecordStatusServiceCache)
+        expect(result).to be_a(
+          CollectionSpace::Mapper::Tools::RecordStatusServiceCache
+        )
       end
     end
   end

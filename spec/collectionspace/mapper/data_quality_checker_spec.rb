@@ -18,11 +18,11 @@ RSpec.describe CollectionSpace::Mapper::DataQualityChecker do
         transforms: {},
         source_type: "optionlist",
         opt_list_values: %w[
-          library-collection
-          permanent-collection
-          study-collection
-          teaching-collection
-        ]
+                            library-collection
+                            permanent-collection
+                            study-collection
+                            teaching-collection
+                           ]
       }
     end
     it "returns expected warnings" do
@@ -32,8 +32,10 @@ RSpec.describe CollectionSpace::Mapper::DataQualityChecker do
         "permanent-collection", # valid option
         "" # non-placeholder blank value, should be skipped
       ]
-      res = CollectionSpace::Mapper::DataQualityChecker.new(mapping,
-        data).warnings
+      res = CollectionSpace::Mapper::DataQualityChecker.new(
+        mapping,
+        data
+      ).warnings
       expect(res.size).to eq(1)
     end
   end
@@ -51,17 +53,29 @@ RSpec.describe CollectionSpace::Mapper::DataQualityChecker do
       end
       context "and value is not well-formed refname" do
         it "returns warning" do
-          data = ["urn:pahma.cspace.berkeley.edu:vocabularies:name(nagpraPahmaInventoryNames):item:name(nagpraPahmaInventoryNames01)'AK-Alaska'"]
-          res = CollectionSpace::Mapper::DataQualityChecker.new(mapping,
-            data).warnings
+          data = [
+            "urn:pahma.cspace.berkeley.edu:vocabularies:name("\
+              "nagpraPahmaInventoryNames):item:name("\
+              "nagpraPahmaInventoryNames01)'AK-Alaska'"
+          ]
+          res = CollectionSpace::Mapper::DataQualityChecker.new(
+            mapping,
+            data
+          ).warnings
           expect(res.size).to eq(1)
         end
       end
       context "and value is well-formed refname" do
         it "does not return warning" do
-          data = ["urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(nagpraPahmaInventoryNames):item:name(nagpraPahmaInventoryNames01)'AK-Alaska'"]
-          res = CollectionSpace::Mapper::DataQualityChecker.new(mapping,
-            data).warnings
+          data = [
+            "urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name("\
+              "nagpraPahmaInventoryNames):item:name("\
+              "nagpraPahmaInventoryNames01)'AK-Alaska'"
+          ]
+          res = CollectionSpace::Mapper::DataQualityChecker.new(
+            mapping,
+            data
+          ).warnings
           expect(res).to be_empty
         end
       end
@@ -79,17 +93,27 @@ RSpec.describe CollectionSpace::Mapper::DataQualityChecker do
       end
       context "and value is not well-formed refname" do
         it "returns warning" do
-          data = ["urn:cspace:pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(Chumash1607458832492)'Chumash"]
-          res = CollectionSpace::Mapper::DataQualityChecker.new(mapping,
-            data).warnings
+          data = [
+            "urn:cspace:pahma.cspace.berkeley.edu:orgauthorities:name("\
+              "organization):item:name(Chumash1607458832492)'Chumash"
+          ]
+          res = CollectionSpace::Mapper::DataQualityChecker.new(
+            mapping,
+            data
+          ).warnings
           expect(res.size).to eq(1)
         end
       end
       context "and value is well-formed refname" do
         it "does not return warning" do
-          data = ["urn:cspace:pahma.cspace.berkeley.edu:orgauthorities:name(organization):item:name(Chumash1607458832492)'Chumash'"]
-          res = CollectionSpace::Mapper::DataQualityChecker.new(mapping,
-            data).warnings
+          data = [
+            "urn:cspace:pahma.cspace.berkeley.edu:orgauthorities:name("\
+              "organization):item:name(Chumash1607458832492)'Chumash'"
+          ]
+          res = CollectionSpace::Mapper::DataQualityChecker.new(
+            mapping,
+            data
+          ).warnings
           expect(res).to be_empty
         end
       end

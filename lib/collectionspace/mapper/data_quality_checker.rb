@@ -40,21 +40,27 @@ module CollectionSpace
         end
       end
 
+      # @todo Use client refname parser to validate instead of a regexp
       def validate_refname(val)
         type_segment = {
           "authority" => ':\w+authorit(ies|y):',
           "vocabulary" => ":vocabularies:"
         }
-        pattern = Regexp.new("^urn:cspace:.+#{type_segment[@source_type]}name(.+):item:name(.+)'.+'$")
+        pattern = Regexp.new(
+          "^urn:cspace:.+#{type_segment[@source_type]}name(.+):item:"\
+            "name(.+)'.+'$"
+        )
         return if val.match?(pattern)
 
+        msg = "Malformed refname value in #{@column} column. Malformed value: "\
+          "#{val}."
         @warnings << {
           category: :malformed_refname_value,
           field: @column,
           type: @source_type,
           subtype: nil,
           value: val,
-          message: "Malformed refname value in #{@column} column. Malformed value: #{val}."
+          message: msg
         }
       end
 

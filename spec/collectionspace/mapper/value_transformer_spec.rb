@@ -4,7 +4,8 @@ require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::ValueTransformer do
   let(:mapper_path) {
-    "spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json"
+    "spec/fixtures/files/mappers/release_6_1/anthro/"\
+      "anthro_4-1-2_collectionobject.json"
   }
   let(:mapper) { get_json_record_mapper(mapper_path) }
   let(:handler) do
