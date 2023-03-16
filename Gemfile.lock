@@ -76,7 +76,7 @@ GEM
     parallel (1.21.0)
     parser (3.2.1.1)
       ast (~> 2.4.1)
-    pry (0.13.1)
+    pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
     racc (1.6.0)
@@ -139,7 +139,7 @@ DEPENDENCIES
   collectionspace-client!
   collectionspace-mapper!
   collectionspace-refcache!
-  pry
+  pry (~> 0.14)
   rake (~> 13.0)
   rspec
   rubocop
