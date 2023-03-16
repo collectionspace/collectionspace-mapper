@@ -14,3 +14,4 @@
 
 log.log
 .byebug_history
+.rubocop-https---raw-githubusercontent-com-kspurgin-code-quality-main-configurations-rubocop-standard-override-yml
