@@ -7,7 +7,6 @@ require 'collectionspace/refcache'
 require 'active_support'
 require 'active_support/core_ext/object/blank'
 
-require 'benchmark'
 require 'json'
 require 'logger'
 require 'pp'
