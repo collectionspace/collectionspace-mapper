@@ -31,9 +31,9 @@ module CollectionSpace
           set_relation_id
         else
           id_field = @handler.mapper.config.identifier_field
-          mapping = @handler.mapper.mappings.select { |mapper|
+          mapping = @handler.mapper.mappings.find { |mapper|
             mapper.fieldname == id_field
-          }.first
+          }
           thexpath = "//#{mapping.namespace}/#{mapping.fieldname}"
           value = @doc.xpath(thexpath).first
           value = value.text

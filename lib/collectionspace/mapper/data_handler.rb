@@ -247,9 +247,8 @@ module CollectionSpace
       end
 
       def transform_target(data_column)
-        @mapper.mappings.select { |field_mapping|
-          field_mapping.datacolumn == data_column
-        }.first
+        @mapper.mappings
+          .find { |field_mapping| field_mapping.datacolumn == data_column }
       end
     end
   end

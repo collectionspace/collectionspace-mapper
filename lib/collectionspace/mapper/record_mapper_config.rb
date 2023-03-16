@@ -24,7 +24,7 @@ module CollectionSpace
       end
 
       def common_namespace
-        namespaces.select { |namespace| namespace.end_with?("_common") }.first
+        namespaces.find { |namespace| namespace.end_with?("_common") }
       end
 
       def namespaces

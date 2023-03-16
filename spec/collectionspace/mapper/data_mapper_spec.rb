@@ -277,9 +277,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
           urihash.transform_keys! { |k| "ns2:#{k}" }
           docdefs = {}
           datamapper.doc.xpath("/*/*").each do |ns|
-            docdefs[ns.name] = ns.namespace_definitions.select { |d|
+            docdefs[ns.name] = ns.namespace_definitions.find { |d|
               d.prefix == "ns2"
-            }.first.href
+            }.href
           end
           unused_keys = urihash.keys - docdefs.keys
           unused_keys.each { |k| urihash.delete(k) }
