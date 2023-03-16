@@ -16,8 +16,11 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
   end
   let(:datahash) { get_datahash(path: hashpath) }
   let(:prepper) {
-    CollectionSpace::Mapper::DataPrepper.new(datahash, handler.searcher,
-      handler)
+    CollectionSpace::Mapper::DataPrepper.new(
+      datahash,
+      handler.searcher,
+      handler
+    )
   }
   let(:datamapper) {
     described_class.new(prepper.prep.response, handler, prepper.xphash)
@@ -32,16 +35,21 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
   context "core profile" do
     context "non-hierarchical relationship record", services_call: true do
       # NOTE!
-      # These tests are prone to failing if one of the records used in the test in core.dev is deleted
-      # If a UUID is expected but you get blank, recreate the record in core.dev, rerun the test to
-      #   get the UUID for the new record, and replace the old UUID in both fixture XML files used.
+      #
+      # These tests are prone to failing if one of the records used in the
+      #   test in core.dev is deleted.  If a UUID is expected but you get blank,
+      #   recreate the record in core.dev, rerun the test to get the UUID for
+      #   the new record, and replace the old UUID in both fixture XML files
+      #   used.
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_nonhierarchicalrelationship.json"
+        "spec/fixtures/files/mappers/release_6_1/core/"\
+          "core_6-1-0_nonhierarchicalrelationship.json"
       }
 
       context "when all IDs found" do
         let(:hashpath) {
-          "spec/fixtures/files/datahashes/core/nonHierarchicalRelationship1.json"
+          "spec/fixtures/files/datahashes/core/"\
+            "nonHierarchicalRelationship1.json"
         }
         let(:mapped_doc1) { remove_namespaces(response[0].doc) }
         let(:mapped_doc2) { remove_namespaces(response[1].doc) }
@@ -62,7 +70,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
 
         context "with original data" do
           it "sets response id field as expected" do
-            expect(response[0].identifier).to eq("2020.1.107 TEST (collectionobjects) -> LOC2020.1.24 (movements)")
+            expect(response[0].identifier).to eq(
+              "2020.1.107 TEST (collectionobjects) -> LOC2020.1.24 (movements)"
+            )
           end
 
           it "does not map unexpected fields" do
@@ -81,7 +91,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
 
         context "with flipped data" do
           it "sets response id field as expected" do
-            expect(response[1].identifier).to eq("LOC2020.1.24 (movements) -> 2020.1.107 TEST (collectionobjects)")
+            expect(response[1].identifier).to eq(
+              "LOC2020.1.24 (movements) -> 2020.1.107 TEST (collectionobjects)"
+            )
           end
 
           it "does not map unexpected fields" do
@@ -101,7 +113,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
 
       context "when ID not found" do
         let(:hashpath) {
-          "spec/fixtures/files/datahashes/core/nonHierarchicalRelationship2.json"
+          "spec/fixtures/files/datahashes/core/"\
+            "nonHierarchicalRelationship2.json"
         }
         let(:mapped_doc1) { remove_namespaces(response[0].doc) }
         let(:mapped_doc2) { remove_namespaces(response[1].doc) }
@@ -122,7 +135,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
 
         context "with original data" do
           it "sets response id field as expected" do
-            expect(response[0].identifier).to eq("2020.1.107 TEST (collectionobjects) -> LOC MISSING (movements)")
+            expect(response[0].identifier).to eq(
+              "2020.1.107 TEST (collectionobjects) -> LOC MISSING (movements)"
+            )
           end
 
           it "does not map unexpected fields" do
@@ -141,7 +156,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
 
         context "with flipped data" do
           it "sets response id field as expected" do
-            expect(response[1].identifier).to eq("LOC MISSING (movements) -> 2020.1.107 TEST (collectionobjects)")
+            expect(response[1].identifier).to eq(
+              "LOC MISSING (movements) -> 2020.1.107 TEST (collectionobjects)"
+            )
           end
 
           it "does not map unexpected fields" do
@@ -162,7 +179,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
 
     context "authority hierarchy record", services_call: true do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_authorityhierarchy.json"
+        "spec/fixtures/files/mappers/release_6_1/core/"\
+          "core_6-1-0_authorityhierarchy.json"
       }
 
       context "with existing terms" do
@@ -214,7 +232,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
 
     context "object hierarchy record", services_call: true do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_objecthierarchy.json"
+        "spec/fixtures/files/mappers/release_6_1/core/"\
+          "core_6-1-0_objecthierarchy.json"
       }
 
       context "with existing records" do
@@ -266,7 +285,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
 
     context "acquisition record", services_call: true do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_acquisition.json"
+        "spec/fixtures/files/mappers/release_6_1/core/"\
+          "core_6-1-0_acquisition.json"
       }
 
       context "record 1" do
@@ -323,12 +343,6 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
           warnings = response.warnings
           expect(warnings.length).to eq(1)
           wrn = warnings.first
-          ex_err = {
-            category: :unparseable_structured_date,
-            field: "approvaldate",
-            value: "1881-",
-            message: "Unparseable date value in approvaldate: `1881-`"
-          }
           expect(wrn[:category]).to eq(:unparseable_structured_date)
           expect(wrn[:field]).to eq("acquisitiondategroup")
           expect(wrn[:value]).to eq("1881-")
@@ -338,7 +352,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
 
     context "collectionobject record" do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json"
+        "spec/fixtures/files/mappers/release_6_1/core/"\
+          "core_6-1-0_collectionobject.json"
       }
 
       context "record 1" do
@@ -369,7 +384,10 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         }
 
         it "does not map unexpected fields" do
-          expect(diff).to eq(["/document/collectionobjects_common/namedCollections/namedCollection/text()"])
+          expect(diff).to eq([
+            "/document/collectionobjects_common/namedCollections/"\
+              "namedCollection/text()"
+          ])
         end
 
         it "maps as expected" do
@@ -404,7 +422,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
 
     context "conditioncheck record", services_call: true do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_conditioncheck.json"
+        "spec/fixtures/files/mappers/release_6_1/core/"\
+          "core_6-1-0_conditioncheck.json"
       }
 
       context "record 1" do
@@ -429,7 +448,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
 
     context "conservation record", services_call: true do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_conservation.json"
+        "spec/fixtures/files/mappers/release_6_1/core/"\
+          "core_6-1-0_conservation.json"
       }
 
       context "record 1" do
@@ -454,7 +474,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
 
     context "exhibition record", services_call: true do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_exhibition.json"
+        "spec/fixtures/files/mappers/release_6_1/core/"\
+          "core_6-1-0_exhibition.json"
       }
 
       context "record 1" do
@@ -617,7 +638,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
 
     context "objectexit record" do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_objectexit.json"
+        "spec/fixtures/files/mappers/release_6_1/core/"\
+          "core_6-1-0_objectexit.json"
       }
 
       context "record 1" do
@@ -633,7 +655,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         it "maps as expected" do
           fixture_xpaths.each do |xpath|
             # TODO: - why is this next clause here?
-            next if xpath.start_with?("/document/objectexit_common/exitDateGroup")
+            next if xpath.start_with?(
+              "/document/objectexit_common/exitDateGroup"
+            )
 
             fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
             mapped_node = standardize_value(mapped_doc.xpath(xpath).text)

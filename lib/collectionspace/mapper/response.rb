@@ -4,8 +4,9 @@ module CollectionSpace
   module Mapper
     class Response
       attr_reader :orig_data
-      attr_accessor :split_data, :merged_data, :transformed_data, :combined_data, :doc, :errors, :warnings,
-        :identifier, :terms, :record_status, :csid, :uri, :refname
+      attr_accessor :split_data, :merged_data, :transformed_data,
+        :combined_data, :doc, :errors, :warnings, :identifier, :terms,
+        :record_status, :csid, :uri, :refname
 
       def initialize(data_hash)
         @orig_data = data_hash
@@ -48,13 +49,15 @@ module CollectionSpace
       end
 
       def add_multi_rec_found_warning(num_found)
+        msg = "#{num_found} records found for #{identifier}. Using first "\
+          "record found: #{uri}"
         warnings << {
           category: :multiple_records_found_for_id,
           field: nil,
           type: nil,
           subtype: nil,
           value: nil,
-          message: "#{num_found} records found for #{identifier}. Using first record found: #{uri}"
+          message: msg
         }
       end
     end

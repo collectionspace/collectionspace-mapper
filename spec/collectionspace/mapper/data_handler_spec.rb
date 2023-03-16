@@ -7,67 +7,77 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
   let(:cache) { core_cache }
   let(:csid_cache) { core_csid_cache }
   let(:mapperpath) {
-    "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json"
+    "spec/fixtures/files/mappers/release_6_1/core/"\
+      "core_6-1-0_collectionobject.json"
   }
   let(:mapper) { get_json_record_mapper(mapperpath) }
   let(:config) { {delimiter: "|"} }
   let(:handler) do
     CollectionSpace::Mapper::DataHandler.new(record_mapper: mapper,
-      client: client,
-      cache: cache,
-      csid_cache: csid_cache,
-      config: config)
+                                             client: client,
+                                             cache: cache,
+                                             csid_cache: csid_cache,
+                                             config: config)
   end
 
   # these make services api calls to find terms not in cache
   context "with some terms found and some terms not found",
     services_call: true do
-    let(:result) { handler.process(data).terms.reject { |t| t[:found] } }
+      let(:result) { handler.process(data).terms.reject { |t| t[:found] } }
 
-    context "with terms in instance but not in cache" do
-      let(:data) do
-        {
-          "objectNumber" => "20CS.001.0002",
-          "titleLanguage" => "English", # vocabulary, in instance, in cache
-          "namedCollection" => "Test Collection" # authority, in instance (caseswapped), not in cache
-        }
+      context "with terms in instance but not in cache" do
+        let(:data) do
+          {
+            "objectNumber" => "20CS.001.0002",
+            # vocabulary, in instance, in cache
+            "titleLanguage" => "English",
+            # authority, in instance (caseswapped), not in cache
+            "namedCollection" => "Test Collection"
+          }
+        end
+
+        it "returns expected found values" do
+          res = handler.process(data)
+          not_found = res.terms.reject { |t| t[:found] }
+          expect(not_found.length).to eq(0)
+        end
       end
 
-      it "returns expected found values" do
-        res = handler.process(data)
-        not_found = res.terms.reject { |t| t[:found] }
-        expect(not_found.length).to eq(0)
+      context "with terms in instance but not in cache, and not in instance" do
+        let(:data) do
+          {
+            "objectNumber" => "20CS.001.0001",
+            # English is in cache; Klingon is not in instance or cache
+            "titleLanguage" => "English| Klingon",
+            # In instance (caseswapped)
+            "namedCollection" => "Test collection"
+          }
+        end
+
+        it "returns expected found values" do
+          res = handler.process(data)
+          not_found = res.terms.reject { |t| t[:found] }
+          expect(not_found.length).to eq(1)
+        end
       end
     end
-
-    context "with terms in instance but not in cache, and not in instance" do
-      let(:data) do
-        {
-          "objectNumber" => "20CS.001.0001",
-          "titleLanguage" => "English| Klingon", # English is in cache; Klingon is not in instance or cache
-          "namedCollection" => "Test collection" # In instance (caseswapped)
-        }
-      end
-
-      it "returns expected found values" do
-        res = handler.process(data)
-        not_found = res.terms.reject { |t| t[:found] }
-        expect(not_found.length).to eq(1)
-      end
-    end
-  end
 
   it "tags all un-found terms as such", services_call: true do
     data1 = {
       "objectNumber" => "1",
-      "publishTo" => "All", # vocabulary - in instance, not in cache
-      "namedCollection" => "QA TARGET Work" # authority - in instance, not in cache
+      # vocabulary - in instance, not in cache
+      "publishTo" => "All",
+      # authority - in instance, not in cache
+      "namedCollection" => "QA TARGET Work"
     }
     data2 = {
       "objectNumber" => "2",
-      "publishTo" => "All", # vocabulary - now in cache
-      "namedCollection" => "QA TARGET Work", # authority - now in cache
-      "contentConceptAssociated" => "Birbs" # authority - not in instance, not in cache
+      # vocabulary - now in cache
+      "publishTo" => "All",
+      # authority - now in cache
+      "namedCollection" => "QA TARGET Work",
+      # authority - not in instance, not in cache
+      "contentConceptAssociated" => "Birbs"
     }
 
     handler.process(data1)
@@ -82,13 +92,14 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
 
       context "place record" do
         let(:mapperpath) {
-          "spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_place-local.json"
+          "spec/fixtures/files/mappers/release_6_1/anthro/"\
+            "anthro_4-1-2_place-local.json"
         }
 
         it "adds a xphash entry for shortIdentifier" do
-          result = handler.mapper.xpath["places_common"][:mappings].select do |mapping|
-            mapping.fieldname == "shortIdentifier"
-          end
+          result = handler.mapper
+            .xpath["places_common"][:mappings]
+            .select{ |mapping| mapping.fieldname == "shortIdentifier" }
           expect(result.length).to eq(1)
         end
       end
@@ -104,7 +115,8 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
 
       context "collectionobject record" do
         let(:mapperpath) {
-          "spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json"
+          "spec/fixtures/files/mappers/release_6_1/anthro/"\
+            "anthro_4-1-2_collectionobject.json"
         }
 
         it "returns object" do
@@ -114,7 +126,8 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
 
       context "place record" do
         let(:mapperpath) {
-          "spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_place-local.json"
+          "spec/fixtures/files/mappers/release_6_1/anthro/"\
+            "anthro_4-1-2_place-local.json"
         }
 
         it "returns authority" do
@@ -129,7 +142,8 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
 
       context "conservation record" do
         let(:mapperpath) {
-          "spec/fixtures/files/mappers/release_6_1/bonsai/bonsai_4-1-1_conservation.json"
+          "spec/fixtures/files/mappers/release_6_1/bonsai/"\
+            "bonsai_4-1-1_conservation.json"
         }
 
         it "returns procedure" do
@@ -138,23 +152,6 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
       end
     end
   end
-
-  #   @anthro_object_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json')
-  #   @anthro_object_handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @anthro_object_mapper,
-  #                                                                     client: @anthro_client,
-  #                                                                     cache: @anthro_cache)
-  #   @anthro_place_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_place-local.json')
-  #   @anthro_place_handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @anthro_place_mapper,
-  #                                                                    client: @anthro_client,
-  #                                                                    cache: @anthro_cache)
-
-  #   @bonsai_client = bonsai_client
-  #   @bonsai_cache = bonsai_cache
-  #   @bonsai_conservation_mapper = get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/bonsai/bonsai_4-1-1_conservation.json')
-  #   @bonsai_conservation_handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: @bonsai_conservation_mapper,
-  #                                                                           client: @bonsai_client,
-  #                                                                           cache: @bonsai_cache)
-  # end
 
   describe "#xpath_hash" do
     let(:result) { handler.mapper.xpath[xpath] }
@@ -165,12 +162,14 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
 
       context "collectionobject record" do
         let(:mapperpath) {
-          "spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json"
+          "spec/fixtures/files/mappers/release_6_1/anthro/"\
+            "anthro_4-1-2_collectionobject.json"
         }
 
         context "xpath ending with commingledRemainsGroup" do
           let(:xpath) {
-            "collectionobjects_anthro/commingledRemainsGroupList/commingledRemainsGroup"
+            "collectionobjects_anthro/commingledRemainsGroupList/"\
+              "commingledRemainsGroup"
           }
 
           it "is_group = true" do
@@ -182,14 +181,18 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
           end
 
           it "includes mortuaryTreatment as subgroup" do
-            child_xpath = "collectionobjects_anthro/commingledRemainsGroupList/commingledRemainsGroup/mortuaryTreatmentGroupList/mortuaryTreatmentGroup"
+            child_xpath = "collectionobjects_anthro/commingledRemainsGroupList"\
+              "/commingledRemainsGroup/mortuaryTreatmentGroupList"\
+              "/mortuaryTreatmentGroup"
             expect(result[:children]).to eq([child_xpath])
           end
         end
 
         context "xpath ending with mortuaryTreatmentGroup" do
           let(:xpath) do
-            "collectionobjects_anthro/commingledRemainsGroupList/commingledRemainsGroup/mortuaryTreatmentGroupList/mortuaryTreatmentGroup"
+            "collectionobjects_anthro/commingledRemainsGroupList/"\
+              "commingledRemainsGroup/mortuaryTreatmentGroupList/"\
+              "mortuaryTreatmentGroup"
           end
 
           it "is_group = true" do
@@ -201,7 +204,8 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
           end
 
           it "parent is xpath ending with commingledRemainsGroup" do
-            ppath = "collectionobjects_anthro/commingledRemainsGroupList/commingledRemainsGroup"
+            ppath = "collectionobjects_anthro/commingledRemainsGroupList/"\
+              "commingledRemainsGroup"
             expect(result[:parent]).to eq(ppath)
           end
         end
@@ -222,12 +226,14 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
 
       context "conservation record" do
         let(:mapperpath) {
-          "spec/fixtures/files/mappers/release_6_1/bonsai/bonsai_4-1-1_conservation.json"
+          "spec/fixtures/files/mappers/release_6_1/bonsai/"\
+            "bonsai_4-1-1_conservation.json"
         }
 
         context "xpath ending with fertilizersToBeUsed" do
           let(:xpath) {
-            "conservation_livingplant/fertilizationGroupList/fertilizationGroup/fertilizersToBeUsed"
+            "conservation_livingplant/fertilizationGroupList/"\
+              "fertilizationGroup/fertilizersToBeUsed"
           }
           it "is a repeating group" do
             expect(result[:is_group]).to be true
@@ -260,7 +266,8 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
 
       context "conservation record" do
         let(:mapperpath) {
-          "spec/fixtures/files/mappers/release_6_1/bonsai/bonsai_4-1-1_conservation.json"
+          "spec/fixtures/files/mappers/release_6_1/bonsai/"\
+            "bonsai_4-1-1_conservation.json"
         }
         let(:data) do
           {
@@ -298,7 +305,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
     context "when response_mode = normal" do
       let(:config) { {response_mode: "normal"} }
 
-      it "returned response includes detailed data transformation info needed for mapping" do
+      it "returned response includes detailed data transformation info" do
         result = handler.prep(data).response
 
         expect(result.transformed_data).not_to be_empty
@@ -358,7 +365,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
       expect(result).to be_a(CollectionSpace::Mapper::Response)
     end
 
-    it "the CollectionSpace::Mapper::Response object doc attribute is a Nokogiri XML Document" do
+    it "Response doc attribute is a Nokogiri XML Document" do
       expect(result.doc).to be_a(Nokogiri::XML::Document)
     end
     context "when response_mode = normal" do

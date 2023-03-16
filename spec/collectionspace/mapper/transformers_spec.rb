@@ -6,7 +6,8 @@ RSpec.describe CollectionSpace::Mapper::Transformers do
   let(:client) { anthro_client }
   let(:cache) { anthro_cache }
   let(:mapperpath) {
-    "spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject_transforms.json"
+    "spec/fixtures/files/mappers/release_6_1/anthro/"\
+      "anthro_4-1-2_collectionobject_transforms.json"
   }
   let(:recmapper) do
     CollectionSpace::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
@@ -24,7 +25,9 @@ RSpec.describe CollectionSpace::Mapper::Transformers do
     context "when measuredByPerson column" do
       let(:colname) { "measuredByPerson" }
       it "contains only AuthorityTransformer" do
-        expect(xforms.queue.map(&:class)).to eq([CollectionSpace::Mapper::AuthorityTransformer])
+        expect(xforms.queue.map(&:class)).to eq([
+          CollectionSpace::Mapper::AuthorityTransformer
+        ])
       end
     end
 

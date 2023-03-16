@@ -29,8 +29,7 @@ module CollectionSpace
         attr_reader :orig_err, :desc
 
         def message
-          base = "Unparseable structured date " \
-            "in #{column}: `#{date_string}`"
+          "Unparseable structured date in #{column}: `#{date_string}`"
         end
 
         def message_from_err

@@ -10,7 +10,9 @@ RSpec.describe CollectionSpace::Mapper do
   describe "#setup_data" do
     context "when passed a CollectionSpace::Mapper::Response" do
       it "returns that Response" do
-        response = CollectionSpace::Mapper::Response.new({"objectNumber" => "123"})
+        response = CollectionSpace::Mapper::Response.new(
+          {"objectNumber" => "123"}
+        )
         expect(CollectionSpace::Mapper.setup_data(response)).to eq(response)
       end
     end
@@ -19,7 +21,7 @@ RSpec.describe CollectionSpace::Mapper do
         @data = {"objectNumber" => "123"}
         @response = CollectionSpace::Mapper.setup_data(@data)
       end
-      it "returns a CollectionSpace::Mapper::Response with expected orig_data" do
+      it "returns CollectionSpace::Mapper::Response with expected orig_data" do
         expect(@response).to be_a(CollectionSpace::Mapper::Response)
         expect(@response.orig_data).to eq(@data)
       end
@@ -29,8 +31,10 @@ RSpec.describe CollectionSpace::Mapper do
         data = %w[objectNumber 123]
         expect do
           CollectionSpace::Mapper.setup_data(data)
-        end.to raise_error(CollectionSpace::Mapper::Errors::UnprocessableDataError,
-          "Cannot process a Array. Need a Hash or Mapper::Response")
+        end.to raise_error(
+          CollectionSpace::Mapper::Errors::UnprocessableDataError,
+          "Cannot process a Array. Need a Hash or Mapper::Response"
+        )
       end
     end
   end

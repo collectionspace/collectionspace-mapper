@@ -72,13 +72,14 @@ module CollectionSpace
         end
 
         @value = "false"
+        msg = "#{@value} cannot be converted to boolean. Defaulting to false"
         @warnings << {
           category: :boolean_value_transform,
           field: nil,
           type: nil,
           subtype: nil,
           value: @value,
-          message: "#{@value} cannot be converted to boolean. Defaulting to false"
+          message: msg
         }
       end
 
@@ -92,7 +93,9 @@ module CollectionSpace
           "1" => "1 - longitudinal and/or mosaic cracking present on surface",
           "2" => "2 - longitudinal cracks, exfoliation on surface",
           "3" => "3 - fibrous texture, extensive exfoliation",
-          "4" => "4 - coarsely fibrous texture, splinters of bone loose on the surface, open cracks",
+          "4" =>
+            "4 - coarsely fibrous texture, splinters of bone loose on the "\
+            "surface, open cracks",
           "5" => "5 - bone crumbling in situ, large splinters"
         }
         @value = lookup.fetch(@value, @value)

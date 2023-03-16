@@ -24,24 +24,24 @@ module Helpers
   # returns RecordMapper hash read in from JSON file
   # path = String. Path to JSON file
   # turns strings into symbols that removed when writing to JSON
-  # we can't just use the json symbolize_names option because @docstructure keys must
-  #   remain strings
+  # we can't just use the json symbolize_names option because @docstructure keys
+  #   must remain strings
   def get_json_record_mapper(path)
     JSON.parse(File.read(path))
   end
 
   def get_record_mapper_object(path, cache = nil)
     CollectionSpace::Mapper::RecordMapper.new(mapper: File.read(path),
-      termcache: cache)
+                                              termcache: cache)
   end
 
   def get_datahash(path:)
     JSON.parse(File.read(path))
   end
 
-  # The way CollectionSpace uses different URIs for the same namespace prefix in the same
-  #  document is irregular and makes it impossible to query a document via xpath if
-  #  the namespaces are defined. For testing, remove them...
+  # The way CollectionSpace uses different URIs for the same namespace prefix in
+  #   the same document is irregular and makes it impossible to query a document
+  #   via xpath if the namespaces are defined. For testing, remove them...
   def remove_namespaces(doc)
     doc = doc.clone
     doc.remove_namespaces!
@@ -51,17 +51,22 @@ module Helpers
 
   def remove_blank_structured_dates(doc)
     doc.traverse do |node|
-      # CSpace saves empty structured date fields with only a scalarValuesComputed value of false
-      # we don't want to compare against these empty nodes
+      # CSpace saves empty structured date fields with only a
+      #   scalarValuesComputed value of false, but we don't want to compare
+      #   against these empty nodes
       node.remove if node.name["Date"] && node.text == "false"
     end
     doc
   end
 
   def get_xml_fixture(filename, remove_blanks = true)
-    doc = remove_namespaces(Nokogiri::XML(File.read("#{FIXTUREDIR}/#{filename}")) { |c|
-                              c.noblanks
-                            })
+    doc = remove_namespaces(
+      Nokogiri::XML(
+        File.read("#{FIXTUREDIR}/#{filename}")
+      ){ |c|
+        c.noblanks
+      }
+    )
     doc = remove_blank_structured_dates(doc)
 
     # fields to omit from testing across the board
@@ -70,7 +75,10 @@ module Helpers
       # Drop empty nodes
       node.remove if remove_blanks && !node.text.match?(/\S/m)
       # Drop sections of the document we don't write with the mapper
-      node.remove if node.name == "collectionspace_core" || node.name == "account_permission"
+      if node.name == "collectionspace_core" ||
+          node.name == "account_permission"
+        node.remove
+      end
       # Drop fields created by CS application
       node.remove if rejectfields.bsearch { |f| f == node.name }
     end
@@ -94,9 +102,10 @@ module Helpers
     end
   end
 
-  # returns array of just the most specific xpaths from cleaned fixture XML for testing
-  # removes fields not included in the RecordMapper mappings (which may be set in the XML due to weird
-  #  default stuff in the application/services layer, but don't need to be in mapped XML)
+  # returns array of just the most specific xpaths from cleaned fixture XML for
+  #   testing removes fields not included in the RecordMapper mappings (which
+  #   may be set in the XML due to weird default stuff in the
+  #   application/services layer, but don't need to be in mapped XML)
   # testdoc should be the result of calling get_xml_fixture
   def test_xpaths(testdoc, mappings)
     xpaths = list_xpaths(testdoc)

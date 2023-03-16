@@ -2,34 +2,45 @@
 
 module CollectionSpace
   module Mapper
-    # given a RecordMapper hash and a data hash, returns CollectionSpace XML document
+    # given a RecordMapper hash and a data hash, returns CollectionSpace XML
+    #   document
     class DataHandler
       attr_reader :date_handler, :searcher
-      # this is an accessor rather than a reader until I refactor away the hideous
-      #  xpath hash
+      # this is an accessor rather than a reader until I refactor away the
+      #   hideous xpath hash
       attr_accessor :mapper
 
       def initialize(record_mapper:, client:, cache:, csid_cache:, config: {})
-        @mapper = CollectionSpace::Mapper::RecordMapper.new(mapper: record_mapper, batchconfig: config,
+        @mapper = CollectionSpace::Mapper::RecordMapper.new(
+          mapper: record_mapper,
+          batchconfig: config,
           csclient: client, termcache: cache,
-          csidcache: csid_cache)
-        @validator = CollectionSpace::Mapper::DataValidator.new(@mapper,
-          @mapper.termcache)
-        @searcher = CollectionSpace::Mapper::Searcher.new(client: client,
-          config: mapper.batchconfig)
-        @date_handler = CollectionSpace::Mapper::Dates::StructuredDateHandler.new(
-          client: client,
-          cache: cache,
-          csid_cache: csid_cache,
-          config: mapper.batchconfig,
-          searcher: searcher
+          csidcache: csid_cache
         )
+        @validator = CollectionSpace::Mapper::DataValidator.new(
+          @mapper,
+          @mapper.termcache
+        )
+        @searcher = CollectionSpace::Mapper::Searcher.new(
+          client: client,
+          config: mapper.batchconfig
+        )
+        @date_handler =
+          CollectionSpace::Mapper::Dates::StructuredDateHandler.new(
+            client: client,
+            cache: cache,
+            csid_cache: csid_cache,
+            config: mapper.batchconfig,
+            searcher: searcher
+          )
         @mapper.xpath = xpath_hash
         merge_config_transforms
         @new_terms = {}
-        @status_checker = CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder.call(
-          @mapper.csclient, @mapper
-        )
+        @status_checker =
+          CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder.call(
+            @mapper.csclient,
+            @mapper
+          )
       end
 
       def process(data)
@@ -50,22 +61,22 @@ module CollectionSpace
             prepper = CollectionSpace::Mapper::AuthorityHierarchyPrepper.new(
               response, searcher, self
             )
-            prepper.prep
           when "nonhierarchicalrelationship"
-            prepper = CollectionSpace::Mapper::NonHierarchicalRelationshipPrepper.new(
-              response, searcher, self
-            )
-            prepper.prep
+            prepper =
+              CollectionSpace::Mapper::NonHierarchicalRelationshipPrepper.new(
+                response,
+                searcher,
+                self
+              )
           when "objecthierarchy"
             prepper = CollectionSpace::Mapper::ObjectHierarchyDataPrepper.new(
               response, searcher, self
             )
-            prepper.prep
           else
             prepper = CollectionSpace::Mapper::DataPrepper.new(response,
-              searcher, self)
-            prepper.prep
+                                                               searcher, self)
           end
+          prepper.prep
         else
           response
         end
@@ -75,7 +86,11 @@ module CollectionSpace
         mapper = CollectionSpace::Mapper::DataMapper.new(response, self, xphash)
         result = mapper.response
         tag_terms(result)
-        @mapper.batchconfig.check_record_status ? set_record_status(result) : result.record_status = :new
+        if @mapper.batchconfig.check_record_status
+          set_record_status(result)
+        else
+          result.record_status = :new
+        end
         (@mapper.batchconfig.response_mode == "normal") ? result.normal : result
       end
 
@@ -86,7 +101,8 @@ module CollectionSpace
         {known_fields: known, unknown_fields: unknown}
       end
 
-      # this is surfaced in public interface because it is used by cspace-batch-import
+      # this is surfaced in public interface because it is used by
+      #   cspace-batch-import
       def service_type
         @mapper.config.service_type
       end
@@ -101,7 +117,8 @@ module CollectionSpace
 
       def setup_xpath_hash_structure
         xhash = {}
-        # create key for each xpath containing fields, and set up structure of its value
+        # create key for each xpath containing fields, and set up structure of
+        #   its value
         mappings.each do |mapping|
           xhash[mapping.fullpath] =
             {parent: "", children: [], is_group: false, is_subgroup: false,
@@ -117,16 +134,18 @@ module CollectionSpace
         xhash
       end
 
-      # builds hash containing information to be used in mapping the fields that are
-      #  children of each xpath
+      # builds hash containing information to be used in mapping the fields that
+      #   are children of each xpath
       # keys - the XML doc xpaths that contain child fields
       # value is a hash with the following keys:
       #  :parent - String, xpath of parent (empty if it's a top level namespace)
       #  :children - Array, of xpaths occuring beneath this one in the document
-      #  :is_group - Boolean, whether grouping of fields at xpath is a repeating field group
-      #  :is_subgroup - Boolean, whether grouping of fields is subgroup of another group
-      #  :subgroups - Array, xpaths of any repeating field groups that are children of an xpath
-      #     that itself contains direct child fields
+      #  :is_group - Boolean, whether grouping of fields at xpath is a repeating
+      #   field group
+      #  :is_subgroup - Boolean, whether grouping of fields is subgroup of
+      #   another group
+      #  :subgroups - Array, xpaths of any repeating field groups that are
+      #   children of an xpath that itself contains direct child fields
       #  :mappings - Array, of fieldmappings that are children of this xpath
       def xpath_hash
         xhash = setup_xpath_hash_structure
@@ -165,11 +184,13 @@ module CollectionSpace
           v = ph[:mappings].map { |mapping| mapping.in_repeating_group }.uniq
           ph[:is_group] = true if v == ["y"]
           if v.size > 1
-            puts "WARNING: #{xpath} has fields with different :in_repeating_group values (#{v}). Defaulting to treating NOT as a group"
+            puts "WARNING: #{xpath} has fields with different :in_repeating_"\
+              "group values (#{v}). Defaulting to treating NOT as a group"
           end
-          if ct == 1 && v == ["as part of larger repeating group"] && ph[:mappings][0].repeats == "y"
-            ph[:is_group] =
-              true
+          if ct == 1 &&
+              v == ["as part of larger repeating group"] &&
+              ph[:mappings][0].repeats == "y"
+            ph[:is_group] = true
           end
         end
 
@@ -210,8 +231,9 @@ module CollectionSpace
       end
 
       # you can specify per-data-key transforms in your config.json
-      # This method merges the config.json transforms into the CollectionSpace::Mapper::RecordMapper field
-      #   mappings for the appropriate fields
+      # This method merges the config.json transforms into the
+      #   CollectionSpace::Mapper::RecordMapper field mappings for the
+      #   appropriate fields
       def merge_config_transforms
         return unless @mapper.batchconfig.transforms
 

@@ -25,7 +25,9 @@ RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
     let(:date_string) { "2019-5-20" }
 
     it "parses as expected" do
-      expect(csdate.mappable["dateEarliestScalarValue"]).to start_with("2019-05-20")
+      expect(csdate.mappable["dateEarliestScalarValue"]).to start_with(
+        "2019-05-20"
+      )
       expect(csdate.mappable["dateDisplayDate"]).to eq(date_string)
     end
   end
@@ -83,89 +85,95 @@ RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
 
     context "when config[:two_digit_year_handling] = literal",
       services_call: true do
-      let(:config) do
-        CollectionSpace::Mapper::Config.new(
-          config: {two_digit_year_handling: "literal"}
-        )
-      end
+        let(:config) do
+          CollectionSpace::Mapper::Config.new(
+            config: {two_digit_year_handling: "literal"}
+          )
+        end
 
-      it "Services parses date with uncoerced 2-digit year" do
-        expect(result).to eq("91")
+        it "Services parses date with uncoerced 2-digit year" do
+          expect(result).to eq("91")
+        end
       end
-    end
   end
 
   context "when date string is not Chronic parseable (e.g. 1/2/2000 - " \
     "12/21/2001)", services_call: true do
-    let(:date_string) { "1/2/2000 - 12/21/2001" }
+      let(:date_string) { "1/2/2000 - 12/21/2001" }
 
-    it "processed as expected" do
-      expect(csdate.mappable).to be_a(Hash)
-      expect(csdate.mappable["dateEarliestSingleMonth"]).to eq("1")
-      expect(csdate.stamp).to start_with("2000-01-02")
+      it "processed as expected" do
+        expect(csdate.mappable).to be_a(Hash)
+        expect(csdate.mappable["dateEarliestSingleMonth"]).to eq("1")
+        expect(csdate.stamp).to start_with("2000-01-02")
+      end
     end
-  end
 
   context "when date string is not Chronic or services parseable",
     services_call: true do
-    context "date = VIII.XIV.MMXX" do
-      let(:date_string) { "VIII.XIV.MMXX" }
+      context "date = VIII.XIV.MMXX" do
+        let(:date_string) { "VIII.XIV.MMXX" }
 
-      it "raises error" do
-        cst = CollectionSpace::Mapper::Dates::UnparseableStructuredDateError
-        expect { csdate.mappable }.to raise_error(cst)
+        it "raises error" do
+          cst = CollectionSpace::Mapper::Dates::UnparseableStructuredDateError
+          expect { csdate.mappable }.to raise_error(cst)
+        end
       end
     end
-  end
 
   context "when date string is Chronic parseable but we want services parsing",
     services_call: true do
-    context "when date string = march 2020" do
-      let(:date_string) { "march 2020" }
-      let(:res) { csdate.mappable }
+      context "when date string = march 2020" do
+        let(:date_string) { "march 2020" }
+        let(:res) { csdate.mappable }
 
-      it "parses as expected" do
-        expect(res["dateEarliestScalarValue"]).to eq("2020-03-01T00:00:00.000Z")
-        expect(res["dateLatestScalarValue"]).to eq("2020-04-01T00:00:00.000Z")
-        expect(res["dateEarliestSingleMonth"]).to eq("3")
-        expect(res["dateLatestMonth"]).to eq("3")
-        expect(res["dateEarliestSingleDay"]).to eq("1")
-        expect(res["dateLatestDay"]).to eq("31")
-        expect(res["dateEarliestSingleYear"]).to eq("2020")
-        expect(res["dateLatestYear"]).to eq("2020")
+        it "parses as expected" do
+          expect(res["dateEarliestScalarValue"]).to eq(
+            "2020-03-01T00:00:00.000Z"
+          )
+          expect(res["dateLatestScalarValue"]).to eq("2020-04-01T00:00:00.000Z")
+          expect(res["dateEarliestSingleMonth"]).to eq("3")
+          expect(res["dateLatestMonth"]).to eq("3")
+          expect(res["dateEarliestSingleDay"]).to eq("1")
+          expect(res["dateLatestDay"]).to eq("31")
+          expect(res["dateEarliestSingleYear"]).to eq("2020")
+          expect(res["dateLatestYear"]).to eq("2020")
+        end
+      end
+
+      context "when date string = 2020-03" do
+        let(:date_string) { "2020-03" }
+        let(:res) { csdate.mappable }
+
+        it "parses as expected" do
+          expect(res["dateEarliestScalarValue"]).to eq(
+            "2020-03-01T00:00:00.000Z"
+          )
+          expect(res["dateLatestScalarValue"]).to eq("2020-04-01T00:00:00.000Z")
+          expect(res["dateEarliestSingleMonth"]).to eq("3")
+          expect(res["dateLatestMonth"]).to eq("3")
+          expect(res["dateEarliestSingleDay"]).to eq("1")
+          expect(res["dateLatestDay"]).to eq("31")
+          expect(res["dateEarliestSingleYear"]).to eq("2020")
+          expect(res["dateLatestYear"]).to eq("2020")
+        end
+      end
+
+      context "when date string = 2002" do
+        let(:date_string) { "2002" }
+        let(:res) { csdate.mappable }
+
+        it "parses as expected" do
+          expect(res["dateEarliestScalarValue"]).to eq(
+            "2002-01-01T00:00:00.000Z"
+          )
+          expect(res["dateLatestScalarValue"]).to eq("2003-01-01T00:00:00.000Z")
+          expect(res["dateEarliestSingleMonth"]).to eq("1")
+          expect(res["dateLatestMonth"]).to eq("12")
+          expect(res["dateEarliestSingleDay"]).to eq("1")
+          expect(res["dateLatestDay"]).to eq("31")
+          expect(res["dateEarliestSingleYear"]).to eq("2002")
+          expect(res["dateLatestYear"]).to eq("2002")
+        end
       end
     end
-
-    context "when date string = 2020-03" do
-      let(:date_string) { "2020-03" }
-      let(:res) { csdate.mappable }
-
-      it "parses as expected" do
-        expect(res["dateEarliestScalarValue"]).to eq("2020-03-01T00:00:00.000Z")
-        expect(res["dateLatestScalarValue"]).to eq("2020-04-01T00:00:00.000Z")
-        expect(res["dateEarliestSingleMonth"]).to eq("3")
-        expect(res["dateLatestMonth"]).to eq("3")
-        expect(res["dateEarliestSingleDay"]).to eq("1")
-        expect(res["dateLatestDay"]).to eq("31")
-        expect(res["dateEarliestSingleYear"]).to eq("2020")
-        expect(res["dateLatestYear"]).to eq("2020")
-      end
-    end
-
-    context "when date string = 2002" do
-      let(:date_string) { "2002" }
-      let(:res) { csdate.mappable }
-
-      it "parses as expected" do
-        expect(res["dateEarliestScalarValue"]).to eq("2002-01-01T00:00:00.000Z")
-        expect(res["dateLatestScalarValue"]).to eq("2003-01-01T00:00:00.000Z")
-        expect(res["dateEarliestSingleMonth"]).to eq("1")
-        expect(res["dateLatestMonth"]).to eq("12")
-        expect(res["dateEarliestSingleDay"]).to eq("1")
-        expect(res["dateLatestDay"]).to eq("31")
-        expect(res["dateEarliestSingleYear"]).to eq("2002")
-        expect(res["dateLatestYear"]).to eq("2002")
-      end
-    end
-  end
 end

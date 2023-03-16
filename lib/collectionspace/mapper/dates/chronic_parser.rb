@@ -11,7 +11,6 @@ module CollectionSpace
         def initialize(date_string, handler)
           @date_string = date_string
           @handler = handler
-          self
         end
 
         def mappable

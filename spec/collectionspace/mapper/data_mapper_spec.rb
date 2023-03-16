@@ -16,8 +16,11 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
   end
   let(:datahash) { get_datahash(path: datahash_path) }
   let(:prepper) {
-    CollectionSpace::Mapper::DataPrepper.new(datahash, handler.searcher,
-      handler)
+    CollectionSpace::Mapper::DataPrepper.new(
+      datahash,
+      handler.searcher,
+      handler
+    )
   }
   let(:datamapper) {
     described_class.new(prepper.prep.response, handler, prepper.xphash)
@@ -36,26 +39,45 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
 
     context "acquisition record", type: "integration" do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/fcart/fcart_3-0-1_acquisition.json"
+        "spec/fixtures/files/mappers/release_6_1/fcart/"\
+          "fcart_3-0-1_acquisition.json"
       }
 
       it "maps records as expected in sequence" do
-        data1 = JSON.parse('{"creditline":"Gift of Frances, 1985","accessiondategroup":"1985","acquisitionmethod":"unknown-provenance","acquisitionreferencenumber":"ACC216 (migrated accession)","acquisitionsourceperson":"","acquisitionsourceorganization":"","acquisitionauthorizer":"","acquisitionnote":""}')
-        data2 = JSON.parse('{"creditline":"","accessiondategroup":"","acquisitionmethod":"unknown-provenance","acquisitionreferencenumber":"ACC215 (migrated accession)","acquisitionsourceperson":"","acquisitionsourceorganization":"","acquisitionauthorizer":"","acquisitionnote":""}')
-        data3 = JSON.parse('{"creditline":"Gift of Elizabeth, 1985","accessiondategroup":"1985","acquisitionmethod":"gift","acquisitionreferencenumber":"ACC208 (migrated accession)","acquisitionsourceperson":"Elizabeth","acquisitionsourceorganization":"","acquisitionauthorizer":"","acquisitionnote":"Acquisition source role(s): Donor"}')
+        data1 = JSON.parse(
+          '{"creditline":"Gift of Frances, 1985","accessiondategroup":"1985",'\
+            '"acquisitionmethod":"unknown-provenance","acquisitionreferencenum'\
+            'ber":"ACC216 (migrated accession)","acquisitionsourceperson":"","'\
+            'acquisitionsourceorganization":"","acquisitionauthorizer":"",'\
+            '"acquisitionnote":""}'
+        )
+        data2 = JSON.parse(
+          '{"creditline":"","accessiondategroup":"","acquisitionmethod":'\
+            '"unknown-provenance","acquisitionreferencenumber":"ACC215 '\
+            '(migrated accession)","acquisitionsourceperson":"","'\
+            'acquisitionsourceorganization":"","acquisitionauthorizer":"","'\
+            'acquisitionnote":""}'
+        )
+        data3 = JSON.parse(
+          '{"creditline":"Gift of Elizabeth, 1985","accessiondategroup":"1985"'\
+            ',"acquisitionmethod":"gift","acquisitionreferencenumber":"ACC208 '\
+            '(migrated accession)","acquisitionsourceperson":"Elizabeth","'\
+            'acquisitionsourceorganization":"","acquisitionauthorizer":"","'\
+            'acquisitionnote":"Acquisition source role(s): Donor"}'
+        )
         data = [data1, data2, data3]
         preppers = data.map { |d|
           CollectionSpace::Mapper::DataPrepper.new(d, handler.searcher, handler)
         }
         mappers = preppers.map do |prepper|
           CollectionSpace::Mapper::DataMapper.new(prepper.prep.response,
-            handler, prepper.xphash)
+                                                  handler, prepper.xphash)
         end
         docs = mappers.map { |mapper| remove_namespaces(mapper.response.doc) }
         docxpaths = docs.map { |doc| list_xpaths(doc) }
 
         fixpaths = ["fcart/acqseq1.xml", "fcart/acqseq2.xml",
-          "fcart/acqseq3.xml"]
+                    "fcart/acqseq3.xml"]
         fixdocs = fixpaths.map { |path| get_xml_fixture(path) }
         fixxpaths = fixdocs.map { |doc| list_xpaths(doc) }
 
@@ -71,7 +93,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
 
     context "collectionobject record", type: "integration" do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_collectionobject.json"
+        "spec/fixtures/files/mappers/release_6_1/core/"\
+          "core_6-1-0_collectionobject.json"
       }
 
       context "overflow subgroup record with uneven subgroup values" do
@@ -149,7 +172,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
 
     context "person record" do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/lhmc/lhmc_3-1-1_person-local.json"
+        "spec/fixtures/files/mappers/release_6_1/lhmc/"\
+          "lhmc_3-1-1_person-local.json"
       }
       let(:datahash) { {"termDisplayName" => "Xanadu", "placeNote" => "note"} }
 
@@ -184,7 +208,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
 
     context "loanout record" do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/botgarden/botgarden_2-0-1_loanout.json"
+        "spec/fixtures/files/mappers/release_6_1/botgarden/"\
+          "botgarden_2-0-1_loanout.json"
       }
       let(:datahash) { {"loanOutNumber" => "123", "sterile" => "n"} }
 
@@ -203,7 +228,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
 
     context "collectionobject record", services_call: true do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json"
+        "spec/fixtures/files/mappers/release_6_1/anthro/"\
+          "anthro_4-1-2_collectionobject.json"
       }
       let(:datahash) { anthro_co_1 }
       let(:config) do

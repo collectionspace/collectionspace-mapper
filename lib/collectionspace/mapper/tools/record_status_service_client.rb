@@ -3,7 +3,8 @@
 module CollectionSpace
   module Mapper
     module Tools
-      class RecordStatusServiceClient < CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder
+      class RecordStatusServiceClient <
+          CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder
         def initialize(client, mapper)
           super
           @client = client
@@ -45,17 +46,20 @@ module CollectionSpace
           end
         end
 
-        # if there are failures in looking up records due to parentheses, single/double
-        #  quotes, special characters, etc., this should be resolved in the
-        #  collectionspace-client code.
+        # if there are failures in looking up records due to parentheses,
+        #   single/double quotes, special characters, etc., this should be
+        #   resolved in the collectionspace-client code.
         # Tests in examples/search.rb
         def lookup(value)
           response = if ns_prefix == "relations"
-            client.find_relation(subject_csid: value[:sub],
-              object_csid: value[:obj], rel_type: value[:prd])
-          else
-            lookup_non_relationship(value)
-          end
+                       client.find_relation(
+                         subject_csid: value[:sub],
+                         object_csid: value[:obj],
+                         rel_type: value[:prd]
+                       )
+                     else
+                       lookup_non_relationship(value)
+                     end
 
           ct = count_results(response)
           if ct == 0

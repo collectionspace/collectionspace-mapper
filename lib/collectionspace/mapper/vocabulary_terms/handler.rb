@@ -6,8 +6,8 @@ require "dry/monads/do"
 module CollectionSpace
   module Mapper
     module VocabularyTerms
-      # Sets up a class with client context, that can process terms from multiple
-      #   vocabularies
+      # Sets up a class with client context, that can process terms from
+      #   multiple vocabularies
       class Handler
         include Dry::Monads[:result]
         include Dry::Monads::Do.for(:add_term)

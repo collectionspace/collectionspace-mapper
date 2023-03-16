@@ -87,7 +87,8 @@ module CollectionSpace
       def process_xpaths
         # keep only mappings for datacolumns present in data hash
         mappings = @handler.mapper.mappings.select do |mapper|
-          mapper.fieldname == "shortIdentifier" || @response.merged_data.key?(mapper.datacolumn)
+          mapper.fieldname == "shortIdentifier" ||
+            @response.merged_data.key?(mapper.datacolumn)
         end
 
         # create xpaths for remaining mappings...
@@ -98,7 +99,8 @@ module CollectionSpace
         }.to_h
         @xphash.each do |_xpath, hash|
           hash[:mappings] = hash[:mappings].select do |mapping|
-            mapping.fieldname == "shortIdentifier" || @response.merged_data.key?(mapping.datacolumn)
+            mapping.fieldname == "shortIdentifier" ||
+              @response.merged_data.key?(mapping.datacolumn)
           end
         end
       end
@@ -124,14 +126,13 @@ module CollectionSpace
           next if data.nil? || data.empty?
 
           @response.split_data[column] = non_group_splitter(mapping, data)
-          # mapping.repeats == 'y' ? CollectionSpace::Mapper::SimpleSplitter.new(data, config).result : [data.strip]
         end
       end
 
       def non_group_splitter(mapping, data)
         if mapping.repeats == "y"
           return CollectionSpace::Mapper::SimpleSplitter.new(data,
-            config).result
+                                                             config).result
         end
         return split_identifier(data) if identifier?(mapping.fieldname)
 
@@ -175,24 +176,32 @@ module CollectionSpace
           next if data.blank?
 
           targetdata[column] = if mapping.transforms.blank?
-            data
-          else
-            data.map do |d|
-              if d.is_a?(String)
-                transform_value(d, mapping.transforms, column)
-              else
-                d.map { |val|
-                  transform_value(val, mapping.transforms, column)
-                }
-              end
-            end
-          end
+                                 data
+                               else
+                                 data.map do |d|
+                                   if d.is_a?(String)
+                                     transform_value(
+                                       d,
+                                       mapping.transforms,
+                                       column
+                                     )
+                                   else
+                                     d.map { |val|
+                                       transform_value(
+                                         val,
+                                         mapping.transforms,
+                                         column
+                                       )
+                                     }
+                                   end
+                                 end
+                               end
         end
       end
 
       def transform_value(value, transforms, column)
         vt = CollectionSpace::Mapper::ValueTransformer.new(value, transforms,
-          self)
+                                                           self)
         unless vt.warnings.empty?
           vt.warnings.each { |w| w[:field] = column }
           @response.warnings << vt.warnings
@@ -276,10 +285,10 @@ module CollectionSpace
           next if data.blank?
 
           th = CollectionSpace::Mapper::TermHandler.new(mapping: mapping,
-            data: data,
-            client: @client,
-            mapper: @handler.mapper,
-            searcher: searcher)
+                                                        data: data,
+                                                        client: @client,
+                                                        mapper: @handler.mapper,
+                                                        searcher: searcher)
 
           @response.transformed_data[column] = th.result
           @response.terms << th.terms
@@ -310,8 +319,11 @@ module CollectionSpace
 
       def combine_data_values(xpath, xphash)
         @response.combined_data[xpath] = {}
-        fieldhash = {} # key = CSpace field names; value = array of data columns mapping to that field
-        # create keys in fieldname and combined_data for all CSpace fields represented in data
+        # key = CSpace field names
+        # value = array of data columns mapping to that field
+        # create keys in fieldname and combined_data for all CSpace fields
+        #   represented in data
+        fieldhash = {}
         xphash[:mappings].each do |mapping|
           fieldname = mapping.fieldname
           unless fieldhash.key?(fieldname)

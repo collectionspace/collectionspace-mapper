@@ -19,7 +19,8 @@ OptionParser.new do |opts|
   opts.banner = "Usage: ruby csv-to-datahashes.rb -i PATH_TO_CSV"
 
   opts.on("-i", "--input PATH_TO_CSV",
-    "Path to CSV file. One JSON file will be created per row in the same directory.") do |i|
+          "Path to CSV file. One JSON file will be created per row in the "\
+            "same directory.") do |i|
     options[:input] = i
     unless File.file?(i)
       puts "File #{i} does not exist"

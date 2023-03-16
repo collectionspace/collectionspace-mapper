@@ -83,7 +83,8 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
     context "when in cache" do
       let(:val) { "Test" }
       it "returns refname urn" do
-        expected = "urn:cspace:c.core.collectionspace.org:conceptauthorities:name(concept):item:name(Test1599650854716)'Test'"
+        expected = "urn:cspace:c.core.collectionspace.org:conceptauthorities:"\
+          "name(concept):item:name(Test1599650854716)'Test'"
         expect(result).to eq(expected)
       end
     end
@@ -91,7 +92,8 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
     context "when capitalized form is in cache" do
       let(:val) { "test" }
       it "returns refname urn" do
-        expected = "urn:cspace:c.core.collectionspace.org:conceptauthorities:name(concept):item:name(Test1599650854716)'Test'"
+        expected = "urn:cspace:c.core.collectionspace.org:conceptauthorities"\
+          ":name(concept):item:name(Test1599650854716)'Test'"
         expect(result).to eq(expected)
       end
     end
@@ -105,7 +107,8 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
     context "when val exists in instance" do
       let(:val) { "All" }
       it "returns refname urn" do
-        expected = "urn:cspace:core.collectionspace.org:vocabularies:name(publishto):item:name(all)'All'"
+        expected = "urn:cspace:core.collectionspace.org:vocabularies:name"\
+          "(publishto):item:name(all)'All'"
         expect(result).to eq(expected)
       end
     end
@@ -113,7 +116,8 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
     context "when case-swapped val exists in instance" do
       let(:val) { "all" }
       it "returns refname urn" do
-        expected = "urn:cspace:core.collectionspace.org:vocabularies:name(publishto):item:name(all)'All'"
+        expected = "urn:cspace:core.collectionspace.org:vocabularies:name"\
+          "(publishto):item:name(all)'All'"
         expect(result).to eq(expected)
       end
     end
@@ -144,7 +148,8 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
     context "when in cache" do
       let(:val) { "Sample Concept 1" }
       it "returns csid" do
-        # it 'returns csid', :skip => 'does not cause mapping to fail, so we live with technical incorrectness for now' do
+        # it 'returns csid', :skip => 'does not cause mapping to fail, so we
+        #   live with technical incorrectness for now' do
         expect(result).to eq("3736-2250-1869-4155")
       end
     end

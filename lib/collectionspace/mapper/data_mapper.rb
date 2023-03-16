@@ -52,9 +52,13 @@ module CollectionSpace
 
       def add_short_id
         term = @response.transformed_data["termdisplayname"][0]
-        targetnode = @doc.xpath("/document/#{@handler.mapper.config.common_namespace}").first
+        ns = @handler.mapper.config.common_namespace
+        targetnode = @doc.xpath("/document/#{ns}").first
         child = Nokogiri::XML::Node.new("shortIdentifier", @doc)
-        child.content = CollectionSpace::Mapper::Identifiers::AuthorityShortIdentifier.new(term: term).value
+        child.content =
+          CollectionSpace::Mapper::Identifiers::AuthorityShortIdentifier.new(
+            term: term
+          ).value
         targetnode.add_child(child)
       end
 
@@ -90,8 +94,14 @@ module CollectionSpace
         @doc.xpath("/*/*").each do |section|
           fetchuri = @handler.mapper.config.ns_uri[section.name]
           uri = fetchuri.nil? ? "http://no.uri.found" : fetchuri
-          section.add_namespace_definition("ns2", uri)
-          section.add_namespace_definition("xsi", "http://www.w3.org/2001/XMLSchema-instance")
+          section.add_namespace_definition(
+            "ns2",
+            uri
+          )
+          section.add_namespace_definition(
+            "xsi",
+            "http://www.w3.org/2001/XMLSchema-instance"
+          )
           section.name = "ns2:#{section.name}"
         end
       end
@@ -187,26 +197,36 @@ module CollectionSpace
       end
 
       def add_uneven_subgroup_warning(parent_path:, intervening_path:,
-        subgroup:)
+                                      subgroup:)
+        sgpath = "#{parent_path}/#{intervening_path.join("/")}/#{subgroup}"
         response.warnings << {
           category: :uneven_subgroup_field_values,
           field: nil,
           type: nil,
           subtype: nil,
           value: nil,
-          message: "Fields in subgroup #{parent_path}/#{intervening_path.join("/")}/#{subgroup} have different numbers of values"
+          message: "Fields in subgroup #{sgpath} have different numbers of "\
+            "values"
         }
       end
 
       def add_too_many_subgroups_warning(parent_path:, intervening_path:,
-        subgroup:)
+                                         subgroup:)
+        sgpath = "#{intervening_path.join("/")}/#{subgroup}"
         response.warnings << {
           category: :subgroup_contains_data_for_nonexistent_groups,
           field: nil,
           type: nil,
           subtype: nil,
           value: nil,
-          message: "Data for subgroup #{intervening_path.join("/")}/#{subgroup} is trying to map to more instances of parent group #{parent_path} than exist. Overflow subgroup values will be skipped. The usual cause of this is that you separated subgroup values that belong inside the same parent group with the repeating field delimiter (#{handler.mapper.batchconfig.delimiter}) instead of the subgroup delimiter (#{handler.mapper.batchconfig.subgroup_delimiter})"
+          message: "Data for subgroup #{sgpath} is trying to map to more "\
+            "instances of parent group #{parent_path} than exist. Overflow "\
+            "subgroup values will be skipped. The usual cause of this is that "\
+            "you separated subgroup values that belong inside the same parent "\
+            "group with the repeating field delimiter "\
+            "(#{handler.mapper.batchconfig.delimiter}) instead of the "\
+            "subgroup delimiter "\
+            "(#{handler.mapper.batchconfig.subgroup_delimiter})"
         }
       end
 
@@ -215,7 +235,8 @@ module CollectionSpace
         sg_max_length <= groupdata.length
       end
 
-      # EXAMPLE: creates empty titleTranslationSubGroupList as a child of titleGroup
+      # EXAMPLE: creates empty titleTranslationSubGroupList as a child of
+      #   titleGroup
       def create_intermediate_subgroup_hierarchy(grp, subgroup_path)
         target = grp[:parent]
         unless subgroup_path.empty?
@@ -227,8 +248,10 @@ module CollectionSpace
         end
       end
 
-      # returns the count of field values for the subgroup field with the mosty values
-      # we need to know this in order to create enough empty subgroup elements to hold the data
+      # returns the count of field values for the subgroup field with the mosty
+      #   values
+      # we need to know this in order to create enough empty subgroup elements
+      #   to hold the data
       def maximum_subgroup_values(data)
         data.map { |_field, values| subgroup_value_count(values) }.flatten.max
       end
@@ -262,13 +285,13 @@ module CollectionSpace
 
         unless even_subgroup_field_values?(thisdata)
           add_uneven_subgroup_warning(parent_path: parent_path,
-            intervening_path: subgroup_path,
-            subgroup: subgroup)
+                                      intervening_path: subgroup_path,
+                                      subgroup: subgroup)
         end
         unless group_accommodates_subgroup?(groups, thisdata)
           add_too_many_subgroups_warning(parent_path: parent_path,
-            intervening_path: subgroup_path,
-            subgroup: subgroup)
+                                         intervening_path: subgroup_path,
+                                         subgroup: subgroup)
         end
 
         thisdata.each { |field, subgroups|
@@ -290,7 +313,7 @@ module CollectionSpace
 
         groups.each do |group_index, group|
           target = subgrouplist_target(parent_path, group_index, subgroup_path,
-            subgroup)
+                                       subgroup)
           map_subgroups_to_group(group, target)
         end
       end

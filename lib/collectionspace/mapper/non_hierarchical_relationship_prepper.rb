@@ -5,7 +5,8 @@ require "collectionspace/mapper/term_searchable"
 
 module CollectionSpace
   module Mapper
-    class NonHierarchicalRelationshipPrepper < CollectionSpace::Mapper::DataPrepper
+    class NonHierarchicalRelationshipPrepper <
+        CollectionSpace::Mapper::DataPrepper
       include CollectionSpace::Mapper::TermSearchable
       attr_reader :errors, :warnings, :responses, :type, :subtype
 
@@ -13,7 +14,7 @@ module CollectionSpace
         super
         @cache = @handler.mapper.termcache
         @types = [@response.merged_data["item1_type"],
-          @response.merged_data["item2_type"]]
+                  @response.merged_data["item2_type"]]
         @subtype = ""
         @errors = []
         @warnings = []
@@ -45,7 +46,8 @@ module CollectionSpace
         resp2 = @response.dup
         resp2.identifier = "#{stringify_item(2)} -> #{stringify_item(1)}"
         resp2.combined_data = {"relations_common" => {}}
-        origrel = @response.combined_data["relations_common"]["relationshipType"]
+        origrel =
+          @response.combined_data["relations_common"]["relationshipType"]
         origsub = @response.combined_data["relations_common"]["subjectCsid"]
         origobj = @response.combined_data["relations_common"]["objectCsid"]
         resp2.combined_data["relations_common"]["relationshipType"] = origrel
@@ -60,8 +62,8 @@ module CollectionSpace
         super
       end
 
-      # these mappings were needed to get data in via template for processing, but
-      #  do not actually get used to produce XML
+      # these mappings were needed to get data in via template for processing,
+      #   but do not actually get used to produce XML
       def clear_unmapped_mappings
         to_clear = %w[subjectType objectType]
         @handler.mapper.mappings.reject! { |mapping|

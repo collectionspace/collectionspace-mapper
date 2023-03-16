@@ -17,7 +17,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
   let(:datahash) { get_datahash(path: datahash_path) }
   let(:prepper) {
     CollectionSpace::Mapper::DataPrepper.new(datahash, handler.searcher,
-      handler)
+                                             handler)
   }
   let(:datamapper) {
     described_class.new(prepper.prep.response, handler, prepper.xphash)
@@ -32,7 +32,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
   context "bonsai profile" do
     context "objectexit record" do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/bonsai/bonsai_4-1-1_objectexit.json"
+        "spec/fixtures/files/mappers/release_6_1/bonsai/"\
+          "bonsai_4-1-1_objectexit.json"
       }
 
       context "record 1" do

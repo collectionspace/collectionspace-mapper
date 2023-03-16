@@ -5,11 +5,12 @@ require "dry/monads"
 module CollectionSpace
   module Mapper
     module VocabularyTerms
-      # Sets up a class with client context, that can process terms from multiple
-      #   vocabularies
+      # Sets up a class with client context, that can process terms from
+      #   multiple vocabularies
       class PayloadBuilder
         extend Dry::Monads[:result]
 
+        # rubocop:disable Layout/LineLength
         # @param domain [String] CS client domain
         # @param csid [String] CSID of vocabulary
         # @param name [String] machine name of vocabulary
@@ -33,6 +34,7 @@ module CollectionSpace
           XML
           Success(payload)
         end
+        # rubocop:enable Layout/LineLength
       end
     end
   end

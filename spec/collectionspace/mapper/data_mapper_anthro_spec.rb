@@ -17,7 +17,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
   let(:datahash) { get_datahash(path: datahash_path) }
   let(:prepper) {
     CollectionSpace::Mapper::DataPrepper.new(datahash, handler.searcher,
-      handler)
+                                             handler)
   }
   let(:datamapper) {
     described_class.new(prepper.prep.response, handler, prepper.xphash)
@@ -61,11 +61,12 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
 
     context "collectionobject record" do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json"
+        "spec/fixtures/files/mappers/release_6_1/anthro/"\
+          "anthro_4-1-2_collectionobject.json"
       }
 
-      # record 1 was used for testing default value merging, transformations, etc.
-      # we start with record 2 to purely test mapping functionality
+      # Record 1 was used for testing default value merging, transformations,
+      #   etc. We start with record 2 to purely test mapping functionality
       context "record 2" do
         let(:datahash_path) {
           "spec/fixtures/files/datahashes/anthro/collectionobject2.json"
@@ -88,7 +89,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
 
     context "osteology record" do
       let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_osteology.json"
+        "spec/fixtures/files/mappers/release_6_1/anthro/"\
+          "anthro_4-1-2_osteology.json"
       }
 
       context "record 1" do
