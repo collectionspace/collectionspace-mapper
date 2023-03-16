@@ -38,13 +38,23 @@ RSpec.describe CollectionSpace::Mapper::MultiColumnRequiredField do
     end
   end
   describe "#missing_message" do
+    let(:result){ field.missing_message }
+
     it "returns expected message" do
-      expected = "required field missing: currentlocation. At least one of the following fields must be present: currentLocationLocationLocal, currentLocationLocationOffsite, currentLocationOrganization"
+      expected = "required field missing: currentlocation. At least one of "\
+        "the following fields must be present: currentlocationlocationlocal, "\
+        "currentlocationlocationoffsite, currentlocationorganization"
+      expect(result).to eq(expected)
     end
   end
   describe "#empty_message" do
+    let(:result){ field.empty_message }
+
     it "returns expected message" do
-      expected = "required field empty: currentlocation. At least one of the following fields must be populated: currentLocationLocationLocal, currentLocationLocationOffsite, currentLocationOrganization"
+      expected = "required field empty: currentlocation. At least one of the "\
+        "following fields must be populated: currentlocationlocationlocal, "\
+        "currentlocationlocationoffsite, currentlocationorganization"
+      expect(result).to eq(expected)
     end
   end
 end

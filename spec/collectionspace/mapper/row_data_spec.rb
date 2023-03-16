@@ -3,6 +3,7 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::RowData do
+  subject(:row) { described_class.new(data_hash, recmapper) }
   let(:recmapper) { core_object_mapper }
   let(:data_hash) do
     {
@@ -13,20 +14,19 @@ RSpec.describe CollectionSpace::Mapper::RowData do
     }
   end
 
-  let(:row) { CollectionSpace::Mapper::RowData.new(data_hash, recmapper) }
-
   describe "#columns" do
+    let(:result){ row.columns }
+
     it "returns Array" do
-      res = row.columns
-      expect(row.columns).to be_a(Array)
+      expect(result).to be_a(Array)
     end
     it "of ColumnValues" do
-      expect(row.columns.any? { |col|
-               !col.is_a?(CollectionSpace::Mapper::ColumnValue)
-             }).to be false
+      expect(result.all? { |col|
+               col.is_a?(CollectionSpace::Mapper::ColumnValue)
+             }).to be true
     end
     it "2 elements long" do
-      expect(row.columns.length).to eq(4)
+      expect(result.length).to eq(4)
     end
   end
 end
