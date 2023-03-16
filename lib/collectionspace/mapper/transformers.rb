@@ -28,14 +28,15 @@ module CollectionSpace
         return @queue if @transforms.empty?
 
         @queue << @transforms.map do |type, transform|
-          Transformer.create(type: type, transform: transform, recmapper: @recmapper)
+          Transformer.create(type: type, transform: transform,
+            recmapper: @recmapper)
         end
         @queue.flatten!
       end
 
       def data_type_transforms
-        @queue << DateStampTransformer.new if @colmapping.data_type == 'date'
-        @queue << StructuredDateTransformer.new if @colmapping.data_type == 'structured date group'
+        @queue << DateStampTransformer.new if @colmapping.data_type == "date"
+        @queue << StructuredDateTransformer.new if @colmapping.data_type == "structured date group"
       end
     end
   end

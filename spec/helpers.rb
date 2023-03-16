@@ -1,21 +1,21 @@
 # frozen_string_literal: true
 
-require 'memo_wise'
+require "memo_wise"
 
 module Helpers
   prepend MemoWise
   extend self
 
-  require_relative './csids'
-  require_relative './refnames'
-  require_relative './anthro_helpers'
-  require_relative './bonsai_helpers'
-  require_relative './botgarden_helpers'
-  require_relative './core_helpers'
-  require_relative './fcart_helpers'
-  require_relative './lhmc_helpers'
+  require_relative "./csids"
+  require_relative "./refnames"
+  require_relative "./anthro_helpers"
+  require_relative "./bonsai_helpers"
+  require_relative "./botgarden_helpers"
+  require_relative "./core_helpers"
+  require_relative "./fcart_helpers"
+  require_relative "./lhmc_helpers"
 
-  FIXTUREDIR = 'spec/fixtures/files/xml'
+  FIXTUREDIR = "spec/fixtures/files/xml"
 
   def base_cache_config
     {}
@@ -31,13 +31,13 @@ module Helpers
   end
 
   def get_record_mapper_object(path, cache = nil)
-    CollectionSpace::Mapper::RecordMapper.new(mapper: File.read(path), termcache: cache)
+    CollectionSpace::Mapper::RecordMapper.new(mapper: File.read(path),
+      termcache: cache)
   end
 
   def get_datahash(path:)
     JSON.parse(File.read(path))
   end
-
 
   # The way CollectionSpace uses different URIs for the same namespace prefix in the same
   #  document is irregular and makes it impossible to query a document via xpath if
@@ -45,7 +45,7 @@ module Helpers
   def remove_namespaces(doc)
     doc = doc.clone
     doc.remove_namespaces!
-    doc.xpath('/*/*').each{ |n| n.name = n.name.sub('ns2:', '') }
+    doc.xpath("/*/*").each { |n| n.name = n.name.sub("ns2:", "") }
     doc
   end
 
@@ -53,13 +53,15 @@ module Helpers
     doc.traverse do |node|
       # CSpace saves empty structured date fields with only a scalarValuesComputed value of false
       # we don't want to compare against these empty nodes
-      node.remove if node.name['Date'] && node.text == 'false'
+      node.remove if node.name["Date"] && node.text == "false"
     end
     doc
   end
 
   def get_xml_fixture(filename, remove_blanks = true)
-    doc = remove_namespaces(Nokogiri::XML(File.read("#{FIXTUREDIR}/#{filename}")){ |c| c.noblanks })
+    doc = remove_namespaces(Nokogiri::XML(File.read("#{FIXTUREDIR}/#{filename}")) { |c|
+                              c.noblanks
+                            })
     doc = remove_blank_structured_dates(doc)
 
     # fields to omit from testing across the board
@@ -68,16 +70,16 @@ module Helpers
       # Drop empty nodes
       node.remove if remove_blanks && !node.text.match?(/\S/m)
       # Drop sections of the document we don't write with the mapper
-      node.remove if node.name == 'collectionspace_core' || node.name == 'account_permission'
+      node.remove if node.name == "collectionspace_core" || node.name == "account_permission"
       # Drop fields created by CS application
-      node.remove if rejectfields.bsearch{ |f| f == node.name }
+      node.remove if rejectfields.bsearch { |f| f == node.name }
     end
     doc
   end
 
   def get_xpaths(doc)
     xpaths = []
-    doc.traverse{ |node| xpaths << node.path }
+    doc.traverse { |node| xpaths << node.path }
     xpaths.sort!
   end
 
@@ -102,16 +104,18 @@ module Helpers
   end
 
   def mapper_defined_paths(xpaths, mappings)
-    mappaths = mappings.map{ |mapping| "/document/#{mapping.fullpath}/#{mapping.fieldname}" }
+    mappaths = mappings.map { |mapping|
+      "/document/#{mapping.fullpath}/#{mapping.fieldname}"
+    }
 
     xpaths.select do |path|
       path = remove_xpath_occurrence_indicators(path)
-      mappaths.any?{ |e| path.start_with?(e) }
+      mappaths.any? { |e| path.start_with?(e) }
     end
   end
 
   def remove_xpath_occurrence_indicators(path)
-    path.match(%r{^(.*)/})[1].gsub(/\[\d+\]/, '')
+    path.match(%r{^(.*)/})[1].gsub(/\[\d+\]/, "")
   end
 
   def list_xpaths(doc)
@@ -120,7 +124,7 @@ module Helpers
   end
 
   def standardize_value(string)
-    if string.start_with?('urn:cspace')
+    if string.start_with?("urn:cspace")
       string.sub(/(item:name\([a-zA-Z]+)\d+(\)')/, '\1\2')
     else
       string

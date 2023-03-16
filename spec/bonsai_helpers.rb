@@ -4,9 +4,9 @@ module Helpers
   def bonsai_client
     CollectionSpace::Client.new(
       CollectionSpace::Configuration.new(
-        base_uri: 'https://bonsai.dev.collectionspace.org/cspace-services',
-        username: 'admin@bonsai.collectionspace.org',
-        password: 'Administrator'
+        base_uri: "https://bonsai.dev.collectionspace.org/cspace-services",
+        username: "admin@bonsai.collectionspace.org",
+        password: "Administrator"
       )
     )
   end
@@ -15,7 +15,7 @@ module Helpers
   def bonsai_cache
     cache_config = base_cache_config.merge({domain: bonsai_client.domain})
     cache = CollectionSpace::RefCache.new(config: cache_config)
-    populate(cache, cacheable_refnames('bonsai.collectionspace.org'))
+    populate(cache, cacheable_refnames("bonsai.collectionspace.org"))
   end
   memo_wise(:bonsai_cache)
 

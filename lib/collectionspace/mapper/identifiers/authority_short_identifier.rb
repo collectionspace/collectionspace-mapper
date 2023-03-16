@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'collectionspace/mapper/identifiers/short_identifier'
+require "collectionspace/mapper/identifiers/short_identifier"
 
 module CollectionSpace
   module Mapper

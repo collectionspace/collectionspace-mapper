@@ -7,14 +7,14 @@ module CollectionSpace
       def special_mappings
         [
           {
-            fieldname: 'mediaFileURI',
+            fieldname: "mediaFileURI",
             namespace: @config.common_namespace,
-            data_type: 'string',
+            data_type: "string",
             xpath: [],
-            required: 'n',
-            repeats: 'n',
-            in_repeating_group: 'n/a',
-            datacolumn: 'mediaFileURI'
+            required: "n",
+            repeats: "n",
+            in_repeating_group: "n/a",
+            datacolumn: "mediaFileURI"
           }
         ]
       end

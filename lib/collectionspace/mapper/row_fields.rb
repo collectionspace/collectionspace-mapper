@@ -5,7 +5,8 @@ module CollectionSpace
     # aggregate class to work with all of a RecordMapper's CollectionSpace fields in an
     #   Arrayish-fashion
     class RowFields
-      def initialize; end
+      def initialize
+      end
     end
   end
 end

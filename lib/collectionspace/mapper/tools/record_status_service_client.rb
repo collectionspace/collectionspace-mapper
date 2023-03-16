@@ -19,11 +19,12 @@ module CollectionSpace
           value = get_value_for_record_status(response)
           lookup(value)
         end
-        
+
         private
 
-        attr_reader :client, :search_field, :ns_prefix, :path, :response_top, :response_nested
-        
+        attr_reader :client, :search_field, :ns_prefix, :path, :response_top,
+          :response_nested
+
         def get_service
           if authority?
             begin
@@ -43,17 +44,18 @@ module CollectionSpace
             end
           end
         end
-        
+
         # if there are failures in looking up records due to parentheses, single/double
         #  quotes, special characters, etc., this should be resolved in the
         #  collectionspace-client code.
         # Tests in examples/search.rb
         def lookup(value)
-          response = if ns_prefix == 'relations'
-                       client.find_relation(subject_csid: value[:sub], object_csid: value[:obj], rel_type: value[:prd])
-                     else
-                       lookup_non_relationship(value)
-                     end
+          response = if ns_prefix == "relations"
+            client.find_relation(subject_csid: value[:sub],
+              object_csid: value[:obj], rel_type: value[:prd])
+          else
+            lookup_non_relationship(value)
+          end
 
           ct = count_results(response)
           if ct == 0
@@ -61,14 +63,17 @@ module CollectionSpace
           elsif ct == 1
             reportable_result(response.parsed[response_top][response_nested])
           elsif ct > 1
-            raise CollectionSpace::Mapper::MultipleCsRecordsFoundError, ct unless use_first?
+            unless use_first?
+              raise CollectionSpace::Mapper::MultipleCsRecordsFoundError,
+                ct
+            end
 
             item = response.parsed[response_top][response_nested].first
             num_found = response.parsed[response_top][response_nested].length
             reportable_result(item).merge({multiple_recs_found: num_found})
           end
         end
-        
+
         def lookup_non_relationship(value)
           client.find(
             type: type,
@@ -79,13 +84,16 @@ module CollectionSpace
         end
 
         def use_first?
-          mapper.batchconfig.multiple_recs_found == 'use_first'
+          mapper.batchconfig.multiple_recs_found == "use_first"
         end
 
         def count_results(response)
-          raise CollectionSpace::RequestError, response.result.body unless response.result.success?
+          unless response.result.success?
+            raise CollectionSpace::RequestError,
+              response.result.body
+          end
 
-          response.parsed[response_top]['totalItems'].to_i
+          response.parsed[response_top]["totalItems"].to_i
         end
       end
     end

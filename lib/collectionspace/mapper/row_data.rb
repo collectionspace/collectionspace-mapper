@@ -11,9 +11,9 @@ module CollectionSpace
         @recmapper = recmapper
         @columns = datahash.map do |column, value|
           CollectionSpace::Mapper::ColumnValue.create(column: column,
-                                         value: value,
-                                         recmapper: @recmapper,
-                                         mapping: @recmapper.mappings.lookup(column))
+            value: value,
+            recmapper: @recmapper,
+            mapping: @recmapper.mappings.lookup(column))
         end
       end
     end

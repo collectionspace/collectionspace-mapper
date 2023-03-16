@@ -14,27 +14,27 @@ module CollectionSpace
 
         def mappable
           maphash = {
-            'dateDisplayDate' => date_string,
-            'dateEarliestSingleYear' => year.to_s,
-            'dateEarliestSingleMonth' => month.to_s,
-            'dateEarliestSingleDay' => '1',
-            'dateEarliestSingleEra' => handler.ce,
-            'dateLatestYear' => year.to_s,
-            'dateLatestMonth' => month.to_s,
-            'dateLatestDay' => last_day_of_month.to_s,
-            'dateLatestEra' => handler.ce,
-            'dateEarliestScalarValue' =>
-              "#{year}-#{month.to_s.rjust(2, '0')}-01",
-            'dateLatestScalarValue' =>
-              "#{year}-#{next_month.to_s.rjust(2, '0')}-01",
-            'scalarValuesComputed' => 'true'
+            "dateDisplayDate" => date_string,
+            "dateEarliestSingleYear" => year.to_s,
+            "dateEarliestSingleMonth" => month.to_s,
+            "dateEarliestSingleDay" => "1",
+            "dateEarliestSingleEra" => handler.ce,
+            "dateLatestYear" => year.to_s,
+            "dateLatestMonth" => month.to_s,
+            "dateLatestDay" => last_day_of_month.to_s,
+            "dateLatestEra" => handler.ce,
+            "dateEarliestScalarValue" =>
+              "#{year}-#{month.to_s.rjust(2, "0")}-01",
+            "dateLatestScalarValue" =>
+              "#{year}-#{next_month.to_s.rjust(2, "0")}-01",
+            "scalarValuesComputed" => "true"
           }
           add_timestamp_to_scalar_values(maphash)
         rescue Date::Error
-            fail UnparseableStructuredDateError.new(
-              date_string: date_string,
-              mappable: no_mappable_date
-            )
+          fail UnparseableStructuredDateError.new(
+            date_string: date_string,
+            mappable: no_mappable_date
+          )
         end
 
         private
@@ -46,7 +46,7 @@ module CollectionSpace
         end
 
         def month
-          @month ||= date_string.sub(year.to_s, '').match(/(\d{1,2})/)[1].to_i
+          @month ||= date_string.sub(year.to_s, "").match(/(\d{1,2})/)[1].to_i
         end
 
         def next_month

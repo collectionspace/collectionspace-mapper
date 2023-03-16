@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'forwardable'
+require "forwardable"
 
 module CollectionSpace
   module Mapper
@@ -18,11 +18,11 @@ module CollectionSpace
         @config = mapper.config
         extension = mapper.service_type_extension
         extend extension if extension
-        
+
         @all = []
         @lkup = {}
-        opts[:mappings].each{ |mapping_hash| add_mapping(mapping_hash) }
-        special_mappings.each{ |mapping| add_mapping(mapping) }
+        opts[:mappings].each { |mapping_hash| add_mapping(mapping_hash) }
+        special_mappings.each { |mapping| add_mapping(mapping) }
       end
 
       def <<(mapping_hash)
@@ -49,7 +49,8 @@ module CollectionSpace
       attr_reader :mapper, :config, :all, :lkup
 
       def add_mapping(mapping_hash)
-        mapobj = CollectionSpace::Mapper::ColumnMapping.new(mapping_hash, mapper)
+        mapobj = CollectionSpace::Mapper::ColumnMapping.new(mapping_hash,
+          mapper)
         all << mapobj
         lkup[mapobj.datacolumn] = mapobj
       end

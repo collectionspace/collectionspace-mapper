@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'data_prepper'
-require_relative 'term_searchable'
+require_relative "data_prepper"
+require_relative "term_searchable"
 
 module CollectionSpace
   module Mapper
@@ -12,8 +12,8 @@ module CollectionSpace
       def initialize(data, searcher, handler)
         super
         @cache = @handler.mapper.termcache
-        @type = @response.merged_data['subjectdocumenttype']
-        @subtype = ''
+        @type = @response.merged_data["subjectdocumenttype"]
+        @subtype = ""
         @errors = []
         @warnings = []
       end
@@ -30,8 +30,8 @@ module CollectionSpace
       private
 
       def set_id
-        bt = @response.merged_data['broader_object_number']
-        nt = @response.merged_data['narrower_object_number']
+        bt = @response.merged_data["broader_object_number"]
+        nt = @response.merged_data["narrower_object_number"]
         @response.identifier = "#{bt} > #{nt}"
       end
 
@@ -45,7 +45,9 @@ module CollectionSpace
       #  do not actually get used to produce XML
       def clear_unmapped_mappings
         to_clear = %w[termType termSubType]
-        @handler.mapper.mappings.reject!{ |mapping| to_clear.include?(mapping.fieldname) }
+        @handler.mapper.mappings.reject! { |mapping|
+          to_clear.include?(mapping.fieldname)
+        }
       end
 
       def transform_terms
@@ -54,12 +56,15 @@ module CollectionSpace
         end
 
         @response.split_data.each do |field, value|
-          @response.transformed_data[field] = value unless @response.transformed_data.key?(field)
+          unless @response.transformed_data.key?(field)
+            @response.transformed_data[field] =
+              value
+          end
         end
       end
 
       def transformed_term(field)
-        @response.split_data[field].map{ |term| obj_csid(term, @type) }
+        @response.split_data[field].map { |term| obj_csid(term, @type) }
       end
     end
   end

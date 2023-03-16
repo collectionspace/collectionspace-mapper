@@ -30,7 +30,7 @@ module CollectionSpace
           value: value,
           field: search_field(type)
         )
-      rescue StandardError => e
+      rescue => e
         puts e.message
         nil
       else
@@ -39,7 +39,7 @@ module CollectionSpace
 
       def lookup_search_field(type)
         field = CollectionSpace::Service.get(type: type)[:term]
-      rescue StandardError => e
+      rescue => e
         puts e.message
       else
         @search_fields[type] = field
@@ -47,8 +47,8 @@ module CollectionSpace
       end
 
       def parse_response(response)
-        parsed = response.parsed['abstract_common_list']
-      rescue StandardError => e
+        parsed = response.parsed["abstract_common_list"]
+      rescue => e
         puts e.message
         nil
       else
@@ -56,12 +56,12 @@ module CollectionSpace
       end
 
       def response_item_count(response)
-        ct = response.dig('totalItems')
+        ct = response.dig("totalItems")
         return ct.to_i if ct
 
         nil
       end
-      
+
       def response_usable?(response)
         ct = response_item_count(response)
         return false unless ct
@@ -76,7 +76,7 @@ module CollectionSpace
 
         lookup_search_field(type)
       end
-      
+
       def search_response(value, type, subtype)
         as_is = get_response(value, type, subtype)
         return as_is if response_usable?(as_is)

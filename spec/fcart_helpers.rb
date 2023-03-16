@@ -4,9 +4,9 @@ module Helpers
   def fcart_client
     CollectionSpace::Client.new(
       CollectionSpace::Configuration.new(
-        base_uri: 'https://fcart.dev.collectionspace.org/cspace-services',
-        username: 'admin@fcart.collectionspace.org',
-        password: 'Administrator'
+        base_uri: "https://fcart.dev.collectionspace.org/cspace-services",
+        username: "admin@fcart.collectionspace.org",
+        password: "Administrator"
       )
     )
   end
@@ -15,7 +15,7 @@ module Helpers
   def fcart_cache
     cache_config = base_cache_config.merge({domain: fcart_client.domain})
     cache = CollectionSpace::RefCache.new(config: cache_config)
-    populate(cache, cacheable_refnames('fcart.collectionspace.org'))
+    populate(cache, cacheable_refnames("fcart.collectionspace.org"))
   end
   memo_wise(:fcart_cache)
 

@@ -5,7 +5,7 @@ module CollectionSpace
     # special behavior for non-hierarchical relationship mapping
     module NonHierarchicalRelationship
       def special_defaults
-        {'relationshiptype' => 'affects'}
+        {"relationshiptype" => "affects"}
       end
     end
   end

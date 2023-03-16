@@ -3,7 +3,8 @@
 module CollectionSpace
   module Mapper
     class DataPrepper
-      attr_reader :data, :handler, :config, :cache, :csid_cache, :client, :searcher
+      attr_reader :data, :handler, :config, :cache, :csid_cache, :client,
+        :searcher
       attr_accessor :response, :xphash
 
       def initialize(data, searcher, handler)
@@ -31,35 +32,35 @@ module CollectionSpace
       end
 
       def split_data
-        @xphash.each{ |_xpath, hash| do_splits(hash) }
+        @xphash.each { |_xpath, hash| do_splits(hash) }
         @response.split_data
       end
 
       def transform_data
-        @xphash.each{ |_xpath, hash| do_transforms(hash) }
+        @xphash.each { |_xpath, hash| do_transforms(hash) }
         @response.transformed_data
       end
 
       def transform_date_fields
-        @xphash.each{ |xpath, hash| do_date_transforms(xpath, hash) }
+        @xphash.each { |xpath, hash| do_date_transforms(xpath, hash) }
         @response.transformed_data
       end
 
       def handle_term_fields
-        @xphash.each{ |_xpath, hash| do_term_handling(hash) }
+        @xphash.each { |_xpath, hash| do_term_handling(hash) }
         @response.warnings.flatten!
         @response.errors.flatten!
         @response.transformed_data
       end
 
       def check_data
-        @xphash.each{ |_xpath, hash| check_data_quality(hash) }
+        @xphash.each { |_xpath, hash| check_data_quality(hash) }
         @response.warnings.flatten!
         @response.warnings
       end
 
       def combine_data_fields
-        @xphash.each{ |xpath, hash| combine_data_values(xpath, hash) }
+        @xphash.each { |xpath, hash| combine_data_values(xpath, hash) }
         @response.combined_data
       end
 
@@ -78,22 +79,26 @@ module CollectionSpace
       end
 
       def drop_empty_fields
-        @response.merged_data = @response.merged_data.delete_if{ |_k, v| v.blank? }
+        @response.merged_data = @response.merged_data.delete_if { |_k, v|
+          v.blank?
+        }
       end
 
       def process_xpaths
         # keep only mappings for datacolumns present in data hash
         mappings = @handler.mapper.mappings.select do |mapper|
-          mapper.fieldname == 'shortIdentifier' || @response.merged_data.key?(mapper.datacolumn)
+          mapper.fieldname == "shortIdentifier" || @response.merged_data.key?(mapper.datacolumn)
         end
 
         # create xpaths for remaining mappings...
-        @xphash = mappings.map{ |mapper| mapper.fullpath }.uniq
+        @xphash = mappings.map { |mapper| mapper.fullpath }.uniq
         # hash with xpath as key and xpath info hash from DataHandler as value
-        @xphash = @xphash.map{ |xpath| [xpath, @handler.mapper.xpath[xpath].clone] }.to_h
+        @xphash = @xphash.map { |xpath|
+          [xpath, @handler.mapper.xpath[xpath].clone]
+        }.to_h
         @xphash.each do |_xpath, hash|
           hash[:mappings] = hash[:mappings].select do |mapping|
-            mapping.fieldname == 'shortIdentifier' || @response.merged_data.key?(mapping.datacolumn)
+            mapping.fieldname == "shortIdentifier" || @response.merged_data.key?(mapping.datacolumn)
           end
         end
       end
@@ -124,7 +129,10 @@ module CollectionSpace
       end
 
       def non_group_splitter(mapping, data)
-        return CollectionSpace::Mapper::SimpleSplitter.new(data, config).result if mapping.repeats == 'y'
+        if mapping.repeats == "y"
+          return CollectionSpace::Mapper::SimpleSplitter.new(data,
+            config).result
+        end
         return split_identifier(data) if identifier?(mapping.fieldname)
 
         [data.strip]
@@ -142,7 +150,8 @@ module CollectionSpace
           data = @response.merged_data.fetch(column, nil)
           next if data.nil? || data.empty?
 
-          @response.split_data[column] = CollectionSpace::Mapper::SimpleSplitter.new(data, config).result
+          @response.split_data[column] =
+            CollectionSpace::Mapper::SimpleSplitter.new(data, config).result
         end
       end
 
@@ -152,7 +161,8 @@ module CollectionSpace
           data = @response.merged_data.fetch(column, nil)
           next if data.nil? || data.empty?
 
-          @response.split_data[column] = CollectionSpace::Mapper::SubgroupSplitter.new(data, config).result
+          @response.split_data[column] =
+            CollectionSpace::Mapper::SubgroupSplitter.new(data, config).result
         end
       end
 
@@ -165,27 +175,30 @@ module CollectionSpace
           next if data.blank?
 
           targetdata[column] = if mapping.transforms.blank?
-                                 data
-                               else
-                                 data.map do |d|
-                                   if d.is_a?(String)
-                                     transform_value(d, mapping.transforms, column)
-                                   else
-                                     d.map{ |val| transform_value(val, mapping.transforms, column) }
-                                   end
-                                 end
-                               end
+            data
+          else
+            data.map do |d|
+              if d.is_a?(String)
+                transform_value(d, mapping.transforms, column)
+              else
+                d.map { |val|
+                  transform_value(val, mapping.transforms, column)
+                }
+              end
+            end
+          end
         end
       end
 
       def transform_value(value, transforms, column)
-        vt = CollectionSpace::Mapper::ValueTransformer.new(value, transforms, self)
+        vt = CollectionSpace::Mapper::ValueTransformer.new(value, transforms,
+          self)
         unless vt.warnings.empty?
-          vt.warnings.each{ |w| w[:field] = column }
+          vt.warnings.each { |w| w[:field] = column }
           @response.warnings << vt.warnings
         end
         unless vt.errors.empty?
-          vt.errors.each{ |e| e[:field] = column }
+          vt.errors.each { |e| e[:field] = column }
           @response.errors << vt.errors
         end
         vt.result
@@ -196,7 +209,7 @@ module CollectionSpace
 
         xphash[:mappings].each do |mapping|
           type = mapping.data_type
-          next unless type['date']
+          next unless type["date"]
 
           column = mapping.datacolumn
           data = sourcedata[column]
@@ -213,9 +226,9 @@ module CollectionSpace
             end
 
           case type
-          when 'structured date group'
+          when "structured date group"
             datevals = map_structured_dates(csdates, column)
-          when 'date'
+          when "date"
             datevals = map_unstructured_dates(csdates, column)
           end
 
@@ -239,15 +252,13 @@ module CollectionSpace
 
       def map_unstructured_dates(csdates, column)
         csdates.map do |csd|
-          begin
-            result = csd.stamp
-          rescue CollectionSpace::Mapper::Dates::UnparseableDateError => err
-            err.column = column
-            @response.errors << err.to_h
-            next
-          else
-            result
-          end
+          result = csd.stamp
+        rescue CollectionSpace::Mapper::Dates::UnparseableDateError => err
+          err.column = column
+          @response.errors << err.to_h
+          next
+        else
+          result
         end
       end
       private :map_unstructured_dates
@@ -259,16 +270,16 @@ module CollectionSpace
           next if source_type.nil?
 
           column = mapping.datacolumn
-          next if column['refname']
+          next if column["refname"]
 
           data = sourcedata.fetch(column, nil)
           next if data.blank?
 
           th = CollectionSpace::Mapper::TermHandler.new(mapping: mapping,
-                                                        data: data,
-                                                        client: @client,
-                                                        mapper: @handler.mapper,
-                                                        searcher: searcher)
+            data: data,
+            client: @client,
+            mapper: @handler.mapper,
+            searcher: searcher)
 
           @response.transformed_data[column] = th.result
           @response.terms << th.terms
@@ -279,9 +290,9 @@ module CollectionSpace
 
       def get_source_type(source_type_string)
         case source_type_string
-        when 'authority'
+        when "authority"
           source_type_string.to_sym
-        when 'vocabulary'
+        when "vocabulary"
           source_type_string.to_sym
         end
       end
@@ -318,26 +329,32 @@ module CollectionSpace
           when 1
             @response.combined_data[xpath][field] = xform[cols[0]]
           else
-            xformed = cols.map{ |col| xform[col] }.compact
+            xformed = cols.map { |col| xform[col] }.compact
             chk = []
-            xformed.each{ |arr| chk << arr.map{ |e| e.class } }
+            xformed.each { |arr| chk << arr.map { |e| e.class } }
             chk = chk.flatten.uniq
             if chk == [String]
               @response.combined_data[xpath][field] = xformed.flatten
             elsif chk == [Array]
-              @response.combined_data[xpath][field] = combine_subgroup_values(xformed)
+              @response.combined_data[xpath][field] =
+                combine_subgroup_values(xformed)
             elsif chk.empty?
               next
             else
-              raise StandardError, 'Mixed class types in multi-authority field set'
+              raise StandardError,
+                "Mixed class types in multi-authority field set"
             end
           end
         end
 
-        @response.combined_data[xpath].select{ |_fieldname, val| val.blank? }.keys.each do |fieldname|
+        @response.combined_data[xpath].select { |_fieldname, val|
+          val.blank?
+        }.keys.each do |fieldname|
           @response.combined_data[xpath].delete(fieldname)
-          unless fieldname == 'shortIdentifier'
-            @xphash[xpath][:mappings].delete_if{ |mapping| mapping.fieldname == fieldname }
+          unless fieldname == "shortIdentifier"
+            @xphash[xpath][:mappings].delete_if { |mapping|
+              mapping.fieldname == fieldname
+            }
           end
         end
       end
@@ -345,10 +362,10 @@ module CollectionSpace
       def combine_subgroup_values(data)
         combined = []
         group_count = data.map(&:length).uniq.sort.last
-        group_count.times{ combined << [] }
+        group_count.times { combined << [] }
         data.each do |field|
           field.each_with_index do |valarr, i|
-            valarr.each{ |e| combined[i] << e }
+            valarr.each { |e| combined[i] << e }
           end
         end
         combined

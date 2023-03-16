@@ -14,15 +14,20 @@ module CollectionSpace
       def self.create(column:, value:, recmapper:, mapping:)
         case mapping.xpath.length
         when 0
-          ColumnValue.new(column: column, value: value, recmapper: recmapper, mapping: mapping)
+          ColumnValue.new(column: column, value: value, recmapper: recmapper,
+            mapping: mapping)
         when 1
-          MultivalColumnValue.new(column: column, value: value, recmapper: recmapper, mapping: mapping)
+          MultivalColumnValue.new(column: column, value: value,
+            recmapper: recmapper, mapping: mapping)
         when 2
-          GroupColumnValue.new(column: column, value: value, recmapper: recmapper, mapping: mapping)
+          GroupColumnValue.new(column: column, value: value,
+            recmapper: recmapper, mapping: mapping)
         when 3 # bonsai conservation fertilizerToBeUsed is the only field like this
-          GroupMultivalColumnValue.new(column: column, value: value, recmapper: recmapper, mapping: mapping)
+          GroupMultivalColumnValue.new(column: column, value: value,
+            recmapper: recmapper, mapping: mapping)
         when 4
-          SubgroupColumnValue.new(column: column, value: value, recmapper: recmapper, mapping: mapping)
+          SubgroupColumnValue.new(column: column, value: value,
+            recmapper: recmapper, mapping: mapping)
         end
       end
 

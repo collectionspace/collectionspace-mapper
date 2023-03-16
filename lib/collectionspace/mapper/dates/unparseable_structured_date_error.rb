@@ -7,7 +7,7 @@ module CollectionSpace
         attr_reader :date_string, :mappable
         attr_accessor :column
 
-        def initialize(date_string:, orig_err: nil, mappable:, desc: nil)
+        def initialize(date_string:, mappable:, orig_err: nil, desc: nil)
           @date_string = date_string
           @orig_err = orig_err
           @mappable = mappable
@@ -29,7 +29,7 @@ module CollectionSpace
         attr_reader :orig_err, :desc
 
         def message
-          base = "Unparseable structured date "\
+          base = "Unparseable structured date " \
             "in #{column}: `#{date_string}`"
         end
 
