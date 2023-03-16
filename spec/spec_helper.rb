@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
-require 'pry'
 
 require 'collectionspace/mapper'
 require_relative './helpers'
@@ -12,7 +11,7 @@ RSpec.configure do |config|
   # random but deterministic test order
   config.order = :random
   Kernel.srand config.seed
-  
+
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = '.rspec_status'
 
