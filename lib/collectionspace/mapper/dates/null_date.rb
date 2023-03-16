@@ -7,10 +7,9 @@ module CollectionSpace
         attr_reader :mappable, :stamp
         def initialize
           @mappable = {}
-          @stamp = ''
+          @stamp = ""
         end
       end
     end
   end
 end
-

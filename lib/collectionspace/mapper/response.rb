@@ -5,7 +5,7 @@ module CollectionSpace
     class Response
       attr_reader :orig_data
       attr_accessor :split_data, :merged_data, :transformed_data, :combined_data, :doc, :errors, :warnings,
-                    :identifier, :terms, :record_status, :csid, :uri, :refname
+        :identifier, :terms, :record_status, :csid, :uri, :refname
 
       def initialize(data_hash)
         @orig_data = data_hash
@@ -17,7 +17,7 @@ module CollectionSpace
         @errors = []
         @warnings = []
         @terms = []
-        @identifier = ''
+        @identifier = ""
       end
 
       def add_warning(warning)
@@ -30,7 +30,7 @@ module CollectionSpace
         @uri = status_data[:uri]
         @refname = status_data[:refname]
       end
-      
+
       def valid?
         @errors.empty? ? true : false
       end

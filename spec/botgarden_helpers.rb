@@ -4,9 +4,9 @@ module Helpers
   def botgarden_client
     CollectionSpace::Client.new(
       CollectionSpace::Configuration.new(
-        base_uri: 'https://botgarden.dev.collectionspace.org/cspace-services',
-        username: 'admin@botgarden.collectionspace.org',
-        password: 'Administrator'
+        base_uri: "https://botgarden.dev.collectionspace.org/cspace-services",
+        username: "admin@botgarden.collectionspace.org",
+        password: "Administrator"
       )
     )
   end
@@ -15,7 +15,7 @@ module Helpers
   def botgarden_cache
     cache_config = base_cache_config.merge({domain: botgarden_client.domain})
     cache = CollectionSpace::RefCache.new(config: cache_config)
-    populate(cache, cacheable_refnames('botgarden.collectionspace.org'))
+    populate(cache, cacheable_refnames("botgarden.collectionspace.org"))
   end
   memo_wise(:botgarden_cache)
 

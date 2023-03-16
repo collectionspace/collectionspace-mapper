@@ -7,14 +7,14 @@ module CollectionSpace
       def special_mappings
         [
           {
-            fieldname: 'shortIdentifier',
+            fieldname: "shortIdentifier",
             namespace: @config.common_namespace,
-            data_type: 'string',
+            data_type: "string",
             xpath: [],
-            required: 'not in input data',
-            repeats: 'n',
-            in_repeating_group: 'n/a',
-            datacolumn: 'shortIdentifier'
+            required: "not in input data",
+            repeats: "n",
+            in_repeating_group: "n/a",
+            datacolumn: "shortIdentifier"
           }
         ]
       end

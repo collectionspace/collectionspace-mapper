@@ -12,17 +12,18 @@ module CollectionSpace
 
       # returns whether value is cached as an unknownvalue
       def cached_as_unknown?(val)
-        return true if @cache.exists?('unknownvalue', type_subtype, val)
-        return true if @cache.exists?('unknownvalue', type_subtype, case_swap(val))
+        return true if @cache.exists?("unknownvalue", type_subtype, val)
+        return true if @cache.exists?("unknownvalue", type_subtype,
+          case_swap(val))
 
         false
       end
 
       def cached_unknown(type_subtype, val)
-        returned = @cache.get('unknownvalue', type_subtype, val)
+        returned = @cache.get("unknownvalue", type_subtype, val)
         return returned if returned
 
-        returned = @cache.get('unknownvalue', type_subtype, case_swap(val))
+        returned = @cache.get("unknownvalue", type_subtype, case_swap(val))
         return returned if returned
       end
 
@@ -50,8 +51,9 @@ module CollectionSpace
 
       # returns specified data type (:csid or :refname) for searched term
       # @param val [String] termDisplayName value to search for
-      # @param return_type [Symbol<:csid, :refname>] 
-      def searched_term(val, return_type, termtype = type, termsubtype = subtype)
+      # @param return_type [Symbol<:csid, :refname>]
+      def searched_term(val, return_type, termtype = type,
+        termsubtype = subtype)
         response = searcher.call(
           value: val,
           type: termtype,
@@ -59,10 +61,10 @@ module CollectionSpace
         )
         return nil unless response
 
-        rec = rec_from_response('term', val, response)
+        rec = rec_from_response("term", val, response)
         return nil unless rec
 
-        values = {refname: rec['refName'], csid: rec['csid']}
+        values = {refname: rec["refName"], csid: rec["csid"]}
         @cache.put(termtype, termsubtype, val, values[:refname])
         @csid_cache.put(termtype, termsubtype, val, values[:csid])
         values[return_type]
@@ -73,29 +75,29 @@ module CollectionSpace
       end
 
       def obj_csid(objnum, type)
-        cached = @csid_cache.get(type, '', objnum)
+        cached = @csid_cache.get(type, "", objnum)
         return cached if cached
 
         lookup_obj_or_procedure_csid(objnum, type)
       end
 
       def lookup_obj_or_procedure_csid(objnum, type)
-        category = 'object_or_procedure'
+        category = "object_or_procedure"
         response = searcher.call(type: type, value: objnum)
 
         if response
           rec = rec_from_response(category, objnum, response)
           return nil unless rec
 
-          csid = rec['csid']
-          @csid_cache.put(type, '', objnum, csid)
-          @cache.put(type, '', objnum, rec['refName'])
+          csid = rec["csid"]
+          @csid_cache.put(type, "", objnum, csid)
+          @cache.put(type, "", objnum, rec["refName"])
           csid
         else
           errors << {
             category: "unsuccessful_csid_lookup_for_#{category}".to_sym,
-            field: '',
-            subtype: '',
+            field: "",
+            subtype: "",
             type: type,
             value: objnum,
             message: "Problem with search for #{objnum}."
@@ -112,7 +114,7 @@ module CollectionSpace
       end
 
       private def response_item_count(response)
-        ct = response.dig('totalItems')
+        ct = response.dig("totalItems")
         return ct.to_i if ct
 
         nil
@@ -148,10 +150,10 @@ module CollectionSpace
         when 0
           rec = nil
         when 1
-          rec = response['list_item']
+          rec = response["list_item"]
         else
-          rec = response['list_item'][0]
-          using_uri = "#{@client.config.base_uri}#{rec['uri']}"
+          rec = response["list_item"][0]
+          using_uri = "#{@client.config.base_uri}#{rec["uri"]}"
           warnings << {
             category: "multiple_records_found_for_#{category}".to_sym,
             field: @column,
@@ -167,13 +169,13 @@ module CollectionSpace
 
       # added toward refactoring that isn't done yet
       def get_vocabulary_term(vocab:, term:)
-        result = @cache.get('vocabularies', vocab, term, search: true)
+        result = @cache.get("vocabularies", vocab, term, search: true)
         return result unless result.nil?
 
         if has_caps?(term)
-          @cache.get('vocabularies', vocab, term.downcase, search: true)
+          @cache.get("vocabularies", vocab, term.downcase, search: true)
         else
-          @cache.get('vocabularies', vocab, term.capitalize, search: true)
+          @cache.get("vocabularies", vocab, term.capitalize, search: true)
         end
       end
     end

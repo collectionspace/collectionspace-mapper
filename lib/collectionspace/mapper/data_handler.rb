@@ -11,27 +11,32 @@ module CollectionSpace
 
       def initialize(record_mapper:, client:, cache:, csid_cache:, config: {})
         @mapper = CollectionSpace::Mapper::RecordMapper.new(mapper: record_mapper, batchconfig: config,
-                                                            csclient: client, termcache: cache,
-                                                            csidcache: csid_cache )
-        @validator = CollectionSpace::Mapper::DataValidator.new(@mapper, @mapper.termcache)
-        @searcher = CollectionSpace::Mapper::Searcher.new(client: client, config: mapper.batchconfig)
+          csclient: client, termcache: cache,
+          csidcache: csid_cache)
+        @validator = CollectionSpace::Mapper::DataValidator.new(@mapper,
+          @mapper.termcache)
+        @searcher = CollectionSpace::Mapper::Searcher.new(client: client,
+          config: mapper.batchconfig)
         @date_handler = CollectionSpace::Mapper::Dates::StructuredDateHandler.new(
           client: client,
           cache: cache,
           csid_cache: csid_cache,
           config: mapper.batchconfig,
-          searcher: searcher)
+          searcher: searcher
+        )
         @mapper.xpath = xpath_hash
         merge_config_transforms
         @new_terms = {}
-        @status_checker = CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder.call(@mapper.csclient, @mapper)
+        @status_checker = CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder.call(
+          @mapper.csclient, @mapper
+        )
       end
 
       def process(data)
         prepped = prep(data)
         case @mapper.record_type
-        when 'nonhierarchicalrelationship'
-          prepped.responses.map{ |response| map(response, prepped.xphash) }
+        when "nonhierarchicalrelationship"
+          prepped.responses.map { |response| map(response, prepped.xphash) }
         else
           map(prepped.response, prepped.xphash)
         end
@@ -41,17 +46,24 @@ module CollectionSpace
         response = CollectionSpace::Mapper.setup_data(data, @mapper.batchconfig)
         if response.valid?
           case @mapper.record_type
-          when 'authorityhierarchy'
-            prepper = CollectionSpace::Mapper::AuthorityHierarchyPrepper.new(response, searcher, self)
+          when "authorityhierarchy"
+            prepper = CollectionSpace::Mapper::AuthorityHierarchyPrepper.new(
+              response, searcher, self
+            )
             prepper.prep
-          when 'nonhierarchicalrelationship'
-            prepper = CollectionSpace::Mapper::NonHierarchicalRelationshipPrepper.new(response, searcher, self)
+          when "nonhierarchicalrelationship"
+            prepper = CollectionSpace::Mapper::NonHierarchicalRelationshipPrepper.new(
+              response, searcher, self
+            )
             prepper.prep
-          when 'objecthierarchy'
-            prepper = CollectionSpace::Mapper::ObjectHierarchyDataPrepper.new(response, searcher, self)
+          when "objecthierarchy"
+            prepper = CollectionSpace::Mapper::ObjectHierarchyDataPrepper.new(
+              response, searcher, self
+            )
             prepper.prep
           else
-            prepper = CollectionSpace::Mapper::DataPrepper.new(response, searcher, self)
+            prepper = CollectionSpace::Mapper::DataPrepper.new(response,
+              searcher, self)
             prepper.prep
           end
         else
@@ -64,7 +76,7 @@ module CollectionSpace
         result = mapper.response
         tag_terms(result)
         @mapper.batchconfig.check_record_status ? set_record_status(result) : result.record_status = :new
-        @mapper.batchconfig.response_mode == 'normal' ? result.normal : result
+        (@mapper.batchconfig.response_mode == "normal") ? result.normal : result
       end
 
       def check_fields(data)
@@ -92,7 +104,8 @@ module CollectionSpace
         # create key for each xpath containing fields, and set up structure of its value
         mappings.each do |mapping|
           xhash[mapping.fullpath] =
-            {parent: '', children: [], is_group: false, is_subgroup: false, subgroups: [], mappings: []}
+            {parent: "", children: [], is_group: false, is_subgroup: false,
+             subgroups: [], mappings: []}
         end
         xhash
       end
@@ -121,36 +134,40 @@ module CollectionSpace
 
         # populate parent of all non-top xpaths
         h.each do |xpath, ph|
-          next unless xpath['/']
+          next unless xpath["/"]
 
           keys = h.keys - [xpath]
-          keys = keys.select{ |k| xpath[k] }
-          keys = keys.sort{ |a, b| b.length <=> a.length }
+          keys = keys.select { |k| xpath[k] }
+          keys = keys.sort { |a, b| b.length <=> a.length }
           ph[:parent] = keys[0] unless keys.empty?
         end
 
         # populate children
         h.each do |xpath, ph|
           keys = h.keys - [xpath]
-          ph[:children] = keys.select{ |k| k.start_with?(xpath) }
+          ph[:children] = keys.select { |k| k.start_with?(xpath) }
         end
 
         # populate subgroups
         h.each do |xpath, ph|
           keys = h.keys - [xpath]
-          subpaths = keys.select{ |k| k.start_with?(xpath) }
-          subpaths.each{ |p| ph[:subgroups] << p } if !subpaths.empty? && !ph[:parent].empty?
+          subpaths = keys.select { |k| k.start_with?(xpath) }
+          if !subpaths.empty? && !ph[:parent].empty?
+            subpaths.each { |p|
+              ph[:subgroups] << p
+            }
+          end
         end
 
         # populate is_group
         h.each do |xpath, ph|
           ct = ph[:mappings].size
-          v = ph[:mappings].map{ |mapping| mapping.in_repeating_group }.uniq
-          ph[:is_group] = true if v == ['y']
+          v = ph[:mappings].map { |mapping| mapping.in_repeating_group }.uniq
+          ph[:is_group] = true if v == ["y"]
           if v.size > 1
             puts "WARNING: #{xpath} has fields with different :in_repeating_group values (#{v}). Defaulting to treating NOT as a group"
           end
-          if ct == 1 && v == ['as part of larger repeating group'] && ph[:mappings][0].repeats == 'y'
+          if ct == 1 && v == ["as part of larger repeating group"] && ph[:mappings][0].repeats == "y"
             ph[:is_group] =
               true
           end
@@ -158,16 +175,16 @@ module CollectionSpace
 
         # populate is_subgroup
         subgroups = []
-        h.each{ |_k, v| subgroups << v[:subgroups] }
+        h.each { |_k, v| subgroups << v[:subgroups] }
         subgroups = subgroups.flatten.uniq
-        h.keys.each{ |k| h[k][:is_subgroup] = true if subgroups.include?(k) }
+        h.keys.each { |k| h[k][:is_subgroup] = true if subgroups.include?(k) }
         h
       end
 
       def to_s
         cfg = mapper.config
         id = "#{cfg.recordtype} #{mapper.csclient.config.base_uri}"
-        "<##{self.class}:#{self.object_id.to_s(8)} #{id}>"
+        "<##{self.class}:#{object_id.to_s(8)} #{id}>"
       end
 
       private
@@ -182,10 +199,10 @@ module CollectionSpace
         terms = result.terms
         return if terms.empty?
 
-        terms.select{ |t| !t[:found] }.each do |term|
+        terms.select { |t| !t[:found] }.each do |term|
           @new_terms[term[:refname].key] = nil
         end
-        terms.select{ |t| t[:found] }.each do |term|
+        terms.select { |t| t[:found] }.each do |term|
           term[:found] = false if @new_terms.key?(term[:refname].key)
         end
 
@@ -208,7 +225,9 @@ module CollectionSpace
       end
 
       def transform_target(data_column)
-        @mapper.mappings.select{ |field_mapping| field_mapping.datacolumn == data_column }.first
+        @mapper.mappings.select { |field_mapping|
+          field_mapping.datacolumn == data_column
+        }.first
       end
     end
   end

@@ -7,7 +7,7 @@ module CollectionSpace
         extend self
 
         def symbolize(hash)
-          hash.transform_keys{ |key| key.to_sym }
+          hash.transform_keys { |key| key.to_sym }
         end
 
         def symbolize_transforms(transforms)
@@ -20,7 +20,7 @@ module CollectionSpace
         end
 
         def symbolize_replacements(replacements)
-          replacements.map!{ |hash| hash.transform_keys!(&:to_sym) }
+          replacements.map! { |hash| hash.transform_keys!(&:to_sym) }
         end
 
         def replacements?(fieldtransform)

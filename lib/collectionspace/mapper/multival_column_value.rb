@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'column_value'
-require_relative 'repeatable'
+require_relative "column_value"
+require_relative "repeatable"
 
 module CollectionSpace
   module Mapper

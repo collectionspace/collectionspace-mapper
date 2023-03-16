@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Dates::TwoDigitYearHandler do
-  subject(:creator){ described_class.new(str, handler, handling) }
-  let(:client){ anthro_client }
-  let(:cache){ anthro_cache }
-  let(:csid_cache){ anthro_csid_cache }
-  let(:config){ CollectionSpace::Mapper::Config.new }
+  subject(:creator) { described_class.new(str, handler, handling) }
+  let(:client) { anthro_client }
+  let(:cache) { anthro_cache }
+  let(:csid_cache) { anthro_csid_cache }
+  let(:config) { CollectionSpace::Mapper::Config.new }
   let(:searcher) do
     CollectionSpace::Mapper::Searcher.new(client: client, config: config)
   end
@@ -19,67 +19,67 @@ RSpec.describe CollectionSpace::Mapper::Dates::TwoDigitYearHandler do
       config: config,
       searcher: searcher
     )
-    end
-  let(:str){ '3-2-20' }
+  end
+  let(:str) { "3-2-20" }
 
-  describe '#mappable' do
-    let(:result){ creator.mappable }
+  describe "#mappable" do
+    let(:result) { creator.mappable }
 
-    context 'with literal' do
-      let(:handling){ 'literal' }
+    context "with literal" do
+      let(:handling) { "literal" }
 
-      it 'returns expected' do
-        expected = '0020-03-02T00:00:00.000Z'
-        expect(result['dateEarliestScalarValue']).to eq(expected)
+      it "returns expected" do
+        expected = "0020-03-02T00:00:00.000Z"
+        expect(result["dateEarliestScalarValue"]).to eq(expected)
       end
     end
 
-    context 'with coerce' do
-      let(:handling){ 'coerce' }
+    context "with coerce" do
+      let(:handling) { "coerce" }
 
-      it 'returns expected' do
-        expected = '2020-03-02T00:00:00.000Z'
-        expect(result['dateEarliestScalarValue']).to eq(expected)
+      it "returns expected" do
+        expected = "2020-03-02T00:00:00.000Z"
+        expect(result["dateEarliestScalarValue"]).to eq(expected)
       end
     end
 
-    context 'with foo' do
-      let(:handling){ 'foo' }
+    context "with foo" do
+      let(:handling) { "foo" }
 
-      it 'raises error' do
+      it "raises error" do
         cst = CollectionSpace::Mapper::Dates::UnparseableStructuredDateError
-        expect{ result }.to raise_error(cst)
+        expect { result }.to raise_error(cst)
       end
     end
   end
 
-  describe '#stamp' do
-    let(:result){ creator.stamp }
+  describe "#stamp" do
+    let(:result) { creator.stamp }
 
-    context 'with literal' do
-      let(:handling){ 'literal' }
+    context "with literal" do
+      let(:handling) { "literal" }
 
-      it 'returns expected' do
-        expected = '0020-03-02T00:00:00.000Z'
+      it "returns expected" do
+        expected = "0020-03-02T00:00:00.000Z"
         expect(result).to eq(expected)
       end
     end
 
-    context 'with coerce' do
-      let(:handling){ 'coerce' }
+    context "with coerce" do
+      let(:handling) { "coerce" }
 
-      it 'returns expected' do
-        expected = '2020-03-02T00:00:00.000Z'
+      it "returns expected" do
+        expected = "2020-03-02T00:00:00.000Z"
         expect(result).to eq(expected)
       end
     end
 
-    context 'with foo' do
-      let(:handling){ 'foo' }
+    context "with foo" do
+      let(:handling) { "foo" }
 
-      it 'raises error' do
+      it "raises error" do
         cst = CollectionSpace::Mapper::Dates::UnparseableDateError
-        expect{ result }.to raise_error(cst)
+        expect { result }.to raise_error(cst)
       end
     end
   end

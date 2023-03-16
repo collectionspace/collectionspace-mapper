@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'chronic'
+require "chronic"
 
 module CollectionSpace
   module Mapper
@@ -16,12 +16,12 @@ module CollectionSpace
 
         def mappable
           parsed = parse
-          if parsed.nil?
-            result = ServicesParser.new(date_string, handler).mappable
+          result = if parsed.nil?
+            ServicesParser.new(date_string, handler).mappable
           else
-            result = map_timestamp(parsed)
+            map_timestamp(parsed)
           end
-        rescue StandardError => err
+        rescue => err
           fail UnparseableStructuredDateError.new(
             date_string: date_string,
             orig_err: err,
@@ -36,7 +36,7 @@ module CollectionSpace
         attr_reader :date_string, :handler
 
         def day_month_year?
-          handler.config.date_format == 'day month year'
+          handler.config.date_format == "day month year"
         end
 
         def parse

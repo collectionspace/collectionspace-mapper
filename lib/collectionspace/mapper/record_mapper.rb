@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'collectionspace/mapper/tools/symbolizable'
+require "collectionspace/mapper/tools/symbolizable"
 
 module CollectionSpace
   module Mapper
@@ -16,13 +16,16 @@ module CollectionSpace
     class RecordMapper
       include Tools::Symbolizable
 
-      attr_reader :batchconfig, :config, :termcache, :csidcache, :mappings, :xml_template, :csclient
+      attr_reader :batchconfig, :config, :termcache, :csidcache, :mappings,
+        :xml_template, :csclient
       attr_accessor :xpath
 
       def initialize(opts)
         jhash = opts[:mapper].is_a?(Hash) ? opts[:mapper] : JSON.parse(opts[:mapper])
         convert(jhash)
-        @batchconfig = CollectionSpace::Mapper::Config.new(config: opts[:batchconfig], record_type: record_type)
+        @batchconfig = CollectionSpace::Mapper::Config.new(
+          config: opts[:batchconfig], record_type: record_type
+        )
         @csclient = opts[:csclient]
         @termcache = opts[:termcache]
         @csidcache = opts[:csidcache]
@@ -37,12 +40,12 @@ module CollectionSpace
       #  other classes using RecordMapper
       def service_type_extension
         case config.service_type
-        when 'authority'
+        when "authority"
           CollectionSpace::Mapper::Authority
-        when 'relation'
+        when "relation"
           CollectionSpace::Mapper::Relationship
-        when 'procedure'
-          CollectionSpace::Mapper::Media if record_type == 'media'
+        when "procedure"
+          CollectionSpace::Mapper::Media if record_type == "media"
         end
       end
 
@@ -53,7 +56,7 @@ module CollectionSpace
         @config = CollectionSpace::Mapper::RecordMapperConfig.new(hash[:config])
         @xml_template = CollectionSpace::Mapper::XmlTemplate.new(hash[:docstructure])
         @mappings = CollectionSpace::Mapper::ColumnMappings.new(mappings: hash[:mappings],
-                                                   mapper: self)
+          mapper: self)
       end
     end
   end

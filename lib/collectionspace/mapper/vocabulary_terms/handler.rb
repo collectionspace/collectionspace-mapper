@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'dry/monads'
-require 'dry/monads/do'
+require "dry/monads"
+require "dry/monads/do"
 
 module CollectionSpace
   module Mapper
@@ -13,8 +13,7 @@ module CollectionSpace
         include Dry::Monads::Do.for(:add_term)
 
         def initialize(client:,
-                       vocabs: CollectionSpace::Mapper::Vocabularies.new(client)
-                      )
+          vocabs: CollectionSpace::Mapper::Vocabularies.new(client))
           @client = client
           @domain = client.domain
           @vocabs = vocabs
@@ -24,8 +23,8 @@ module CollectionSpace
         # @param term [String] the term to create in the Vocabulary
         def add_term(vocab:, term:)
           vocabulary = yield vocabs.by_name(vocab)
-          vname = vocabulary['shortIdentifier']
-          vcsid = vocabulary['csid']
+          vname = vocabulary["shortIdentifier"]
+          vcsid = vocabulary["csid"]
           tid = yield get_termid(term)
           payload = yield PayloadBuilder.call(
             domain: domain,
@@ -34,10 +33,10 @@ module CollectionSpace
             term: term,
             termid: tid
           )
-          path = "#{vocabulary['uri']}/items"
+          path = "#{vocabulary["uri"]}/items"
           posting = yield post_term(path, payload, vname, term)
 
-          Success(posting.sub(/^.*cspace-services/, ''))
+          Success(posting.sub(/^.*cspace-services/, ""))
         end
 
         private
@@ -48,7 +47,7 @@ module CollectionSpace
           result = CollectionSpace::Mapper::Identifiers::ShortIdentifier.new(
             term: term
           ).value
-        rescue StandardError => err
+        rescue => err
           Failure(err)
         else
           Success(result)
@@ -56,14 +55,14 @@ module CollectionSpace
 
         def post_term(path, payload, vname, term)
           result = client.post(path, payload)
-        rescue StandardError => err
+        rescue => err
           Failure(err)
         else
           case result.status_code
           when 409
             Failure("#{vname}/#{term} already exists")
           when 201
-            Success(result.result.headers['location'])
+            Success(result.result.headers["location"])
           else
             Failure(result)
           end

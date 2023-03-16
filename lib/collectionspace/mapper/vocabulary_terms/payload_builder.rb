@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'dry/monads'
+require "dry/monads"
 
 module CollectionSpace
   module Mapper
@@ -30,7 +30,7 @@ module CollectionSpace
                    </refName>
                 </ns2:vocabularyitems_common>
             </document>
-            XML
+          XML
           Success(payload)
         end
       end

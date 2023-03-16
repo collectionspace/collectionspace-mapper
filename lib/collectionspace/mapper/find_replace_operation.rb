@@ -17,9 +17,9 @@ module CollectionSpace
 
       def self.create(opts)
         case opts[:type]
-        when 'plain'
+        when "plain"
           new(opts)
-        when 'regex'
+        when "regex"
           RegexFindReplaceOperation.new(opts)
         end
       end

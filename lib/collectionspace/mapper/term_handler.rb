@@ -6,7 +6,7 @@ module CollectionSpace
       include TermSearchable
 
       attr_reader :result, :terms, :warnings, :errors,
-                  :column, :source_type, :type, :subtype
+        :column, :source_type, :type, :subtype
       attr_accessor :value
 
       # @param mapping [CollectionSpace::Mapper::ColumnMapping]
@@ -19,7 +19,7 @@ module CollectionSpace
         @client = client
         @mapper = mapper
         @searcher = searcher
-        
+
         @cache = mapper.termcache
         @csid_cache = mapper.csidcache
 
@@ -34,7 +34,7 @@ module CollectionSpace
           @type = authconfig[0]
           @subtype = authconfig[1]
         when :vocabulary
-          @type = 'vocabularies'
+          @type = "vocabularies"
           @subtype = @mapping.transforms[:vocabulary]
         end
         @warnings = []
@@ -45,18 +45,18 @@ module CollectionSpace
       private
 
       attr_reader :searcher
-      
+
       def handle_terms
         @result = if @data.first.is_a?(String)
-                    @data.map{ |val| handle_term(val) }
-                  else
-                    @data.map{ |arr| arr.map{ |val| handle_term(val) } }
-                  end
+          @data.map { |val| handle_term(val) }
+        else
+          @data.map { |arr| arr.map { |val| handle_term(val) } }
+        end
       end
 
       def handle_term(val)
         @value = val
-        return '' if val.blank? || val == '%NULLVALUE%'
+        return "" if val.blank? || val == "%NULLVALUE%"
         return THE_BOMB if val == THE_BOMB
 
         added = false
@@ -76,7 +76,7 @@ module CollectionSpace
         elsif cached_as_unknown?(val)
           refname_urn = add_known_unknown_term(val, term_report)
           added = true
-          map_val = ''
+          map_val = ""
         else # not in cache
           refname_urn = searched_term(val, :refname)
           if refname_urn
@@ -89,7 +89,7 @@ module CollectionSpace
         add_new_unknown_term(val, term_report) unless added
         return map_val if map_val
 
-        ''
+        ""
       end
 
       def add_found_term(refname_urn, term_report)
@@ -106,8 +106,10 @@ module CollectionSpace
         )
         urn = unknown_term.urn
         @terms << term_report.merge({found: false, refname: unknown_term})
-        add_missing_record_error('term', val)
-        [val, case_swap(val)].each{ |value| @cache.put('unknownvalue', type_subtype, value, urn) }
+        add_missing_record_error("term", val)
+        [val, case_swap(val)].each { |value|
+          @cache.put("unknownvalue", type_subtype, value, urn)
+        }
       end
 
       # records the fact that this is an unknown term in the mapper response
@@ -115,7 +117,7 @@ module CollectionSpace
         unknown_term_str = cached_unknown(type_subtype, val)
         unknown_term = CollectionSpace::Mapper::UnknownTerm.from_string(unknown_term_str)
         @terms << term_report.merge({found: false, refname: unknown_term})
-        add_missing_record_error('term', val)
+        add_missing_record_error("term", val)
         unknown_term_str
       end
     end

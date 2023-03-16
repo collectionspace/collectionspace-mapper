@@ -4,9 +4,9 @@ module Helpers
   def lhmc_client
     CollectionSpace::Client.new(
       CollectionSpace::Configuration.new(
-        base_uri: 'https://lhmc.dev.collectionspace.org/cspace-services',
-        username: 'admin@lhmc.collectionspace.org',
-        password: 'Administrator'
+        base_uri: "https://lhmc.dev.collectionspace.org/cspace-services",
+        username: "admin@lhmc.collectionspace.org",
+        password: "Administrator"
       )
     )
   end
@@ -15,7 +15,7 @@ module Helpers
   def lhmc_cache
     cache_config = base_cache_config.merge({domain: lhmc_client.domain})
     cache = CollectionSpace::RefCache.new(config: cache_config)
-    populate(cache, cacheable_refnames('lhmc.collectionspace.org'))
+    populate(cache, cacheable_refnames("lhmc.collectionspace.org"))
   end
   memo_wise(:lhmc_cache)
 

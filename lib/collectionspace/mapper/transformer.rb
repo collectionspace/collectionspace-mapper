@@ -11,7 +11,8 @@ module CollectionSpace
         @warnings = []
       end
 
-      def transform(value); end
+      def transform(value)
+      end
 
       def <=>(other)
         @precedence <=> other.precedence
@@ -40,7 +41,7 @@ module CollectionSpace
         when :vocabulary
           VocabularyTransformer.new(transform: transform, recmapper: recmapper)
         when :special
-          transform.map{ |xformname| special_transformers(xformname) }
+          transform.map { |xformname| special_transformers(xformname) }
         when :replacements
           FindReplaceTransformer.new(transform: transform)
         end
@@ -48,11 +49,11 @@ module CollectionSpace
 
       def self.special_transformers(xformname)
         case xformname
-        when 'boolean'
+        when "boolean"
           BooleanTransformer.new
-        when 'behrensmeyer_translate'
+        when "behrensmeyer_translate"
           BehrensmeyerTransformer.new
-        when 'downcase_value'
+        when "downcase_value"
           DowncaseTransformer.new
         end
       end

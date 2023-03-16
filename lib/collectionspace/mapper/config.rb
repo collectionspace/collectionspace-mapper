@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'tools/symbolizable'
+require_relative "tools/symbolizable"
 
 module CollectionSpace
   module Mapper
@@ -19,24 +19,23 @@ module CollectionSpace
       include Tools::Symbolizable
 
       DEFAULT_CONFIG = {
-        delimiter: '|',
-        subgroup_delimiter: '^^',
-        response_mode: 'normal',
+        delimiter: "|",
+        subgroup_delimiter: "^^",
+        response_mode: "normal",
         strip_id_values: true,
-        multiple_recs_found: 'fail',
+        multiple_recs_found: "fail",
         check_record_status: true,
-        status_check_method: 'client',
+        status_check_method: "client",
         search_if_not_cached: true,
         force_defaults: false,
-        date_format: 'month day year',
-        two_digit_year_handling: 'coerce'
+        date_format: "month day year",
+        two_digit_year_handling: "coerce"
       }
 
       VALID_VALUES = {
         response_mode: %w[normal verbose],
         status_check_method: %w[client cache]
       }
-
 
       class ConfigKeyMissingError < StandardError
         attr_reader :keys
@@ -58,7 +57,6 @@ module CollectionSpace
         extension = record_type_extension
         extend extension if extension
 
-
         if config.is_a?(String)
           set_instance_variables(JSON.parse(config))
         elsif config.is_a?(Hash)
@@ -67,7 +65,7 @@ module CollectionSpace
           raise UnhandledConfigFormatError
         end
 
-        special_defaults.each{ |col, val| add_default_value(col, val) }
+        special_defaults.each { |col, val| add_default_value(col, val) }
         @default_values.transform_keys!(&:downcase)
         validate
       end
@@ -94,21 +92,23 @@ module CollectionSpace
         instance_variables.each do |var|
           next if var == :@record_type
 
-          key = var.to_s.delete('@').to_sym
+          key = var.to_s.delete("@").to_sym
           hash[key] = instance_variable_get(var)
         end
         hash
       end
 
       def set_instance_variables(hash)
-        hash.each{ |key, value| instance_variable_set("@#{key}", value) }
+        hash.each { |key, value| instance_variable_set("@#{key}", value) }
       end
 
       def validate
         begin
           has_required_attributes
         rescue ConfigKeyMissingError => e
-          e.keys.each{ |key| instance_variable_set("@#{key}", DEFAULT_CONFIG[key]) }
+          e.keys.each { |key|
+            instance_variable_set("@#{key}", DEFAULT_CONFIG[key])
+          }
         end
 
         validate_setting(:response_mode)
@@ -126,28 +126,29 @@ module CollectionSpace
           instance_variable_set(setting_variable, replacement)
         end
       end
-      
+
       def has_required_attributes
         required_keys = DEFAULT_CONFIG.keys
         missing_keys = required_keys - hash.keys
-        raise ConfigKeyMissingError.new('Config missing key', missing_keys) unless missing_keys.empty?
+        unless missing_keys.empty?
+          raise ConfigKeyMissingError.new("Config missing key",
+            missing_keys)
+        end
       end
 
       def record_type_extension
         case record_type
-        when 'media'
+        when "media"
           CollectionSpace::Mapper::Media
-        when 'objecthierarchy'
+        when "objecthierarchy"
           CollectionSpace::Mapper::ObjectHierarchy
-        when 'authorityhierarchy'
+        when "authorityhierarchy"
           CollectionSpace::Mapper::AuthorityHierarchy
-        when 'nonhierarchicalrelationship'
+        when "nonhierarchicalrelationship"
           CollectionSpace::Mapper::NonHierarchicalRelationship
-        else
-          nil
         end
       end
-      
+
       def special_defaults
         {}
       end

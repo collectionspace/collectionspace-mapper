@@ -5,7 +5,7 @@ module CollectionSpace
     # special behavior for authority hierarchy mapping
     module AuthorityHierarchy
       def special_defaults
-        {'relationshiptype' => 'hasBroader'}
+        {"relationshiptype" => "hasBroader"}
       end
     end
   end

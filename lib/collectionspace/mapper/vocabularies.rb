@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'dry/monads'
+require "dry/monads"
 
 module CollectionSpace
   module Mapper
@@ -14,11 +14,11 @@ module CollectionSpace
 
       # @param name [String] display or machine name of vocabulary
       def by_name(name)
-        result = vocabs.select{ |vocab| vocab['displayName'] == name }
+        result = vocabs.select { |vocab| vocab["displayName"] == name }
 
         if result.empty?
           result = vocabs.select do |vocab|
-            vocab['shortIdentifier'].downcase == name.downcase
+            vocab["shortIdentifier"].downcase == name.downcase
           end
         end
 
@@ -35,7 +35,7 @@ module CollectionSpace
 
       def populate_vocabs(client)
         all = []
-        client.all('vocabularies').each{ |v| all << v }
+        client.all("vocabularies").each { |v| all << v }
         all
       end
     end

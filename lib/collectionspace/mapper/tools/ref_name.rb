@@ -4,7 +4,7 @@ module CollectionSpace
   module Mapper
     module Tools
       class RefNameArgumentError < ArgumentError
-        def initialize(msg = 'Arguments requires either :urn OR :source_type, :type, :subtype, :term, :cache values')
+        def initialize(msg = "Arguments requires either :urn OR :source_type, :type, :subtype, :term, :cache values")
           super
         end
       end
@@ -24,11 +24,13 @@ module CollectionSpace
             new_from_urn
           elsif args_given == term_args
             cache = args[:cache]
-            @domain = cache.domain.sub(%r{https?://}, '').sub('/cspace-services', '')
+            @domain = cache.domain.sub(%r{https?://}, "").sub(
+              "/cspace-services", ""
+            )
             @type = args[:type]
             @subtype = args[:subtype]
             @display_name = args[:term]
-            args[:source_type] == :authority ? new_from_authority_term : new_from_term
+            (args[:source_type] == :authority) ? new_from_authority_term : new_from_term
             @urn = build_urn
             #  new_from_term(args[:source_type])
           else
@@ -39,7 +41,6 @@ module CollectionSpace
         def key
           "#{type}-#{subtype}-#{display_name}"
         end
-
 
         private
 

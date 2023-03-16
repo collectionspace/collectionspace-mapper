@@ -3,7 +3,6 @@
 module CollectionSpace
   module Mapper
     class UnknownTerm
-
       class ReconstituteNilError < CollectionSpace::Mapper::Error
         def initialize
           msg = "Cannot reconstitute from NilValue"
@@ -15,13 +14,13 @@ module CollectionSpace
       # @param str [String] of form: type|||subtype|||term
       def self.from_string(str)
         fail(ReconstituteNilError.new) if str.nil?
-        
-        parts = str.split('|||')
-        self.new(type: parts[0], subtype: parts[1], term: parts[2])
+
+        parts = str.split("|||")
+        new(type: parts[0], subtype: parts[1], term: parts[2])
       end
-      
+
       attr_reader :type, :subtype, :identifier, :display_name, :urn
-      
+
       def initialize(type:, subtype:, term:)
         @type = type
         @subtype = subtype

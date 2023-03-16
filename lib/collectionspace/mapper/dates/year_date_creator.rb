@@ -15,18 +15,18 @@ module CollectionSpace
         def mappable
           if date_string.match?(/^\d{1,4}$/)
             maphash = {
-              'dateDisplayDate' => date_string,
-              'dateEarliestSingleYear' => date_string,
-              'dateEarliestSingleMonth' => '1',
-              'dateEarliestSingleDay' => '1',
-              'dateEarliestSingleEra' => handler.ce,
-              'dateLatestYear' => date_string,
-              'dateLatestMonth' => '12',
-              'dateLatestDay' => '31',
-              'dateLatestEra' => handler.ce,
-              'dateEarliestScalarValue' => to_scalar(date_string),
-              'dateLatestScalarValue' => to_scalar(next_year),
-              'scalarValuesComputed' => 'true'
+              "dateDisplayDate" => date_string,
+              "dateEarliestSingleYear" => date_string,
+              "dateEarliestSingleMonth" => "1",
+              "dateEarliestSingleDay" => "1",
+              "dateEarliestSingleEra" => handler.ce,
+              "dateLatestYear" => date_string,
+              "dateLatestMonth" => "12",
+              "dateLatestDay" => "31",
+              "dateLatestEra" => handler.ce,
+              "dateEarliestScalarValue" => to_scalar(date_string),
+              "dateLatestScalarValue" => to_scalar(next_year),
+              "scalarValuesComputed" => "true"
             }
             add_timestamp_to_scalar_values(maphash)
           else
@@ -46,7 +46,7 @@ module CollectionSpace
         end
 
         def to_scalar(yr)
-          "#{yr.to_s.rjust(4, '0')}-01-01"
+          "#{yr.to_s.rjust(4, "0")}-01-01"
         end
       end
     end

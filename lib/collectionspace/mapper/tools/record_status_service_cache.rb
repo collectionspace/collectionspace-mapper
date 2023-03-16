@@ -12,20 +12,21 @@ module CollectionSpace
           @refname_cache = mapper.termcache
           @csid_cache = mapper.csidcache
         end
-        
+
         def call(response)
           value = get_value_for_record_status(response)
           if authority?
             lookup_authority(value)
-          elsif type == 'collectionobjects'
+          elsif type == "collectionobjects"
             lookup_object(value)
-          elsif mapper.config.service_type == 'relation'
+          elsif mapper.config.service_type == "relation"
             lookup_relation(value)
           else
             lookup_procedure(value)
           end
-        end    
-        #rectype = mapper.config.recordtype
+        end
+        # rectype = mapper.config.recordtype
+
         private
 
         attr_reader :refname_cache, :csid_cache
@@ -35,7 +36,7 @@ module CollectionSpace
           refname = refname_cache.get_auth_term(type, subtype, term)
 
           if csid || refname
-            reportable_result({'csid' => csid, 'refName' => refname})
+            reportable_result({"csid" => csid, "refName" => refname})
           else
             reportable_result
           end
@@ -43,27 +44,27 @@ module CollectionSpace
 
         def lookup_object(identifier)
           csid = csid_cache.get_object(identifier)
-          csid ? reportable_result({'csid' => csid}) : reportable_result
+          csid ? reportable_result({"csid" => csid}) : reportable_result
         end
 
         def lookup_procedure(identifier)
           csid = csid_cache.get_procedure(type, identifier)
-          csid ? reportable_result({'csid' => csid}) : reportable_result
+          csid ? reportable_result({"csid" => csid}) : reportable_result
         end
 
         def lookup_relation(rel_hash)
-          csid = csid_cache.get_relation(relation_type(rel_hash), rel_hash[:sub], rel_hash[:obj])
-          csid ? reportable_result({'csid' => csid}) : reportable_result
+          csid = csid_cache.get_relation(relation_type(rel_hash),
+            rel_hash[:sub], rel_hash[:obj])
+          csid ? reportable_result({"csid" => csid}) : reportable_result
         end
 
         def relation_type(rel_hash)
           prd = rel_hash[:prd]
-          return 'hier' if prd == 'hasBroader'
+          return "hier" if prd == "hasBroader"
 
-          'nhr'
+          "nhr"
         end
       end
     end
   end
 end
-

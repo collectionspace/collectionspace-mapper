@@ -22,15 +22,15 @@ module CollectionSpace
       end
 
       BOOLEAN_LOOKUP = {
-        'true' => 'true',
-        'false' => 'false',
-        '' => 'false',
-        'yes' => 'true',
-        'no' => 'false',
-        'y' => 'true',
-        'n' => 'false',
-        't' => 'true',
-        'f' => 'false'
+        "true" => "true",
+        "false" => "false",
+        "" => "false",
+        "yes" => "true",
+        "no" => "false",
+        "y" => "true",
+        "n" => "false",
+        "t" => "true",
+        "f" => "false"
       }
 
       def process_replacements
@@ -51,17 +51,17 @@ module CollectionSpace
 
       def process_special
         special = @transforms[:special]
-        process_boolean if special.include?('boolean')
+        process_boolean if special.include?("boolean")
         unless @value.empty?
-          @value = @value.downcase if special.include?('downcase_value')
-          process_behrensmeyer if special.include?('behrensmeyer_translate')
-          obj_num_to_csid if special.include?('obj_num_to_csid')
+          @value = @value.downcase if special.include?("downcase_value")
+          process_behrensmeyer if special.include?("behrensmeyer_translate")
+          obj_num_to_csid if special.include?("obj_num_to_csid")
         end
       end
 
       def process_boolean
         if @value.blank?
-          @value = 'false'
+          @value = "false"
           return
         end
 
@@ -71,7 +71,7 @@ module CollectionSpace
           return
         end
 
-        @value = 'false'
+        @value = "false"
         @warnings << {
           category: :boolean_value_transform,
           field: nil,
@@ -83,17 +83,17 @@ module CollectionSpace
       end
 
       def obj_num_to_csid
-        @value = obj_csid(@value, 'collectionobjects')
+        @value = obj_csid(@value, "collectionobjects")
       end
 
       def process_behrensmeyer
         lookup = {
-          '0' => '0 - no cracking or flaking on bone surface',
-          '1' => '1 - longitudinal and/or mosaic cracking present on surface',
-          '2' => '2 - longitudinal cracks, exfoliation on surface',
-          '3' => '3 - fibrous texture, extensive exfoliation',
-          '4' => '4 - coarsely fibrous texture, splinters of bone loose on the surface, open cracks',
-          '5' => '5 - bone crumbling in situ, large splinters'
+          "0" => "0 - no cracking or flaking on bone surface",
+          "1" => "1 - longitudinal and/or mosaic cracking present on surface",
+          "2" => "2 - longitudinal cracks, exfoliation on surface",
+          "3" => "3 - fibrous texture, extensive exfoliation",
+          "4" => "4 - coarsely fibrous texture, splinters of bone loose on the surface, open cracks",
+          "5" => "5 - bone crumbling in situ, large splinters"
         }
         @value = lookup.fetch(@value, @value)
       end

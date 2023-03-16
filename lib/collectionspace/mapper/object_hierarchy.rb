@@ -5,9 +5,9 @@ module CollectionSpace
     # special behavior for object hierarchy mapping
     module ObjectHierarchy
       def special_defaults
-        {'subjectdocumenttype' => 'collectionobjects',
-         'relationshiptype' => 'hasBroader',
-         'objectdocumenttype' => 'collectionobjects'}
+        {"subjectdocumenttype" => "collectionobjects",
+         "relationshiptype" => "hasBroader",
+         "objectdocumenttype" => "collectionobjects"}
       end
     end
   end

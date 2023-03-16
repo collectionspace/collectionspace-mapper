@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'transformer'
+require_relative "transformer"
 
 module CollectionSpace
   module Mapper
@@ -8,14 +8,15 @@ module CollectionSpace
     class VocabularyTransformer < Transformer
       def initialize(opts)
         super
-        @type = 'vocabularies'
+        @type = "vocabularies"
         @subtype = opts[:transform]
         mapper = opts[:recmapper]
         @termcache = mapper.termcache
         @csclient = mapper.csclient
       end
 
-      def transform(value); end
+      def transform(value)
+      end
     end
   end
 end

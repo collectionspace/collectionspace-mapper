@@ -16,11 +16,11 @@ module CollectionSpace
       end
 
       def missing_message
-        "required field missing: #{@field}. At least one of the following fields must be present: #{@columns.join(', ')}"
+        "required field missing: #{@field}. At least one of the following fields must be present: #{@columns.join(", ")}"
       end
 
       def empty_message
-        "required field empty: #{@field}. At least one of the following fields must be populated: #{@columns.join(', ')}"
+        "required field empty: #{@field}. At least one of the following fields must be populated: #{@columns.join(", ")}"
       end
     end
   end

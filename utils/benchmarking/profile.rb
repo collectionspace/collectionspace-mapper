@@ -4,24 +4,24 @@
 # It should only be run manually for development purposes
 # Before running, add ruby-prof to development dependencies in Gemfile
 
-require 'ruby-prof'
-require 'bundler/setup'
-require 'collectionspace/mapper'
-require_relative './helpers'
+require "ruby-prof"
+require "bundler/setup"
+require "collectionspace/mapper"
+require_relative "./helpers"
 
 Helpers.populate_anthro(Helpers.anthro_cache)
 
 def mapping_workflow
   config = {
-    delimiter: ';',
-    subgroup_delimiter: '^^'
+    delimiter: ";",
+    subgroup_delimiter: "^^"
   }
 
-  rm_anthro_co = Helpers.get_json_record_mapper('spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json')
+  rm_anthro_co = Helpers.get_json_record_mapper("spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_collectionobject.json")
   handler = CollectionSpace::Mapper::DataHandler.new(record_mapper: rm_anthro_co, cache: Helpers.anthro_cache,
-                                                     client: Helpers.anthro_client, config: config)
+    client: Helpers.anthro_client, config: config)
 
-  datahash = Helpers.get_datahash(path: 'spec/fixtures/files/datahashes/anthro/collectionobject2.json')
+  datahash = Helpers.get_datahash(path: "spec/fixtures/files/datahashes/anthro/collectionobject2.json")
 
   v_result = handler.validate(datahash)
 

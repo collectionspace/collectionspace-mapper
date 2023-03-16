@@ -1,23 +1,22 @@
 # frozen_string_literal: true
 
-require 'collectionspace/mapper/version'
-require 'collectionspace/client'
-require 'collectionspace/refcache'
+require "collectionspace/mapper/version"
+require "collectionspace/client"
+require "collectionspace/refcache"
 
-require 'active_support'
-require 'active_support/core_ext/object/blank'
+require "active_support"
+require "active_support/core_ext/object/blank"
 
-require 'json'
-require 'logger'
-require 'pp'
+require "json"
+require "logger"
 
-require 'nokogiri'
-require 'xxhash'
-require 'zeitwerk'
+require "nokogiri"
+require "xxhash"
+require "zeitwerk"
 
 loader = Zeitwerk::Loader.new
 loader.inflector.inflect(
-  "version"   => "VERSION"
+  "version" => "VERSION"
 )
 loader.push_dir("#{__dir__}/mapper", namespace: CollectionSpace::Mapper)
 loader.setup
@@ -50,10 +49,11 @@ module CollectionSpace
         response = data
       else
         raise Errors::UnprocessableDataError.new("Cannot process a #{data.class}. Need a Hash or Mapper::Response",
-                                                 data)
+          data)
       end
 
-      response.merged_data.empty? ? merge_default_values(response, config) : response
+      response.merged_data.empty? ? merge_default_values(response,
+        config) : response
     end
 
     def merge_default_values(data, batchconfig)

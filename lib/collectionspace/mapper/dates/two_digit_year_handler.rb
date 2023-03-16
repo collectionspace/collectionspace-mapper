@@ -15,9 +15,9 @@ module CollectionSpace
 
         def mappable
           case year_handling
-          when 'literal'
+          when "literal"
             literal_mappable
-          when 'coerce'
+          when "coerce"
             coerced_mappable
           else
             fail UnparseableStructuredDateError.new(
@@ -32,34 +32,34 @@ module CollectionSpace
         attr_reader :date_string, :handler, :year_handling
 
         def coerced_mappable
-            result = CollectionSpace::Mapper::Dates::ChronicParser.new(
-              coerced_year_date, handler
-            ).mappable
-            result['dateDisplayDate'] = date_string
-            result
+          result = CollectionSpace::Mapper::Dates::ChronicParser.new(
+            coerced_year_date, handler
+          ).mappable
+          result["dateDisplayDate"] = date_string
+          result
         rescue UnparseableStructuredDateError => err
           raise err
         end
 
         def coerced_year_date
-          val = date_string.gsub('/', '-').split('-')
+          val = date_string.tr("/", "-").split("-")
           yr = val.pop
           this_year = Time.now.year.to_s
           this_year_century = this_year[0, 2]
           this_year_last_two = this_year[2, 2].to_i
 
           val << if yr.to_i > this_year_last_two
-                   "#{this_year_century.to_i - 1}#{yr}"
-                 else
-                   "#{this_year_century}#{yr}"
-                 end
-          val.join('-')
+            "#{this_year_century.to_i - 1}#{yr}"
+          else
+            "#{this_year_century}#{yr}"
+          end
+          val.join("-")
         end
 
         def literal_mappable
           CollectionSpace::Mapper::Dates::ServicesParser.new(
-              date_string, handler
-            ).mappable
+            date_string, handler
+          ).mappable
         rescue UnparseableStructuredDateError => err
           raise err
         end
