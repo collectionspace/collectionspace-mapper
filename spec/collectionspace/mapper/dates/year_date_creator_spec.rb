@@ -39,9 +39,9 @@ RSpec.describe CollectionSpace::Mapper::Dates::YearDateCreator do
           "dateLatestDay" => "31",
           "dateLatestScalarValue" => "2023-01-01T00:00:00.000Z",
           "scalarValuesComputed" => "true",
-          "dateEarliestSingleEra" => "urn:cspace:c.anthro.collectionspace.org" \
+          "dateEarliestSingleEra" => "urn:cspace:c.anthro.collectionspace.org"\
             ":vocabularies:name(dateera):item:name(ce)'CE'",
-          "dateLatestEra" => "urn:cspace:c.anthro.collectionspace.org" \
+          "dateLatestEra" => "urn:cspace:c.anthro.collectionspace.org"\
             ":vocabularies:name(dateera):item:name(ce)'CE'"
         }
         expect(result).to eq(expected)
@@ -63,9 +63,9 @@ RSpec.describe CollectionSpace::Mapper::Dates::YearDateCreator do
           "dateLatestDay" => "31",
           "dateLatestScalarValue" => "0002-01-01T00:00:00.000Z",
           "scalarValuesComputed" => "true",
-          "dateEarliestSingleEra" => "urn:cspace:c.anthro.collectionspace.org" \
+          "dateEarliestSingleEra" => "urn:cspace:c.anthro.collectionspace.org"\
             ":vocabularies:name(dateera):item:name(ce)'CE'",
-          "dateLatestEra" => "urn:cspace:c.anthro.collectionspace.org" \
+          "dateLatestEra" => "urn:cspace:c.anthro.collectionspace.org"\
             ":vocabularies:name(dateera):item:name(ce)'CE'"
         }
         expect(result).to eq(expected)

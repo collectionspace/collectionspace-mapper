@@ -11,12 +11,12 @@ RSpec.describe CollectionSpace::Mapper::RecordMapper do
   let(:client) { anthro_client }
   let(:mapper) {
     described_class.new(mapper: jsonmapper, csclient: client,
-                        termcache: anthro_cache)
+      termcache: anthro_cache)
   }
 
   it "has expected instance variables" do
     expected = %i[@xpath @config @xml_template @mappings @batchconfig @csclient
-                  @termcache @csidcache].sort
+      @termcache @csidcache].sort
     expect(mapper.instance_variables.sort).to eq(expected)
   end
 

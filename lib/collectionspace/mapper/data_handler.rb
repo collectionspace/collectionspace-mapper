@@ -74,7 +74,7 @@ module CollectionSpace
             )
           else
             prepper = CollectionSpace::Mapper::DataPrepper.new(response,
-                                                               searcher, self)
+              searcher, self)
           end
           prepper.prep
         else

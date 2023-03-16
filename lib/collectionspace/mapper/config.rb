@@ -139,7 +139,7 @@ module CollectionSpace
         missing_keys = required_keys - hash.keys
         unless missing_keys.empty?
           raise ConfigKeyMissingError.new("Config missing key",
-                                          missing_keys)
+            missing_keys)
         end
       end
 

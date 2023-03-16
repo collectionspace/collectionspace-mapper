@@ -94,7 +94,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings do
       allow(recordmapper).to receive(:service_type_extension)
         .and_return(CollectionSpace::Mapper::Authority)
       authmappings = described_class.new(mappings: mappings,
-                                         mapper: recordmapper)
+        mapper: recordmapper)
       expect(authmappings.known_columns.include?("shortidentifier")).to be true
     end
   end
@@ -142,7 +142,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings do
         .and_return(CollectionSpace::Mapper::Media)
 
       mediamappings = described_class.new(mappings: mappings,
-                                          mapper: recordmapper)
+        mapper: recordmapper)
       expect(mediamappings.known_columns.include?("mediafileuri")).to be true
     end
   end
@@ -150,7 +150,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings do
   describe "#known_columns" do
     it "returns list of downcased datacolumns" do
       expected = %w[objectnumber numberofobjects numbervalue numbertype
-                    otherrequired].sort
+        otherrequired].sort
       expect(mappingsobj.known_columns.sort).to eq(expected)
     end
   end
@@ -160,8 +160,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings do
       expect(mappingsobj.required_columns
              .map(&:datacolumn)
              .sort
-             .join(" ")
-            ).to eq("objectnumber otherrequired")
+             .join(" ")).to eq("objectnumber otherrequired")
     end
   end
 

@@ -12,7 +12,7 @@ module CollectionSpace
         groups.each_with_index do |group, ind|
           hash[ind + 1] =
             group.split(@recmapper.batchconfig.subgroup_delimiter)
-            .map(&:strip)
+              .map(&:strip)
         end
         hash
       end

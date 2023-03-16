@@ -17,7 +17,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
   let(:datahash) { get_datahash(path: datahash_path) }
   let(:prepper) {
     CollectionSpace::Mapper::DataPrepper.new(datahash, handler.searcher,
-                                             handler)
+      handler)
   }
   let(:datamapper) {
     described_class.new(prepper.prep.response, handler, prepper.xphash)

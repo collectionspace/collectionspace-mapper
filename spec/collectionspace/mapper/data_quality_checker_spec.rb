@@ -18,11 +18,11 @@ RSpec.describe CollectionSpace::Mapper::DataQualityChecker do
         transforms: {},
         source_type: "optionlist",
         opt_list_values: %w[
-                            library-collection
-                            permanent-collection
-                            study-collection
-                            teaching-collection
-                           ]
+          library-collection
+          permanent-collection
+          study-collection
+          teaching-collection
+        ]
       }
     end
     it "returns expected warnings" do

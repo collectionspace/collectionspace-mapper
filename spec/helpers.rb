@@ -32,7 +32,7 @@ module Helpers
 
   def get_record_mapper_object(path, cache = nil)
     CollectionSpace::Mapper::RecordMapper.new(mapper: File.read(path),
-                                              termcache: cache)
+      termcache: cache)
   end
 
   def get_datahash(path:)
@@ -63,7 +63,7 @@ module Helpers
     doc = remove_namespaces(
       Nokogiri::XML(
         File.read("#{FIXTUREDIR}/#{filename}")
-      ){ |c|
+      ) { |c|
         c.noblanks
       }
     )

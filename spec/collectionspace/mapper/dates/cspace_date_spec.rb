@@ -40,7 +40,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
       expect(csdate.mappable["dateEarliestSingleYear"]).to eq("2020")
       expect(csdate.mappable["dateEarliestSingleMonth"]).to eq("9")
       expect(csdate.mappable["dateEarliestSingleDay"]).to eq("30")
-      urn = "urn:cspace:c.anthro.collectionspace.org:vocabularies:" \
+      urn = "urn:cspace:c.anthro.collectionspace.org:vocabularies:"\
         "name(dateera):item:name(ce)'CE'"
       expect(csdate.mappable["dateEarliestSingleEra"]).to eq(urn)
       esv = "2020-09-30T00:00:00.000Z"
@@ -97,7 +97,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
       end
   end
 
-  context "when date string is not Chronic parseable (e.g. 1/2/2000 - " \
+  context "when date string is not Chronic parseable (e.g. 1/2/2000 - "\
     "12/21/2001)", services_call: true do
       let(:date_string) { "1/2/2000 - 12/21/2001" }
 

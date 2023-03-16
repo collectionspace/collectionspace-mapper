@@ -132,7 +132,7 @@ module CollectionSpace
       def non_group_splitter(mapping, data)
         if mapping.repeats == "y"
           return CollectionSpace::Mapper::SimpleSplitter.new(data,
-                                                             config).result
+            config).result
         end
         return split_identifier(data) if identifier?(mapping.fieldname)
 
@@ -176,32 +176,32 @@ module CollectionSpace
           next if data.blank?
 
           targetdata[column] = if mapping.transforms.blank?
-                                 data
-                               else
-                                 data.map do |d|
-                                   if d.is_a?(String)
-                                     transform_value(
-                                       d,
-                                       mapping.transforms,
-                                       column
-                                     )
-                                   else
-                                     d.map { |val|
-                                       transform_value(
-                                         val,
-                                         mapping.transforms,
-                                         column
-                                       )
-                                     }
-                                   end
-                                 end
-                               end
+            data
+          else
+            data.map do |d|
+              if d.is_a?(String)
+                transform_value(
+                  d,
+                  mapping.transforms,
+                  column
+                )
+              else
+                d.map { |val|
+                  transform_value(
+                    val,
+                    mapping.transforms,
+                    column
+                  )
+                }
+              end
+            end
+          end
         end
       end
 
       def transform_value(value, transforms, column)
         vt = CollectionSpace::Mapper::ValueTransformer.new(value, transforms,
-                                                           self)
+          self)
         unless vt.warnings.empty?
           vt.warnings.each { |w| w[:field] = column }
           @response.warnings << vt.warnings
@@ -285,10 +285,10 @@ module CollectionSpace
           next if data.blank?
 
           th = CollectionSpace::Mapper::TermHandler.new(mapping: mapping,
-                                                        data: data,
-                                                        client: @client,
-                                                        mapper: @handler.mapper,
-                                                        searcher: searcher)
+            data: data,
+            client: @client,
+            mapper: @handler.mapper,
+            searcher: searcher)
 
           @response.transformed_data[column] = th.result
           @response.terms << th.terms

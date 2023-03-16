@@ -33,12 +33,12 @@ RSpec.describe CollectionSpace::Mapper::Dates::YearMonthDateCreator do
           "dateEarliestSingleYear" => "2022",
           "dateEarliestSingleMonth" => "6",
           "dateEarliestSingleDay" => "1",
-          "dateEarliestSingleEra" => "urn:cspace:c.anthro.collectionspace.org" \
+          "dateEarliestSingleEra" => "urn:cspace:c.anthro.collectionspace.org"\
             ":vocabularies:name(dateera):item:name(ce)'CE'",
           "dateLatestYear" => "2022",
           "dateLatestMonth" => "6",
           "dateLatestDay" => "30",
-          "dateLatestEra" => "urn:cspace:c.anthro.collectionspace.org" \
+          "dateLatestEra" => "urn:cspace:c.anthro.collectionspace.org"\
             ":vocabularies:name(dateera):item:name(ce)'CE'",
           "dateEarliestScalarValue" => "2022-06-01T00:00:00.000Z",
           "dateLatestScalarValue" => "2022-07-01T00:00:00.000Z",

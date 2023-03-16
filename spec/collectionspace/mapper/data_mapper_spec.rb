@@ -71,13 +71,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
         }
         mappers = preppers.map do |prepper|
           CollectionSpace::Mapper::DataMapper.new(prepper.prep.response,
-                                                  handler, prepper.xphash)
+            handler, prepper.xphash)
         end
         docs = mappers.map { |mapper| remove_namespaces(mapper.response.doc) }
         docxpaths = docs.map { |doc| list_xpaths(doc) }
 
         fixpaths = ["fcart/acqseq1.xml", "fcart/acqseq2.xml",
-                    "fcart/acqseq3.xml"]
+          "fcart/acqseq3.xml"]
         fixdocs = fixpaths.map { |path| get_xml_fixture(path) }
         fixxpaths = fixdocs.map { |doc| list_xpaths(doc) }
 

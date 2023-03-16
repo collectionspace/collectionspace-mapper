@@ -14,7 +14,7 @@ module CollectionSpace
         super
         @cache = @handler.mapper.termcache
         @types = [@response.merged_data["item1_type"],
-                  @response.merged_data["item2_type"]]
+          @response.merged_data["item2_type"]]
         @subtype = ""
         @errors = []
         @warnings = []

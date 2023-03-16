@@ -14,10 +14,10 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
   let(:config) { {delimiter: "|"} }
   let(:handler) do
     CollectionSpace::Mapper::DataHandler.new(record_mapper: mapper,
-                                             client: client,
-                                             cache: cache,
-                                             csid_cache: csid_cache,
-                                             config: config)
+      client: client,
+      cache: cache,
+      csid_cache: csid_cache,
+      config: config)
   end
 
   # these make services api calls to find terms not in cache
@@ -99,7 +99,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
         it "adds a xphash entry for shortIdentifier" do
           result = handler.mapper
             .xpath["places_common"][:mappings]
-            .select{ |mapping| mapping.fieldname == "shortIdentifier" }
+            .select { |mapping| mapping.fieldname == "shortIdentifier" }
           expect(result.length).to eq(1)
         end
       end

@@ -19,14 +19,14 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   end
   let(:handler) do
     CollectionSpace::Mapper::DataHandler.new(record_mapper: mapper,
-                                             client: client,
-                                             cache: cache,
-                                             csid_cache: csid_cache,
-                                             config: config)
+      client: client,
+      cache: cache,
+      csid_cache: csid_cache,
+      config: config)
   end
   let(:prepper) {
     CollectionSpace::Mapper::DataPrepper.new(datahash, handler.searcher,
-                                             handler)
+      handler)
   }
   let(:datahash) { {"objectNumber" => "123"} }
 
@@ -43,7 +43,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
       it "keeps mapping for shortIdentifier in xphash" do
         result = prepper.prep
           .xphash["places_common"][:mappings]
-          .select{ |mapping| mapping.fieldname == "shortIdentifier" }
+          .select { |mapping| mapping.fieldname == "shortIdentifier" }
         expect(result.length).to eq(1)
       end
     end
@@ -75,7 +75,8 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
           "urn:cspace:c.anthro.collectionspace.org:vocabularies:name("\
             "languages):item:name(fra)'French'",
           "urn:cspace:c.anthro.collectionspace.org:vocabularies:name("\
-            "languages):item:name(deu)'German'"]
+            "languages):item:name(deu)'German'"
+        ]
       ]
       expect(res).to eq(expected)
     end

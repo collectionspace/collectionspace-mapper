@@ -559,7 +559,7 @@ module Helpers
       ["vocabularies", "uocusertypes", "lecturer",
         "urn:cspace:DOMAIN:vocabularies:name(uocusertypes):item:name(lecturer)'lecturer'"],
       ["workauthorities", "work", "Makeup",
-       "urn:cspace:DOMAIN:workauthorities:name(work):item:name(Makeup1608768998350)'Makeup'"]
+        "urn:cspace:DOMAIN:workauthorities:name(work):item:name(Makeup1608768998350)'Makeup'"]
       # rubocop:enable Layout/LineLength
     ].map { |rn| [rn[0], rn[1], rn[2], rn[3].sub(":DOMAIN:", ":c.#{domain}:")] }
   end
