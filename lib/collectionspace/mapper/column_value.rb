@@ -35,7 +35,7 @@ module CollectionSpace
             mapping: mapping
           )
         when 3
-        # bonsai conservation fertilizerToBeUsed is the only field like this
+          # bonsai conservation fertilizerToBeUsed is the only field like this
           GroupMultivalColumnValue.new(
             column: column,
             value: value,

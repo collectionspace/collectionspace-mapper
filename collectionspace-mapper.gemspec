@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
     spec.metadata["changelog_uri"] =
       "https://github.com/lyrasis/collectionspace-mapper"
   else
-    raise "RubyGems 2.0 or newer is required to protect against " \
+    raise "RubyGems 2.0 or newer is required to protect against "\
           "public gem pushes."
   end
 

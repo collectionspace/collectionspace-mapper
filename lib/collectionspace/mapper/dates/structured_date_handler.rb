@@ -37,8 +37,8 @@ module CollectionSpace
               config.two_digit_year_handling
             )
           elsif service_parseable_month_formats.any? { |re|
-              date_string.match?(re)
-            }
+                  date_string.match?(re)
+                }
             CollectionSpace::Mapper::Dates::ServicesParser.new(
               date_string,
               self

@@ -7,7 +7,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
     let(:client) { core_client }
     let(:service) {
       CollectionSpace::Mapper::Tools::RecordStatusServiceClient.new(client,
-                                                                    mapper)
+        mapper)
     }
 
     context "when mapper service_path not handled by collectionspace-client" do
@@ -100,7 +100,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
             end
             let(:result) {
               service.send(:lookup,
-                           "Inkpot Guineafowl").keys.any?(:multiple_recs_found)
+                "Inkpot Guineafowl").keys.any?(:multiple_recs_found)
             }
             it "returns result with count of records found" do
               expect(result).to be true

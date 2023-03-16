@@ -197,7 +197,7 @@ module CollectionSpace
       end
 
       def add_uneven_subgroup_warning(parent_path:, intervening_path:,
-                                      subgroup:)
+        subgroup:)
         sgpath = "#{parent_path}/#{intervening_path.join("/")}/#{subgroup}"
         response.warnings << {
           category: :uneven_subgroup_field_values,
@@ -211,7 +211,7 @@ module CollectionSpace
       end
 
       def add_too_many_subgroups_warning(parent_path:, intervening_path:,
-                                         subgroup:)
+        subgroup:)
         sgpath = "#{intervening_path.join("/")}/#{subgroup}"
         response.warnings << {
           category: :subgroup_contains_data_for_nonexistent_groups,
@@ -285,13 +285,13 @@ module CollectionSpace
 
         unless even_subgroup_field_values?(thisdata)
           add_uneven_subgroup_warning(parent_path: parent_path,
-                                      intervening_path: subgroup_path,
-                                      subgroup: subgroup)
+            intervening_path: subgroup_path,
+            subgroup: subgroup)
         end
         unless group_accommodates_subgroup?(groups, thisdata)
           add_too_many_subgroups_warning(parent_path: parent_path,
-                                         intervening_path: subgroup_path,
-                                         subgroup: subgroup)
+            intervening_path: subgroup_path,
+            subgroup: subgroup)
         end
 
         thisdata.each { |field, subgroups|
@@ -313,7 +313,7 @@ module CollectionSpace
 
         groups.each do |group_index, group|
           target = subgrouplist_target(parent_path, group_index, subgroup_path,
-                                       subgroup)
+            subgroup)
           map_subgroups_to_group(group, target)
         end
       end

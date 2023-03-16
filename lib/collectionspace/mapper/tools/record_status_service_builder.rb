@@ -36,6 +36,7 @@ module CollectionSpace
         def authority?
           mapper.config.service_type == "authority"
         end
+
         # rubocop:disable Layout/LineLength
         # Given Response object, returns the value needed to look up record's
         #   status

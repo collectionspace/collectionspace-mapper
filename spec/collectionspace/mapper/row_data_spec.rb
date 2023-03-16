@@ -15,7 +15,7 @@ RSpec.describe CollectionSpace::Mapper::RowData do
   end
 
   describe "#columns" do
-    let(:result){ row.columns }
+    let(:result) { row.columns }
 
     it "returns Array" do
       expect(result).to be_a(Array)

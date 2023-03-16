@@ -10,7 +10,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache do
     CollectionSpace::Mapper::RecordMapper.new(
       mapper: get_json_record_mapper(mapper_path),
       termcache: core_cache,
-      csidcache: core_csid_cache)
+      csidcache: core_csid_cache
+    )
   end
   # @todo fix these tests so they are not on the now-private method
   describe "#call" do

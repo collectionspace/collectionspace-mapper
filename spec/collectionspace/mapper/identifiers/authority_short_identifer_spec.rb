@@ -14,7 +14,8 @@ RSpec.describe CollectionSpace::Mapper::Identifiers::AuthorityShortIdentifier do
         expect(
           CollectionSpace::Mapper::Identifiers::AuthorityShortIdentifier.new(
             term: term
-          ).value).to eq(id)
+          ).value
+        ).to eq(id)
       end
     end
   end

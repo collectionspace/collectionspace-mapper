@@ -145,7 +145,8 @@ RSpec.describe CollectionSpace::Mapper::Config do
         },
         default_values: {
           "publishto" => "DPLA;Omeka",
-          "collection" => "library-collection"}
+          "collection" => "library-collection"
+        }
       }
     end
 

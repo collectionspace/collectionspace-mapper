@@ -52,14 +52,14 @@ module CollectionSpace
         # Tests in examples/search.rb
         def lookup(value)
           response = if ns_prefix == "relations"
-                       client.find_relation(
-                         subject_csid: value[:sub],
-                         object_csid: value[:obj],
-                         rel_type: value[:prd]
-                       )
-                     else
-                       lookup_non_relationship(value)
-                     end
+            client.find_relation(
+              subject_csid: value[:sub],
+              object_csid: value[:obj],
+              rel_type: value[:prd]
+            )
+          else
+            lookup_non_relationship(value)
+          end
 
           ct = count_results(response)
           if ct == 0

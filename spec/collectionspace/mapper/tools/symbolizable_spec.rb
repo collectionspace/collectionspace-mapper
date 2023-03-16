@@ -37,8 +37,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::Symbolizable do
   describe "#symbolize" do
     it "turns hash keys into symbols" do
       expected = %i[delimiter subgroup_delimiter response_mode force_defaults
-                    check_record_status date_format two_digit_year_handling
-                    transforms default_values]
+        check_record_status date_format two_digit_year_handling
+        transforms default_values]
       expect(symconfig.keys).to eq(expected)
     end
   end

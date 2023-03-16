@@ -12,18 +12,18 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
   }
   let(:recmapper) do
     CollectionSpace::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
-                                              csclient: client,
-                                              termcache: termcache,
-                                              csidcache: csidcache)
+      csclient: client,
+      termcache: termcache,
+      csidcache: csidcache)
   end
   let(:colmapping) { recmapper.mappings.lookup(colname) }
   let(:searcher) { CollectionSpace::Mapper::Searcher.new(client: client) }
   let(:th) do
     CollectionSpace::Mapper::TermHandler.new(mapping: colmapping,
-                                             data: data,
-                                             client: client,
-                                             mapper: recmapper,
-                                             searcher: searcher)
+      data: data,
+      client: client,
+      mapper: recmapper,
+      searcher: searcher)
   end
 
   describe "#result" do
@@ -31,17 +31,17 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
       let(:colname) { "titleTranslationLanguage" }
       let(:data) {
         [["%NULLVALUE%", "Swahili"], %w[Klingon Spanish],
-         [CollectionSpace::Mapper::THE_BOMB]]
+          [CollectionSpace::Mapper::THE_BOMB]]
       }
 
       it "result is the transformed value for mapping" do
         expected = [
           ["",
-           "urn:cspace:c.core.collectionspace.org:vocabularies:name"\
-             "(languages):item:name(swa)'Swahili'"],
+            "urn:cspace:c.core.collectionspace.org:vocabularies:name"\
+              "(languages):item:name(swa)'Swahili'"],
           ["",
-           "urn:cspace:c.core.collectionspace.org:vocabularies:name"\
-             "(languages):item:name(spa)'Spanish'"],
+            "urn:cspace:c.core.collectionspace.org:vocabularies:name"\
+              "(languages):item:name(spa)'Spanish'"],
           [CollectionSpace::Mapper::THE_BOMB]
         ]
         expect(th.result).to eq(expected)
@@ -77,7 +77,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
       let(:colname) { "titleTranslationLanguage" }
       let(:data) {
         [["%NULLVALUE%", "Swahili"], %w[Sanza Spanish],
-         [CollectionSpace::Mapper::THE_BOMB]]
+          [CollectionSpace::Mapper::THE_BOMB]]
       }
 
       context "when new term (Sanza) is initially encountered" do

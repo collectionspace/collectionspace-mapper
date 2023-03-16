@@ -48,10 +48,10 @@ module CollectionSpace
 
       def handle_terms
         @result = if @data.first.is_a?(String)
-                    @data.map { |val| handle_term(val) }
-                  else
-                    @data.map { |arr| arr.map { |val| handle_term(val) } }
-                  end
+          @data.map { |val| handle_term(val) }
+        else
+          @data.map { |arr| arr.map { |val| handle_term(val) } }
+        end
       end
 
       def handle_term(val)

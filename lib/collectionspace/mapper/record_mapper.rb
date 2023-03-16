@@ -22,10 +22,10 @@ module CollectionSpace
       attr_accessor :xpath
 
       def initialize(opts)
-        if opts[:mapper].is_a?(Hash)
-          jhash = opts[:mapper]
+        jhash = if opts[:mapper].is_a?(Hash)
+          opts[:mapper]
         else
-          jhash = JSON.parse(opts[:mapper])
+          JSON.parse(opts[:mapper])
         end
         convert(jhash)
         @batchconfig = CollectionSpace::Mapper::Config.new(

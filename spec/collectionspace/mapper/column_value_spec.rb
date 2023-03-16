@@ -11,17 +11,17 @@ RSpec.describe CollectionSpace::Mapper::ColumnValue do
   let(:mapping) { recmapper.mappings.lookup(colname) }
   let(:colval) do
     described_class.new(column: colname,
-                        value: colvalue,
-                        recmapper: recmapper,
-                        mapping: mapping)
+      value: colvalue,
+      recmapper: recmapper,
+      mapping: mapping)
   end
 
   describe ".create" do
     let(:creator) do
       described_class.create(column: colname,
-                             value: colvalue,
-                             recmapper: recmapper,
-                             mapping: mapping)
+        value: colvalue,
+        recmapper: recmapper,
+        mapping: mapping)
     end
 
     context "given core collectionobject collection value" do
