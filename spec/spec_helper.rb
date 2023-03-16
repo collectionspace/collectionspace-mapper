@@ -9,6 +9,7 @@ end
 
 require "collectionspace/mapper"
 require_relative "./helpers"
+require "pry"
 
 RSpec.configure do |config|
   config.include Helpers
