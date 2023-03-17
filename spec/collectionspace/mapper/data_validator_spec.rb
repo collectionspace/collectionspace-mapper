@@ -19,6 +19,27 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
   end
   let(:validator) { described_class.new(recordmapper, cache) }
 
+  describe ".new" do
+    let(:klass) { described_class }
+
+    context "with mapper lacking ID field" do
+      it "raises error" do
+        mapcfg = instance_double("RecordMapperConfig")
+        mappings = instance_double("ColumnMappings")
+        mapper = instance_double("RecordMapper")
+        allow(mapper).to receive(:config).and_return(mapcfg)
+        allow(mapper).to receive(:mappings).and_return(mappings)
+        allow(mapcfg).to receive(:identifier_field)
+          .and_return(nil)
+        allow(mappings).to receive(:required_columns)
+          .and_return([])
+        expect { klass.new(mapper, cache) }.to raise_error(
+          CollectionSpace::Mapper::DataValidator::IdFieldNotInMapperError
+        )
+      end
+    end
+  end
+
   describe "#validate" do
     let(:response) { validator.validate(data) }
 

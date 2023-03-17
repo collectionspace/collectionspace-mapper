@@ -41,7 +41,7 @@ module CollectionSpace
         idfield = @mapper.config.identifier_field
         raise IdFieldNotInMapperError if idfield.nil?
 
-        idfield.nil? ? nil : idfield.downcase
+        idfield.downcase
       end
 
       def get_required_fields

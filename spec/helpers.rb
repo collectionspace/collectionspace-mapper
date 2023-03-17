@@ -98,7 +98,7 @@ module Helpers
       this_ind = xpaths.find_index(path)
       next_ind = this_ind + 1
       next_path = xpaths[next_ind]
-      next_path && next_path.start_with?(path)
+      next_path&.start_with?(path)
     end
   end
 

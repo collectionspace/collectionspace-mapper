@@ -158,7 +158,7 @@ module CollectionSpace
             map_structured_date(child, val)
           else
             child.content = val
-            parent.add_child(child) if parent
+            parent&.add_child(child)
           end
         end
       end
