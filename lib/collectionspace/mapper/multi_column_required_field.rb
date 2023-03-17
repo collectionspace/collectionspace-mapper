@@ -3,18 +3,6 @@
 module CollectionSpace
   module Mapper
     class MultiColumnRequiredField < RequiredField
-      def initialize(fieldname, datacolumns)
-        super
-      end
-
-      def present_in?(data)
-        super
-      end
-
-      def populated_in?(data)
-        super
-      end
-
       # @todo DRY up last part of these messages
       def missing_message
         "required field missing: #{@field}. At least one of the following "\
