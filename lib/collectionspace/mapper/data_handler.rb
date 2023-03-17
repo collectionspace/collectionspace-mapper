@@ -14,7 +14,8 @@ module CollectionSpace
         @mapper = CollectionSpace::Mapper::RecordMapper.new(
           mapper: record_mapper,
           batchconfig: config,
-          csclient: client, termcache: cache,
+          csclient: client,
+          termcache: cache,
           csidcache: csid_cache
         )
         @validator = CollectionSpace::Mapper::DataValidator.new(
