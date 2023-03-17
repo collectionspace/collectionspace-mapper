@@ -33,7 +33,7 @@ module CollectionSpace
       end
 
       def valid?
-        @errors.empty? ? true : false
+        @errors.empty?
       end
 
       def normal
