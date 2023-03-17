@@ -188,8 +188,8 @@ module Helpers
       ["vocabularies", "behrensmeyer",
         "3 - fibrous texture, extensive exfoliation", "2840-1757-4058-9690"],
       ["vocabularies", "behrensmeyer",
-        "4 - coarsely fibrous texture, splinters of bone loose on the surface, "\
-          "open cracks", "6978-3358-6091-1718"],
+        "4 - coarsely fibrous texture, splinters of bone loose on the "\
+          "surface, open cracks", "6978-3358-6091-1718"],
       ["vocabularies", "behrensmeyer",
         "5 - bone crumbling in situ, large splinters", "2362-7188-5503-1720"],
       ["vocabularies", "bodyside", "midline", "9350-8042-0202-8217"],
