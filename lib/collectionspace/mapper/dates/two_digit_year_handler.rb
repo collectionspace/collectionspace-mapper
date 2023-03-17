@@ -31,8 +31,12 @@ module CollectionSpace
           ).mappable
           result["dateDisplayDate"] = date_string
           result
-        rescue UnparseableStructuredDateError => err
-          raise err
+        rescue => err
+          fail UnparseableStructuredDateError.new(
+            date_string: date_string,
+            orig_err: err,
+            mappable: nil
+          )
         end
 
         def coerced_year_date
@@ -54,8 +58,12 @@ module CollectionSpace
           CollectionSpace::Mapper::Dates::ServicesParser.new(
             date_string, handler
           ).mappable
-        rescue UnparseableStructuredDateError => err
-          raise err
+        rescue => err
+          fail UnparseableStructuredDateError.new(
+            date_string: date_string,
+            orig_err: err,
+            mappable: nil
+          )
         end
       end
     end
