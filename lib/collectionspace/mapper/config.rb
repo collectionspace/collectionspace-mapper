@@ -38,7 +38,8 @@ module CollectionSpace
 
       VALID_VALUES = {
         response_mode: %w[normal verbose],
-        status_check_method: %w[client cache]
+        status_check_method: %w[client cache],
+        two_digit_year_handling: %w[coerce literal]
       }
 
       class ConfigKeyMissingError < StandardError
@@ -117,6 +118,7 @@ module CollectionSpace
 
         validate_setting(:response_mode)
         validate_setting(:status_check_method)
+        validate_setting(:two_digit_year_handling)
       end
 
       # @param setting [Symbol]
@@ -126,7 +128,7 @@ module CollectionSpace
         setting_value = instance_variable_get(setting_variable)
         unless valid.any?(setting_value)
           replacement = DEFAULT_CONFIG[setting]
-          warn(
+          self.warn(
             "Config: invalid #{setting} value: #{setting_value}. "\
               "Using default value (#{replacement})"
           )

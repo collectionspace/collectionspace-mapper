@@ -15,7 +15,7 @@ RSpec.describe CollectionSpace::Mapper::Config do
         "search_if_not_cached": true,
         "check_terms": true,
         "date_format": "month day year",
-        "two_digit_year_handling": "convert to four digit",
+        "two_digit_year_handling": "literal",
         "transforms": {
           "collection": {
             "special": [
@@ -76,7 +76,11 @@ RSpec.describe CollectionSpace::Mapper::Config do
 
   context "when initialized with invalid response mode" do
     let(:opts) { {config: {response_mode: "mouthy"}} }
-    it "uses default response value" do
+
+    it "warns and uses default response value" do
+      msg = "Config: invalid response_mode value: mouthy. "\
+        "Using default value (normal)"
+      expect_any_instance_of(described_class).to receive(:warn).with(msg)
       expect(config.response_mode).to eq(
         described_class::DEFAULT_CONFIG[:response_mode]
       )
@@ -85,9 +89,26 @@ RSpec.describe CollectionSpace::Mapper::Config do
 
   context "when initialized with invalid status_check_method" do
     let(:opts) { {config: {status_check_method: "chaos"}} }
-    it "uses default response value" do
+
+    it "warns and uses default response value" do
+      msg = "Config: invalid status_check_method value: chaos. "\
+        "Using default value (client)"
+      expect_any_instance_of(described_class).to receive(:warn).with(msg)
       expect(config.status_check_method).to eq(
         described_class::DEFAULT_CONFIG[:status_check_method]
+      )
+    end
+  end
+
+  context "when initialized with invalid two_digit_year_handling" do
+    let(:opts) { {config: {two_digit_year_handling: "foo"}} }
+
+    it "warns and uses default response value" do
+      msg = "Config: invalid two_digit_year_handling value: foo. "\
+        "Using default value (coerce)"
+      expect_any_instance_of(described_class).to receive(:warn).with(msg)
+      expect(config.two_digit_year_handling).to eq(
+        described_class::DEFAULT_CONFIG[:two_digit_year_handling]
       )
     end
   end
@@ -136,7 +157,7 @@ RSpec.describe CollectionSpace::Mapper::Config do
         search_if_not_cached: true,
         check_terms: true,
         date_format: "month day year",
-        two_digit_year_handling: "convert to four digit",
+        two_digit_year_handling: "literal",
         transforms: {
           "collection" => {
             special: ["downcase_value"],
