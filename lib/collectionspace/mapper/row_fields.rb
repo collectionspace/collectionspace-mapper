@@ -6,6 +6,7 @@ module CollectionSpace
     #   fields in an Arrayish-fashion
     class RowFields
       def initialize
+        @placeholder = "WIP"
       end
     end
   end
