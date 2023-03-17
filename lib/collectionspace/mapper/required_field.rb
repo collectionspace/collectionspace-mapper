@@ -10,13 +10,13 @@ module CollectionSpace
 
       def present_in?(data)
         present = data.keys.map(&:downcase) & @columns
-        present.empty? ? false : true
+        present.any?
       end
 
       def populated_in?(data)
         data = data.transform_keys(&:downcase)
         values = @columns.map { |column| data[column] }.reject(&:blank?)
-        values.empty? ? false : true
+        values.any?
       end
     end
   end

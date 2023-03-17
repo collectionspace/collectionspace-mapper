@@ -224,7 +224,7 @@ module CollectionSpace
           data = sourcedata[column]
           next if data.blank?
 
-          subgroup = data.first.is_a?(String) ? false : true
+          subgroup = !data.first.is_a?(String)
 
           csdates = [data].flatten
             .map do |dateval|
