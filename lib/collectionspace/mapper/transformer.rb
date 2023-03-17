@@ -12,7 +12,10 @@ module CollectionSpace
           when :authority
             AuthorityTransformer.new(transform: transform, recmapper: recmapper)
           when :vocabulary
-            VocabularyTransformer.new(transform: transform, recmapper: recmapper)
+            VocabularyTransformer.new(
+              transform: transform,
+              recmapper: recmapper
+            )
           when :special
             transform.map { |xformname| special_transformers(xformname) }
           when :replacements
