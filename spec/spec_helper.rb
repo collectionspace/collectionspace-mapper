@@ -10,6 +10,8 @@ end
 require "collectionspace/mapper"
 require_relative "./helpers"
 require "pry"
+require "vcr"
+require "webmock/rspec"
 
 RSpec.configure do |config|
   config.include Helpers
@@ -42,4 +44,17 @@ RSpec.configure do |config|
     # (e.g. via a command-line flag).
     config.default_formatter = "doc"
   end
+end
+
+VCR.configure do |c|
+  c.allow_http_connections_when_no_cassette = false
+  c.cassette_library_dir = "spec/fixtures/cassettes"
+  c.hook_into :webmock
+  c.default_cassette_options = {record: :new_episodes}
+  c.preserve_exact_body_bytes do |http_message|
+    http_message.body.encoding.name == "ASCII-8BIT" ||
+      !http_message.body.valid_encoding?
+  end
+  c.configure_rspec_metadata!
+#  c.debug_logger = $stderr
 end
