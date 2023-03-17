@@ -8,8 +8,7 @@ module CollectionSpace
       extend self
 
       class CspaceDate
-        attr_reader :date_string, :date_handler, :stamp
-        attr_accessor :mappable
+        attr_reader :date_string, :date_handler
 
         # datehandler is temporary, for testing development
         def initialize(date_string, date_handler)
