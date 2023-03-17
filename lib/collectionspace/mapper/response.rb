@@ -45,7 +45,7 @@ module CollectionSpace
       end
 
       def xml
-        doc ? doc.to_xml : nil
+        doc&.to_xml
       end
 
       def add_multi_rec_found_warning(num_found)
