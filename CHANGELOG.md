@@ -13,6 +13,12 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 
+## [4.1.3] - 2023-03-17
+- Update for Ruby 3.2
+- Add test coverage with simplecov
+- Add linting to CI
+- Clean up code/fix offenses
+
 ## [4.1.2] - 2022-12-02
 - BUGFIX for [#153](https://github.com/collectionspace/collectionspace-mapper/issues/153)
 
