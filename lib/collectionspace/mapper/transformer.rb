@@ -6,6 +6,32 @@ module CollectionSpace
     class Transformer
       attr_reader :precedence, :warnings
 
+      class << self
+        def create(type:, recmapper:, transform: {})
+          case type.to_sym
+          when :authority
+            AuthorityTransformer.new(transform: transform, recmapper: recmapper)
+          when :vocabulary
+            VocabularyTransformer.new(transform: transform, recmapper: recmapper)
+          when :special
+            transform.map { |xformname| special_transformers(xformname) }
+          when :replacements
+            FindReplaceTransformer.new(transform: transform)
+          end
+        end
+
+        def special_transformers(xformname)
+          case xformname
+          when "boolean"
+            BooleanTransformer.new
+          when "behrensmeyer_translate"
+            BehrensmeyerTransformer.new
+          when "downcase_value"
+            DowncaseTransformer.new
+          end
+        end
+      end
+
       def initialize(_opts = {})
         @precedence = lookup_precedence
         @warnings = []
@@ -32,30 +58,6 @@ module CollectionSpace
           CollectionSpace::Mapper::AuthorityTransformer,
           CollectionSpace::Mapper::Transformer
         ].find_index(self.class)
-      end
-
-      def self.create(type:, recmapper:, transform: {})
-        case type.to_sym
-        when :authority
-          AuthorityTransformer.new(transform: transform, recmapper: recmapper)
-        when :vocabulary
-          VocabularyTransformer.new(transform: transform, recmapper: recmapper)
-        when :special
-          transform.map { |xformname| special_transformers(xformname) }
-        when :replacements
-          FindReplaceTransformer.new(transform: transform)
-        end
-      end
-
-      def self.special_transformers(xformname)
-        case xformname
-        when "boolean"
-          BooleanTransformer.new
-        when "behrensmeyer_translate"
-          BehrensmeyerTransformer.new
-        when "downcase_value"
-          DowncaseTransformer.new
-        end
       end
     end
   end
