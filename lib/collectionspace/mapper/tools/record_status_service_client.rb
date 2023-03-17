@@ -3,11 +3,12 @@
 module CollectionSpace
   module Mapper
     module Tools
-      class RecordStatusServiceClient <
-          CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder
+      class RecordStatusServiceClient
+        include RecordStatusServiceable
+
         def initialize(client, mapper)
-          super
           @client = client
+          @mapper = mapper
           service = get_service
           @search_field = authority? ? service[:term] : service[:field]
           @ns_prefix = service[:ns_prefix]
@@ -23,8 +24,8 @@ module CollectionSpace
 
         private
 
-        attr_reader :client, :search_field, :ns_prefix, :path, :response_top,
-          :response_nested
+        attr_reader :mapper, :client, :search_field, :ns_prefix, :path,
+          :response_top, :response_nested
 
         def get_service
           if authority?

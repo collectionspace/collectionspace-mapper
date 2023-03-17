@@ -7,10 +7,11 @@ module CollectionSpace
       # @note This should **only** be used with expert migration tooling with
       #   which you can confidently ensure the CSID Cache is accurately
       #   populated with all existing records
-      class RecordStatusServiceCache <
-          CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder
+      class RecordStatusServiceCache
+        include RecordStatusServiceable
+
         def initialize(mapper)
-          super
+          @mapper = mapper
           @refname_cache = mapper.termcache
           @csid_cache = mapper.csidcache
         end
@@ -31,7 +32,7 @@ module CollectionSpace
 
         private
 
-        attr_reader :refname_cache, :csid_cache
+        attr_reader :mapper, :refname_cache, :csid_cache
 
         def lookup_authority(term)
           csid = csid_cache.get_auth_term(type, subtype, term)

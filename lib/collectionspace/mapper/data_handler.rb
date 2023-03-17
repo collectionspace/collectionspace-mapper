@@ -38,8 +38,8 @@ module CollectionSpace
         @new_terms = {}
         @status_checker =
           CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder.call(
-            @mapper.csclient,
-            @mapper
+            client: @mapper.csclient,
+            mapper: @mapper
           )
       end
 
