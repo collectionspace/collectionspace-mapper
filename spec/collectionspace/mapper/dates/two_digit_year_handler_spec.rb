@@ -32,6 +32,16 @@ RSpec.describe CollectionSpace::Mapper::Dates::TwoDigitYearHandler do
         expected = "0020-03-02T00:00:00.000Z"
         expect(result["dateEarliestScalarValue"]).to eq(expected)
       end
+
+      context "with unparseble date" do
+        let(:str) { "not a date" }
+
+        it "raises error" do
+          expect { result }.to raise_error(
+            CollectionSpace::Mapper::Dates::UnparseableStructuredDateError
+          )
+        end
+      end
     end
 
     context "with coerce" do
@@ -40,6 +50,16 @@ RSpec.describe CollectionSpace::Mapper::Dates::TwoDigitYearHandler do
       it "returns expected" do
         expected = "2020-03-02T00:00:00.000Z"
         expect(result["dateEarliestScalarValue"]).to eq(expected)
+      end
+
+      context "with unparseble date" do
+        let(:str) { "not a date" }
+
+        it "raises error" do
+          expect { result }.to raise_error(
+            CollectionSpace::Mapper::Dates::UnparseableStructuredDateError
+          )
+        end
       end
     end
   end
