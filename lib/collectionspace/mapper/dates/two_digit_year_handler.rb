@@ -18,11 +18,6 @@ module CollectionSpace
             literal_mappable
           when "coerce"
             coerced_mappable
-          else
-            fail UnparseableStructuredDateError.new(
-              date_string: date_string,
-              mappable: no_mappable_date
-            )
           end
         end
 
