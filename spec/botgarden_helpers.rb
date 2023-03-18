@@ -12,15 +12,19 @@ module Helpers
   end
   memo_wise(:botgarden_client)
 
+  def botgarden_domain
+    "botgarden.collectionspace.org"
+  end
+
   def botgarden_cache
-    cache_config = base_cache_config.merge({domain: botgarden_client.domain})
+    cache_config = base_cache_config.merge({domain: botgarden_domain})
     cache = CollectionSpace::RefCache.new(config: cache_config)
-    populate(cache, cacheable_refnames("botgarden.collectionspace.org"))
+    populate(cache, cacheable_refnames(botgarden_domain))
   end
   memo_wise(:botgarden_cache)
 
   def botgarden_csid_cache
-    cache_config = base_cache_config.merge({domain: botgarden_client.domain})
+    cache_config = base_cache_config.merge({domain: botgarden_domain})
     cache = CollectionSpace::RefCache.new(config: cache_config)
     populate(cache, cacheable_csids)
   end

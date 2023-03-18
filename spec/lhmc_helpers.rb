@@ -12,15 +12,19 @@ module Helpers
   end
   memo_wise(:lhmc_client)
 
+  def lhmc_domain
+    "lhmc.collectionspace.org"
+  end
+
   def lhmc_cache
-    cache_config = base_cache_config.merge({domain: lhmc_client.domain})
+    cache_config = base_cache_config.merge({domain: lhmc_domain})
     cache = CollectionSpace::RefCache.new(config: cache_config)
-    populate(cache, cacheable_refnames("lhmc.collectionspace.org"))
+    populate(cache, cacheable_refnames(lhmc_domain))
   end
   memo_wise(:lhmc_cache)
 
   def lhmc_csid_cache
-    cache_config = base_cache_config.merge({domain: lhmc_client.domain})
+    cache_config = base_cache_config.merge({domain: lhmc_domain})
     cache = CollectionSpace::RefCache.new(config: cache_config)
     populate(cache, cacheable_csids)
   end

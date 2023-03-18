@@ -20,15 +20,19 @@ module Helpers
     get_record_mapper_object(path, core_cache)
   end
 
+  def core_domain
+    "core.collectionspace.org"
+  end
+
   def core_cache
-    cache_config = base_cache_config.merge({domain: core_client.domain})
+    cache_config = base_cache_config.merge({domain: core_domain})
     cache = CollectionSpace::RefCache.new(config: cache_config)
-    populate(cache, cacheable_refnames("core.collectionspace.org"))
+    populate(cache, cacheable_refnames(core_domain))
   end
   memo_wise(:core_cache)
 
   def core_csid_cache
-    cache_config = base_cache_config.merge({domain: core_client.domain})
+    cache_config = base_cache_config.merge({domain: core_domain})
     cache = CollectionSpace::RefCache.new(config: cache_config)
     populate(cache, cacheable_csids)
   end
