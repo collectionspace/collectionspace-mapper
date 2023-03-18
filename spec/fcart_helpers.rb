@@ -12,15 +12,19 @@ module Helpers
   end
   memo_wise(:fcart_client)
 
+  def fcart_domain
+    "fcart.collectionspace.org"
+  end
+
   def fcart_cache
-    cache_config = base_cache_config.merge({domain: fcart_client.domain})
+    cache_config = base_cache_config.merge({domain: fcart_domain})
     cache = CollectionSpace::RefCache.new(config: cache_config)
-    populate(cache, cacheable_refnames("fcart.collectionspace.org"))
+    populate(cache, cacheable_refnames(fcart_domain))
   end
   memo_wise(:fcart_cache)
 
   def fcart_csid_cache
-    cache_config = base_cache_config.merge({domain: fcart_client.domain})
+    cache_config = base_cache_config.merge({domain: fcart_domain})
     cache = CollectionSpace::RefCache.new(config: cache_config)
     populate(cache, cacheable_csids)
   end

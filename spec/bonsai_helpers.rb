@@ -12,15 +12,19 @@ module Helpers
   end
   memo_wise(:bonsai_client)
 
+  def bonsai_domain
+    "bonsai.collectionspace.org"
+  end
+
   def bonsai_cache
-    cache_config = base_cache_config.merge({domain: bonsai_client.domain})
+    cache_config = base_cache_config.merge({domain: bonsai_domain})
     cache = CollectionSpace::RefCache.new(config: cache_config)
-    populate(cache, cacheable_refnames("bonsai.collectionspace.org"))
+    populate(cache, cacheable_refnames(bonsai_domain))
   end
   memo_wise(:bonsai_cache)
 
   def bonsai_csid_cache
-    cache_config = base_cache_config.merge({domain: bonsai_client.domain})
+    cache_config = base_cache_config.merge({domain: bonsai_domain})
     cache = CollectionSpace::RefCache.new(config: cache_config)
     populate(cache, cacheable_csids)
   end

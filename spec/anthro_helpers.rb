@@ -12,15 +12,19 @@ module Helpers
   end
   memo_wise(:anthro_client)
 
+  def anthro_domain
+    "anthro.collectionspace.org"
+  end
+
   def anthro_cache
-    cache_config = base_cache_config.merge({domain: anthro_client.domain})
+    cache_config = base_cache_config.merge({domain: anthro_domain})
     cache = CollectionSpace::RefCache.new(config: cache_config)
-    populate(cache, cacheable_refnames("anthro.collectionspace.org"))
+    populate(cache, cacheable_refnames(anthro_domain))
   end
   memo_wise(:anthro_cache)
 
   def anthro_csid_cache
-    cache_config = base_cache_config.merge({domain: anthro_client.domain})
+    cache_config = base_cache_config.merge({domain: anthro_domain})
     cache = CollectionSpace::RefCache.new(config: cache_config)
     populate(cache, cacheable_csids)
   end
