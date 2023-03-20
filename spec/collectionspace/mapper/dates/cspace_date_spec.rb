@@ -87,16 +87,16 @@ RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
     end
 
     context "when config[:two_digit_year_handling] = literal" do
-        let(:config) do
-          CollectionSpace::Mapper::Config.new(
-            config: {two_digit_year_handling: "literal"}
-          )
-        end
-
-        it "Services parses date with uncoerced 2-digit year" do
-          expect(result).to eq("91")
-        end
+      let(:config) do
+        CollectionSpace::Mapper::Config.new(
+          config: {two_digit_year_handling: "literal"}
+        )
       end
+
+      it "Services parses date with uncoerced 2-digit year" do
+        expect(result).to eq("91")
+      end
+    end
   end
 
   context "when date string is not Chronic parseable (e.g. 1/2/2000 - "\
