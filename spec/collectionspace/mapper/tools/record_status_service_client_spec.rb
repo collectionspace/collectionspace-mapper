@@ -43,7 +43,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
           )
         end
 
-        context "and one result is found" do
+        context "and one result is found",
+          vcr: "client_status_svc_auth_lookup_found" do
           let(:report) { service.send(:lookup, "John Doe") }
 
           it "status = :existing" do
@@ -65,14 +66,16 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
           end
         end
 
-        context "and no result is found" do
+        context "and no result is found",
+          vcr: "client_status_svc_auth_lookup_not_found" do
           it "status = :new" do
             res = service.send(:lookup, "Chickweed Guineafowl")
             expect(res[:status]).to eq(:new)
           end
         end
 
-        context "and multiple results found" do
+        context "and multiple results found",
+          vcr: "client_status_svc_auth_lookup_multi_found" do
           # if these tests fail, verify there are two person/local authority
           #   records for 'Inkpot Guineafowl' in core.dev
           # you may need to re-create them if they have been removed
@@ -109,7 +112,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
         end
       end
 
-      context "when mapper is for an object" do
+      context "when mapper is for an object",
+          vcr: "client_status_svc_obj_lookup" do
         let(:mapper) do
           CollectionSpace::Mapper::RecordMapper.new(
             mapper: get_json_record_mapper(
@@ -126,7 +130,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
         end
       end
 
-      context "when mapper is for a procedure" do
+      context "when mapper is for a procedure",
+          vcr: "client_status_svc_proc_lookup"  do
         let(:mapper) do
           CollectionSpace::Mapper::RecordMapper.new(
             mapper: get_json_record_mapper(
@@ -143,7 +148,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
         end
       end
 
-      context "when mapper is for a relationship" do
+      context "when mapper is for a relationship",
+          vcr: "client_status_svc_rel_lookup" do
         let(:mapper) do
           CollectionSpace::Mapper::RecordMapper.new(
             mapper: get_json_record_mapper(

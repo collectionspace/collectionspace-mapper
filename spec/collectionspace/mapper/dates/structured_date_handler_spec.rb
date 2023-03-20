@@ -15,7 +15,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::StructuredDateHandler do
       config: config, searcher: searcher)
   }
 
-  describe "#ce" do
+  describe "#ce", vcr: "dates_ce" do
     let(:result) { handler.ce }
     let(:refname) {
       "urn:cspace:#{domain}:vocabularies:name(dateera):item:name(ce)'CE'"

@@ -104,7 +104,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
     let(:termsubtype) { "publishto" }
     let(:result) { term.searched_term(val, :refname, termtype, termsubtype) }
 
-    context "when val exists in instance" do
+    context "when val exists in instance", vcr: "vocab_publishto_All" do
       let(:val) { "All" }
       it "returns refname urn" do
         expected = "urn:cspace:core.collectionspace.org:vocabularies:name"\
@@ -113,7 +113,8 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
       end
     end
 
-    context "when case-swapped val exists in instance" do
+    context "when case-swapped val exists in instance",
+      vcr: "vocab_publishto_all" do
       let(:val) { "all" }
       it "returns refname urn" do
         expected = "urn:cspace:core.collectionspace.org:vocabularies:name"\
@@ -135,7 +136,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
       end
     end
 
-    context "when not in cache" do
+    context "when not in cache", vcr: "obj_csid_QA_TEST_001" do
       let(:objnum) { "QA TEST 001" }
       it "returns csid" do
         expect(result).to eq("56c04f5f-32b9-4f1d-8a4b")
@@ -154,7 +155,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
       end
     end
 
-    context "when not in cache" do
+    context "when not in cache", vcr: "term_csid_QA_TEST_Concept_2" do
       let(:val) { "QA TEST Concept 2" }
       it "returns csid" do
         expect(result).to eq("8a76c4d7-d66d-451c-abee")

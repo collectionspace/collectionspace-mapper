@@ -21,7 +21,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
     )
   end
 
-  context "with one digit month" do
+  context "with one digit month", vcr: "dates_2019-5-20" do
     let(:date_string) { "2019-5-20" }
 
     it "parses as expected" do
@@ -32,7 +32,8 @@ RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
     end
   end
 
-  context "when date string is Chronic parseable (e.g. 2020-09-30)" do
+  context "when date string is Chronic parseable (e.g. 2020-09-30)",
+    vcr: "dates_2020-09-30" do
     let(:date_string) { "2020-09-30" }
 
     it "parses as expected" do
@@ -49,7 +50,8 @@ RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
       expect(csdate.mappable["dateLatestScalarValue"]).to eq(lsv)
     end
 
-    context "when date format is ambiguous re: month/date (e.g. 1/2/2020)" do
+    context "when date format is ambiguous re: month/date (e.g. 1/2/2020)",
+      vcr: "dates_1s2s2020" do
       let(:date_string) { "1/2/2020" }
       let(:result) { csdate.mappable["dateEarliestScalarValue"] }
 
@@ -73,7 +75,8 @@ RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
     end
   end
 
-  context "when date string has two-digit year (e.g. 9/19/91)" do
+  context "when date string has two-digit year (e.g. 9/19/91)",
+    vcr: "dates_9s19s91" do
     let(:date_string) { "9/19/91" }
     let(:result) { csdate.mappable["dateEarliestSingleYear"] }
 
@@ -83,8 +86,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
       end
     end
 
-    context "when config[:two_digit_year_handling] = literal",
-      services_call: true do
+    context "when config[:two_digit_year_handling] = literal" do
         let(:config) do
           CollectionSpace::Mapper::Config.new(
             config: {two_digit_year_handling: "literal"}
@@ -98,7 +100,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
   end
 
   context "when date string is not Chronic parseable (e.g. 1/2/2000 - "\
-    "12/21/2001)", services_call: true do
+    "12/21/2001)", vcr: "dates_1s2s2000_-_12s21s2001" do
       let(:date_string) { "1/2/2000 - 12/21/2001" }
 
       it "processed as expected" do
@@ -109,7 +111,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
     end
 
   context "when date string is not Chronic or services parseable",
-    services_call: true do
+    vcr: "dates_VIII.XIV.MMXX" do
       context "date = VIII.XIV.MMXX" do
         let(:date_string) { "VIII.XIV.MMXX" }
 
@@ -121,7 +123,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
     end
 
   context "when date string is Chronic parseable but we want services parsing",
-    services_call: true do
+    vcr: "dates_march_2020" do
       context "when date string = march 2020" do
         let(:date_string) { "march 2020" }
         let(:res) { csdate.mappable }

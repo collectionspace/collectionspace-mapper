@@ -11,7 +11,7 @@ RSpec.describe CollectionSpace::Mapper::Searcher do
     let(:args) { {value: "All", type: "vocabularies", subtype: "publishto"} }
     let(:result) { klass.call(**args) }
 
-    context "when search_if_not_cached = true" do
+    context "when search_if_not_cached = true", vcr: "searcher_search" do
       let(:config_hash) { {} }
       it "returns expected hash" do
         expected = {

@@ -37,7 +37,8 @@ RSpec.describe CollectionSpace::Mapper::Response do
     end
   end
 
-  context "when response_mode = verbose in config" do
+  context "when response_mode = verbose in config",
+    vcr: "botgarden_taxon_tanacetum" do
     let(:config) { {delimiter: ";", response_mode: "verbose"} }
     let(:data) {
       {"termDisplayName" => "Tanacetum;Tansy", "termStatus" => "made up"}
@@ -70,7 +71,8 @@ RSpec.describe CollectionSpace::Mapper::Response do
     end
   end
 
-  describe "#normal", services_call: true do
+  describe "#normal", services_call: true,
+    vcr: "botgarden_taxon_tanacetum" do
     context "when response_mode = normal in config" do
       let(:data) {
         {"termDisplayName" => "Tanacetum;Tansy", "termStatus" => "made up"}
@@ -103,7 +105,7 @@ RSpec.describe CollectionSpace::Mapper::Response do
     end
   end
 
-  describe "#xml" do
+  describe "#xml", vcr: "botgarden_taxon_tanacetum" do
     let(:data) {
       {"termDisplayName" => "Tanacetum;Tansy", "termStatus" => "made up"}
     }

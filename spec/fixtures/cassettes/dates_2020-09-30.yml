@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://anthro.dev.collectionspace.org/cspace-services/structureddates?displayDate=2020-09-30&pgSz=25&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AYW50aHJvLmNvbGxlY3Rpb25zcGFjZS5vcmc6QWRtaW5pc3RyYXRvcg==
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Mon, 20 Mar 2023 17:54:49 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '668'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:structureddate_common
+        xmlns:ns2="http://collectionspace.org/services/structureddate"><dateDisplayDate>2020-09-30</dateDisplayDate><dateEarliestSingleYear>2020</dateEarliestSingleYear><dateEarliestSingleMonth>9</dateEarliestSingleMonth><dateEarliestSingleDay>30</dateEarliestSingleDay><dateEarliestSingleEra>urn:cspace:anthro.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra><dateEarliestScalarValue>2020-09-30</dateEarliestScalarValue><dateLatestScalarValue>2020-10-01</dateLatestScalarValue><scalarValuesComputed>true</scalarValuesComputed></ns2:structureddate_common>
+  recorded_at: Mon, 20 Mar 2023 17:54:49 GMT
+recorded_with: VCR 6.1.0
