@@ -1,0 +1,136 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/structureddates?displayDate=1881-&pgSz=25&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 400
+      message: ''
+    headers:
+      Date:
+      - Sat, 18 Mar 2023 00:49:01 GMT
+      Content-Type:
+      - text/plain
+      Content-Length:
+      - '38'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: no viable date format found at '1881-'
+  recorded_at: Sat, 18 Mar 2023 00:49:01 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/structureddates?displayDate=1881-&pgSz=25&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 400
+      message: ''
+    headers:
+      Date:
+      - Sat, 18 Mar 2023 00:49:01 GMT
+      Content-Type:
+      - text/plain
+      Content-Length:
+      - '38'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: no viable date format found at '1881-'
+  recorded_at: Sat, 18 Mar 2023 00:49:01 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/acquisitions?as=acquisitions_common:acquisitionReferenceNumber%20=%20%27123%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Sat, 18 Mar 2023 00:49:02 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '376'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|acquisitionReferenceNumber|acquisitionSource</fieldsReturned></ns2:abstract-common-list>
+  recorded_at: Sat, 18 Mar 2023 00:49:02 GMT
+recorded_with: VCR 6.1.0

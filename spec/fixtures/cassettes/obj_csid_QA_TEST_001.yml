@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/collectionobjects?as=collectionobjects_common:objectNumber%20=%20%27QA%20TEST%20001%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Mon, 20 Mar 2023 17:53:43 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '887'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|objectNumber|objectName|title|responsibleDepartment</fieldsReturned><list-item><csid>56c04f5f-32b9-4f1d-8a4b</csid><uri>/collectionobjects/56c04f5f-32b9-4f1d-8a4b</uri><refName>urn:cspace:core.collectionspace.org:collectionobjects:id(56c04f5f-32b9-4f1d-8a4b)'QA
+        TEST 001'</refName><updatedAt>2020-03-10T21:35:19.235Z</updatedAt><workflowState>project</workflowState><objectNumber>QA
+        TEST 001</objectNumber><objectName>QA TEST name 1</objectName><title>QA TEST
+        Advanced Search All Fields</title><responsibleDepartment>architecture-design</responsibleDepartment></list-item></ns2:abstract-common-list>
+  recorded_at: Mon, 20 Mar 2023 17:53:43 GMT
+recorded_with: VCR 6.1.0
