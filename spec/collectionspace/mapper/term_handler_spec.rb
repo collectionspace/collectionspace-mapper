@@ -34,7 +34,8 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
           [CollectionSpace::Mapper::THE_BOMB]]
       }
 
-      it "result is the transformed value for mapping" do
+      it "result is the transformed value for mapping",
+      vcr: "term_handler_result_titletranslationlanguage" do
         expected = [
           ["",
             "urn:cspace:c.core.collectionspace.org:vocabularies:name"\
@@ -81,7 +82,8 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
       }
 
       context "when new term (Sanza) is initially encountered" do
-        it "returns terms as expected" do
+        it "returns terms as expected",
+          vcr: "term_handler_terms_sanza" do
           found = terms.select { |h| h[:found] }
           not_found = terms.select { |h| !h[:found] }
           expect(terms.length).to eq(3)
@@ -93,7 +95,8 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
       end
 
       context "when new term is subsequently encountered" do
-        it "the term is still treated as not found" do
+        it "the term is still treated as not found",
+          vcr: "term_handler_terms_sanza"  do
           CollectionSpace::Mapper::TermHandler.new(
             mapping: colmapping,
             data: data,
@@ -115,7 +118,8 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
       }
 
       context "when new term (Reference 3) is initially encountered" do
-        it "contains a term Hash for each value" do
+        it "contains a term Hash for each value",
+          vcr: "term_handler_terms_ref_multi_used" do
           found = th.terms.select { |h| h[:found] }
           not_found = th.terms.select { |h| !h[:found] }
           expect(terms.length).to eq(3)

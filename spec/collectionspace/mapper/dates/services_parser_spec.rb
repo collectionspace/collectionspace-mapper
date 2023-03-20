@@ -24,11 +24,11 @@ RSpec.describe CollectionSpace::Mapper::Dates::ServicesParser do
   describe "#mappable" do
     let(:result) { parser.mappable }
 
-    context "with 2022-06-23" do
-      let(:str) { "2022-06-23" }
+    context "with 2020-09-30", vcr: "dates_2020-09-30" do
+      let(:str) { "2020-09-30" }
 
       it "returns expected" do
-        esv = "2022-06-23T00:00:00.000Z"
+        esv = "2020-09-30T00:00:00.000Z"
         expect(result["dateEarliestScalarValue"]).to eq(esv)
       end
     end
@@ -36,13 +36,13 @@ RSpec.describe CollectionSpace::Mapper::Dates::ServicesParser do
     context "with 1-2-20" do
       let(:str) { "1-2-20" }
 
-      it "returns expected" do
+      it "returns expected", vcr: "dates_1-2-20" do
         esv = "0020-01-02T00:00:00.000Z"
         expect(result["dateEarliestScalarValue"]).to eq(esv)
       end
     end
 
-    context "with 1881-" do
+    context "with 1881-", vcr: "dates_1881-" do
       let(:str) { "1881-" }
 
       it "raises error" do
@@ -51,7 +51,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::ServicesParser do
       end
     end
 
-    context "with 01-00-2000" do
+    context "with 01-00-2000", vcr: "dates_01-00-2000" do
       let(:str) { "01-00-2000" }
 
       it "raises error" do
@@ -64,16 +64,16 @@ RSpec.describe CollectionSpace::Mapper::Dates::ServicesParser do
   describe "#stamp" do
     let(:result) { parser.stamp }
 
-    context "with 2022-06-23" do
-      let(:str) { "2022-06-23" }
+    context "with 2020-09-30", vcr: "dates_2020-09-30" do
+      let(:str) { "2020-09-30" }
 
       it "returns expected" do
-        esv = "2022-06-23T00:00:00.000Z"
+        esv = "2020-09-30T00:00:00.000Z"
         expect(result).to eq(esv)
       end
     end
 
-    context "with 1-2-20" do
+    context "with 1-2-20", vcr: "dates_1-2-20" do
       let(:str) { "1-2-20" }
 
       it "returns expected" do
@@ -82,7 +82,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::ServicesParser do
       end
     end
 
-    context "with 1881-" do
+    context "with 1881-", vcr: "dates_1881-" do
       let(:str) { "1881-" }
 
       it "raises error" do
@@ -91,7 +91,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::ServicesParser do
       end
     end
 
-    context "with 01-00-2000" do
+    context "with 01-00-2000", vcr: "dates_01-00-2000" do
       let(:str) { "01-00-2000" }
 
       it "raises error" do

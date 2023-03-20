@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/personauthorities/urn:cspace:name(person)/items?as=persons_common:personTermGroupList/0/termDisplayName%20=%20%27John%20Doe%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Mon, 20 Mar 2023 17:02:52 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '918'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|sas|surName|deprecated|foreName|shortIdentifier|proposed|termStatus|termDisplayName</fieldsReturned><list-item><csid>775740c2-2484-4194-93f0</csid><uri>/personauthorities/0f6cddfa-32ce-4c25-9b2f/items/775740c2-2484-4194-93f0</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(JohnDoe1416422840)'John
+        Doe'</refName><updatedAt>2021-08-27T01:37:41.962Z</updatedAt><workflowState>project</workflowState><rev>3</rev><sas>false</sas><shortIdentifier>JohnDoe1416422840</shortIdentifier><proposed>true</proposed><termDisplayName>John
+        Doe</termDisplayName></list-item></ns2:abstract-common-list>
+  recorded_at: Mon, 20 Mar 2023 17:02:52 GMT
+recorded_with: VCR 6.1.0

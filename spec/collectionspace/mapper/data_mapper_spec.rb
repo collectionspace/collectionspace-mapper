@@ -226,7 +226,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     let(:cache) { anthro_cache }
     let(:csid_cache) { anthro_csid_cache }
 
-    context "collectionobject record", services_call: true do
+    context "collectionobject record", vcr: "data_mapper_int_anthro" do
       let(:mapper_path) {
         "spec/fixtures/files/mappers/release_6_1/anthro/"\
           "anthro_4-1-2_collectionobject.json"

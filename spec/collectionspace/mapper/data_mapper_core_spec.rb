@@ -46,7 +46,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
           "core_6-1-0_nonhierarchicalrelationship.json"
       }
 
-      context "when all IDs found" do
+      context "when all IDs found", vcr: "core_nhr_ids_found" do
         let(:hashpath) {
           "spec/fixtures/files/datahashes/core/"\
             "nonHierarchicalRelationship1.json"
@@ -111,7 +111,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         end
       end
 
-      context "when ID not found" do
+      context "when ID not found", vcr: "core_nhr_ids_not_found" do
         let(:hashpath) {
           "spec/fixtures/files/datahashes/core/"\
             "nonHierarchicalRelationship2.json"
@@ -177,13 +177,17 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       end
     end
 
-    context "authority hierarchy record", services_call: true do
+    context "authority hierarchy record" do
       let(:mapper_path) {
         "spec/fixtures/files/mappers/release_6_1/core/"\
           "core_6-1-0_authorityhierarchy.json"
       }
 
-      context "with existing terms" do
+      vcr_opts = {
+        cassette_name: "core_concept_cats_siamese",
+        record: :new_episodes
+      }
+      context "with existing terms", vcr: vcr_opts  do
         let(:hashpath) {
           "spec/fixtures/files/datahashes/core/authorityHierarchy1.json"
         }
@@ -206,7 +210,11 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         end
       end
 
-      context "with a missing term" do
+      vcr_opts = {
+        cassette_name: "core_concept_cats_tuxedo",
+        record: :new_episodes
+      }
+      context "with a missing term", vcr: vcr_opts do
         let(:hashpath) {
           "spec/fixtures/files/datahashes/core/authorityHierarchy2.json"
         }
@@ -230,13 +238,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       end
     end
 
-    context "object hierarchy record", services_call: true do
+    context "object hierarchy record" do
       let(:mapper_path) {
         "spec/fixtures/files/mappers/release_6_1/core/"\
           "core_6-1-0_objecthierarchy.json"
       }
 
-      context "with existing records" do
+      context "with existing records", vcr: "core_oh_ids_found" do
         let(:hashpath) {
           "spec/fixtures/files/datahashes/core/objectHierarchy1.json"
         }
@@ -259,7 +267,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         end
       end
 
-      context "with missing record" do
+      context "with missing record", vcr: "core_oh_ids_not_found" do
         let(:hashpath) {
           "spec/fixtures/files/datahashes/core/objectHierarchy2.json"
         }
@@ -289,7 +297,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
           "core_6-1-0_acquisition.json"
       }
 
-      context "record 1" do
+      context "record 1", vcr: "core_acq_1" do
         let(:hashpath) {
           "spec/fixtures/files/datahashes/core/acquisition1.json"
         }
@@ -308,7 +316,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         end
       end
 
-      context "record 2" do
+      context "record 2", vcr: "core_acq_2"  do
         let(:hashpath) {
           "spec/fixtures/files/datahashes/core/acquisition2.json"
         }
@@ -356,7 +364,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
           "core_6-1-0_collectionobject.json"
       }
 
-      context "record 1" do
+      context "record 1", vcr: "core_obj_1" do
         let(:hashpath) {
           "spec/fixtures/files/datahashes/core/collectionobject1.json"
         }
@@ -375,7 +383,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         end
       end
 
-      context "record 4 (bomb and %NULLVALUE% terms)" do
+      context "record 4 (bomb and %NULLVALUE% terms)", vcr: "core_obj_4" do
         let(:hashpath) {
           "spec/fixtures/files/datahashes/core/collectionobject4.json"
         }
@@ -399,7 +407,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         end
       end
 
-      context "record 5 (%NULLVALUE% term in repeating group)" do
+      context "record 5 (%NULLVALUE% term in repeating group)",
+        vcr: "core_obj_5" do
         let(:config) { {delimiter: "|"} }
         let(:hashpath) {
           "spec/fixtures/files/datahashes/core/collectionobject5.json"
@@ -426,7 +435,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
           "core_6-1-0_conditioncheck.json"
       }
 
-      context "record 1" do
+      context "record 1", vcr: "core_cc_1" do
         let(:hashpath) {
           "spec/fixtures/files/datahashes/core/conditioncheck1.json"
         }
@@ -452,7 +461,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
           "core_6-1-0_conservation.json"
       }
 
-      context "record 1" do
+      context "record 1", vcr: "core_ct_1" do
         let(:hashpath) {
           "spec/fixtures/files/datahashes/core/conservation1.json"
         }
@@ -478,7 +487,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
           "core_6-1-0_exhibition.json"
       }
 
-      context "record 1" do
+      context "record 1", vcr: "core_exh_1" do
         let(:hashpath) {
           "spec/fixtures/files/datahashes/core/exhibition1.json"
         }
@@ -503,7 +512,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_group.json"
       }
 
-      context "record 1" do
+      context "record 1", vcr: "core_grp_1" do
         let(:hashpath) { "spec/fixtures/files/datahashes/core/group1.json" }
         let(:fixturepath) { "core/group1.xml" }
 
@@ -526,7 +535,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_intake.json"
       }
 
-      context "record 1" do
+      context "record 1", vcr: "core_int_1" do
         let(:hashpath) { "spec/fixtures/files/datahashes/core/intake1.json" }
         let(:fixturepath) { "core/intake1.xml" }
 
@@ -549,7 +558,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_loanin.json"
       }
 
-      context "record 1" do
+      context "record 1", vcr: "core_li_1" do
         let(:hashpath) { "spec/fixtures/files/datahashes/core/loanin1.json" }
         let(:fixturepath) { "core/loanin1.xml" }
 
@@ -572,7 +581,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_loanout.json"
       }
 
-      context "record 1" do
+      context "record 1", vcr: "core_lo_1" do
         let(:hashpath) { "spec/fixtures/files/datahashes/core/loanout1.json" }
         let(:fixturepath) { "core/loanout1.xml" }
 
@@ -590,7 +599,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       end
     end
 
-    context "movement record" do
+    context "movement record", vcr: "core_lmi_1" do
       let(:mapper_path) {
         "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_movement.json"
       }
@@ -618,7 +627,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_media.json"
       }
 
-      context "record 1" do
+      context "record 1", vcr: "core_med_1" do
         let(:hashpath) { "spec/fixtures/files/datahashes/core/media1.json" }
         let(:fixturepath) { "core/media1.xml" }
 
@@ -642,7 +651,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
           "core_6-1-0_objectexit.json"
       }
 
-      context "record 1" do
+      context "record 1", vcr: "core_oe_1" do
         let(:hashpath) {
           "spec/fixtures/files/datahashes/core/objectexit1.json"
         }
@@ -672,7 +681,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_uoc.json"
       }
 
-      context "record 1" do
+      context "record 1", vcr: "core_uoc_1" do
         let(:hashpath) { "spec/fixtures/files/datahashes/core/uoc1.json" }
         let(:fixturepath) { "core/uoc1.xml" }
 

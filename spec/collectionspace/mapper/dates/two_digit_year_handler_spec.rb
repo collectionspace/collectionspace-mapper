@@ -20,16 +20,16 @@ RSpec.describe CollectionSpace::Mapper::Dates::TwoDigitYearHandler do
       searcher: searcher
     )
   end
-  let(:str) { "3-2-20" }
+  let(:str) { "1-2-20" }
 
   describe "#mappable" do
     let(:result) { creator.mappable }
 
-    context "with literal" do
+    context "with literal", vcr: "dates_1-2-20" do
       let(:handling) { "literal" }
 
       it "returns expected" do
-        expected = "0020-03-02T00:00:00.000Z"
+        expected = "0020-01-02T00:00:00.000Z"
         expect(result["dateEarliestScalarValue"]).to eq(expected)
       end
 
@@ -48,7 +48,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::TwoDigitYearHandler do
       let(:handling) { "coerce" }
 
       it "returns expected" do
-        expected = "2020-03-02T00:00:00.000Z"
+        expected = "2020-01-02T00:00:00.000Z"
         expect(result["dateEarliestScalarValue"]).to eq(expected)
       end
 
@@ -67,11 +67,11 @@ RSpec.describe CollectionSpace::Mapper::Dates::TwoDigitYearHandler do
   describe "#stamp" do
     let(:result) { creator.stamp }
 
-    context "with literal" do
+    context "with literal", vcr: "dates_1-2-20" do
       let(:handling) { "literal" }
 
       it "returns expected" do
-        expected = "0020-03-02T00:00:00.000Z"
+        expected = "0020-01-02T00:00:00.000Z"
         expect(result).to eq(expected)
       end
     end
@@ -80,7 +80,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::TwoDigitYearHandler do
       let(:handling) { "coerce" }
 
       it "returns expected" do
-        expected = "2020-03-02T00:00:00.000Z"
+        expected = "2020-01-02T00:00:00.000Z"
         expect(result).to eq(expected)
       end
     end

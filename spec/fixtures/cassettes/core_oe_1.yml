@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/objectexit?as=objectexit_common:exitNumber%20=%20%27EX2020.2%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Sat, 18 Mar 2023 00:53:22 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '801'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|currentOwner|exitNumber</fieldsReturned><list-item><csid>ea54b752-b1ca-496a-82c0</csid><uri>/objectexit/ea54b752-b1ca-496a-82c0</uri><refName>urn:cspace:core.collectionspace.org:objectexit:id(ea54b752-b1ca-496a-82c0)</refName><updatedAt>2020-09-08T21:46:21.673Z</updatedAt><workflowState>project</workflowState><currentOwner>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(cxcx1599551790384)'cxcx'</currentOwner><exitNumber>EX2020.2</exitNumber></list-item></ns2:abstract-common-list>
+  recorded_at: Sat, 18 Mar 2023 00:53:22 GMT
+recorded_with: VCR 6.1.0

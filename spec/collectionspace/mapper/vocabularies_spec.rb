@@ -6,7 +6,7 @@ RSpec.describe CollectionSpace::Mapper::Vocabularies do
   let(:client) { core_client }
   subject(:vocabs) { described_class.new(client) }
 
-  describe "#by_name" do
+  describe "#by_name", vcr: "vocabularies" do
     it "returns as expected" do
       expect(vocabs.by_name("Annotation Type")).to be_a(Dry::Monads::Success)
       expect(vocabs.by_name("foo")).to be_a(Dry::Monads::Failure)

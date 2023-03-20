@@ -9,7 +9,7 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::Handler do
   describe "#add_term" do
     let(:result) { handler.add_term(vocab: vocab, term: term) }
 
-    context "with existing term" do
+    context "with existing term", vcr: "vocab_terms_handler_existing" do
       let(:vocab) { "Annotation Type" }
       let(:term) { "nomenclature" }
       it "returns Failure" do
@@ -19,10 +19,10 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::Handler do
       end
     end
 
-    context "with new term" do
+    context "with new term", vcr: "vocab_terms_handler_new" do
       let(:vocab) { "Annotation Type" }
       let(:term) { "Credit line" }
-      it "returns Failure" do
+      it "returns Success" do
         expect(result).to be_a(Dry::Monads::Success)
         client.delete(result.value!)
       end

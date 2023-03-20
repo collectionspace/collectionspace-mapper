@@ -14,18 +14,21 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
   let(:config) { {delimiter: "|"} }
   let(:handler) do
     CollectionSpace::Mapper::DataHandler.new(record_mapper: mapper,
-      client: client,
-      cache: cache,
-      csid_cache: csid_cache,
-      config: config)
+                                             client: client,
+                                             cache: cache,
+                                             csid_cache: csid_cache,
+                                             config: config)
   end
 
-  # these make services api calls to find terms not in cache
-  context "with some terms found and some terms not found",
-    services_call: true do
-      let(:result) { handler.process(data).terms.reject { |t| t[:found] } }
+  context "with some terms found and some terms not found" do
+    let(:result) { handler.process(data).terms.reject { |t| t[:found] } }
 
-      context "with terms in instance but not in cache" do
+    vcr_found_opts = {
+      cassette_name: "datahandler_uncached_found_terms",
+      record: :new_episodes
+    }
+    context "with terms in instance but not in cache",
+      vcr: vcr_found_opts  do
         let(:data) do
           {
             "objectNumber" => "20CS.001.0002",
@@ -43,7 +46,12 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
         end
       end
 
-      context "with terms in instance but not in cache, and not in instance" do
+    vcr_unfound_opts = {
+      cassette_name: "datahandler_uncached_unfound_terms",
+      record: :new_episodes
+    }
+    context "with terms in instance but not in cache, and not in instance",
+      vcr: vcr_unfound_opts  do
         let(:data) do
           {
             "objectNumber" => "20CS.001.0001",
@@ -60,9 +68,13 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
           expect(not_found.length).to eq(1)
         end
       end
-    end
+  end
 
-  it "tags all un-found terms as such", services_call: true do
+  unfound_term_opts = {
+      cassette_name: "datahandler_tag_unfound_terms",
+      record: :new_episodes
+    }
+  it "tags all un-found terms as such", vcr: unfound_term_opts do
     data1 = {
       "objectNumber" => "1",
       # vocabulary - in instance, not in cache
@@ -322,7 +334,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
     end
   end
 
-  describe "#process", services_call: true do
+  describe "#process", vcr: "datahandler_process_and_map" do
     let(:data) { {"objectNumber" => "123"} }
 
     it "can be called with response from validation" do
@@ -353,7 +365,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
     end
   end
 
-  describe "#map", services_call: true do
+  describe "#map", vcr: "datahandler_process_and_map" do
     let(:data) { {"objectNumber" => "123"} }
     let(:prepper) {
       CollectionSpace::Mapper::DataPrepper.new(data, handler.searcher, handler)
