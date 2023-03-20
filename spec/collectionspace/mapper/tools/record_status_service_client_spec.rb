@@ -113,7 +113,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
       end
 
       context "when mapper is for an object",
-          vcr: "client_status_svc_obj_lookup" do
+        vcr: "client_status_svc_obj_lookup" do
         let(:mapper) do
           CollectionSpace::Mapper::RecordMapper.new(
             mapper: get_json_record_mapper(
@@ -131,7 +131,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
       end
 
       context "when mapper is for a procedure",
-          vcr: "client_status_svc_proc_lookup"  do
+        vcr: "client_status_svc_proc_lookup" do
         let(:mapper) do
           CollectionSpace::Mapper::RecordMapper.new(
             mapper: get_json_record_mapper(
@@ -149,7 +149,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
       end
 
       context "when mapper is for a relationship",
-          vcr: "client_status_svc_rel_lookup" do
+        vcr: "client_status_svc_rel_lookup" do
         let(:mapper) do
           CollectionSpace::Mapper::RecordMapper.new(
             mapper: get_json_record_mapper(

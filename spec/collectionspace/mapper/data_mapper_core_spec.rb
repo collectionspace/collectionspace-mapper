@@ -187,7 +187,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         cassette_name: "core_concept_cats_siamese",
         record: :new_episodes
       }
-      context "with existing terms", vcr: vcr_opts  do
+      context "with existing terms", vcr: vcr_opts do
         let(:hashpath) {
           "spec/fixtures/files/datahashes/core/authorityHierarchy1.json"
         }
@@ -316,7 +316,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         end
       end
 
-      context "record 2", vcr: "core_acq_2"  do
+      context "record 2", vcr: "core_acq_2" do
         let(:hashpath) {
           "spec/fixtures/files/datahashes/core/acquisition2.json"
         }

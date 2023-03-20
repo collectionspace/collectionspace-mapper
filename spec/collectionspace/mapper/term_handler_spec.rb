@@ -35,7 +35,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
       }
 
       it "result is the transformed value for mapping",
-      vcr: "term_handler_result_titletranslationlanguage" do
+        vcr: "term_handler_result_titletranslationlanguage" do
         expected = [
           ["",
             "urn:cspace:c.core.collectionspace.org:vocabularies:name"\
@@ -96,7 +96,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
 
       context "when new term is subsequently encountered" do
         it "the term is still treated as not found",
-          vcr: "term_handler_terms_sanza"  do
+          vcr: "term_handler_terms_sanza" do
           CollectionSpace::Mapper::TermHandler.new(
             mapping: colmapping,
             data: data,

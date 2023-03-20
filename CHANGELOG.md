@@ -12,6 +12,7 @@ This project bumps the version number for any changes (including documentation u
 - none
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
+- (dev) Use VCR gem to speed up tests
 
 ## [4.1.3] - 2023-03-17
 - Update for Ruby 3.2
