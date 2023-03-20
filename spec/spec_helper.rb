@@ -59,5 +59,5 @@ VCR.configure do |c|
       !http_message.body.valid_encoding?
   end
   c.configure_rspec_metadata!
-#  c.debug_logger = $stderr
+  #  c.debug_logger = $stderr
 end

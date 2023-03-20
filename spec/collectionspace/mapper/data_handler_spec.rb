@@ -14,10 +14,10 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
   let(:config) { {delimiter: "|"} }
   let(:handler) do
     CollectionSpace::Mapper::DataHandler.new(record_mapper: mapper,
-                                             client: client,
-                                             cache: cache,
-                                             csid_cache: csid_cache,
-                                             config: config)
+      client: client,
+      cache: cache,
+      csid_cache: csid_cache,
+      config: config)
   end
 
   context "with some terms found and some terms not found" do
@@ -28,7 +28,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
       record: :new_episodes
     }
     context "with terms in instance but not in cache",
-      vcr: vcr_found_opts  do
+      vcr: vcr_found_opts do
         let(:data) do
           {
             "objectNumber" => "20CS.001.0002",
@@ -51,7 +51,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
       record: :new_episodes
     }
     context "with terms in instance but not in cache, and not in instance",
-      vcr: vcr_unfound_opts  do
+      vcr: vcr_unfound_opts do
         let(:data) do
           {
             "objectNumber" => "20CS.001.0001",
@@ -71,9 +71,9 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
   end
 
   unfound_term_opts = {
-      cassette_name: "datahandler_tag_unfound_terms",
-      record: :new_episodes
-    }
+    cassette_name: "datahandler_tag_unfound_terms",
+    record: :new_episodes
+  }
   it "tags all un-found terms as such", vcr: unfound_term_opts do
     data1 = {
       "objectNumber" => "1",
