@@ -45,7 +45,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # version used by collectionspace-csv-importer
-  spec.add_dependency "activesupport", "= 6.0.4.7"
+  spec.add_dependency "activesupport", "= 7.0.4.3"
   spec.add_dependency "chronic"
   spec.add_dependency "collectionspace-client", "~> 0.15.0"
   spec.add_dependency "collectionspace-refcache", "~>1.0.0"
