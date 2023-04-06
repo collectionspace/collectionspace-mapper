@@ -26,7 +26,7 @@ module CollectionSpace
         def call(date_string)
           if date_string.blank? || date_string == "%NULLVALUE%"
             CollectionSpace::Mapper::Dates::NullDate.new
-          elsif date_string == THE_BOMB
+          elsif date_string == CollectionSpace::Mapper.bomb
             CollectionSpace::Mapper::Dates::DateBomber.new
           elsif date_formats.any? { |re| date_string.match?(re) }
             CollectionSpace::Mapper::Dates::ChronicParser.new(date_string, self)

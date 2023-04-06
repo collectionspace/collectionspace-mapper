@@ -57,7 +57,9 @@ module CollectionSpace
       def handle_term(val)
         @value = val
         return "" if val.blank? || val == "%NULLVALUE%"
-        return THE_BOMB if val == THE_BOMB
+        if val == CollectionSpace::Mapper.bomb
+          return CollectionSpace::Mapper.bomb
+        end
 
         added = false
 

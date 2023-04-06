@@ -7,31 +7,31 @@ module CollectionSpace
         attr_reader :mappable, :stamp
         def initialize
           @mappable = {
-            "dateDisplayDate" => THE_BOMB,
-            "datePeriod" => THE_BOMB,
-            "dateAssociation" => THE_BOMB,
-            "dateNote" => THE_BOMB,
-            "dateEarliestSingleYear" => THE_BOMB,
-            "dateEarliestSingleMonth" => THE_BOMB,
-            "dateEarliestSingleDay" => THE_BOMB,
-            "dateEarliestSingleEra" => THE_BOMB,
-            "dateEarliestSingleCertainty" => THE_BOMB,
-            "dateEarliestSingleQualifier" => THE_BOMB,
-            "dateEarliestSingleQualifierValue" => THE_BOMB,
-            "dateEarliestSingleQualifierUnit" => THE_BOMB,
-            "dateLatestYear" => THE_BOMB,
-            "dateLatestMonth" => THE_BOMB,
-            "dateLatestDay" => THE_BOMB,
-            "dateLatestEra" => THE_BOMB,
-            "dateLatestCertainty" => THE_BOMB,
-            "dateLatestQualifier" => THE_BOMB,
-            "dateLatestQualifierValue" => THE_BOMB,
-            "dateLatestQualifierUnit" => THE_BOMB,
-            "dateEarliestScalarValue" => THE_BOMB,
-            "dateLatestScalarValue" => THE_BOMB,
-            "scalarValuesComputed" => THE_BOMB
+            "dateDisplayDate" => CollectionSpace::Mapper.bomb,
+            "datePeriod" => CollectionSpace::Mapper.bomb,
+            "dateAssociation" => CollectionSpace::Mapper.bomb,
+            "dateNote" => CollectionSpace::Mapper.bomb,
+            "dateEarliestSingleYear" => CollectionSpace::Mapper.bomb,
+            "dateEarliestSingleMonth" => CollectionSpace::Mapper.bomb,
+            "dateEarliestSingleDay" => CollectionSpace::Mapper.bomb,
+            "dateEarliestSingleEra" => CollectionSpace::Mapper.bomb,
+            "dateEarliestSingleCertainty" => CollectionSpace::Mapper.bomb,
+            "dateEarliestSingleQualifier" => CollectionSpace::Mapper.bomb,
+            "dateEarliestSingleQualifierValue" => CollectionSpace::Mapper.bomb,
+            "dateEarliestSingleQualifierUnit" => CollectionSpace::Mapper.bomb,
+            "dateLatestYear" => CollectionSpace::Mapper.bomb,
+            "dateLatestMonth" => CollectionSpace::Mapper.bomb,
+            "dateLatestDay" => CollectionSpace::Mapper.bomb,
+            "dateLatestEra" => CollectionSpace::Mapper.bomb,
+            "dateLatestCertainty" => CollectionSpace::Mapper.bomb,
+            "dateLatestQualifier" => CollectionSpace::Mapper.bomb,
+            "dateLatestQualifierValue" => CollectionSpace::Mapper.bomb,
+            "dateLatestQualifierUnit" => CollectionSpace::Mapper.bomb,
+            "dateEarliestScalarValue" => CollectionSpace::Mapper.bomb,
+            "dateLatestScalarValue" => CollectionSpace::Mapper.bomb,
+            "scalarValuesComputed" => CollectionSpace::Mapper.bomb
           }
-          @stamp = THE_BOMB
+          @stamp = CollectionSpace::Mapper.bomb
         end
       end
     end

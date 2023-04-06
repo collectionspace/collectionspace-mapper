@@ -31,7 +31,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
       let(:colname) { "titleTranslationLanguage" }
       let(:data) {
         [["%NULLVALUE%", "Swahili"], %w[Klingon Spanish],
-          [CollectionSpace::Mapper::THE_BOMB]]
+          [CollectionSpace::Mapper.bomb]]
       }
 
       it "result is the transformed value for mapping",
@@ -43,7 +43,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
           ["",
             "urn:cspace:c.core.collectionspace.org:vocabularies:name"\
               "(languages):item:name(spa)'Spanish'"],
-          [CollectionSpace::Mapper::THE_BOMB]
+          [CollectionSpace::Mapper.bomb]
         ]
         expect(th.result).to eq(expected)
         expect(th.errors.length).to eq(1)
@@ -78,7 +78,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
       let(:colname) { "titleTranslationLanguage" }
       let(:data) {
         [["%NULLVALUE%", "Swahili"], %w[Sanza Spanish],
-          [CollectionSpace::Mapper::THE_BOMB]]
+          [CollectionSpace::Mapper.bomb]]
       }
 
       context "when new term (Sanza) is initially encountered" do

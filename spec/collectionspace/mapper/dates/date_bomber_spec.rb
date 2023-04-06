@@ -25,7 +25,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::DateBomber do
     let(:result) { creator.mappable }
 
     it "returns expected" do
-      expected = CollectionSpace::Mapper::THE_BOMB
+      expected = CollectionSpace::Mapper.bomb
       expect(result["dateEarliestScalarValue"]).to eq(expected)
     end
   end
@@ -34,7 +34,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::DateBomber do
     let(:result) { creator.stamp }
 
     it "returns expected" do
-      expected = CollectionSpace::Mapper::THE_BOMB
+      expected = CollectionSpace::Mapper.bomb
       expect(result).to eq(expected)
     end
   end
