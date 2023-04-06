@@ -32,7 +32,7 @@ RSpec.describe CollectionSpace::Mapper do
         expect do
           CollectionSpace::Mapper.setup_data(data)
         end.to raise_error(
-          CollectionSpace::Mapper::Errors::UnprocessableDataError,
+          CollectionSpace::Mapper::UnprocessableDataError,
           "Cannot process a Array. Need a Hash or Mapper::Response"
         )
       end

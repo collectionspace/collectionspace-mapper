@@ -25,7 +25,7 @@ RSpec.describe CollectionSpace::Mapper::UnknownTerm do
         expect {
           result
         }.to raise_error(
-          CollectionSpace::Mapper::UnknownTerm::ReconstituteNilError
+          CollectionSpace::Mapper::ReconstituteCachedNilValueError
         )
       end
     end

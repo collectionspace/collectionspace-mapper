@@ -14,7 +14,7 @@ module CollectionSpace
         def mappable
           response = get_response
           unless response
-            fail UnparseableStructuredDateError.new(
+            fail CollectionSpace::Mapper::UnparseableStructuredDateError.new(
               date_string: date_string,
               desc: "StructuredDate API error or blank response",
               mappable: no_mappable_date
@@ -25,7 +25,7 @@ module CollectionSpace
             result = response.result["structureddate_common"]
             add_timestamp_to_scalar_values(result)
           else
-            fail UnparseableStructuredDateError.new(
+            fail CollectionSpace::Mapper::UnparseableStructuredDateError.new(
               date_string: date_string,
               desc: response.parsed,
               mappable: no_mappable_date

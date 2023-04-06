@@ -42,19 +42,6 @@ module CollectionSpace
         two_digit_year_handling: %w[coerce literal]
       }
 
-      class ConfigKeyMissingError < StandardError
-        attr_reader :keys
-
-        def initialize(message, keys)
-          super(message)
-          @keys = keys
-        end
-      end
-
-      class ConfigValueError < StandardError; end
-
-      class UnhandledConfigFormatError < StandardError; end
-
       def initialize(opts = {})
         config = opts[:config] || DEFAULT_CONFIG
         @default_values = {}
@@ -67,7 +54,7 @@ module CollectionSpace
         elsif config.is_a?(Hash)
           set_instance_variables(config)
         else
-          raise UnhandledConfigFormatError
+          fail CollectionSpace::Mapper::UnhandledConfigFormatError
         end
 
         special_defaults.each { |col, val| add_default_value(col, val) }
@@ -110,7 +97,7 @@ module CollectionSpace
       def validate
         begin
           has_required_attributes
-        rescue ConfigKeyMissingError => e
+        rescue CollectionSpace::Mapper::ConfigKeyMissingError => e
           e.keys.each { |key|
             instance_variable_set("@#{key}", DEFAULT_CONFIG[key])
           }
@@ -140,8 +127,9 @@ module CollectionSpace
         required_keys = DEFAULT_CONFIG.keys
         missing_keys = required_keys - hash.keys
         unless missing_keys.empty?
-          raise ConfigKeyMissingError.new("Config missing key",
-            missing_keys)
+          fail CollectionSpace::Mapper::ConfigKeyMissingError.new(
+            missing_keys
+          )
         end
       end
 

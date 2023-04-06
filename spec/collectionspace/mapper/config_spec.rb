@@ -70,7 +70,7 @@ RSpec.describe CollectionSpace::Mapper::Config do
     it "raises error" do
       expect {
         config
-      }.to raise_error(described_class::UnhandledConfigFormatError)
+      }.to raise_error(CollectionSpace::Mapper::UnhandledConfigFormatError)
     end
   end
 

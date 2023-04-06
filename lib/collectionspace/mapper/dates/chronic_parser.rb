@@ -21,7 +21,7 @@ module CollectionSpace
             map_timestamp(parsed)
           end
         rescue => err
-          fail UnparseableStructuredDateError.new(
+          fail CollectionSpace::Mapper::UnparseableStructuredDateError.new(
             date_string: date_string,
             orig_err: err,
             mappable: no_mappable_date

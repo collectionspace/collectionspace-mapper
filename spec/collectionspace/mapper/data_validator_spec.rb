@@ -34,7 +34,7 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
         allow(mappings).to receive(:required_columns)
           .and_return([])
         expect { klass.new(mapper, cache) }.to raise_error(
-          CollectionSpace::Mapper::DataValidator::IdFieldNotInMapperError
+          CollectionSpace::Mapper::IdFieldNotInMapperError
         )
       end
     end

@@ -5,8 +5,6 @@ module CollectionSpace
     # Checks incoming data before mapping to ensure the necessary data is
     #   present to do the mapping
     class DataValidator
-      class IdFieldNotInMapperError < StandardError; end
-
       attr_reader :mapper, :cache, :required_fields
 
       # @todo remove cache argument
@@ -39,7 +37,7 @@ module CollectionSpace
 
       def get_id_field
         idfield = @mapper.config.identifier_field
-        raise IdFieldNotInMapperError if idfield.nil?
+        fail CollectionSpace::Mapper::IdFieldNotInMapperError if idfield.nil?
 
         idfield.downcase
       end

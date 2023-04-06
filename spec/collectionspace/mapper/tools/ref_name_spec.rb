@@ -86,7 +86,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
         }
         expect do
           CollectionSpace::Mapper::Tools::RefName.new(args)
-        end.to raise_error(CollectionSpace::Mapper::Tools::UnparseableUrnError)
+        end.to raise_error(CollectionSpace::Mapper::UnparseableRefNameUrnError)
       end
     end
   end
@@ -100,7 +100,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
       }
       expect do
         CollectionSpace::Mapper::Tools::RefName.new(args)
-      end.to raise_error(CollectionSpace::Mapper::Tools::RefNameArgumentError)
+      end.to raise_error(CollectionSpace::Mapper::RefNameArgumentError)
     end
   end
 end

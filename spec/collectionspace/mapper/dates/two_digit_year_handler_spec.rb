@@ -38,7 +38,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::TwoDigitYearHandler do
 
         it "raises error" do
           expect { result }.to raise_error(
-            CollectionSpace::Mapper::Dates::UnparseableStructuredDateError
+            CollectionSpace::Mapper::UnparseableStructuredDateError
           )
         end
       end
@@ -57,7 +57,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::TwoDigitYearHandler do
 
         it "raises error" do
           expect { result }.to raise_error(
-            CollectionSpace::Mapper::Dates::UnparseableStructuredDateError
+            CollectionSpace::Mapper::UnparseableStructuredDateError
           )
         end
       end
