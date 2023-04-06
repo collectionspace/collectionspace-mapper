@@ -86,7 +86,7 @@ module CollectionSpace
 
       def defuse_bomb
         @doc.traverse do |node|
-          node.content = "" if node.text == THE_BOMB
+          node.content = "" if node.text == CollectionSpace::Mapper.bomb
         end
       end
 

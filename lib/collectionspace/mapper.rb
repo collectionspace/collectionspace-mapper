@@ -10,6 +10,7 @@ require "active_support/core_ext/object/blank"
 require "json"
 require "logger"
 
+require "dry-configurable"
 require "nokogiri"
 require "xxhash"
 require "zeitwerk"
@@ -24,9 +25,12 @@ loader.eager_load
 
 module CollectionSpace
   module Mapper
-    THE_BOMB = "\u{1F4A3}"
-
+    extend Dry::Configurable
     module_function
+
+    setting :bomb, default: "\u{1F4A3}", reader: true
+
+
 
     def setup_data(data, config = Mapper::Config.new)
       if data.is_a?(Hash)
