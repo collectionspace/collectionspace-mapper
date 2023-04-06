@@ -6,33 +6,22 @@ module CollectionSpace
       class DateBomber
         attr_reader :mappable, :stamp
         def initialize
-          @mappable = {
-            "dateDisplayDate" => CollectionSpace::Mapper.bomb,
-            "datePeriod" => CollectionSpace::Mapper.bomb,
-            "dateAssociation" => CollectionSpace::Mapper.bomb,
-            "dateNote" => CollectionSpace::Mapper.bomb,
-            "dateEarliestSingleYear" => CollectionSpace::Mapper.bomb,
-            "dateEarliestSingleMonth" => CollectionSpace::Mapper.bomb,
-            "dateEarliestSingleDay" => CollectionSpace::Mapper.bomb,
-            "dateEarliestSingleEra" => CollectionSpace::Mapper.bomb,
-            "dateEarliestSingleCertainty" => CollectionSpace::Mapper.bomb,
-            "dateEarliestSingleQualifier" => CollectionSpace::Mapper.bomb,
-            "dateEarliestSingleQualifierValue" => CollectionSpace::Mapper.bomb,
-            "dateEarliestSingleQualifierUnit" => CollectionSpace::Mapper.bomb,
-            "dateLatestYear" => CollectionSpace::Mapper.bomb,
-            "dateLatestMonth" => CollectionSpace::Mapper.bomb,
-            "dateLatestDay" => CollectionSpace::Mapper.bomb,
-            "dateLatestEra" => CollectionSpace::Mapper.bomb,
-            "dateLatestCertainty" => CollectionSpace::Mapper.bomb,
-            "dateLatestQualifier" => CollectionSpace::Mapper.bomb,
-            "dateLatestQualifierValue" => CollectionSpace::Mapper.bomb,
-            "dateLatestQualifierUnit" => CollectionSpace::Mapper.bomb,
-            "dateEarliestScalarValue" => CollectionSpace::Mapper.bomb,
-            "dateLatestScalarValue" => CollectionSpace::Mapper.bomb,
-            "scalarValuesComputed" => CollectionSpace::Mapper.bomb
-          }
-          @stamp = CollectionSpace::Mapper.bomb
+          @bomb = CollectionSpace::Mapper.bomb
+          @fields = CollectionSpace::Mapper.structured_date_detailed_fields
         end
+
+        def mappable
+          fields.map{ |field| [field, bomb]}
+            .to_h
+        end
+
+        def stamp
+          bomb
+        end
+
+        private
+
+        attr_reader :bomb, :fields
       end
     end
   end

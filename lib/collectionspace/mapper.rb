@@ -28,7 +28,21 @@ module CollectionSpace
     extend Dry::Configurable
     module_function
 
+    # The bomb emoji, used for nuking the contents of fields
     setting :bomb, default: "\u{1F4A3}", reader: true
+    setting :structured_date_detailed_fields,
+      default: %w[dateDisplayDate datePeriod dateAssociation dateNote
+                  dateEarliestSingleYear dateEarliestSingleMonth
+                  dateEarliestSingleDay dateEarliestSingleEra
+                  dateEarliestSingleCertainty dateEarliestSingleQualifier
+                  dateEarliestSingleQualifierValue
+                  dateEarliestSingleQualifierUnit dateLatestYear dateLatestMonth
+                  dateLatestDay dateLatestEra dateLatestCertainty
+                  dateLatestQualifier dateLatestQualifierValue
+                  dateLatestQualifierUnit dateEarliestScalarValue
+                  dateLatestScalarValue scalarValuesComputed],
+      reader: true
+
 
 
 
