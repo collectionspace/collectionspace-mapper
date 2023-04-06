@@ -24,8 +24,6 @@ loader.eager_load
 
 module CollectionSpace
   module Mapper
-    LOGGER = Logger.new($stderr)
-
     THE_BOMB = "\u{1F4A3}"
 
     module_function
