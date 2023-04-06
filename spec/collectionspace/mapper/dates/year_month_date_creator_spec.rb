@@ -53,7 +53,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::YearMonthDateCreator do
       let(:str) { "1865-75" }
 
       it "raises error" do
-        cst = CollectionSpace::Mapper::Dates::UnparseableStructuredDateError
+        cst = CollectionSpace::Mapper::UnparseableStructuredDateError
         expect { result }.to raise_error(cst)
       end
     end
@@ -75,7 +75,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::YearMonthDateCreator do
       let(:str) { "1865-75" }
 
       it "raises error" do
-        cst = CollectionSpace::Mapper::Dates::UnparseableDateError
+        cst = CollectionSpace::Mapper::UnparseableDateError
         expect { result }.to raise_error(cst)
       end
     end

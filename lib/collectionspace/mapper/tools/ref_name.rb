@@ -3,17 +3,6 @@
 module CollectionSpace
   module Mapper
     module Tools
-      class RefNameArgumentError < ArgumentError
-        def initialize(
-          msg = "Arguments requires either :urn OR :source_type, :type, "\
-            ":subtype, :term, :cache values"
-        )
-          super
-        end
-      end
-
-      class UnparseableUrnError < CollectionSpace::Mapper::Error; end
-
       class RefName
         attr_reader :domain, :type, :subtype, :identifier, :display_name, :urn
 
@@ -40,7 +29,7 @@ module CollectionSpace
             end
             @urn = build_urn
           else
-            raise RefNameArgumentError
+            fail CollectionSpace::Mapper::RefNameArgumentError
           end
         end
 
@@ -76,7 +65,7 @@ module CollectionSpace
           elsif /^urn:cspace:([^:]+):([^:]+):id\(([^)]+)\)(.*)/.match?(@urn)
             non_term_parts_from_urn
           else
-            raise UnparseableUrnError.new("Tried to parse: #{@urn}")
+            fail CollectionSpace::Mapper::UnparseableRefNameUrnError.new(@urn)
           end
         end
         # rubocop:enable Layout/LineLength

@@ -45,7 +45,7 @@ module CollectionSpace
         def stamp
           desv = get_earliest_scalar
           if desv.blank?
-            fail(UnparseableDateError.new(date_string))
+            fail(CollectionSpace::Mapper::UnparseableDateError.new(date_string))
           else
             desv
           end
@@ -53,7 +53,7 @@ module CollectionSpace
 
         def get_earliest_scalar
           mappable["dateEarliestScalarValue"]
-        rescue UnparseableStructuredDateError
+        rescue CollectionSpace::Mapper::UnparseableStructuredDateError
           nil
         end
         private :get_earliest_scalar

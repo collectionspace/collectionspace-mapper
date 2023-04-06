@@ -30,7 +30,7 @@ module CollectionSpace
           }
           add_timestamp_to_scalar_values(maphash)
         rescue Date::Error
-          fail UnparseableStructuredDateError.new(
+          fail CollectionSpace::Mapper::UnparseableStructuredDateError.new(
             date_string: date_string,
             mappable: no_mappable_date
           )

@@ -32,7 +32,7 @@ module CollectionSpace
           result["dateDisplayDate"] = date_string
           result
         rescue => err
-          fail UnparseableStructuredDateError.new(
+          fail CollectionSpace::Mapper::UnparseableStructuredDateError.new(
             date_string: date_string,
             orig_err: err,
             mappable: nil
@@ -59,7 +59,7 @@ module CollectionSpace
             date_string, handler
           ).mappable
         rescue => err
-          fail UnparseableStructuredDateError.new(
+          fail CollectionSpace::Mapper::UnparseableStructuredDateError.new(
             date_string: date_string,
             orig_err: err,
             mappable: nil

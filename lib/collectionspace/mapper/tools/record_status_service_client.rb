@@ -69,7 +69,7 @@ module CollectionSpace
             reportable_result(response.parsed[response_top][response_nested])
           elsif ct > 1
             unless use_first?
-              raise CollectionSpace::Mapper::MultipleCsRecordsFoundError,
+              fail CollectionSpace::Mapper::MultipleCsRecordsFoundError,
                 ct
             end
 

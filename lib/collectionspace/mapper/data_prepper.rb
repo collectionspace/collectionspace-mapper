@@ -249,8 +249,8 @@ module CollectionSpace
       def map_structured_dates(csdates, column)
         csdates.map do |csd|
           result = csd.mappable
-        rescue Dates::UnparseableStructuredDateError => err
-          err.column = column
+        rescue CollectionSpace::Mapper::UnparseableStructuredDateError => err
+          err.set_column(column)
           @response.warnings << err.to_h
           err.mappable
         else
@@ -262,8 +262,8 @@ module CollectionSpace
       def map_unstructured_dates(csdates, column)
         csdates.map do |csd|
           result = csd.stamp
-        rescue CollectionSpace::Mapper::Dates::UnparseableDateError => err
-          err.column = column
+        rescue CollectionSpace::Mapper::UnparseableDateError => err
+          err.set_column(column)
           @response.errors << err.to_h
           next
         else

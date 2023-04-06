@@ -28,19 +28,6 @@ module CollectionSpace
 
     THE_BOMB = "\u{1F4A3}"
 
-    module Errors
-      class UnprocessableDataError < StandardError
-        UnprocessableDataError =
-          CollectionSpace::Mapper::Errors::UnprocessableDataError
-        attr_reader :input
-
-        def initialize(message, input)
-          super(message)
-          @input = input
-        end
-      end
-    end
-
     module_function
 
     def setup_data(data, config = Mapper::Config.new)
@@ -49,7 +36,7 @@ module CollectionSpace
       elsif data.is_a?(CollectionSpace::Mapper::Response)
         response = data
       else
-        raise Errors::UnprocessableDataError.new(
+        raise CollectionSpace::Mapper::UnprocessableDataError.new(
           "Cannot process a #{data.class}. Need a Hash or Mapper::Response",
           data
         )

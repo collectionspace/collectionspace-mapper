@@ -116,7 +116,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
         let(:date_string) { "VIII.XIV.MMXX" }
 
         it "raises error" do
-          cst = CollectionSpace::Mapper::Dates::UnparseableStructuredDateError
+          cst = CollectionSpace::Mapper::UnparseableStructuredDateError
           expect { csdate.mappable }.to raise_error(cst)
         end
       end
