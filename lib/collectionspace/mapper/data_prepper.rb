@@ -7,14 +7,14 @@ module CollectionSpace
         :searcher
       attr_accessor :response, :xphash
 
-      def initialize(data, searcher, handler)
+      def initialize(data, searcher = nil, handler = nil)
         @handler = handler
-        @searcher = searcher
+        @searcher = CollectionSpace::Mapper.searcher
         @config = CollectionSpace::Mapper.batchconfig
         @cache = CollectionSpace::Mapper.termcache
         @csid_cache = CollectionSpace::Mapper.csidcache
         @client = CollectionSpace::Mapper.client
-        @date_handler = handler.date_handler
+        @date_handler = CollectionSpace::Mapper.date_handler
         @response = CollectionSpace::Mapper.setup_data(data, config)
         drop_empty_fields
         process_xpaths if response.valid?
@@ -66,6 +66,8 @@ module CollectionSpace
 
       private
 
+      attr_reader :date_handler
+
       # used by NonHierarchicalRelationshipPrepper and AuthorityHierarchyPrepper
       def push_errors_and_warnings
         unless errors.empty?
@@ -91,8 +93,10 @@ module CollectionSpace
             @response.merged_data.key?(mapper.datacolumn)
         end
 
+
         # create xpaths for remaining mappings...
         @xphash = mappings.map { |mapper| mapper.fullpath }.uniq
+
         # hash with xpath as key and xpath info hash from DataHandler as value
         @xphash = @xphash.map { |xpath|
           [xpath, CollectionSpace::Mapper.recordmapper.xpath[xpath].clone]
@@ -106,7 +110,7 @@ module CollectionSpace
       end
 
       def identifier?(column)
-        column.downcase == handler.mapper.config.identifier_field.downcase
+        column.downcase == CollectionSpace::Mapper.record.identifier_field.downcase
       end
 
       def do_splits(xphash)
@@ -230,7 +234,7 @@ module CollectionSpace
             .map do |dateval|
               CollectionSpace::Mapper::Dates::CspaceDate.new(
                 dateval,
-                @handler.date_handler
+                date_handler
               )
             end
 
@@ -286,9 +290,9 @@ module CollectionSpace
 
           th = CollectionSpace::Mapper::TermHandler.new(mapping: mapping,
             data: data,
-            client: @client,
+            client: CollectionSpace::Mapper.client,
             mapper: CollectionSpace::Mapper.recordmapper,
-            searcher: searcher)
+            searcher: CollectionSpace::Mapper.searcher)
 
           @response.transformed_data[column] = th.result
           @response.terms << th.terms

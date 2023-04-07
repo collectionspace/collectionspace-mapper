@@ -6,9 +6,12 @@ module CollectionSpace
       class RecordStatusServiceClient
         include RecordStatusServiceable
 
-        def initialize(client, mapper)
-          @client = client
-          @mapper = mapper
+        def initialize(
+          client = CollectionSpace::Mapper.client,
+          mapper = CollectionSpace::Mapper.recordmapper
+        )
+          @client = CollectionSpace::Mapper.client
+          @mapper = CollectionSpace::Mapper.recordmapper
           service = get_service
           @search_field = authority? ? service[:term] : service[:field]
           @ns_prefix = service[:ns_prefix]
@@ -53,14 +56,14 @@ module CollectionSpace
         # Tests in examples/search.rb
         def lookup(value)
           response = if ns_prefix == "relations"
-            client.find_relation(
-              subject_csid: value[:sub],
-              object_csid: value[:obj],
-              rel_type: value[:prd]
-            )
-          else
-            lookup_non_relationship(value)
-          end
+                       client.find_relation(
+                         subject_csid: value[:sub],
+                         object_csid: value[:obj],
+                         rel_type: value[:prd]
+                       )
+                     else
+                       lookup_non_relationship(value)
+                     end
 
           ct = count_results(response)
           if ct == 0
@@ -89,7 +92,7 @@ module CollectionSpace
         end
 
         def use_first?
-          mapper.batchconfig.multiple_recs_found == "use_first"
+          CollectionSpace::Mapper.batch.multiple_recs_found == "use_first"
         end
 
         def count_results(response)

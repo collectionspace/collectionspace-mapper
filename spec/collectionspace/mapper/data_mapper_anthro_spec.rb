@@ -3,25 +3,13 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
-  let(:config) { {delimiter: ";"} }
-  let(:mapper) { get_json_record_mapper(mapper_path) }
-  let(:handler) do
-    CollectionSpace::Mapper::DataHandler.new(
-      record_mapper: mapper,
-      client: anthro_client,
-      cache: anthro_cache,
-      csid_cache: anthro_csid_cache,
-      config: config
-    )
-  end
+  subject(:datamapper) {
+    described_class.new(prepper.prep.response, prepper.xphash)
+  }
+
+  after{ CollectionSpace::Mapper.reset_config }
+
   let(:datahash) { get_datahash(path: datahash_path) }
-  let(:prepper) {
-    CollectionSpace::Mapper::DataPrepper.new(datahash, handler.searcher,
-      handler)
-  }
-  let(:datamapper) {
-    described_class.new(prepper.prep.response, handler, prepper.xphash)
-  }
   let(:response) { datamapper.response }
   let(:mapped_doc) { remove_namespaces(response.doc) }
   let(:mapped_xpaths) { list_xpaths(mapped_doc) }
@@ -34,16 +22,25 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
   end
   let(:diff) { mapped_xpaths - fixture_xpaths }
 
+  let(:prepper) {
+    CollectionSpace::Mapper.prepper_class.new(datahash)
+  }
+
   context "anthro profile" do
     context "claim record" do
+      before do
+        setup_handler(
+          profile: 'anthro',
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+            "anthro_4-1-2_claim.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
+
       # Tests for claim record are pending because changes must be made to
       # handling of repeating field groups which contain more than one
       # field which may be populated by multiple authorities.
       # Problem in claimantGroupList
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/anthro/anthro_4-1-2_claim.json"
-      }
-
       context "record 1" do
         let(:datahash_path) {
           "spec/fixtures/files/datahashes/anthro/claim1.json"
@@ -65,10 +62,14 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "collectionobject record" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/anthro/"\
-          "anthro_4-1-2_collectionobject.json"
-      }
+      before do
+        setup_handler(
+          profile: 'anthro',
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+            "anthro_4-1-2_collectionobject.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       # Record 1 was used for testing default value merging, transformations,
       #   etc. We start with record 2 to purely test mapping functionality
@@ -93,10 +94,14 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "osteology record" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/anthro/"\
-          "anthro_4-1-2_osteology.json"
-      }
+      before do
+        setup_handler(
+          profile: 'anthro',
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+            "anthro_4-1-2_osteology.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       context "record 1" do
         let(:datahash_path) {

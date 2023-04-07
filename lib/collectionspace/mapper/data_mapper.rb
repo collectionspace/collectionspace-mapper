@@ -6,7 +6,12 @@ module CollectionSpace
       attr_reader :handler, :xphash
       attr_accessor :doc, :response
 
-      def initialize(response, handler, xphash)
+      # @todo appconfig remove handler arg
+      def initialize(
+        response,
+        handler = CollectionSpace::Mapper.data_handler,
+        xphash
+      )
         @response = response
         @handler = handler
         @xphash = xphash
@@ -16,7 +21,7 @@ module CollectionSpace
         @cache = CollectionSpace::Mapper.termcache
 
         @xphash.each { |xpath, hash| map(xpath, hash) }
-        add_short_id if CollectionSpace::Mapper.recordmapper.config.service_type == "authority"
+        add_short_id if CollectionSpace::Mapper.record.service_type == "authority"
         set_response_identifier
         clean_doc
         defuse_bomb
@@ -27,10 +32,10 @@ module CollectionSpace
       private
 
       def set_response_identifier
-        if CollectionSpace::Mapper.recordmapper.config.service_type == "relation"
+        if CollectionSpace::Mapper.record.service_type == "relation"
           set_relation_id
         else
-          id_field = CollectionSpace::Mapper.recordmapper.config.identifier_field
+          id_field = CollectionSpace::Mapper.record.identifier_field
           mapping = CollectionSpace::Mapper.recordmapper.mappings.find { |mapper|
             mapper.fieldname == id_field
           }
@@ -42,7 +47,7 @@ module CollectionSpace
       end
 
       def set_relation_id
-        case CollectionSpace::Mapper.recordmapper.config.object_name
+        case CollectionSpace::Mapper.record.object_name
         when "Object Hierarchy Relation"
           narrow = @response.orig_data["narrower_object_number"]
           broad = @response.orig_data["broader_object_number"]
@@ -52,7 +57,7 @@ module CollectionSpace
 
       def add_short_id
         term = @response.transformed_data["termdisplayname"][0]
-        ns = CollectionSpace::Mapper.recordmapper.config.common_namespace
+        ns = CollectionSpace::Mapper.record.common_namespace
         targetnode = @doc.xpath("/document/#{ns}").first
         child = Nokogiri::XML::Node.new("shortIdentifier", @doc)
         child.content =
@@ -92,7 +97,7 @@ module CollectionSpace
 
       def add_namespaces
         @doc.xpath("/*/*").each do |section|
-          fetchuri = CollectionSpace::Mapper.recordmapper.config.ns_uri[section.name]
+          fetchuri = CollectionSpace::Mapper.record.ns_uri[section.name]
           uri = fetchuri.nil? ? "http://no.uri.found" : fetchuri
           section.add_namespace_definition(
             "ns2",
@@ -197,7 +202,7 @@ module CollectionSpace
       end
 
       def add_uneven_subgroup_warning(parent_path:, intervening_path:,
-        subgroup:)
+                                      subgroup:)
         sgpath = "#{parent_path}/#{intervening_path.join("/")}/#{subgroup}"
         response.warnings << {
           category: :uneven_subgroup_field_values,
@@ -211,7 +216,7 @@ module CollectionSpace
       end
 
       def add_too_many_subgroups_warning(parent_path:, intervening_path:,
-        subgroup:)
+                                         subgroup:)
         sgpath = "#{intervening_path.join("/")}/#{subgroup}"
         response.warnings << {
           category: :subgroup_contains_data_for_nonexistent_groups,
@@ -285,13 +290,13 @@ module CollectionSpace
 
         unless even_subgroup_field_values?(thisdata)
           add_uneven_subgroup_warning(parent_path: parent_path,
-            intervening_path: subgroup_path,
-            subgroup: subgroup)
+                                      intervening_path: subgroup_path,
+                                      subgroup: subgroup)
         end
         unless group_accommodates_subgroup?(groups, thisdata)
           add_too_many_subgroups_warning(parent_path: parent_path,
-            intervening_path: subgroup_path,
-            subgroup: subgroup)
+                                         intervening_path: subgroup_path,
+                                         subgroup: subgroup)
         end
 
         thisdata.each { |field, subgroups|
@@ -313,7 +318,7 @@ module CollectionSpace
 
         groups.each do |group_index, group|
           target = subgrouplist_target(parent_path, group_index, subgroup_path,
-            subgroup)
+                                       subgroup)
           map_subgroups_to_group(group, target)
         end
       end

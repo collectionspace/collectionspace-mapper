@@ -36,13 +36,13 @@ module CollectionSpace
       end
 
       def record_type
-        @config.recordtype
+        CollectionSpace::Mapper.record.recordtype
       end
 
       # The value returned here is used to enable module extension when creating
       #  other classes using RecordMapper
       def service_type_extension
-        case config.service_type
+        case CollectionSpace::Mapper.record.service_type
         when "authority"
           CollectionSpace::Mapper::Authority
         when "relation"

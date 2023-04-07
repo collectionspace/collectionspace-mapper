@@ -3,48 +3,41 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
-  let(:config) { {delimiter: ";"} }
-  let(:mapper) { get_json_record_mapper(mapper_path) }
-  let(:handler) do
-    CollectionSpace::Mapper::DataHandler.new(
-      record_mapper: mapper,
-      client: core_client,
-      cache: core_cache,
-      csid_cache: core_csid_cache,
-      config: config
-    )
-  end
+  subject(:datamapper) {
+    described_class.new(prepper.prep.response, prepper.xphash)
+  }
+
+  after{ CollectionSpace::Mapper.reset_config }
+
   let(:datahash) { get_datahash(path: hashpath) }
-  let(:prepper) {
-    CollectionSpace::Mapper::DataPrepper.new(
-      datahash,
-      handler.searcher,
-      handler
-    )
-  }
-  let(:datamapper) {
-    described_class.new(prepper.prep.response, handler, prepper.xphash)
-  }
-  let(:response) { handler.process(datahash) }
+  let(:response) do
+    CollectionSpace::Mapper.data_handler
+      .process(datahash)
+  end
   let(:mapped_doc) { remove_namespaces(response.doc) }
   let(:mapped_xpaths) { list_xpaths(mapped_doc) }
   let(:fixture_doc) { get_xml_fixture(fixturepath) }
-  let(:fixture_xpaths) { test_xpaths(fixture_doc, CollectionSpace::Mapper.recordmapper.mappings) }
+  let(:fixture_xpaths) do
+    test_xpaths(
+      fixture_doc,
+      CollectionSpace::Mapper.recordmapper.mappings
+    )
+  end
   let(:diff) { mapped_xpaths - fixture_xpaths }
 
+  let(:prepper) {
+    CollectionSpace::Mapper.prepper_class.new(datahash)
+  }
+
   context "core profile" do
-    context "non-hierarchical relationship record", services_call: true do
-      # NOTE!
-      #
-      # These tests are prone to failing if one of the records used in the
-      #   test in core.dev is deleted.  If a UUID is expected but you get blank,
-      #   recreate the record in core.dev, rerun the test to get the UUID for
-      #   the new record, and replace the old UUID in both fixture XML files
-      #   used.
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/"\
-          "core_6-1-0_nonhierarchicalrelationship.json"
-      }
+    context "non-hierarchical relationship record" do
+      before do
+        setup_handler(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_nonhierarchicalrelationship.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       context "when all IDs found", vcr: "core_nhr_ids_found" do
         let(:hashpath) {
@@ -178,10 +171,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "authority hierarchy record" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/"\
-          "core_6-1-0_authorityhierarchy.json"
-      }
+      before do
+        setup_handler(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_authorityhierarchy.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       vcr_opts = {
         cassette_name: "core_concept_cats_siamese",
@@ -239,10 +235,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "object hierarchy record" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/"\
-          "core_6-1-0_objecthierarchy.json"
-      }
+      before do
+        setup_handler(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_objecthierarchy.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       context "with existing records", vcr: "core_oh_ids_found" do
         let(:hashpath) {
@@ -292,10 +291,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "acquisition record", services_call: true do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/"\
-          "core_6-1-0_acquisition.json"
-      }
+      before do
+        setup_handler(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_acquisition.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       context "record 1", vcr: "core_acq_1" do
         let(:hashpath) {
@@ -359,10 +361,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "collectionobject record" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/"\
-          "core_6-1-0_collectionobject.json"
-      }
+      before do
+        setup_handler(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_collectionobject.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       context "record 1", vcr: "core_obj_1" do
         let(:hashpath) {
@@ -409,31 +414,40 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
 
       context "record 5 (%NULLVALUE% term in repeating group)",
         vcr: "core_obj_5" do
-        let(:config) { {delimiter: "|"} }
-        let(:hashpath) {
-          "spec/fixtures/files/datahashes/core/collectionobject5.json"
-        }
-        let(:fixturepath) { "core/collectionobject5.xml" }
+          before do
+            setup_handler(
+              mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+                "core_6-1-0_collectionobject.json"
+            )
+            CollectionSpace::Mapper.config.batch.delimiter = '|'
+          end
+          let(:hashpath) {
+            "spec/fixtures/files/datahashes/core/collectionobject5.json"
+          }
+          let(:fixturepath) { "core/collectionobject5.xml" }
 
-        it "does not map unexpected fields" do
-          expect(diff).to eq([])
-        end
+          it "does not map unexpected fields" do
+            expect(diff).to eq([])
+          end
 
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
+          it "maps as expected" do
+            fixture_xpaths.each do |xpath|
+              fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
+              mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
+              expect(mapped_node).to eq(fixture_node)
+            end
           end
         end
-      end
     end
 
     context "conditioncheck record", services_call: true do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/"\
-          "core_6-1-0_conditioncheck.json"
-      }
+      before do
+        setup_handler(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_conditioncheck.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       context "record 1", vcr: "core_cc_1" do
         let(:hashpath) {
@@ -456,10 +470,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "conservation record", services_call: true do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/"\
-          "core_6-1-0_conservation.json"
-      }
+      before do
+        setup_handler(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_conservation.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       context "record 1", vcr: "core_ct_1" do
         let(:hashpath) {
@@ -482,10 +499,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "exhibition record", services_call: true do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/"\
-          "core_6-1-0_exhibition.json"
-      }
+      before do
+        setup_handler(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_exhibition.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       context "record 1", vcr: "core_exh_1" do
         let(:hashpath) {
@@ -508,9 +528,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "group record" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_group.json"
-      }
+      before do
+        setup_handler(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_group.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       context "record 1", vcr: "core_grp_1" do
         let(:hashpath) { "spec/fixtures/files/datahashes/core/group1.json" }
@@ -531,9 +555,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "intake record" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_intake.json"
-      }
+      before do
+        setup_handler(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_intake.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       context "record 1", vcr: "core_int_1" do
         let(:hashpath) { "spec/fixtures/files/datahashes/core/intake1.json" }
@@ -554,9 +582,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "loanin record" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_loanin.json"
-      }
+      before do
+        setup_handler(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_loanin.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       context "record 1", vcr: "core_li_1" do
         let(:hashpath) { "spec/fixtures/files/datahashes/core/loanin1.json" }
@@ -577,9 +609,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "loanout record" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_loanout.json"
-      }
+      before do
+        setup_handler(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_loanout.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       context "record 1", vcr: "core_lo_1" do
         let(:hashpath) { "spec/fixtures/files/datahashes/core/loanout1.json" }
@@ -600,9 +636,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "movement record", vcr: "core_lmi_1" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_movement.json"
-      }
+      before do
+        setup_handler(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_movement.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       context "record 1" do
         let(:hashpath) { "spec/fixtures/files/datahashes/core/movement1.json" }
@@ -623,9 +663,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "media record" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_media.json"
-      }
+      before do
+        setup_handler(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_media.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       context "record 1", vcr: "core_med_1" do
         let(:hashpath) { "spec/fixtures/files/datahashes/core/media1.json" }
@@ -646,10 +690,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "objectexit record" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/"\
-          "core_6-1-0_objectexit.json"
-      }
+      before do
+        setup_handler(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_objectexit.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       context "record 1", vcr: "core_oe_1" do
         let(:hashpath) {
@@ -677,9 +724,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "uoc record" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_uoc.json"
-      }
+      before do
+        setup_handler(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_uoc.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       context "record 1", vcr: "core_uoc_1" do
         let(:hashpath) { "spec/fixtures/files/datahashes/core/uoc1.json" }

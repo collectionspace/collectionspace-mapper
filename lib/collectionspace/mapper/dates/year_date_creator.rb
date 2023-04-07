@@ -6,7 +6,10 @@ module CollectionSpace
       class YearDateCreator
         include CollectionSpace::Mapper::Dates::Mappable
 
-        def initialize(date_string, handler)
+        def initialize(
+          date_string,
+          handler = CollectionSpace::Mapper.date_handler
+        )
           @date_string = date_string
           @handler = handler
         end

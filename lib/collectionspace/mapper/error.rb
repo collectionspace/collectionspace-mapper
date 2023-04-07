@@ -108,10 +108,11 @@ module CollectionSpace
       end
     end
 
+    # @todo What are we doing with :message_from_err ?
     class UnparseableStructuredDateError < Date::Error
       include CollectionSpace::Mapper::Error
 
-      attr_reader :date_string, :mappable
+      attr_reader :date_string, :mappable, :orig_err
 
       def initialize(date_string:, mappable:, orig_err: nil, desc: nil)
         @date_string = date_string
@@ -134,13 +135,13 @@ module CollectionSpace
         }
       end
 
-      private
-
-      attr_reader :orig_err, :desc, :column
-
       def message
         "Unparseable structured date in #{column}: `#{date_string}`"
       end
+
+      private
+
+      attr_reader :desc, :column
 
       def message_from_err
         return nil unless orig_err

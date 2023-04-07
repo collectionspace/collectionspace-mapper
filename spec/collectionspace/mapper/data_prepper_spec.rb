@@ -3,41 +3,18 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::DataPrepper do
-  let(:delimiter) { ";" }
-  let(:client) { anthro_client }
-  let(:cache) { anthro_cache }
-  let(:csid_cache) { anthro_csid_cache }
-  let(:mapperpath) {
-    "spec/fixtures/files/mappers/release_6_1/anthro/"\
-      "anthro_4-1-2_collectionobject.json"
-  }
-  let(:mapper) { get_json_record_mapper(mapperpath) }
-  let(:config) do
-    {
-      delimiter: delimiter
-    }
-  end
-  let(:handler) do
-    CollectionSpace::Mapper::DataHandler.new(record_mapper: mapper,
-      client: client,
-      cache: cache,
-      csid_cache: csid_cache,
-      config: config)
-  end
-  let(:prepper) {
-    CollectionSpace::Mapper::DataPrepper.new(datahash, handler.searcher,
-      handler)
-  }
-  let(:datahash) { {"objectNumber" => "123"} }
+  subject(:prepper){ described_class.new(datahash) }
+
+  after{ CollectionSpace::Mapper.reset_config }
 
   describe "#process_xpaths" do
     context "when authority record" do
-      let(:client) { core_client }
-      let(:cache) { core_cache }
-      let(:mapperpath) {
-        "spec/fixtures/files/mappers/release_6_1/core/"\
-          "core_6-1-0_place-local.json"
-      }
+      before do
+        setup_handler(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_place-local.json"
+        )
+      end
       let(:datahash) { {"termdisplayname" => "Silk Hope"} }
 
       it "keeps mapping for shortIdentifier in xphash" do
@@ -50,6 +27,14 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   end
 
   describe "#handle_term_fields" do
+    before do
+      setup_handler(
+        profile: 'anthro',
+        mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+          "anthro_4-1-2_collectionobject.json"
+      )
+      CollectionSpace::Mapper.config.batch.delimiter = ';'
+    end
     let(:datahash) do
       {
         "objectnumber" => "123",
@@ -60,10 +45,12 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
         "titleType" => "collection;generic"
       }
     end
+
     it "returns expected result for mapping" do
       res = prepper.prep
         .response
         .transformed_data["titletranslationlanguage"]
+
       expected = [
         [
           "urn:cspace:c.anthro.collectionspace.org:vocabularies:name("\
@@ -90,6 +77,14 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   end
 
   describe "#transform_date_fields" do
+    before do
+      setup_handler(
+        profile: 'anthro',
+        mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+          "anthro_4-1-2_collectionobject.json"
+      )
+      CollectionSpace::Mapper.config.batch.delimiter = ';'
+    end
     let(:datahash) do
       {
         "objectnumber" => "123",
@@ -152,6 +147,14 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   end
 
   describe "#combine_data_values" do
+    before do
+      setup_handler(
+        profile: 'anthro',
+        mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+          "anthro_4-1-2_collectionobject.json"
+      )
+      CollectionSpace::Mapper.config.batch.delimiter = ';'
+    end
     let(:datahash) do
       {
         "objectnumber" => "123",
@@ -161,6 +164,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
         "objectProductionPeopleEthculture" => "Batak"
       }
     end
+
     context "when multi-authority field is not part of repeating field group" do
       it "combines values properly" do
         xpath = "collectionobjects_common/fieldCollectors"
@@ -195,12 +199,13 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
       end
 
       context "and one or more combined field values is blank" do
-        let(:client) { core_client }
-        let(:cache) { core_cache }
-        let(:mapperpath) {
-          "spec/fixtures/files/mappers/release_6_1/core/"\
+        before do
+          setup_handler(
+            mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
             "core_6-1-0_conservation.json"
-        }
+          )
+          CollectionSpace::Mapper.config.batch.delimiter = ';'
+        end
         let(:datahash) do
           {
             "conservationNumber" => "CT2020.7",
@@ -227,11 +232,13 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
     end
 
     context "when multi-authority field is part of repeating field subgroup" do
-      let(:client) { core_client }
-      let(:cache) { core_cache }
-      let(:mapperpath) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_media.json"
-      }
+      before do
+        setup_handler(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_media.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
       let(:xpath) {
         "media_common/measuredPartGroupList/measuredPartGroup/"\
           "dimensionSubGroupList/dimensionSubGroup"
@@ -260,8 +267,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
           }
         end
 
-        # TODO: why does this call services api?
-        it "combines values properly", services_call: true do
+        it "combines values properly" do
           result = prepper.prep
             .response
             .combined_data[xpath]["measuredBy"]
@@ -327,7 +333,16 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   end
 
   describe "#prep" do
+    before do
+      setup_handler(
+        profile: 'anthro',
+        mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+          "anthro_4-1-2_collectionobject.json"
+      )
+    end
+    let(:datahash) { {"objectNumber" => "123 "} }
     let(:res) { prepper.prep }
+
     it "returns self" do
       expect(res).to be_a(CollectionSpace::Mapper::DataPrepper)
     end
@@ -349,6 +364,15 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   end
 
   describe "#check_data" do
+    before do
+      setup_handler(
+        profile: 'anthro',
+        mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+          "anthro_4-1-2_collectionobject.json"
+      )
+    end
+    let(:datahash) { {"objectNumber" => "123 "} }
+
     it "returns array" do
       expect(prepper.check_data).to be_a(Array)
     end
@@ -359,16 +383,28 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
     let(:result) { prepper.prep.response.transformed_data["objectnumber"] }
 
     context "with strip_id_values = true (the default)" do
+      before do
+        setup_handler(
+          profile: 'anthro',
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+            "anthro_4-1-2_collectionobject.json"
+        )
+      end
+
       it "strips leading/trailing spaces from id field(s)" do
         expect(result).to eq(["123"])
       end
     end
 
     context "with strip_id_values = false" do
-      before(:context) do
+      before do
+        setup_handler(
+          profile: 'anthro',
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+            "anthro_4-1-2_collectionobject.json"
+        )
         CollectionSpace::Mapper.config.batch.strip_id_values = false
       end
-      after(:context){ CollectionSpace::Mapper.reset_config }
 
       it "does not strip leading/trailing spaces from id field(s)" do
         expect(result).to eq(["123 "])

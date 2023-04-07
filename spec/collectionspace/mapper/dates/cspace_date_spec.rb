@@ -3,23 +3,16 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
-  subject(:csdate) { described_class.new(date_string, handler) }
-  let(:client) { anthro_client }
-  let(:cache) { anthro_cache }
-  let(:csid_cache) { anthro_csid_cache }
-  let(:config) { CollectionSpace::Mapper::Config.new }
-  let(:searcher) {
-    CollectionSpace::Mapper::Searcher.new(client: client, config: config)
-  }
-  let(:handler) do
-    CollectionSpace::Mapper::Dates::StructuredDateHandler.new(
-      client: client,
-      cache: cache,
-      csid_cache: csid_cache,
-      config: config,
-      searcher: searcher
+  subject(:csdate) { described_class.new(date_string) }
+
+  before do
+    setup_handler(
+      profile: 'anthro',
+      mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+        "anthro_4-1-2_collectionobject.json"
     )
   end
+  after{ CollectionSpace::Mapper.reset_config }
 
   context "with one digit month", vcr: "dates_2019-5-20" do
     let(:date_string) { "2019-5-20" }
@@ -34,70 +27,78 @@ RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
 
   context "when date string is Chronic parseable (e.g. 2020-09-30)",
     vcr: "dates_2020-09-30" do
-    let(:date_string) { "2020-09-30" }
+      let(:date_string) { "2020-09-30" }
 
-    it "parses as expected" do
-      expect(csdate.mappable["dateDisplayDate"]).to eq("2020-09-30")
-      expect(csdate.mappable["dateEarliestSingleYear"]).to eq("2020")
-      expect(csdate.mappable["dateEarliestSingleMonth"]).to eq("9")
-      expect(csdate.mappable["dateEarliestSingleDay"]).to eq("30")
-      urn = "urn:cspace:c.anthro.collectionspace.org:vocabularies:"\
-        "name(dateera):item:name(ce)'CE'"
-      expect(csdate.mappable["dateEarliestSingleEra"]).to eq(urn)
-      esv = "2020-09-30T00:00:00.000Z"
-      expect(csdate.mappable["dateEarliestScalarValue"]).to eq(esv)
-      lsv = "2020-10-01T00:00:00.000Z"
-      expect(csdate.mappable["dateLatestScalarValue"]).to eq(lsv)
-    end
-
-    context "when date format is ambiguous re: month/date (e.g. 1/2/2020)",
-      vcr: "dates_1s2s2020" do
-      let(:date_string) { "1/2/2020" }
-      let(:result) { csdate.mappable["dateEarliestScalarValue"] }
-
-      context "when no date_format specified in config" do
-        it "defaults to M/D/Y interpretation" do
-          expect(result).to start_with("2020-01-02")
-        end
+      it "parses as expected" do
+        expect(csdate.mappable["dateDisplayDate"]).to eq("2020-09-30")
+        expect(csdate.mappable["dateEarliestSingleYear"]).to eq("2020")
+        expect(csdate.mappable["dateEarliestSingleMonth"]).to eq("9")
+        expect(csdate.mappable["dateEarliestSingleDay"]).to eq("30")
+        urn = "urn:cspace:c.anthro.collectionspace.org:vocabularies:"\
+          "name(dateera):item:name(ce)'CE'"
+        expect(csdate.mappable["dateEarliestSingleEra"]).to eq(urn)
+        esv = "2020-09-30T00:00:00.000Z"
+        expect(csdate.mappable["dateEarliestScalarValue"]).to eq(esv)
+        lsv = "2020-10-01T00:00:00.000Z"
+        expect(csdate.mappable["dateLatestScalarValue"]).to eq(lsv)
       end
 
-      context "when date_format in config = day month year" do
-        let(:config) do
-          CollectionSpace::Mapper::Config.new(
-            config: {date_format: "day month year"}
-          )
-        end
+      context "when date format is ambiguous re: month/date (e.g. 1/2/2020)",
+        vcr: "dates_1s2s2020" do
+          let(:date_string) { "1/2/2020" }
+          let(:result) { csdate.mappable["dateEarliestScalarValue"] }
 
-        it "interprets as D/M/Y" do
-          expect(result).to start_with("2020-02-01")
+          context "when no date_format specified in config" do
+            it "defaults to M/D/Y interpretation" do
+              expect(result).to start_with("2020-01-02")
+            end
+          end
+
+          context "when date_format in config = day month year" do
+            before do
+              setup_handler(
+                profile: 'anthro',
+                mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+                  "anthro_4-1-2_collectionobject.json"
+              )
+              CollectionSpace::Mapper.config.batch.date_format =
+                "day month year"
+            end
+
+            it "interprets as D/M/Y" do
+              expect(result).to start_with("2020-02-01")
+            end
+          end
         end
-      end
     end
-  end
 
   context "when date string has two-digit year (e.g. 9/19/91)",
     vcr: "dates_9s19s91" do
-    let(:date_string) { "9/19/91" }
-    let(:result) { csdate.mappable["dateEarliestSingleYear"] }
+      let(:date_string) { "9/19/91" }
+      let(:result) { csdate.mappable["dateEarliestSingleYear"] }
 
-    context "when config[:two_digit_year_handling] = coerce" do
-      it "Chronic parses date with coerced 4-digit year" do
-        expect(result).to eq("1991")
+      context "when config[:two_digit_year_handling] = coerce" do
+        it "Chronic parses date with coerced 4-digit year" do
+          expect(result).to eq("1991")
+        end
+      end
+
+      context "when config[:two_digit_year_handling] = literal" do
+        before do
+          setup_handler(
+            profile: 'anthro',
+            mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+              "anthro_4-1-2_collectionobject.json"
+          )
+          CollectionSpace::Mapper.config.batch.two_digit_year_handling =
+            "literal"
+        end
+
+        it "Services parses date with uncoerced 2-digit year" do
+          expect(result).to eq("91")
+        end
       end
     end
-
-    context "when config[:two_digit_year_handling] = literal" do
-      let(:config) do
-        CollectionSpace::Mapper::Config.new(
-          config: {two_digit_year_handling: "literal"}
-        )
-      end
-
-      it "Services parses date with uncoerced 2-digit year" do
-        expect(result).to eq("91")
-      end
-    end
-  end
 
   context "when date string is not Chronic parseable (e.g. 1/2/2000 - "\
     "12/21/2001)", vcr: "dates_1s2s2000_-_12s21s2001" do

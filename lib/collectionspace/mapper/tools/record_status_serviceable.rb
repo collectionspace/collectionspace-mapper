@@ -8,15 +8,21 @@ module CollectionSpace
         private
 
         def authority?
-          mapper.config.service_type == "authority"
+          CollectionSpace::Mapper.record.service_type == "authority"
         end
 
         def type
-          authority? ? mapper.config.authority_type : mapper.config.service_path
+          if authority?
+            CollectionSpace::Mapper.record.authority_type
+          else
+            CollectionSpace::Mapper.record.service_path
+          end
         end
 
         def subtype
-          authority? ? mapper.config.authority_subtype : nil
+          return nil unless authority?
+
+          CollectionSpace::Mapper.record.authority_subtype
         end
 
         # rubocop:disable Layout/LineLength
@@ -25,7 +31,7 @@ module CollectionSpace
         # @param response [CollectionSpace::Mapper::Response]
         # @todo refactor/DRY
         def get_value_for_record_status(response)
-          case mapper.config.service_type
+          case CollectionSpace::Mapper.record.service_type
           when "relation"
             {
               sub: response.combined_data["relations_common"]["subjectCsid"][0],

@@ -13,15 +13,16 @@ module CollectionSpace
       # @param data [Array<String>]
       # @param client [CollectionSpace::Client]
       # @param mapper [CollectionSpace::Mapper::RecordMapper]
-      def initialize(mapping:, data:, client:, mapper:, searcher:)
+      # @todo appconfig remove client, mapper, searcher args
+      def initialize(mapping:, data:, client: nil, mapper: nil, searcher: nil)
         @mapping = mapping
         @data = data
-        @client = client
-        @mapper = mapper
-        @searcher = searcher
+        @client = CollectionSpace::Mapper.client
+        @mapper = CollectionSpace::Mapper.recordmapper
+        @searcher = CollectionSpace::Mapper.searcher
 
-        @cache = mapper.termcache
-        @csid_cache = mapper.csidcache
+        @cache = CollectionSpace::Mapper.termcache
+        @csid_cache = CollectionSpace::Mapper.csidcache
 
         @column = mapping.datacolumn
         @field = mapping.fieldname

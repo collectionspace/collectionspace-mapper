@@ -3,29 +3,32 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Dates::TwoDigitYearHandler do
-  subject(:creator) { described_class.new(str, handler, handling) }
-  let(:client) { anthro_client }
-  let(:cache) { anthro_cache }
-  let(:csid_cache) { anthro_csid_cache }
-  let(:config) { CollectionSpace::Mapper::Config.new }
-  let(:searcher) do
-    CollectionSpace::Mapper::Searcher.new(client: client, config: config)
-  end
-  let(:handler) do
-    CollectionSpace::Mapper::Dates::StructuredDateHandler.new(
-      client: client,
-      cache: cache,
-      csid_cache: csid_cache,
-      config: config,
-      searcher: searcher
+  subject(:creator) { described_class.new(str, handling) }
+
+  before do
+    setup_handler(
+      profile: 'anthro',
+      mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+        "anthro_4-1-2_collectionobject.json"
     )
   end
+  after{ CollectionSpace::Mapper.reset_config }
+
   let(:str) { "1-2-20" }
 
   describe "#mappable" do
     let(:result) { creator.mappable }
 
     context "with literal", vcr: "dates_1-2-20" do
+      before do
+        setup_handler(
+          profile: 'anthro',
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+            "anthro_4-1-2_collectionobject.json"
+        )
+        CollectionSpace::Mapper.config.batch.two_digit_year_handling =
+          'literal'
+      end
       let(:handling) { "literal" }
 
       it "returns expected" do
@@ -68,6 +71,15 @@ RSpec.describe CollectionSpace::Mapper::Dates::TwoDigitYearHandler do
     let(:result) { creator.stamp }
 
     context "with literal", vcr: "dates_1-2-20" do
+      before do
+        setup_handler(
+          profile: 'anthro',
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+            "anthro_4-1-2_collectionobject.json"
+        )
+        CollectionSpace::Mapper.config.batch.two_digit_year_handling =
+          'literal'
+      end
       let(:handling) { "literal" }
 
       it "returns expected" do
