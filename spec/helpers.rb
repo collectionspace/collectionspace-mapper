@@ -30,6 +30,22 @@ module Helpers
     JSON.parse(File.read(path))
   end
 
+  def setup(profile: 'core', mapper_path: nil)
+    CollectionSpace::Mapper.config.client = send("#{profile}_client".to_sym)
+    CollectionSpace::Mapper.config.termcache = send("#{profile}_cache".to_sym)
+    CollectionSpace::Mapper.config.csidcache = send("#{profile}_csid_cache".to_sym)
+    if mapper_path
+      setup_recordmapper(mapper_path)
+    end
+  end
+
+  def setup_recordmapper(path)
+    CollectionSpace::Mapper.config.recordmapper =
+      CollectionSpace::Mapper::RecordMapper.new(
+      mapper: get_json_record_mapper(path)
+    )
+  end
+
   def get_record_mapper_object(path, cache = nil)
     CollectionSpace::Mapper::RecordMapper.new(mapper: File.read(path),
       termcache: cache)
