@@ -224,9 +224,9 @@ module CollectionSpace
             "subgroup values will be skipped. The usual cause of this is that "\
             "you separated subgroup values that belong inside the same parent "\
             "group with the repeating field delimiter "\
-            "(#{handler.mapper.batchconfig.delimiter}) instead of the "\
+            "(#{CollectionSpace::Mapper.batch.delimiter}) instead of the "\
             "subgroup delimiter "\
-            "(#{handler.mapper.batchconfig.subgroup_delimiter})"
+            "(#{CollectionSpace::Mapper.batch.subgroup_delimiter})"
         }
       end
 

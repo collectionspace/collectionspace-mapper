@@ -7,11 +7,11 @@ module CollectionSpace
     module Subgroupable
       def split
         hash = {}
-        groups = @value.split(@recmapper.batchconfig.delimiter)
+        groups = @value.split(CollectionSpace::Mapper.batch.delimiter)
           .map(&:strip)
         groups.each_with_index do |group, ind|
           hash[ind + 1] =
-            group.split(@recmapper.batchconfig.subgroup_delimiter)
+            group.split(CollectionSpace::Mapper.batch.subgroup_delimiter)
               .map(&:strip)
         end
         hash

@@ -140,7 +140,7 @@ module CollectionSpace
       end
 
       def split_identifier(data)
-        return [data.strip] if config.strip_id_values
+        return [data.strip] if CollectionSpace::Mapper.batch.strip_id_values
 
         [data]
       end

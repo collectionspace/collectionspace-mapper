@@ -25,7 +25,7 @@ module CollectionSpace
 
         @column = mapping.datacolumn
         @field = mapping.fieldname
-        @config = @mapper.batchconfig
+        @config = CollectionSpace::Mapper.batch
         @source_type = @mapping.source_type.to_sym
         @terms = []
         case @source_type
