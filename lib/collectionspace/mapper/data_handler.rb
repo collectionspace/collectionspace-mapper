@@ -9,6 +9,10 @@ module CollectionSpace
       attr_reader :date_handler, :searcher, :mapper
 
       def initialize(record_mapper:, client:, cache:, csid_cache:, config: {})
+        CollectionSpace::Mapper.config.client = client
+        CollectionSpace::Mapper.config.termcache = cache
+        CollectionSpace::Mapper.config.csidcache = csid_cache
+        CollectionSpace::Mapper.config.batchconfigraw = config
         mapper = CollectionSpace::Mapper::RecordMapper.new(
           mapper: record_mapper,
           batchconfig: config,
@@ -19,10 +23,6 @@ module CollectionSpace
         CollectionSpace::Mapper.config.recordmapper = mapper
         @mapper = mapper
 
-        CollectionSpace::Mapper.config.client = client
-        CollectionSpace::Mapper.config.termcache = cache
-        CollectionSpace::Mapper.config.csidcache = csid_cache
-        CollectionSpace::Mapper.config.batchconfigraw = config
 
         @validator = CollectionSpace::Mapper::DataValidator.new(
           @mapper,
