@@ -60,6 +60,7 @@ module CollectionSpace
         special_defaults.each { |col, val| add_default_value(col, val) }
         @default_values.transform_keys!(&:downcase)
         validate
+        temp_set_app_config
       end
 
       def hash
@@ -75,6 +76,14 @@ module CollectionSpace
       def add_default_value(column, value)
         @default_values ||= {}
         @default_values[column] = value
+      end
+
+      def temp_set_app_config
+        hash.each do |setting, value|
+          cfg = CollectionSpace::Mapper.config.batch
+          setter = "#{setting}=".to_sym
+          cfg.send(setter, value)
+        end
       end
 
       private
