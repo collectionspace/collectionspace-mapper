@@ -6,7 +6,8 @@ module CollectionSpace
     #   subgroupable
     module Repeatable
       def split
-        @value.split(@recmapper.batchconfig.delimiter).map(&:strip)
+        @value.split(CollectionSpace::Mapper.batch.delimiter)
+          .map(&:strip)
       end
     end
   end

@@ -365,11 +365,10 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
     end
 
     context "with strip_id_values = false" do
-      let(:config) do
-        {
-          strip_id_values: false
-        }
+      before(:context) do
+        CollectionSpace::Mapper.config.batch.strip_id_values = false
       end
+      after(:context){ CollectionSpace::Mapper.reset_config }
 
       it "does not strip leading/trailing spaces from id field(s)" do
         expect(result).to eq(["123 "])
