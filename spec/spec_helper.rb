@@ -9,9 +9,16 @@ end
 
 require "collectionspace/mapper"
 require_relative "./helpers"
+require "dry/configurable/test_interface"
 require "pry"
 require "vcr"
 require "webmock/rspec"
+
+module CollectionSpace
+  module Mapper
+    enable_test_interface
+  end
+end
 
 RSpec.configure do |config|
   config.include Helpers

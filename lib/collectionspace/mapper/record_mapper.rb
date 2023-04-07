@@ -28,9 +28,11 @@ module CollectionSpace
           JSON.parse(opts[:mapper])
         end
         convert(jhash)
-        @batchconfig = CollectionSpace::Mapper::Config.new(
+        bc = CollectionSpace::Mapper::Config.new(
           config: opts[:batchconfig], record_type: record_type
         )
+        CollectionSpace::Mapper.config.batchconfig = bc
+        @batchconfig = bc
         @csclient = opts[:csclient]
         @termcache = opts[:termcache]
         @csidcache = opts[:csidcache]

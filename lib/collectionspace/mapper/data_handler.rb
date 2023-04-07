@@ -4,17 +4,26 @@ module CollectionSpace
   module Mapper
     # given a RecordMapper hash and a data hash, returns CollectionSpace XML
     #   document
+    # @todo Manipulation of recordmapper's xpath_hash belongs on recordmapper
     class DataHandler
       attr_reader :date_handler, :searcher, :mapper
 
       def initialize(record_mapper:, client:, cache:, csid_cache:, config: {})
-        @mapper = CollectionSpace::Mapper::RecordMapper.new(
+        mapper = CollectionSpace::Mapper::RecordMapper.new(
           mapper: record_mapper,
           batchconfig: config,
           csclient: client,
           termcache: cache,
           csidcache: csid_cache
         )
+        CollectionSpace::Mapper.config.recordmapper = mapper
+        @mapper = mapper
+
+        CollectionSpace::Mapper.config.client = client
+        CollectionSpace::Mapper.config.termcache = cache
+        CollectionSpace::Mapper.config.csidcache = csid_cache
+        CollectionSpace::Mapper.config.batchconfigraw = config
+
         @validator = CollectionSpace::Mapper::DataValidator.new(
           @mapper,
           @mapper.termcache

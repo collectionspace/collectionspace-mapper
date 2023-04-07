@@ -28,8 +28,9 @@ module CollectionSpace
     extend Dry::Configurable
     module_function
 
-    # The bomb emoji, used for nuking the contents of fields
+    # @return [String] The bomb emoji, used for nuking the contents of fields
     setting :bomb, default: "\u{1F4A3}", reader: true
+    # @return [Array<String>]
     setting :structured_date_detailed_fields,
       default: %w[dateDisplayDate datePeriod dateAssociation dateNote
                   dateEarliestSingleYear dateEarliestSingleMonth
@@ -42,6 +43,21 @@ module CollectionSpace
                   dateLatestQualifierUnit dateEarliestScalarValue
                   dateLatestScalarValue scalarValuesComputed],
       reader: true
+    # @return [CollectionSpace::Mapper::RecordMapper, nil]
+    setting :recordmapper, default: nil, reader: true
+    # @return [CollectionSpace::Client, nil]
+    setting :client, default: nil, reader: true
+    # @return [CollectionSpace::RefCache, nil] used to store refnames of
+    #   looked-up terms
+    setting :termcache, default: nil, reader: true
+    # @return [CollectionSpace::RefCache, nil] used to store CSIDs of
+    #   looked-up entities
+    setting :csidcache, default: nil, reader: true
+    # @return [Hash] configuration options that change the mapper's behavior
+    setting :batchconfigraw, default: {}, reader: true
+    # @return [CollectionSpace::Mapper::Config, nil] config object derived
+    #   from :batchconfigraw
+    setting :batchconfig, default: nil, reader: true
 
 
 
