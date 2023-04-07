@@ -26,7 +26,7 @@ module CollectionSpace
             "dateEarliestSingleYear" => date.year.to_s,
             "dateEarliestSingleMonth" => date.month.to_s,
             "dateEarliestSingleDay" => date.day.to_s,
-            "dateEarliestSingleEra" => handler.ce,
+            "dateEarliestSingleEra" => CollectionSpace::Mapper.date_handler.ce,
             "dateEarliestScalarValue" => date.iso8601,
             "dateLatestScalarValue" => next_day.iso8601,
             "scalarValuesComputed" => "true"

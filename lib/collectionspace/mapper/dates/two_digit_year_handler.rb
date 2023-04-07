@@ -6,7 +6,14 @@ module CollectionSpace
       class TwoDigitYearHandler
         include CollectionSpace::Mapper::Dates::Mappable
 
-        def initialize(date_string, handler, year_handling)
+        # @param date_string [String] to parse
+        # @param handler [CollectionSpace::Mapper::Dates::StructuredDateHandler]
+        # @param year_handling [:coerce, :literal]
+        def initialize(
+          date_string,
+          handler = CollectionSpace::Mapper.date_handler,
+          year_handling = CollectionSpace::Mapper.batch.two_digit_year_handling
+        )
           @date_string = date_string
           @handler = handler
           @year_handling = year_handling
@@ -56,7 +63,7 @@ module CollectionSpace
 
         def literal_mappable
           CollectionSpace::Mapper::Dates::ServicesParser.new(
-            date_string, handler
+            date_string
           ).mappable
         rescue => err
           fail CollectionSpace::Mapper::UnparseableStructuredDateError.new(

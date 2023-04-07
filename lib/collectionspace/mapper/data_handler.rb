@@ -13,6 +13,7 @@ module CollectionSpace
         CollectionSpace::Mapper.config.termcache = cache
         CollectionSpace::Mapper.config.csidcache = csid_cache
         CollectionSpace::Mapper.config.batchconfigraw = config
+
         mapper = CollectionSpace::Mapper::RecordMapper.new(
           mapper: record_mapper,
           batchconfig: config,
@@ -21,43 +22,61 @@ module CollectionSpace
           csidcache: csid_cache
         )
         CollectionSpace::Mapper.config.recordmapper = mapper
-        @mapper = mapper
+        @mapper = CollectionSpace::Mapper.recordmapper
 
+        # initializing the RecordMapper causes app config record config
+        #   settings to be populated, including :recordtype
 
-          CollectionSpace::Mapper.config.batchconfig =
-            CollectionSpace::Mapper::Config.new(
-              config: CollectionSpace::Mapper.batchconfigraw,
-              record_type: record_type
-            )
-        @validator = CollectionSpace::Mapper::DataValidator.new(
-          @mapper,
-          @mapper.termcache
-        )
-        @searcher = CollectionSpace::Mapper::Searcher.new(
-          client: client,
-          config: mapper.batchconfig
-        )
-        @date_handler =
-          CollectionSpace::Mapper::Dates::StructuredDateHandler.new(
-            client: client,
-            cache: cache,
-            csid_cache: csid_cache,
-            config: mapper.batchconfig,
-            searcher: searcher
+        CollectionSpace::Mapper.config.batchconfig =
+          CollectionSpace::Mapper::Config.new(
+            config: CollectionSpace::Mapper.batchconfigraw,
+            record_type: CollectionSpace::Mapper.record.recordtype
           )
-        @mapper.xpath = xpath_hash
+
+        validator = CollectionSpace::Mapper::DataValidator.new(
+          CollectionSpace::Mapper.recordmapper,
+          CollectionSpace::Mapper.termcache
+        )
+        CollectionSpace::Mapper.config.validator = validator
+        @validator = validator
+
+        searcher = CollectionSpace::Mapper::Searcher.new(
+          client: CollectionSpace::Mapper.client,
+          config: CollectionSpace::Mapper.batchconfig
+        )
+        CollectionSpace::Mapper.config.searcher = searcher
+        @searcher = searcher
+
+        prepper_class = determine_prepper_class
+        CollectionSpace::Mapper.config.prepper_class = prepper_class
+        @prepper_class = CollectionSpace::Mapper.prepper_class
+
+        date_handler =
+          CollectionSpace::Mapper::Dates::StructuredDateHandler.new(
+            client: CollectionSpace::Mapper.client,
+            cache: CollectionSpace::Mapper.termcache,
+            csid_cache: CollectionSpace::Mapper.csidcache,
+            config: CollectionSpace::Mapper.batchconfig,
+            searcher: CollectionSpace::Mapper.searcher
+          )
+        CollectionSpace::Mapper.config.date_handler = date_handler
+        @date_handler = date_handler
+
+        CollectionSpace::Mapper.recordmapper.xpath = xpath_hash
         merge_config_transforms
         @new_terms = {}
         @status_checker =
           CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder.call(
-            client: @mapper.csclient,
-            mapper: @mapper
+            client: CollectionSpace::Mapper.client,
+            mapper: CollectionSpace::Mapper.recordmapper
           )
+
+        CollectionSpace::Mapper.config.data_handler = self
       end
 
       def process(data)
         prepped = prep(data)
-        case @mapper.record_type
+        case CollectionSpace::Mapper.record.recordtype
         when "nonhierarchicalrelationship"
           prepped.responses.map { |response| map(response, prepped.xphash) }
         else
@@ -65,30 +84,26 @@ module CollectionSpace
         end
       end
 
+      def determine_prepper_class
+        case CollectionSpace::Mapper.record.recordtype
+        when "authorityhierarchy"
+          CollectionSpace::Mapper::AuthorityHierarchyPrepper
+        when "nonhierarchicalrelationship"
+          CollectionSpace::Mapper::NonHierarchicalRelationshipPrepper
+        when "objecthierarchy"
+          CollectionSpace::Mapper::ObjectHierarchyDataPrepper
+        else
+          CollectionSpace::Mapper::DataPrepper
+        end
+      end
+
       def prep(data)
-        response = CollectionSpace::Mapper.setup_data(data, @mapper.batchconfig)
+        response = CollectionSpace::Mapper.setup_data(
+          data,
+          CollectionSpace::Mapper.batchconfig
+        )
         if response.valid?
-          case @mapper.record_type
-          when "authorityhierarchy"
-            prepper = CollectionSpace::Mapper::AuthorityHierarchyPrepper.new(
-              response, searcher, self
-            )
-          when "nonhierarchicalrelationship"
-            prepper =
-              CollectionSpace::Mapper::NonHierarchicalRelationshipPrepper.new(
-                response,
-                searcher,
-                self
-              )
-          when "objecthierarchy"
-            prepper = CollectionSpace::Mapper::ObjectHierarchyDataPrepper.new(
-              response, searcher, self
-            )
-          else
-            prepper = CollectionSpace::Mapper::DataPrepper.new(response,
-              searcher, self)
-          end
-          prepper.prep
+          prepper_class.new(response).prep
         else
           response
         end
@@ -98,12 +113,12 @@ module CollectionSpace
         mapper = CollectionSpace::Mapper::DataMapper.new(response, self, xphash)
         result = mapper.response
         tag_terms(result)
-        if @mapper.batchconfig.check_record_status
+        if CollectionSpace::Mapper.batch.check_record_status
           set_record_status(result)
         else
           result.record_status = :new
         end
-        (@mapper.batchconfig.response_mode == "normal") ? result.normal : result
+        (CollectionSpace::Mapper.batch.response_mode == "normal") ? result.normal : result
       end
 
       def check_fields(data)
@@ -116,7 +131,7 @@ module CollectionSpace
       # this is surfaced in public interface because it is used by
       #   cspace-batch-import
       def service_type
-        @mapper.config.service_type
+        CollectionSpace::Mapper.record.service_type
       end
 
       def validate(data)
@@ -124,7 +139,7 @@ module CollectionSpace
       end
 
       def mappings
-        @mapper.mappings
+        CollectionSpace::Mapper.recordmapper.mappings
       end
 
       def setup_xpath_hash_structure
@@ -222,7 +237,7 @@ module CollectionSpace
 
       private
 
-      attr_reader :validator
+      attr_reader :validator, :prepper_class
 
       def set_record_status(response)
         response.merge_status_data(@status_checker.call(response))
@@ -247,10 +262,11 @@ module CollectionSpace
       #   CollectionSpace::Mapper::RecordMapper field mappings for the
       #   appropriate fields
       def merge_config_transforms
-        return unless @mapper.batchconfig.transforms
+        transforms = CollectionSpace::Mapper.batch.transforms
+        return if transforms.nil? || transforms.empty?
 
-        @mapper.batchconfig.transforms.transform_keys!(&:downcase)
-        @mapper.batchconfig.transforms.each do |data_column, transforms|
+        transforms.transform_keys!(&:downcase)
+        transforms.each do |data_column, transforms|
           target_mapping = transform_target(data_column)
           next unless target_mapping
 
@@ -259,7 +275,7 @@ module CollectionSpace
       end
 
       def transform_target(data_column)
-        @mapper.mappings
+        CollectionSpace::Mapper.recordmapper.mappings
           .find { |field_mapping| field_mapping.datacolumn == data_column }
       end
     end

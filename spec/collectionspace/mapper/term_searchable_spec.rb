@@ -3,30 +3,33 @@
 require "spec_helper"
 
 class TermClass
-  attr_reader :cache, :client, :searcher
   attr_accessor :type, :subtype, :errors
 
   include CollectionSpace::Mapper::TermSearchable
 
-  def initialize(cache, csid_cache, client, type, subtype)
-    @cache = cache
-    @csid_cache = csid_cache
-    @client = client
+  def initialize(type, subtype)
     @type = type
     @subtype = subtype
     @errors = []
-    @searcher = CollectionSpace::Mapper::Searcher.new(client: client)
   end
 end
 
 RSpec.describe CollectionSpace::Mapper::TermSearchable do
-  let(:cache) { core_cache }
-  let(:csid_cache) { core_csid_cache }
+  subject(:term) {
+    TermClass.new(termtype, termsubtype)
+  }
+
+  before do
+    setup_handler(
+      mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+        "core_6-1-0_collectionobject.json"
+    )
+    CollectionSpace::Mapper.config.batch.delimiter = ';'
+  end
+  after{ CollectionSpace::Mapper.reset_config }
+
   let(:termtype) { "conceptauthorities" }
   let(:termsubtype) { "concept" }
-  let(:term) {
-    TermClass.new(cache, csid_cache, core_client, termtype, termsubtype)
-  }
 
   describe "#in_cache?" do
     let(:result) { term.in_cache?(val) }
@@ -58,14 +61,16 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
 
     context "when not cached as unknown value" do
       it "returns false" do
-        cache.remove("unknownvalue", "#{termtype}/#{termsubtype}", val)
+        CollectionSpace::Mapper.termcache
+          .remove("unknownvalue", "#{termtype}/#{termsubtype}", val)
         expect(result).to be false
       end
     end
 
     context "when cached as unknown value" do
       it "returns true" do
-        cache.put("unknownvalue", "#{termtype}/#{termsubtype}", val, nil)
+        CollectionSpace::Mapper.termcache
+          .put("unknownvalue", "#{termtype}/#{termsubtype}", val, nil)
         expect(result).to be true
       end
     end
@@ -127,7 +132,9 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
   # also covers lookup_obj_csid
   describe "#obj_csid" do
     let(:type) { "collectionobjects" }
+    let(:termsubtype) { nil }
     let(:result) { term.obj_csid(objnum, type) }
+
     context "when in cache" do
       let(:objnum) { "Hierarchy Test 001" }
 

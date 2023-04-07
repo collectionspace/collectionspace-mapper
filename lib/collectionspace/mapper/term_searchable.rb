@@ -3,27 +3,39 @@
 module CollectionSpace
   module Mapper
     module TermSearchable
+      def termcache
+        CollectionSpace::Mapper.termcache
+      end
+
+      def csidcache
+        CollectionSpace::Mapper.csidcache
+      end
+
+      def searcher
+        CollectionSpace::Mapper.searcher
+      end
+
       def in_cache?(val)
-        return true if @cache.exists?(type, subtype, val)
-        return true if @cache.exists?(type, subtype, case_swap(val))
+        return true if termcache.exists?(type, subtype, val)
+        return true if termcache.exists?(type, subtype, case_swap(val))
 
         false
       end
 
       # returns whether value is cached as an unknownvalue
       def cached_as_unknown?(val)
-        return true if @cache.exists?("unknownvalue", type_subtype, val)
-        return true if @cache.exists?("unknownvalue", type_subtype,
-          case_swap(val))
+        return true if termcache.exists?("unknownvalue", type_subtype, val)
+        return true if termcache.exists?("unknownvalue", type_subtype,
+                                         case_swap(val))
 
         false
       end
 
       def cached_unknown(type_subtype, val)
-        returned = @cache.get("unknownvalue", type_subtype, val)
+        returned = termcache.get("unknownvalue", type_subtype, val)
         return returned if returned
 
-        returned = @cache.get("unknownvalue", type_subtype, case_swap(val))
+        returned = termcache.get("unknownvalue", type_subtype, case_swap(val))
         return returned if returned
       end
 
@@ -33,19 +45,19 @@ module CollectionSpace
 
       # returns refName of cached term
       def cached_term(val, termtype = type, termsubtype = subtype)
-        returned = @cache.get(termtype, termsubtype, val)
+        returned = termcache.get(termtype, termsubtype, val)
         return returned if returned
 
-        returned = @cache.get(termtype, termsubtype, case_swap(val))
+        returned = termcache.get(termtype, termsubtype, case_swap(val))
         return returned if returned
       end
 
       # returns csid of cached term
       def cached_term_csid(val, termtype = type, termsubtype = subtype)
-        returned = @csid_cache.get(termtype, termsubtype, val)
+        returned = csidcache.get(termtype, termsubtype, val)
         return returned if returned
 
-        returned = @csid_cache.get(termtype, termsubtype, case_swap(val))
+        returned = csidcache.get(termtype, termsubtype, case_swap(val))
         return returned if returned
       end
 
@@ -65,8 +77,8 @@ module CollectionSpace
         return nil unless rec
 
         values = {refname: rec["refName"], csid: rec["csid"]}
-        @cache.put(termtype, termsubtype, val, values[:refname])
-        @csid_cache.put(termtype, termsubtype, val, values[:csid])
+        termcache.put(termtype, termsubtype, val, values[:refname])
+        csidcache.put(termtype, termsubtype, val, values[:csid])
         values[return_type]
       end
 
@@ -75,7 +87,7 @@ module CollectionSpace
       end
 
       def obj_csid(objnum, type)
-        cached = @csid_cache.get(type, "", objnum)
+        cached = csidcache.get(type, "", objnum)
         return cached if cached
 
         lookup_obj_or_procedure_csid(objnum, type)
@@ -90,8 +102,8 @@ module CollectionSpace
           return nil unless rec
 
           csid = rec["csid"]
-          @csid_cache.put(type, "", objnum, csid)
-          @cache.put(type, "", objnum, rec["refName"])
+          csidcache.put(type, "", objnum, csid)
+          termcache.put(type, "", objnum, rec["refName"])
           csid
         else
           errors << {
@@ -169,13 +181,13 @@ module CollectionSpace
 
       # added toward refactoring that isn't done yet
       def get_vocabulary_term(vocab:, term:)
-        result = @cache.get("vocabularies", vocab, term, search: true)
+        result = termcache.get("vocabularies", vocab, term, search: true)
         return result unless result.nil?
 
         if has_caps?(term)
-          @cache.get("vocabularies", vocab, term.downcase, search: true)
+          termcache.get("vocabularies", vocab, term.downcase, search: true)
         else
-          @cache.get("vocabularies", vocab, term.capitalize, search: true)
+          termcache.get("vocabularies", vocab, term.capitalize, search: true)
         end
       end
     end

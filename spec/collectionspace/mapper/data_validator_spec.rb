@@ -3,37 +3,21 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::DataValidator do
-  let(:config_opts) { {} }
-  let(:client) { anthro_client }
-  let(:cache) { anthro_cache }
-  let(:csid_cache) { anthro_csid_cache }
-  let(:mapper) { get_json_record_mapper(mapper_path) }
-  let(:recordmapper) do
-    CollectionSpace::Mapper::RecordMapper.new(
-      mapper: mapper,
-      csclient: client,
-      termcache: cache,
-      csidcache: csid_cache,
-      config: config_opts
-    )
-  end
-  let(:validator) { described_class.new(recordmapper, cache) }
+  subject(:validator) { described_class.new }
+
+  after{ CollectionSpace::Mapper.reset_config }
 
   describe ".new" do
     let(:klass) { described_class }
 
     context "with mapper lacking ID field" do
+      before do
+        CollectionSpace::Mapper.config.record.identifier_field =
+          nil
+      end
+
       it "raises error" do
-        mapcfg = instance_double("RecordMapperConfig")
-        mappings = instance_double("ColumnMappings")
-        mapper = instance_double("RecordMapper")
-        allow(mapper).to receive(:config).and_return(mapcfg)
-        allow(mapper).to receive(:mappings).and_return(mappings)
-        allow(mapcfg).to receive(:identifier_field)
-          .and_return(nil)
-        allow(mappings).to receive(:required_columns)
-          .and_return([])
-        expect { klass.new(mapper, cache) }.to raise_error(
+        expect { validator }.to raise_error(
           CollectionSpace::Mapper::IdFieldNotInMapperError
         )
       end
@@ -44,10 +28,13 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
     let(:response) { validator.validate(data) }
 
     context "with single possible required field (object)" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/anthro/"\
-          "anthro_4-1-2_collectionobject.json"
-      }
+      before do
+        setup_handler(
+          profile: 'anthro',
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+            "anthro_4-1-2_collectionobject.json"
+        )
+      end
       let(:data) { {"objectNumber" => "123"} }
 
       it "returns a CollectionSpace::Mapper::Response" do
@@ -56,9 +43,12 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
     end
 
     context "when recordtype has multiple required fields (movement)" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/core_6-1-0_movement.json"
-      }
+      before do
+        setup_handler(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_movement.json"
+        )
+      end
 
       context "with valid data" do
         let(:data) {
@@ -81,10 +71,13 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
     end
 
     context "when recordtype has required field(s)" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/anthro/"\
-          "anthro_4-1-2_collectionobject.json"
-      }
+      before do
+        setup_handler(
+          profile: 'anthro',
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+            "anthro_4-1-2_collectionobject.json"
+        )
+      end
 
       context "and when required field present" do
         context "and required field populated" do
@@ -120,18 +113,21 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
       end
 
       context "when required field provided by defaults (auth hierarchy)" do
-        let(:client) { core_client }
-        let(:cache) { core_cache }
-        let(:csid_cache) { core_csid_cache }
-        let(:mapper_path) {
-          "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_authorityhierarchy.json"
-        }
+        before do
+          setup_handler(
+            mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+              "core_6-1-0_authorityhierarchy.json"
+          )
+        end
+
         let(:data) do
           raw = get_datahash(
             path: "spec/fixtures/files/datahashes/core/authorityHierarchy1.json"
           )
-          CollectionSpace::Mapper.setup_data(raw, recordmapper.batchconfig)
+          CollectionSpace::Mapper.setup_data(
+            raw,
+            CollectionSpace::Mapper.batchconfig
+          )
         end
 
         it "no required field error returned", services_call: true do
@@ -144,13 +140,13 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
     end
 
     context "when recordtype has no required field(s)" do
-      let(:client) { botgarden_client }
-      let(:cache) { botgarden_cache }
-      let(:csid_cache) { botgarden_csid_cache }
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/botgarden/"\
-          "botgarden_2-0-1_loanout.json"
-      }
+      before do
+        setup_handler(
+          profile: 'botgarden',
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/botgarden/"\
+            "botgarden_2-0-1_loanout.json"
+        )
+      end
 
       context "and when record id field present" do
         context "and record id field populated" do

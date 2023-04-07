@@ -7,13 +7,16 @@ module CollectionSpace
     class DataValidator
       attr_reader :mapper, :cache, :required_fields
 
-      # @todo remove cache argument
-      def initialize(record_mapper, cache)
+      # @todo appconfig remove record_mapper, cache arguments
+      def initialize(
+        record_mapper = CollectionSpace::Mapper.recordmapper,
+        cache = CollectionSpace::Mapper.termcache
+      )
         @mapper = record_mapper
         @cache = cache
+        @id_field = get_id_field
         @required_mappings = @mapper.mappings.required_columns
         @required_fields = get_required_fields
-        @id_field = get_id_field
         # faux-require ID field for batch processing if it is not technically
         #   required by application
         unless @required_fields.key?(@id_field) ||
@@ -39,7 +42,7 @@ module CollectionSpace
       private
 
       def get_id_field
-        idfield = @mapper.config.identifier_field
+        idfield = CollectionSpace::Mapper.record.identifier_field
         fail CollectionSpace::Mapper::IdFieldNotInMapperError if idfield.nil?
 
         idfield.downcase

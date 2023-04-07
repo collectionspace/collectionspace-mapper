@@ -4,14 +4,32 @@ module CollectionSpace
   module Mapper
     # Represents a data field from a row of a CSV.
     class ColumnValue
-      def initialize(column:, value:, recmapper:, mapping:)
+      # @param column [String]
+      # @param value [String]
+      # @param recmapper [CollectionSpace::Mapper::RecordMapper]
+      # @param mapping [CollectionSpace::Mapper::ColumnMapping]
+      def initialize(
+        column:,
+        value:,
+        recmapper: CollectionSpace::Mapper.recordmapper,
+        mapping:
+      )
         @column = column.downcase
         @value = value
         @recmapper = recmapper
         @mapping = mapping
       end
 
-      def self.create(column:, value:, recmapper:, mapping:)
+      # @param column [String]
+      # @param value [String]
+      # @param recmapper [CollectionSpace::Mapper::RecordMapper]
+      # @param mapping [CollectionSpace::Mapper::ColumnMapping]
+      def self.create(
+        column:,
+        value:,
+        recmapper: CollectionSpace::Mapper.recordmapper,
+        mapping:
+      )
         case mapping.xpath.length
         when 0
           ColumnValue.new(

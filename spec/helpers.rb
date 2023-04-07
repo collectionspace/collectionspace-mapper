@@ -39,6 +39,19 @@ module Helpers
     end
   end
 
+  def setup_handler(mapper_path:, profile: 'core')
+    client = send("#{profile}_client".to_sym)
+    termcache = send("#{profile}_cache".to_sym)
+    csidcache = send("#{profile}_csid_cache".to_sym)
+    mapper = get_json_record_mapper(mapper_path)
+    CollectionSpace::Mapper::DataHandler.new(
+      record_mapper: mapper,
+      client: client,
+      cache: termcache,
+      csid_cache: csidcache
+    )
+  end
+
   def setup_recordmapper(path)
     CollectionSpace::Mapper.config.recordmapper =
       CollectionSpace::Mapper::RecordMapper.new(

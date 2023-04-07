@@ -58,6 +58,46 @@ module CollectionSpace
     # @return [CollectionSpace::Mapper::Config, nil] config object derived
     #   from :batchconfigraw
     setting :batchconfig, default: nil, reader: true
+    # @return [CollectionSpace::Mapper::DataValidator, nil] class used to
+    #   validate data for the batch run
+    setting :validator, default: nil, reader: true
+    # @return [CollectionSpace::Mapper::Searcher, nil] class used to look up
+    #   terms in CS instance for the batch run
+    setting :searcher, default: nil, reader: true
+    # @return [Constant, nil] class used to prep
+    #   data rows for mapping in the batch run
+    setting :prepper_class, default: nil, reader: true
+    # @return [CollectionSpace::Mapper::Dates::StructuredDateHandler, nil] class
+    #   used to handle structured date parsing
+    setting :date_handler, default: nil, reader: true
+    # @return [CollectionSpace::Mapper::DataHandler, nil] class that sets up
+    #   everything for procesing a batch
+    setting :data_handler, default: nil, reader: true
+
+    setting :record, reader: true do
+      setting :authority_subtype, default: nil, reader: true
+      setting :authority_subtypes, default: nil, reader: true
+      setting :authority_type, default: nil, reader: true
+      setting :document_name, default: nil, reader: true
+      setting :identifier_field, default: nil, reader: true
+      setting :ns_uri, default: nil, reader: true
+      setting :object_name, default: nil, reader: true
+      setting :profile_basename, default: nil, reader: true
+      setting :recordtype, default: nil, reader: true
+      setting :search_field, default: nil, reader: true
+      setting :service_name, default: nil, reader: true
+      setting :service_path, default: nil, reader: true
+      setting :service_type, default: nil, reader: true
+      setting :version, default: nil, reader: true
+
+      setting :namespaces, default: nil, reader: true,
+        constructor: ->(value){ CollectionSpace::Mapper.record.ns_uri.keys }
+      setting :common_namespace, default: nil, reader: true,
+        constructor: ->(value) do
+          CollectionSpace::Mapper.record.namespaces
+            .find { |namespace| namespace.end_with?("_common") }
+        end
+    end
 
     setting :batch, reader: true do
         setting :check_record_status, default: true, reader: true
@@ -93,13 +133,16 @@ module CollectionSpace
         config) : response
     end
 
-    def merge_default_values(data, batchconfig)
-      defaults = batchconfig.default_values
+    def merge_default_values(
+      data,
+      batchconfig = CollectionSpace::Mapper.batchconfig
+    )
+      defaults = CollectionSpace::Mapper.batch.default_values
       return data unless defaults
 
       mdata = data.orig_data.clone
       defaults.each do |f, val|
-        if batchconfig.force_defaults
+        if CollectionSpace::Mapper.batch.force_defaults
           mdata[f] = val
         else
           dataval = data.orig_data.fetch(f, nil)

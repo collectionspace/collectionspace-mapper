@@ -21,14 +21,27 @@ module CollectionSpace
         config_hash.each do |key, value|
           instance_variable_set("@#{key}", value)
         end
+        temp_set_app_config(config_hash)
       end
 
+      # appconfig superseded
       def common_namespace
         namespaces.find { |namespace| namespace.end_with?("_common") }
       end
 
+      # appconfig superseded
       def namespaces
         @ns_uri.keys
+      end
+
+      private
+
+      def temp_set_app_config(hash)
+        hash.each do |setting, value|
+          cfg = CollectionSpace::Mapper.config.record
+          setter = "#{setting}=".to_sym
+          cfg.send(setter, value)
+        end
       end
     end
   end

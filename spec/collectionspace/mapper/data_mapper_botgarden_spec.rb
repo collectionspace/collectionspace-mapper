@@ -3,38 +3,39 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
-  let(:config) { {delimiter: ";"} }
-  let(:mapper) { get_json_record_mapper(mapper_path) }
-  let(:handler) do
-    CollectionSpace::Mapper::DataHandler.new(
-      record_mapper: mapper,
-      client: botgarden_client,
-      cache: botgarden_cache,
-      csid_cache: botgarden_csid_cache,
-      config: config
-    )
-  end
+  subject(:datamapper) {
+    described_class.new(prepper.prep.response, prepper.xphash)
+  }
+
+  after{ CollectionSpace::Mapper.reset_config }
+
   let(:datahash) { get_datahash(path: datahash_path) }
-  let(:prepper) {
-    CollectionSpace::Mapper::DataPrepper.new(datahash, handler.searcher,
-      handler)
-  }
-  let(:datamapper) {
-    described_class.new(prepper.prep.response, handler, prepper.xphash)
-  }
   let(:response) { datamapper.response }
   let(:mapped_doc) { remove_namespaces(response.doc) }
   let(:mapped_xpaths) { list_xpaths(mapped_doc) }
   let(:fixture_doc) { get_xml_fixture(fixture_path) }
-  let(:fixture_xpaths) { test_xpaths(fixture_doc, handler.mapper.mappings) }
+  let(:fixture_xpaths) do
+    test_xpaths(
+      fixture_doc,
+      CollectionSpace::Mapper.recordmapper.mappings
+    )
+  end
   let(:diff) { mapped_xpaths - fixture_xpaths }
+
+  let(:prepper) {
+    CollectionSpace::Mapper.prepper_class.new(datahash)
+  }
 
   context "botgarden profile" do
     context "pottag record" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_7_0/botgarden/"\
-          "botgarden_3-0-0_pottag.json"
-      }
+      before do
+        setup_handler(
+          profile: 'botgarden',
+          mapper_path: "spec/fixtures/files/mappers/release_7_0/botgarden/"\
+            "botgarden_3-0-0_pottag.json"
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       context "record 1" do
         let(:datahash_path) {
@@ -57,10 +58,14 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "propagation record" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_7_0/botgarden/"\
+      before do
+        setup_handler(
+          profile: 'botgarden',
+          mapper_path: "spec/fixtures/files/mappers/release_7_0/botgarden/"\
           "botgarden_3-0-0_propagation.json"
-      }
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       context "record 1" do
         let(:datahash_path) {
@@ -85,10 +90,14 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "taxon record" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/botgarden/"\
+      before do
+        setup_handler(
+          profile: 'botgarden',
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/botgarden/"\
           "botgarden_2-0-1_taxon-local.json"
-      }
+        )
+        CollectionSpace::Mapper.config.batch.delimiter = ';'
+      end
 
       context "record 1" do
         let(:datahash_path) {

@@ -5,11 +5,11 @@ module CollectionSpace
     class DataSplitter
       attr_reader :data, :result
 
-      def initialize(data, config)
+      # @todo appconfig remove config arg
+      def initialize(data, config = nil)
         @data = data.strip
-        @config = config
-        @delim = @config.delimiter
-        @sgdelim = @config.subgroup_delimiter
+        @delim = CollectionSpace::Mapper.batch.delimiter
+        @sgdelim = CollectionSpace::Mapper.batch.subgroup_delimiter
       end
     end
   end

@@ -11,7 +11,14 @@ module CollectionSpace
         # @param client [CollectionSpace::Client]
         # @param cache [CollectionSpace::RefCache]
         # @param config [CollectionSpace::Mapper::Config]
-        def initialize(client:, cache:, csid_cache:, config:, searcher:)
+        # @todo appconfig delete all args
+        def initialize(
+          client: CollectionSpace::Mapper.client,
+          cache: CollectionSpace::Mapper.termcache,
+          csid_cache: CollectionSpace::Mapper.csidcache,
+          config: CollectionSpace::Mapper.batchconfig,
+          searcher: CollectionSpace::Mapper.searcher
+        )
           @client = client
           @cache = cache
           @csid_cache = csid_cache
@@ -34,7 +41,7 @@ module CollectionSpace
             CollectionSpace::Mapper::Dates::TwoDigitYearHandler.new(
               date_string,
               self,
-              config.two_digit_year_handling
+              CollectionSpace::Mapper.batch.two_digit_year_handling
             )
           elsif service_parseable_month_formats.any? { |re|
                   date_string.match?(re)

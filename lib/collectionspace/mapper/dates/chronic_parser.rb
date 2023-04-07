@@ -8,7 +8,13 @@ module CollectionSpace
       class ChronicParser
         include CollectionSpace::Mapper::Dates::Mappable
 
-        def initialize(date_string, handler)
+        # @param date_string [String] to parse
+        # @param handler [CollectionSpace::Mapper::Dates::StructuredDateHandler]
+        # @todo appconfig remove handler arg
+        def initialize(
+          date_string,
+          handler = CollectionSpace::Mapper.date_handler
+        )
           @date_string = date_string
           @handler = handler
         end
@@ -35,7 +41,7 @@ module CollectionSpace
         attr_reader :date_string, :handler
 
         def day_month_year?
-          handler.config.date_format == "day month year"
+          CollectionSpace::Mapper.batch.date_format == "day month year"
         end
 
         def parse
