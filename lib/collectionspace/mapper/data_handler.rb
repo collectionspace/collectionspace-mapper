@@ -24,6 +24,11 @@ module CollectionSpace
         @mapper = mapper
 
 
+          CollectionSpace::Mapper.config.batchconfig =
+            CollectionSpace::Mapper::Config.new(
+              config: CollectionSpace::Mapper.batchconfigraw,
+              record_type: record_type
+            )
         @validator = CollectionSpace::Mapper::DataValidator.new(
           @mapper,
           @mapper.termcache
