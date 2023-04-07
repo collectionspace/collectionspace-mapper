@@ -23,17 +23,17 @@ module CollectionSpace
       include Tools::Symbolizable
 
       DEFAULT_CONFIG = {
-        delimiter: "|",
-        subgroup_delimiter: "^^",
-        response_mode: "normal",
-        strip_id_values: true,
-        multiple_recs_found: "fail",
         check_record_status: true,
-        status_check_method: "client",
-        search_if_not_cached: true,
-        force_defaults: false,
         date_format: "month day year",
-        two_digit_year_handling: "coerce"
+        delimiter: "|",
+        force_defaults: false,
+        multiple_recs_found: "fail",
+        response_mode: "normal",
+        search_if_not_cached: true,
+        status_check_method: "client",
+        strip_id_values: true,
+        subgroup_delimiter: "^^",
+        two_digit_year_handling: "coerce",
       }
 
       VALID_VALUES = {
