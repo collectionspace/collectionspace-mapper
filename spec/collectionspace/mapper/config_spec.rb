@@ -13,7 +13,6 @@ RSpec.describe CollectionSpace::Mapper::Config do
         "check_record_status": true,
         "status_check_method": "client",
         "search_if_not_cached": true,
-        "check_terms": true,
         "date_format": "month day year",
         "two_digit_year_handling": "literal",
         "transforms": {
@@ -155,7 +154,6 @@ RSpec.describe CollectionSpace::Mapper::Config do
         check_record_status: true,
         status_check_method: "client",
         search_if_not_cached: true,
-        check_terms: true,
         date_format: "month day year",
         two_digit_year_handling: "literal",
         transforms: {
