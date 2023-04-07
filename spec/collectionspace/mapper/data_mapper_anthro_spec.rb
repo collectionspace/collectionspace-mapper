@@ -26,7 +26,12 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
   let(:mapped_doc) { remove_namespaces(response.doc) }
   let(:mapped_xpaths) { list_xpaths(mapped_doc) }
   let(:fixture_doc) { get_xml_fixture(fixture_path) }
-  let(:fixture_xpaths) { test_xpaths(fixture_doc, handler.mapper.mappings) }
+  let(:fixture_xpaths) do
+    test_xpaths(
+      fixture_doc,
+      CollectionSpace::Mapper.recordmapper.mappings
+    )
+  end
   let(:diff) { mapped_xpaths - fixture_xpaths }
 
   context "anthro profile" do

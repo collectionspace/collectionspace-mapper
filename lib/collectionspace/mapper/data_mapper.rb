@@ -12,11 +12,11 @@ module CollectionSpace
         @xphash = xphash
 
         @data = @response.combined_data
-        @doc = @handler.mapper.xml_template.blankdoc
-        @cache = @handler.mapper.termcache
+        @doc = CollectionSpace::Mapper.recordmapper.xml_template.blankdoc
+        @cache = CollectionSpace::Mapper.termcache
 
         @xphash.each { |xpath, hash| map(xpath, hash) }
-        add_short_id if @handler.mapper.config.service_type == "authority"
+        add_short_id if CollectionSpace::Mapper.recordmapper.config.service_type == "authority"
         set_response_identifier
         clean_doc
         defuse_bomb
@@ -27,11 +27,11 @@ module CollectionSpace
       private
 
       def set_response_identifier
-        if @handler.mapper.config.service_type == "relation"
+        if CollectionSpace::Mapper.recordmapper.config.service_type == "relation"
           set_relation_id
         else
-          id_field = @handler.mapper.config.identifier_field
-          mapping = @handler.mapper.mappings.find { |mapper|
+          id_field = CollectionSpace::Mapper.recordmapper.config.identifier_field
+          mapping = CollectionSpace::Mapper.recordmapper.mappings.find { |mapper|
             mapper.fieldname == id_field
           }
           thexpath = "//#{mapping.namespace}/#{mapping.fieldname}"
@@ -42,7 +42,7 @@ module CollectionSpace
       end
 
       def set_relation_id
-        case @handler.mapper.config.object_name
+        case CollectionSpace::Mapper.recordmapper.config.object_name
         when "Object Hierarchy Relation"
           narrow = @response.orig_data["narrower_object_number"]
           broad = @response.orig_data["broader_object_number"]
@@ -52,7 +52,7 @@ module CollectionSpace
 
       def add_short_id
         term = @response.transformed_data["termdisplayname"][0]
-        ns = @handler.mapper.config.common_namespace
+        ns = CollectionSpace::Mapper.recordmapper.config.common_namespace
         targetnode = @doc.xpath("/document/#{ns}").first
         child = Nokogiri::XML::Node.new("shortIdentifier", @doc)
         child.content =
@@ -92,7 +92,7 @@ module CollectionSpace
 
       def add_namespaces
         @doc.xpath("/*/*").each do |section|
-          fetchuri = @handler.mapper.config.ns_uri[section.name]
+          fetchuri = CollectionSpace::Mapper.recordmapper.config.ns_uri[section.name]
           uri = fetchuri.nil? ? "http://no.uri.found" : fetchuri
           section.add_namespace_definition(
             "ns2",

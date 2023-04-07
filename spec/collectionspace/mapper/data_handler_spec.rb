@@ -3,6 +3,15 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::DataHandler do
+  subject(:handler) do
+    CollectionSpace::Mapper::DataHandler.new(
+      record_mapper: mapper,
+      client: client,
+      cache: cache,
+      csid_cache: csid_cache,
+      config: config)
+  end
+
   let(:client) { core_client }
   let(:cache) { core_cache }
   let(:csid_cache) { core_csid_cache }
@@ -12,13 +21,6 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
   }
   let(:mapper) { get_json_record_mapper(mapperpath) }
   let(:config) { {delimiter: "|"} }
-  let(:handler) do
-    CollectionSpace::Mapper::DataHandler.new(record_mapper: mapper,
-      client: client,
-      cache: cache,
-      csid_cache: csid_cache,
-      config: config)
-  end
 
   context "with some terms found and some terms not found" do
     let(:result) { handler.process(data).terms.reject { |t| t[:found] } }
@@ -103,13 +105,15 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
       let(:cache) { anthro_cache }
 
       context "place record" do
+        after(:each){ CollectionSpace::Mapper.reset_config }
         let(:mapperpath) {
           "spec/fixtures/files/mappers/release_6_1/anthro/"\
             "anthro_4-1-2_place-local.json"
         }
 
         it "adds a xphash entry for shortIdentifier" do
-          result = handler.mapper
+          handler
+          result = CollectionSpace::Mapper.recordmapper
             .xpath["places_common"][:mappings]
             .select { |mapping| mapping.fieldname == "shortIdentifier" }
           expect(result.length).to eq(1)
@@ -166,7 +170,11 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
   end
 
   describe "#xpath_hash" do
-    let(:result) { handler.mapper.xpath[xpath] }
+    after(:each){ CollectionSpace::Mapper.reset_config }
+    let(:result) do
+      handler
+      CollectionSpace::Mapper.recordmapper.xpath[xpath]
+    end
 
     context "anthro profile" do
       let(:client) { anthro_client }

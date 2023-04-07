@@ -29,7 +29,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
   let(:mapped_doc) { remove_namespaces(response.doc) }
   let(:mapped_xpaths) { list_xpaths(mapped_doc) }
   let(:fixture_doc) { get_xml_fixture(fixturepath) }
-  let(:fixture_xpaths) { test_xpaths(fixture_doc, handler.mapper.mappings) }
+  let(:fixture_xpaths) { test_xpaths(fixture_doc, CollectionSpace::Mapper.recordmapper.mappings) }
   let(:diff) { mapped_xpaths - fixture_xpaths }
 
   context "core profile" do
@@ -59,13 +59,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
           get_xml_fixture("core/nonHierarchicalRelationship1A.xml")
         }
         let(:fixture_xpaths1) {
-          test_xpaths(fixture_doc1, handler.mapper.mappings)
+          test_xpaths(fixture_doc1, CollectionSpace::Mapper.recordmapper.mappings)
         }
         let(:fixture_doc2) {
           get_xml_fixture("core/nonHierarchicalRelationship1B.xml")
         }
         let(:fixture_xpaths2) {
-          test_xpaths(fixture_doc2, handler.mapper.mappings)
+          test_xpaths(fixture_doc2, CollectionSpace::Mapper.recordmapper.mappings)
         }
 
         context "with original data" do
@@ -124,13 +124,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
           get_xml_fixture("core/nonHierarchicalRelationship2A.xml")
         }
         let(:fixture_xpaths1) {
-          test_xpaths(fixture_doc1, handler.mapper.mappings)
+          test_xpaths(fixture_doc1, CollectionSpace::Mapper.recordmapper.mappings)
         }
         let(:fixture_doc2) {
           get_xml_fixture("core/nonHierarchicalRelationship2B.xml")
         }
         let(:fixture_xpaths2) {
-          test_xpaths(fixture_doc2, handler.mapper.mappings)
+          test_xpaths(fixture_doc2, CollectionSpace::Mapper.recordmapper.mappings)
         }
 
         context "with original data" do

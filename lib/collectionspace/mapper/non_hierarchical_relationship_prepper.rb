@@ -12,7 +12,7 @@ module CollectionSpace
 
       def initialize(data, searcher, handler)
         super
-        @cache = @handler.mapper.termcache
+        @cache = CollectionSpace::Mapper.termcache
         @types = [@response.merged_data["item1_type"],
           @response.merged_data["item2_type"]]
         @subtype = ""
@@ -58,7 +58,7 @@ module CollectionSpace
 
       def process_xpaths
         clear_unmapped_mappings
-        @handler.mapper.xpath = @handler.xpath_hash
+        CollectionSpace::Mapper.recordmapper.xpath = @handler.xpath_hash
         super
       end
 
@@ -66,7 +66,7 @@ module CollectionSpace
       #   but do not actually get used to produce XML
       def clear_unmapped_mappings
         to_clear = %w[subjectType objectType]
-        @handler.mapper.mappings.reject! { |mapping|
+        CollectionSpace::Mapper.recordmapper.mappings.reject! { |mapping|
           to_clear.include?(mapping.fieldname)
         }
       end

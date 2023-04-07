@@ -10,10 +10,10 @@ module CollectionSpace
       def initialize(data, searcher, handler)
         @handler = handler
         @searcher = searcher
-        @config = handler.mapper.batchconfig
-        @cache = handler.mapper.termcache
-        @csid_cache = handler.mapper.csidcache
-        @client = handler.mapper.csclient
+        @config = CollectionSpace::Mapper.batchconfig
+        @cache = CollectionSpace::Mapper.termcache
+        @csid_cache = CollectionSpace::Mapper.csidcache
+        @client = CollectionSpace::Mapper.client
         @date_handler = handler.date_handler
         @response = CollectionSpace::Mapper.setup_data(data, config)
         drop_empty_fields
@@ -86,7 +86,7 @@ module CollectionSpace
 
       def process_xpaths
         # keep only mappings for datacolumns present in data hash
-        mappings = @handler.mapper.mappings.select do |mapper|
+        mappings = CollectionSpace::Mapper.recordmapper.mappings.select do |mapper|
           mapper.fieldname == "shortIdentifier" ||
             @response.merged_data.key?(mapper.datacolumn)
         end
@@ -95,7 +95,7 @@ module CollectionSpace
         @xphash = mappings.map { |mapper| mapper.fullpath }.uniq
         # hash with xpath as key and xpath info hash from DataHandler as value
         @xphash = @xphash.map { |xpath|
-          [xpath, @handler.mapper.xpath[xpath].clone]
+          [xpath, CollectionSpace::Mapper.recordmapper.xpath[xpath].clone]
         }.to_h
         @xphash.each do |_xpath, hash|
           hash[:mappings] = hash[:mappings].select do |mapping|
@@ -287,7 +287,7 @@ module CollectionSpace
           th = CollectionSpace::Mapper::TermHandler.new(mapping: mapping,
             data: data,
             client: @client,
-            mapper: @handler.mapper,
+            mapper: CollectionSpace::Mapper.recordmapper,
             searcher: searcher)
 
           @response.transformed_data[column] = th.result
