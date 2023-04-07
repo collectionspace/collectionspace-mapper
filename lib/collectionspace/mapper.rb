@@ -59,6 +59,21 @@ module CollectionSpace
     #   from :batchconfigraw
     setting :batchconfig, default: nil, reader: true
 
+    setting :batch, reader: true do
+        setting :check_record_status, default: true, reader: true
+        setting :date_format, default: "month day year", reader: true
+        setting :default_values, default: {}, reader: true
+        setting :delimiter, default: "|", reader: true
+        setting :force_defaults, default: false, reader: true
+        setting :multiple_recs_found, default: "fail", reader: true
+        setting :response_mode, default: "normal", reader: true
+        setting :search_if_not_cached, default: true, reader: true
+        setting :status_check_method, default: "client", reader: true
+        setting :strip_id_values, default: true, reader: true
+        setting :subgroup_delimiter, default: "^^", reader: true
+        setting :transforms, default: {}, reader: true
+        setting :two_digit_year_handling, default: "coerce", reader: true
+    end
 
 
 
