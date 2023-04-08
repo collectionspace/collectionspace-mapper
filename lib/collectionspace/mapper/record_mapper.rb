@@ -19,8 +19,7 @@ module CollectionSpace
       attr_accessor :xpath
 
       def initialize(
-        mapper:,
-        batchconfig: CollectionSpace::Mapper.batchconfig
+        mapper:
       )
         CollectionSpace::Mapper.config.recordmapper = self
         @hash = set_hash(mapper)
