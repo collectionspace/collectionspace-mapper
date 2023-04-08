@@ -10,11 +10,11 @@ module CollectionSpace
         super
         @type = "vocabularies"
         @subtype = opts[:transform]
-        mapper = opts[:recmapper]
-        @termcache = mapper.termcache
-        @csclient = mapper.csclient
+        @termcache = CollectionSpace::Mapper.termcache
+        @csclient = CollectionSpace::Mapper.client
       end
 
+      # @todo implement and test
       def transform(value)
       end
     end

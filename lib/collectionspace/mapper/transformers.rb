@@ -2,7 +2,9 @@
 
 module CollectionSpace
   module Mapper
-    # aggregate representation of transformers associated with a ColumnMapping
+    # @todo Implement in actual processing
+    #
+    # Aggregate representation of transformers associated with a ColumnMapping
     #   (queue)
     # Performs a factory function by creating the appropriate individual
     #   Transformers for a given ColumnMapping based on data_type
@@ -11,10 +13,12 @@ module CollectionSpace
     #   anything else, followed finally by AuthorityTermTransformer or
     #   VocabularyTermTransformer
     class Transformers
-      def initialize(colmapping:, transforms:, recmapper:)
+      # @param colmapping [CollectionSpace::Mapper::ColumnMapping]
+      # @param transforms [Hash] key is transform type; value is transform
+      #   details
+      def initialize(colmapping:, transforms:)
         @colmapping = colmapping
         @transforms = transforms
-        @recmapper = recmapper
         @queue = []
         populate_queue
       end
@@ -30,8 +34,7 @@ module CollectionSpace
         return @queue if @transforms.empty?
 
         @queue << @transforms.map do |type, transform|
-          Transformer.create(type: type, transform: transform,
-            recmapper: @recmapper)
+          Transformer.create(type: type, transform: transform)
         end
         @queue.flatten!
       end

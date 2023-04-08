@@ -2,19 +2,24 @@
 
 module CollectionSpace
   module Mapper
-    # represents a row of data from a CSV.
-    # ends up having some responsibility for coordinating the processing of the
-    #   row
+    # @todo Finish implementing
+    #
+    # Represents a row of data from a CSV, and ends up having some
+    #   responsibility for coordinating the processing of the row
     class RowData
       attr_reader :columns
 
-      def initialize(datahash, recmapper)
+      def initialize(
+        datahash,
+        recmapper = CollectionSpace::Mapper.recordmapper
+      )
         @recmapper = recmapper
         @columns = datahash.map do |column, value|
-          CollectionSpace::Mapper::ColumnValue.create(column: column,
+          CollectionSpace::Mapper::ColumnValue.create(
+            column: column,
             value: value,
-            recmapper: @recmapper,
-            mapping: @recmapper.mappings.lookup(column))
+            mapping: @recmapper.mappings.lookup(column)
+          )
         end
       end
     end

@@ -3,13 +3,14 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::FindReplaceTransformer do
+  subject(:transformer) { described_class.new(transform: transform) }
+
   let(:transform) do
     [
       {find: " ", replace: "-", type: "plain"},
       {find: '(\d)-A', replace: '\1 A', type: "regex"}
     ]
   end
-  let(:transformer) { described_class.new(transform: transform) }
 
   describe "#precedence" do
     it "returns 0" do

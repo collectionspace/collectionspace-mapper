@@ -3,25 +3,21 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache do
-  let(:service) {
-    CollectionSpace::Mapper::Tools::RecordStatusServiceCache.new(mapper)
-  }
-  let(:mapper) do
-    CollectionSpace::Mapper::RecordMapper.new(
-      mapper: get_json_record_mapper(mapper_path),
-      termcache: core_cache,
-      csidcache: core_csid_cache
-    )
-  end
+  subject(:service) { described_class.new }
+
+  after{ CollectionSpace::Mapper.reset_config }
+
   # @todo fix these tests so they are not on the now-private method
   describe "#call" do
     let(:result) { service.call(response) }
 
     context "when mapper is for an authority" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/"\
-          "core_6-1-0_person-local.json"
-      }
+      before do
+        setup(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_person-local.json"
+        )
+      end
       let(:response) { double(:response, split_data: response_data) }
 
       context "and result is found" do
@@ -52,10 +48,12 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache do
     end
 
     context "when mapper is for an object" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/"\
-          "core_6-1-0_collectionobject.json"
-      }
+      before do
+        setup(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_collectionobject.json"
+        )
+      end
 
       context "when object is cached" do
         let(:response) { double(:response, identifier: "Hierarchy Test 001") }
@@ -73,10 +71,12 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache do
     end
 
     context "when mapper is for a procedure" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/"\
-          "core_6-1-0_acquisition.json"
-      }
+      before do
+        setup(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_acquisition.json"
+        )
+      end
 
       context "when cached" do
         let(:response) { double(:response, identifier: "ACQ 123") }
@@ -94,10 +94,12 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache do
     end
 
     context "when mapper is for a hierarchical relationship" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/"\
-          "core_6-1-0_objecthierarchy.json"
-      }
+      before do
+        setup(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_objecthierarchy.json"
+        )
+      end
       let(:response) { double(:response, combined_data: response_data) }
 
       context "when cached" do
@@ -132,10 +134,12 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache do
     end
 
     context "when mapper is for a non-hierarchical relationship" do
-      let(:mapper_path) {
-        "spec/fixtures/files/mappers/release_6_1/core/"\
+      before do
+        setup(
+          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
           "core_6-1-0_nonhierarchicalrelationship.json"
-      }
+        )
+      end
       let(:response) { double(:response, combined_data: response_data) }
 
       context "when cached" do
