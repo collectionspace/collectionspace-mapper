@@ -15,7 +15,7 @@ RSpec.describe CollectionSpace::Mapper::RecordMapper do
   }
 
   it "has expected instance variables" do
-    expected = %i[@xpath @config @xml_template @mappings @batchconfig @csclient
+    expected = %i[@xpath @config @xml_template @mappings @csclient
       @termcache @csidcache].sort
     expect(mapper.instance_variables.sort).to eq(expected)
   end
