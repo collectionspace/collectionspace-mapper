@@ -17,7 +17,7 @@ module CollectionSpace
     class RecordMapper
       include Tools::Symbolizable
 
-      attr_reader :batchconfig, :config, :termcache, :csidcache, :mappings,
+      attr_reader :config, :termcache, :csidcache, :mappings,
         :xml_template, :csclient
       attr_accessor :xpath
 
@@ -31,7 +31,7 @@ module CollectionSpace
         @csclient = opts[:csclient]
         @termcache = opts[:termcache]
         @csidcache = opts[:csidcache]
-        @batchconfig = CollectionSpace::Mapper.batchconfig
+#        @batchconfig = CollectionSpace::Mapper.batchconfig
         @xpath = {}
       end
 
