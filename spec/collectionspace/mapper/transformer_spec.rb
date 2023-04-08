@@ -3,21 +3,17 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Transformer do
-  let(:client) { anthro_client }
-  let(:cache) { anthro_cache }
-  let(:mapperpath) {
-    "spec/fixtures/files/mappers/release_6_1/anthro/"\
-      "anthro_4-1-2_collectionobject_transforms.json"
-  }
-  let(:recmapper) do
-    CollectionSpace::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
-      csclient: client,
-      termcache: cache)
+  before do
+    setup_handler(
+      profile: 'anthro',
+      mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+        "anthro_4-1-2_collectionobject_transforms.json"
+    )
   end
 
   describe ".create" do
     let(:creator) do
-      described_class.create(recmapper: recmapper,
+      described_class.create(
         type: type,
         transform: transform)
     end

@@ -10,10 +10,9 @@ module CollectionSpace
       class RecordStatusServiceCache
         include RecordStatusServiceable
 
-        def initialize(mapper)
-          @mapper = mapper
-          @refname_cache = mapper.termcache
-          @csid_cache = mapper.csidcache
+        def initialize
+          @refname_cache = CollectionSpace::Mapper.termcache
+          @csid_cache = CollectionSpace::Mapper.csidcache
         end
 
         def call(response)
@@ -22,17 +21,16 @@ module CollectionSpace
             lookup_authority(value)
           elsif type == "collectionobjects"
             lookup_object(value)
-          elsif mapper.config.service_type == "relation"
+          elsif CollectionSpace::Mapper.record.service_type == "relation"
             lookup_relation(value)
           else
             lookup_procedure(value)
           end
         end
-        # rectype = mapper.config.recordtype
 
         private
 
-        attr_reader :mapper, :refname_cache, :csid_cache
+        attr_reader :refname_cache, :csid_cache
 
         def lookup_authority(term)
           csid = csid_cache.get_auth_term(type, subtype, term)

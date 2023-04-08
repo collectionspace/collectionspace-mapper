@@ -60,8 +60,7 @@ module Helpers
   end
 
   def get_record_mapper_object(path, cache = nil)
-    CollectionSpace::Mapper::RecordMapper.new(mapper: File.read(path),
-      termcache: cache)
+    CollectionSpace::Mapper::RecordMapper.new(mapper: File.read(path))
   end
 
   def get_datahash(path:)

@@ -6,12 +6,8 @@ module CollectionSpace
       class RecordStatusServiceClient
         include RecordStatusServiceable
 
-        def initialize(
-          client = CollectionSpace::Mapper.client,
-          mapper = CollectionSpace::Mapper.recordmapper
-        )
+        def initialize
           @client = CollectionSpace::Mapper.client
-          @mapper = CollectionSpace::Mapper.recordmapper
           service = get_service
           @search_field = authority? ? service[:term] : service[:field]
           @ns_prefix = service[:ns_prefix]
@@ -27,7 +23,7 @@ module CollectionSpace
 
         private
 
-        attr_reader :mapper, :client, :search_field, :ns_prefix, :path,
+        attr_reader :client, :search_field, :ns_prefix, :path,
           :response_top, :response_nested
 
         def get_service

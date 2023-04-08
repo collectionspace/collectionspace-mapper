@@ -10,10 +10,11 @@ module CollectionSpace
         super
         @type = opts[:transform][0]
         @subtype = opts[:transform][1]
-        @termcache = opts[:recmapper].termcache
-        @csclient = opts[:recmapper].csclient
+        @termcache = CollectionSpace::Mapper.termcache
+        @csclient = CollectionSpace::Mapper.client
       end
 
+      # @todo implement
       def transform(value)
       end
     end

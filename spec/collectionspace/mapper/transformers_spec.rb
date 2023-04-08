@@ -3,23 +3,22 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Transformers do
-  let(:client) { anthro_client }
-  let(:cache) { anthro_cache }
-  let(:mapperpath) {
-    "spec/fixtures/files/mappers/release_6_1/anthro/"\
-      "anthro_4-1-2_collectionobject_transforms.json"
-  }
-  let(:recmapper) do
-    CollectionSpace::Mapper::RecordMapper.new(mapper: File.read(mapperpath),
-      csclient: client,
-      termcache: cache)
+  subject(:xforms) do
+    described_class.new(
+      colmapping: mapping,
+      transforms: mapping.transforms
+    )
   end
-  let(:mapping) { recmapper.mappings.lookup(colname) }
-  let(:xforms) do
-    described_class.new(colmapping: mapping,
-      transforms: mapping.transforms,
-      recmapper: recmapper)
+
+  before do
+    setup_handler(
+      profile: 'anthro',
+      mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+        "anthro_4-1-2_collectionobject_transforms.json"
+    )
   end
+
+  let(:mapping) { CollectionSpace::Mapper.record.mappings.lookup(colname) }
 
   describe "#queue" do
     context "when measuredByPerson column" do
@@ -33,7 +32,6 @@ RSpec.describe CollectionSpace::Mapper::Transformers do
 
     context "when behrensmeyerSingleLower column" do
       let(:colname) { "behrensmeyerSingleLower" }
-      # let(:result) { xforms.queue }
       let(:result) { xforms.queue.map(&:class) }
       it "expected elements are in expected order" do
         expect(result).to eq([CollectionSpace::Mapper::BehrensmeyerTransformer,

@@ -3,8 +3,16 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::RowData do
-  subject(:row) { described_class.new(data_hash, recmapper) }
-  let(:recmapper) { core_object_mapper }
+  subject(:row) { described_class.new(data_hash) }
+
+  before do
+    setup(
+      mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+        "core_6-1-0_collectionobject.json"
+    )
+  end
+  after{ CollectionSpace::Mapper.reset_config }
+
   let(:data_hash) do
     {
       "objectNumber" => "123",

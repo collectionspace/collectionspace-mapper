@@ -18,7 +18,6 @@ module CollectionSpace
           mapper: record_mapper,
           batchconfig: config,
           csclient: client,
-          termcache: cache,
           csidcache: csid_cache
         )
         @mapper = CollectionSpace::Mapper.recordmapper
@@ -65,11 +64,7 @@ module CollectionSpace
         merge_config_transforms
         @new_terms = {}
         @status_checker =
-          CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder.call(
-            client: CollectionSpace::Mapper.client,
-            mapper: CollectionSpace::Mapper.recordmapper
-          )
-
+          CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder.call
         CollectionSpace::Mapper.config.data_handler = self
       end
 

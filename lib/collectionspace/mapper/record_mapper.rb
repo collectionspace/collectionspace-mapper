@@ -16,13 +16,12 @@ module CollectionSpace
     class RecordMapper
 #      include Tools::Symbolizable
 
-      attr_reader :config, :termcache, :csidcache, :mappings,
+      attr_reader :config, :csidcache, :mappings,
         :xml_template, :csclient
       attr_accessor :xpath
 
       def initialize(
         mapper:,
-        termcache: CollectionSpace::Mapper.termcache,
         csidcache: CollectionSpace::Mapper.csidcache,
         batchconfig: CollectionSpace::Mapper.batchconfig,
         csclient: CollectionSpace::Mapper.client
@@ -40,7 +39,6 @@ module CollectionSpace
         )
 
         @csclient = csclient
-        @termcache = termcache
         @csidcache = csidcache
         @xpath = {}
       end

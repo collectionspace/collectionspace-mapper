@@ -16,12 +16,6 @@ RSpec.describe CollectionSpace::Mapper::RecordMapper do
       "anthro_4-1-2_collectionobject.json"
   }
 
-  it "has expected instance variables" do
-    expected = %i[@xpath @config @hash @mappings @csclient
-      @termcache @csidcache].sort
-    expect(mapper.instance_variables.sort).to eq(expected)
-  end
-
   describe "setting of service_type_extension" do
     let(:result) do
       mapper
