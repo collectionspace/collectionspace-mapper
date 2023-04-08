@@ -24,6 +24,7 @@ module CollectionSpace
         @all = []
         @lkup = {}
         mappings.each { |mapping| add_mapping(mapping) }
+
         special_mappings.each { |mapping| add_mapping(mapping) }
         CollectionSpace::Mapper.config.record.mappings = self
         self

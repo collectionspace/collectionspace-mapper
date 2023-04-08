@@ -91,27 +91,6 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
     end
   end
 
-  describe "#is_authority" do
-    before do
-      setup_handler(
-        profile: 'anthro',
-        mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
-          "anthro_4-1-2_place-local.json"
-      )
-      CollectionSpace::Mapper.config.batch.delimiter = '|'
-    end
-
-    it "adds a xphash entry for shortIdentifier" do
-      handler
-      result = CollectionSpace::Mapper.recordmapper
-        .xpath["places_common"][:mappings]
-        .select { |mapping| mapping.fieldname == "shortIdentifier" }
-      expect(result.length).to eq(1)
-    end
-  end
-
-
-
   describe "#service_type" do
     let(:servicetype) { handler.service_type }
 
@@ -155,99 +134,6 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
 
       it "returns procedure" do
         expect(servicetype).to eq("procedure")
-      end
-    end
-  end
-
-  describe "#xpath_hash" do
-    let(:result){ CollectionSpace::Mapper.recordmapper.xpath[xpath] }
-
-    context "with anthro collectionobject" do
-      before do
-        setup_handler(
-          profile: 'anthro',
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
-            "anthro_4-1-2_collectionobject.json"
-        )
-      end
-
-      context "xpath ending with commingledRemainsGroup" do
-        let(:xpath) {
-          "collectionobjects_anthro/commingledRemainsGroupList/"\
-            "commingledRemainsGroup"
-        }
-
-        it "is_group = true" do
-          expect(result[:is_group]).to be true
-        end
-
-        it "is_subgroup = false" do
-          expect(result[:is_subgroup]).to be false
-        end
-
-        it "includes mortuaryTreatment as subgroup" do
-          child_xpath = "collectionobjects_anthro/commingledRemainsGroupList"\
-            "/commingledRemainsGroup/mortuaryTreatmentGroupList"\
-            "/mortuaryTreatmentGroup"
-          expect(result[:children]).to eq([child_xpath])
-        end
-      end
-
-      context "xpath ending with mortuaryTreatmentGroup" do
-        let(:xpath) do
-          "collectionobjects_anthro/commingledRemainsGroupList/"\
-            "commingledRemainsGroup/mortuaryTreatmentGroupList/"\
-            "mortuaryTreatmentGroup"
-        end
-
-        it "is_group = true" do
-          expect(result[:is_group]).to be true
-        end
-
-        it "is_subgroup = true" do
-          expect(result[:is_subgroup]).to be true
-        end
-
-        it "parent is xpath ending with commingledRemainsGroup" do
-          ppath = "collectionobjects_anthro/commingledRemainsGroupList/"\
-            "commingledRemainsGroup"
-          expect(result[:parent]).to eq(ppath)
-        end
-      end
-
-      context "xpath ending with collectionobjects_nagpra" do
-        let(:xpath) { "collectionobjects_nagpra" }
-
-        it "has 5 children" do
-          expect(result[:children].size).to eq(5)
-        end
-      end
-    end
-
-    context "with bonsai conservation" do
-      before do
-        setup_handler(
-          profile: 'bonsai',
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/bonsai/"\
-            "bonsai_4-1-1_conservation.json"
-        )
-      end
-
-      context "xpath ending with fertilizersToBeUsed" do
-        let(:xpath) {
-          "conservation_livingplant/fertilizationGroupList/"\
-            "fertilizationGroup/fertilizersToBeUsed"
-        }
-        it "is a repeating group" do
-          expect(result[:is_group]).to be true
-        end
-      end
-
-      context "xpath ending with conservators" do
-        let(:xpath) { "conservation_common/conservators" }
-        it "is a repeating group" do
-          expect(result[:is_group]).to be false
-        end
       end
     end
   end

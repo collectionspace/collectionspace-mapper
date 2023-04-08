@@ -42,21 +42,6 @@ module CollectionSpace
         @response.identifier = "#{bt} > #{nt}"
       end
 
-      def process_xpaths
-        clear_unmapped_mappings
-        CollectionSpace::Mapper.recordmapper.xpath = @handler.xpath_hash
-        super
-      end
-
-      # these mappings were needed to get data in via template for processing,
-      #   but do not actually get used to produce XML
-      def clear_unmapped_mappings
-        to_clear = %w[termType termSubType]
-        CollectionSpace::Mapper.record.mappings.reject! { |mapping|
-          to_clear.include?(mapping.fieldname)
-        }
-      end
-
       def transform_terms
         %w[broader_object_number narrower_object_number].each do |field|
           @response.transformed_data[field] = transformed_term(field)

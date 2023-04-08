@@ -95,6 +95,7 @@ module CollectionSpace
       setting :service_type_mixin, default: nil, reader: true
       setting :version, default: nil, reader: true
       setting :xml_template, default: nil, reader: true
+      setting :xpaths, default: nil, reader: true
 
       setting :namespaces, default: nil, reader: true,
         constructor: ->(value){ CollectionSpace::Mapper.record.ns_uri.keys }

@@ -87,26 +87,10 @@ module CollectionSpace
       end
 
       def process_xpaths
-        # keep only mappings for datacolumns present in data hash
-        mappings = CollectionSpace::Mapper.record.mappings.select do |mapper|
-          mapper.fieldname == "shortIdentifier" ||
-            @response.merged_data.key?(mapper.datacolumn)
-        end
-
-
-        # create xpaths for remaining mappings...
-        @xphash = mappings.map { |mapper| mapper.fullpath }.uniq
-
-        # hash with xpath as key and xpath info hash from DataHandler as value
-        @xphash = @xphash.map { |xpath|
-          [xpath, CollectionSpace::Mapper.recordmapper.xpath[xpath].clone]
-        }.to_h
-        @xphash.each do |_xpath, hash|
-          hash[:mappings] = hash[:mappings].select do |mapping|
-            mapping.fieldname == "shortIdentifier" ||
-              @response.merged_data.key?(mapping.datacolumn)
-          end
-        end
+        keep = response.merged_data.keys + ['shortidentifier']
+        @xphash = CollectionSpace::Mapper.record.xpaths
+          .for_row(keep)
+        response.add_xphash(xphash)
       end
 
       def identifier?(column)
@@ -114,17 +98,17 @@ module CollectionSpace
       end
 
       def do_splits(xphash)
-        if xphash[:is_group] == false
+        if xphash.is_group? == false
           do_non_group_splits(xphash)
-        elsif xphash[:is_group] == true && xphash[:is_subgroup] == false
+        elsif xphash.is_group? == true && xphash.is_subgroup? == false
           do_non_subgroup_group_splits(xphash)
-        elsif xphash[:is_group] && xphash[:is_subgroup]
+        elsif xphash.is_group? && xphash.is_subgroup?
           do_subgroup_splits(xphash)
         end
       end
 
       def do_non_group_splits(xphash)
-        xphash[:mappings].each do |mapping|
+        xphash.mappings.each do |mapping|
           column = mapping.datacolumn
           data = @response.merged_data.fetch(column, nil)
           next if data.nil? || data.empty?
@@ -150,7 +134,7 @@ module CollectionSpace
       end
 
       def do_non_subgroup_group_splits(xphash)
-        xphash[:mappings].each do |mapping|
+        xphash.mappings.each do |mapping|
           column = mapping.datacolumn
           data = @response.merged_data.fetch(column, nil)
           next if data.nil? || data.empty?
@@ -161,7 +145,7 @@ module CollectionSpace
       end
 
       def do_subgroup_splits(xphash)
-        xphash[:mappings].each do |mapping|
+        xphash.mappings.each do |mapping|
           column = mapping.datacolumn
           data = @response.merged_data.fetch(column, nil)
           next if data.nil? || data.empty?
@@ -174,7 +158,7 @@ module CollectionSpace
       def do_transforms(xphash)
         splitdata = @response.split_data
         targetdata = @response.transformed_data
-        xphash[:mappings].each do |mapping|
+        xphash.mappings.each do |mapping|
           column = mapping.datacolumn
           data = splitdata.fetch(column, nil)
           next if data.blank?
@@ -220,7 +204,7 @@ module CollectionSpace
       def do_date_transforms(_xpath, xphash)
         sourcedata = @response.transformed_data
 
-        xphash[:mappings].each do |mapping|
+        xphash.mappings.each do |mapping|
           type = mapping.data_type
           next unless type["date"]
 
@@ -278,7 +262,7 @@ module CollectionSpace
 
       def do_term_handling(xphash)
         sourcedata = @response.transformed_data
-        xphash[:mappings].each do |mapping|
+        xphash.mappings.each do |mapping|
           source_type = get_source_type(mapping.source_type)
           next if source_type.nil?
 
@@ -312,7 +296,7 @@ module CollectionSpace
 
       def check_data_quality(xphash)
         xformdata = @response.transformed_data
-        xphash[:mappings].each do |mapping|
+        xphash.mappings.each do |mapping|
           data = xformdata[mapping.datacolumn]
           next if data.blank?
 
@@ -328,7 +312,7 @@ module CollectionSpace
         # create keys in fieldname and combined_data for all CSpace fields
         #   represented in data
         fieldhash = {}
-        xphash[:mappings].each do |mapping|
+        xphash.mappings.each do |mapping|
           fieldname = mapping.fieldname
           unless fieldhash.key?(fieldname)
             @response.combined_data[xpath][fieldname] = []
@@ -368,7 +352,7 @@ module CollectionSpace
         }.keys.each do |fieldname|
           @response.combined_data[xpath].delete(fieldname)
           unless fieldname == "shortIdentifier"
-            @xphash[xpath][:mappings].delete_if { |mapping|
+            @xphash[xpath].mappings.delete_if { |mapping|
               mapping.fieldname == fieldname
             }
           end

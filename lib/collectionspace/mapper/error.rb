@@ -108,6 +108,18 @@ module CollectionSpace
       end
     end
 
+    class UnrecognizedGroupPatternError < StandardError
+      include CollectionSpace::Mapper::Error
+
+      attr_reader :xpath
+
+      def initialize(xpath)
+        @xpath = xpath
+        super(xpath.path)
+      end
+
+    end
+
     # @todo What are we doing with :message_from_err ?
     class UnparseableStructuredDateError < Date::Error
       include CollectionSpace::Mapper::Error

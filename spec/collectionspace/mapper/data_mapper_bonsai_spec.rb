@@ -4,7 +4,8 @@ require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
   subject(:datamapper) {
-    described_class.new(prepper.prep.response, prepper.xphash)
+    response = prepper.prep.response
+    described_class.new(response, response.xphash)
   }
 
   after{ CollectionSpace::Mapper.reset_config }

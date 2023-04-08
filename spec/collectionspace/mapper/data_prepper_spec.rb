@@ -19,7 +19,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
 
       it "keeps mapping for shortIdentifier in xphash" do
         result = prepper.prep
-          .xphash["places_common"][:mappings]
+          .xphash["places_common"].mappings
           .select { |mapping| mapping.fieldname == "shortIdentifier" }
         expect(result.length).to eq(1)
       end
@@ -225,7 +225,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
         end
 
         it "removes empty fields from fieldmapping list" do
-          result = prepper.prep.xphash[xpath][:mappings]
+          result = prepper.prep.xphash[xpath].mappings
           expect(result.length).to eq(1)
         end
       end
