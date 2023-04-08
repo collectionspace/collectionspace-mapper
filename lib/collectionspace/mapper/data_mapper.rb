@@ -36,7 +36,7 @@ module CollectionSpace
           set_relation_id
         else
           id_field = CollectionSpace::Mapper.record.identifier_field
-          mapping = CollectionSpace::Mapper.recordmapper.mappings.find { |mapper|
+          mapping = CollectionSpace::Mapper.record.mappings.find { |mapper|
             mapper.fieldname == id_field
           }
           thexpath = "//#{mapping.namespace}/#{mapping.fieldname}"

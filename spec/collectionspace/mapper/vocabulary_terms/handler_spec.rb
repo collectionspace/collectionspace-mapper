@@ -3,8 +3,9 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::VocabularyTerms::Handler do
-  subject(:handler) { described_class.new(client: client) }
-  let(:client) { core_client }
+  subject(:handler) { described_class.new }
+  before{ setup }
+  after{ CollectionSpace::Mapper.reset_config }
 
   describe "#add_term" do
     let(:result) { handler.add_term(vocab: vocab, term: term) }
@@ -24,7 +25,7 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::Handler do
       let(:term) { "Credit line" }
       it "returns Success" do
         expect(result).to be_a(Dry::Monads::Success)
-        client.delete(result.value!)
+        CollectionSpace::Mapper.client.delete(result.value!)
       end
     end
   end

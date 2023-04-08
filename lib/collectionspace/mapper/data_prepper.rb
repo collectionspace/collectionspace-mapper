@@ -88,7 +88,7 @@ module CollectionSpace
 
       def process_xpaths
         # keep only mappings for datacolumns present in data hash
-        mappings = CollectionSpace::Mapper.recordmapper.mappings.select do |mapper|
+        mappings = CollectionSpace::Mapper.record.mappings.select do |mapper|
           mapper.fieldname == "shortIdentifier" ||
             @response.merged_data.key?(mapper.datacolumn)
         end
@@ -135,8 +135,8 @@ module CollectionSpace
 
       def non_group_splitter(mapping, data)
         if mapping.repeats == "y"
-          return CollectionSpace::Mapper::SimpleSplitter.new(data,
-            config).result
+          return CollectionSpace::Mapper::SimpleSplitter.new(data)
+            .result
         end
         return split_identifier(data) if identifier?(mapping.fieldname)
 
@@ -156,7 +156,7 @@ module CollectionSpace
           next if data.nil? || data.empty?
 
           @response.split_data[column] =
-            CollectionSpace::Mapper::SimpleSplitter.new(data, config).result
+            CollectionSpace::Mapper::SimpleSplitter.new(data).result
         end
       end
 
@@ -167,7 +167,7 @@ module CollectionSpace
           next if data.nil? || data.empty?
 
           @response.split_data[column] =
-            CollectionSpace::Mapper::SubgroupSplitter.new(data, config).result
+            CollectionSpace::Mapper::SubgroupSplitter.new(data).result
         end
       end
 

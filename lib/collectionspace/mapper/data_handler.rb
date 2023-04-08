@@ -37,12 +37,8 @@ module CollectionSpace
         CollectionSpace::Mapper.config.validator = validator
         @validator = validator
 
-        searcher = CollectionSpace::Mapper::Searcher.new(
-          client: CollectionSpace::Mapper.client,
-          config: CollectionSpace::Mapper.batchconfig
-        )
-        CollectionSpace::Mapper.config.searcher = searcher
-        @searcher = searcher
+        CollectionSpace::Mapper::Searcher.new
+        @searcher = CollectionSpace::Mapper.searcher
 
         prepper_class = determine_prepper_class
         CollectionSpace::Mapper.config.prepper_class = prepper_class
@@ -117,7 +113,8 @@ module CollectionSpace
 
       def check_fields(data)
         data_fields = data.keys.map(&:downcase)
-        unknown = data_fields - @mapper.mappings.known_columns
+        known = CollectionSpace::Mapper.record.mappings.known_columns
+        unknown = data_fields - known
         known = data_fields - unknown
         {known_fields: known, unknown_fields: unknown}
       end
@@ -134,7 +131,7 @@ module CollectionSpace
       end
 
       def mappings
-        CollectionSpace::Mapper.recordmapper.mappings
+        CollectionSpace::Mapper.record.mappings
       end
 
       def setup_xpath_hash_structure
@@ -270,7 +267,7 @@ module CollectionSpace
       end
 
       def transform_target(data_column)
-        CollectionSpace::Mapper.recordmapper.mappings
+        CollectionSpace::Mapper.record.mappings
           .find { |field_mapping| field_mapping.datacolumn == data_column }
       end
     end

@@ -15,7 +15,8 @@ module CollectionSpace
         @mapper = record_mapper
         @cache = cache
         @id_field = get_id_field
-        @required_mappings = @mapper.mappings.required_columns
+        @required_mappings = CollectionSpace::Mapper.record.mappings
+          .required_columns
         @required_fields = get_required_fields
         # faux-require ID field for batch processing if it is not technically
         #   required by application
