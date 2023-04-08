@@ -18,7 +18,7 @@ module CollectionSpace
           CollectionSpace::Mapper::ColumnValue.create(
             column: column,
             value: value,
-            mapping: @recmapper.mappings.lookup(column)
+            mapping: CollectionSpace::Mapper.record.mappings.lookup(column)
           )
         end
       end

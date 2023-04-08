@@ -19,7 +19,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
   after{ CollectionSpace::Mapper.reset_config }
 
   let(:colmapping) do
-    CollectionSpace::Mapper.recordmapper.mappings.lookup(colname)
+    CollectionSpace::Mapper.record.mappings.lookup(colname)
   end
 
   describe "#result" do

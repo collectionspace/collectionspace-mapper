@@ -18,11 +18,7 @@ RSpec.describe CollectionSpace::Mapper::SubgroupColumnValue do
     CollectionSpace::Mapper.config.batch.subgroup_delimiter = '^^'
   end
 
-  let(:mapping) do
-    CollectionSpace::Mapper.recordmapper
-      .mappings
-      .lookup(colname)
-  end
+  let(:mapping){ CollectionSpace::Mapper.record.mappings.lookup(colname) }
 
   describe "#split" do
     let(:colname) { "titleTranslation" }

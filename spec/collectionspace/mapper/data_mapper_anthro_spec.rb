@@ -17,7 +17,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
   let(:fixture_xpaths) do
     test_xpaths(
       fixture_doc,
-      CollectionSpace::Mapper.recordmapper.mappings
+      CollectionSpace::Mapper.record.mappings
     )
   end
   let(:diff) { mapped_xpaths - fixture_xpaths }

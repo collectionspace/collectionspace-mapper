@@ -14,7 +14,7 @@ module CollectionSpace
     # :reek:Attribute - when I get rid of xphash, this will go away
     # :reek:InstanceVariableAssumption - instance variable gets set by convert
     class RecordMapper
-      attr_reader :config, :mappings,
+      attr_reader :config,
         :xml_template, :csclient
       attr_accessor :xpath
 
@@ -31,7 +31,7 @@ module CollectionSpace
         CollectionSpace::Mapper.config.record.service_type_mixin =
           service_type_extension
         CollectionSpace::Mapper::XmlTemplate.call(hash[:docstructure])
-        @mappings = CollectionSpace::Mapper::ColumnMappings.new(
+        CollectionSpace::Mapper::ColumnMappings.new(
           mappings: hash[:mappings]
         )
 

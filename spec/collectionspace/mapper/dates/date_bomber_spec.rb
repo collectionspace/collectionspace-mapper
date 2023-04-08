@@ -4,22 +4,15 @@ require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Dates::DateBomber do
   subject(:creator) { described_class.new }
-  let(:client) { anthro_client }
-  let(:cache) { anthro_cache }
-  let(:csid_cache) { anthro_csid_cache }
-  let(:config) { CollectionSpace::Mapper::Config.new }
-  let(:searcher) do
-    CollectionSpace::Mapper::Searcher.new(client: client, config: config)
-  end
-  let(:handler) do
-    CollectionSpace::Mapper::Dates::StructuredDateHandler.new(
-      client: client,
-      cache: cache,
-      csid_cache: csid_cache,
-      config: config,
-      searcher: searcher
+  before do
+    setup_handler(
+      profile: 'anthro',
+      mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
+        "anthro_4-1-2_collectionobject.json"
     )
+    CollectionSpace::Mapper.config.batch.delimiter = ';'
   end
+  after{ CollectionSpace::Mapper.reset_config }
 
   describe "#mappable" do
     let(:result) { creator.mappable }

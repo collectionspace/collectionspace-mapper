@@ -12,8 +12,10 @@ module CollectionSpace
         include Dry::Monads[:result]
         include Dry::Monads::Do.for(:add_term)
 
-        def initialize(client:,
-          vocabs: CollectionSpace::Mapper::Vocabularies.new(client))
+        def initialize(
+          client: CollectionSpace::Mapper.client,
+          vocabs: CollectionSpace::Mapper::Vocabularies.new(client)
+        )
           @client = client
           @domain = client.domain
           @vocabs = vocabs

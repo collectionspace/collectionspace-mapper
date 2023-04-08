@@ -3,11 +3,11 @@
 module CollectionSpace
   module Mapper
     class SimpleSplitter < DataSplitter
-      def initialize(data, config)
+      def initialize(data)
         super
         # negative limit parameter turns off suppression of trailing empty
         #   fields
-        @result = @data.split(@delim, -1).map { |e| e.strip }
+        @result = data.split(delim, -1).map { |e| e.strip }
       end
     end
   end

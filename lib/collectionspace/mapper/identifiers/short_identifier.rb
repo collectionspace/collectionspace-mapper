@@ -14,8 +14,10 @@ module CollectionSpace
 
         private
 
+        attr_reader :term
+
         def prepped_term
-          @term.gsub(/\W/, "")
+          term.gsub(/\W/, "")
         end
       end
     end

@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::MultivalColumnValue do
-    let(:colval) do
+  let(:colval) do
     described_class.new(
       column: colname,
       value: colvalue,
@@ -15,7 +15,7 @@ RSpec.describe CollectionSpace::Mapper::MultivalColumnValue do
     CollectionSpace::Mapper.config.batch.subgroup_delimiter = "^^"
     setup_handler(
       mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-      "core_6-1-0_collectionobject.json"
+        "core_6-1-0_collectionobject.json"
     )
   end
   after{ CollectionSpace::Mapper.reset_config }

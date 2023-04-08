@@ -52,7 +52,7 @@ module CollectionSpace
       #   but do not actually get used to produce XML
       def clear_unmapped_mappings
         to_clear = %w[termType termSubType]
-        CollectionSpace::Mapper.recordmapper.mappings.reject! { |mapping|
+        CollectionSpace::Mapper.record.mappings.reject! { |mapping|
           to_clear.include?(mapping.fieldname)
         }
       end

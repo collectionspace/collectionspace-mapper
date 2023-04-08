@@ -17,7 +17,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
   let(:fixture_xpaths) do
     test_xpaths(
       fixture_doc,
-      CollectionSpace::Mapper.recordmapper.mappings
+      CollectionSpace::Mapper.record.mappings
     )
   end
   let(:diff) { mapped_xpaths - fixture_xpaths }
@@ -58,13 +58,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "propagation record" do
+      CollectionSpace::Mapper.config.batch.delimiter = ';'
       before do
         setup_handler(
           profile: 'botgarden',
           mapper_path: "spec/fixtures/files/mappers/release_7_0/botgarden/"\
           "botgarden_3-0-0_propagation.json"
         )
-        CollectionSpace::Mapper.config.batch.delimiter = ';'
       end
 
       context "record 1" do
