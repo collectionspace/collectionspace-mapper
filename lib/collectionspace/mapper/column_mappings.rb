@@ -10,24 +10,27 @@ module CollectionSpace
       include Enumerable
       extend Forwardable
 
-      attr_reader :config
-
       def_delegators :@all, :each, :reject!
 
-      def initialize(opts = {})
-        @mapper = opts[:mapper]
-        @config = mapper.config
-        extension = mapper.service_type_extension
+      # @param mappings [Array<Hash>] from record mapper JSON file
+      def initialize(
+        mappings:,
+        mapper: CollectionSpace::Mapper.recordmapper
+      )
+        @mapper = mapper
+        extension = CollectionSpace::Mapper.record.service_type_mixin
         extend extension if extension
 
         @all = []
         @lkup = {}
-        opts[:mappings].each { |mapping_hash| add_mapping(mapping_hash) }
+        mappings.each { |mapping| add_mapping(mapping) }
         special_mappings.each { |mapping| add_mapping(mapping) }
+        CollectionSpace::Mapper.config.record.mappings = self
+        self
       end
 
-      def <<(mapping_hash)
-        add_mapping(mapping_hash)
+      def <<(mapping)
+        add_mapping(mapping)
       end
 
       def known_columns
@@ -51,10 +54,9 @@ module CollectionSpace
 
       attr_reader :mapper, :all, :lkup
 
-      def add_mapping(mapping_hash)
+      def add_mapping(mapping)
         mapobj = CollectionSpace::Mapper::ColumnMapping.new(
-          mapping_hash,
-          mapper
+          mapping: mapping
         )
         all << mapobj
         lkup[mapobj.datacolumn] = mapobj

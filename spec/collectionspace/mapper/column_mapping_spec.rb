@@ -3,6 +3,8 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::ColumnMapping do
+  subject(:mapping) { described_class.new(mapping: hash) }
+
   # all mapping hash keys from Untangler
   #      :fieldname=>"numberValue",
   #      :transforms=>{},
@@ -16,10 +18,11 @@ RSpec.describe CollectionSpace::Mapper::ColumnMapping do
   #      :opt_list_values=>[],
   #      :datacolumn=>"numberValue",
   #      :required=>"n"
-  let(:recordmapper) {
-    instance_double("CollectionSpace::Mapper::RecordMapper")
-  }
-  let(:mapping) { described_class.new(hash, recordmapper) }
+
+  # let(:recordmapper) {
+  #   instance_double("CollectionSpace::Mapper::RecordMapper")
+  # }
+
 
   describe "#datacolumn" do
     let(:hash) { {datacolumn: "abCdeFg"} }

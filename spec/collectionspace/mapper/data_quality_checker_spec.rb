@@ -3,11 +3,8 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::DataQualityChecker do
-  let(:recordmapper) {
-    instance_double("CollectionSpace::Mapper::RecordMapper")
-  }
   let(:mapping) {
-    CollectionSpace::Mapper::ColumnMapping.new(maphash, recordmapper)
+    CollectionSpace::Mapper::ColumnMapping.new(mapping: maphash)
   }
 
   context "when source_type = optionlist" do
