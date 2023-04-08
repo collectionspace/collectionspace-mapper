@@ -4,7 +4,7 @@ require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
   subject(:datamapper) {
-    described_class.new(prepper.prep.response, prepper.xphash)
+    described_class.new(prepper.prep.response)
   }
 
   after{ CollectionSpace::Mapper.reset_config }
@@ -61,7 +61,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       end
     end
 
-    context "collectionobject record" do
+    context "collectionobject" do
       before do
         setup_handler(
           profile: 'anthro',

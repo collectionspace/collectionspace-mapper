@@ -60,21 +60,6 @@ module CollectionSpace
         @responses << resp2
       end
 
-      def process_xpaths
-        clear_unmapped_mappings
-        CollectionSpace::Mapper.recordmapper.xpath = @handler.xpath_hash
-        super
-      end
-
-      # these mappings were needed to get data in via template for processing,
-      #   but do not actually get used to produce XML
-      def clear_unmapped_mappings
-        to_clear = %w[subjectType objectType]
-        CollectionSpace::Mapper.record.mappings.reject! { |mapping|
-          to_clear.include?(mapping.fieldname)
-        }
-      end
-
       def get_rec_csid(id, type)
         instance_variable_set(:@type, type)
         obj_csid(id, type)

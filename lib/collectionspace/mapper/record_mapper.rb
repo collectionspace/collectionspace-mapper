@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "collectionspace/mapper/tools/symbolizable"
-
 module CollectionSpace
   module Mapper
     # Parses JSON RecordMapper given at app instantiation, and uses it to set
@@ -17,9 +15,9 @@ module CollectionSpace
       attr_reader :config
       attr_accessor :xpath
 
-      def initialize(
-        mapper:
-      )
+      # @param mapper [String, Hash] parseable JSON string or already-parsed Hash
+      #   from JSON
+      def initialize(mapper:)
         CollectionSpace::Mapper.config.recordmapper = self
         @hash = set_hash(mapper)
         @config = CollectionSpace::Mapper::RecordMapperConfig.new(
@@ -32,7 +30,7 @@ module CollectionSpace
           mappings: hash[:mappings]
         )
 
-        @xpath = {}
+        @xpath = CollectionSpace::Mapper.record.xpaths
       end
 
       def record_type

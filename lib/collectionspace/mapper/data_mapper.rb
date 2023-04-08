@@ -3,24 +3,24 @@
 module CollectionSpace
   module Mapper
     class DataMapper
-      attr_reader :handler, :xphash
+      attr_reader :handler, :xpaths
       attr_accessor :doc, :response
 
       # @todo appconfig remove handler arg
       def initialize(
         response,
         handler = CollectionSpace::Mapper.data_handler,
-        xphash
+        xphash = nil
       )
         @response = response
         @handler = handler
-        @xphash = xphash
+        @xpaths = response.xphash
 
         @data = @response.combined_data
         @doc = CollectionSpace::Mapper.record.xml_template.dup
         @cache = CollectionSpace::Mapper.termcache
 
-        @xphash.each { |xpath, hash| map(xpath, hash) }
+        xpaths.values.each { |xpath| map(xpath) }
         add_short_id if CollectionSpace::Mapper.record.service_type == "authority"
         set_response_identifier
         clean_doc
@@ -67,18 +67,15 @@ module CollectionSpace
         targetnode.add_child(child)
       end
 
-      def map(xpath, xphash)
-        thisdata = @data[xpath]
-        targetnode = @doc.xpath("//#{xpath}")[0]
-        xphash[:mappings] = xphash[:mappings].uniq { |mapping|
-          mapping.fieldname
-        }
-        if xphash[:is_group] == false
-          simple_map(xphash, targetnode, thisdata)
-        elsif xphash[:is_group] == true && xphash[:is_subgroup] == false
-          map_group(xpath, targetnode, thisdata)
-        elsif xphash[:is_group] == true && xphash[:is_subgroup] == true
-          map_subgroup(xphash, thisdata)
+      def map(xpath)
+        thisdata = @data[xpath.path]
+        targetnode = @doc.xpath("//#{xpath.path}")[0]
+        if xpath.is_group? == false
+          simple_map(xpath, targetnode, thisdata)
+        elsif xpath.is_group? == true && xpath.is_subgroup? == false
+          map_group(xpath.path, targetnode, thisdata)
+        elsif xpath.is_group? == true && xpath.is_subgroup? == true
+          map_subgroup(xpath, thisdata)
         end
       end
 
@@ -120,11 +117,12 @@ module CollectionSpace
         end
       end
 
-      def simple_map(xphash, parent, thisdata)
-        xphash[:mappings].each do |field_mapping|
-          field_name = field_mapping.fieldname
-          data = thisdata.fetch(field_name, nil)
-          populate_simple_field_data(field_name, data, parent) if data
+      def simple_map(xpath, parent, thisdata)
+        xpath.mappings.group_by{ |mapping| mapping.fieldname }
+          .keys
+          .each do |fieldname|
+          data = thisdata.fetch(fieldname, nil)
+          populate_simple_field_data(fieldname, data, parent) if data
         end
       end
 
@@ -181,6 +179,8 @@ module CollectionSpace
       end
 
       def map_group(xpath, targetnode, thisdata)
+        return if thisdata.empty?
+
         pnode = targetnode.parent
         groupname = targetnode.name.dup
         targetnode.remove
@@ -273,11 +273,11 @@ module CollectionSpace
         end
       end
 
-      def map_subgroup(xphash, thisdata)
-        parent_path = xphash[:parent]
+      def map_subgroup(xpath, thisdata)
+        parent_path = xpath.parent
         parent_set = @doc.xpath("//#{parent_path}")
-        subgroup_path = xphash[:mappings][0].fullpath.gsub(
-          "#{xphash[:parent]}/", ""
+        subgroup_path = xpath.mappings[0].fullpath.gsub(
+          "#{xpath.parent}/", ""
         ).split("/")
         subgroup = subgroup_path.pop
 

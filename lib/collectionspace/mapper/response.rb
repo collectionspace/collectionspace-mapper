@@ -6,7 +6,7 @@ module CollectionSpace
       attr_reader :orig_data
       attr_accessor :split_data, :merged_data, :transformed_data,
         :combined_data, :doc, :errors, :warnings, :identifier, :terms,
-        :record_status, :csid, :uri, :refname
+        :record_status, :csid, :uri, :refname, :xphash
 
       def initialize(data_hash)
         @orig_data = data_hash
@@ -23,6 +23,10 @@ module CollectionSpace
 
       def add_warning(warning)
         warnings << warning
+      end
+
+      def add_xphash(hash)
+        @xphash = hash
       end
 
       def merge_status_data(status_data)

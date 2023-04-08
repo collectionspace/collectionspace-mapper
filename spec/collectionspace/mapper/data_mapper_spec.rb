@@ -254,7 +254,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
 
       describe "#add_namespaces" do
         it "adds namespace definitions" do
-          urihash = datamapper.handler.mapper.config.ns_uri.clone
+          urihash = CollectionSpace::Mapper.record.ns_uri.clone
           urihash.transform_keys! { |k| "ns2:#{k}" }
           docdefs = {}
           datamapper.doc.xpath("/*/*").each do |ns|

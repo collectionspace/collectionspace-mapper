@@ -18,6 +18,7 @@ module CollectionSpace
           mapper: record_mapper
         )
         @mapper = CollectionSpace::Mapper.recordmapper
+        CollectionSpace::Mapper::Xpaths.new
 
         # initializing the RecordMapper causes app config record config
         #   settings to be populated, including :recordtype
@@ -53,7 +54,6 @@ module CollectionSpace
         CollectionSpace::Mapper.config.date_handler = date_handler
         @date_handler = date_handler
 
-        CollectionSpace::Mapper.recordmapper.xpath = xpath_hash
         merge_config_transforms
         @new_terms = {}
         @status_checker =
@@ -132,98 +132,13 @@ module CollectionSpace
         CollectionSpace::Mapper.record.mappings
       end
 
-      def setup_xpath_hash_structure
-        xhash = {}
-        # create key for each xpath containing fields, and set up structure of
-        #   its value
-        mappings.each do |mapping|
-          xhash[mapping.fullpath] =
-            {parent: "", children: [], is_group: false, is_subgroup: false,
-             subgroups: [], mappings: []}
-        end
-        xhash
-      end
-
-      def associate_mappings_with_xpaths(xhash)
-        mappings.each do |mapping|
-          xhash[mapping.fullpath][:mappings] << mapping
-        end
-        xhash
-      end
-
-      # builds hash containing information to be used in mapping the fields that
-      #   are children of each xpath
-      # keys - the XML doc xpaths that contain child fields
-      # value is a hash with the following keys:
-      #  :parent - String, xpath of parent (empty if it's a top level namespace)
-      #  :children - Array, of xpaths occuring beneath this one in the document
-      #  :is_group - Boolean, whether grouping of fields at xpath is a repeating
-      #   field group
-      #  :is_subgroup - Boolean, whether grouping of fields is subgroup of
-      #   another group
-      #  :subgroups - Array, xpaths of any repeating field groups that are
-      #   children of an xpath that itself contains direct child fields
-      #  :mappings - Array, of fieldmappings that are children of this xpath
-      def xpath_hash
-        xhash = setup_xpath_hash_structure
-        h = associate_mappings_with_xpaths(xhash)
-
-        # populate parent of all non-top xpaths
-        h.each do |xpath, ph|
-          next unless xpath["/"]
-
-          keys = h.keys - [xpath]
-          keys = keys.select { |k| xpath[k] }
-          keys = keys.sort { |a, b| b.length <=> a.length }
-          ph[:parent] = keys[0] unless keys.empty?
-        end
-
-        # populate children
-        h.each do |xpath, ph|
-          keys = h.keys - [xpath]
-          ph[:children] = keys.select { |k| k.start_with?(xpath) }
-        end
-
-        # populate subgroups
-        h.each do |xpath, ph|
-          keys = h.keys - [xpath]
-          subpaths = keys.select { |k| k.start_with?(xpath) }
-          if !subpaths.empty? && !ph[:parent].empty?
-            subpaths.each { |p|
-              ph[:subgroups] << p
-            }
-          end
-        end
-
-        # populate is_group
-        h.each do |xpath, ph|
-          ct = ph[:mappings].size
-          v = ph[:mappings].map { |mapping| mapping.in_repeating_group }.uniq
-          ph[:is_group] = true if v == ["y"]
-          if v.size > 1
-            puts "WARNING: #{xpath} has fields with different :in_repeating_"\
-              "group values (#{v}). Defaulting to treating NOT as a group"
-          end
-          if ct == 1 &&
-              v == ["as part of larger repeating group"] &&
-              ph[:mappings][0].repeats == "y"
-            ph[:is_group] = true
-          end
-        end
-
-        # populate is_subgroup
-        subgroups = []
-        h.each { |_k, v| subgroups << v[:subgroups] }
-        subgroups = subgroups.flatten.uniq
-        h.keys.each { |k| h[k][:is_subgroup] = true if subgroups.include?(k) }
-        h
-      end
-
       def to_s
-        cfg = mapper.config
-        id = "#{cfg.recordtype} #{mapper.csclient.config.base_uri}"
+        rectype = CollectionSpace::Mapper.record.recordtype
+        uri = CollectionSpace::Mapper.client.config.base_uri
+        id = "#{rectype} #{uri}"
         "<##{self.class}:#{object_id.to_s(8)} #{id}>"
       end
+      alias_method :inspect, :to_s
 
       private
 
