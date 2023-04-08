@@ -14,15 +14,12 @@ module CollectionSpace
     # :reek:Attribute - when I get rid of xphash, this will go away
     # :reek:InstanceVariableAssumption - instance variable gets set by convert
     class RecordMapper
-#      include Tools::Symbolizable
-
-      attr_reader :config, :csidcache, :mappings,
+      attr_reader :config, :mappings,
         :xml_template, :csclient
       attr_accessor :xpath
 
       def initialize(
         mapper:,
-        csidcache: CollectionSpace::Mapper.csidcache,
         batchconfig: CollectionSpace::Mapper.batchconfig,
         csclient: CollectionSpace::Mapper.client
       )
@@ -39,7 +36,6 @@ module CollectionSpace
         )
 
         @csclient = csclient
-        @csidcache = csidcache
         @xpath = {}
       end
 
