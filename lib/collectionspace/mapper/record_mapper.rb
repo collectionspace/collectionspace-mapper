@@ -15,13 +15,12 @@ module CollectionSpace
     # :reek:InstanceVariableAssumption - instance variable gets set by convert
     class RecordMapper
       attr_reader :config,
-        :xml_template, :csclient
+        :xml_template
       attr_accessor :xpath
 
       def initialize(
         mapper:,
-        batchconfig: CollectionSpace::Mapper.batchconfig,
-        csclient: CollectionSpace::Mapper.client
+        batchconfig: CollectionSpace::Mapper.batchconfig
       )
         CollectionSpace::Mapper.config.recordmapper = self
         @hash = set_hash(mapper)
@@ -35,7 +34,6 @@ module CollectionSpace
           mappings: hash[:mappings]
         )
 
-        @csclient = csclient
         @xpath = {}
       end
 

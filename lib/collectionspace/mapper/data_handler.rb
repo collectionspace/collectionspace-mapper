@@ -16,8 +16,7 @@ module CollectionSpace
 
         CollectionSpace::Mapper::RecordMapper.new(
           mapper: record_mapper,
-          batchconfig: config,
-          csclient: client
+          batchconfig: config
         )
         @mapper = CollectionSpace::Mapper.recordmapper
 
