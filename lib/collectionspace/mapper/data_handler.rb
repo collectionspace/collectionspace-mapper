@@ -14,14 +14,13 @@ module CollectionSpace
         CollectionSpace::Mapper.config.csidcache = csid_cache
         CollectionSpace::Mapper.config.batchconfigraw = config
 
-        mapper = CollectionSpace::Mapper::RecordMapper.new(
+        CollectionSpace::Mapper::RecordMapper.new(
           mapper: record_mapper,
           batchconfig: config,
           csclient: client,
           termcache: cache,
           csidcache: csid_cache
         )
-        CollectionSpace::Mapper.config.recordmapper = mapper
         @mapper = CollectionSpace::Mapper.recordmapper
 
         # initializing the RecordMapper causes app config record config
@@ -109,6 +108,7 @@ module CollectionSpace
         end
       end
 
+      # @todo move to a method on Response
       def map(response, xphash)
         mapper = CollectionSpace::Mapper::DataMapper.new(response, self, xphash)
         result = mapper.response
@@ -134,6 +134,7 @@ module CollectionSpace
         CollectionSpace::Mapper.record.service_type
       end
 
+      # @todo move to a method on Response
       def validate(data)
         validator.validate(data)
       end

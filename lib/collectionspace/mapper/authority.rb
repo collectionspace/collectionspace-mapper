@@ -8,7 +8,7 @@ module CollectionSpace
         [
           {
             fieldname: "shortIdentifier",
-            namespace: @config.common_namespace,
+            namespace: CollectionSpace::Mapper.record.common_namespace,
             data_type: "string",
             xpath: [],
             required: "not in input data",

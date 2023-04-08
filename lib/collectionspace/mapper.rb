@@ -80,6 +80,8 @@ module CollectionSpace
       setting :authority_type, default: nil, reader: true
       setting :document_name, default: nil, reader: true
       setting :identifier_field, default: nil, reader: true
+      # @return [CollectionSpace::Mapper::ColumnMappings, nil]
+      setting :mappings, default: nil, reader: true
       setting :ns_uri, default: nil, reader: true
       setting :object_name, default: nil, reader: true
       setting :profile_basename, default: nil, reader: true
@@ -88,7 +90,11 @@ module CollectionSpace
       setting :service_name, default: nil, reader: true
       setting :service_path, default: nil, reader: true
       setting :service_type, default: nil, reader: true
+      # @return [Constant, nil] mixin module containing behaviors for certain
+      #   service types
+      setting :service_type_mixin, default: nil, reader: true
       setting :version, default: nil, reader: true
+      setting :xml_template, default: nil, reader: true
 
       setting :namespaces, default: nil, reader: true,
         constructor: ->(value){ CollectionSpace::Mapper.record.ns_uri.keys }

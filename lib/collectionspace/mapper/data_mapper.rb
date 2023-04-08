@@ -17,7 +17,7 @@ module CollectionSpace
         @xphash = xphash
 
         @data = @response.combined_data
-        @doc = CollectionSpace::Mapper.recordmapper.xml_template.blankdoc
+        @doc = CollectionSpace::Mapper.record.xml_template.dup
         @cache = CollectionSpace::Mapper.termcache
 
         @xphash.each { |xpath, hash| map(xpath, hash) }

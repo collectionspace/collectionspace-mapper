@@ -4,39 +4,60 @@ require "collectionspace/mapper/tools/symbolizable"
 
 module CollectionSpace
   module Mapper
-    # Represents a JSON RecordMapper containing the config, field mappings, and
-    #   template for transforming a hash of data into CollectionSpace XML
-    # The RecordMapper bundles up all the info needed by various other classes
-    #   in order to transform and map incoming data into CollectionSpace XML,
-    #   so it gets passed around to everything as a kind of
-    #   mondo-configuration-object, which is probably terrible OOD but better
-    #   than what I had before?
+    # Parses JSON RecordMapper given at app instantiation, and uses it to set
+    #   {CollectionSpace::Mapper.record} config options
+    #
+    # For each record type, there is a JSON RecordMapper containing the config,
+    #   field mappings, and template for transforming a hash of data into
+    #   CollectionSpace XML
 
     # :reek:Attribute - when I get rid of xphash, this will go away
     # :reek:InstanceVariableAssumption - instance variable gets set by convert
     class RecordMapper
-      include Tools::Symbolizable
+#      include Tools::Symbolizable
 
       attr_reader :config, :termcache, :csidcache, :mappings,
         :xml_template, :csclient
       attr_accessor :xpath
 
-      def initialize(opts)
-        jhash = if opts[:mapper].is_a?(Hash)
-          opts[:mapper]
-        else
-          JSON.parse(opts[:mapper])
-        end
-        convert(jhash)
-        @csclient = opts[:csclient]
-        @termcache = opts[:termcache]
-        @csidcache = opts[:csidcache]
-#        @batchconfig = CollectionSpace::Mapper.batchconfig
+      def initialize(
+        mapper:,
+        termcache: CollectionSpace::Mapper.termcache,
+        csidcache: CollectionSpace::Mapper.csidcache,
+        batchconfig: CollectionSpace::Mapper.batchconfig,
+        csclient: CollectionSpace::Mapper.client
+      )
+        CollectionSpace::Mapper.config.recordmapper = self
+        @hash = set_hash(mapper)
+        @config = CollectionSpace::Mapper::RecordMapperConfig.new(
+          hash[:config]
+        )
+        CollectionSpace::Mapper.config.record.service_type_mixin =
+          service_type_extension
+        CollectionSpace::Mapper::XmlTemplate.call(hash[:docstructure])
+        @mappings = CollectionSpace::Mapper::ColumnMappings.new(
+          mappings: hash[:mappings]
+        )
+
+        @csclient = csclient
+        @termcache = termcache
+        @csidcache = csidcache
         @xpath = {}
       end
 
       def record_type
         CollectionSpace::Mapper.record.recordtype
+      end
+
+      private
+
+      attr_reader :hash
+
+      def set_hash(mapper)
+        return mapper.transform_keys{ |key| key.to_sym } if mapper.is_a?(Hash)
+
+        JSON.parse(mapper)
+          .transform_keys{ |key| key.to_sym }
       end
 
       # The value returned here is used to enable module extension when creating
@@ -49,21 +70,9 @@ module CollectionSpace
           CollectionSpace::Mapper::Relationship
         when "procedure"
           CollectionSpace::Mapper::Media if record_type == "media"
+        else
+          nil
         end
-      end
-
-      private
-
-      def convert(json)
-        hash = symbolize(json)
-        @config = CollectionSpace::Mapper::RecordMapperConfig.new(hash[:config])
-        @xml_template = CollectionSpace::Mapper::XmlTemplate.new(
-          hash[:docstructure]
-        )
-        @mappings = CollectionSpace::Mapper::ColumnMappings.new(
-          mappings: hash[:mappings],
-          mapper: self
-        )
       end
     end
   end
