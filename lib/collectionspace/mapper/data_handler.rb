@@ -34,15 +34,8 @@ module CollectionSpace
 
         CollectionSpace::Mapper.config.prepper_class = get_prepper_class
 
-        date_handler =
-          CollectionSpace::Mapper::Dates::StructuredDateHandler.new(
-            client: CollectionSpace::Mapper.client,
-            cache: CollectionSpace::Mapper.termcache,
-            csid_cache: CollectionSpace::Mapper.csidcache,
-            config: CollectionSpace::Mapper.batchconfig,
-            searcher: CollectionSpace::Mapper.searcher
-          )
-        CollectionSpace::Mapper.config.date_handler = date_handler
+        CollectionSpace::Mapper.config.date_handler =
+          CollectionSpace::Mapper::Dates::StructuredDateHandler.new
 
         merge_config_transforms
         @new_terms = {}

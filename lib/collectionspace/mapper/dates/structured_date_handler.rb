@@ -6,24 +6,12 @@ module CollectionSpace
       class StructuredDateHandler
         include CollectionSpace::Mapper::TermSearchable
 
-        attr_reader :client, :cache, :config, :searcher
-
-        # @param client [CollectionSpace::Client]
-        # @param cache [CollectionSpace::RefCache]
-        # @param config [CollectionSpace::Mapper::Config]
-        # @todo appconfig delete all args
-        def initialize(
-          client: CollectionSpace::Mapper.client,
-          cache: CollectionSpace::Mapper.termcache,
-          csid_cache: CollectionSpace::Mapper.csidcache,
-          config: CollectionSpace::Mapper.batchconfig,
-          searcher: CollectionSpace::Mapper.searcher
-        )
-          @client = client
-          @cache = cache
-          @csid_cache = csid_cache
-          @config = config
-          @searcher = searcher
+        def initialize
+          @client = CollectionSpace::Mapper.client
+          @cache = CollectionSpace::Mapper.termcache
+          @csid_cache = CollectionSpace::Mapper.csidcache
+          @config = CollectionSpace::Mapper.batchconfig
+          @searcher = CollectionSpace::Mapper.searcher
         end
 
         def ce
@@ -69,6 +57,8 @@ module CollectionSpace
         end
 
         private
+
+        attr_reader :client, :cache, :config, :searcher
 
         # @todo memowise this and other methods?
         def date_formats
