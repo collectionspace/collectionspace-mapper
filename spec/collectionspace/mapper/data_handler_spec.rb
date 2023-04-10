@@ -247,7 +247,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
     let(:data) { {"objectNumber" => "123"} }
     let(:prepper){ CollectionSpace::Mapper.prepper_class.new(data) }
     let(:prepped) { handler.prep(data).response }
-    let(:result) { handler.map(prepped, prepper.xphash) }
+    let(:result) { handler.map(prepped) }
 
     it "returns CollectionSpace::Mapper::Response object" do
       expect(result).to be_a(CollectionSpace::Mapper::Response)

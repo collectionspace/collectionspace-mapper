@@ -3,17 +3,11 @@
 module CollectionSpace
   module Mapper
     class DataMapper
-      attr_reader :handler, :xpaths
+      attr_reader :xpaths
       attr_accessor :doc, :response
 
-      # @todo appconfig remove handler arg
-      def initialize(
-        response,
-        handler = CollectionSpace::Mapper.data_handler,
-        xphash = nil
-      )
+      def initialize(response)
         @response = response
-        @handler = handler
         @xpaths = response.xphash
 
         @data = @response.combined_data
