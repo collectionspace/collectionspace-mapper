@@ -8,8 +8,12 @@ module CollectionSpace
         :combined_data, :errors, :warnings, :identifier, :terms,
         :record_status, :csid, :uri, :refname
 
-      def initialize(data_hash)
+      def initialize(
+        data_hash,
+        status_checker = CollectionSpace::Mapper.status_checker
+      )
         @orig_data = data_hash
+        @status_checker = status_checker
         @merged_data = {}
         @split_data = {}
         @transformed_data = {}
@@ -33,15 +37,20 @@ module CollectionSpace
         @xphash = hash
       end
 
-      def merge_status_data(status_data)
-        @record_status = status_data[:status]
-        @csid = status_data[:csid]
-        @uri = status_data[:uri]
-        @refname = status_data[:refname]
-      end
-
       def valid?
         @errors.empty?
+      end
+
+      def set_record_status
+        if CollectionSpace::Mapper.batch.check_record_status
+          result = status_checker.call(self)
+          @record_status = result[:status]
+          @csid = result[:csid]
+          @uri = result[:uri]
+          @refname = result[:refname]
+        else
+          @record_status = :new
+        end
       end
 
       def normal
@@ -68,6 +77,10 @@ module CollectionSpace
           message: msg
         }
       end
+
+      private
+
+      attr_reader :status_checker
     end
   end
 end

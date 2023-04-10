@@ -73,6 +73,7 @@ module CollectionSpace
     # @return [CollectionSpace::Mapper::DataHandler, nil] class that sets up
     #   everything for procesing a batch
     setting :data_handler, default: nil, reader: true
+    setting :status_checker, default: nil, reader: true
 
     setting :record, reader: true do
       setting :authority_subtype, default: nil, reader: true

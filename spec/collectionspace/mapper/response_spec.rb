@@ -9,7 +9,56 @@ RSpec.describe CollectionSpace::Mapper::Response do
     CollectionSpace::Mapper.data_handler
   end
 
+  describe "#set_record_status" do
+    let(:checker){ double('Checker') }
+    let(:response){ described_class.new(data, checker) }
+    let(:data){ { field: 'foo'} }
+
+    context "when new" do
+      it "sets status as expected" do
+        allow(checker).to receive(:call).and_return(
+          {status: :new}
+        )
+        response.set_record_status
+        expect(response.record_status).to eq(:new)
+        expect(response.csid).to be_nil
+      end
+    end
+
+    context "when existing" do
+      it "sets status as expected" do
+        allow(checker).to receive(:call).and_return(
+          {
+            status: :existing,
+            csid: 'csid',
+            uri: 'uri',
+            refname: 'refname'
+          }
+        )
+        response.set_record_status
+        expect(response.record_status).to eq(:existing)
+        expect(response.csid).to eq('csid')
+        expect(response.uri).to eq('uri')
+        expect(response.refname).to eq('refname')
+      end
+    end
+
+    context "when checking is turned off" do
+      before do
+        CollectionSpace::Mapper.config.batch.check_record_status = false
+      end
+
+      it "sets status as expected" do
+        response.set_record_status
+        expect(response.record_status).to eq(:new)
+        expect(response.csid).to be_nil
+      end
+    end
+  end
+
   describe "#valid?" do
+    let(:response) { handler.validate(data) }
+
     before do
       setup_handler(
         profile: 'botgarden',
@@ -18,8 +67,6 @@ RSpec.describe CollectionSpace::Mapper::Response do
       )
       CollectionSpace::Mapper.config.batch.delimiter = ';'
     end
-
-    let(:response) { handler.validate(data) }
 
     context "when there are no errors" do
       let(:data) { {"termDisplayName" => "Tanacetum"} }
