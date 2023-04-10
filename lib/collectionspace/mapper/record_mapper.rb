@@ -13,7 +13,6 @@ module CollectionSpace
     # :reek:InstanceVariableAssumption - instance variable gets set by convert
     class RecordMapper
       attr_reader :config
-      attr_accessor :xpath
 
       # @param mapper [String, Hash] parseable JSON string or already-parsed Hash
       #   from JSON
@@ -29,8 +28,6 @@ module CollectionSpace
         CollectionSpace::Mapper::ColumnMappings.new(
           mappings: hash[:mappings]
         )
-
-        @xpath = CollectionSpace::Mapper.record.xpaths
       end
 
       def record_type
