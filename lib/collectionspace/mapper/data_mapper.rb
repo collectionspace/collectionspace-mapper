@@ -2,10 +2,12 @@
 
 module CollectionSpace
   module Mapper
+    # Creates XML document from prepped data
     class DataMapper
-      attr_reader :xpaths
-      attr_accessor :doc, :response
+      attr_reader :response
 
+      # @param response [CollectionSpace::Mapper::Response] responding to
+      #   `#xphash` and `#combined_data`
       def initialize(response)
         @response = response
         @xpaths = response.xphash
@@ -15,15 +17,19 @@ module CollectionSpace
         @cache = CollectionSpace::Mapper.termcache
 
         xpaths.values.each { |xpath| map(xpath) }
-        add_short_id if CollectionSpace::Mapper.record.service_type == "authority"
+        if CollectionSpace::Mapper.record.service_type == "authority"
+          add_short_id
+        end
         set_response_identifier
         clean_doc
         defuse_bomb
         add_namespaces
-        @response.doc = @doc
+        response.add_doc(doc)
       end
 
       private
+
+      attr_reader :xpaths, :doc
 
       def set_response_identifier
         if CollectionSpace::Mapper.record.service_type == "relation"

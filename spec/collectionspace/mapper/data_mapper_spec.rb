@@ -235,13 +235,6 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
       end
       let(:datahash) { anthro_co_1 }
 
-      describe "#doc" do
-        let(:result) { datamapper.doc }
-        it "returns XML doc" do
-          expect(result).to be_a(Nokogiri::XML::Document)
-        end
-      end
-
       describe "#response" do
         it "returns CollectionSpace::Mapper::Response object" do
           expect(response).to be_a(CollectionSpace::Mapper::Response)
@@ -256,7 +249,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
           urihash = CollectionSpace::Mapper.record.ns_uri.clone
           urihash.transform_keys! { |k| "ns2:#{k}" }
           docdefs = {}
-          datamapper.doc.xpath("/*/*").each do |ns|
+          datamapper.response.doc.xpath("/*/*").each do |ns|
             docdefs[ns.name] = ns.namespace_definitions.find { |d|
               d.prefix == "ns2"
             }.href
