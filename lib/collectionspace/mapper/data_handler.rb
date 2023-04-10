@@ -38,9 +38,7 @@ module CollectionSpace
 
         CollectionSpace::Mapper::Searcher.new
 
-        prepper_class = determine_prepper_class
-        CollectionSpace::Mapper.config.prepper_class = prepper_class
-        @prepper_class = CollectionSpace::Mapper.prepper_class
+        CollectionSpace::Mapper.config.prepper_class = get_prepper_class
 
         date_handler =
           CollectionSpace::Mapper::Dates::StructuredDateHandler.new(
@@ -70,7 +68,7 @@ module CollectionSpace
         end
       end
 
-      def determine_prepper_class
+      def get_prepper_class
         case CollectionSpace::Mapper.record.recordtype
         when "authorityhierarchy"
           CollectionSpace::Mapper::AuthorityHierarchyPrepper
@@ -89,7 +87,7 @@ module CollectionSpace
           CollectionSpace::Mapper.batchconfig
         )
         if response.valid?
-          prepper_class.new(response).prep
+          get_prepper_class.new(response).prep
         else
           response
         end
@@ -141,7 +139,7 @@ module CollectionSpace
 
       private
 
-      attr_reader :validator, :prepper_class
+      attr_reader :validator
 
       def set_record_status(response)
         response.merge_status_data(@status_checker.call(response))
