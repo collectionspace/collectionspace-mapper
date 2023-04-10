@@ -5,15 +5,10 @@ module CollectionSpace
     # Checks incoming data before mapping to ensure the necessary data is
     #   present to do the mapping
     class DataValidator
-      attr_reader :mapper, :cache, :required_fields
+      attr_reader :required_fields
 
       # @todo appconfig remove record_mapper, cache arguments
-      def initialize(
-        record_mapper = CollectionSpace::Mapper.recordmapper,
-        cache = CollectionSpace::Mapper.termcache
-      )
-        @mapper = record_mapper
-        @cache = cache
+      def initialize
         @id_field = get_id_field
         @required_mappings = CollectionSpace::Mapper.record.mappings
           .required_columns
