@@ -46,7 +46,7 @@ module CollectionSpace
 
         merge_config_transforms
         @new_terms = {}
-        @status_checker =
+        CollectionSpace::Mapper.config.status_checker =
           CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder.call
         CollectionSpace::Mapper.config.data_handler = self
       end
@@ -91,11 +91,7 @@ module CollectionSpace
         mapper = CollectionSpace::Mapper::DataMapper.new(response)
         result = mapper.response
         tag_terms(result)
-        if CollectionSpace::Mapper.batch.check_record_status
-          set_record_status(result)
-        else
-          result.record_status = :new
-        end
+        result.set_record_status
         (CollectionSpace::Mapper.batch.response_mode == "normal") ? result.normal : result
       end
 
@@ -134,10 +130,6 @@ module CollectionSpace
       private
 
       attr_reader :validator
-
-      def set_record_status(response)
-        response.merge_status_data(@status_checker.call(response))
-      end
 
       def tag_terms(result)
         terms = result.terms
