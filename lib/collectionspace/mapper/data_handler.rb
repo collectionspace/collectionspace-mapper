@@ -6,8 +6,6 @@ module CollectionSpace
     #   document
     # @todo Manipulation of recordmapper's xpath_hash belongs on recordmapper
     class DataHandler
-      attr_reader :date_handler, :mapper
-
       def initialize(record_mapper:, client:, cache:, csid_cache:, config: {})
         CollectionSpace::Mapper.config.client = client
         CollectionSpace::Mapper.config.termcache = cache
@@ -17,7 +15,6 @@ module CollectionSpace
         CollectionSpace::Mapper::RecordMapper.new(
           mapper: record_mapper
         )
-        @mapper = CollectionSpace::Mapper.recordmapper
         CollectionSpace::Mapper::Xpaths.new
 
         # initializing the RecordMapper causes app config record config
@@ -49,7 +46,6 @@ module CollectionSpace
             searcher: CollectionSpace::Mapper.searcher
           )
         CollectionSpace::Mapper.config.date_handler = date_handler
-        @date_handler = date_handler
 
         merge_config_transforms
         @new_terms = {}
@@ -120,7 +116,8 @@ module CollectionSpace
         CollectionSpace::Mapper.record.service_type
       end
 
-      # @todo move to a method on Response
+      # Called by CSV Importer preprocessing step
+      # @param data [Hash, CollectionSpace::Mapper::Response]
       def validate(data)
         validator.validate(data)
       end
