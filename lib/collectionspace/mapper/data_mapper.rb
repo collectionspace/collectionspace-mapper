@@ -11,10 +11,7 @@ module CollectionSpace
       def initialize(response)
         @response = response
         @xpaths = response.xphash
-
-        @data = @response.combined_data
         @doc = CollectionSpace::Mapper.record.xml_template.dup
-        @cache = CollectionSpace::Mapper.termcache
 
         xpaths.values.each { |xpath| map(xpath) }
         if CollectionSpace::Mapper.record.service_type == "authority"
@@ -40,26 +37,26 @@ module CollectionSpace
             mapper.fieldname == id_field
           }
           thexpath = "//#{mapping.namespace}/#{mapping.fieldname}"
-          value = @doc.xpath(thexpath).first
+          value = doc.xpath(thexpath).first
           value = value.text
-          @response.identifier = value
+          response.identifier = value
         end
       end
 
       def set_relation_id
         case CollectionSpace::Mapper.record.object_name
         when "Object Hierarchy Relation"
-          narrow = @response.orig_data["narrower_object_number"]
-          broad = @response.orig_data["broader_object_number"]
-          @response.identifier = "#{broad} > #{narrow}"
+          narrow = response.orig_data["narrower_object_number"]
+          broad = response.orig_data["broader_object_number"]
+          response.identifier = "#{broad} > #{narrow}"
         end
       end
 
       def add_short_id
-        term = @response.transformed_data["termdisplayname"][0]
+        term = response.transformed_data["termdisplayname"][0]
         ns = CollectionSpace::Mapper.record.common_namespace
-        targetnode = @doc.xpath("/document/#{ns}").first
-        child = Nokogiri::XML::Node.new("shortIdentifier", @doc)
+        targetnode = doc.xpath("/document/#{ns}").first
+        child = Nokogiri::XML::Node.new("shortIdentifier", doc)
         child.content =
           CollectionSpace::Mapper::Identifiers::AuthorityShortIdentifier.new(
             term: term
@@ -68,8 +65,8 @@ module CollectionSpace
       end
 
       def map(xpath)
-        thisdata = @data[xpath.path]
-        targetnode = @doc.xpath("//#{xpath.path}")[0]
+        thisdata = response.combined_data[xpath.path]
+        targetnode = doc.xpath("//#{xpath.path}")[0]
         if xpath.is_group? == false
           simple_map(xpath, targetnode, thisdata)
         elsif xpath.is_group? == true && xpath.is_subgroup? == false
@@ -80,20 +77,20 @@ module CollectionSpace
       end
 
       def clean_doc
-        @doc.traverse do |node|
+        doc.traverse do |node|
           node.remove if node.text == "%NULLVALUE%"
           node.remove unless node.text.match?(/\S/m)
         end
       end
 
       def defuse_bomb
-        @doc.traverse do |node|
+        doc.traverse do |node|
           node.content = "" if node.text == CollectionSpace::Mapper.bomb
         end
       end
 
       def add_namespaces
-        @doc.xpath("/*/*").each do |section|
+        doc.xpath("/*/*").each do |section|
           fetchuri = CollectionSpace::Mapper.record.ns_uri[section.name]
           uri = fetchuri.nil? ? "http://no.uri.found" : fetchuri
           section.add_namespace_definition(
@@ -111,7 +108,7 @@ module CollectionSpace
       def map_structured_date(groupname, hash)
         target = groupname
         hash.each do |fieldname, value|
-          child = Nokogiri::XML::Node.new(fieldname, @doc)
+          child = Nokogiri::XML::Node.new(fieldname, doc)
           child.content = value
           target.add_child(child)
         end
@@ -128,7 +125,7 @@ module CollectionSpace
 
       def populate_simple_field_data(field_name, data, parent)
         data.each do |val|
-          child = Nokogiri::XML::Node.new(field_name, @doc)
+          child = Nokogiri::XML::Node.new(field_name, doc)
           if val.is_a?(Hash)
             map_structured_date(child, val)
           else
@@ -142,7 +139,7 @@ module CollectionSpace
         data.each do |field, values|
           next unless values[index]
 
-          child = Nokogiri::XML::Node.new(field, @doc)
+          child = Nokogiri::XML::Node.new(field, doc)
           if values[index].is_a?(Hash)
             map_structured_date(child, values[index])
           else
@@ -156,7 +153,7 @@ module CollectionSpace
       def populate_subgroup_field_data(field, data, target)
         data.each_with_index do |val, subgroup_index|
           parent = target[subgroup_index]
-          child = Nokogiri::XML::Node.new(field, @doc)
+          child = Nokogiri::XML::Node.new(field, doc)
           if val.is_a?(Hash)
             map_structured_date(child, val)
           else
@@ -167,7 +164,7 @@ module CollectionSpace
       end
 
       def subgrouplist_target(parent_path, group_index, subgroup_path, subgroup)
-        grp_target = @doc.xpath("//#{parent_path}")[group_index]
+        grp_target = doc.xpath("//#{parent_path}")[group_index]
         target_xpath = "#{subgroup_path.join("/")}/#{subgroup}"
         grp_target.xpath(target_xpath)
       end
@@ -187,13 +184,13 @@ module CollectionSpace
 
         max_ct = thisdata.values.map { |v| v.size }.max
         max_ct.times do
-          group = Nokogiri::XML::Node.new(groupname, @doc)
+          group = Nokogiri::XML::Node.new(groupname, doc)
           pnode.add_child(group)
         end
 
         max_ct.times do |i|
           path = "//#{xpath}"
-          populate_group_field_data(i, thisdata, @doc.xpath(path)[i])
+          populate_group_field_data(i, thisdata, doc.xpath(path)[i])
         end
       end
 
@@ -246,7 +243,7 @@ module CollectionSpace
         target = grp[:parent]
         unless subgroup_path.empty?
           subgroup_path.each do |segment|
-            child = Nokogiri::XML::Node.new(segment, @doc)
+            child = Nokogiri::XML::Node.new(segment, doc)
             target.add_child(child)
             target = child
           end
@@ -275,7 +272,7 @@ module CollectionSpace
 
       def map_subgroup(xpath, thisdata)
         parent_path = xpath.parent
-        parent_set = @doc.xpath("//#{parent_path}")
+        parent_set = doc.xpath("//#{parent_path}")
         subgroup_path = xpath.mappings[0].fullpath.gsub(
           "#{xpath.parent}/", ""
         ).split("/")
@@ -311,8 +308,8 @@ module CollectionSpace
 
         groups.each do |i, _data|
           max_ct.times do
-            target = @doc.xpath("//#{parent_path}/#{subgroup_path.join("/")}")
-            target[i].add_child(Nokogiri::XML::Node.new(subgroup, @doc))
+            target = doc.xpath("//#{parent_path}/#{subgroup_path.join("/")}")
+            target[i].add_child(Nokogiri::XML::Node.new(subgroup, doc))
           end
         end
 
