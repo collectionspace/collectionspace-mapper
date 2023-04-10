@@ -6,7 +6,7 @@ module CollectionSpace
     #   document
     # @todo Manipulation of recordmapper's xpath_hash belongs on recordmapper
     class DataHandler
-      attr_reader :date_handler, :searcher, :mapper
+      attr_reader :date_handler, :mapper
 
       def initialize(record_mapper:, client:, cache:, csid_cache:, config: {})
         CollectionSpace::Mapper.config.client = client
@@ -37,7 +37,6 @@ module CollectionSpace
         @validator = validator
 
         CollectionSpace::Mapper::Searcher.new
-        @searcher = CollectionSpace::Mapper.searcher
 
         prepper_class = determine_prepper_class
         CollectionSpace::Mapper.config.prepper_class = prepper_class

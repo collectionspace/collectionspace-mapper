@@ -188,8 +188,7 @@ module CollectionSpace
       end
 
       def transform_value(value, transforms, column)
-        vt = CollectionSpace::Mapper::ValueTransformer.new(value, transforms,
-          self)
+        vt = CollectionSpace::Mapper::ValueTransformer.new(value, transforms)
         unless vt.warnings.empty?
           vt.warnings.each { |w| w[:field] = column }
           @response.warnings << vt.warnings
