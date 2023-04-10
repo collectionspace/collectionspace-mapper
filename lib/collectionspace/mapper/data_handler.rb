@@ -65,9 +65,9 @@ module CollectionSpace
         prepped = prep(data)
         case CollectionSpace::Mapper.record.recordtype
         when "nonhierarchicalrelationship"
-          prepped.responses.map { |response| map(response, prepped.xphash) }
+          prepped.responses.map { |response| map(response) }
         else
-          map(prepped.response, prepped.xphash)
+          map(prepped.response)
         end
       end
 
@@ -97,8 +97,8 @@ module CollectionSpace
       end
 
       # @todo move to a method on Response
-      def map(response, xphash)
-        mapper = CollectionSpace::Mapper::DataMapper.new(response, self, xphash)
+      def map(response)
+        mapper = CollectionSpace::Mapper::DataMapper.new(response)
         result = mapper.response
         tag_terms(result)
         if CollectionSpace::Mapper.batch.check_record_status

@@ -4,7 +4,7 @@ require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::DataMapper do
   subject(:datamapper) {
-    described_class.new(prepper.prep.response, prepper.xphash)
+    described_class.new(prepper.prep.response)
   }
 
   after{ CollectionSpace::Mapper.reset_config }
@@ -59,8 +59,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
         CollectionSpace::Mapper.prepper_class.new(d)
       }
       mappers = preppers.map do |prepper|
-        CollectionSpace::Mapper::DataMapper.new(prepper.prep.response,
-                                                prepper.xphash)
+        CollectionSpace::Mapper::DataMapper.new(prepper.prep.response)
       end
       docs = mappers.map { |mapper| remove_namespaces(mapper.response.doc) }
       docxpaths = docs.map { |doc| list_xpaths(doc) }
