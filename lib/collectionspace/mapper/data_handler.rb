@@ -26,10 +26,7 @@ module CollectionSpace
             record_type: CollectionSpace::Mapper.record.recordtype
           )
 
-        validator = CollectionSpace::Mapper::DataValidator.new(
-          CollectionSpace::Mapper.recordmapper,
-          CollectionSpace::Mapper.termcache
-        )
+        validator = CollectionSpace::Mapper::DataValidator.new
         CollectionSpace::Mapper.config.validator = validator
         @validator = validator
 
