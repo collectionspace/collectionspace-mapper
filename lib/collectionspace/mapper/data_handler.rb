@@ -108,10 +108,6 @@ module CollectionSpace
         validator.validate(data)
       end
 
-      def mappings
-        CollectionSpace::Mapper.record.mappings
-      end
-
       def to_s
         rectype = CollectionSpace::Mapper.record.recordtype
         uri = CollectionSpace::Mapper.client.config.base_uri
