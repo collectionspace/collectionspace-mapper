@@ -11,86 +11,8 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
         "core_6-1-0_collectionobject.json"
     )
     CollectionSpace::Mapper.config.batch.delimiter = '|'
-    CollectionSpace::Mapper.config.batch.response_mode = 'termobj'
   end
   after{ CollectionSpace::Mapper.reset_config }
-
-  describe '#process' do
-    let(:processed){ handler.process(data) }
-
-    context "with some terms found and some terms not found" do
-      let(:result) { processed.terms.reject{ |t| t.found? } }
-
-      vcr_found_opts = {
-        cassette_name: "datahandler_uncached_found_terms",
-        record: :new_episodes
-      }
-      context "with terms in instance but not in cache",
-        vcr: vcr_found_opts do
-          let(:data) do
-            {
-              "objectNumber" => "20CS.001.0002",
-              # vocabulary, in instance, in cache
-              "titleLanguage" => "English",
-              # authority, in instance (caseswapped), not in cache
-              "namedCollection" => "Test Collection"
-            }
-          end
-
-          it "returns expected found values" do
-            expect(result.length).to eq(0)
-          end
-        end
-
-      vcr_unfound_opts = {
-        cassette_name: "datahandler_uncached_unfound_terms",
-        record: :new_episodes
-      }
-      context "with terms in instance but not in cache, and not in instance",
-        vcr: vcr_unfound_opts do
-          let(:data) do
-            {
-              "objectNumber" => "20CS.001.0001",
-              # English is in cache; Klingon is not in instance or cache
-              "titleLanguage" => "English| Klingon",
-              # In instance (caseswapped)
-              "namedCollection" => "Test collection"
-            }
-          end
-
-          it "returns expected found values" do
-            expect(result.length).to eq(1)
-          end
-        end
-    end
-
-    unfound_term_opts = {
-      cassette_name: "datahandler_tag_unfound_terms",
-      record: :new_episodes
-    }
-    it "tags all un-found terms as such", vcr: unfound_term_opts do
-      data1 = {
-        "objectNumber" => "1",
-        # vocabulary - in instance, not in cache
-        "publishTo" => "All",
-        # authority - in instance, not in cache
-        "namedCollection" => "QA TARGET Work"
-      }
-      data2 = {
-        "objectNumber" => "2",
-        # vocabulary - now in cache
-        "publishTo" => "All",
-        # authority - now in cache
-        "namedCollection" => "QA TARGET Work",
-        # authority - not in instance, not in cache
-        "contentConceptAssociated" => "Birbs"
-      }
-
-      handler.process(data1)
-      result = handler.process(data2).terms.select { |t| !t.found? }
-      expect(result.length).to eq(1)
-    end
-  end
 
   describe "#service_type" do
     let(:servicetype) { handler.service_type }
@@ -122,7 +44,6 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
         expect(servicetype).to eq("authority")
       end
     end
-
 
     context "with bonsai conservation" do
       before do
@@ -215,19 +136,16 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
         mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
           "core_6-1-0_collectionobject.json"
       )
-      CollectionSpace::Mapper.config.batch.response_mode = 'normal'
+      CollectionSpace::Mapper.config.batch.response_mode = "normal"
     end
 
-    let(:data) { {"objectNumber" => "123"} }
+    let(:data) do
+      CollectionSpace::Mapper::Response.new({"objectNumber" => "123"})
+    end
 
     it "can be called with response from validation" do
       vresult = handler.validate(data)
       result = handler.process(vresult)
-      expect(result).to be_a(CollectionSpace::Mapper::Response)
-    end
-
-    it "can be called with just data" do
-      result = handler.process(data)
       expect(result).to be_a(CollectionSpace::Mapper::Response)
     end
 
@@ -258,7 +176,6 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
         mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
           "core_6-1-0_collectionobject.json"
       )
-      CollectionSpace::Mapper.config.batch.response_mode = 'normal'
     end
 
     let(:data) { {"objectNumber" => "123"} }

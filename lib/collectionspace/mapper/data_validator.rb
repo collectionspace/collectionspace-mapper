@@ -21,16 +21,11 @@ module CollectionSpace
         end
       end
 
-      def validate(data)
-        response = CollectionSpace::Mapper.setup_data(
-          data,
-          CollectionSpace::Mapper.batchconfig
-        )
-        if response.valid?
-          data = response.merged_data.transform_keys!(&:downcase)
+      def validate(response)
+        if response.errors.empty?
+          data = response.merged_data
           res = check_required_fields(data) unless @required_fields.empty?
-          response.errors << res
-          response.errors = response.errors.flatten.compact
+          response.add_error(res)
         end
         response
       end

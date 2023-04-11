@@ -25,21 +25,9 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
   end
 
   describe "#validate" do
-    let(:response) { validator.validate(data) }
-
-    context "with single possible required field (object)" do
-      before do
-        setup_handler(
-          profile: 'anthro',
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
-            "anthro_4-1-2_collectionobject.json"
-        )
-      end
-      let(:data) { {"objectNumber" => "123"} }
-
-      it "returns a CollectionSpace::Mapper::Response" do
-        expect(response).to be_a(CollectionSpace::Mapper::Response)
-      end
+    let(:response) do
+      to_r = CollectionSpace::Mapper::setup_data(data)
+      validator.validate(to_r)
     end
 
     context "when recordtype has multiple required fields (movement)" do
@@ -124,10 +112,7 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
           raw = get_datahash(
             path: "spec/fixtures/files/datahashes/core/authorityHierarchy1.json"
           )
-          CollectionSpace::Mapper.setup_data(
-            raw,
-            CollectionSpace::Mapper.batchconfig
-          )
+          CollectionSpace::Mapper::Response.new(raw)
         end
 
         it "no required field error returned", services_call: true do

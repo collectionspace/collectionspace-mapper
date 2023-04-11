@@ -39,7 +39,7 @@ module CollectionSpace
           thexpath = "//#{mapping.namespace}/#{mapping.fieldname}"
           value = doc.xpath(thexpath).first
           value = value.text
-          response.identifier = value
+          response.add_identifier(value)
         end
       end
 
@@ -48,7 +48,7 @@ module CollectionSpace
         when "Object Hierarchy Relation"
           narrow = response.orig_data["narrower_object_number"]
           broad = response.orig_data["broader_object_number"]
-          response.identifier = "#{broad} > #{narrow}"
+          response.add_identifier("#{broad} > #{narrow}")
         end
       end
 
@@ -201,7 +201,7 @@ module CollectionSpace
       def add_uneven_subgroup_warning(parent_path:, intervening_path:,
                                       subgroup:)
         sgpath = "#{parent_path}/#{intervening_path.join("/")}/#{subgroup}"
-        response.warnings << {
+        response.add_warning({
           category: :uneven_subgroup_field_values,
           field: nil,
           type: nil,
@@ -209,13 +209,13 @@ module CollectionSpace
           value: nil,
           message: "Fields in subgroup #{sgpath} have different numbers of "\
             "values"
-        }
+        })
       end
 
       def add_too_many_subgroups_warning(parent_path:, intervening_path:,
                                          subgroup:)
         sgpath = "#{intervening_path.join("/")}/#{subgroup}"
-        response.warnings << {
+        response.add_warning({
           category: :subgroup_contains_data_for_nonexistent_groups,
           field: nil,
           type: nil,
@@ -229,7 +229,7 @@ module CollectionSpace
             "(#{CollectionSpace::Mapper.batch.delimiter}) instead of the "\
             "subgroup delimiter "\
             "(#{CollectionSpace::Mapper.batch.subgroup_delimiter})"
-        }
+        })
       end
 
       def group_accommodates_subgroup?(groupdata, subgroupdata)
