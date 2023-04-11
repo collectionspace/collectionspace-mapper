@@ -53,11 +53,21 @@ module CollectionSpace
         end
       end
 
+      def tag_terms
+        return if terms.empty?
+
+        record_new_missing_terms
+        # unless cached_unknown_terms.empty?
+        #   mark_cached_unknown_terms_as_not_found
+        # end
+      end
+
       def normal
         @merged_data = {}
         @split_data = {}
         @transformed_data = {}
         @combined_data = {}
+        @terms = @terms.map(&:to_h)
         self
       end
 
@@ -81,6 +91,31 @@ module CollectionSpace
       private
 
       attr_reader :status_checker
+
+      def cached_unknown_terms
+        found_terms.select do |term|
+          CollectionSpace::Mapper.new_terms.key?(term.key)
+        end
+      end
+
+      def found_terms
+        terms.select{ |term| term.found? }
+      end
+
+      # # @todo this should be
+      # def mark_cached_unknown_terms_as_not_found
+      #   cached_unknown_terms.each{ |term| !term.found? }
+      # end
+
+      def missing_terms
+        terms.select{ |term| !term.found? }
+      end
+
+      def record_new_missing_terms
+        missing_terms.each do |term|
+          CollectionSpace::Mapper.new_terms[term.key] = nil
+        end
+      end
     end
   end
 end

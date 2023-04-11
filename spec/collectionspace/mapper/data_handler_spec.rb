@@ -11,6 +11,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
         "core_6-1-0_collectionobject.json"
     )
     CollectionSpace::Mapper.config.batch.delimiter = '|'
+    CollectionSpace::Mapper.config.batch.response_mode = 'termobj'
   end
   after{ CollectionSpace::Mapper.reset_config }
 
@@ -18,7 +19,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
     let(:processed){ handler.process(data) }
 
     context "with some terms found and some terms not found" do
-      let(:result) { processed.terms.reject { |t| t[:found] } }
+      let(:result) { processed.terms.reject{ |t| t.found? } }
 
       vcr_found_opts = {
         cassette_name: "datahandler_uncached_found_terms",
@@ -86,7 +87,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
       }
 
       handler.process(data1)
-      result = handler.process(data2).terms.select { |t| t[:found] == false }
+      result = handler.process(data2).terms.select { |t| !t.found? }
       expect(result.length).to eq(1)
     end
   end
@@ -209,6 +210,14 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
   end
 
   describe "#process", vcr: "datahandler_process_and_map" do
+    before do
+      setup_handler(
+        mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+          "core_6-1-0_collectionobject.json"
+      )
+      CollectionSpace::Mapper.config.batch.response_mode = 'normal'
+    end
+
     let(:data) { {"objectNumber" => "123"} }
 
     it "can be called with response from validation" do
@@ -244,6 +253,14 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
   end
 
   describe "#map", vcr: "datahandler_process_and_map" do
+    before do
+      setup_handler(
+        mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
+          "core_6-1-0_collectionobject.json"
+      )
+      CollectionSpace::Mapper.config.batch.response_mode = 'normal'
+    end
+
     let(:data) { {"objectNumber" => "123"} }
     let(:prepper){ CollectionSpace::Mapper.prepper_class.new(data) }
     let(:prepped) { handler.prep(data).response }

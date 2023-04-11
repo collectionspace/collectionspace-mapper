@@ -83,7 +83,7 @@ module CollectionSpace
       def map(response)
         mapper = CollectionSpace::Mapper::DataMapper.new(response)
         result = mapper.response
-        tag_terms(result)
+        result.tag_terms
         result.set_record_status
         (CollectionSpace::Mapper.batch.response_mode == "normal") ? result.normal : result
       end
@@ -123,20 +123,6 @@ module CollectionSpace
       private
 
       attr_reader :validator
-
-      def tag_terms(result)
-        terms = result.terms
-        return if terms.empty?
-
-        terms.select { |t| !t[:found] }.each do |term|
-          @new_terms[term[:refname].key] = nil
-        end
-        terms.select { |t| t[:found] }.each do |term|
-          term[:found] = false if @new_terms.key?(term[:refname].key)
-        end
-
-        result.terms = terms
-      end
 
       # you can specify per-data-key transforms in your config.json
       # This method merges the config.json transforms into the

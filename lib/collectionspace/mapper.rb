@@ -74,6 +74,11 @@ module CollectionSpace
     #   everything for procesing a batch
     setting :data_handler, default: nil, reader: true
     setting :status_checker, default: nil, reader: true
+    # @return [Hash] terms used in records which were not found in the CS
+    #   instance. We use a Hash instead of an Array so that we don't have to
+    #   deduplicate final list, or check that we aren't adding a duplicate
+    #   each time we add a value
+    setting :new_terms, default: {}, reader: true
 
     setting :record, reader: true do
       setting :authority_subtype, default: nil, reader: true

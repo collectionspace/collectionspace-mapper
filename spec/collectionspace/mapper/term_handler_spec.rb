@@ -80,11 +80,11 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
       context "when new term (Sanza) is initially encountered" do
         it "returns terms as expected",
           vcr: "term_handler_terms_sanza" do
-            found = terms.select { |h| h[:found] }
-            not_found = terms.select { |h| !h[:found] }
+            found = terms.select { |h| h.found? }
+            not_found = terms.reject { |h| h.found? }
             expect(terms.length).to eq(3)
             expect(found.length).to eq(2)
-            expect(not_found.first[:refname].urn).to eq(
+            expect(not_found.first.urn).to eq(
               "vocabularies|||languages|||Sanza"
             )
           end
@@ -98,7 +98,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
               data: data
             )
 
-            chk = terms.select { |h| h[:found] }
+            chk = terms.select { |h| h.found? }
             expect(chk.length).to eq(2)
           end
       end
@@ -111,13 +111,13 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
       }
 
       context "when new term (Reference 3) is initially encountered" do
-        it "contains a term Hash for each value",
+        it "contains UsedTerm object for each value",
           vcr: "term_handler_terms_ref_multi_used" do
-            found = th.terms.select { |h| h[:found] }
-            not_found = th.terms.select { |h| !h[:found] }
+            found = th.terms.select { |h| h.found? }
+            not_found = th.terms.reject { |h| h.found? }
             expect(terms.length).to eq(3)
             expect(found.length).to eq(0)
-            expect(not_found.first[:refname].display_name).to eq("Reference 3")
+            expect(not_found[0].display_name).to eq("Reference 3")
           end
       end
     end
