@@ -128,24 +128,6 @@ module CollectionSpace
         setting :two_digit_year_handling, default: "coerce", reader: true
     end
 
-
-
-    def setup_data(data, config = Mapper::Config.new)
-      if data.is_a?(Hash)
-        response = Response.new(data)
-      elsif data.is_a?(CollectionSpace::Mapper::Response)
-        response = data
-      else
-        raise CollectionSpace::Mapper::UnprocessableDataError.new(
-          "Cannot process a #{data.class}. Need a Hash or Mapper::Response",
-          data
-        )
-      end
-
-      response.merged_data.empty? ? merge_default_values(response,
-        config) : response
-    end
-
     def merge_default_values(
       data,
       batchconfig = CollectionSpace::Mapper.batchconfig

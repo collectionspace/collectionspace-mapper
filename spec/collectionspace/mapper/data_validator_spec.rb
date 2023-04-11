@@ -26,7 +26,7 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
 
   describe "#validate" do
     let(:response) do
-      to_r = CollectionSpace::Mapper::setup_data(data)
+      to_r = CollectionSpace::Mapper::Response.new(data)
       validator.validate(to_r)
     end
 

@@ -10,12 +10,26 @@ module CollectionSpace
       attr_accessor :split_data, :merged_data, :transformed_data,
         :combined_data
 
+      # @param data [Hash, CollectionSpace::Mapper::Response]
+      def self.new(
+        data,
+        status_checker = CollectionSpace::Mapper.status_checker,
+        validator = CollectionSpace::Mapper.validator
+      )
+        return data if data.is_a?(CollectionSpace::Mapper::Response)
+
+        obj = allocate
+        obj.send(:initialize, data, status_checker, validator)
+        obj
+      end
 
       def initialize(
         data_hash,
         status_checker = CollectionSpace::Mapper.status_checker,
         validator = CollectionSpace::Mapper.validator
       )
+        return data_hash if data_hash.is_a?(Response)
+
         @orig_data = data_hash
         @status_checker = status_checker
         @validator = validator
