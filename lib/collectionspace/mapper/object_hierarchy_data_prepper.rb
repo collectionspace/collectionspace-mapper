@@ -10,13 +10,7 @@ module CollectionSpace
       attr_reader :errors, :warnings, :type, :subtype
 
       # @param data [Hash, CollectionSpace::Mapper::Response]
-      # @param searcher [CollectionSpace::Mapper:Searcher]
-      # @param handler [CollectionSpace::Mapper::DataHandler]
-      def initialize(
-        data,
-        searcher = CollectionSpace::Mapper.searcher,
-        handler = CollectionSpace::Mapper.data_handler
-      )
+      def initialize(data)
         super
         @cache = CollectionSpace::Mapper.termcache
         @type = @response.merged_data["subjectdocumenttype"]

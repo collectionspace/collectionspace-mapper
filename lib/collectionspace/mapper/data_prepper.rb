@@ -4,10 +4,10 @@ module CollectionSpace
   module Mapper
     class DataPrepper
       attr_reader :data, :handler, :config, :cache, :csid_cache, :client,
-        :searcher
-      attr_accessor :response, :xphash
+        :searcher, :response, :xphash
 
-      def initialize(data, searcher = nil, handler = nil)
+      # @param data [Hash, CollectionSpace::Mapper::Response]
+      def initialize(data)
         @handler = handler
         @searcher = CollectionSpace::Mapper.searcher
         @config = CollectionSpace::Mapper.batchconfig

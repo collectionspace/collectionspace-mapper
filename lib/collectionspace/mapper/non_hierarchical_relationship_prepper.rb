@@ -10,11 +10,7 @@ module CollectionSpace
       include CollectionSpace::Mapper::TermSearchable
       attr_reader :errors, :warnings, :responses, :type, :subtype
 
-      def initialize(
-        data,
-        searcher = CollectionSpace::Mapper.searcher,
-        handler = CollectionSpace::Mapper.data_handler
-      )
+      def initialize(data)
         super
         @cache = CollectionSpace::Mapper.termcache
         @types = [@response.merged_data["item1_type"],
