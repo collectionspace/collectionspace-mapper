@@ -127,25 +127,5 @@ module CollectionSpace
         setting :transforms, default: {}, reader: true
         setting :two_digit_year_handling, default: "coerce", reader: true
     end
-
-    def merge_default_values(
-      data,
-      batchconfig = CollectionSpace::Mapper.batchconfig
-    )
-      defaults = CollectionSpace::Mapper.batch.default_values
-      return data unless defaults
-
-      mdata = data.orig_data.clone
-      defaults.each do |f, val|
-        if CollectionSpace::Mapper.batch.force_defaults
-          mdata[f] = val
-        else
-          dataval = data.orig_data.fetch(f, nil)
-          mdata[f] = val if dataval.nil? || dataval.empty?
-        end
-      end
-      data.merged_data = mdata.compact.transform_keys(&:downcase)
-      data
-    end
   end
 end
