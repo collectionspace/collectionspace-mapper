@@ -15,7 +15,7 @@ module CollectionSpace
         @csid_cache = CollectionSpace::Mapper.csidcache
         @client = CollectionSpace::Mapper.client
         @date_handler = CollectionSpace::Mapper.date_handler
-        @response = CollectionSpace::Mapper.setup_data(data, config)
+        @response = setup_data(data)
         drop_empty_fields
         process_xpaths if response.valid?
       end
@@ -67,6 +67,14 @@ module CollectionSpace
       private
 
       attr_reader :date_handler
+
+      def setup_data(data)
+        if data.is_a?(Hash)
+          CollectionSpace::Mapper::Response.new(data)
+        else
+          data
+        end
+      end
 
       # used by NonHierarchicalRelationshipPrepper and AuthorityHierarchyPrepper
       def push_errors_and_warnings
