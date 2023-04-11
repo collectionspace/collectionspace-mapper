@@ -26,9 +26,10 @@ module CollectionSpace
             record_type: CollectionSpace::Mapper.record.recordtype
           )
 
-        validator = CollectionSpace::Mapper::DataValidator.new
-        CollectionSpace::Mapper.config.validator = validator
-        @validator = validator
+
+        CollectionSpace::Mapper.config.validator =
+          CollectionSpace::Mapper::DataValidator.new
+
 
         CollectionSpace::Mapper::Searcher.new
 
@@ -38,56 +39,48 @@ module CollectionSpace
           CollectionSpace::Mapper::Dates::StructuredDateHandler.new
 
         merge_config_transforms
-        @new_terms = {}
+
         CollectionSpace::Mapper.config.status_checker =
           CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder.call
         CollectionSpace::Mapper.config.data_handler = self
       end
 
+      # Prep, then map
       def process(data)
-        prepped = prep(data)
+        prepped = data.prep
+
         case CollectionSpace::Mapper.record.recordtype
         when "nonhierarchicalrelationship"
-          prepped.responses.map { |response| map(response) }
+          prepped.responses.map(&:map)
         else
-          map(prepped.response)
+          prepped.response.map
         end
       end
 
-      def get_prepper_class
-        case CollectionSpace::Mapper.record.recordtype
-        when "authorityhierarchy"
-          CollectionSpace::Mapper::AuthorityHierarchyPrepper
-        when "nonhierarchicalrelationship"
-          CollectionSpace::Mapper::NonHierarchicalRelationshipPrepper
-        when "objecthierarchy"
-          CollectionSpace::Mapper::ObjectHierarchyDataPrepper
-        else
-          CollectionSpace::Mapper::DataPrepper
-        end
-      end
-
+      # Prep only - This is everything up until the mapping part, including
+      #   splitting, stripping, and transforming
       def prep(data)
-        response = CollectionSpace::Mapper.setup_data(
-          data,
-          CollectionSpace::Mapper.batchconfig
-        )
-        if response.valid?
-          get_prepper_class.new(response).prep
+        if data.is_a?(Hash)
+          response = CollectionSpace::Mapper::Response.new(data)
         else
-          response
+          response = data
         end
+        response.prep
       end
 
+      # Map a prepped response
       # @todo move to a method on Response
       def map(response)
-        mapper = CollectionSpace::Mapper::DataMapper.new(response)
-        result = mapper.response
-        result.tag_terms
-        result.set_record_status
-        (CollectionSpace::Mapper.batch.response_mode == "normal") ? result.normal : result
+        result = response.map
+
+        if CollectionSpace::Mapper.batch.response_mode == "normal"
+          result.normal
+        else
+          result
+        end
       end
 
+      # Used by collectionspace-csv-importer preprocessing step
       def check_fields(data)
         data_fields = data.keys.map(&:downcase)
         known = CollectionSpace::Mapper.record.mappings.known_columns
@@ -105,7 +98,12 @@ module CollectionSpace
       # Called by CSV Importer preprocessing step
       # @param data [Hash, CollectionSpace::Mapper::Response]
       def validate(data)
-        validator.validate(data)
+        if data.is_a?(Hash)
+          response = CollectionSpace::Mapper::Response.new(data)
+        else
+          response = data
+        end
+        response.validate
       end
 
       def to_s
@@ -118,7 +116,18 @@ module CollectionSpace
 
       private
 
-      attr_reader :validator
+      def get_prepper_class
+        case CollectionSpace::Mapper.record.recordtype
+        when "authorityhierarchy"
+          CollectionSpace::Mapper::AuthorityHierarchyPrepper
+        when "nonhierarchicalrelationship"
+          CollectionSpace::Mapper::NonHierarchicalRelationshipPrepper
+        when "objecthierarchy"
+          CollectionSpace::Mapper::ObjectHierarchyDataPrepper
+        else
+          CollectionSpace::Mapper::DataPrepper
+        end
+      end
 
       # you can specify per-data-key transforms in your config.json
       # This method merges the config.json transforms into the

@@ -39,7 +39,7 @@ module CollectionSpace
       def set_id
         bt = @response.merged_data["broader_object_number"]
         nt = @response.merged_data["narrower_object_number"]
-        @response.identifier = "#{bt} > #{nt}"
+        @response.add_identifier("#{bt} > #{nt}")
       end
 
       def transform_terms

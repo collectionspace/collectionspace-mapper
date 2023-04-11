@@ -26,7 +26,7 @@ module CollectionSpace
       end
 
       def prep
-        @response.identifier = "#{stringify_item(1)} -> #{stringify_item(2)}"
+        @response.add_identifier("#{stringify_item(1)} -> #{stringify_item(2)}")
         split_data
         transform_terms
         push_errors_and_warnings
@@ -48,7 +48,7 @@ module CollectionSpace
 
       def flip_response
         resp2 = @response.dup
-        resp2.identifier = "#{stringify_item(2)} -> #{stringify_item(1)}"
+        resp2.add_identifier("#{stringify_item(2)} -> #{stringify_item(1)}")
         resp2.combined_data = {"relations_common" => {}}
         origrel =
           @response.combined_data["relations_common"]["relationshipType"]

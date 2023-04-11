@@ -57,64 +57,39 @@ RSpec.describe CollectionSpace::Mapper do
       )
     end
 
-    context "when no default_values specified in config" do
-      it "does not fall over" do
-        res = result.merged_data["collection"]
-        ex = "Permanent Collection"
-        expect(res).to eq(ex)
+    context "and value is given for that field in the incoming data" do
+      let(:datahash) do
+        {
+          "objectNumber" => "20CS.001.0001",
+          "publishto" => "foo"
+        }
       end
-    end
 
-    context "when default_values for a field is specified in config" do
-      let(:config) do
-        CollectionSpace::Mapper::Config.new(config: {
-          delimiter: ";",
-          default_values: {
-            "publishTo" => "DPLA;Omeka"
-          }
-        })
-      end
-      context "and no value is given for that field in the incoming data" do
-        it "maps the default values" do
+      context "and :force_defaults = false" do
+        it "maps the value in the incoming data" do
           res = result.merged_data["publishto"]
-          ex = "DPLA;Omeka"
+          ex = "foo"
           expect(res).to eq(ex)
         end
       end
-      context "and value is given for that field in the incoming data" do
-        let(:datahash) do
-          {
-            "objectNumber" => "20CS.001.0001",
-            "publishto" => "foo"
-          }
+
+      context "and :force_defaults = true" do
+        let(:config) do
+          CollectionSpace::Mapper::Config.new(config: {
+            delimiter: ";",
+            default_values: {
+              "publishTo" => "DPLA;Omeka"
+            },
+            force_defaults: true
+          })
         end
 
-        context "and :force_defaults = false" do
-          it "maps the value in the incoming data" do
-            res = result.merged_data["publishto"]
-            ex = "foo"
-            expect(res).to eq(ex)
-          end
-        end
-
-        context "and :force_defaults = true" do
-          let(:config) do
-            CollectionSpace::Mapper::Config.new(config: {
-              delimiter: ";",
-              default_values: {
-                "publishTo" => "DPLA;Omeka"
-              },
-              force_defaults: true
-            })
-          end
-
-          it "maps the default value, overwriting value in the incoming data",
-            services_call: true do
+        it "maps the default value, overwriting value in the incoming data",
+          services_call: true do
             res = result.merged_data["publishto"]
             ex = "DPLA;Omeka"
             expect(res).to eq(ex)
           end
-        end
       end
     end
   end

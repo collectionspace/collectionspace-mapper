@@ -3,18 +3,23 @@
 module CollectionSpace
   module Mapper
     class Response
-      attr_reader :orig_data, :doc, :xphash
+      attr_reader :orig_data, :doc, :xphash,
+        :record_status, :csid, :uri, :refname,
+        :terms, :errors, :warnings,
+        :identifier
       attr_accessor :split_data, :merged_data, :transformed_data,
-        :combined_data, :errors, :warnings, :identifier, :terms,
-        :record_status, :csid, :uri, :refname
+        :combined_data
+
 
       def initialize(
         data_hash,
-        status_checker = CollectionSpace::Mapper.status_checker
+        status_checker = CollectionSpace::Mapper.status_checker,
+        validator = CollectionSpace::Mapper.validator
       )
         @orig_data = data_hash
         @status_checker = status_checker
-        @merged_data = {}
+        @validator = validator
+        @merged_data = merge_default_values
         @split_data = {}
         @transformed_data = {}
         @combined_data = {}
@@ -23,22 +28,45 @@ module CollectionSpace
         @warnings = []
         @terms = []
         @identifier = ""
+        @states = %i[defaults_merged merged_keys_downcased]
       end
 
       def add_doc(doc)
         @doc = doc
       end
 
+      def add_identifier(id)
+        @identifier = id
+      end
+
+      def add_error(error)
+        errors << error
+        @errors = errors.flatten.compact
+      end
+
       def add_warning(warning)
         warnings << warning
+        @warnings = warnings.flatten.compact
       end
 
       def add_xphash(hash)
         @xphash = hash
       end
 
+      def dup
+        newobj = self.clone
+        instance_variables.each do |ivar|
+          newobj.instance_variable_set(
+            ivar,
+            instance_variable_get(ivar).clone
+          )
+        end
+        newobj
+      end
+
       def valid?
-        @errors.empty?
+        validate unless states.any?(:validated)
+        errors.empty?
       end
 
       def set_record_status
@@ -75,6 +103,43 @@ module CollectionSpace
         doc&.to_xml
       end
 
+      def validate
+        return self if states.any?(:validated)
+
+        validator.validate(self)
+        states << :validated
+        self
+      end
+
+      def prep
+        return self if states.any?(:prepped_for_mapping)
+
+        validate unless states.any?(:validated)
+        return self unless valid?
+
+        states << :prepped_for_mapping
+        CollectionSpace::Mapper.prepper_class.new(self).prep
+      end
+
+      def map
+        return self if states.any?(:mapped)
+
+        prep unless states.any?(:prepped_for_mapping)
+        # @todo This should not produce XML for records with ERRORS,
+        #   but it is a behavior change that might be unexpected. Revisit.
+        # return self unless valid?
+
+        CollectionSpace::Mapper::DataMapper.new(self)
+        tag_terms
+        set_record_status
+        states << :mapped
+        if CollectionSpace::Mapper.batch.response_mode == "normal"
+          normal
+        else
+          self
+        end
+      end
+
       def add_multi_rec_found_warning(num_found)
         msg = "#{num_found} records found for #{identifier}. Using first "\
           "record found: #{uri}"
@@ -90,7 +155,31 @@ module CollectionSpace
 
       private
 
-      attr_reader :status_checker
+      attr_reader :states, :status_checker, :validator
+
+      def merge_default_values
+        defaults = CollectionSpace::Mapper.batch.default_values
+        return data unless defaults
+
+        if CollectionSpace::Mapper.batch.force_defaults
+          to_merge = defaults
+        else
+          to_merge = non_forced_defaults(defaults)
+        end
+        merged = orig_data.merge(to_merge)
+        merged.transform_keys(&:downcase)
+      end
+
+      def non_forced_defaults(default_vals)
+        default_vals.map{ |field, val|
+          origval = orig_data[field]
+          if origval.nil? || origval.empty?
+            [field, val]
+          else
+            nil
+          end
+        }.compact.to_h
+      end
 
       def cached_unknown_terms
         found_terms.select do |term|
