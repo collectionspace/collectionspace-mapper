@@ -97,7 +97,7 @@ module CollectionSpace
       end
 
       # this is surfaced in public interface because it is used by
-      #   cspace-batch-import
+      #   collectionspace-csv-importer
       def service_type
         CollectionSpace::Mapper.record.service_type
       end
