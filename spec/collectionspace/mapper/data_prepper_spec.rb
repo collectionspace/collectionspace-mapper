@@ -68,9 +68,9 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
       expect(res).to eq(expected)
     end
 
-    it "adds expected term Hashes to response.terms" do
+    it "adds expected UsedTerm objects to response.terms" do
       chk = prepper.prep.response.terms.select { |t|
-        t[:field] == "titletranslationlanguage"
+        t.field == "titletranslationlanguage"
       }
       expect(chk.length).to eq(4)
     end
