@@ -6,7 +6,6 @@ module CollectionSpace
       include TermSearchable
       attr_reader :orig, :result, :warnings, :errors
 
-      # @todo appconfig remove prepper arg
       def initialize(value, transforms)
         @value = value
         @orig = @value.clone

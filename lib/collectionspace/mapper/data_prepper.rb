@@ -223,10 +223,7 @@ module CollectionSpace
 
           csdates = [data].flatten
             .map do |dateval|
-              CollectionSpace::Mapper::Dates::CspaceDate.new(
-                dateval,
-                date_handler
-              )
+              CollectionSpace::Mapper::Dates::CspaceDate.new(dateval)
             end
 
           case type
@@ -279,11 +276,10 @@ module CollectionSpace
           data = sourcedata.fetch(column, nil)
           next if data.blank?
 
-          th = CollectionSpace::Mapper::TermHandler.new(mapping: mapping,
-            data: data,
-            client: CollectionSpace::Mapper.client,
-            mapper: CollectionSpace::Mapper.recordmapper,
-            searcher: CollectionSpace::Mapper.searcher)
+          th = CollectionSpace::Mapper::TermHandler.new(
+            mapping: mapping,
+            data: data
+          )
 
           @response.transformed_data[column] = th.result
           @response.terms << th.terms

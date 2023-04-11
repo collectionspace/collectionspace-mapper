@@ -7,7 +7,6 @@ module CollectionSpace
     class DataValidator
       attr_reader :required_fields
 
-      # @todo appconfig remove record_mapper, cache arguments
       def initialize
         @id_field = get_id_field
         @required_mappings = CollectionSpace::Mapper.record.mappings
