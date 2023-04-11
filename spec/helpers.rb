@@ -39,7 +39,7 @@ module Helpers
     end
   end
 
-  def setup_handler(mapper_path:, profile: 'core')
+  def setup_handler(mapper_path:, profile: 'core', config: {})
     client = send("#{profile}_client".to_sym)
     termcache = send("#{profile}_cache".to_sym)
     csidcache = send("#{profile}_csid_cache".to_sym)
@@ -48,7 +48,8 @@ module Helpers
       record_mapper: mapper,
       client: client,
       cache: termcache,
-      csid_cache: csidcache
+      csid_cache: csidcache,
+      config: config
     )
   end
 

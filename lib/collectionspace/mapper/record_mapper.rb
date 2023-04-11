@@ -12,22 +12,16 @@ module CollectionSpace
     # :reek:Attribute - when I get rid of xphash, this will go away
     # :reek:InstanceVariableAssumption - instance variable gets set by convert
     class RecordMapper
-      attr_reader :config
-
       # @param mapper [String, Hash] parseable JSON string or already-parsed Hash
       #   from JSON
       def initialize(mapper:)
         CollectionSpace::Mapper.config.recordmapper = self
         @hash = set_hash(mapper)
-        @config = CollectionSpace::Mapper::RecordMapperConfig.new(
-          hash[:config]
-        )
+        CollectionSpace::Mapper::RecordMapperConfig.new(hash[:config])
         CollectionSpace::Mapper.config.record.service_type_mixin =
           service_type_extension
         CollectionSpace::Mapper::XmlTemplate.call(hash[:docstructure])
-        CollectionSpace::Mapper::ColumnMappings.new(
-          mappings: hash[:mappings]
-        )
+        CollectionSpace::Mapper::ColumnMappings.new(mappings: hash[:mappings])
       end
 
       def record_type
