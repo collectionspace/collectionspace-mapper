@@ -8,9 +8,6 @@ module CollectionSpace
     # For each record type, there is a JSON RecordMapper containing the config,
     #   field mappings, and template for transforming a hash of data into
     #   CollectionSpace XML
-
-    # :reek:Attribute - when I get rid of xphash, this will go away
-    # :reek:InstanceVariableAssumption - instance variable gets set by convert
     class RecordMapper
       # @param mapper [String, Hash] parseable JSON string or already-parsed Hash
       #   from JSON
@@ -22,10 +19,6 @@ module CollectionSpace
           service_type_extension
         CollectionSpace::Mapper::XmlTemplate.call(hash[:docstructure])
         CollectionSpace::Mapper::ColumnMappings.new(mappings: hash[:mappings])
-      end
-
-      def record_type
-        CollectionSpace::Mapper.record.recordtype
       end
 
       private
@@ -48,7 +41,9 @@ module CollectionSpace
         when "relation"
           CollectionSpace::Mapper::Relationship
         when "procedure"
-          CollectionSpace::Mapper::Media if record_type == "media"
+          if CollectionSpace::Mapper.record.recordtype == "media"
+            CollectionSpace::Mapper::Media
+          end
         else
           nil
         end
