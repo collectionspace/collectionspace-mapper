@@ -8,17 +8,10 @@ module CollectionSpace
       extend self
 
       class CspaceDate
-        attr_reader :date_string, :date_handler
-
         # @param date_string [String] to parse
-        # @param handler [CollectionSpace::Mapper::Dates::StructuredDateHandler]
-        def initialize(
-          date_string,
-          date_handler = CollectionSpace::Mapper.date_handler
-        )
-          @date_handler = date_handler
+        def initialize(date_string)
+          @date_handler = CollectionSpace::Mapper.date_handler
           @date_string = date_string
-
           @date = date_handler.call(date_string)
         end
 
@@ -32,7 +25,7 @@ module CollectionSpace
 
         private
 
-        attr_reader :date
+        attr_reader :date_string, :date_handler, :date
       end
     end
   end

@@ -11,10 +11,7 @@ module CollectionSpace
 
       # @param mapping [CollectionSpace::Mapper::ColumnMapping]
       # @param data [Array<String>]
-      # @param client [CollectionSpace::Client]
-      # @param mapper [CollectionSpace::Mapper::RecordMapper]
-      # @todo appconfig remove client, mapper, searcher args
-      def initialize(mapping:, data:, client: nil, mapper: nil, searcher: nil)
+      def initialize(mapping:, data:)
         @mapping = mapping
         @data = data
         @client = CollectionSpace::Mapper.client

@@ -4,7 +4,6 @@ module CollectionSpace
   module Mapper
     # given a RecordMapper hash and a data hash, returns CollectionSpace XML
     #   document
-    # @todo Manipulation of recordmapper's xpath_hash belongs on recordmapper
     class DataHandler
       def initialize(record_mapper:, client:, cache:, csid_cache:, config: {})
         CollectionSpace::Mapper.config.client = client
@@ -60,24 +59,13 @@ module CollectionSpace
       # Prep only - This is everything up until the mapping part, including
       #   splitting, stripping, and transforming
       def prep(data)
-        if data.is_a?(Hash)
-          response = CollectionSpace::Mapper::Response.new(data)
-        else
-          response = data
-        end
+        response = CollectionSpace::Mapper::Response.new(data)
         response.prep
       end
 
       # Map a prepped response
-      # @todo move to a method on Response
       def map(response)
-        result = response.map
-
-        if CollectionSpace::Mapper.batch.response_mode == "normal"
-          result.normal
-        else
-          result
-        end
+        response.map
       end
 
       # Used by collectionspace-csv-importer preprocessing step

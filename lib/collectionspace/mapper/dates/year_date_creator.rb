@@ -6,12 +6,9 @@ module CollectionSpace
       class YearDateCreator
         include CollectionSpace::Mapper::Dates::Mappable
 
-        def initialize(
-          date_string,
-          handler = CollectionSpace::Mapper.date_handler
-        )
+        def initialize(date_string)
           @date_string = date_string
-          @handler = handler
+          @date_handler = CollectionSpace::Mapper.date_handler
         end
 
         def mappable
@@ -21,11 +18,11 @@ module CollectionSpace
               "dateEarliestSingleYear" => date_string,
               "dateEarliestSingleMonth" => "1",
               "dateEarliestSingleDay" => "1",
-              "dateEarliestSingleEra" => handler.ce,
+              "dateEarliestSingleEra" => date_handler.ce,
               "dateLatestYear" => date_string,
               "dateLatestMonth" => "12",
               "dateLatestDay" => "31",
-              "dateLatestEra" => handler.ce,
+              "dateLatestEra" => date_handler.ce,
               "dateEarliestScalarValue" => to_scalar(date_string),
               "dateLatestScalarValue" => to_scalar(next_year),
               "scalarValuesComputed" => "true"
@@ -41,7 +38,7 @@ module CollectionSpace
 
         private
 
-        attr_reader :date_string, :handler
+        attr_reader :date_string, :date_handler
 
         def next_year
           date_string.to_i + 1

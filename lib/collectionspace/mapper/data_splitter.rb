@@ -5,7 +5,6 @@ module CollectionSpace
     class DataSplitter
       attr_reader :result
 
-      # @todo appconfig remove config arg
       def initialize(data)
         @data = data.strip
         @delim = CollectionSpace::Mapper.batch.delimiter

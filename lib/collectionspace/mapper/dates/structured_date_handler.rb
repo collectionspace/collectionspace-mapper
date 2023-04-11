@@ -24,35 +24,22 @@ module CollectionSpace
           elsif date_string == CollectionSpace::Mapper.bomb
             CollectionSpace::Mapper::Dates::DateBomber.new
           elsif date_formats.any? { |re| date_string.match?(re) }
-            CollectionSpace::Mapper::Dates::ChronicParser.new(date_string, self)
+            CollectionSpace::Mapper::Dates::ChronicParser.new(date_string)
           elsif two_digit_year_date_formats.any? { |re| date_string.match?(re) }
             CollectionSpace::Mapper::Dates::TwoDigitYearHandler.new(
-              date_string,
-              self,
-              CollectionSpace::Mapper.batch.two_digit_year_handling
+              date_string
             )
           elsif service_parseable_month_formats.any? { |re|
                   date_string.match?(re)
                 }
-            CollectionSpace::Mapper::Dates::ServicesParser.new(
-              date_string,
-              self
-            )
+            CollectionSpace::Mapper::Dates::ServicesParser.new(date_string)
           elsif other_month_formats.any? { |re| date_string.match?(re) }
             CollectionSpace::Mapper::Dates::YearMonthDateCreator.new(
-              date_string,
-              self
-            )
+              date_string)
           elsif date_string.match?(/^\d{1,4}$/)
-            CollectionSpace::Mapper::Dates::YearDateCreator.new(
-              date_string,
-              self
-            )
+            CollectionSpace::Mapper::Dates::YearDateCreator.new(date_string)
           else
-            CollectionSpace::Mapper::Dates::ServicesParser.new(
-              date_string,
-              self
-            )
+            CollectionSpace::Mapper::Dates::ServicesParser.new(date_string)
           end
         end
 
