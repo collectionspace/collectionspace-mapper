@@ -5,15 +5,6 @@ require "spec_helper"
 RSpec.describe CollectionSpace::Mapper::Dates::NullDate do
   subject(:creator) { described_class.new }
 
-  before do
-    setup_handler(
-      profile: 'anthro',
-      mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
-        "anthro_4-1-2_collectionobject.json"
-    )
-  end
-  after{ CollectionSpace::Mapper.reset_config }
-
   describe "#mappable" do
     let(:result) { creator.mappable }
 

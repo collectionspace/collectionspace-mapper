@@ -5,25 +5,21 @@ module CollectionSpace
     # Checks incoming data before mapping to ensure the necessary data is
     #   present to do the mapping
     class DataValidator
-      attr_reader :required_fields
-
-      def initialize
+      # @param handler [CollectionSpace::Mapper::DataHandler]
+      def initialize(handler)
+        @handler = handler
+        handler.config.validator = self
         @id_field = get_id_field
-        @required_mappings = CollectionSpace::Mapper.record.mappings
+        @required_mappings = handler.record.mappings
           .required_columns
         @required_fields = get_required_fields
-        # faux-require ID field for batch processing if it is not technically
-        #   required by application
-        unless @required_fields.key?(@id_field) ||
-            @id_field == "shortidentifier"
-          @required_fields[@id_field] = [@id_field]
-        end
+        faux_require_id_field
       end
 
       def validate(response)
         if response.errors.empty?
           data = response.merged_data
-          res = check_required_fields(data) unless @required_fields.empty?
+          res = check_required_fields(data) unless required_fields.empty?
           response.add_error(res)
         end
         response
@@ -31,8 +27,10 @@ module CollectionSpace
 
       private
 
+      attr_reader :handler, :id_field, :required_mappings, :required_fields
+
       def get_id_field
-        idfield = CollectionSpace::Mapper.record.identifier_field
+        idfield = handler.record.identifier_field
         fail CollectionSpace::Mapper::IdFieldNotInMapperError if idfield.nil?
 
         idfield.downcase
@@ -40,7 +38,7 @@ module CollectionSpace
 
       def get_required_fields
         h = {}
-        @required_mappings.each do |mapping|
+        required_mappings.each do |mapping|
           field = mapping.fieldname.downcase
           column = mapping.datacolumn.downcase
           h.key?(field) ? h[field] << column : h[field] = [column]
@@ -48,9 +46,20 @@ module CollectionSpace
         h
       end
 
+      # Adds id_field to @required_fields if not technically required by
+      #  application
+      def faux_require_id_field
+        return if required_fields.key?(id_field)
+        return if id_field == "shortidentifier"
+
+        required_fields[id_field] = [id_field]
+      end
+
+      # @todo The logic of checking should be moved to the *RequiredField
+      #   classes
       def check_required_fields(data)
         errs = []
-        @required_fields.each do |field, columns|
+        required_fields.each do |field, columns|
           if columns.length == 1
             checkfield = SingleColumnRequiredField.new(field, columns)
             unless checkfield.present_in?(data)

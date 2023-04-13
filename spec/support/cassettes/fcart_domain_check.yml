@@ -1,0 +1,185 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://fcart.dev.collectionspace.org/cspace-services/personauthorities?pgNum=0&pgSz=1&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AZmNhcnQuY29sbGVjdGlvbnNwYWNlLm9yZzpBZG1pbmlzdHJhdG9y
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Sun, 16 Apr 2023 19:05:50 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '806'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>b5886d40-6752-4abd-b721</csid><uri>/personauthorities/b5886d40-6752-4abd-b721</uri><refName>urn:cspace:fcart.collectionspace.org:personauthorities:name(person)'Local
+        Persons'</refName><updatedAt>2021-11-18T02:23:19.361Z</updatedAt><workflowState>project</workflowState><rev>21</rev><shortIdentifier>person</shortIdentifier><displayName>Local
+        Persons</displayName><vocabType>PersonAuthority</vocabType></list-item></ns2:abstract-common-list>
+  recorded_at: Sun, 16 Apr 2023 19:05:50 GMT
+- request:
+    method: get
+    uri: https://fcart.dev.collectionspace.org/cspace-services/acquisitions?as=acquisitions_common:acquisitionReferenceNumber%20=%20%27ACC216%20(migrated%20accession)%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AZmNhcnQuY29sbGVjdGlvbnNwYWNlLm9yZzpBZG1pbmlzdHJhdG9y
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Sun, 16 Apr 2023 19:25:39 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '376'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|acquisitionReferenceNumber|acquisitionSource</fieldsReturned></ns2:abstract-common-list>
+  recorded_at: Sun, 16 Apr 2023 19:25:39 GMT
+- request:
+    method: get
+    uri: https://fcart.dev.collectionspace.org/cspace-services/acquisitions?as=acquisitions_common:acquisitionReferenceNumber%20=%20%27ACC215%20(migrated%20accession)%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AZmNhcnQuY29sbGVjdGlvbnNwYWNlLm9yZzpBZG1pbmlzdHJhdG9y
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Sun, 16 Apr 2023 19:25:39 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '376'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|acquisitionReferenceNumber|acquisitionSource</fieldsReturned></ns2:abstract-common-list>
+  recorded_at: Sun, 16 Apr 2023 19:25:39 GMT
+- request:
+    method: get
+    uri: https://fcart.dev.collectionspace.org/cspace-services/acquisitions?as=acquisitions_common:acquisitionReferenceNumber%20=%20%27ACC208%20(migrated%20accession)%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AZmNhcnQuY29sbGVjdGlvbnNwYWNlLm9yZzpBZG1pbmlzdHJhdG9y
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Sun, 16 Apr 2023 19:25:39 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '376'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|acquisitionReferenceNumber|acquisitionSource</fieldsReturned></ns2:abstract-common-list>
+  recorded_at: Sun, 16 Apr 2023 19:25:39 GMT
+recorded_with: VCR 6.1.0

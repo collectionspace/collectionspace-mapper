@@ -6,12 +6,9 @@ module CollectionSpace
       class StructuredDateHandler
         include CollectionSpace::Mapper::TermSearchable
 
-        def initialize
-          @client = CollectionSpace::Mapper.client
-          @cache = CollectionSpace::Mapper.termcache
-          @csid_cache = CollectionSpace::Mapper.csidcache
-          @config = CollectionSpace::Mapper.batchconfig
-          @searcher = CollectionSpace::Mapper.searcher
+        # @param handler [CollectionSpace::Mapper::DataHandler]
+        def initialize(handler)
+          @handler = handler
         end
 
         def ce
@@ -24,28 +21,43 @@ module CollectionSpace
           elsif date_string == CollectionSpace::Mapper.bomb
             CollectionSpace::Mapper::Dates::DateBomber.new
           elsif date_formats.any? { |re| date_string.match?(re) }
-            CollectionSpace::Mapper::Dates::ChronicParser.new(date_string)
+            CollectionSpace::Mapper::Dates::ChronicParser.new(
+              date_string,
+              handler
+            )
           elsif two_digit_year_date_formats.any? { |re| date_string.match?(re) }
             CollectionSpace::Mapper::Dates::TwoDigitYearHandler.new(
-              date_string
+              date_string,
+              handler
             )
           elsif service_parseable_month_formats.any? { |re|
                   date_string.match?(re)
                 }
-            CollectionSpace::Mapper::Dates::ServicesParser.new(date_string)
+            CollectionSpace::Mapper::Dates::ServicesParser.new(
+              date_string,
+              handler
+            )
           elsif other_month_formats.any? { |re| date_string.match?(re) }
             CollectionSpace::Mapper::Dates::YearMonthDateCreator.new(
-              date_string)
+              date_string,
+              handler
+            )
           elsif date_string.match?(/^\d{1,4}$/)
-            CollectionSpace::Mapper::Dates::YearDateCreator.new(date_string)
+            CollectionSpace::Mapper::Dates::YearDateCreator.new(
+              date_string,
+              handler
+            )
           else
-            CollectionSpace::Mapper::Dates::ServicesParser.new(date_string)
+            CollectionSpace::Mapper::Dates::ServicesParser.new(
+              date_string,
+              handler
+            )
           end
         end
 
         private
 
-        attr_reader :client, :cache, :config, :searcher
+        attr_reader :handler
 
         # @todo memowise this and other methods?
         def date_formats

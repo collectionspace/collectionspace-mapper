@@ -3,16 +3,22 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Searcher do
-  subject(:searcher) { described_class.new }
+  subject(:searcher) { handler.searcher }
 
-  after{ CollectionSpace::Mapper.reset_config }
+  let(:handler) do
+    setup_handler(
+      mapper: mapper,
+      config: config
+      )
+  end
+  let(:mapper){ "core_6-1-0_group" }
 
-  describe "#.call" do
-    let(:args) { {value: "All", type: "vocabularies", subtype: "publishto"} }
+  describe "#.call", vcr: "core_domain_check" do
     let(:result) { searcher.call(**args) }
+    let(:args) { {value: "All", type: "vocabularies", subtype: "publishto"} }
 
     context "when search_if_not_cached = true", vcr: "searcher_search" do
-      before{ setup }
+      let(:config){ {} }
 
       it "returns expected hash" do
         expected = {
@@ -46,10 +52,7 @@ RSpec.describe CollectionSpace::Mapper::Searcher do
     end
 
     context "when search_if_not_cached = false" do
-      before do
-        setup
-        CollectionSpace::Mapper.config.batch.search_if_not_cached = false
-      end
+      let(:config){ {search_if_not_cached: false} }
 
       it "returns nil" do
         expect(result).to be_nil

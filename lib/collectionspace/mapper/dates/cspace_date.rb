@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "chronic"
-
 module CollectionSpace
   module Mapper
     module Dates
@@ -9,8 +7,9 @@ module CollectionSpace
 
       class CspaceDate
         # @param date_string [String] to parse
-        def initialize(date_string)
-          @date_handler = CollectionSpace::Mapper.date_handler
+        # @param handler [CollectionSpace::Mapper::DataHandler]
+        def initialize(date_string, handler)
+          @date_handler = handler.date_handler
           @date_string = date_string
           @date = date_handler.call(date_string)
         end

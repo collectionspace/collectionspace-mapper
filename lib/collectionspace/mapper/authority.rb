@@ -8,13 +8,14 @@ module CollectionSpace
         [
           {
             fieldname: "shortIdentifier",
-            namespace: CollectionSpace::Mapper.record.common_namespace,
+            namespace: handler.record.common_namespace,
             data_type: "string",
             xpath: [],
             required: "not in input data",
             repeats: "n",
             in_repeating_group: "n/a",
-            datacolumn: "shortIdentifier"
+            datacolumn: "shortIdentifier",
+            transforms: {}
           }
         ]
       end

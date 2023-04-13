@@ -1,0 +1,41 @@
+# frozen_string_literal: true
+
+require "spec_helper"
+
+RSpec.describe CollectionSpace::Mapper::Transformers do
+  subject(:xforms) do
+    described_class.new(
+      colmapping: mapping,
+      transforms: mapping.transforms
+    )
+  end
+
+  before do
+    setup_handler(
+      profile: 'anthro',
+      mapper: "anthro_4-1-2_collectionobject_transforms"
+    )
+  end
+
+  let(:mapping) { CollectionSpace::Mapper.record.mappings.lookup(colname) }
+
+  describe "#queue" do
+    context "when measuredByPerson column" do
+      let(:colname) { "measuredByPerson" }
+      it "contains only AuthorityTransformer" do
+        expect(xforms.queue.map(&:class)).to eq([
+          CollectionSpace::Mapper::AuthorityTransformer
+        ])
+      end
+    end
+
+    context "when behrensmeyerSingleLower column" do
+      let(:colname) { "behrensmeyerSingleLower" }
+      let(:result) { xforms.queue.map(&:class) }
+      it "expected elements are in expected order" do
+        expect(result).to eq([CollectionSpace::Mapper::BehrensmeyerTransformer,
+          CollectionSpace::Mapper::VocabularyTransformer])
+      end
+    end
+  end
+end

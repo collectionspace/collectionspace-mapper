@@ -3,46 +3,39 @@
 module CollectionSpace
   module Mapper
     class Response
-      attr_reader :orig_data, :doc, :xphash,
+      attr_reader :orig_data, :doc,
         :record_status, :csid, :uri, :refname,
         :terms, :errors, :warnings,
-        :identifier
-      attr_accessor :split_data, :merged_data, :transformed_data,
-        :combined_data
+        :identifier, :merged_data, :xpaths,
+        :split_data, :transformed_data
+      attr_accessor :combined_data
 
       # @param data [Hash, CollectionSpace::Mapper::Response]
-      def self.new(
-        data,
-        status_checker = CollectionSpace::Mapper.status_checker,
-        validator = CollectionSpace::Mapper.validator
-      )
+      # @param handler [CollectionSpace::Mapper::DataHandler]
+      def self.new(data, handler)
         return data if data.is_a?(CollectionSpace::Mapper::Response)
 
         obj = allocate
-        obj.send(:initialize, data, status_checker, validator)
+        obj.send(:initialize, data, handler)
         obj
       end
 
-      def initialize(
-        data_hash,
-        status_checker = CollectionSpace::Mapper.status_checker,
-        validator = CollectionSpace::Mapper.validator
-      )
-        return data_hash if data_hash.is_a?(Response)
-
+      # @param data_hash [Hash]
+      # @param handler [CollectionSpace::Mapper::DataHandler]
+      def initialize(data_hash, handler)
+        @handler = handler
         @orig_data = data_hash
-        @status_checker = status_checker
-        @validator = validator
-        @merged_data = merge_default_values
+        @errors = []
+        @warnings = []
+        @merged_data = merge_default_values_and_clean
+        @states = %i[defaults_merged merged_keys_downcased]
+        @xpaths = set_xpaths
         @split_data = {}
         @transformed_data = {}
         @combined_data = {}
         @doc = nil
-        @errors = []
-        @warnings = []
         @terms = []
         @identifier = ""
-        @states = %i[defaults_merged merged_keys_downcased]
       end
 
       def add_doc(doc)
@@ -58,13 +51,14 @@ module CollectionSpace
         @errors = errors.flatten.compact
       end
 
+      def add_term(term)
+        terms << term
+        @terms = terms.flatten.compact
+      end
+
       def add_warning(warning)
         warnings << warning
         @warnings = warnings.flatten.compact
-      end
-
-      def add_xphash(hash)
-        @xphash = hash
       end
 
       def dup
@@ -84,8 +78,8 @@ module CollectionSpace
       end
 
       def set_record_status
-        if CollectionSpace::Mapper.batch.check_record_status
-          result = status_checker.call(self)
+        if handler.batch.check_record_status
+          result = handler.status_checker.call(status_check_id)
           @record_status = result[:status]
           @csid = result[:csid]
           @uri = result[:uri]
@@ -120,19 +114,17 @@ module CollectionSpace
       def validate
         return self if states.any?(:validated)
 
-        validator.validate(self)
+        handler.validator.validate(self)
         states << :validated
         self
       end
 
       def prep
         return self if states.any?(:prepped_for_mapping)
-
-        validate unless states.any?(:validated)
         return self unless valid?
 
         states << :prepped_for_mapping
-        CollectionSpace::Mapper.prepper_class.new(self).prep
+        handler.prepper_class.new(self, handler).prep
       end
 
       def map
@@ -143,11 +135,11 @@ module CollectionSpace
         #   but it is a behavior change that might be unexpected. Revisit.
         # return self unless valid?
 
-        CollectionSpace::Mapper::DataMapper.new(self)
+        CollectionSpace::Mapper::DataMapper.new(self, handler)
         tag_terms
         set_record_status
         states << :mapped
-        if CollectionSpace::Mapper.batch.response_mode == "normal"
+        if handler.batch.response_mode == "normal"
           normal
         else
           self
@@ -169,19 +161,25 @@ module CollectionSpace
 
       private
 
-      attr_reader :states, :status_checker, :validator
+      attr_reader :handler, :states
+
+      def merge_default_values_and_clean
+        merged = merge_default_values
+
+        merged.transform_keys(&:downcase)
+          .delete_if{ |_key, val| val.nil? || val.empty? }
+      end
 
       def merge_default_values
-        defaults = CollectionSpace::Mapper.batch.default_values
-        return data unless defaults
+        defaults = handler.batch.default_values
+        return orig_data unless defaults
 
-        if CollectionSpace::Mapper.batch.force_defaults
+        if handler.batch.force_defaults
           to_merge = defaults
         else
           to_merge = non_forced_defaults(defaults)
         end
-        merged = orig_data.merge(to_merge)
-        merged.transform_keys(&:downcase)
+        orig_data.merge(to_merge)
       end
 
       def non_forced_defaults(default_vals)
@@ -195,9 +193,17 @@ module CollectionSpace
         }.compact.to_h
       end
 
+      def set_xpaths
+        return self if states.any?(:xpaths_set)
+        return self unless valid?
+
+        states << :xpaths_set
+        handler.record.xpaths.for_row(merged_data)
+      end
+
       def cached_unknown_terms
         found_terms.select do |term|
-          CollectionSpace::Mapper.new_terms.key?(term.key)
+          handler.new_terms.key?(term.key)
         end
       end
 
@@ -216,7 +222,22 @@ module CollectionSpace
 
       def record_new_missing_terms
         missing_terms.each do |term|
-          CollectionSpace::Mapper.new_terms[term.key] = nil
+          handler.new_terms[term.key] = nil
+        end
+      end
+
+      def status_check_id
+        case handler.record.service_type
+        when "relation"
+          {
+            sub: combined_data["relations_common"]["subjectCsid"][0],
+            obj: combined_data["relations_common"]["objectCsid"][0],
+            prd: combined_data["relations_common"]["relationshipType"][0]
+          }
+        when "authority"
+          split_data["termdisplayname"].first
+        else
+          identifier
         end
       end
     end

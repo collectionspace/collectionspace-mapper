@@ -15,7 +15,7 @@ module Helpers
   require_relative "./fcart_helpers"
   require_relative "./lhmc_helpers"
 
-  FIXTUREDIR = "spec/fixtures/files/xml"
+  FIXTUREDIR = "spec/support/xml"
 
   def base_cache_config
     {}
@@ -26,24 +26,26 @@ module Helpers
   # turns strings into symbols that removed when writing to JSON
   # we can't just use the json symbolize_names option because @docstructure keys
   #   must remain strings
-  def get_json_record_mapper(path)
+  def get_json_record_mapper(name)
+    path = "spec/support/mappers/#{name}.json"
     JSON.parse(File.read(path))
   end
 
-  def setup(profile: 'core', mapper_path: nil)
+  # @todo remove after refactoring config
+  def setup(profile: 'core', mapper: nil)
     CollectionSpace::Mapper.config.client = send("#{profile}_client".to_sym)
     CollectionSpace::Mapper.config.termcache = send("#{profile}_cache".to_sym)
     CollectionSpace::Mapper.config.csidcache = send("#{profile}_csid_cache".to_sym)
-    if mapper_path
-      setup_recordmapper(mapper_path)
+    if mapper
+      setup_recordmapper(mapper)
     end
   end
 
-  def setup_handler(mapper_path:, profile: 'core', config: {})
+  def setup_handler(mapper:, profile: 'core', config: {})
     client = send("#{profile}_client".to_sym)
     termcache = send("#{profile}_cache".to_sym)
     csidcache = send("#{profile}_csid_cache".to_sym)
-    mapper = get_json_record_mapper(mapper_path)
+    mapper = get_json_record_mapper(mapper)
     CollectionSpace::Mapper::DataHandler.new(
       record_mapper: mapper,
       client: client,
@@ -53,10 +55,11 @@ module Helpers
     )
   end
 
-  def setup_recordmapper(path)
+  # @todo remove after refactoring config
+  def setup_recordmapper(mapper)
     CollectionSpace::Mapper.config.recordmapper =
       CollectionSpace::Mapper::RecordMapper.new(
-      mapper: get_json_record_mapper(path)
+      mapper: get_json_record_mapper(mapper)
     )
   end
 

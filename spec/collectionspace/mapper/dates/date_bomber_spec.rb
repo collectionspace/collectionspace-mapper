@@ -3,19 +3,10 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Dates::DateBomber do
-  subject(:creator) { described_class.new }
-  before do
-    setup_handler(
-      profile: 'anthro',
-      mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
-        "anthro_4-1-2_collectionobject.json"
-    )
-    CollectionSpace::Mapper.config.batch.delimiter = ';'
-  end
-  after{ CollectionSpace::Mapper.reset_config }
+  subject(:bomber) { described_class.new }
 
   describe "#mappable" do
-    let(:result) { creator.mappable }
+    let(:result) { bomber.mappable }
 
     it "returns expected" do
       expected = CollectionSpace::Mapper.bomb
@@ -24,7 +15,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::DateBomber do
   end
 
   describe "#stamp" do
-    let(:result) { creator.stamp }
+    let(:result) { bomber.stamp }
 
     it "returns expected" do
       expected = CollectionSpace::Mapper.bomb

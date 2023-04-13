@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "collectionspace/mapper/identifiers/short_identifier"
-
 module CollectionSpace
   module Mapper
     module Identifiers
@@ -10,7 +8,7 @@ module CollectionSpace
           super
         end
 
-        def value
+        def call
           "#{prepped_term}#{hashed_term}"
         end
 

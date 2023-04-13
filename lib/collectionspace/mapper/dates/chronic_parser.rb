@@ -9,15 +9,16 @@ module CollectionSpace
         include CollectionSpace::Mapper::Dates::Mappable
 
         # @param date_string [String] to parse
-        def initialize(date_string)
+        # @param handler [CollectionSpace::Mapper::DataHandler]
+        def initialize(date_string, handler)
           @date_string = date_string
-          @date_handler = CollectionSpace::Mapper.date_handler
+          @handler = handler
         end
 
         def mappable
           parsed = parse
           result = if parsed.nil?
-            ServicesParser.new(date_string, date_handler).mappable
+            ServicesParser.new(date_string, handler).mappable
           else
             map_timestamp(parsed)
           end
@@ -33,11 +34,7 @@ module CollectionSpace
 
         private
 
-        attr_reader :date_string, :date_handler
-
-        def day_month_year?
-          CollectionSpace::Mapper.batch.date_format == "day month year"
-        end
+        attr_reader :date_string, :handler
 
         def parse
           if day_month_year?
@@ -45,6 +42,10 @@ module CollectionSpace
           else
             Chronic.parse(date_string)
           end
+        end
+
+        def day_month_year?
+          handler.batch.date_format == "day month year"
         end
       end
     end

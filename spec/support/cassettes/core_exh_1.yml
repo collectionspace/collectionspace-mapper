@@ -1,0 +1,96 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/personauthorities?pgNum=0&pgSz=1&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Sat, 15 Apr 2023 00:29:06 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '807'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>0f6cddfa-32ce-4c25-9b2f</csid><uri>/personauthorities/0f6cddfa-32ce-4c25-9b2f</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person)'Local
+        Persons'</refName><updatedAt>2020-02-08T03:31:20.492Z</updatedAt><workflowState>project</workflowState><rev>1117</rev><shortIdentifier>person</shortIdentifier><displayName>Local
+        Persons</displayName><vocabType>PersonAuthority</vocabType></list-item></ns2:abstract-common-list>
+  recorded_at: Sat, 15 Apr 2023 00:29:06 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/exhibitions?as=exhibitions_common:exhibitionNumber%20=%20%27EXH2020.3%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Sat, 15 Apr 2023 00:29:07 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '717'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|exhibitionNumber|title</fieldsReturned><list-item><csid>7acf4d4d-9239-4066-aa91</csid><uri>/exhibitions/7acf4d4d-9239-4066-aa91</uri><refName>urn:cspace:core.collectionspace.org:exhibitions:id(7acf4d4d-9239-4066-aa91)</refName><updatedAt>2020-09-09T03:19:37.845Z</updatedAt><workflowState>project</workflowState><exhibitionNumber>EXH2020.3</exhibitionNumber><title>Between
+        the lines</title></list-item></ns2:abstract-common-list>
+  recorded_at: Sat, 15 Apr 2023 00:29:07 GMT
+recorded_with: VCR 6.1.0

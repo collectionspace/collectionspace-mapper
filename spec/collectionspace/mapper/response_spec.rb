@@ -3,104 +3,92 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Response do
-  after{ CollectionSpace::Mapper.reset_config }
+  subject(:response){ described_class.new(data, handler) }
 
   let(:handler) do
-    CollectionSpace::Mapper.data_handler
+    setup_handler(
+      profile: profile,
+      mapper: mapper,
+      config: config
+    )
+  end
+  let(:profile){ "core" }
+  let(:mapper){ "core_6-1-0_collectionobject" }
+  let(:baseconfig){ {delimiter: ";"} }
+  let(:customcfg){ {} }
+  let(:config) { baseconfig.merge(customcfg) }
+
+  let(:data) do
+    {
+      'objectNumber'=>'123',
+      "collection" => "Permanent Collection",
+      "title"=>"",
+      "numberValue"=>nil
+    }
   end
 
-  describe "#new" do
-    let(:result){ described_class.new(data) }
-    let(:data) do
-      {
-        'objectnumber'=>'123',
-        "collection" => "Permanent Collection"
-      }
+  describe ".new", vcr: "core_domain_check" do
+    it "populates orig_data" do
+      expect(response.orig_data).to eq(data)
     end
+  end
 
-    it "populates orig_data and merged_data with no changes" do
-      expect(result.orig_data).to eq(data)
-      expect(result.merged_data).to eq(data)
+  describe "#merged_data", vcr: "core_domain_check" do
+    let(:result){ response.merged_data }
+
+    it "downcases keys and removes empty fields from merged data" do
+      expect(result.keys).to eq(%w[objectnumber collection])
     end
 
     context "with non-conflicting default values specified" do
-      before do
-        CollectionSpace::Mapper.config.batch.delimiter = ";"
-        CollectionSpace::Mapper.config.batch.default_values = {
-          "publishTo" => "DPLA;Omeka"
-        }
-      end
-
-      it "populates orig_data with no changes" do
-        expect(result.orig_data["publishTo"]).to be_nil
+      let(:customcfg) do
+        {default_values: {"publishTo" => "DPLA;Omeka"}}
       end
 
       it "populates merged_data with changes" do
-        expect(result.merged_data["publishto"]).to eq("DPLA;Omeka")
+        expect(result["publishto"]).to eq("DPLA;Omeka")
       end
     end
 
     context "with conflicting default values specified" do
-      before do
-        CollectionSpace::Mapper.config.batch.delimiter = ";"
-        CollectionSpace::Mapper.config.batch.default_values = {
+      let(:customcfg) do
+        {default_values: {
           "publishTo" => "DPLA;Omeka",
-          "collection"=> "Temp"
-        }
-      end
-      let(:data) do
-        {
-          'objectnumber'=>'123',
-          "collection" => "Permanent Collection"
-        }
-      end
-
-      it "populates orig_data with no changes" do
-        expect(result.orig_data["publishTo"]).to be_nil
-        expect(result.orig_data["collection"]).to eq("Permanent Collection")
+          "collection"=>"Temp"
+        }}
       end
 
       it "populates merged_data with changes" do
-        expect(result.merged_data["publishto"]).to eq("DPLA;Omeka")
-        expect(result.merged_data["collection"]).to eq("Permanent Collection")
+        expect(result["publishto"]).to eq("DPLA;Omeka")
+        expect(result["collection"]).to eq("Permanent Collection")
       end
     end
 
     context "with conflicting default values specified and force_defaults" do
-      before do
-        CollectionSpace::Mapper.config.batch.delimiter = ";"
-        CollectionSpace::Mapper.config.batch.default_values = {
-          "publishTo" => "DPLA;Omeka",
-          "collection"=> "Temp"
-        }
-        CollectionSpace::Mapper.config.batch.force_defaults = true
-      end
-      let(:data) do
+      let(:customcfg) do
         {
-          'objectnumber'=>'123',
-          "collection" => "Permanent Collection"
+          default_values: {
+            "publishTo" => "DPLA;Omeka",
+            "collection"=>"Temp"
+          },
+          force_defaults: true
         }
-      end
-
-      it "populates orig_data with no changes" do
-        expect(result.orig_data["publishTo"]).to be_nil
-        expect(result.orig_data["collection"]).to eq("Permanent Collection")
       end
 
       it "populates merged_data with changes" do
-        expect(result.merged_data["publishto"]).to eq("DPLA;Omeka")
-        expect(result.merged_data["collection"]).to eq("Temp")
+        expect(result["publishto"]).to eq("DPLA;Omeka")
+        expect(result["collection"]).to eq("Temp")
       end
     end
   end
 
-  describe "#set_record_status" do
+  describe "#set_record_status", vcr: "core_domain_check" do
     let(:checker){ double('Checker') }
-    let(:response){ described_class.new(data, checker) }
     let(:data){ { field: 'foo'} }
 
     context "when new" do
       it "sets status as expected" do
+        handler.config.status_checker = checker
         allow(checker).to receive(:call).and_return(
           {status: :new}
         )
@@ -112,6 +100,7 @@ RSpec.describe CollectionSpace::Mapper::Response do
 
     context "when existing" do
       it "sets status as expected" do
+        handler.config.status_checker = checker
         allow(checker).to receive(:call).and_return(
           {
             status: :existing,
@@ -129,9 +118,7 @@ RSpec.describe CollectionSpace::Mapper::Response do
     end
 
     context "when checking is turned off" do
-      before do
-        CollectionSpace::Mapper.config.batch.check_record_status = false
-      end
+      let(:customcfg){ {check_record_status: false} }
 
       it "sets status as expected" do
         response.set_record_status
@@ -141,167 +128,69 @@ RSpec.describe CollectionSpace::Mapper::Response do
     end
   end
 
-  describe "#valid?" do
-    before do
-      setup_handler(
-        profile: 'botgarden',
-        mapper_path: "spec/fixtures/files/mappers/release_6_1/botgarden/"\
-          "botgarden_2-0-1_taxon-local.json"
-      )
-      CollectionSpace::Mapper.config.batch.delimiter = ';'
-    end
-
-    let(:response){ described_class.new(data) }
+  describe "#valid?", vcr: "botgarden_domain_check" do
+    let(:result){ response.valid? }
+    let(:profile){ 'botgarden' }
+    let(:mapper){ "botgarden_2-0-1_taxon-local" }
 
     context "when there are no errors" do
       let(:data) { {"termDisplayName" => "Tanacetum"} }
 
       it "returns true" do
-        expect(response.valid?).to be true
+        expect(result).to be true
       end
     end
     context "when there is one or more errors" do
       let(:data) { {"taxonName" => "Tanacetum"} }
       it "returns false" do
-        expect(response.valid?).to be false
+        expect(result).to be false
       end
     end
   end
 
-  context "when response_mode = verbose in config",
-    vcr: "botgarden_taxon_tanacetum" do
-      before do
-        setup_handler(
-          profile: 'botgarden',
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/botgarden/"\
-            "botgarden_2-0-1_taxon-local.json"
-        )
-        CollectionSpace::Mapper.config.batch.delimiter = ';'
-        CollectionSpace::Mapper.config.batch.response_mode = 'verbose'
-      end
-
-      let(:data) {
-        {"termDisplayName" => "Tanacetum;Tansy", "termStatus" => "made up"}
-      }
-      let(:response) do
-        resp = described_class.new(data)
-        handler.process(resp)
-      end
-
-      it "returns Response with populated doc" do
-        expect(response.doc).to be_a(Nokogiri::XML::Document)
-      end
-      it "returns Response with populated warnings" do
-        expect(response.warnings).not_to be_empty
-      end
-      it "returns Response with populated identifier" do
-        expect(response.identifier).not_to be_empty
-      end
-      it "returns Response with Hash of orig_data" do
-        expect(response.orig_data).to be_a(Hash)
-      end
-      it "returns Response with populated merged_data" do
-        expect(response.merged_data).not_to be_empty
-      end
-      it "returns Response with populated split_data" do
-        expect(response.split_data).not_to be_empty
-      end
-      it "returns Response with populated transformed_data" do
-        expect(response.transformed_data).not_to be_empty
-      end
-      it "returns Response with populated combined_data" do
-        expect(response.combined_data).not_to be_empty
-      end
-    end
-
-  describe "#normal", services_call: true,
-    vcr: "botgarden_taxon_tanacetum" do
-        before do
-          setup_handler(
-            profile: 'botgarden',
-            mapper_path: "spec/fixtures/files/mappers/release_6_1/botgarden/"\
-              "botgarden_2-0-1_taxon-local.json"
-          )
-          CollectionSpace::Mapper.config.batch.delimiter = ';'
-        end
-
-        let(:data) {
-          {"termDisplayName" => "Tanacetum;Tansy", "termStatus" => "made up"}
-        }
-        let(:response) do
-          resp = described_class.new(data)
-          handler.process(resp).normal
-        end
-
-        it "returns Response with populated doc" do
-          expect(response.doc).to be_a(Nokogiri::XML::Document)
-        end
-        it "returns Response with populated warnings" do
-          expect(response.warnings).not_to be_empty
-        end
-        it "returns Response with populated identifier" do
-          expect(response.identifier).not_to be_empty
-        end
-        it "returns Response with Hash of orig_data" do
-          expect(response.orig_data).to be_a(Hash)
-        end
-        it "returns Response with unpopulated merged_data" do
-          expect(response.merged_data).to be_empty
-        end
-        it "returns Response with unpopulated split_data" do
-          expect(response.split_data).to be_empty
-        end
-        it "returns Response with unpopulated transformed_data" do
-          expect(response.transformed_data).to be_empty
-        end
-        it "returns Response with unpopulated combined_data" do
-          expect(response.combined_data).to be_empty
-        end
-    end
-
   describe "#xml", vcr: "botgarden_taxon_tanacetum" do
-    before do
-      setup_handler(
-        profile: 'botgarden',
-        mapper_path: "spec/fixtures/files/mappers/release_6_1/botgarden/"\
-          "botgarden_2-0-1_taxon-local.json"
-      )
-      CollectionSpace::Mapper.config.batch.delimiter = ';'
-    end
+    let(:profile){ 'botgarden' }
+    let(:mapper){ "botgarden_2-0-1_taxon-local" }
 
     let(:data) {
       {"termDisplayName" => "Tanacetum;Tansy", "termStatus" => "made up"}
     }
-    let(:response) { described_class.new(data).validate }
 
     context "when there is a doc", services_call: true do
       it "returns string" do
-        resp = handler.process(response).xml
-        expect(resp).to be_a(String)
+        expect(response.map.xml).to be_a(String)
       end
     end
 
     context "when there is no doc" do
       it "returns nil" do
-        resp = response.xml
-        expect(resp).to be_nil
+        expect(response.xml).to be_nil
       end
     end
   end
 
-  describe '#terms' do
-    before do
-      setup_handler(
-        mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-          "core_6-1-0_collectionobject.json"
-      )
-      CollectionSpace::Mapper.config.batch.delimiter = '|'
-      CollectionSpace::Mapper.config.batch.response_mode = 'termobj'
+  describe "#xpaths", vcr: "core_domain_check" do
+    let(:result){ response.xpaths }
+
+    context "when authority record" do
+      let(:mapper){ "core_6-1-0_place-local" }
+      let(:data) { {"termdisplayname" => "Silk Hope"} }
+
+      it "keeps mapping for shortIdentifier in xphash" do
+        mappings = result["places_common"].mappings
+          .map(&:fieldname)
+        expect(mappings).to include('shortIdentifier')
+      end
+
+      it "removes xpaths to which no fields map" do
+        expect(result.length).to eq(2)
+      end
     end
-    let(:processed) do
-      resp = described_class.new(data)
-      handler.process(resp)
-    end
+  end
+
+  describe '#terms', vcr: "core_domain_check" do
+    let(:customcfg){ {delimiter: "|", response_mode: "verbose"} }
+    let(:processed){ response.map }
 
     context "with some terms found and some terms not found" do
       let(:result) { processed.terms.reject{ |t| t.found? } }
@@ -371,8 +260,8 @@ RSpec.describe CollectionSpace::Mapper::Response do
         "contentConceptAssociated" => "Birbs"
       }
 
-      resp1 = CollectionSpace::Mapper::Response.new(data1)
-      resp2 = CollectionSpace::Mapper::Response.new(data2)
+      resp1 = CollectionSpace::Mapper::Response.new(data1, handler)
+      resp2 = CollectionSpace::Mapper::Response.new(data2, handler)
 
       handler.process(resp1)
 
@@ -381,5 +270,41 @@ RSpec.describe CollectionSpace::Mapper::Response do
         .select { |t| !t.found? }
       expect(result.length).to eq(1)
     end
+  end
+
+  describe "#map", vcr: "botgarden_taxon_tanacetum" do
+    let(:result){ response.map }
+    let(:profile){ 'botgarden' }
+    let(:mapper){ "botgarden_2-0-1_taxon-local" }
+    let(:data) {
+      {"termDisplayName" => "Tanacetum;Tansy", "termStatus" => "made up"}
+    }
+
+    it "returns as expected" do
+      expect(result.doc).to be_a(Nokogiri::XML::Document)
+      expect(result.warnings).not_to be_empty
+      expect(result.identifier).not_to be_empty
+      expect(result.orig_data).to be_a(Hash)
+      expect(result.merged_data).to be_empty
+      expect(result.split_data).to be_empty
+      expect(result.transformed_data).to be_empty
+      expect(result.combined_data).to be_empty
+    end
+
+    context "when response_mode = verbose in config",
+      vcr: "botgarden_taxon_tanacetum" do
+        let(:customcfg){ {response_mode: 'verbose'} }
+
+        it "returns as expected" do
+          expect(result.doc).to be_a(Nokogiri::XML::Document)
+          expect(result.warnings).not_to be_empty
+          expect(result.identifier).not_to be_empty
+          expect(result.orig_data).to be_a(Hash)
+          expect(result.merged_data).not_to be_empty
+          expect(result.split_data).not_to be_empty
+          expect(result.transformed_data).not_to be_empty
+          expect(result.combined_data).not_to be_empty
+        end
+      end
   end
 end

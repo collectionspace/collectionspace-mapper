@@ -3,39 +3,28 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder do
-  subject(:builder) { described_class }
+  subject(:builder) { handler.status_checker }
 
-  after{ CollectionSpace::Mapper.reset_config }
+  let(:handler) do
+    setup_handler(
+      mapper: "core_6-1-0_group",
+      config: config
+    )
+  end
+  let(:config){ {} }
 
-  describe ".call" do
-    let(:result){ builder.call }
-
-    context "when status_check_method = client" do
-      before do
-        setup(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_group.json"
-        )
-      end
-
-      it "raises returns RecordStatusServiceClient" do
-        expect(result).to be_a(
-          CollectionSpace::Mapper::Tools::RecordStatusServiceClient
-        )
-      end
+  describe ".call", vcr: "core_domain_check" do
+    it "returns RecordStatusServiceClient" do
+      expect(builder).to be_a(
+        CollectionSpace::Mapper::Tools::RecordStatusServiceClient
+      )
     end
 
     context "when status_check_method = cache" do
-      before do
-        setup(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_group.json"
-        )
-        CollectionSpace::Mapper.config.batch.status_check_method = "cache"
-      end
+      let(:config){ {status_check_method: "cache"} }
 
       it "raises returns RecordStatusServiceCache" do
-        expect(result).to be_a(
+        expect(builder).to be_a(
           CollectionSpace::Mapper::Tools::RecordStatusServiceCache
         )
       end

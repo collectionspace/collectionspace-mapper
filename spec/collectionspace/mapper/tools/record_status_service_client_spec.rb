@@ -2,44 +2,39 @@
 
 require "spec_helper"
 
-RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient do
-  after{ CollectionSpace::Mapper.reset_config }
+RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
+  vcr: "core_domain_check" do
+  subject(:service){ handler.status_checker }
 
-  let(:service) {
-    CollectionSpace::Mapper::Tools::RecordStatusServiceClient.new
-  }
+  let(:handler) do
+    setup_handler(
+      profile: profile,
+      mapper: mapper,
+      config: config
+    )
+  end
+  let(:profile){ "core" }
+  let(:config){ {} }
 
   context "when mapper service_path not handled by collectionspace-client" do
-    before do
-      setup(
-        profile: 'core',
-        mapper_path: "spec/fixtures/files/mappers/core_6-1-0_aardvark.json"
-      )
-    end
+    let(:mapper){ "core_6-1-0_aardvark" }
 
     it "raises NoClientServiceError" do
-      expect{ service }.to raise_error(
+      expect{ handler }.to raise_error(
         CollectionSpace::Mapper::NoClientServiceError
       )
     end
   end
 
-  # @todo fix these tests so they are not on the now-private method
-  describe "#lookup" do
-    let(:result) { service.send(:lookup, str) }
+  describe "#call" do
+    let(:result) { service.call(id) }
 
     context "when mapper is for an authority" do
-      before do
-        setup(
-          profile: 'core',
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_person-local.json"
-        )
-      end
+      let(:mapper){ "core_6-1-0_person-local" }
 
       context "and one result is found",
         vcr: "client_status_svc_auth_lookup_found" do
-          let(:str){ 'John Doe' }
+          let(:id){ 'John Doe' }
 
           it "status = :existing" do
             expect(result[:status]).to eq(:existing)
@@ -62,7 +57,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient do
 
       context "and no result is found",
         vcr: "client_status_svc_auth_lookup_not_found" do
-          let(:str){ "Chickweed Guineafowl" }
+          let(:id){ "Chickweed Guineafowl" }
 
           it "status = :new" do
             expect(result[:status]).to eq(:new)
@@ -71,7 +66,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient do
 
       context "and multiple results found",
         vcr: "client_status_svc_auth_lookup_multi_found" do
-          let(:str){ "Inkpot Guineafowl" }
+          let(:id){ "Inkpot Guineafowl" }
 
           context "with default config" do
             it "raises error" do
@@ -82,10 +77,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient do
           end
 
           context "with multiple_recs_found = use first in batchconfig" do
-            before do
-              CollectionSpace::Mapper.config.batch.multiple_recs_found =
-                "use_first"
-            end
+            let(:config){ {multiple_recs_found: "use_first"} }
 
             it "returns result with count of records found" do
               expect(result.keys.any?(:multiple_recs_found)).to be true
@@ -96,14 +88,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient do
 
     context "when mapper is for an object",
       vcr: "client_status_svc_obj_lookup" do
-        before do
-          setup(
-            profile: 'core',
-            mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-              "core_6-1-0_collectionobject.json"
-          )
-        end
-        let(:str){ "2000.1" }
+        let(:mapper){ "core_6-1-0_collectionobject" }
+        let(:id){ "2000.1" }
 
         it "works the same" do
           expect(result[:status]).to eq(:existing)
@@ -112,14 +98,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient do
 
     context "when mapper is for a procedure",
       vcr: "client_status_svc_proc_lookup" do
-        before do
-          setup(
-            profile: 'core',
-            mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-              "core_6-1-0_acquisition.json"
-          )
-        end
-        let(:str){ "2000.001" }
+        let(:mapper){ "core_6-1-0_acquisition" }
+        let(:id){ "2000.001" }
 
         it "works the same" do
           expect(result[:status]).to eq(:existing)
@@ -128,27 +108,13 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient do
 
     context "when mapper is for a relationship",
       vcr: "client_status_svc_rel_lookup" do
-        before do
-          setup(
-            profile: 'core',
-            mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-                "core_6-1-0_objecthierarchy.json"
-          )
-        end
-        let(:str) do
+        let(:mapper){ "core_6-1-0_objecthierarchy" }
+        let(:id) do
           {
             sub: "56c04f5f-32b9-4f1d-8a4b",
             obj: "6f0ce7b3-0130-444d-8633",
             prd: "affects"
           }
-        end
-
-        let(:mapper) do
-          CollectionSpace::Mapper::RecordMapper.new(
-            mapper: get_json_record_mapper(
-              "spec/fixtures/files/mappers/release_6_1/core/"\
-            )
-          )
         end
 
         it "works the same" do

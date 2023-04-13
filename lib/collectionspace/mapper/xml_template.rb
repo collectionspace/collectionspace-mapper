@@ -4,9 +4,9 @@ module CollectionSpace
   module Mapper
     # The XML document structure for a given record type.
     # Knows the structure as a Hash provided by initial JSON record mapper
-    # Adds to {CollectionSpace::Mapper.record} config a blank XML document with
-    #  all namespace and field group elements populated so mapper may populate
-    #  data via xpath
+    #
+    # Produces a blank XML document with all namespace and field group elements
+    #   populated so mapper may populate data via xpath
     class XmlTemplate
       class << self
         def call(...)
@@ -14,18 +14,18 @@ module CollectionSpace
         end
       end
 
-      attr_reader :doc
       # @param docstructure [Hash] section from JSON record mapper
       def initialize(docstructure)
         @docstructure = docstructure
-        @doc = build_xml
-        CollectionSpace::Mapper.record.xml_template = doc
-        doc
+        @xml = build_xml
       end
 
+      def doc
+        xml.dup
+      end
       private
 
-      attr_reader :docstructure
+      attr_reader :docstructure, :xml
 
       def build_xml
         builder = Nokogiri::XML::Builder.new do |xml|

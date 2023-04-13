@@ -7,13 +7,11 @@ module CollectionSpace
         include CollectionSpace::Mapper::Dates::Mappable
 
         # @param date_string [String] to parse
-        # @param year_handling [:coerce, :literal]
-        def initialize(
-          date_string,
-          year_handling = CollectionSpace::Mapper.batch.two_digit_year_handling
-        )
+        # @param handler [CollectionSpace::Mapper::DataHandler]
+        def initialize(date_string, handler)
           @date_string = date_string
-          @year_handling = year_handling
+          @handler = handler
+          @year_handling = handler.batch.two_digit_year_handling
         end
 
         def mappable
@@ -27,11 +25,12 @@ module CollectionSpace
 
         private
 
-        attr_reader :date_string, :year_handling
+        attr_reader :date_string, :handler, :year_handling
 
         def coerced_mappable
           result = CollectionSpace::Mapper::Dates::ChronicParser.new(
-            coerced_year_date
+            coerced_year_date,
+            handler
           ).mappable
           result["dateDisplayDate"] = date_string
           result
@@ -60,7 +59,8 @@ module CollectionSpace
 
         def literal_mappable
           CollectionSpace::Mapper::Dates::ServicesParser.new(
-            date_string
+            date_string,
+            handler
           ).mappable
         rescue => err
           fail CollectionSpace::Mapper::UnparseableStructuredDateError.new(

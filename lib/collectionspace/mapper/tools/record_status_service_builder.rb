@@ -6,11 +6,16 @@ module CollectionSpace
       # Factory to build the appropriate RecordStatusService
       class RecordStatusServiceBuilder
         class << self
-          def call
-            if CollectionSpace::Mapper.batch.status_check_method == "client"
-              CollectionSpace::Mapper::Tools::RecordStatusServiceClient.new
+          # @param handler [CollectionSpace::Mapper::DataHandler]
+          def call(handler)
+            if handler.batch.status_check_method == "client"
+              CollectionSpace::Mapper::Tools::RecordStatusServiceClient.new(
+                handler
+              )
             else
-              CollectionSpace::Mapper::Tools::RecordStatusServiceCache.new
+              CollectionSpace::Mapper::Tools::RecordStatusServiceCache.new(
+                handler
+              )
             end
           end
         end

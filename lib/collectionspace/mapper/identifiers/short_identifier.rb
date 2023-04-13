@@ -4,11 +4,17 @@ module CollectionSpace
   module Mapper
     module Identifiers
       class ShortIdentifier
+        class << self
+          def call(term)
+            self.new(term: term).call
+          end
+        end
+
         def initialize(term:)
           @term = term
         end
 
-        def value
+        def call
           prepped_term
         end
 

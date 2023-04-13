@@ -7,32 +7,36 @@ class TermClass
 
   include CollectionSpace::Mapper::TermSearchable
 
-  def initialize(type, subtype)
+  attr_reader :type, :subtype, :handler
+  def initialize(type, subtype, handler)
     @type = type
     @subtype = subtype
+    @handler = handler
     @errors = []
   end
 end
 
-RSpec.describe CollectionSpace::Mapper::TermSearchable do
+RSpec.describe CollectionSpace::Mapper::TermSearchable, vcr: "core_domain_check" do
   subject(:term) {
-    TermClass.new(termtype, termsubtype)
+    TermClass.new(termtype, termsubtype, handler)
   }
 
-  before do
+  let(:handler) do
     setup_handler(
-      mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-        "core_6-1-0_collectionobject.json"
+      mapper: "core_6-1-0_collectionobject",
+      config: config
     )
-    CollectionSpace::Mapper.config.batch.delimiter = ';'
   end
-  after{ CollectionSpace::Mapper.reset_config }
+  let(:baseconfig){ {delimiter: ";"} }
+  let(:customcfg){ {} }
+  let(:config){ baseconfig.merge(customcfg) }
+
 
   let(:termtype) { "conceptauthorities" }
   let(:termsubtype) { "concept" }
 
   describe "#in_cache?" do
-    let(:result) { term.in_cache?(val) }
+    let(:result) { term.send(:in_cache?, val) }
     context "when not in cache" do
       let(:val) { "Tiresias" }
       it "returns false" do
@@ -56,12 +60,12 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
   end
 
   describe "#cached_as_unknown?" do
-    let(:result) { term.cached_as_unknown?(val) }
+    let(:result) { term.send(:cached_as_unknown?, val) }
     let(:val) { "blahblahblah" }
 
     context "when not cached as unknown value" do
       it "returns false" do
-        CollectionSpace::Mapper.termcache
+        handler.termcache
           .remove("unknownvalue", "#{termtype}/#{termsubtype}", val)
         expect(result).to be false
       end
@@ -69,7 +73,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
 
     context "when cached as unknown value" do
       it "returns true" do
-        CollectionSpace::Mapper.termcache
+        handler.termcache
           .put("unknownvalue", "#{termtype}/#{termsubtype}", val, nil)
         expect(result).to be true
       end
@@ -77,7 +81,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
   end
 
   describe "#cached_term" do
-    let(:result) { term.cached_term(val) }
+    let(:result) { term.send(:cached_term, val) }
     context "when not in cache" do
       let(:val) { "Tiresias" }
       it "returns nil" do
@@ -107,7 +111,9 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
   describe "#searched_term" do
     let(:termtype) { "vocabularies" }
     let(:termsubtype) { "publishto" }
-    let(:result) { term.searched_term(val, :refname, termtype, termsubtype) }
+    let(:result) do
+      term.send(:searched_term, val, :refname, termtype, termsubtype)
+    end
 
     context "when val exists in instance", vcr: "vocab_publishto_All" do
       let(:val) { "All" }
@@ -133,7 +139,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
   describe "#obj_csid" do
     let(:type) { "collectionobjects" }
     let(:termsubtype) { nil }
-    let(:result) { term.obj_csid(objnum, type) }
+    let(:result) { term.send(:obj_csid, objnum, type) }
 
     context "when in cache" do
       let(:objnum) { "Hierarchy Test 001" }
@@ -152,7 +158,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable do
   end
 
   describe "#term_csid" do
-    let(:result) { term.term_csid(val) }
+    let(:result) { term.send(:term_csid, val) }
     context "when in cache" do
       let(:val) { "Sample Concept 1" }
       it "returns csid" do

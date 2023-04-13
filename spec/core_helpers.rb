@@ -14,12 +14,6 @@ module Helpers
   end
   memo_wise(:core_client)
 
-  def core_object_mapper
-    path = "spec/fixtures/files/mappers/release_6_1/core/"\
-      "core_6-1-0_collectionobject.json"
-    get_record_mapper_object(path, core_cache)
-  end
-
   def core_domain
     "core.collectionspace.org"
   end

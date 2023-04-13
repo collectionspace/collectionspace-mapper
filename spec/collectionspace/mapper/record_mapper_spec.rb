@@ -3,52 +3,76 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::RecordMapper do
-  subject(:mapper){ described_class.new(mapper: jsonmapper) }
+  subject(:record){ handler.record }
 
-  before do
-    setup(profile: 'anthro')
+  # Building the handler calls the described class and sets the handler settings
+  #   we are interested in from it, so we test the handler config
+  let(:handler) do
+    setup_handler(
+      profile: "anthro",
+      mapper: mapper
+    )
   end
-  after{ CollectionSpace::Mapper.reset_config }
 
-  let(:jsonmapper) { get_json_record_mapper(path) }
-  let(:path) {
-    "spec/fixtures/files/mappers/release_6_1/anthro/"\
-      "anthro_4-1-2_collectionobject.json"
-  }
-
-  describe "setting of service_type_extension" do
-    let(:result) do
-      mapper
-      CollectionSpace::Mapper.record.service_type_mixin
-    end
-
+  describe "setting of record options", vcr: "anthro_domain_check" do
     context "when initialized with authority mapper" do
-      let(:path) {
-        "spec/fixtures/files/mappers/release_6_1/anthro/"\
-          "anthro_4-1-2_citation-local.json"
-      }
-      it "returns Authority module name" do
-        expect(result).to eq(
+      let(:mapper){ "anthro_4-1-2_citation-local" }
+      it "sets as expected" do
+        expect(record.recordtype).to eq('citation')
+        expect(record.authority_type).to eq('citationauthorities')
+        expect(record.authority_subtype).to eq('citation')
+        expect(record.service_type_mixin).to eq(
           CollectionSpace::Mapper::Authority
+        )
+        expect(record.common_namespace).to eq(
+          "citations_common"
+        )
+        expect(record.xml_template).to be_a(
+          Nokogiri::XML::Document
+        )
+        expect(record.mappings).to be_a(
+          CollectionSpace::Mapper::ColumnMappings
+        )
+        expect(record.xpaths).to be_a(
+          CollectionSpace::Mapper::Xpaths
         )
       end
     end
 
     context "when initialized with relationship mapper" do
-      let(:path) {
-        "spec/fixtures/files/mappers/release_6_1/anthro/"\
-          "anthro_4-1-2_authorityhierarchy.json"
-      }
-      it "returns Relationship module name" do
-        expect(result).to eq(
+      let(:mapper){ "anthro_4-1-2_authorityhierarchy" }
+      it "sets as expected" do
+        expect(record.recordtype).to eq('authorityhierarchy')
+        expect(record.service_type_mixin).to eq(
           CollectionSpace::Mapper::Relationship
+        )
+        expect(record.common_namespace).to eq(
+          "relations_common"
         )
       end
     end
 
-    context "when initialized with any other mapper" do
-      it "returns nil" do
-        expect(result).to be_nil
+    context "when initialized with collectionobject mapper" do
+      let(:mapper){ "anthro_4-1-2_collectionobject" }
+
+      it "sets as expected" do
+        expect(record.recordtype).to eq('collectionobject')
+        expect(record.service_type_mixin).to be_nil
+        expect(record.identifier_field).to eq("objectNumber")
+        expect(
+          record.namespaces.include?("collectionobjects_nagpra")
+        ).to be true
+      end
+    end
+
+    context "when initialized with media mapper" do
+      let(:mapper){ "anthro_4-1-2_media" }
+
+      it "sets as expected" do
+        expect(record.recordtype).to eq('media')
+        expect(record.recordtype_mixin).to eq(
+          CollectionSpace::Mapper::Media
+        )
       end
     end
   end

@@ -6,8 +6,10 @@ module CollectionSpace
       class RecordStatusServiceClient
         include RecordStatusServiceable
 
-        def initialize
-          @client = CollectionSpace::Mapper.client
+        # @param handler [CollectionSpace::Mapper::DataHandler]
+        def initialize(handler)
+          @handler = handler
+          @client = handler.client
           service = get_service
           @search_field = authority? ? service[:term] : service[:field]
           @ns_prefix = service[:ns_prefix]
@@ -16,14 +18,14 @@ module CollectionSpace
           @response_nested = client.get_list_types(path)[1]
         end
 
-        def call(response)
-          value = get_value_for_record_status(response)
-          lookup(value)
+        # @param id [Hash, String]
+        def call(id)
+          lookup(id)
         end
 
         private
 
-        attr_reader :client, :search_field, :ns_prefix, :path,
+        attr_reader :handler, :client, :search_field, :ns_prefix, :path,
           :response_top, :response_nested
 
         def get_service
@@ -88,7 +90,7 @@ module CollectionSpace
         end
 
         def use_first?
-          CollectionSpace::Mapper.batch.multiple_recs_found == "use_first"
+          handler.batch.multiple_recs_found == "use_first"
         end
 
         def count_results(response)

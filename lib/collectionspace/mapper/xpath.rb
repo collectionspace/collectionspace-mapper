@@ -6,16 +6,23 @@ module CollectionSpace
 
       attr_reader :path, :mappings
 
-      def initialize(path:, mappings:)
+      # @param path [String] the xpath represented
+      # @param mappings [Array<CollectionSpace::Mapper::ColumnMapping] for
+      #   fields that are direct children of the xpath
+      # @param handler [CollectionSpace::Mapper::DataHandler]
+      def initialize(path:, mappings:, handler:)
         @path = path
         @mappings = mappings
+        @handler = handler
+        @rectype = handler.record.recordtype
+        @xpaths = handler.record.xpaths
       end
 
       def to_s
         "<##{self.class}:#{object_id.to_s(8)}\n"\
-          "profile: #{CollectionSpace::Mapper.record.profile_basename}\n"\
-          "version: #{CollectionSpace::Mapper.record.version}\n"\
-          "rectype: #{CollectionSpace::Mapper.record.recordtype}\n"\
+          "profile: #{handler.record.profile_basename}\n"\
+          "version: #{handler.record.version}\n"\
+          "rectype: #{handler.record.recordtype}\n"\
           "#{for_recordtype.map{ |xp| "  #{xp}" }.join("\n")}"\
           ">"
       end
@@ -28,7 +35,8 @@ module CollectionSpace
       def dup
         self.class.new(
           path: path,
-          mappings: mappings.map(&:dup)
+          mappings: mappings.map(&:dup),
+          handler: handler
           )
       end
 
@@ -36,7 +44,6 @@ module CollectionSpace
       def for_row(keep)
         keeping = mappings.select{ |mapping| keep.any?(mapping.datacolumn) }
 
-        rectype = CollectionSpace::Mapper.record.recordtype
         # these mappings were needed to get data in via template for processing,
         #   but do not actually get used to produce XML
         if rectype == 'nonhierarchicalrelationship'
@@ -52,7 +59,8 @@ module CollectionSpace
 
         self.class.new(
           path: path,
-          mappings: keeping
+          mappings: keeping,
+          handler: handler
         )
       end
 
@@ -74,9 +82,10 @@ module CollectionSpace
 
       private
 
+      attr_reader :handler, :rectype, :xpaths
+
       def set_children
-        set = CollectionSpace::Mapper.record.xpaths
-          .list
+        set = xpaths.list
           .select{ |xpath| xpath.start_with?(path) }
         set - [path]
       end
@@ -111,8 +120,7 @@ module CollectionSpace
       end
 
       def set_is_subgroup
-        return false if CollectionSpace::Mapper.record.xpaths
-          .subgroups
+        return false if xpaths.subgroups
           .none?(path)
 
         true
@@ -121,8 +129,7 @@ module CollectionSpace
       def set_parent
         return "" unless path["/"]
 
-        set = CollectionSpace::Mapper.record.xpaths
-          .list
+        set = xpaths.list
           .select{ |xpath| path.start_with?(xpath) }
           .sort_by(&:length)
           .reverse
@@ -139,29 +146,3 @@ module CollectionSpace
     end
   end
 end
-
-# pry(#<RSpec::ExampleGroups::CollectionSpaceMapperXpaths::Hash::WithCoreCollectionobhect>)> rt = ms.select{ |m| m['fieldname'] == 'rightType' }
-# => [{"fieldname"=>"rightType",
-#   "transforms"=>{:vocabulary=>"rightstype"},
-#   "source_type"=>"vocabulary",
-#   "source_name"=>"rightstype",
-#   "namespace"=>"collectionobjects_common",
-#   "xpath"=>["rightsGroupList", "rightsGroup"],
-#   "data_type"=>"string",
-#   "repeats"=>"n",
-#   "in_repeating_group"=>"y",
-#   "opt_list_values"=>[],
-#   "datacolumn"=>"rightType",
-#   "required"=>"n"},
-#  {"fieldname"=>"rightType",
-#   "transforms"=>{},
-#   "source_type"=>"refname",
-#   "source_name"=>"rightstype",
-#   "namespace"=>"collectionobjects_common",
-#   "xpath"=>["rightsGroupList", "rightsGroup"],
-#   "data_type"=>"csrefname",
-#   "repeats"=>"n",
-#   "in_repeating_group"=>"y",
-#   "opt_list_values"=>[],
-#   "datacolumn"=>"rightTypeRefname",
-#   "required"=>"n"}]

@@ -3,18 +3,16 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Dates::ChronicParser do
-  subject(:parser) { described_class.new(str) }
+  subject(:parser) { described_class.new(str, handler) }
 
-  before do
+  let(:handler) do
     setup_handler(
       profile: 'anthro',
-      mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
-            "anthro_4-1-2_collectionobject.json"
+      mapper: "anthro_4-1-2_collectionobject"
     )
   end
-  after{ CollectionSpace::Mapper.reset_config }
 
-  describe "#mappable" do
+  describe "#mappable", vcr: "anthro_domain_check" do
     let(:result) { parser.mappable }
 
     context "with 2022-06-23" do
@@ -36,7 +34,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::ChronicParser do
     end
   end
 
-  describe "#stamp" do
+  describe "#stamp", vcr: "anthro_domain_check" do
     let(:result) { parser.stamp }
 
     context "with 2022-06-23" do
