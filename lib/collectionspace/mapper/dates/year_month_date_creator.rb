@@ -7,9 +7,10 @@ module CollectionSpace
         include CollectionSpace::Mapper::Dates::Mappable
 
         # @param date_string [String] from which to create date
-        def initialize(date_string)
+        # @param handler [CollectionSpace::Mapper::DataHandler]
+        def initialize(date_string, handler)
           @date_string = date_string
-          @date_handler = CollectionSpace::Mapper.date_handler
+          @handler = handler
         end
 
         def mappable
@@ -18,11 +19,11 @@ module CollectionSpace
             "dateEarliestSingleYear" => year.to_s,
             "dateEarliestSingleMonth" => month.to_s,
             "dateEarliestSingleDay" => "1",
-            "dateEarliestSingleEra" => date_handler.ce,
+            "dateEarliestSingleEra" => handler.date_handler.ce,
             "dateLatestYear" => year.to_s,
             "dateLatestMonth" => month.to_s,
             "dateLatestDay" => last_day_of_month.to_s,
-            "dateLatestEra" => date_handler.ce,
+            "dateLatestEra" => handler.date_handler.ce,
             "dateEarliestScalarValue" =>
               "#{year}-#{month.to_s.rjust(2, "0")}-01",
             "dateLatestScalarValue" =>
@@ -39,7 +40,7 @@ module CollectionSpace
 
         private
 
-        attr_reader :date_string, :date_handler
+        attr_reader :date_string, :handler
 
         def last_day_of_month
           Date.new(year, month, -1).day

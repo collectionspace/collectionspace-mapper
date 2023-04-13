@@ -12,7 +12,7 @@ module CollectionSpace
         [
           {
             fieldname: "mediaFileURI",
-            namespace: CollectionSpace::Mapper.record.common_namespace,
+            namespace: handler.record.common_namespace,
             data_type: "string",
             xpath: [],
             required: "n",

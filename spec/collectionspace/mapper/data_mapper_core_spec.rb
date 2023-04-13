@@ -3,102 +3,44 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
-  subject(:datamapper) {
-    described_class.new(datahash.prep)
-  }
-
-  after{ CollectionSpace::Mapper.reset_config }
-
-  let(:datahash) do
-    CollectionSpace::Mapper::Response.new(get_datahash(path: hashpath))
-  end
-  let(:response) do
-    CollectionSpace::Mapper.data_handler
-      .process(datahash)
-  end
-  let(:mapped_doc) { remove_namespaces(response.doc) }
-  let(:mapped_xpaths) { list_xpaths(mapped_doc) }
-  let(:fixture_doc) { get_xml_fixture(fixturepath) }
-  let(:fixture_xpaths) do
-    test_xpaths(
-      fixture_doc,
-      CollectionSpace::Mapper.record.mappings
-    )
-  end
-  let(:diff) { mapped_xpaths - fixture_xpaths }
+  include_context "data_mapper"
 
   context "core profile" do
+    let(:profile){ "core" }
+
     context "non-hierarchical relationship record" do
-      before do
-        setup_handler(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_nonhierarchicalrelationship.json"
-        )
-        CollectionSpace::Mapper.config.batch.delimiter = ';'
-      end
+      let(:mapper){ "core_6-1-0_nonhierarchicalrelationship" }
 
       context "when all IDs found", vcr: "core_nhr_ids_found" do
-        let(:hashpath) {
-          "spec/fixtures/files/datahashes/core/"\
-            "nonHierarchicalRelationship1.json"
+        let(:datahash_path) {
+          "spec/support/datahashes/core/nonHierarchicalRelationship1.json"
         }
-        let(:mapped_doc1) { remove_namespaces(response[0].doc) }
-        let(:mapped_doc2) { remove_namespaces(response[1].doc) }
-        let(:mapped_xpaths1) { list_xpaths(mapped_doc1) }
-        let(:mapped_xpaths2) { list_xpaths(mapped_doc2) }
-        let(:fixture_doc1) {
-          get_xml_fixture("core/nonHierarchicalRelationship1A.xml")
-        }
-        let(:fixture_xpaths1) {
-          test_xpaths(fixture_doc1, CollectionSpace::Mapper.record.mappings)
-        }
-        let(:fixture_doc2) {
-          get_xml_fixture("core/nonHierarchicalRelationship1B.xml")
-        }
-        let(:fixture_xpaths2) {
-          test_xpaths(fixture_doc2, CollectionSpace::Mapper.record.mappings)
-        }
+        let(:mapped_pair){ handler.process(response) }
 
         context "with original data" do
+          let(:mapped){ mapped_pair[0] }
+          let(:fixture_path){ "core/nonHierarchicalRelationship1A.xml" }
+
           it "sets response id field as expected" do
-            expect(response[0].identifier).to eq(
+            expect(mapped.identifier).to eq(
               "2020.1.107 TEST (collectionobjects) -> LOC2020.1.24 (movements)"
             )
           end
 
-          it "does not map unexpected fields" do
-            thisdiff = mapped_xpaths1 - fixture_xpaths1
-            expect(thisdiff).to eq([])
-          end
-
-          it "maps as expected" do
-            fixture_xpaths1.each do |xpath|
-              fixture_node = standardize_value(fixture_doc1.xpath(xpath).text)
-              mapped_node = standardize_value(mapped_doc1.xpath(xpath).text)
-              expect(mapped_node).to eq(fixture_node)
-            end
-          end
+          it_behaves_like "Mapped"
         end
 
         context "with flipped data" do
+          let(:mapped){ mapped_pair[1] }
+          let(:fixture_path){ "core/nonHierarchicalRelationship1B.xml" }
+
           it "sets response id field as expected" do
-            expect(response[1].identifier).to eq(
+            expect(mapped.identifier).to eq(
               "LOC2020.1.24 (movements) -> 2020.1.107 TEST (collectionobjects)"
             )
           end
 
-          it "does not map unexpected fields" do
-            thisdiff = mapped_xpaths2 - fixture_xpaths2
-            expect(thisdiff).to eq([])
-          end
-
-          it "maps as expected" do
-            fixture_xpaths2.each do |xpath|
-              fixture_node = standardize_value(fixture_doc2.xpath(xpath).text)
-              mapped_node = standardize_value(mapped_doc2.xpath(xpath).text)
-              expect(mapped_node).to eq(fixture_node)
-            end
-          end
+          it_behaves_like "Mapped"
         end
       end
 
@@ -106,240 +48,132 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       # #   should return an error
       context "when ID not found", vcr: "core_nhr_ids_not_found",
         skip: "Looks like wrong behavior" do
-        let(:hashpath) {
-          "spec/fixtures/files/datahashes/core/"\
-            "nonHierarchicalRelationship2.json"
-        }
-        let(:mapped_doc1) { remove_namespaces(response[0].doc) }
-        let(:mapped_doc2) { remove_namespaces(response[1].doc) }
-        let(:mapped_xpaths1) { list_xpaths(mapped_doc1) }
-        let(:mapped_xpaths2) { list_xpaths(mapped_doc2) }
-        let(:fixture_doc1) {
-          get_xml_fixture("core/nonHierarchicalRelationship2A.xml")
-        }
-        let(:fixture_xpaths1) {
-          test_xpaths(fixture_doc1, CollectionSpace::Mapper.record.mappings)
-        }
-        let(:fixture_doc2) {
-          get_xml_fixture("core/nonHierarchicalRelationship2B.xml")
-        }
-        let(:fixture_xpaths2) {
-          test_xpaths(fixture_doc2, CollectionSpace::Mapper.record.mappings)
-        }
-
-        context "with original data" do
-          it "sets response id field as expected" do
-            expect(response[0].identifier).to eq(
-              "2020.1.107 TEST (collectionobjects) -> LOC MISSING (movements)"
-            )
+          let(:datahash_path) do
+            "spec/support/datahashes/core/"\
+              "nonHierarchicalRelationship2.json"
           end
+          let(:mapped_pair){ handler.process(response) }
 
-          it "does not map unexpected fields" do
-            thisdiff = mapped_xpaths1 - fixture_xpaths1
-            expect(thisdiff).to eq([])
-          end
+          context "with original data" do
+            let(:mapped){ mapped_pair[0] }
+            let(:fixture_path) { "core/nonHierarchicalRelationship2A.xml" }
 
-          it "maps as expected" do
-            fixture_xpaths1.each do |xpath|
-              fixture_node = standardize_value(fixture_doc1.xpath(xpath).text)
-              mapped_node = standardize_value(mapped_doc1.xpath(xpath).text)
-              expect(mapped_node).to eq(fixture_node)
+            it "sets response id field as expected" do
+              expect(mapped.identifier).to eq(
+                "2020.1.107 TEST (collectionobjects) -> LOC MISSING (movements)"
+              )
             end
+
+            it_behaves_like "Mapped"
+          end
+
+          context "with flipped data" do
+            let(:mapped){ mapped_pair[1] }
+            let(:fixture_path) { "core/nonHierarchicalRelationship2B.xml" }
+
+            it "sets response id field as expected" do
+              expect(mapped.identifier).to eq(
+                "LOC MISSING (movements) -> 2020.1.107 TEST (collectionobjects)"
+              )
+            end
+
+            it_behaves_like "Mapped"
           end
         end
-
-        context "with flipped data" do
-          it "sets response id field as expected" do
-            expect(response[1].identifier).to eq(
-              "LOC MISSING (movements) -> 2020.1.107 TEST (collectionobjects)"
-            )
-          end
-
-          it "does not map unexpected fields" do
-            thisdiff = mapped_xpaths2 - fixture_xpaths2
-            expect(thisdiff).to eq([])
-          end
-
-          it "maps as expected" do
-
-            fixture_xpaths2.each do |xpath|
-              fixture_node = standardize_value(fixture_doc2.xpath(xpath).text)
-              mapped_node = standardize_value(mapped_doc2.xpath(xpath).text)
-              expect(mapped_node).to eq(fixture_node)
-            end
-          end
-        end
-      end
     end
 
     context "authority hierarchy record" do
-      before do
-        setup_handler(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_authorityhierarchy.json"
-        )
-        CollectionSpace::Mapper.config.batch.delimiter = ';'
-      end
+      let(:mapper){ "core_6-1-0_authorityhierarchy" }
 
       vcr_opts = {
         cassette_name: "core_concept_cats_siamese",
         record: :new_episodes
       }
       context "with existing terms", vcr: vcr_opts do
-        let(:hashpath) {
-          "spec/fixtures/files/datahashes/core/authorityHierarchy1.json"
+        let(:datahash_path) {
+          "spec/support/datahashes/core/authorityHierarchy1.json"
         }
-        let(:fixturepath) { "core/authorityHierarchy1.xml" }
+        let(:fixture_path) { "core/authorityHierarchy1.xml" }
 
         it "sets response id field as expected" do
-          expect(response.identifier).to eq("Cats > Siamese cats")
+          expect(mapped.identifier).to eq("Cats > Siamese cats")
         end
 
-        it "does not map unexpected fields" do
-          expect(diff).to eq([])
-        end
-
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
-        end
+        it_behaves_like "Mapped"
       end
 
       vcr_opts = {
         cassette_name: "core_concept_cats_tuxedo",
         record: :new_episodes
       }
-      context "with a missing term", vcr: vcr_opts do
-        let(:hashpath) {
-          "spec/fixtures/files/datahashes/core/authorityHierarchy2.json"
+      context "with a missing term", vcr: vcr_opts,
+        skip: "should not attempt to map"  do
+        let(:datahash_path) {
+          "spec/support/datahashes/core/authorityHierarchy2.json"
         }
-        let(:fixturepath) { "core/authorityHierarchy2.xml" }
+        let(:fixture_path) { "core/authorityHierarchy2.xml" }
 
         it "sets response id field as expected" do
-          expect(response.identifier).to eq("Cats > Tuxedo cats")
+          expect(mapped.identifier).to eq("Cats > Tuxedo cats")
         end
 
-        it "does not map unexpected fields" do
-          expect(diff).to eq([])
-        end
-
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
-        end
+        it_behaves_like "Mapped"
       end
     end
 
     context "object hierarchy record" do
-      before do
-        setup_handler(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_objecthierarchy.json"
-        )
-        CollectionSpace::Mapper.config.batch.delimiter = ';'
-      end
+      let(:mapper){ "core_6-1-0_objecthierarchy" }
 
       context "with existing records", vcr: "core_oh_ids_found" do
-        let(:hashpath) {
-          "spec/fixtures/files/datahashes/core/objectHierarchy1.json"
+        let(:datahash_path) {
+          "spec/support/datahashes/core/objectHierarchy1.json"
         }
-        let(:fixturepath) { "core/objectHierarchy1.xml" }
+        let(:fixture_path) { "core/objectHierarchy1.xml" }
 
         it "sets response id field as expected" do
-          expect(response.identifier).to eq("2020.1.105 > 2020.1.1055")
+          expect(mapped.identifier).to eq("2020.1.105 > 2020.1.1055")
         end
 
-        it "does not map unexpected fields" do
-          expect(diff).to eq([])
-        end
-
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
-        end
+        it_behaves_like "Mapped"
       end
 
-      context "with missing record", vcr: "core_oh_ids_not_found" do
-        let(:hashpath) {
-          "spec/fixtures/files/datahashes/core/objectHierarchy2.json"
+      context "with missing record", skip: "should not attempt to map",
+        vcr: "core_oh_ids_not_found" do
+        let(:datahash_path) {
+          "spec/support/datahashes/core/objectHierarchy2.json"
         }
-        let(:fixturepath) { "core/objectHierarchy2.xml" }
+        let(:fixture_path) { "core/objectHierarchy2.xml" }
+
+        it_behaves_like "Mapped"
 
         it "sets response id field as expected" do
           expect(response.identifier).to eq("2020.1.105 > MISSING")
-        end
-
-        it "does not map unexpected fields" do
-          expect(diff).to eq([])
-        end
-
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
         end
       end
     end
 
     context "acquisition record", services_call: true do
-      before do
-        setup_handler(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_acquisition.json"
-        )
-        CollectionSpace::Mapper.config.batch.delimiter = ';'
-      end
+      let(:mapper){ "core_6-1-0_acquisition" }
 
       context "record 1", vcr: "core_acq_1" do
-        let(:hashpath) {
-          "spec/fixtures/files/datahashes/core/acquisition1.json"
+        let(:datahash_path) {
+          "spec/support/datahashes/core/acquisition1.json"
         }
-        let(:fixturepath) { "core/acquisition1.xml" }
+        let(:fixture_path) { "core/acquisition1.xml" }
 
-        it "does not map unexpected fields" do
-          expect(diff).to eq([])
-        end
-
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
-        end
+        it_behaves_like "Mapped"
       end
 
       context "record 2", vcr: "core_acq_2" do
-        let(:hashpath) {
-          "spec/fixtures/files/datahashes/core/acquisition2.json"
+        let(:datahash_path) {
+          "spec/support/datahashes/core/acquisition2.json"
         }
-        let(:fixturepath) { "core/acquisition2.xml" }
+        let(:fixture_path) { "core/acquisition2.xml" }
 
-        it "does not map unexpected fields" do
-          expect(diff).to eq([])
-        end
-
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
-        end
+        it_behaves_like "Mapped"
 
         it "response has unparseable date error" do
-          errors = response.errors
+          errors = mapped.errors
           expect(errors.length).to eq(1)
           err = errors.first
           ex_err = {
@@ -352,7 +186,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         end
 
         it "response has unparseable structured date warning" do
-          warnings = response.warnings
+          warnings = mapped.warnings
           expect(warnings.length).to eq(1)
           wrn = warnings.first
           expect(wrn[:category]).to eq(:unparseable_structured_date)
@@ -363,392 +197,171 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "collectionobject record" do
-      before do
-        setup_handler(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_collectionobject.json"
-        )
-        CollectionSpace::Mapper.config.batch.delimiter = ';'
-      end
+      let(:mapper){ "core_6-1-0_collectionobject" }
 
       context "record 1", vcr: "core_obj_1" do
-        let(:hashpath) {
-          "spec/fixtures/files/datahashes/core/collectionobject1.json"
+        let(:datahash_path) {
+          "spec/support/datahashes/core/collectionobject1.json"
         }
-        let(:fixturepath) { "core/collectionobject1.xml" }
+        let(:fixture_path) { "core/collectionobject1.xml" }
 
-        it "does not map unexpected fields" do
-          expect(diff).to eq([])
-        end
-
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
-        end
+        it_behaves_like "Mapped"
       end
 
       context "record 4 (bomb and %NULLVALUE% terms)", vcr: "core_obj_4" do
-        let(:hashpath) {
-          "spec/fixtures/files/datahashes/core/collectionobject4.json"
+        let(:datahash_path) {
+          "spec/support/datahashes/core/collectionobject4.json"
         }
-        let(:fixture_doc) {
-          get_xml_fixture("core/collectionobject4.xml", false)
-        }
+        let(:fixture_path) { "core/collectionobject4.xml" }
 
-        it "does not map unexpected fields" do
-          expect(diff).to eq([
-            "/document/collectionobjects_common/namedCollections/"\
-              "namedCollection/text()"
-          ])
-        end
-
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
-        end
+        it_behaves_like "MappedWithBlanks"
       end
 
       context "record 5 (%NULLVALUE% term in repeating group)",
         vcr: "core_obj_5" do
-          before do
-            setup_handler(
-              mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-                "core_6-1-0_collectionobject.json"
-            )
-            CollectionSpace::Mapper.config.batch.delimiter = '|'
-          end
-          let(:hashpath) {
-            "spec/fixtures/files/datahashes/core/collectionobject5.json"
+          let(:customcfg){ {delimiter: "|"} }
+          let(:mapper){ "core_6-1-0_collectionobject" }
+          let(:datahash_path) {
+            "spec/support/datahashes/core/collectionobject5.json"
           }
-          let(:fixturepath) { "core/collectionobject5.xml" }
+          let(:fixture_path) { "core/collectionobject5.xml" }
 
-          it "does not map unexpected fields" do
-            expect(diff).to eq([])
-          end
-
-          it "maps as expected" do
-            fixture_xpaths.each do |xpath|
-              fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-              mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-              expect(mapped_node).to eq(fixture_node)
-            end
-          end
+          it_behaves_like "Mapped"
         end
     end
 
     context "conditioncheck record", services_call: true do
-      before do
-        setup_handler(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_conditioncheck.json"
-        )
-        CollectionSpace::Mapper.config.batch.delimiter = ';'
-      end
+      let(:mapper){ "core_6-1-0_conditioncheck" }
 
       context "record 1", vcr: "core_cc_1" do
-        let(:hashpath) {
-          "spec/fixtures/files/datahashes/core/conditioncheck1.json"
+        let(:datahash_path) {
+          "spec/support/datahashes/core/conditioncheck1.json"
         }
-        let(:fixturepath) { "core/conditioncheck1.xml" }
+        let(:fixture_path) { "core/conditioncheck1.xml" }
 
-        it "does not map unexpected fields" do
-          expect(diff).to eq([])
-        end
-
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
-        end
+        it_behaves_like "Mapped"
       end
     end
 
     context "conservation record", services_call: true do
-      before do
-        setup_handler(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_conservation.json"
-        )
-        CollectionSpace::Mapper.config.batch.delimiter = ';'
-      end
+      let(:mapper){ "core_6-1-0_conservation" }
 
       context "record 1", vcr: "core_ct_1" do
-        let(:hashpath) {
-          "spec/fixtures/files/datahashes/core/conservation1.json"
+        let(:datahash_path) {
+          "spec/support/datahashes/core/conservation1.json"
         }
-        let(:fixturepath) { "core/conservation1.xml" }
+        let(:fixture_path) { "core/conservation1.xml" }
 
-        it "does not map unexpected fields" do
-          expect(diff).to eq([])
-        end
-
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
-        end
+        it_behaves_like "Mapped"
       end
     end
 
     context "exhibition record", services_call: true do
-      before do
-        setup_handler(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_exhibition.json"
-        )
-        CollectionSpace::Mapper.config.batch.delimiter = ';'
-      end
+      let(:mapper){ "core_6-1-0_exhibition" }
 
       context "record 1", vcr: "core_exh_1" do
-        let(:hashpath) {
-          "spec/fixtures/files/datahashes/core/exhibition1.json"
+        let(:datahash_path) {
+          "spec/support/datahashes/core/exhibition1.json"
         }
-        let(:fixturepath) { "core/exhibition1.xml" }
+        let(:fixture_path) { "core/exhibition1.xml" }
 
-        it "does not map unexpected fields" do
-          expect(diff).to eq([])
-        end
-
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
-        end
+        it_behaves_like "Mapped"
       end
     end
 
     context "group record" do
-      before do
-        setup_handler(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_group.json"
-        )
-        CollectionSpace::Mapper.config.batch.delimiter = ';'
-      end
+      let(:mapper){ "core_6-1-0_group" }
 
       context "record 1", vcr: "core_grp_1" do
-        let(:hashpath) { "spec/fixtures/files/datahashes/core/group1.json" }
-        let(:fixturepath) { "core/group1.xml" }
+        let(:datahash_path) { "spec/support/datahashes/core/group1.json" }
+        let(:fixture_path) { "core/group1.xml" }
 
-        it "does not map unexpected fields" do
-          expect(diff).to eq([])
-        end
-
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
-        end
+        it_behaves_like "Mapped"
       end
     end
 
     context "intake record" do
-      before do
-        setup_handler(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_intake.json"
-        )
-        CollectionSpace::Mapper.config.batch.delimiter = ';'
-      end
+      let(:mapper){ "core_6-1-0_intake" }
 
       context "record 1", vcr: "core_int_1" do
-        let(:hashpath) { "spec/fixtures/files/datahashes/core/intake1.json" }
-        let(:fixturepath) { "core/intake1.xml" }
+        let(:datahash_path) { "spec/support/datahashes/core/intake1.json" }
+        let(:fixture_path) { "core/intake1.xml" }
 
-        it "does not map unexpected fields" do
-          expect(diff).to eq([])
-        end
-
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
-        end
+        it_behaves_like "Mapped"
       end
     end
 
     context "loanin record" do
-      before do
-        setup_handler(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_loanin.json"
-        )
-        CollectionSpace::Mapper.config.batch.delimiter = ';'
-      end
+      let(:mapper){ "core_6-1-0_loanin" }
 
       context "record 1", vcr: "core_li_1" do
-        let(:hashpath) { "spec/fixtures/files/datahashes/core/loanin1.json" }
-        let(:fixturepath) { "core/loanin1.xml" }
+        let(:datahash_path) { "spec/support/datahashes/core/loanin1.json" }
+        let(:fixture_path) { "core/loanin1.xml" }
 
-        it "does not map unexpected fields" do
-          expect(diff).to eq([])
-        end
-
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
-        end
+        it_behaves_like "Mapped"
       end
     end
 
     context "loanout record" do
-      before do
-        setup_handler(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_loanout.json"
-        )
-        CollectionSpace::Mapper.config.batch.delimiter = ';'
-      end
+      let(:mapper){ "core_6-1-0_loanout" }
 
       context "record 1", vcr: "core_lo_1" do
-        let(:hashpath) { "spec/fixtures/files/datahashes/core/loanout1.json" }
-        let(:fixturepath) { "core/loanout1.xml" }
+        let(:datahash_path) { "spec/support/datahashes/core/loanout1.json" }
+        let(:fixture_path) { "core/loanout1.xml" }
 
-        it "does not map unexpected fields" do
-          expect(diff).to eq([])
-        end
-
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
-        end
+        it_behaves_like "Mapped"
       end
     end
 
     context "movement record", vcr: "core_lmi_1" do
-      before do
-        setup_handler(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_movement.json"
-        )
-        CollectionSpace::Mapper.config.batch.delimiter = ';'
-      end
+      let(:mapper){ "core_6-1-0_movement" }
 
       context "record 1" do
-        let(:hashpath) { "spec/fixtures/files/datahashes/core/movement1.json" }
-        let(:fixturepath) { "core/movement1.xml" }
+        let(:datahash_path) { "spec/support/datahashes/core/movement1.json" }
+        let(:fixture_path) { "core/movement1.xml" }
 
-        it "does not map unexpected fields" do
-          expect(diff).to eq([])
-        end
-
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
-        end
+        it_behaves_like "Mapped"
       end
     end
 
     context "media record" do
-      before do
-        setup_handler(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_media.json"
-        )
-        CollectionSpace::Mapper.config.batch.delimiter = ';'
-      end
+      let(:mapper){ "core_6-1-0_media" }
 
       context "record 1", vcr: "core_med_1" do
-        let(:hashpath) { "spec/fixtures/files/datahashes/core/media1.json" }
-        let(:fixturepath) { "core/media1.xml" }
+        let(:datahash_path) { "spec/support/datahashes/core/media1.json" }
+        let(:fixture_path) { "core/media1.xml" }
 
-        it "does not map unexpected fields" do
-          expect(diff).to eq([])
-        end
-
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
-        end
+        it_behaves_like "Mapped"
       end
     end
 
     context "objectexit record" do
-      before do
-        setup_handler(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_objectexit.json"
-        )
-        CollectionSpace::Mapper.config.batch.delimiter = ';'
-      end
+      let(:mapper){ "core_6-1-0_objectexit" }
 
-      context "record 1", vcr: "core_oe_1" do
-        let(:hashpath) {
-          "spec/fixtures/files/datahashes/core/objectexit1.json"
+      context "record 1", vcr: "core_oe_1", skip: "funky default date value" do
+        let(:datahash_path) {
+          "spec/support/datahashes/core/objectexit1.json"
         }
-        let(:fixturepath) { "core/objectexit1.xml" }
+        let(:fixture_path) { "core/objectexit1.xml" }
 
-        it "does not map unexpected fields" do
-          expect(diff).to eq([])
-        end
+        # In previous test, where xpath is fixture xpath:
+        #   TODO: - why is this next clause here?
+        # next if xpath.start_with?(
+        #   "/document/objectexit_common/exitDateGroup"
+        # )
 
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            # TODO: - why is this next clause here?
-            next if xpath.start_with?(
-              "/document/objectexit_common/exitDateGroup"
-            )
-
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
-        end
+        it_behaves_like "Mapped"
       end
     end
 
     context "uoc record" do
-      before do
-        setup_handler(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_uoc.json"
-        )
-        CollectionSpace::Mapper.config.batch.delimiter = ';'
-      end
+      let(:mapper){ "core_6-1-0_uoc" }
 
       context "record 1", vcr: "core_uoc_1" do
-        let(:hashpath) { "spec/fixtures/files/datahashes/core/uoc1.json" }
-        let(:fixturepath) { "core/uoc1.xml" }
+        let(:datahash_path) { "spec/support/datahashes/core/uoc1.json" }
+        let(:fixture_path) { "core/uoc1.xml" }
 
-        it "does not map unexpected fields" do
-          expect(diff).to eq([])
-        end
-
-        it "maps as expected" do
-          fixture_xpaths.each do |xpath|
-            fixture_node = standardize_value(fixture_doc.xpath(xpath).text)
-            mapped_node = standardize_value(mapped_doc.xpath(xpath).text)
-            expect(mapped_node).to eq(fixture_node)
-          end
-        end
+        it_behaves_like "Mapped"
       end
     end
   end

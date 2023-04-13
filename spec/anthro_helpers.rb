@@ -30,15 +30,9 @@ module Helpers
   end
   memo_wise(:anthro_csid_cache)
 
-  def anthro_object_mapper
-    path = "spec/fixtures/files/mappers/release_6_1/anthro/"\
-      "anthro_4-1-2_collectionobject.json"
-    get_record_mapper_object(path)
-  end
-
   def anthro_co_1
     get_datahash(
-      path: "spec/fixtures/files/datahashes/anthro/collectionobject1.json"
+      path: "spec/support/datahashes/anthro/collectionobject1.json"
     )
   end
 end

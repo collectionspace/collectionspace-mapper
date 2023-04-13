@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document name="taxon">
+  <ns2:collectionspace_core xmlns:ns2="http://collectionspace.org/collectionspace_core/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <createdAt>2023-04-14T23:50:18.552Z</createdAt>
+    <updatedBy>admin@botgarden.collectionspace.org</updatedBy>
+    <createdBy>admin@botgarden.collectionspace.org</createdBy>
+    <workflowState>project</workflowState>
+    <tenantId>3500</tenantId>
+    <refName>urn:cspace:c.botgarden.collectionspace.org:taxonomyauthority:name(taxon):item:name(Achilleamillefolium1681516218552)'Achillea millefolium'</refName>
+    <uri>/taxonomyauthority/82ec5da4-194f-498c-8b17/items/d235079b-8b74-40e5-b89e</uri>
+    <updatedAt>2023-04-14T23:52:54.740Z</updatedAt>
+  </ns2:collectionspace_core>
+  <ns2:taxon_common xmlns:ns2="http://collectionspace.org/services/taxonomy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <taxonNote>Perennials, 6–65+ cm (usually rhizomatous, sometimes stoloniferous). Stems 1(–4), erect, simple or branched, densely lanate-tomentose to glabrate. Leaves petiolate (proximally) or sessile (distally, weakly clasping and gradually reduced); blades oblong or lanceolate, 3.5–35+ cm × 5–35 mm, 1–2-pinnately lobed (ultimate lobes ± lanceolate, often arrayed in multiple planes), faces glabrate to sparsely tomentose or densely lanate.</taxonNote>
+    <rev>2</rev>
+    <sas>false</sas>
+    <taxonYear>1753</taxonYear>
+    <taxonTermGroupList>
+      <taxonTermGroup>
+        <termSourceID/>
+        <termSourceDetail>p. 899</termSourceDetail>
+        <termSourceNote>source note</termSourceNote>
+        <termFormattedDisplayName>Achillea millefolium</termFormattedDisplayName>
+        <termType>descriptor</termType>
+        <taxonomicStatus>accepted</taxonomicStatus>
+        <termSource>urn:cspace:c.botgarden.collectionspace.org:citationauthorities:name(citation):item:name(SpPl289917531681516085952)'Sp. Pl. 2: 899. 1753'</termSource>
+        <termStatus>accepted</termStatus>
+        <termLanguage>urn:cspace:c.botgarden.collectionspace.org:vocabularies:name(languages):item:name(lat)'Latin'</termLanguage>
+        <termName/>
+        <termQualifier>qualifier</termQualifier>
+        <termPrefForLang>true</termPrefForLang>
+        <termDisplayName>Achillea millefolium</termDisplayName>
+        <termFlag>urn:cspace:c.botgarden.collectionspace.org:vocabularies:name(taxontermflag):item:name(valid)'valid'</termFlag>
+      </taxonTermGroup>
+      <taxonTermGroup>
+        <termSourceID>7878903</termSourceID>
+        <termSourceDetail>33</termSourceDetail>
+        <termSourceNote>source note 2</termSourceNote>
+        <termFormattedDisplayName>Achillea alpicola</termFormattedDisplayName>
+        <termType>used for term</termType>
+        <taxonomicStatus>invalid</taxonomicStatus>
+        <termSource>urn:cspace:c.botgarden.collectionspace.org:citationauthorities:name(worldcat):item:name(BullTorreyBotClub1681516105394)'Bull. Torrey Bot. Club'</termSource>
+        <termStatus>accepted</termStatus>
+        <termLanguage>urn:cspace:c.botgarden.collectionspace.org:vocabularies:name(languages):item:name(lat)'Latin'</termLanguage>
+        <termName/>
+        <termQualifier>q2</termQualifier>
+        <termPrefForLang>false</termPrefForLang>
+        <termDisplayName>Achillea alpicola</termDisplayName>
+        <termFlag>urn:cspace:c.botgarden.collectionspace.org:vocabularies:name(taxontermflag):item:name(invalid)'invalid'</termFlag>
+      </taxonTermGroup>
+    </taxonTermGroupList>
+    <commonNameGroupList>
+      <commonNameGroup>
+        <commonName>Common yarrow</commonName>
+        <commonNameLanguage>urn:cspace:c.botgarden.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</commonNameLanguage>
+        <commonNameSourceDetail>p. 493</commonNameSourceDetail>
+        <commonNameSource>urn:cspace:c.botgarden.collectionspace.org:citationauthorities:name(citation):item:name(FNAVolume191681516319206)'FNA Volume 19'</commonNameSource>
+      </commonNameGroup>
+      <commonNameGroup>
+        <commonName>achillée millefeuille</commonName>
+        <commonNameLanguage>urn:cspace:c.botgarden.collectionspace.org:vocabularies:name(languages):item:name(fra)'French'</commonNameLanguage>
+        <commonNameSourceDetail/>
+        <commonNameSource/>
+      </commonNameGroup>
+      <commonNameGroup>
+        <commonName>herbe-à-dinde</commonName>
+        <commonNameLanguage>urn:cspace:c.botgarden.collectionspace.org:vocabularies:name(languages):item:name(fra)'French'</commonNameLanguage>
+        <commonNameSourceDetail>p. 493</commonNameSourceDetail>
+        <commonNameSource>urn:cspace:c.botgarden.collectionspace.org:citationauthorities:name(citation):item:name(FNAVolume191681516319206)'FNA Volume 19'</commonNameSource>
+      </commonNameGroup>
+    </commonNameGroupList>
+    <csid>d235079b-8b74-40e5-b89e</csid>
+    <taxonRank>species</taxonRank>
+    <taxonCitationList>
+      <taxonCitation>urn:cspace:c.botgarden.collectionspace.org:citationauthorities:name(citation):item:name(SpPl289917531681516085952)'Sp. Pl. 2: 899. 1753'</taxonCitation>
+      <taxonCitation>urn:cspace:c.botgarden.collectionspace.org:citationauthorities:name(worldcat):item:name(BullTorreyBotClub1681516105394)'Bull. Torrey Bot. Club'</taxonCitation>
+    </taxonCitationList>
+    <taxonIsNamedHybrid>false</taxonIsNamedHybrid>
+    <taxonRecordTypes/>
+    <taxonCurrency>current</taxonCurrency>
+    <shortIdentifier>Achilleamillefolium1681516218552</shortIdentifier>
+    <proposed>true</proposed>
+    <taxonAuthorGroupList>
+      <taxonAuthorGroup>
+        <taxonAuthorType/>
+        <taxonAuthor>urn:cspace:c.botgarden.collectionspace.org:personauthorities:name(person):item:name(LinnaeusCarl1681516179186)'Linnaeus, Carl'</taxonAuthor>
+      </taxonAuthorGroup>
+      <taxonAuthorGroup>
+        <taxonAuthorType>parenthetical</taxonAuthorType>
+        <taxonAuthor>urn:cspace:c.botgarden.collectionspace.org:orgauthorities:name(organization):item:name(FVA1681516185943)'FVA'</taxonAuthor>
+      </taxonAuthorGroup>
+    </taxonAuthorGroupList>
+    <refName>urn:cspace:c.botgarden.collectionspace.org:taxonomyauthority:name(taxon):item:name(Achilleamillefolium1681516218552)'Achillea millefolium'</refName>
+    <inAuthority>82ec5da4-194f-498c-8b17</inAuthority>
+  </ns2:taxon_common>
+  <ns2:account_permission xmlns:ns2="http://collectionspace.org/services/authorization">
+    <account>
+      <accountId>5c1f2111-6831-4fed-9872-fd40e6f7e564</accountId>
+      <screenName>Administrator</screenName>
+      <userId>admin@botgarden.collectionspace.org</userId>
+      <tenantId>3500</tenantId>
+    </account>
+  </ns2:account_permission>
+</document>

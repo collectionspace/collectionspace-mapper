@@ -3,11 +3,12 @@
 module CollectionSpace
   module Mapper
     class Searcher
-      def initialize
-        @client = CollectionSpace::Mapper.client
-        @active = CollectionSpace::Mapper.batch.search_if_not_cached
+      # @param handler [CollectionSpace::Mapper::DataHandler]
+      def initialize(handler)
+        handler.config.searcher = self
+        @client = handler.client
+        @active = handler.batch.search_if_not_cached
         @search_fields = {}
-        CollectionSpace::Mapper.config.searcher = self
       end
 
       def call(value:, type:, subtype: nil)

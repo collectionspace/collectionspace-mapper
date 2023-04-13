@@ -5,50 +5,41 @@ module CollectionSpace
     class TermHandler
       include TermSearchable
 
-      attr_reader :result, :terms, :warnings, :errors,
-        :column, :source_type, :type, :subtype
-      attr_accessor :value
-
       # @param mapping [CollectionSpace::Mapper::ColumnMapping]
       # @param data [Array<String>]
-      def initialize(mapping:, data:)
+      # @param handler [CollectionSpace::Mapper::DataHandler]
+      # @param response [CollectionSpace::Mapper::Response]
+      def initialize(mapping:, data:, handler:, response:)
         @mapping = mapping
         @data = data
-        @client = CollectionSpace::Mapper.client
-        @mapper = CollectionSpace::Mapper.recordmapper
-        @searcher = CollectionSpace::Mapper.searcher
-
-        @cache = CollectionSpace::Mapper.termcache
-        @csid_cache = CollectionSpace::Mapper.csidcache
+        @handler = handler
+        @response = response
 
         @column = mapping.datacolumn
         @field = mapping.fieldname
-        @config = CollectionSpace::Mapper.batch
-        @source_type = @mapping.source_type.to_sym
-        @terms = []
+        @source_type = mapping.source_type.to_sym
         case @source_type
         when :authority
-          authconfig = @mapping.transforms[:authority]
+          authconfig = mapping.transforms[:authority]
           @type = authconfig[0]
           @subtype = authconfig[1]
         when :vocabulary
           @type = "vocabularies"
-          @subtype = @mapping.transforms[:vocabulary]
+          @subtype = mapping.transforms[:vocabulary]
         end
-        @warnings = []
-        @errors = []
-        handle_terms
+        response.transformed_data[column] = handle_terms
       end
 
       private
 
-      attr_reader :searcher
+      attr_reader :mapping, :data, :handler, :response, :column, :source_type,
+        :type, :subtype
 
       def handle_terms
-        @result = if @data.first.is_a?(String)
-          @data.map { |val| handle_term(val) }
+        if data.first.is_a?(String)
+          data.map { |val| handle_term(val) }
         else
-          @data.map { |arr| arr.map { |val| handle_term(val) } }
+          data.map { |arr| arr.map { |val| handle_term(val) } }
         end
       end
 
@@ -94,12 +85,12 @@ module CollectionSpace
       end
 
       def add_found_term(refname_urn, term_report)
-        refname_obj = CollectionSpace::Mapper::Tools::RefName.new(
-          urn: refname_urn
-        )
-        opts = term_report.merge({found: true, refname: refname_obj})
+        refname = CollectionSpace::Mapper::Tools::RefName.from_urn(refname_urn)
+        opts = term_report.merge({found: true, refname: refname})
 
-        @terms << CollectionSpace::Mapper::UsedTerm.new(**opts)
+        response.add_term(
+          CollectionSpace::Mapper::UsedTerm.new(**opts)
+        )
       end
 
       def add_new_unknown_term(term_report)
@@ -111,10 +102,12 @@ module CollectionSpace
         )
         urn = unknown_term.urn
         opts = term_report.merge({found: false, refname: unknown_term})
-        @terms << CollectionSpace::Mapper::UsedTerm.new(**opts)
+        response.add_term(
+          CollectionSpace::Mapper::UsedTerm.new(**opts)
+        )
         add_missing_record_error("term", val)
         [val, case_swap(val)].each { |value|
-          @cache.put("unknownvalue", type_subtype, value, urn)
+          termcache.put("unknownvalue", type_subtype, value, urn)
         }
       end
 
@@ -126,7 +119,9 @@ module CollectionSpace
           unknown_term_str
         )
         opts = term_report.merge({found: false, refname: unknown_term})
-        @terms << CollectionSpace::Mapper::UsedTerm.new(**opts)
+        response.add_term(
+          CollectionSpace::Mapper::UsedTerm.new(**opts)
+        )
         add_missing_record_error("term", val)
         unknown_term_str
       end

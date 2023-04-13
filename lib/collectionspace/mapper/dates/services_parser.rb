@@ -7,9 +7,11 @@ module CollectionSpace
         include CollectionSpace::Mapper::Dates::Mappable
 
         # @param date_string [String] to parse
-        def initialize(date_string)
+        # @param handler [CollectionSpace::Mapper::DataHandler]
+        def initialize(date_string, handler)
           @date_string = date_string
-          @client = CollectionSpace::Mapper.client
+          @handler = handler
+          @client = handler.client
         end
 
         def mappable
@@ -36,7 +38,7 @@ module CollectionSpace
 
         private
 
-        attr_reader :date_string, :client
+        attr_reader :date_string, :handler, :client
 
         def get_response
           client.get("structureddates?displayDate=#{date_string}")

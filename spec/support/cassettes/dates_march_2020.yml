@@ -1,0 +1,96 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://anthro.dev.collectionspace.org/cspace-services/personauthorities?pgNum=0&pgSz=1&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AYW50aHJvLmNvbGxlY3Rpb25zcGFjZS5vcmc6QWRtaW5pc3RyYXRvcg==
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Sun, 16 Apr 2023 19:48:30 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '806'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>896d2991-a9ff-4ba2-80bf</csid><uri>/personauthorities/896d2991-a9ff-4ba2-80bf</uri><refName>urn:cspace:anthro.collectionspace.org:personauthorities:name(person)'Local
+        Persons'</refName><updatedAt>2021-11-18T02:24:50.277Z</updatedAt><workflowState>project</workflowState><rev>1</rev><shortIdentifier>person</shortIdentifier><displayName>Local
+        Persons</displayName><vocabType>PersonAuthority</vocabType></list-item></ns2:abstract-common-list>
+  recorded_at: Sun, 16 Apr 2023 19:48:30 GMT
+- request:
+    method: get
+    uri: https://anthro.dev.collectionspace.org/cspace-services/structureddates?displayDate=march%202020&pgSz=25&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AYW50aHJvLmNvbGxlY3Rpb25zcGFjZS5vcmc6QWRtaW5pc3RyYXRvcg==
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Sun, 16 Apr 2023 19:48:30 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '886'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:structureddate_common
+        xmlns:ns2="http://collectionspace.org/services/structureddate"><dateDisplayDate>march
+        2020</dateDisplayDate><dateEarliestSingleYear>2020</dateEarliestSingleYear><dateEarliestSingleMonth>3</dateEarliestSingleMonth><dateEarliestSingleDay>1</dateEarliestSingleDay><dateEarliestSingleEra>urn:cspace:anthro.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra><dateLatestYear>2020</dateLatestYear><dateLatestMonth>3</dateLatestMonth><dateLatestDay>31</dateLatestDay><dateLatestEra>urn:cspace:anthro.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateLatestEra><dateEarliestScalarValue>2020-03-01</dateEarliestScalarValue><dateLatestScalarValue>2020-04-01</dateLatestScalarValue><scalarValuesComputed>true</scalarValuesComputed></ns2:structureddate_common>
+  recorded_at: Sun, 16 Apr 2023 19:48:30 GMT
+recorded_with: VCR 6.1.0

@@ -10,17 +10,12 @@ module CollectionSpace
     #   consistent and I'm not validating that expected keys are present for
     #   now. This also makes writing tests on the methods here a bit easier.
     class ColumnMapping
-      attr_reader :recmapper, :data_type, :fieldname, :in_repeating_group,
+      attr_reader :data_type, :fieldname, :in_repeating_group,
         :is_group, :namespace, :opt_list_values, :repeats, :source_type,
         :transforms, :xpath
 
       # @param mapping [Hash] for a given CSV column
-      # @param recmapper [CollectionSpace::Mapper::RecordMapper]
-      def initialize(
-        mapping:,
-        recmapper: CollectionSpace::Mapper.recordmapper
-      )
-        @recmapper = recmapper
+      def initialize(mapping:)
         mapping.each do |key, value|
           instance_variable_set("@#{key}", value)
         end

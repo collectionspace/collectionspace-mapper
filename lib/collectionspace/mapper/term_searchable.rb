@@ -3,16 +3,22 @@
 module CollectionSpace
   module Mapper
     module TermSearchable
+      private
+
+      def client
+        handler.client
+      end
+
       def termcache
-        CollectionSpace::Mapper.termcache
+        handler.termcache
       end
 
       def csidcache
-        CollectionSpace::Mapper.csidcache
+        handler.csidcache
       end
 
       def searcher
-        CollectionSpace::Mapper.searcher
+        handler.searcher
       end
 
       def in_cache?(val)
@@ -39,7 +45,7 @@ module CollectionSpace
         return returned if returned
       end
 
-      private def type_subtype
+      def type_subtype
         "#{type}/#{subtype}"
       end
 
@@ -64,16 +70,20 @@ module CollectionSpace
       # returns specified data type (:csid or :refname) for searched term
       # @param val [String] termDisplayName value to search for
       # @param return_type [Symbol<:csid, :refname>]
-      def searched_term(val, return_type, termtype = type,
-        termsubtype = subtype)
-        response = searcher.call(
+      def searched_term(
+        val,
+        return_type,
+        termtype = type,
+        termsubtype = subtype
+      )
+        apiresponse = searcher.call(
           value: val,
           type: termtype,
           subtype: termsubtype
         )
-        return nil unless response
+        return nil unless apiresponse
 
-        rec = rec_from_response("term", val, response)
+        rec = rec_from_response("term", val, apiresponse)
         return nil unless rec
 
         values = {refname: rec["refName"], csid: rec["csid"]}
@@ -82,7 +92,7 @@ module CollectionSpace
         values[return_type]
       end
 
-      private def case_swap(string)
+      def case_swap(string)
         string.match?(/[A-Z]/) ? string.downcase : string.capitalize
       end
 
@@ -95,10 +105,10 @@ module CollectionSpace
 
       def lookup_obj_or_procedure_csid(objnum, type)
         category = "object_or_procedure"
-        response = searcher.call(type: type, value: objnum)
+        apiresponse = searcher.call(type: type, value: objnum)
 
-        if response
-          rec = rec_from_response(category, objnum, response)
+        if apiresponse
+          rec = rec_from_response(category, objnum, apiresponse)
           return nil unless rec
 
           csid = rec["csid"]
@@ -106,14 +116,14 @@ module CollectionSpace
           termcache.put(type, "", objnum, rec["refName"])
           csid
         else
-          errors << {
+          response.add_error({
             category: "unsuccessful_csid_lookup_for_#{category}".to_sym,
             field: "",
             subtype: "",
             type: type,
             value: objnum,
             message: "Problem with search for #{objnum}."
-          }
+          })
           nil
         end
       end
@@ -125,58 +135,67 @@ module CollectionSpace
         searched_term(term, :csid)
       end
 
-      private def response_item_count(response)
-        ct = response.dig("totalItems")
+      def response_item_count(apiresponse)
+        ct = apiresponse.dig("totalItems")
         return ct.to_i if ct
 
         nil
       end
 
-      private def add_missing_record_error(category, val)
-        errors << {
+      def add_missing_record_error(category, val)
+        response.add_error({
           category: "no_records_found_for_#{category}".to_sym,
-          field: @column,
+          field: column,
           type: type,
           subtype: subtype,
           value: val,
-          message: "#{val} (#{type_subtype} in #{@column} column)"
-        }
+          message: "#{val} (#{type_subtype} in #{column} column)"
+        })
       end
 
-      private def rec_from_response(category, val, response)
-        term_ct = response_item_count(response)
+      def rec_from_response(category, val, apiresponse)
+        term_ct = response_item_count(apiresponse)
 
-        unless term_ct
-          errors << {
-            category: "unsuccessful_csid_lookup_for_#{category}".to_sym,
-            field: @column,
-            type: type,
-            subtype: subtype,
-            value: val,
-            message: "Problem with search for #{val}"
-          }
-          return nil
+        if term_ct
+          return_record(category, val, apiresponse, term_ct)
+        else
+          add_bad_lookup_error(category, val)
         end
+      end
 
+      def return_record(category, val, apiresponse, term_ct)
         case term_ct
         when 0
           rec = nil
         when 1
-          rec = response["list_item"]
+          rec = apiresponse["list_item"]
         else
-          rec = response["list_item"][0]
-          using_uri = "#{@client.config.base_uri}#{rec["uri"]}"
-          warnings << {
+          rec = apiresponse["list_item"][0]
+          using_uri = "#{client.config.base_uri}#{rec["uri"]}"
+          response.add_warning({
             category: "multiple_records_found_for_#{category}".to_sym,
-            field: @column,
+            field: column,
             type: type,
             subtype: subtype,
             value: val,
             message: "#{term_ct} records found. Using #{using_uri}"
-          }
+          })
         end
 
         rec
+      end
+
+      def add_bad_lookup_error(category, val)
+        response.add_error({
+            category: "unsuccessful_csid_lookup_for_#{category}".to_sym,
+            field: column,
+            type: type,
+            subtype: subtype,
+            value: val,
+            message: "Problem with search for #{val}"
+          })
+
+          nil
       end
 
       # added toward refactoring that isn't done yet

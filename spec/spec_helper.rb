@@ -9,6 +9,11 @@ end
 
 require "collectionspace/mapper"
 require_relative "./helpers"
+require_relative "./support/shared_contexts/data_mapper"
+require_relative "./support/shared_examples/mapped"
+require_relative "./support/shared_examples/mapped_failure"
+require_relative "./support/shared_examples/mapped_with_blanks"
+require_relative "./support/matchers/match_doc"
 require "dry/configurable/test_interface"
 require "pry"
 require "vcr"
@@ -55,10 +60,10 @@ end
 
 VCR.configure do |c|
   c.allow_http_connections_when_no_cassette = false
-  c.cassette_library_dir = "spec/fixtures/cassettes"
+  c.cassette_library_dir = "spec/support/cassettes"
   c.hook_into :webmock
   c.default_cassette_options = {
-    record: :once,
+    record: :new_episodes,
     match_requests_on: %i[method uri]
   }
   c.preserve_exact_body_bytes do |http_message|

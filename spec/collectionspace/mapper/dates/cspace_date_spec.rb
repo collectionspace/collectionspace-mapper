@@ -3,16 +3,16 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
-  subject(:csdate) { described_class.new(date_string) }
+  subject(:csdate) { described_class.new(date_string, handler) }
 
-  before do
+  let(:handler) do
     setup_handler(
       profile: 'anthro',
-      mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
-        "anthro_4-1-2_collectionobject.json"
+      mapper: "anthro_4-1-2_collectionobject",
+      config: config
     )
   end
-  after{ CollectionSpace::Mapper.reset_config }
+  let(:config){ {} }
 
   context "with one digit month", vcr: "dates_2019-5-20" do
     let(:date_string) { "2019-5-20" }
@@ -55,15 +55,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
           end
 
           context "when date_format in config = day month year" do
-            before do
-              setup_handler(
-                profile: 'anthro',
-                mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
-                  "anthro_4-1-2_collectionobject.json"
-              )
-              CollectionSpace::Mapper.config.batch.date_format =
-                "day month year"
-            end
+            let(:config){ {date_format: "day month year"} }
 
             it "interprets as D/M/Y" do
               expect(result).to start_with("2020-02-01")
@@ -77,22 +69,12 @@ RSpec.describe CollectionSpace::Mapper::Dates::CspaceDate do
       let(:date_string) { "9/19/91" }
       let(:result) { csdate.mappable["dateEarliestSingleYear"] }
 
-      context "when config[:two_digit_year_handling] = coerce" do
-        it "Chronic parses date with coerced 4-digit year" do
-          expect(result).to eq("1991")
-        end
+      it "Chronic parses date with coerced 4-digit year" do
+        expect(result).to eq("1991")
       end
 
       context "when config[:two_digit_year_handling] = literal" do
-        before do
-          setup_handler(
-            profile: 'anthro',
-            mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
-              "anthro_4-1-2_collectionobject.json"
-          )
-          CollectionSpace::Mapper.config.batch.two_digit_year_handling =
-            "literal"
-        end
+        let(:config){ {two_digit_year_handling: "literal"} }
 
         it "Services parses date with uncoerced 2-digit year" do
           expect(result).to eq("91")

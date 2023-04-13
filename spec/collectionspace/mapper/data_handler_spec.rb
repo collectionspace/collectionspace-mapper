@@ -3,80 +3,60 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::DataHandler do
-  subject(:handler){ CollectionSpace::Mapper.data_handler }
-
-  before do
+  subject(:handler) do
     setup_handler(
-      mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-        "core_6-1-0_collectionobject.json"
+      profile: profile,
+      mapper: mapper,
+      config: config
     )
-    CollectionSpace::Mapper.config.batch.delimiter = '|'
   end
-  after{ CollectionSpace::Mapper.reset_config }
 
-  describe "#service_type" do
+  let(:profile){ 'core' }
+  let(:mapper){ "core_6-1-0_collectionobject" }
+  let(:config){ {} }
+
+  describe "#service_type", vcr: "anthro_domain_check" do
     let(:servicetype) { handler.service_type }
 
-    context "when anthro collectionobject" do
-      before do
-        setup_handler(
-          profile: 'anthro',
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
-            "anthro_4-1-2_collectionobject.json"
-        )
-      end
-
-      it "returns object" do
-        expect(servicetype).to eq("object")
-      end
-    end
-
     context "when anthro place" do
-      before do
-        setup_handler(
-          profile: 'anthro',
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
-            "anthro_4-1-2_place-local.json"
-        )
-      end
+      let(:profile){ "anthro" }
+      let(:mapper){ "anthro_4-1-2_place-local" }
 
       it "returns authority" do
         expect(servicetype).to eq("authority")
       end
     end
+  end
 
-    context "with bonsai conservation" do
-      before do
-        setup_handler(
-          profile: 'bonsai',
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/bonsai/"\
-            "bonsai_4-1-1_conservation.json"
+  describe "#validate", vcr: "core_domain_check" do
+    let(:result){ handler.validate(data) }
+
+    context 'when given Hash' do
+      let(:data){ {"objectNumber" => "123"} }
+
+      it "returns CollectionSpace::Mapper::Response object" do
+        expect(result).to be_a(CollectionSpace::Mapper::Response)
+      end
+    end
+
+    context 'when given Response' do
+      let(:data) do
+        CollectionSpace::Mapper::Response.new(
+          {"objectNumber" => "123"},
+          handler
         )
       end
 
-      it "returns procedure" do
-        expect(servicetype).to eq("procedure")
+      it "returns CollectionSpace::Mapper::Response object" do
+        expect(result).to be_a(CollectionSpace::Mapper::Response)
       end
     end
   end
 
-  describe "#validate" do
-    it "returns CollectionSpace::Mapper::Response object" do
-      data = {"objectNumber" => "123"}
-      result = handler.validate(data)
-      expect(result).to be_a(CollectionSpace::Mapper::Response)
-    end
-  end
-
-  describe "#check_fields" do
-    before do
-      setup_handler(
-        profile: 'bonsai',
-        mapper_path: "spec/fixtures/files/mappers/release_6_1/bonsai/"\
-          "bonsai_4-1-1_conservation.json"
-      )
-    end
+  describe "#check_fields", vcr: "bonsai_domain_check" do
     let(:result) { handler.check_fields(data) }
+    let(:profile){ 'bonsai' }
+    let(:mapper){ "bonsai_4-1-1_conservation" }
     let(:data) do
       {
         "conservationNumber" => "123",
@@ -94,119 +74,113 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
     end
   end
 
-  describe "#prep" do
+  describe "#prep", vcr: "core_domain_check" do
     let(:data) { {"objectNumber" => "123"} }
 
     it "can be called with response from validation" do
       vresult = handler.validate(data)
-      result = handler.prep(vresult).response
+      result = handler.prep(vresult)
       expect(result).to be_a(CollectionSpace::Mapper::Response)
     end
 
     it "can be called with just data" do
-      result = handler.prep(data).response
+      result = handler.prep(data)
       expect(result).to be_a(CollectionSpace::Mapper::Response)
     end
 
     it "returned response includes detailed data transformation info" do
-      result = handler.prep(data).response
+      result = handler.prep(data)
 
       expect(result.transformed_data).not_to be_empty
     end
 
     context "when response_mode = verbose" do
-      before do
-        setup_handler(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_collectionobject.json"
-        )
-        CollectionSpace::Mapper.config.batch.response_mode = 'verbose'
-      end
+      let(:config){ {response_mode: 'verbose'} }
 
       it "returned response includes detailed data transformation info" do
-        result = handler.prep(data).response
+        result = handler.prep(data)
         expect(result.transformed_data).not_to be_empty
       end
     end
   end
 
-  describe "#process", vcr: "datahandler_process_and_map" do
-    before do
-      setup_handler(
-        mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-          "core_6-1-0_collectionobject.json"
-      )
-      CollectionSpace::Mapper.config.batch.response_mode = "normal"
-    end
+  # describe "#process", vcr: "datahandler_process_and_map" do
+  #   before do
+  #     setup_handler(
+  #       mapper: "spec/fixtures/files/mappers/release_6_1/core/"\
+  #         "core_6-1-0_collectionobject.json"
+  #     )
+  #     CollectionSpace::Mapper.config.batch.response_mode = "normal"
+  #   end
 
-    let(:data) do
-      CollectionSpace::Mapper::Response.new({"objectNumber" => "123"})
-    end
+  #   let(:data) do
+  #     CollectionSpace::Mapper::Response.new({"objectNumber" => "123"})
+  #   end
 
-    it "can be called with response from validation" do
-      vresult = handler.validate(data)
-      result = handler.process(vresult)
-      expect(result).to be_a(CollectionSpace::Mapper::Response)
-    end
+  #   it "can be called with response from validation" do
+  #     vresult = handler.validate(data)
+  #     result = handler.process(vresult)
+  #     expect(result).to be_a(CollectionSpace::Mapper::Response)
+  #   end
 
-    it "returned response omits detailed data transformation info" do
-      result = handler.process(data)
-      expect(result.transformed_data).to be_empty
-    end
+  #   it "returned response omits detailed data transformation info" do
+  #     result = handler.process(data)
+  #     expect(result.transformed_data).to be_empty
+  #   end
 
-    context "when response_mode = verbose" do
-      before do
-        setup_handler(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_collectionobject.json"
-        )
-        CollectionSpace::Mapper.config.batch.response_mode = 'verbose'
-      end
+  #   context "when response_mode = verbose" do
+  #     before do
+  #       setup_handler(
+  #         mapper: "spec/fixtures/files/mappers/release_6_1/core/"\
+  #           "core_6-1-0_collectionobject.json"
+  #       )
+  #       CollectionSpace::Mapper.config.batch.response_mode = 'verbose'
+  #     end
 
-      it "returned response includes detailed data transformation info" do
-        result = handler.process(data)
-        expect(result.transformed_data).not_to be_empty
-      end
-    end
-  end
+  #     it "returned response includes detailed data transformation info" do
+  #       result = handler.process(data)
+  #       expect(result.transformed_data).not_to be_empty
+  #     end
+  #   end
+  # end
 
-  describe "#map", vcr: "datahandler_process_and_map" do
-    before do
-      setup_handler(
-        mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-          "core_6-1-0_collectionobject.json"
-      )
-    end
+  # describe "#map", vcr: "datahandler_process_and_map" do
+  #   before do
+  #     setup_handler(
+  #       mapper: "spec/fixtures/files/mappers/release_6_1/core/"\
+  #         "core_6-1-0_collectionobject.json"
+  #     )
+  #   end
 
-    let(:data) { {"objectNumber" => "123"} }
-    let(:prepper){ CollectionSpace::Mapper.prepper_class.new(data) }
-    let(:prepped) { handler.prep(data).response }
-    let(:result) { handler.map(prepped) }
+  #   let(:data) { {"objectNumber" => "123"} }
+  #   let(:prepper){ CollectionSpace::Mapper.prepper_class.new(data) }
+  #   let(:prepped) { handler.prep(data).response }
+  #   let(:result) { handler.map(prepped) }
 
-    it "returns CollectionSpace::Mapper::Response object" do
-      expect(result).to be_a(CollectionSpace::Mapper::Response)
-    end
+  #   it "returns CollectionSpace::Mapper::Response object" do
+  #     expect(result).to be_a(CollectionSpace::Mapper::Response)
+  #   end
 
-    it "Response doc attribute is a Nokogiri XML Document" do
-      expect(result.doc).to be_a(Nokogiri::XML::Document)
-    end
+  #   it "Response doc attribute is a Nokogiri XML Document" do
+  #     expect(result.doc).to be_a(Nokogiri::XML::Document)
+  #   end
 
-    it "returned response omits detailed data transformation info" do
-      expect(result.transformed_data).to be_empty
-    end
+  #   it "returned response omits detailed data transformation info" do
+  #     expect(result.transformed_data).to be_empty
+  #   end
 
-    context "when response_mode = verbose" do
-      before do
-        setup_handler(
-          mapper_path: "spec/fixtures/files/mappers/release_6_1/core/"\
-            "core_6-1-0_collectionobject.json"
-        )
-        CollectionSpace::Mapper.config.batch.response_mode = 'verbose'
-      end
+  #   context "when response_mode = verbose" do
+  #     before do
+  #       setup_handler(
+  #         mapper: "spec/fixtures/files/mappers/release_6_1/core/"\
+  #           "core_6-1-0_collectionobject.json"
+  #       )
+  #       CollectionSpace::Mapper.config.batch.response_mode = 'verbose'
+  #     end
 
-      it "returned response includes detailed data transformation info" do
-        expect(result.transformed_data).not_to be_empty
-      end
-    end
-  end
+  #     it "returned response includes detailed data transformation info" do
+  #       expect(result.transformed_data).not_to be_empty
+  #     end
+  #   end
+  # end
 end

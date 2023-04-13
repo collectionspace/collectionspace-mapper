@@ -3,16 +3,14 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Dates::ServicesParser do
-  subject(:parser) { described_class.new(str) }
+  subject(:parser) { described_class.new(str, handler) }
 
-  before do
+let(:handler) do
     setup_handler(
       profile: 'anthro',
-      mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
-        "anthro_4-1-2_collectionobject.json"
+      mapper: "anthro_4-1-2_collectionobject"
     )
   end
-  after{ CollectionSpace::Mapper.reset_config }
 
   describe "#mappable" do
     let(:result) { parser.mappable }

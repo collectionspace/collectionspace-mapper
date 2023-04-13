@@ -2,86 +2,62 @@
 
 require "spec_helper"
 
-RSpec.describe CollectionSpace::Mapper::ColumnMappings do
-  subject(:mappingsobj) do
-    recmapper = CollectionSpace::Mapper.recordmapper
-      .send(:hash)
-    described_class.new(mappings: recmapper[:mappings])
-  end
+RSpec.describe CollectionSpace::Mapper::ColumnMappings,
+    vcr: "core_domain_check" do
+  subject(:mappings){ handler.record.mappings }
 
-  after{ CollectionSpace::Mapper.reset_config }
+  # Building the handler calls RecordMapper, which calls the described class to
+  #   set the handler.record settings, including :mappings. The :mappings setting
+  #   is an instance of the described class, so we test the handler config
+  let(:handler) do
+    setup_handler(
+      mapper: mapper
+    )
+  end
 
   context "when initialized from authority RecordMapper" do
-    before do
-      setup_handler(
-        mapper_path: "spec/fixtures/files/mappers/release_7_1/"\
-          "core_7-1-0_citation-local.json"
-      )
-    end
+    let(:mapper){ "core_7-1-0_citation-local" }
 
     it "adds shortIdentifier to mappings" do
-      expect(mappingsobj.known_columns.include?("shortidentifier")).to be true
+      expect(mappings.known_columns.include?("shortidentifier")).to be true
     end
-  end
-
-  context "when initialized from non-authority RecordMapper" do
   end
 
   context "when initialized from media RecordMapper" do
-    before do
-      setup_handler(
-        mapper_path: "spec/fixtures/files/mappers/release_7_1/"\
-          "core_7-1-0_media.json"
-      )
-    end
+    let(:mapper){ "core_7-1-0_media" }
 
     it "does not add shortIdentifier to mappings" do
-      expect(mappingsobj.known_columns.include?("shortidentifier")).to be false
+      expect(mappings.known_columns.include?("shortidentifier")).to be false
     end
 
     it "adds mediaFileURI to mappings" do
-      expect(mappingsobj.known_columns.include?("mediafileuri")).to be true
+      expect(mappings.known_columns.include?("mediafileuri")).to be true
     end
   end
 
   describe "#known_columns" do
-    before do
-      setup_handler(
-        mapper_path: "spec/fixtures/files/mappers/release_7_1/"\
-          "core_7-1-0_collectionobject.json"
-      )
-    end
+    let(:mapper){ "core_7-1-0_collectionobject" }
 
     it "returns list of downcased datacolumns" do
-      expect(mappingsobj.known_columns).to include('objectnumber')
+      expect(mappings.known_columns).to include('objectnumber')
     end
   end
 
   describe "#required_columns" do
-    before do
-      setup_handler(
-        mapper_path: "spec/fixtures/files/mappers/release_7_1/"\
-          "core_7-1-0_movement.json"
-      )
-    end
+    let(:mapper){ "core_7-1-0_movement" }
 
     it "returns column mappings for required fields" do
       expected = %w[currentlocationlocationlocal currentlocationlocationoffsite
                     currentlocationorganizationlocal currentlocationrefname
                     movementreferencenumber].sort
-      expect(mappingsobj.required_columns
+      expect(mappings.required_columns
              .map(&:datacolumn)
              .sort).to eq(expected)
     end
   end
 
   describe "#<<" do
-    before do
-      setup_handler(
-        mapper_path: "spec/fixtures/files/mappers/release_7_1/"\
-          "core_7-1-0_collectionobject.json"
-      )
-    end
+    let(:mapper){ "core_7-1-0_collectionobject" }
 
     let(:added_field) do
       {
@@ -97,21 +73,16 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings do
     end
 
     it "adds a mapping" do
-      mappingsobj << added_field
-      expect(mappingsobj.known_columns.include?("addedfield")).to be true
+      mappings << added_field
+      expect(mappings.known_columns.include?("addedfield")).to be true
     end
   end
 
   describe "#lookup" do
-    before do
-      setup_handler(
-        mapper_path: "spec/fixtures/files/mappers/release_7_1/"\
-          "core_7-1-0_collectionobject.json"
-      )
-    end
+    let(:mapper){ "core_7-1-0_collectionobject" }
 
     it "returns ColumnMapping for column name" do
-      result = mappingsobj.lookup("numberType").fieldname
+      result = mappings.lookup("numberType").fieldname
       expect(result).to eq("numberType")
     end
   end

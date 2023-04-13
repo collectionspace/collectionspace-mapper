@@ -4,17 +4,17 @@ module CollectionSpace
   module Mapper
     # Creates XML document from prepped data
     class DataMapper
-      attr_reader :response
-
       # @param response [CollectionSpace::Mapper::Response] responding to
       #   `#xphash` and `#combined_data`
-      def initialize(response)
+      # @param handler [CollectionSpace::Mapper::DataHandler]
+      def initialize(response, handler)
         @response = response
-        @xpaths = response.xphash
-        @doc = CollectionSpace::Mapper.record.xml_template.dup
+        @handler = handler
+        @xpaths = response.xpaths
+        @doc = handler.record.xml_template.dup
 
         xpaths.values.each { |xpath| map(xpath) }
-        if CollectionSpace::Mapper.record.service_type == "authority"
+        if handler.record.service_type == "authority"
           add_short_id
         end
         set_response_identifier
@@ -26,14 +26,14 @@ module CollectionSpace
 
       private
 
-      attr_reader :xpaths, :doc
+      attr_reader :response, :handler, :xpaths, :doc
 
       def set_response_identifier
-        if CollectionSpace::Mapper.record.service_type == "relation"
+        if handler.record.service_type == "relation"
           set_relation_id
         else
-          id_field = CollectionSpace::Mapper.record.identifier_field
-          mapping = CollectionSpace::Mapper.record.mappings.find { |mapper|
+          id_field = handler.record.identifier_field
+          mapping = handler.record.mappings.find { |mapper|
             mapper.fieldname == id_field
           }
           thexpath = "//#{mapping.namespace}/#{mapping.fieldname}"
@@ -44,7 +44,7 @@ module CollectionSpace
       end
 
       def set_relation_id
-        case CollectionSpace::Mapper.record.object_name
+        case handler.record.object_name
         when "Object Hierarchy Relation"
           narrow = response.orig_data["narrower_object_number"]
           broad = response.orig_data["broader_object_number"]
@@ -54,13 +54,13 @@ module CollectionSpace
 
       def add_short_id
         term = response.transformed_data["termdisplayname"][0]
-        ns = CollectionSpace::Mapper.record.common_namespace
+        ns = handler.record.common_namespace
         targetnode = doc.xpath("/document/#{ns}").first
         child = Nokogiri::XML::Node.new("shortIdentifier", doc)
         child.content =
-          CollectionSpace::Mapper::Identifiers::AuthorityShortIdentifier.new(
-            term: term
-          ).value
+          CollectionSpace::Mapper::Identifiers::AuthorityShortIdentifier.call(
+            term
+          )
         targetnode.add_child(child)
       end
 
@@ -91,7 +91,7 @@ module CollectionSpace
 
       def add_namespaces
         doc.xpath("/*/*").each do |section|
-          fetchuri = CollectionSpace::Mapper.record.ns_uri[section.name]
+          fetchuri = handler.record.ns_uri[section.name]
           uri = fetchuri.nil? ? "http://no.uri.found" : fetchuri
           section.add_namespace_definition(
             "ns2",

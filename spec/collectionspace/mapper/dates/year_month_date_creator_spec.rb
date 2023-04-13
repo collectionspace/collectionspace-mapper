@@ -3,18 +3,16 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Dates::YearMonthDateCreator do
-  subject(:creator) { described_class.new(str) }
+  subject(:creator) { described_class.new(str, handler) }
 
-  before do
+  let(:handler) do
     setup_handler(
       profile: 'anthro',
-      mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
-        "anthro_4-1-2_collectionobject.json"
+      mapper: "anthro_4-1-2_collectionobject"
     )
   end
-  after{ CollectionSpace::Mapper.reset_config }
 
-  describe "#mappable" do
+  describe "#mappable", vcr: "anthro_domain_check" do
     let(:result) { creator.mappable }
 
     context "with 2022-06" do
@@ -52,7 +50,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::YearMonthDateCreator do
     end
   end
 
-  describe "#stamp" do
+  describe "#stamp", vcr: "anthro_domain_check" do
     let(:result) { creator.stamp }
 
     context "with 2022-06" do

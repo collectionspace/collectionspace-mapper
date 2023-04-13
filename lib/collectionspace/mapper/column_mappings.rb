@@ -13,21 +13,16 @@ module CollectionSpace
       def_delegators :@all, :each, :reject!
 
       # @param mappings [Array<Hash>] from record mapper JSON file
-      def initialize(
-        mappings:,
-        mapper: CollectionSpace::Mapper.recordmapper
-      )
-        @mapper = mapper
-        extension = CollectionSpace::Mapper.record.service_type_mixin
-        extend extension if extension
+      # @param hander [CollectionSpace::Mapper::DataHandler]
+      def initialize(mappings:, handler:)
+        @handler = handler
+        handler.record.extensions.each{ |ext| extend ext }
 
         @all = []
         @lkup = {}
         mappings.each { |mapping| add_mapping(mapping) }
 
         special_mappings.each { |mapping| add_mapping(mapping) }
-        CollectionSpace::Mapper.config.record.mappings = self
-        self
       end
 
       def <<(mapping)
@@ -53,7 +48,7 @@ module CollectionSpace
 
       private
 
-      attr_reader :mapper, :all, :lkup
+      attr_reader :handler, :all, :lkup
 
       def add_mapping(mapping)
         mapobj = CollectionSpace::Mapper::ColumnMapping.new(

@@ -7,10 +7,12 @@ module CollectionSpace
 
       attr_reader :hash
 
-      def initialize
-        @mappings = CollectionSpace::Mapper.record.mappings
+      # @param handler [CollectionSpace::Mapper::DataHandler]
+      def initialize(handler)
+        handler.config.record.xpaths = self
+        @handler = handler
+        @mappings = handler.record.mappings
         @hash = create_xpaths
-        CollectionSpace::Mapper.config.record.xpaths = self
         self
       end
 
@@ -23,8 +25,9 @@ module CollectionSpace
         hash.each{ |key, value| block.call(key, value) }
       end
 
-      # @param keep [Array<String>] datacolumn values to keep
-      def for_row(keep)
+      # @param data [Hash]
+      def for_row(data)
+        keep = data.keys.map(&:downcase) + ['shortidentifier']
         result = dup.map{ |path, xpath| [path, xpath.for_row(keep)] }
           .to_h
           .reject{ |_path, xpath| xpath.mappings.empty? }
@@ -33,9 +36,9 @@ module CollectionSpace
 
       def to_s
         "<##{self.class}:#{object_id.to_s(8)}\n"\
-          "profile: #{CollectionSpace::Mapper.record.profile_basename}\n"\
-          "version: #{CollectionSpace::Mapper.record.version}\n"\
-          "rectype: #{CollectionSpace::Mapper.record.recordtype}\n"\
+          "profile: #{handler.record.profile_basename}\n"\
+          "version: #{handler.record.version}\n"\
+          "rectype: #{handler.record.recordtype}\n"\
           "#{for_recordtype.map{ |xp| "  #{xp}" }.join("\n")}"\
           ">"
       end
@@ -55,14 +58,15 @@ module CollectionSpace
 
       private
 
-      attr_reader :mappings
+      attr_reader :handler, :mappings
 
       def create_xpaths
         mappings.group_by{ |mapping| mapping.fullpath }
           .map{|xpath, maps|
             [xpath, CollectionSpace::Mapper::Xpath.new(
               path: xpath,
-              mappings: maps
+              mappings: maps,
+              handler: handler
             )]
           }.to_h
       end

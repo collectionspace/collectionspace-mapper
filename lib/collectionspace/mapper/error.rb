@@ -55,15 +55,8 @@ module CollectionSpace
       end
     end
 
-    class RefNameArgumentError < ArgumentError
+    class UnknownSplitterMode < TypeError
       include CollectionSpace::Mapper::Error
-
-      def initialize(
-        msg = "Arguments requires either :urn OR :source_type, :type, "\
-          ":subtype, :term, :cache values"
-      )
-        super
-      end
     end
 
     class UnparseableDateError < Date::Error

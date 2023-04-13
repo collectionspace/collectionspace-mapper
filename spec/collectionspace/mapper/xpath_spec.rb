@@ -3,21 +3,18 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Xpath do
-  subject(:result) do
-    CollectionSpace::Mapper.record.xpaths
-      .lookup(path)
+  subject(:result){ handler.record.xpaths.lookup(path) }
+
+  let(:handler) do
+    setup_handler(
+      profile: profile,
+      mapper: mapper
+    )
   end
 
-  after{ CollectionSpace::Mapper.reset_config }
-
-  context "with anthro collectionobject" do
-    before do
-      setup_handler(
-        profile: 'anthro',
-        mapper_path: "spec/fixtures/files/mappers/release_6_1/anthro/"\
-          "anthro_4-1-2_collectionobject.json"
-      )
-    end
+  context "with anthro collectionobject", vcr: "anthro_domain_check" do
+    let(:profile) { 'anthro' }
+    let(:mapper){ "anthro_4-1-2_collectionobject" }
 
     context "xpath ending with commingledRemainsGroup" do
       let(:path) {
@@ -72,56 +69,49 @@ RSpec.describe CollectionSpace::Mapper::Xpath do
     end
   end
 
-  context "with bonsai conservation" do
-    before do
-      setup_handler(
-        profile: 'bonsai',
-        mapper_path: "spec/fixtures/files/mappers/release_6_1/bonsai/"\
-          "bonsai_4-1-1_conservation.json"
-      )
-    end
+  context "with bonsai profile", vcr: "bonsai_profile_check" do
+    let(:profile){ 'bonsai' }
 
-    context "xpath ending with fertilizersToBeUsed" do
-      let(:path) {
-        "conservation_livingplant/fertilizationGroupList/"\
-          "fertilizationGroup/fertilizersToBeUsed"
-      }
-      it "is a repeating group" do
-        expect(result.is_group?).to be true
+    context "with conservation rectype" do
+      let(:mapper){ "bonsai_4-1-1_conservation" }
+
+      context "xpath ending with fertilizersToBeUsed" do
+        let(:path) {
+          "conservation_livingplant/fertilizationGroupList/"\
+            "fertilizationGroup/fertilizersToBeUsed"
+        }
+        it "is a repeating group" do
+          expect(result.is_group?).to be true
+        end
+      end
+
+      context "xpath ending with conservators" do
+        let(:path) { "conservation_common/conservators" }
+        it "is a repeating group" do
+          expect(result.is_group?).to be false
+        end
       end
     end
 
-    context "xpath ending with conservators" do
-      let(:path) { "conservation_common/conservators" }
-      it "is a repeating group" do
-        expect(result.is_group?).to be false
+    describe "#for_row" do
+      let(:mapper){ "bonsai_4-1-1_objectexit" }
+      let(:path){ "objectexit_common/deacApprovalGroupList/deacApprovalGroup" }
+      let(:keep) do
+        ["exitnumber",
+         "deaccessionapprovalgroup",
+         "deaccessionapprovalindividual",
+         "deaccessionapprovalstatus",
+         "deaccessionapprovaldate",
+         "deaccessionapprovalnote",
+         "deaccessiondate"]
       end
-    end
-  end
+      let(:keptmappings){ result.for_row(keep).mappings.map(&:datacolumn) }
 
-  describe "#for_row" do
-    before do
-      setup_handler(
-        profile: 'bonsai',
-        mapper_path: "spec/fixtures/files/mappers/release_6_1/bonsai/"\
-          "bonsai_4-1-1_objectexit.json"
-      )
-    end
-
-    let(:path){ "objectexit_common/deacApprovalGroupList/deacApprovalGroup" }
-    let(:keep) do
-      ["exitnumber",
-       "deaccessionapprovalgroup",
-       "deaccessionapprovalindividual",
-       "deaccessionapprovalstatus",
-       "deaccessionapprovaldate",
-       "deaccessionapprovalnote",
-       "deaccessiondate"]
-    end
-    let(:keptmappings){ result.for_row(keep).mappings.map(&:datacolumn) }
-
-    it "removes non-kept mappings" do
-      expect(keptmappings.include?("deaccessionapprovalindividualrefname")).to be false
+      it "removes non-kept mappings" do
+        expect(
+          keptmappings.include?("deaccessionapprovalindividualrefname")
+        ).to be false
+      end
     end
   end
 end

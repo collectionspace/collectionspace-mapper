@@ -1,0 +1,104 @@
+# frozen_string_literal: true
+
+require "spec_helper"
+
+RSpec.describe CollectionSpace::Mapper::ColumnValue do
+  subject(:colval) do
+    described_class.new(
+      column: colname,
+      value: colvalue,
+      mapping: mapping)
+  end
+
+  after{ CollectionSpace::Mapper.reset_config }
+
+  let(:mapping) { CollectionSpace::Mapper.record.mappings.lookup(colname) }
+
+  describe ".create" do
+    let(:creator) do
+      described_class.create(
+        column: colname,
+        value: colvalue,
+        mapping: mapping
+      )
+    end
+
+    context "given core collectionobject" do
+      before do
+        setup_handler(
+          mapper: "spec/fixtures/files/mappers/release_6_1/core/"\
+            "core_6-1-0_collectionobject.json"
+        )
+      end
+
+      context "given collection field value" do
+        let(:colname) { "collection" }
+        let(:colvalue) { "blah" }
+
+        it "returns ColumnValue" do
+          expect(creator).to be_a(CollectionSpace::Mapper::ColumnValue)
+        end
+      end
+
+      context "given comment field value" do
+        let(:colname) { "comment" }
+        let(:colvalue) { "blah" }
+        it "returns MultivalColumnValue" do
+          expect(creator).to be_a(CollectionSpace::Mapper::MultivalColumnValue)
+        end
+      end
+
+      context "given title field value" do
+        let(:colname) { "title" }
+        let(:colvalue) { "blah" }
+        it "returns GroupColumnValue" do
+          expect(creator).to be_a(CollectionSpace::Mapper::GroupColumnValue)
+        end
+      end
+
+      context "given titleTranslation field value" do
+        let(:colname) { "titleTranslation" }
+        let(:colvalue) { "blah" }
+        it "returns SubgroupColumnValue" do
+          expect(creator).to be_a(CollectionSpace::Mapper::SubgroupColumnValue)
+        end
+      end
+    end
+
+    context "given bonsai conservation" do
+      before do
+        setup_handler(
+          profile: "bonsai",
+          mapper: "spec/fixtures/files/mappers/release_6_1/bonsai/"\
+            "bonsai_4-1-1_conservation.json"
+        )
+      end
+
+      context "given fertilizerToBeUsed field value" do
+        let(:colname) { "fertilizerToBeUsed" }
+        let(:colvalue) { "blah" }
+
+        it "returns GroupMultivalColumnValue" do
+          expect(creator).to be_a(
+            CollectionSpace::Mapper::GroupMultivalColumnValue
+          )
+        end
+      end
+    end
+  end
+
+  describe "#split" do
+    before do
+      setup_handler(
+        mapper: "spec/fixtures/files/mappers/release_6_1/core/"\
+          "core_6-1-0_collectionobject.json"
+      )
+    end
+
+    let(:colname) { "collection" }
+    let(:colvalue) { "blah " }
+    it "returns value as stripped single element in Array" do
+      expect(colval.split).to eq(["blah"])
+    end
+  end
+end

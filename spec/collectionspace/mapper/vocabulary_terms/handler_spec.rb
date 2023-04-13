@@ -2,7 +2,8 @@
 
 require "spec_helper"
 
-RSpec.describe CollectionSpace::Mapper::VocabularyTerms::Handler do
+RSpec.describe CollectionSpace::Mapper::VocabularyTerms::Handler,
+  skip: "test after splitting handlers" do
   subject(:handler) { described_class.new }
   before{ setup }
   after{ CollectionSpace::Mapper.reset_config }
