@@ -101,6 +101,10 @@ module CollectionSpace
       end
     end
 
+    class UnprocessableHandlerSignature < ArgumentError
+      include CollectionSpace::Mapper::Error
+    end
+
     class UnrecognizedGroupPatternError < StandardError
       include CollectionSpace::Mapper::Error
 

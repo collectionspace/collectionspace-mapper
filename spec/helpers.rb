@@ -46,7 +46,7 @@ module Helpers
     termcache = send("#{profile}_cache".to_sym)
     csidcache = send("#{profile}_csid_cache".to_sym)
     mapper = get_json_record_mapper(mapper)
-    CollectionSpace::Mapper::DataHandler.new(
+    CollectionSpace::Mapper::FullRecordDataHandler.new(
       record_mapper: mapper,
       client: client,
       cache: termcache,
