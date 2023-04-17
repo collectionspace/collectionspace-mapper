@@ -1,0 +1,803 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=0&pgSz=1&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Mon, 17 Apr 2023 00:58:50 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '829'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>156</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>4ab7dd14-2a1b-495a-8cda</csid><uri>/vocabularies/4ab7dd14-2a1b-495a-8cda</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(acousticalproperties)'Acoustical
+        Properties'</refName><updatedAt>2020-02-08T03:30:56.615Z</updatedAt><workflowState>project</workflowState><rev>6</rev><shortIdentifier>acousticalproperties</shortIdentifier><displayName>Acoustical
+        Properties</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
+  recorded_at: Mon, 17 Apr 2023 00:58:50 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=0&pgSz=25&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Mon, 17 Apr 2023 00:58:51 GMT
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>25</itemsInPage><totalItems>156</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>4ab7dd14-2a1b-495a-8cda</csid><uri>/vocabularies/4ab7dd14-2a1b-495a-8cda</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(acousticalproperties)'Acoustical
+        Properties'</refName><updatedAt>2020-02-08T03:30:56.615Z</updatedAt><workflowState>project</workflowState><rev>6</rev><shortIdentifier>acousticalproperties</shortIdentifier><displayName>Acoustical
+        Properties</displayName><vocabType>enum</vocabType></list-item><list-item><csid>3ba135ec-12c4-4972-9bf1</csid><uri>/vocabularies/3ba135ec-12c4-4972-9bf1</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(additionalprocesses)'Additional
+        Processes'</refName><updatedAt>2020-02-08T03:31:17.574Z</updatedAt><workflowState>project</workflowState><rev>11</rev><shortIdentifier>additionalprocesses</shortIdentifier><displayName>Additional
+        Processes</displayName><vocabType>enum</vocabType></list-item><list-item><csid>c637e7bc-2f75-46b0-a8c0</csid><uri>/vocabularies/c637e7bc-2f75-46b0-a8c0</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(additionalproperties)'Additional
+        Properties'</refName><updatedAt>2020-02-08T03:31:04.861Z</updatedAt><workflowState>project</workflowState><rev>15</rev><shortIdentifier>additionalproperties</shortIdentifier><displayName>Additional
+        Properties</displayName><vocabType>enum</vocabType></list-item><list-item><csid>0470cf96-754e-481a-a714</csid><uri>/vocabularies/0470cf96-754e-481a-a714</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(addresstype)'Address
+        Types'</refName><updatedAt>2020-02-08T03:31:18.438Z</updatedAt><workflowState>project</workflowState><rev>4</rev><shortIdentifier>addresstype</shortIdentifier><displayName>Address
+        Types</displayName><vocabType>enum</vocabType></list-item><list-item><csid>74210642-6f5e-441c-8982</csid><uri>/vocabularies/74210642-6f5e-441c-8982</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(agentinfotype)'Agent
+        Info Type'</refName><updatedAt>2020-02-08T03:30:38.649Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>agentinfotype</shortIdentifier><displayName>Agent
+        Info Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>fef33319-06ab-4582-95d7</csid><uri>/vocabularies/fef33319-06ab-4582-95d7</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(agequalifier)'Age
+        Qualifier'</refName><updatedAt>2020-02-08T03:30:33.432Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>agequalifier</shortIdentifier><displayName>Age
+        Qualifier</displayName><vocabType>enum</vocabType></list-item><list-item><csid>e1401111-05c2-4d6c-bdc5</csid><uri>/vocabularies/e1401111-05c2-4d6c-bdc5</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype)'Annotation
+        Type'</refName><updatedAt>2022-11-23T16:43:38.740Z</updatedAt><workflowState>project</workflowState><rev>237</rev><shortIdentifier>annotationtype</shortIdentifier><displayName>Annotation
+        Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>fe585dbb-ccc4-494e-bd45</csid><uri>/vocabularies/fe585dbb-ccc4-494e-bd45</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(deaccessionapprovalgroup)'Approval
+        Group'</refName><updatedAt>2021-05-25T02:31:25.566Z</updatedAt><workflowState>project</workflowState><rev>8</rev><shortIdentifier>deaccessionapprovalgroup</shortIdentifier><displayName>Approval
+        Group</displayName><vocabType>enum</vocabType></list-item><list-item><csid>21fbe27a-45a6-4f3c-a819</csid><uri>/vocabularies/21fbe27a-45a6-4f3c-a819</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(deaccessionapprovalstatus)'Approval
+        Status'</refName><updatedAt>2021-09-15T21:03:21.185Z</updatedAt><workflowState>project</workflowState><rev>13</rev><shortIdentifier>deaccessionapprovalstatus</shortIdentifier><displayName>Approval
+        Status</displayName><vocabType>enum</vocabType></list-item><list-item><csid>06d3e373-347b-42a0-a69b</csid><uri>/vocabularies/06d3e373-347b-42a0-a69b</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(artistpresence)'Artist
+        Presence'</refName><updatedAt>2022-07-13T19:16:54.681Z</updatedAt><workflowState>project</workflowState><rev>6</rev><shortIdentifier>artistpresence</shortIdentifier><displayName>Artist
+        Presence</displayName><vocabType>enum</vocabType></list-item><list-item><csid>983678b6-b15e-4e65-b62f</csid><uri>/vocabularies/983678b6-b15e-4e65-b62f</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(aspectratios)'Aspect
+        Ratios'</refName><updatedAt>2022-05-18T00:28:15.295Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>aspectratios</shortIdentifier><displayName>Aspect
+        Ratios</displayName><vocabType>enum</vocabType></list-item><list-item><csid>6172f130-5984-4625-9028</csid><uri>/vocabularies/6172f130-5984-4625-9028</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(aspectratiotypes)'Aspect
+        Ratio Types'</refName><updatedAt>2022-05-18T00:28:15.744Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>aspectratiotypes</shortIdentifier><displayName>Aspect
+        Ratio Types</displayName><vocabType>enum</vocabType></list-item><list-item><csid>197ed8f2-502d-4200-9698</csid><uri>/vocabularies/197ed8f2-502d-4200-9698</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(assignedsignificance)'Assigned
+        Significance'</refName><updatedAt>2022-05-18T00:28:04.017Z</updatedAt><workflowState>project</workflowState><rev>7</rev><shortIdentifier>assignedsignificance</shortIdentifier><displayName>Assigned
+        Significance</displayName><vocabType>enum</vocabType></list-item><list-item><csid>83032a6a-3a6e-487f-8e30</csid><uri>/vocabularies/83032a6a-3a6e-487f-8e30</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(audiopreferences)'Audio
+        Preferences'</refName><updatedAt>2022-05-18T00:28:14.974Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>audiopreferences</shortIdentifier><displayName>Audio
+        Preferences</displayName><vocabType>enum</vocabType></list-item><list-item><csid>3d6ef237-3e4b-4af6-be05</csid><uri>/vocabularies/3d6ef237-3e4b-4af6-be05</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(audiotypes)'Audio
+        Types'</refName><updatedAt>2022-05-18T00:28:14.112Z</updatedAt><workflowState>project</workflowState><rev>7</rev><shortIdentifier>audiotypes</shortIdentifier><displayName>Audio
+        Types</displayName><vocabType>enum</vocabType></list-item><list-item><csid>ef0bf71e-e639-4414-b624</csid><uri>/vocabularies/ef0bf71e-e639-4414-b624</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(avattributeunits)'Audio/Video
+        Attribute Units'</refName><updatedAt>2022-07-18T18:15:23.649Z</updatedAt><workflowState>project</workflowState><rev>14</rev><shortIdentifier>avattributeunits</shortIdentifier><displayName>Audio/Video
+        Attribute Units</displayName><vocabType>enum</vocabType></list-item><list-item><csid>951d481c-1057-4b5b-9c05</csid><uri>/vocabularies/951d481c-1057-4b5b-9c05</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(avattributes)'Audio/Video
+        Technical Attributes'</refName><updatedAt>2022-07-18T18:15:22.642Z</updatedAt><workflowState>project</workflowState><rev>6</rev><shortIdentifier>avattributes</shortIdentifier><displayName>Audio/Video
+        Technical Attributes</displayName><vocabType>enum</vocabType></list-item><list-item><csid>046b31d2-7cb5-4b63-b4f7</csid><uri>/vocabularies/046b31d2-7cb5-4b63-b4f7</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(castingprocesses)'castingprocesses'</refName><updatedAt>2020-02-08T03:31:08.226Z</updatedAt><workflowState>project</workflowState><rev>7</rev><shortIdentifier>castingprocesses</shortIdentifier><displayName>castingprocesses</displayName><vocabType>enum</vocabType></list-item><list-item><csid>0c70814e-0d2b-45b5-85e5</csid><uri>/vocabularies/0c70814e-0d2b-45b5-85e5</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(checksumtypes)'Checksum
+        Types'</refName><updatedAt>2022-10-13T17:38:19.206Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>checksumtypes</shortIdentifier><displayName>Checksum
+        Types</displayName><vocabType>enum</vocabType></list-item><list-item><csid>8bb55909-fe3d-4919-8b9d</csid><uri>/vocabularies/8bb55909-fe3d-4919-8b9d</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(chromasubsampling)'Chroma
+        Subsampling'</refName><updatedAt>2022-07-18T18:15:25.242Z</updatedAt><workflowState>project</workflowState><rev>7</rev><shortIdentifier>chromasubsampling</shortIdentifier><displayName>Chroma
+        Subsampling</displayName><vocabType>enum</vocabType></list-item><list-item><csid>746eb884-0dfa-4d0e-8309</csid><uri>/vocabularies/746eb884-0dfa-4d0e-8309</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(chronologyconceptrelations)'Chronology
+        Concept Relations'</refName><updatedAt>2023-04-05T12:13:19.901Z</updatedAt><workflowState>project</workflowState><rev>1</rev><shortIdentifier>chronologyconceptrelations</shortIdentifier><displayName>Chronology
+        Concept Relations</displayName><vocabType>enum</vocabType></list-item><list-item><csid>ce089cbb-d164-44e1-9d04</csid><uri>/vocabularies/ce089cbb-d164-44e1-9d04</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(chronologyhistoricalstatus)'Chronology
+        Historical Status'</refName><updatedAt>2023-04-05T12:13:17.885Z</updatedAt><workflowState>project</workflowState><rev>1</rev><shortIdentifier>chronologyhistoricalstatus</shortIdentifier><displayName>Chronology
+        Historical Status</displayName><vocabType>enum</vocabType></list-item><list-item><csid>c31764e3-3868-49c9-be98</csid><uri>/vocabularies/c31764e3-3868-49c9-be98</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(chronologyorganizationrelations)'Chronology
+        Organization Relations'</refName><updatedAt>2023-04-05T12:13:19.661Z</updatedAt><workflowState>project</workflowState><rev>1</rev><shortIdentifier>chronologyorganizationrelations</shortIdentifier><displayName>Chronology
+        Organization Relations</displayName><vocabType>enum</vocabType></list-item><list-item><csid>75f2c3eb-aec4-4c21-bdd9</csid><uri>/vocabularies/75f2c3eb-aec4-4c21-bdd9</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(chronologypeoplerelations)'Chronology
+        People Relations'</refName><updatedAt>2023-04-05T12:13:19.398Z</updatedAt><workflowState>project</workflowState><rev>1</rev><shortIdentifier>chronologypeoplerelations</shortIdentifier><displayName>Chronology
+        People Relations</displayName><vocabType>enum</vocabType></list-item><list-item><csid>320c4a5d-a9f3-48b6-a144</csid><uri>/vocabularies/320c4a5d-a9f3-48b6-a144</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(chronologypersonrelations)'Chronology
+        Person Relations'</refName><updatedAt>2023-04-05T12:13:19.039Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>chronologypersonrelations</shortIdentifier><displayName>Chronology
+        Person Relations</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
+  recorded_at: Mon, 17 Apr 2023 00:58:51 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=1&pgSz=25&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Mon, 17 Apr 2023 00:58:51 GMT
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>1</pageNum><pageSize>25</pageSize><itemsInPage>25</itemsInPage><totalItems>156</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>3051ac5a-26f1-4fc0-9385</csid><uri>/vocabularies/3051ac5a-26f1-4fc0-9385</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(chronologyplacerelations)'Chronology
+        Place Relations'</refName><updatedAt>2023-04-05T12:13:20.180Z</updatedAt><workflowState>project</workflowState><rev>5</rev><shortIdentifier>chronologyplacerelations</shortIdentifier><displayName>Chronology
+        Place Relations</displayName><vocabType>enum</vocabType></list-item><list-item><csid>d648e971-1004-4292-9f39</csid><uri>/vocabularies/d648e971-1004-4292-9f39</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(chronologyrelations)'Chronology
+        Relations'</refName><updatedAt>2023-04-05T12:13:20.989Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>chronologyrelations</shortIdentifier><displayName>Chronology
+        Relations</displayName><vocabType>enum</vocabType></list-item><list-item><csid>9c74b7c5-7eeb-4df5-b0bd</csid><uri>/vocabularies/9c74b7c5-7eeb-4df5-b0bd</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(chronologytermflag)'Chronology
+        Term Flag'</refName><updatedAt>2023-04-05T12:13:17.140Z</updatedAt><workflowState>project</workflowState><rev>1</rev><shortIdentifier>chronologytermflag</shortIdentifier><displayName>Chronology
+        Term Flag</displayName><vocabType>enum</vocabType></list-item><list-item><csid>be524bf2-83b4-4cdf-8ab0</csid><uri>/vocabularies/be524bf2-83b4-4cdf-8ab0</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(chronologytermstatus)'Chronology
+        Term Status'</refName><updatedAt>2023-04-05T12:13:17.536Z</updatedAt><workflowState>project</workflowState><rev>1</rev><shortIdentifier>chronologytermstatus</shortIdentifier><displayName>Chronology
+        Term Status</displayName><vocabType>enum</vocabType></list-item><list-item><csid>412b7cfd-f165-43e8-9252</csid><uri>/vocabularies/412b7cfd-f165-43e8-9252</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(chronologytermtype)'Chronology
+        Term Type'</refName><updatedAt>2023-04-05T12:13:16.842Z</updatedAt><workflowState>project</workflowState><rev>1</rev><shortIdentifier>chronologytermtype</shortIdentifier><displayName>Chronology
+        Term Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>b016f54b-f6c1-4a49-89b0</csid><uri>/vocabularies/b016f54b-f6c1-4a49-89b0</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(chronologytypes)'Chronology
+        Types'</refName><updatedAt>2023-04-05T12:13:18.136Z</updatedAt><workflowState>project</workflowState><rev>6</rev><shortIdentifier>chronologytypes</shortIdentifier><displayName>Chronology
+        Types</displayName><vocabType>enum</vocabType></list-item><list-item><csid>2f8c7dc4-f7bc-45ec-b080</csid><uri>/vocabularies/2f8c7dc4-f7bc-45ec-b080</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(citationtermflag)'Citation
+        Term Flags'</refName><updatedAt>2020-02-08T03:30:45.555Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>citationtermflag</shortIdentifier><displayName>Citation
+        Term Flags</displayName><vocabType>enum</vocabType></list-item><list-item><csid>d5367734-455d-4eee-b2f7</csid><uri>/vocabularies/d5367734-455d-4eee-b2f7</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(citationtermtype)'Citation
+        Term Type'</refName><updatedAt>2020-02-08T03:30:36.465Z</updatedAt><workflowState>project</workflowState><rev>25</rev><shortIdentifier>citationtermtype</shortIdentifier><displayName>Citation
+        Term Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>18dfa307-627c-4a28-881d</csid><uri>/vocabularies/18dfa307-627c-4a28-881d</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(collectionmethod)'Collection
+        Method'</refName><updatedAt>2020-02-08T03:30:29.843Z</updatedAt><workflowState>project</workflowState><rev>13</rev><shortIdentifier>collectionmethod</shortIdentifier><displayName>Collection
+        Method</displayName><vocabType>enum</vocabType></list-item><list-item><csid>6207dd33-dfe1-4a71-9db1</csid><uri>/vocabularies/6207dd33-dfe1-4a71-9db1</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(colorspaces)'Color
+        Spaces'</refName><updatedAt>2022-05-18T00:28:16.080Z</updatedAt><workflowState>project</workflowState><rev>4</rev><shortIdentifier>colorspaces</shortIdentifier><displayName>Color
+        Spaces</displayName><vocabType>enum</vocabType></list-item><list-item><csid>6f309651-b2b9-4e68-8dee</csid><uri>/vocabularies/6f309651-b2b9-4e68-8dee</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(colortypes)'Color
+        Types'</refName><updatedAt>2022-05-18T00:28:16.935Z</updatedAt><workflowState>project</workflowState><rev>6</rev><shortIdentifier>colortypes</shortIdentifier><displayName>Color
+        Types</displayName><vocabType>enum</vocabType></list-item><list-item><csid>ed8bf214-7d0c-4a7c-8875</csid><uri>/vocabularies/ed8bf214-7d0c-4a7c-8875</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(compilers)'Compilers'</refName><updatedAt>2022-05-18T00:28:08.966Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>compilers</shortIdentifier><displayName>Compilers</displayName><vocabType>enum</vocabType></list-item><list-item><csid>b1d39d7b-521a-4fc6-8a82</csid><uri>/vocabularies/b1d39d7b-521a-4fc6-8a82</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(componentstatus)'Component
+        Status'</refName><updatedAt>2022-05-18T00:28:05.473Z</updatedAt><workflowState>project</workflowState><rev>10</rev><shortIdentifier>componentstatus</shortIdentifier><displayName>Component
+        Status</displayName><vocabType>enum</vocabType></list-item><list-item><csid>295cd746-a868-4e11-8876</csid><uri>/vocabularies/295cd746-a868-4e11-8876</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(compressionstandards)'Compression
+        Standards'</refName><updatedAt>2022-05-18T00:28:13.356Z</updatedAt><workflowState>project</workflowState><rev>9</rev><shortIdentifier>compressionstandards</shortIdentifier><displayName>Compression
+        Standards</displayName><vocabType>enum</vocabType></list-item><list-item><csid>2e80831d-f9da-4a76-9a7c</csid><uri>/vocabularies/2e80831d-f9da-4a76-9a7c</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(concepttermflag)'Concept
+        Term Flags'</refName><updatedAt>2020-02-08T03:30:45.914Z</updatedAt><workflowState>project</workflowState><rev>5</rev><shortIdentifier>concepttermflag</shortIdentifier><displayName>Concept
+        Term Flags</displayName><vocabType>enum</vocabType></list-item><list-item><csid>00b93dfa-f798-48fa-988b</csid><uri>/vocabularies/00b93dfa-f798-48fa-988b</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(concepttype)'Concept
+        Types'</refName><updatedAt>2020-02-08T03:30:44.168Z</updatedAt><workflowState>project</workflowState><rev>8</rev><shortIdentifier>concepttype</shortIdentifier><displayName>Concept
+        Types</displayName><vocabType>enum</vocabType></list-item><list-item><csid>e9292c94-aa56-4a30-8381</csid><uri>/vocabularies/e9292c94-aa56-4a30-8381</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(conditioncheckmethod)'Condition
+        Check Method'</refName><updatedAt>2020-02-08T03:30:31.373Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>conditioncheckmethod</shortIdentifier><displayName>Condition
+        Check Method</displayName><vocabType>enum</vocabType></list-item><list-item><csid>5a016600-ce9b-4423-9287</csid><uri>/vocabularies/5a016600-ce9b-4423-9287</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(conditioncheckreason)'Condition
+        Check Reason'</refName><updatedAt>2020-02-08T03:30:31.892Z</updatedAt><workflowState>project</workflowState><rev>5</rev><shortIdentifier>conditioncheckreason</shortIdentifier><displayName>Condition
+        Check Reason</displayName><vocabType>enum</vocabType></list-item><list-item><csid>f6005b2f-9100-4d21-8bd2</csid><uri>/vocabularies/f6005b2f-9100-4d21-8bd2</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(conditionfitness)'Condition
+        Fitness'</refName><updatedAt>2021-12-08T17:28:20.178Z</updatedAt><workflowState>project</workflowState><rev>9</rev><shortIdentifier>conditionfitness</shortIdentifier><displayName>Condition
+        Fitness</displayName><vocabType>enum</vocabType></list-item><list-item><csid>addfc950-e08b-421b-9153</csid><uri>/vocabularies/addfc950-e08b-421b-9153</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(connectiontype)'Connection
+        Type'</refName><updatedAt>2022-05-18T00:28:11.404Z</updatedAt><workflowState>project</workflowState><rev>6</rev><shortIdentifier>connectiontype</shortIdentifier><displayName>Connection
+        Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>73a2fdf8-e65e-4de9-b773</csid><uri>/vocabularies/73a2fdf8-e65e-4de9-b773</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(conservationstatus)'Conservation
+        Status'</refName><updatedAt>2022-01-12T16:33:37.554Z</updatedAt><workflowState>project</workflowState><rev>28</rev><shortIdentifier>conservationstatus</shortIdentifier><displayName>Conservation
+        Status</displayName><vocabType>enum</vocabType></list-item><list-item><csid>f77b1e98-bf57-4e9d-9c9f</csid><uri>/vocabularies/f77b1e98-bf57-4e9d-9c9f</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(contactrole)'Contact
+        Person Roles'</refName><updatedAt>2022-08-17T23:23:02.408Z</updatedAt><workflowState>project</workflowState><rev>8</rev><shortIdentifier>contactrole</shortIdentifier><displayName>Contact
+        Person Roles</displayName><vocabType>enum</vocabType></list-item><list-item><csid>99f22add-0b58-4062-bb27</csid><uri>/vocabularies/99f22add-0b58-4062-bb27</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(contactstatus)'Contact
+        Person Statuses'</refName><updatedAt>2020-03-09T07:27:38.398Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>contactstatus</shortIdentifier><displayName>Contact
+        Person Statuses</displayName><vocabType>enum</vocabType></list-item><list-item><csid>ffc115fc-c9ee-46c6-b884</csid><uri>/vocabularies/ffc115fc-c9ee-46c6-b884</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(credentialtype)'Credential
+        Type'</refName><updatedAt>2022-05-18T00:28:06.717Z</updatedAt><workflowState>project</workflowState><rev>4</rev><shortIdentifier>credentialtype</shortIdentifier><displayName>Credential
+        Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>ab163b5a-6c9f-40ed-868b</csid><uri>/vocabularies/ab163b5a-6c9f-40ed-868b</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(datecertainty)'Date
+        Certainty'</refName><updatedAt>2020-02-08T03:30:33.868Z</updatedAt><workflowState>project</workflowState><rev>6</rev><shortIdentifier>datecertainty</shortIdentifier><displayName>Date
+        Certainty</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
+  recorded_at: Mon, 17 Apr 2023 00:58:51 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=2&pgSz=25&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Mon, 17 Apr 2023 00:58:52 GMT
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>2</pageNum><pageSize>25</pageSize><itemsInPage>25</itemsInPage><totalItems>156</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>9e50ba5c-5d36-4e12-bfbb</csid><uri>/vocabularies/9e50ba5c-5d36-4e12-bfbb</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(dateera)'Date
+        Era'</refName><updatedAt>2020-02-08T03:30:32.879Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>dateera</shortIdentifier><displayName>Date
+        Era</displayName><vocabType>enum</vocabType></list-item><list-item><csid>b1c51670-62f2-4292-ac01</csid><uri>/vocabularies/b1c51670-62f2-4292-ac01</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(datequalifier)'Date
+        Qualifier'</refName><updatedAt>2020-02-08T03:30:33.118Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>datequalifier</shortIdentifier><displayName>Date
+        Qualifier</displayName><vocabType>enum</vocabType></list-item><list-item><csid>d7e26b97-7f80-40b7-b94a</csid><uri>/vocabularies/d7e26b97-7f80-40b7-b94a</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(deformingprocesses)'Deforming
+        Processes'</refName><updatedAt>2020-02-08T03:31:08.795Z</updatedAt><workflowState>project</workflowState><rev>22</rev><shortIdentifier>deformingprocesses</shortIdentifier><displayName>Deforming
+        Processes</displayName><vocabType>enum</vocabType></list-item><list-item><csid>73819102-acf4-4828-a7b4</csid><uri>/vocabularies/73819102-acf4-4828-a7b4</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(disposalmethod)'Disposal
+        Method'</refName><updatedAt>2020-02-08T03:31:19.365Z</updatedAt><workflowState>project</workflowState><rev>8</rev><shortIdentifier>disposalmethod</shortIdentifier><displayName>Disposal
+        Method</displayName><vocabType>enum</vocabType></list-item><list-item><csid>b9327fb8-3dd4-4d59-9a04</csid><uri>/vocabularies/b9327fb8-3dd4-4d59-9a04</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(distributedledgertype)'Distributed
+        Ledger Type'</refName><updatedAt>2022-05-18T00:28:07.221Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>distributedledgertype</shortIdentifier><displayName>Distributed
+        Ledger Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>fd2a69a4-665b-48cc-8906</csid><uri>/vocabularies/fd2a69a4-665b-48cc-8906</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(domaintype)'Domain
+        Type'</refName><updatedAt>2022-05-18T00:28:11.641Z</updatedAt><workflowState>project</workflowState><rev>5</rev><shortIdentifier>domaintype</shortIdentifier><displayName>Domain
+        Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>5e7d6b6b-8597-4af5-bdd1</csid><uri>/vocabularies/5e7d6b6b-8597-4af5-bdd1</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(durabilityproperties)'Durability
+        Properties'</refName><updatedAt>2020-02-08T03:30:57.153Z</updatedAt><workflowState>project</workflowState><rev>22</rev><shortIdentifier>durabilityproperties</shortIdentifier><displayName>Durability
+        Properties</displayName><vocabType>enum</vocabType></list-item><list-item><csid>32b5e77a-7ff1-4b09-a418</csid><uri>/vocabularies/32b5e77a-7ff1-4b09-a418</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(ecologicalcertifications)'Ecological
+        Certifications'</refName><updatedAt>2020-02-08T03:31:08.088Z</updatedAt><workflowState>project</workflowState><rev>1</rev><shortIdentifier>ecologicalcertifications</shortIdentifier><displayName>Ecological
+        Certifications</displayName><vocabType>enum</vocabType></list-item><list-item><csid>c9d5ca66-02b8-476b-87d4</csid><uri>/vocabularies/c9d5ca66-02b8-476b-87d4</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(electricalproperties)'electricalproperties'</refName><updatedAt>2020-02-08T03:30:58.799Z</updatedAt><workflowState>project</workflowState><rev>4</rev><shortIdentifier>electricalproperties</shortIdentifier><displayName>electricalproperties</displayName><vocabType>enum</vocabType></list-item><list-item><csid>dc74dc5d-991e-4200-b640</csid><uri>/vocabularies/dc74dc5d-991e-4200-b640</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(energyunits)'Energy
+        Units'</refName><updatedAt>2020-02-08T03:31:07.849Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>energyunits</shortIdentifier><displayName>Energy
+        Units</displayName><vocabType>enum</vocabType></list-item><list-item><csid>b7ca58f5-148d-42c0-9a9a</csid><uri>/vocabularies/b7ca58f5-148d-42c0-9a9a</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(entrymethod)'Entry
+        Method'</refName><updatedAt>2020-02-08T03:30:31.596Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>entrymethod</shortIdentifier><displayName>Entry
+        Method</displayName><vocabType>enum</vocabType></list-item><list-item><csid>a638125d-c360-4f71-83b6</csid><uri>/vocabularies/a638125d-c360-4f71-83b6</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(examinationphase)'Examination
+        Phase'</refName><updatedAt>2020-02-08T03:30:43.836Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>examinationphase</shortIdentifier><displayName>Examination
+        Phase</displayName><vocabType>enum</vocabType></list-item><list-item><csid>9d2fc5b8-0e8e-4012-914f</csid><uri>/vocabularies/9d2fc5b8-0e8e-4012-914f</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionpersonrole)'Exhibition
+        Person Role'</refName><updatedAt>2020-02-08T03:30:39.973Z</updatedAt><workflowState>project</workflowState><rev>12</rev><shortIdentifier>exhibitionpersonrole</shortIdentifier><displayName>Exhibition
+        Person Role</displayName><vocabType>enum</vocabType></list-item><list-item><csid>aa7223b8-aca3-4725-a2ad</csid><uri>/vocabularies/aa7223b8-aca3-4725-a2ad</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionreferencetype)'Exhibition
+        Reference Type'</refName><updatedAt>2020-02-08T03:30:41.149Z</updatedAt><workflowState>project</workflowState><rev>6</rev><shortIdentifier>exhibitionreferencetype</shortIdentifier><displayName>Exhibition
+        Reference Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>6f3e1daf-c9ed-4afa-afaf</csid><uri>/vocabularies/6f3e1daf-c9ed-4afa-afaf</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionstatus)'Exhibition
+        Status'</refName><updatedAt>2020-02-08T03:30:41.767Z</updatedAt><workflowState>project</workflowState><rev>5</rev><shortIdentifier>exhibitionstatus</shortIdentifier><displayName>Exhibition
+        Status</displayName><vocabType>enum</vocabType></list-item><list-item><csid>0ed5fb8d-c347-4f6d-ba9e</csid><uri>/vocabularies/0ed5fb8d-c347-4f6d-ba9e</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitiontype)'Exhibition
+        Type'</refName><updatedAt>2020-02-08T03:30:39.692Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>exhibitiontype</shortIdentifier><displayName>Exhibition
+        Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>cda22035-616b-4c72-bc04</csid><uri>/vocabularies/cda22035-616b-4c72-bc04</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(filecodecs)'File
+        Codecs'</refName><updatedAt>2022-05-18T17:22:39.805Z</updatedAt><workflowState>project</workflowState><rev>12</rev><shortIdentifier>filecodecs</shortIdentifier><displayName>File
+        Codecs</displayName><vocabType>enum</vocabType></list-item><list-item><csid>6ac3fec9-2a0b-4de1-ae27</csid><uri>/vocabularies/6ac3fec9-2a0b-4de1-ae27</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(filecontainers)'File
+        Containers'</refName><updatedAt>2022-05-18T17:20:08.019Z</updatedAt><workflowState>project</workflowState><rev>11</rev><shortIdentifier>filecontainers</shortIdentifier><displayName>File
+        Containers</displayName><vocabType>enum</vocabType></list-item><list-item><csid>179bda2a-6aa1-496d-9943</csid><uri>/vocabularies/179bda2a-6aa1-496d-9943</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(formats)'Formats'</refName><updatedAt>2022-05-18T00:28:12.385Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>formats</shortIdentifier><displayName>Formats</displayName><vocabType>enum</vocabType></list-item><list-item><csid>27f4982d-f74a-468e-81a5</csid><uri>/vocabularies/27f4982d-f74a-468e-81a5</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(formattypenames)'Format
+        Types'</refName><updatedAt>2022-05-18T00:28:12.054Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>formattypenames</shortIdentifier><displayName>Format
+        Types</displayName><vocabType>enum</vocabType></list-item><list-item><csid>252cb63d-7c6f-4767-a34c</csid><uri>/vocabularies/252cb63d-7c6f-4767-a34c</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(hygrothermalproperties)'Hygrothermal
+        Properties'</refName><updatedAt>2020-02-08T03:30:59.931Z</updatedAt><workflowState>project</workflowState><rev>9</rev><shortIdentifier>hygrothermalproperties</shortIdentifier><displayName>Hygrothermal
+        Properties</displayName><vocabType>enum</vocabType></list-item><list-item><csid>284c28c2-1762-4d76-b4b2</csid><uri>/vocabularies/284c28c2-1762-4d76-b4b2</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(hygrothermalpropertyunits)'Hygrothermal
+        Property Units'</refName><updatedAt>2020-02-08T03:31:06.796Z</updatedAt><workflowState>project</workflowState><rev>5</rev><shortIdentifier>hygrothermalpropertyunits</shortIdentifier><displayName>Hygrothermal
+        Property Units</displayName><vocabType>enum</vocabType></list-item><list-item><csid>13fe473a-00c3-473a-a281</csid><uri>/vocabularies/13fe473a-00c3-473a-a281</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(installerrole)'Installer
+        Role'</refName><updatedAt>2022-07-07T22:04:52.714Z</updatedAt><workflowState>project</workflowState><rev>11</rev><shortIdentifier>installerrole</shortIdentifier><displayName>Installer
+        Role</displayName><vocabType>enum</vocabType></list-item><list-item><csid>09595e68-da40-4038-af88</csid><uri>/vocabularies/09595e68-da40-4038-af88</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(insurancestatus)'Insurance/Indemnity
+        Status'</refName><updatedAt>2021-05-08T13:27:31.020Z</updatedAt><workflowState>project</workflowState><rev>5</rev><shortIdentifier>insurancestatus</shortIdentifier><displayName>Insurance/Indemnity
+        Status</displayName><vocabType>enum</vocabType></list-item><list-item><csid>e612b562-38a8-41de-bc38</csid><uri>/vocabularies/e612b562-38a8-41de-bc38</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(insurancetype)'Insurance/Indemnity
+        Type'</refName><updatedAt>2021-05-08T13:27:30.578Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>insurancetype</shortIdentifier><displayName>Insurance/Indemnity
+        Type</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
+  recorded_at: Mon, 17 Apr 2023 00:58:52 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=3&pgSz=25&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Mon, 17 Apr 2023 00:58:52 GMT
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>3</pageNum><pageSize>25</pageSize><itemsInPage>25</itemsInPage><totalItems>156</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>3e16048d-7634-4fe8-a639</csid><uri>/vocabularies/3e16048d-7634-4fe8-a639</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(interactingapplication)'Interacting
+        Application'</refName><updatedAt>2022-11-19T13:10:21.220Z</updatedAt><workflowState>project</workflowState><rev>6</rev><shortIdentifier>interactingapplication</shortIdentifier><displayName>Interacting
+        Application</displayName><vocabType>enum</vocabType></list-item><list-item><csid>6524074b-e18b-4cfc-ba54</csid><uri>/vocabularies/6524074b-e18b-4cfc-ba54</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(inventorystatus)'Inventory
+        Status'</refName><updatedAt>2020-02-08T03:30:22.959Z</updatedAt><workflowState>project</workflowState><rev>27</rev><shortIdentifier>inventorystatus</shortIdentifier><displayName>Inventory
+        Status</displayName><vocabType>enum</vocabType></list-item><list-item><csid>d07cee99-2e54-4ec4-affa</csid><uri>/vocabularies/d07cee99-2e54-4ec4-affa</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(iterationrole)'Iteration
+        Creator/Supervisor Role'</refName><updatedAt>2022-07-07T22:04:51.499Z</updatedAt><workflowState>project</workflowState><rev>8</rev><shortIdentifier>iterationrole</shortIdentifier><displayName>Iteration
+        Creator/Supervisor Role</displayName><vocabType>enum</vocabType></list-item><list-item><csid>4a580340-8d66-446e-aa18</csid><uri>/vocabularies/4a580340-8d66-446e-aa18</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(iterationspacetype)'Iteration
+        Space Type'</refName><updatedAt>2022-07-07T22:04:53.245Z</updatedAt><workflowState>project</workflowState><rev>8</rev><shortIdentifier>iterationspacetype</shortIdentifier><displayName>Iteration
+        Space Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>1c74968a-5a29-4bf2-8beb</csid><uri>/vocabularies/1c74968a-5a29-4bf2-8beb</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(joiningprocesses)'Joining
+        Processes'</refName><updatedAt>2020-02-08T03:31:10.522Z</updatedAt><workflowState>project</workflowState><rev>17</rev><shortIdentifier>joiningprocesses</shortIdentifier><displayName>Joining
+        Processes</displayName><vocabType>enum</vocabType></list-item><list-item><csid>3e899308-c6dc-4e6b-8a6e</csid><uri>/vocabularies/3e899308-c6dc-4e6b-8a6e</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(languages)'Languages'</refName><updatedAt>2021-11-05T21:22:27.440Z</updatedAt><workflowState>project</workflowState><rev>52</rev><shortIdentifier>languages</shortIdentifier><displayName>Languages</displayName><vocabType>enum</vocabType></list-item><list-item><csid>0573560e-1ebd-4d4b-b5cd</csid><uri>/vocabularies/0573560e-1ebd-4d4b-b5cd</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(ledgertype)'Ledger
+        Type'</refName><updatedAt>2022-05-18T00:28:07.617Z</updatedAt><workflowState>project</workflowState><rev>5</rev><shortIdentifier>ledgertype</shortIdentifier><displayName>Ledger
+        Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>cb3457f3-ab83-4312-a545</csid><uri>/vocabularies/cb3457f3-ab83-4312-a545</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(lifecyclecomponents)'Lifecycle
+        Components'</refName><updatedAt>2020-02-08T03:31:07.497Z</updatedAt><workflowState>project</workflowState><rev>4</rev><shortIdentifier>lifecyclecomponents</shortIdentifier><displayName>Lifecycle
+        Components</displayName><vocabType>enum</vocabType></list-item><list-item><csid>b1e864fa-6f78-4e29-b773</csid><uri>/vocabularies/b1e864fa-6f78-4e29-b773</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(loanoutstatus)'loanedObjectStatus'</refName><updatedAt>2022-08-22T23:11:15.650Z</updatedAt><workflowState>project</workflowState><rev>33</rev><shortIdentifier>loanoutstatus</shortIdentifier><displayName>loanedObjectStatus</displayName><vocabType>enum</vocabType></list-item><list-item><csid>cacea9a6-9694-4f05-8c25</csid><uri>/vocabularies/cacea9a6-9694-4f05-8c25</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(locationtermflag)'Location
+        Term Flags'</refName><updatedAt>2020-02-08T03:30:46.377Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>locationtermflag</shortIdentifier><displayName>Location
+        Term Flags</displayName><vocabType>enum</vocabType></list-item><list-item><csid>2c28ca8a-98f1-490a-ad38</csid><uri>/vocabularies/2c28ca8a-98f1-490a-ad38</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(locationtype)'Location
+        Type'</refName><updatedAt>2020-02-08T03:30:32.360Z</updatedAt><workflowState>project</workflowState><rev>6</rev><shortIdentifier>locationtype</shortIdentifier><displayName>Location
+        Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>9e5e6a64-1a78-44a6-bd52</csid><uri>/vocabularies/9e5e6a64-1a78-44a6-bd52</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(machiningprocesses)'Machining
+        Processes'</refName><updatedAt>2020-02-08T03:31:12.206Z</updatedAt><workflowState>project</workflowState><rev>17</rev><shortIdentifier>machiningprocesses</shortIdentifier><displayName>Machining
+        Processes</displayName><vocabType>enum</vocabType></list-item><list-item><csid>2000b293-bbfd-4b08-97b4</csid><uri>/vocabularies/2000b293-bbfd-4b08-97b4</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(maintenancetype)'Maintenance
+        Type'</refName><updatedAt>2022-07-07T22:04:55.512Z</updatedAt><workflowState>project</workflowState><rev>5</rev><shortIdentifier>maintenancetype</shortIdentifier><displayName>Maintenance
+        Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>49e94dab-54e5-4041-8c9a</csid><uri>/vocabularies/49e94dab-54e5-4041-8c9a</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(materialform)'materialform'</refName><updatedAt>2020-02-08T03:30:50.969Z</updatedAt><workflowState>project</workflowState><rev>33</rev><shortIdentifier>materialform</shortIdentifier><displayName>materialform</displayName><vocabType>enum</vocabType></list-item><list-item><csid>714feecf-9208-4f18-91df</csid><uri>/vocabularies/714feecf-9208-4f18-91df</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(materialformtype)'materialformtype'</refName><updatedAt>2020-02-08T03:30:53.647Z</updatedAt><workflowState>project</workflowState><rev>37</rev><shortIdentifier>materialformtype</shortIdentifier><displayName>materialformtype</displayName><vocabType>enum</vocabType></list-item><list-item><csid>0f9428c3-778d-49b2-ab17</csid><uri>/vocabularies/0f9428c3-778d-49b2-ab17</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(materialproductionrole)'materialproductionrole'</refName><updatedAt>2020-02-08T03:30:50.487Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>materialproductionrole</shortIdentifier><displayName>materialproductionrole</displayName><vocabType>enum</vocabType></list-item><list-item><csid>8831c204-e8ea-4c9c-b4fa</csid><uri>/vocabularies/8831c204-e8ea-4c9c-b4fa</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(materialresource)'materialresource'</refName><updatedAt>2020-02-08T03:30:50.766Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>materialresource</shortIdentifier><displayName>materialresource</displayName><vocabType>enum</vocabType></list-item><list-item><csid>8b3d90c6-256a-4411-baf4</csid><uri>/vocabularies/8b3d90c6-256a-4411-baf4</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(materialtermflag)'Material
+        Term Flags'</refName><updatedAt>2020-02-08T03:30:48.326Z</updatedAt><workflowState>project</workflowState><rev>4</rev><shortIdentifier>materialtermflag</shortIdentifier><displayName>Material
+        Term Flags</displayName><vocabType>enum</vocabType></list-item><list-item><csid>6e5d9c25-661c-41ea-8268</csid><uri>/vocabularies/6e5d9c25-661c-41ea-8268</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(materialtype)'Material
+        Types'</refName><updatedAt>2020-02-08T03:30:45.475Z</updatedAt><workflowState>project</workflowState><rev>0</rev><shortIdentifier>materialtype</shortIdentifier><displayName>Material
+        Types</displayName><vocabType>enum</vocabType></list-item><list-item><csid>f49ad083-0266-4bd2-8a09</csid><uri>/vocabularies/f49ad083-0266-4bd2-8a09</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(materialuse)'materialuse'</refName><updatedAt>2020-02-08T03:30:48.745Z</updatedAt><workflowState>project</workflowState><rev>20</rev><shortIdentifier>materialuse</shortIdentifier><displayName>materialuse</displayName><vocabType>enum</vocabType></list-item><list-item><csid>9ab6ee99-46e4-40d1-911f</csid><uri>/vocabularies/9ab6ee99-46e4-40d1-911f</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(mechanicalproperties)'Mechanical
+        Properties'</refName><updatedAt>2020-02-08T03:30:59.148Z</updatedAt><workflowState>project</workflowState><rev>10</rev><shortIdentifier>mechanicalproperties</shortIdentifier><displayName>Mechanical
+        Properties</displayName><vocabType>enum</vocabType></list-item><list-item><csid>bb070825-d293-4ae5-ba2c</csid><uri>/vocabularies/bb070825-d293-4ae5-ba2c</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(mechanicalpropertyunits)'Mechanical
+        Propertyunits'</refName><updatedAt>2020-02-08T03:31:06.446Z</updatedAt><workflowState>project</workflowState><rev>4</rev><shortIdentifier>mechanicalpropertyunits</shortIdentifier><displayName>Mechanical
+        Propertyunits</displayName><vocabType>enum</vocabType></list-item><list-item><csid>70fa4e8e-28df-40ba-b746</csid><uri>/vocabularies/70fa4e8e-28df-40ba-b746</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(moldingprocesses)'Molding
+        Processes'</refName><updatedAt>2020-02-08T03:31:13.553Z</updatedAt><workflowState>project</workflowState><rev>22</rev><shortIdentifier>moldingprocesses</shortIdentifier><displayName>Molding
+        Processes</displayName><vocabType>enum</vocabType></list-item><list-item><csid>758acafc-3579-4877-816e</csid><uri>/vocabularies/758acafc-3579-4877-816e</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(operatingsystems)'Operating
+        Systems'</refName><updatedAt>2022-05-18T00:28:09.976Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>operatingsystems</shortIdentifier><displayName>Operating
+        Systems</displayName><vocabType>enum</vocabType></list-item><list-item><csid>aa21f189-fae5-4b11-8445</csid><uri>/vocabularies/aa21f189-fae5-4b11-8445</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(opticalproperties)'Optical
+        Properties'</refName><updatedAt>2020-02-08T03:31:00.717Z</updatedAt><workflowState>project</workflowState><rev>10</rev><shortIdentifier>opticalproperties</shortIdentifier><displayName>Optical
+        Properties</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
+  recorded_at: Mon, 17 Apr 2023 00:58:52 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=4&pgSz=25&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Mon, 17 Apr 2023 00:58:52 GMT
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>4</pageNum><pageSize>25</pageSize><itemsInPage>25</itemsInPage><totalItems>156</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>e4a122f6-6889-49e3-ba3f</csid><uri>/vocabularies/e4a122f6-6889-49e3-ba3f</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(orgtermflag)'Organization
+        Term Flags'</refName><updatedAt>2020-02-08T03:30:46.588Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>orgtermflag</shortIdentifier><displayName>Organization
+        Term Flags</displayName><vocabType>enum</vocabType></list-item><list-item><csid>5ad99ed8-1156-4031-a173</csid><uri>/vocabularies/5ad99ed8-1156-4031-a173</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(organizationtype)'Organization
+        Types'</refName><updatedAt>2020-02-08T03:30:44.885Z</updatedAt><workflowState>project</workflowState><rev>5</rev><shortIdentifier>organizationtype</shortIdentifier><displayName>Organization
+        Types</displayName><vocabType>enum</vocabType></list-item><list-item><csid>3c16b88b-c7bf-4f47-b8cb</csid><uri>/vocabularies/3c16b88b-c7bf-4f47-b8cb</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(otherpartyrole)'Other
+        Party Role'</refName><updatedAt>2020-02-08T03:30:43.538Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>otherpartyrole</shortIdentifier><displayName>Other
+        Party Role</displayName><vocabType>enum</vocabType></list-item><list-item><csid>aeb8b336-fa39-4959-8c0c</csid><uri>/vocabularies/aeb8b336-fa39-4959-8c0c</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(persontermflag)'Person
+        Term Flags'</refName><updatedAt>2020-02-08T03:30:46.834Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>persontermflag</shortIdentifier><displayName>Person
+        Term Flags</displayName><vocabType>enum</vocabType></list-item><list-item><csid>3e5e2023-22b4-4abd-870e</csid><uri>/vocabularies/3e5e2023-22b4-4abd-870e</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(persontermtype)'personTermType'</refName><updatedAt>2020-02-08T03:30:34.527Z</updatedAt><workflowState>project</workflowState><rev>4</rev><shortIdentifier>persontermtype</shortIdentifier><displayName>personTermType</displayName><vocabType>enum</vocabType></list-item><list-item><csid>8a2d9a2e-ee54-4a14-9333</csid><uri>/vocabularies/8a2d9a2e-ee54-4a14-9333</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(placetermflag)'Place
+        Term Flags'</refName><updatedAt>2020-02-08T03:30:47.123Z</updatedAt><workflowState>project</workflowState><rev>4</rev><shortIdentifier>placetermflag</shortIdentifier><displayName>Place
+        Term Flags</displayName><vocabType>enum</vocabType></list-item><list-item><csid>50e90d59-39c2-4c27-a105</csid><uri>/vocabularies/50e90d59-39c2-4c27-a105</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(programminglanguage)'Programming
+        Languages'</refName><updatedAt>2022-10-13T17:38:12.658Z</updatedAt><workflowState>project</workflowState><rev>10</rev><shortIdentifier>programminglanguage</shortIdentifier><displayName>Programming
+        Languages</displayName><vocabType>enum</vocabType></list-item><list-item><csid>a44ab38f-e92c-403d-97a8</csid><uri>/vocabularies/a44ab38f-e92c-403d-97a8</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(programminglanguages)'Programming
+        Languages'</refName><updatedAt>2022-05-18T00:28:08.215Z</updatedAt><workflowState>project</workflowState><rev>6</rev><shortIdentifier>programminglanguages</shortIdentifier><displayName>Programming
+        Languages</displayName><vocabType>enum</vocabType></list-item><list-item><csid>e2ea6ca3-4c60-427d-96e5</csid><uri>/vocabularies/e2ea6ca3-4c60-427d-96e5</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(publishto)'Publishing
+        Destination'</refName><updatedAt>2020-02-08T03:30:25.985Z</updatedAt><workflowState>project</workflowState><rev>6</rev><shortIdentifier>publishto</shortIdentifier><displayName>Publishing
+        Destination</displayName><vocabType>enum</vocabType></list-item><list-item><csid>bf6a2efb-e197-4aa9-9ade</csid><uri>/vocabularies/bf6a2efb-e197-4aa9-9ade</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(rapidprototypingprocesses)'Rapid
+        Prototyping Processes'</refName><updatedAt>2020-02-08T03:31:15.255Z</updatedAt><workflowState>project</workflowState><rev>12</rev><shortIdentifier>rapidprototypingprocesses</shortIdentifier><displayName>Rapid
+        Prototyping Processes</displayName><vocabType>enum</vocabType></list-item><list-item><csid>54a4f3cf-5d59-4b4e-b004</csid><uri>/vocabularies/54a4f3cf-5d59-4b4e-b004</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(recycledcontentqualifiers)'Recycled
+        Content Qualifiers'</refName><updatedAt>2020-02-08T03:31:07.213Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>recycledcontentqualifiers</shortIdentifier><displayName>Recycled
+        Content Qualifiers</displayName><vocabType>enum</vocabType></list-item><list-item><csid>dc5d0865-1cd0-4bac-89db</csid><uri>/vocabularies/dc5d0865-1cd0-4bac-89db</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(relationtypetype)'Relation
+        Type'</refName><updatedAt>2020-02-08T03:30:39.296Z</updatedAt><workflowState>project</workflowState><rev>4</rev><shortIdentifier>relationtypetype</shortIdentifier><displayName>Relation
+        Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>9710bc54-c69e-490a-8938</csid><uri>/vocabularies/9710bc54-c69e-490a-8938</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(requiredapplication)'Required
+        Application'</refName><updatedAt>2022-05-18T00:28:11.849Z</updatedAt><workflowState>project</workflowState><rev>9</rev><shortIdentifier>requiredapplication</shortIdentifier><displayName>Required
+        Application</displayName><vocabType>enum</vocabType></list-item><list-item><csid>c384e02a-c41f-45fe-9b54</csid><uri>/vocabularies/c384e02a-c41f-45fe-9b54</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(resourceidtype)'Resource
+        ID Type'</refName><updatedAt>2020-02-08T03:30:38.919Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>resourceidtype</shortIdentifier><displayName>Resource
+        ID Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>f269662e-65a9-4460-aa4a</csid><uri>/vocabularies/f269662e-65a9-4460-aa4a</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(rightsinrestriction)'Rights
+        In Restriction'</refName><updatedAt>2022-10-13T17:38:28.384Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>rightsinrestriction</shortIdentifier><displayName>Rights
+        In Restriction</displayName><vocabType>enum</vocabType></list-item><list-item><csid>f438ed1a-d998-4407-918c</csid><uri>/vocabularies/f438ed1a-d998-4407-918c</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(rightsin)'Rights
+        In Type'</refName><updatedAt>2022-10-13T17:38:28.047Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>rightsin</shortIdentifier><displayName>Rights
+        In Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>1d180883-a7ad-4ce8-94f3</csid><uri>/vocabularies/1d180883-a7ad-4ce8-94f3</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(rightstype)'Rights
+        Type'</refName><updatedAt>2022-10-13T17:38:25.493Z</updatedAt><workflowState>project</workflowState><rev>5</rev><shortIdentifier>rightstype</shortIdentifier><displayName>Rights
+        Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>2552de7d-8dbc-461d-a094</csid><uri>/vocabularies/2552de7d-8dbc-461d-a094</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(securityrequirements)'Security
+        Requirements'</refName><updatedAt>2022-07-07T22:04:56.212Z</updatedAt><workflowState>project</workflowState><rev>5</rev><shortIdentifier>securityrequirements</shortIdentifier><displayName>Security
+        Requirements</displayName><vocabType>enum</vocabType></list-item><list-item><csid>0c665ec2-0141-412d-9f3e</csid><uri>/vocabularies/0c665ec2-0141-412d-9f3e</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(sensorialproperties)'Sensorial
+        Properties'</refName><updatedAt>2020-02-08T03:31:02.067Z</updatedAt><workflowState>project</workflowState><rev>17</rev><shortIdentifier>sensorialproperties</shortIdentifier><displayName>Sensorial
+        Properties</displayName><vocabType>enum</vocabType></list-item><list-item><csid>006f9859-a595-4065-9965</csid><uri>/vocabularies/006f9859-a595-4065-9965</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(significanceassignedby)'Significance
+        Assigned By'</refName><updatedAt>2022-05-18T00:28:05.089Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>significanceassignedby</shortIdentifier><displayName>Significance
+        Assigned By</displayName><vocabType>enum</vocabType></list-item><list-item><csid>c29b74a2-185a-443a-b59f</csid><uri>/vocabularies/c29b74a2-185a-443a-b59f</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(smartmaterialproperties)'Smart
+        Material Properties'</refName><updatedAt>2020-02-08T03:31:03.584Z</updatedAt><workflowState>project</workflowState><rev>14</rev><shortIdentifier>smartmaterialproperties</shortIdentifier><displayName>Smart
+        Material Properties</displayName><vocabType>enum</vocabType></list-item><list-item><csid>6521bcf6-b18e-4205-a982</csid><uri>/vocabularies/6521bcf6-b18e-4205-a982</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(softwarelibraries)'Software
+        Libraries'</refName><updatedAt>2022-05-18T00:28:11.144Z</updatedAt><workflowState>project</workflowState><rev>9</rev><shortIdentifier>softwarelibraries</shortIdentifier><displayName>Software
+        Libraries</displayName><vocabType>enum</vocabType></list-item><list-item><csid>86e7fef3-ac28-4e07-a3df</csid><uri>/vocabularies/86e7fef3-ac28-4e07-a3df</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(softwareattributes)'Software/Web
+        Attributes'</refName><updatedAt>2022-07-18T18:04:27.924Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>softwareattributes</shortIdentifier><displayName>Software/Web
+        Attributes</displayName><vocabType>enum</vocabType></list-item><list-item><csid>eb4c7c6a-80eb-40cc-acc7</csid><uri>/vocabularies/eb4c7c6a-80eb-40cc-acc7</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(softwareattributeunits)'Software/Web
+        Attribute Units'</refName><updatedAt>2022-07-18T18:04:28.414Z</updatedAt><workflowState>project</workflowState><rev>7</rev><shortIdentifier>softwareattributeunits</shortIdentifier><displayName>Software/Web
+        Attribute Units</displayName><vocabType>enum</vocabType></list-item><list-item><csid>5e076695-d13a-40c3-8e33</csid><uri>/vocabularies/5e076695-d13a-40c3-8e33</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(currency)'Standard
+        Currency'</refName><updatedAt>2020-02-08T03:30:29.218Z</updatedAt><workflowState>project</workflowState><rev>7</rev><shortIdentifier>currency</shortIdentifier><displayName>Standard
+        Currency</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
+  recorded_at: Mon, 17 Apr 2023 00:58:52 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=5&pgSz=25&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Mon, 17 Apr 2023 00:58:53 GMT
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>5</pageNum><pageSize>25</pageSize><itemsInPage>25</itemsInPage><totalItems>156</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>4bfe4470-05f5-40c7-8a0c</csid><uri>/vocabularies/4bfe4470-05f5-40c7-8a0c</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(standardizedrightstatement)'Standardized
+        Right Statement'</refName><updatedAt>2022-10-13T17:38:26.259Z</updatedAt><workflowState>project</workflowState><rev>12</rev><shortIdentifier>standardizedrightstatement</shortIdentifier><displayName>Standardized
+        Right Statement</displayName><vocabType>enum</vocabType></list-item><list-item><csid>466bd5e4-22eb-4183-9013</csid><uri>/vocabularies/466bd5e4-22eb-4183-9013</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(suppliedethnicity)'Supplied
+        Ethnicity'</refName><updatedAt>2022-10-13T17:38:23.931Z</updatedAt><workflowState>project</workflowState><rev>8</rev><shortIdentifier>suppliedethnicity</shortIdentifier><displayName>Supplied
+        Ethnicity</displayName><vocabType>enum</vocabType></list-item><list-item><csid>3a1e2ae5-88f9-46d3-8026</csid><uri>/vocabularies/3a1e2ae5-88f9-46d3-8026</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(suppliedgender)'Supplied
+        Gender'</refName><updatedAt>2022-10-13T17:38:19.712Z</updatedAt><workflowState>project</workflowState><rev>18</rev><shortIdentifier>suppliedgender</shortIdentifier><displayName>Supplied
+        Gender</displayName><vocabType>enum</vocabType></list-item><list-item><csid>6487be56-5fa3-4f0c-a0e8</csid><uri>/vocabularies/6487be56-5fa3-4f0c-a0e8</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(suppliedpronoun)'Supplied
+        Pronoun'</refName><updatedAt>2022-10-13T17:38:22.048Z</updatedAt><workflowState>project</workflowState><rev>6</rev><shortIdentifier>suppliedpronoun</shortIdentifier><displayName>Supplied
+        Pronoun</displayName><vocabType>enum</vocabType></list-item><list-item><csid>e61b8976-658c-4021-9d4d</csid><uri>/vocabularies/e61b8976-658c-4021-9d4d</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(suppliedrace)'Supplied
+        Race'</refName><updatedAt>2022-10-13T17:38:22.888Z</updatedAt><workflowState>project</workflowState><rev>8</rev><shortIdentifier>suppliedrace</shortIdentifier><displayName>Supplied
+        Race</displayName><vocabType>enum</vocabType></list-item><list-item><csid>d3874724-0a31-42ce-ab92</csid><uri>/vocabularies/d3874724-0a31-42ce-ab92</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(suppliedsexuality)'Supplied
+        Sexuality'</refName><updatedAt>2022-10-13T17:38:24.285Z</updatedAt><workflowState>project</workflowState><rev>6</rev><shortIdentifier>suppliedsexuality</shortIdentifier><displayName>Supplied
+        Sexuality</displayName><vocabType>enum</vocabType></list-item><list-item><csid>e09767f4-d2fd-4fd9-8228</csid><uri>/vocabularies/e09767f4-d2fd-4fd9-8228</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(surfacingprocesses)'Surfacing
+        Processes'</refName><updatedAt>2020-02-08T03:31:16.204Z</updatedAt><workflowState>project</workflowState><rev>18</rev><shortIdentifier>surfacingprocesses</shortIdentifier><displayName>Surfacing
+        Processes</displayName><vocabType>enum</vocabType></list-item><list-item><csid>6b40ec5a-aeb4-464f-add1</csid><uri>/vocabularies/6b40ec5a-aeb4-464f-add1</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(taxontermflag)'Taxon
+        Term Flags'</refName><updatedAt>2020-02-08T03:30:47.565Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>taxontermflag</shortIdentifier><displayName>Taxon
+        Term Flags</displayName><vocabType>enum</vocabType></list-item><list-item><csid>54907495-0855-45fa-882d</csid><uri>/vocabularies/54907495-0855-45fa-882d</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(taxontype)'Taxon
+        Types'</refName><updatedAt>2020-02-08T03:30:45.403Z</updatedAt><workflowState>project</workflowState><rev>0</rev><shortIdentifier>taxontype</shortIdentifier><displayName>Taxon
+        Types</displayName><vocabType>enum</vocabType></list-item><list-item><csid>079948e7-3947-4c6e-9c10</csid><uri>/vocabularies/079948e7-3947-4c6e-9c10</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(techsetuptype)'Technical
+        Setup Type'</refName><updatedAt>2022-07-07T22:04:54.427Z</updatedAt><workflowState>project</workflowState><rev>7</rev><shortIdentifier>techsetuptype</shortIdentifier><displayName>Technical
+        Setup Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>38e6fbba-9d4a-462b-95f4</csid><uri>/vocabularies/38e6fbba-9d4a-462b-95f4</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(transportadditionalcosttype)'Transport
+        Additional Cost Type'</refName><updatedAt>2021-03-16T13:27:58.323Z</updatedAt><workflowState>project</workflowState><rev>7</rev><shortIdentifier>transportadditionalcosttype</shortIdentifier><displayName>Transport
+        Additional Cost Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>e4222c3a-d3d8-4a0c-98f9</csid><uri>/vocabularies/e4222c3a-d3d8-4a0c-98f9</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(transportresponsibleparty)'Transport
+        Cost Responsbile Party'</refName><updatedAt>2021-03-16T13:27:57.865Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>transportresponsibleparty</shortIdentifier><displayName>Transport
+        Cost Responsbile Party</displayName><vocabType>enum</vocabType></list-item><list-item><csid>34278fc7-7fc0-42e0-b9ca</csid><uri>/vocabularies/34278fc7-7fc0-42e0-b9ca</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(transportcosttype)'Transport
+        Cost Type'</refName><updatedAt>2021-03-16T13:27:57.429Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>transportcosttype</shortIdentifier><displayName>Transport
+        Cost Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>feabbde8-5fbb-4a60-b26c</csid><uri>/vocabularies/feabbde8-5fbb-4a60-b26c</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(treatmentpurpose)'Treatment
+        Purpose'</refName><updatedAt>2020-02-08T03:30:42.926Z</updatedAt><workflowState>project</workflowState><rev>7</rev><shortIdentifier>treatmentpurpose</shortIdentifier><displayName>Treatment
+        Purpose</displayName><vocabType>enum</vocabType></list-item><list-item><csid>e6f11c55-fffa-4d32-98d2</csid><uri>/vocabularies/e6f11c55-fffa-4d32-98d2</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(uocauthorizationstatuses)'Use
+        of Collections Authorization Statuses'</refName><updatedAt>2020-03-10T07:28:26.404Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>uocauthorizationstatuses</shortIdentifier><displayName>Use
+        of Collections Authorization Statuses</displayName><vocabType>enum</vocabType></list-item><list-item><csid>9fac025b-bb1a-4124-856b</csid><uri>/vocabularies/9fac025b-bb1a-4124-856b</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(uocmaterialtypes)'Use
+        of Collections Material Types'</refName><updatedAt>2020-03-10T07:28:33.601Z</updatedAt><workflowState>project</workflowState><rev>13</rev><shortIdentifier>uocmaterialtypes</shortIdentifier><displayName>Use
+        of Collections Material Types</displayName><vocabType>enum</vocabType></list-item><list-item><csid>be9f333a-e49d-4446-a8fc</csid><uri>/vocabularies/be9f333a-e49d-4446-a8fc</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(uocmethods)'Use
+        of Collections Methods'</refName><updatedAt>2020-02-08T03:30:24.938Z</updatedAt><workflowState>project</workflowState><rev>4</rev><shortIdentifier>uocmethods</shortIdentifier><displayName>Use
+        of Collections Methods</displayName><vocabType>enum</vocabType></list-item><list-item><csid>acce35ac-6085-4191-89c6</csid><uri>/vocabularies/acce35ac-6085-4191-89c6</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(uocprojectid)'Use
+        of Collections Project Identification Numbers'</refName><updatedAt>2020-03-10T07:28:34.663Z</updatedAt><workflowState>project</workflowState><rev>0</rev><shortIdentifier>uocprojectid</shortIdentifier><displayName>Use
+        of Collections Project Identification Numbers</displayName><vocabType>enum</vocabType></list-item><list-item><csid>a0ff3221-dce0-4a54-8257</csid><uri>/vocabularies/a0ff3221-dce0-4a54-8257</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(uocstaffroles)'Use
+        of Collections Staff Roles'</refName><updatedAt>2020-03-10T07:28:33.258Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>uocstaffroles</shortIdentifier><displayName>Use
+        of Collections Staff Roles</displayName><vocabType>enum</vocabType></list-item><list-item><csid>c45faff4-03a3-4a6a-9e38</csid><uri>/vocabularies/c45faff4-03a3-4a6a-9e38</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(uocsubcollections)'Use
+        of Collections Sub-Collections'</refName><updatedAt>2020-03-10T07:28:34.736Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>uocsubcollections</shortIdentifier><displayName>Use
+        of Collections Sub-Collections</displayName><vocabType>enum</vocabType></list-item><list-item><csid>4f9d76c9-6cc9-49f2-b6ff</csid><uri>/vocabularies/4f9d76c9-6cc9-49f2-b6ff</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(uoccollectiontypes)'Use
+        of Collections Types'</refName><updatedAt>2020-03-10T07:28:32.918Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>uoccollectiontypes</shortIdentifier><displayName>Use
+        of Collections Types</displayName><vocabType>enum</vocabType></list-item><list-item><csid>486f09db-2f27-4cbe-9f58</csid><uri>/vocabularies/486f09db-2f27-4cbe-9f58</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(uocuserroles)'Use
+        of Collections User Roles'</refName><updatedAt>2020-03-10T07:28:25.951Z</updatedAt><workflowState>project</workflowState><rev>4</rev><shortIdentifier>uocuserroles</shortIdentifier><displayName>Use
+        of Collections User Roles</displayName><vocabType>enum</vocabType></list-item><list-item><csid>52e59c0f-7553-4dd4-9800</csid><uri>/vocabularies/52e59c0f-7553-4dd4-9800</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(uocusertypes)'Use
+        of Collections User Types'</refName><updatedAt>2020-02-08T03:30:25.440Z</updatedAt><workflowState>project</workflowState><rev>6</rev><shortIdentifier>uocusertypes</shortIdentifier><displayName>Use
+        of Collections User Types</displayName><vocabType>enum</vocabType></list-item><list-item><csid>7840cdca-a20b-4fbf-96ad</csid><uri>/vocabularies/7840cdca-a20b-4fbf-96ad</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(userestriction)'Use
+        Restriction'</refName><updatedAt>2022-10-13T17:38:25.178Z</updatedAt><workflowState>project</workflowState><rev>4</rev><shortIdentifier>userestriction</shortIdentifier><displayName>Use
+        Restriction</displayName><vocabType>enum</vocabType></list-item><list-item><csid>074eb8eb-e8e8-4623-b976</csid><uri>/vocabularies/074eb8eb-e8e8-4623-b976</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(utilizedsoftware)'Utilized
+        Software'</refName><updatedAt>2022-05-18T00:28:09.554Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>utilizedsoftware</shortIdentifier><displayName>Utilized
+        Software</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
+  recorded_at: Mon, 17 Apr 2023 00:58:53 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=6&pgSz=25&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Mon, 17 Apr 2023 00:58:53 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '2960'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>6</pageNum><pageSize>25</pageSize><itemsInPage>6</itemsInPage><totalItems>156</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>564cc04e-d182-41ec-9cc5</csid><uri>/vocabularies/564cc04e-d182-41ec-9cc5</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(vmcomponentstatus)'Variable
+        Media Component Status'</refName><updatedAt>2022-11-12T13:12:09.481Z</updatedAt><workflowState>project</workflowState><rev>10</rev><shortIdentifier>vmcomponentstatus</shortIdentifier><displayName>Variable
+        Media Component Status</displayName><vocabType>enum</vocabType></list-item><list-item><csid>e8af2bbc-1f10-4a3b-9481</csid><uri>/vocabularies/e8af2bbc-1f10-4a3b-9481</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(webbrowsers)'Web
+        Browsers'</refName><updatedAt>2022-05-18T00:28:10.420Z</updatedAt><workflowState>project</workflowState><rev>6</rev><shortIdentifier>webbrowsers</shortIdentifier><displayName>Web
+        Browsers</displayName><vocabType>enum</vocabType></list-item><list-item><csid>b27616ac-77c0-40bb-9bda</csid><uri>/vocabularies/b27616ac-77c0-40bb-9bda</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(workcreatortype)'Work
+        Creator Type'</refName><updatedAt>2020-02-08T03:30:35.512Z</updatedAt><workflowState>project</workflowState><rev>8</rev><shortIdentifier>workcreatortype</shortIdentifier><displayName>Work
+        Creator Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>746a3751-dc07-4162-9e63</csid><uri>/vocabularies/746a3751-dc07-4162-9e63</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(workpublishertype)'Work
+        Publisher Type'</refName><updatedAt>2020-02-08T03:30:36.218Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>workpublishertype</shortIdentifier><displayName>Work
+        Publisher Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>bb3ea308-ec99-4150-aaba</csid><uri>/vocabularies/bb3ea308-ec99-4150-aaba</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(worktermflag)'Work
+        Term Flags'</refName><updatedAt>2020-02-08T03:30:47.790Z</updatedAt><workflowState>project</workflowState><rev>6</rev><shortIdentifier>worktermflag</shortIdentifier><displayName>Work
+        Term Flags</displayName><vocabType>enum</vocabType></list-item><list-item><csid>314459a5-9d91-4eb5-b56c</csid><uri>/vocabularies/314459a5-9d91-4eb5-b56c</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(worktype)'Work
+        Type'</refName><updatedAt>2020-02-08T03:30:34.905Z</updatedAt><workflowState>project</workflowState><rev>7</rev><shortIdentifier>worktype</shortIdentifier><displayName>Work
+        Type</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
+  recorded_at: Mon, 17 Apr 2023 00:58:53 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/personauthorities?pgNum=0&pgSz=1&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Mon, 17 Apr 2023 00:58:54 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '807'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>0f6cddfa-32ce-4c25-9b2f</csid><uri>/personauthorities/0f6cddfa-32ce-4c25-9b2f</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person)'Local
+        Persons'</refName><updatedAt>2020-02-08T03:31:20.492Z</updatedAt><workflowState>project</workflowState><rev>1117</rev><shortIdentifier>person</shortIdentifier><displayName>Local
+        Persons</displayName><vocabType>PersonAuthority</vocabType></list-item></ns2:abstract-common-list>
+  recorded_at: Mon, 17 Apr 2023 00:58:54 GMT
+- request:
+    method: post
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/e1401111-05c2-4d6c-bdc5/items?pgSz=25&wf_deleted=false
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+        <document name="vocabularyitems">
+            <ns2:vocabularyitems_common
+               xmlns:ns2="http://collectionspace.org/services/vocabulary"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+               <inAuthority>e1401111-05c2-4d6c-bdc5</inAuthority>
+               <displayName>Credit line</displayName>
+               <shortIdentifier>Creditline</shortIdentifier>
+               <refName>
+                 urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype):item:name(Creditline)'Credit line'
+               </refName>
+            </ns2:vocabularyitems_common>
+        </document>
+    headers:
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - nnnn
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 201
+      message: ''
+    headers:
+      Date:
+      - Mon, 17 Apr 2023 01:02:55 GMT
+      Content-Length:
+      - '0'
+      Connection:
+      - keep-alive
+      Location:
+      - http://core.dev.collectionspace.org/cspace-services/vocabularies/e1401111-05c2-4d6c-bdc5/items/692b64e1-607f-4605-adc6
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Mon, 17 Apr 2023 01:02:55 GMT
+- request:
+    method: delete
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/e1401111-05c2-4d6c-bdc5/items/692b64e1-607f-4605-adc6?pgSz=25&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Mon, 17 Apr 2023 01:04:02 GMT
+      Content-Length:
+      - '0'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Mon, 17 Apr 2023 01:04:02 GMT
+recorded_with: VCR 6.1.0

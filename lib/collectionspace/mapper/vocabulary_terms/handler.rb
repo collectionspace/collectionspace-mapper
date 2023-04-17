@@ -12,13 +12,10 @@ module CollectionSpace
         include Dry::Monads[:result]
         include Dry::Monads::Do.for(:add_term)
 
-        def initialize(
-          client: CollectionSpace::Mapper.client,
-          vocabs: CollectionSpace::Mapper::Vocabularies.new(client)
-        )
+        def initialize(client:)
           @client = client
           @domain = client.domain
-          @vocabs = vocabs
+          @vocabs = CollectionSpace::Mapper::Vocabularies.new(client)
         end
 
         # @param vocab [String] the display name of the target Vocabulary
@@ -46,9 +43,9 @@ module CollectionSpace
         attr_reader :client, :domain, :vocabs
 
         def get_termid(term)
-          result = CollectionSpace::Mapper::Identifiers::ShortIdentifier.new(
-            term: term
-          ).value
+          result = CollectionSpace::Mapper::Identifiers::ShortIdentifier.call(
+            term
+          )
         rescue => err
           Failure(err)
         else

@@ -2,11 +2,10 @@
 
 require "spec_helper"
 
-RSpec.describe CollectionSpace::Mapper::VocabularyTerms::Handler,
-  skip: "test after splitting handlers" do
-  subject(:handler) { described_class.new }
-  before{ setup }
-  after{ CollectionSpace::Mapper.reset_config }
+RSpec.describe CollectionSpace::Mapper::VocabularyTerms::Handler do
+  subject(:handler) { described_class.new(client: client) }
+
+  let(:client){ core_client }
 
   describe "#add_term" do
     let(:result) { handler.add_term(vocab: vocab, term: term) }
@@ -26,7 +25,7 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::Handler,
       let(:term) { "Credit line" }
       it "returns Success" do
         expect(result).to be_a(Dry::Monads::Success)
-        CollectionSpace::Mapper.client.delete(result.value!)
+        client.delete(result.value!)
       end
     end
   end
