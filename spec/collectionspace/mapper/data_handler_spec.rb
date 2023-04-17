@@ -3,184 +3,103 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::DataHandler do
-  subject(:handler) do
-    setup_handler(
-      profile: profile,
-      mapper: mapper,
-      config: config
-    )
-  end
+  subject(:handler){ described_class.new(**args) }
 
-  let(:profile){ 'core' }
-  let(:mapper){ "core_6-1-0_collectionobject" }
-  let(:config){ {} }
-
-  describe "#service_type", vcr: "anthro_domain_check" do
-    let(:servicetype) { handler.service_type }
-
-    context "when anthro place" do
-      let(:profile){ "anthro" }
-      let(:mapper){ "anthro_4-1-2_place-local" }
-
-      it "returns authority" do
-        expect(servicetype).to eq("authority")
+  describe ".new", vcr: "core_domain_check" do
+    context "with vocabulary term config" do
+      let(:client){ core_client }
+      let(:config){ {batch_mode: "vocabulary terms"} }
+      let(:args) do
+        {
+          client: client,
+          config: config
+        }
       end
-    end
-  end
 
-  describe "#validate", vcr: "core_domain_check" do
-    let(:result){ handler.validate(data) }
-
-    context 'when given Hash' do
-      let(:data){ {"objectNumber" => "123"} }
-
-      it "returns CollectionSpace::Mapper::Response object" do
-        expect(result).to be_a(CollectionSpace::Mapper::Response)
-      end
-    end
-
-    context 'when given Response' do
-      let(:data) do
-        CollectionSpace::Mapper::Response.new(
-          {"objectNumber" => "123"},
-          handler
+      it "returns vocabulary term handler" do
+        expect(handler).to be_a(
+          CollectionSpace::Mapper::VocabularyTerms::Handler
         )
       end
+    end
 
-      it "returns CollectionSpace::Mapper::Response object" do
-        expect(result).to be_a(CollectionSpace::Mapper::Response)
+
+    context "with full record signature" do
+      let(:mapper){ get_json_record_mapper("core_6-1-0_collectionobject") }
+      let(:client){ core_client }
+      let(:cache){ core_cache }
+      let(:csidcache){ core_csid_cache }
+
+      context "without config" do
+        let(:args) do
+          {
+            record_mapper: mapper,
+            client: client,
+            cache: cache,
+            csid_cache: csidcache
+          }
+        end
+
+        it "returns full record handler" do
+          expect(handler).to be_a(
+            CollectionSpace::Mapper::FullRecordDataHandler
+          )
+        end
+      end
+
+      context "with empty config" do
+        let(:args) do
+          {
+            record_mapper: mapper,
+            client: client,
+            cache: cache,
+            csid_cache: csidcache,
+            config: {}
+          }
+        end
+
+        it "returns full record handler" do
+          expect(handler).to be_a(
+            CollectionSpace::Mapper::FullRecordDataHandler
+          )
+        end
+      end
+
+      context "with config not setting batch mode" do
+        let(:args) do
+          {
+            record_mapper: mapper,
+            client: client,
+            cache: cache,
+            csid_cache: csidcache,
+            config: {delimiter: "|"}
+          }
+        end
+
+        it "returns full record handler" do
+          expect(handler).to be_a(
+            CollectionSpace::Mapper::FullRecordDataHandler
+          )
+        end
+      end
+
+      context "with config setting batch mode to full record" do
+        let(:args) do
+          {
+            record_mapper: mapper,
+            client: client,
+            cache: cache,
+            csid_cache: csidcache,
+            config: {batch_mode: "full record"}
+          }
+        end
+
+        it "returns full record handler" do
+          expect(handler).to be_a(
+            CollectionSpace::Mapper::FullRecordDataHandler
+          )
+        end
       end
     end
   end
-
-  describe "#check_fields", vcr: "bonsai_domain_check" do
-    let(:result) { handler.check_fields(data) }
-    let(:profile){ 'bonsai' }
-    let(:mapper){ "bonsai_4-1-1_conservation" }
-    let(:data) do
-      {
-        "conservationNumber" => "123",
-        "status" => "good",
-        "conservator" => "Someone"
-      }
-    end
-
-    it "returns expected hash" do
-      expected = {
-        known_fields: %w[conservationnumber status],
-        unknown_fields: %w[conservator]
-      }
-      expect(result).to eq(expected)
-    end
-  end
-
-  describe "#prep", vcr: "core_domain_check" do
-    let(:data) { {"objectNumber" => "123"} }
-
-    it "can be called with response from validation" do
-      vresult = handler.validate(data)
-      result = handler.prep(vresult)
-      expect(result).to be_a(CollectionSpace::Mapper::Response)
-    end
-
-    it "can be called with just data" do
-      result = handler.prep(data)
-      expect(result).to be_a(CollectionSpace::Mapper::Response)
-    end
-
-    it "returned response includes detailed data transformation info" do
-      result = handler.prep(data)
-
-      expect(result.transformed_data).not_to be_empty
-    end
-
-    context "when response_mode = verbose" do
-      let(:config){ {response_mode: 'verbose'} }
-
-      it "returned response includes detailed data transformation info" do
-        result = handler.prep(data)
-        expect(result.transformed_data).not_to be_empty
-      end
-    end
-  end
-
-  # describe "#process", vcr: "datahandler_process_and_map" do
-  #   before do
-  #     setup_handler(
-  #       mapper: "spec/fixtures/files/mappers/release_6_1/core/"\
-  #         "core_6-1-0_collectionobject.json"
-  #     )
-  #     CollectionSpace::Mapper.config.batch.response_mode = "normal"
-  #   end
-
-  #   let(:data) do
-  #     CollectionSpace::Mapper::Response.new({"objectNumber" => "123"})
-  #   end
-
-  #   it "can be called with response from validation" do
-  #     vresult = handler.validate(data)
-  #     result = handler.process(vresult)
-  #     expect(result).to be_a(CollectionSpace::Mapper::Response)
-  #   end
-
-  #   it "returned response omits detailed data transformation info" do
-  #     result = handler.process(data)
-  #     expect(result.transformed_data).to be_empty
-  #   end
-
-  #   context "when response_mode = verbose" do
-  #     before do
-  #       setup_handler(
-  #         mapper: "spec/fixtures/files/mappers/release_6_1/core/"\
-  #           "core_6-1-0_collectionobject.json"
-  #       )
-  #       CollectionSpace::Mapper.config.batch.response_mode = 'verbose'
-  #     end
-
-  #     it "returned response includes detailed data transformation info" do
-  #       result = handler.process(data)
-  #       expect(result.transformed_data).not_to be_empty
-  #     end
-  #   end
-  # end
-
-  # describe "#map", vcr: "datahandler_process_and_map" do
-  #   before do
-  #     setup_handler(
-  #       mapper: "spec/fixtures/files/mappers/release_6_1/core/"\
-  #         "core_6-1-0_collectionobject.json"
-  #     )
-  #   end
-
-  #   let(:data) { {"objectNumber" => "123"} }
-  #   let(:prepper){ CollectionSpace::Mapper.prepper_class.new(data) }
-  #   let(:prepped) { handler.prep(data).response }
-  #   let(:result) { handler.map(prepped) }
-
-  #   it "returns CollectionSpace::Mapper::Response object" do
-  #     expect(result).to be_a(CollectionSpace::Mapper::Response)
-  #   end
-
-  #   it "Response doc attribute is a Nokogiri XML Document" do
-  #     expect(result.doc).to be_a(Nokogiri::XML::Document)
-  #   end
-
-  #   it "returned response omits detailed data transformation info" do
-  #     expect(result.transformed_data).to be_empty
-  #   end
-
-  #   context "when response_mode = verbose" do
-  #     before do
-  #       setup_handler(
-  #         mapper: "spec/fixtures/files/mappers/release_6_1/core/"\
-  #           "core_6-1-0_collectionobject.json"
-  #       )
-  #       CollectionSpace::Mapper.config.batch.response_mode = 'verbose'
-  #     end
-
-  #     it "returned response includes detailed data transformation info" do
-  #       expect(result.transformed_data).not_to be_empty
-  #     end
-  #   end
-  # end
 end
