@@ -9,7 +9,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     let(:profile){ "core" }
 
     context "with batch_mode = date details", vcr: "core_domain_check" do
-      let(:customcfg){ {batch_mode: "date details", delimiter: "|"} }
+      let(:customcfg){ {"batch_mode" => "date details", "delimiter" => "|"} }
       let(:mapper){ "core_6-1-0_collectionobject" }
 
       context "with single value date details" do

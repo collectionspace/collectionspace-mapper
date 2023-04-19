@@ -8,7 +8,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
   describe ".new", vcr: "core_domain_check" do
     context "with vocabulary term config" do
       let(:client){ core_client }
-      let(:config){ {batch_mode: "vocabulary terms"} }
+      let(:config){ {"batch_mode" => "vocabulary terms"} }
       let(:args) do
         {
           client: client,
@@ -93,7 +93,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
             client: client,
             cache: cache,
             csid_cache: csidcache,
-            config: {batch_mode: "full record"}
+            config: {"batch_mode" => "full record"}
           }
         end
 
@@ -112,7 +112,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
             client: client,
             cache: cache,
             csid_cache: csidcache,
-            config: {batch_mode: "date details"}
+            config: {"batch_mode" => "date details"}
           }
         end
 

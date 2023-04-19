@@ -30,7 +30,7 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
     end
 
     context "with batch mode = date details" do
-      let(:config){ {batch_mode: "date details"} }
+      let(:config){ {"batch_mode" => "date details"} }
 
       it "extends with date details" do
         expect(klass.singleton_class.ancestors).to include(
@@ -47,7 +47,7 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
     end
 
     context "with batch mode = date details", vcr: "core_domain_check" do
-      let(:config){ {batch_mode: "date details"} }
+      let(:config){ {"batch_mode" => "date details"} }
       let(:mapper){ "core_6-1-0_collectionobject" }
 
       context "with all required fields" do

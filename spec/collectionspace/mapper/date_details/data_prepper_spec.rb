@@ -14,7 +14,7 @@ RSpec.describe CollectionSpace::Mapper::DateDetails::DataPrepper do
   end
   let(:profile){ "core" }
   let(:mapper){ "core_6-1-0_collectionobject" }
-  let(:baseconfig){ {delimiter: "|", batch_mode: "date details"} }
+  let(:baseconfig){ {"delimiter" => "|", "batch_mode" => "date details"} }
   let(:customcfg){ {} }
   let(:config){ baseconfig.merge(customcfg) }
 
