@@ -25,9 +25,8 @@ RSpec.describe CollectionSpace::Mapper::ColumnMapping do
   #   instance_double("CollectionSpace::Mapper::RecordMapper")
   # }
 
-
   describe "#datacolumn" do
-    let(:hash) { {datacolumn: "abCdeFg"} }
+    let(:hash){ {datacolumn: "abCdeFg"} }
     it "returns downcased column name" do
       expect(mapping.datacolumn).to eq("abcdefg")
     end
@@ -48,21 +47,21 @@ RSpec.describe CollectionSpace::Mapper::ColumnMapping do
 
   describe "#required?" do
     context "with required = y" do
-      let(:hash) { {required: "y"} }
+      let(:hash){ {required: "y"} }
       it "returns true" do
         expect(mapping.required?).to be true
       end
     end
 
     context "with required = y in template" do
-      let(:hash) { {required: "y in template"} }
+      let(:hash){ {required: "y in template"} }
       it "returns true" do
         expect(mapping.required?).to be true
       end
     end
 
     context "with required = n" do
-      let(:hash) { {required: "n"} }
+      let(:hash){ {required: "n"} }
       it "returns false" do
         expect(mapping.required?).to be false
       end

@@ -3,7 +3,6 @@
 module CollectionSpace
   module Mapper
     class Xpath
-
       attr_reader :path, :mappings
 
       # @param path [String] the xpath represented
@@ -37,7 +36,7 @@ module CollectionSpace
           path: path,
           mappings: mappings.map(&:dup),
           handler: handler
-          )
+        )
       end
 
       # @param keep [Array<String>] datacolumn values to keep
@@ -46,7 +45,7 @@ module CollectionSpace
 
         # these mappings were needed to get data in via template for processing,
         #   but do not actually get used to produce XML
-        if rectype == 'nonhierarchicalrelationship'
+        if rectype == "nonhierarchicalrelationship"
           keeping = keeping.reject do |mapping|
             %w[subjectType objectType].any?(mapping.fieldname)
           end
@@ -93,17 +92,17 @@ module CollectionSpace
       def set_is_group
         fieldct = mappings.map(&:fieldname).uniq.length
         clumps = mappings.group_by(&:in_repeating_group)
-        case clumps.keys.sort.join(' -- ')
-        when ''
+        case clumps.keys.sort.join(" -- ")
+        when ""
           true
-        when 'n/a'
+        when "n/a"
           false
-        when 'y'
+        when "y"
           true
-        when 'n'
+        when "n"
           false
         when "as part of larger repeating group"
-          if fieldct == 1 && mappings[0].repeats == 'y'
+          if fieldct == 1 && mappings[0].repeats == "y"
             true
           else
             fail(

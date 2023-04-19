@@ -10,14 +10,14 @@ module CollectionSpace
         # @param type [Symbol, String]
         # @param transform [Array, Hash] Hash if type is `special`, otherwise
         #   Array
-        def create(type:,transform: {})
+        def create(type:, transform: {})
           case type.to_sym
           when :authority
             AuthorityTransformer.new(transform: transform)
           when :vocabulary
             VocabularyTransformer.new(transform: transform)
           when :special
-            transform.map { |xformname| special_transformers(xformname) }
+            transform.map{ |xformname| special_transformers(xformname) }
           when :replacements
             FindReplaceTransformer.new(transform: transform)
           end

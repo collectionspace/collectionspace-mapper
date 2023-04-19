@@ -3,8 +3,8 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Vocabularies do
-  let(:client) { core_client }
-  subject(:vocabs) { described_class.new(client) }
+  let(:client){ core_client }
+  subject(:vocabs){ described_class.new(client) }
 
   describe "#by_name", vcr: "vocabularies" do
     it "returns as expected" do

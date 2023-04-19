@@ -4,14 +4,13 @@ module CollectionSpace
   module Mapper
     module Dates
       class DateBomber
-        attr_reader :mappable, :stamp
         def initialize
           @bomb = CollectionSpace::Mapper.bomb
           @fields = CollectionSpace::Mapper.structured_date_detailed_fields
         end
 
         def mappable
-          fields.map{ |field| [field, bomb]}
+          fields.map{ |field| [field, bomb] }
             .to_h
         end
 

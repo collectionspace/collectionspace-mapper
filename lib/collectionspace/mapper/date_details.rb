@@ -34,12 +34,12 @@ module CollectionSpace
 
       def vocab_mappings
         {
-          "dateLatestQualifierUnit"=>"datequalifier",
-          "dateLatestEra"=>"dateera",
-          "dateLatestCertainty"=>"datecertainty",
-          "dateEarliestSingleQualifierUnit"=>"datequalifier",
-          "dateEarliestSingleEra"=>"dateera",
-          "dateEarliestSingleCertainty"=>"datecertainty"
+          "dateLatestQualifierUnit" => "datequalifier",
+          "dateLatestEra" => "dateera",
+          "dateLatestCertainty" => "datecertainty",
+          "dateEarliestSingleQualifierUnit" => "datequalifier",
+          "dateEarliestSingleEra" => "dateera",
+          "dateEarliestSingleCertainty" => "datecertainty"
         }.map do |fieldname, vocab|
           {
             fieldname: fieldname,
@@ -59,8 +59,8 @@ module CollectionSpace
 
       def optionlist_mappings
         {
-          "dateLatestQualifier"=>"dateQualifiers",
-          "dateEarliestSingleQualifier"=>"dateQualifiers"
+          "dateLatestQualifier" => "dateQualifiers",
+          "dateEarliestSingleQualifier" => "dateQualifiers"
         }.map do |fieldname, vocab|
           {
             fieldname: fieldname,

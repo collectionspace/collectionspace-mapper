@@ -18,7 +18,7 @@ RSpec.shared_context "data_mapper" do
   let(:customcfg){ {} }
   let(:config){ baseconfig.merge(customcfg) }
 
-  let(:datahash) { get_datahash(path: datahash_path) }
-  let(:response) { CollectionSpace::Mapper::Response.new(datahash, handler) }
-  let(:mapped_doc) { remove_namespaces(mapped.doc) }
+  let(:datahash){ get_datahash(path: datahash_path) }
+  let(:response){ CollectionSpace::Mapper::Response.new(datahash, handler) }
+  let(:mapped_doc){ remove_namespaces(mapped.doc) }
 end

@@ -114,7 +114,6 @@ module CollectionSpace
         @xpath = xpath
         super(xpath.path)
       end
-
     end
 
     # @todo What are we doing with :message_from_err ?

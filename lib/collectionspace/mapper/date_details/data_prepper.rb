@@ -49,10 +49,10 @@ module CollectionSpace
         def split_data
           response.merged_data.each do |field, val|
             splitval = if identifier?(field)
-                         split_identifier(val)
-                       else
-                         splitter.call(val, :simple)
-                       end
+              split_identifier(val)
+            else
+              splitter.call(val, :simple)
+            end
             response.split_data[field] = splitval
 
             next if non_date_data.keys.any?(field)
@@ -79,7 +79,7 @@ module CollectionSpace
               .lookup(field)
             next unless mapping
             next unless mapping.source_type
-            next if mapping.source_type == 'optionlist'
+            next if mapping.source_type == "optionlist"
             next if data.nil? || data.empty?
 
             CollectionSpace::Mapper::TermHandler.new(

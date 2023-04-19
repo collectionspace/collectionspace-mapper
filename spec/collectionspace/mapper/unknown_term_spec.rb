@@ -4,10 +4,10 @@ require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::UnknownTerm do
   describe ".from_string" do
-    let(:result) { described_class.from_string(str) }
+    let(:result){ described_class.from_string(str) }
 
     context "with valid string (3 parts, separated by `|||`)" do
-      let(:str) { "a|||b|||c" }
+      let(:str){ "a|||b|||c" }
 
       it "creates new as expected" do
         expect(result).to be_a(described_class)
@@ -19,7 +19,7 @@ RSpec.describe CollectionSpace::Mapper::UnknownTerm do
     end
 
     context "with nil" do
-      let(:str) { nil }
+      let(:str){ nil }
 
       it "fails" do
         expect {

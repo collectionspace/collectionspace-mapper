@@ -44,7 +44,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::Symbolizable do
   end
 
   describe "#symbolize_transforms" do
-    let(:transforms) { symconfig[:transforms] }
+    let(:transforms){ symconfig[:transforms] }
     let(:expected) do
       {"collection" => {special: ["downcase_value"],
                         replacements: [{find: " ", replace: "-",

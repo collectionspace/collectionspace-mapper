@@ -4,11 +4,10 @@ module CollectionSpace
   module Mapper
     module Tools
       class RefName
-
         class << self
           def from_urn(urn)
             parsed = parse(urn)
-            self.new(
+            new(
               type: parsed[:type],
               subtype: parsed[:subtype],
               display_name: parsed[:label],
@@ -19,7 +18,7 @@ module CollectionSpace
 
           def from_term(source_type:, type:, subtype:, term:, handler:)
             identifier = set_identifier(source_type, term)
-            self.new(
+            new(
               type: type,
               subtype: subtype,
               display_name: term,
@@ -55,7 +54,7 @@ module CollectionSpace
         def initialize(type:, subtype:, display_name:, identifier:, urn:)
           @type = type
           @subtype = subtype
-          @display_name = display_name ? display_name : ""
+          @display_name = display_name || ""
           @identifier = identifier
           @urn = urn
         end

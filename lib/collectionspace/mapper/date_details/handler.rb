@@ -7,11 +7,10 @@ module CollectionSpace
   module Mapper
     module DateDetails
       class Handler < CollectionSpace::Mapper::HandlerFullRecord
-
         private
 
         def pre_initialize
-          self.config.batch_mode = "date details"
+          config.batch_mode = "date details"
         end
 
         def get_prepper_class
@@ -21,7 +20,6 @@ module CollectionSpace
         def get_date_handler
           nil
         end
-
       end
     end
   end

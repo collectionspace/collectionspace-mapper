@@ -17,13 +17,12 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
       end
 
       it "returns vocabulary term handler" do
-          expect(CollectionSpace::Mapper::VocabularyTerms::Handler).to receive(
-            :new
-          ).with(**{client: client})
-          handler
+        expect(CollectionSpace::Mapper::VocabularyTerms::Handler).to receive(
+          :new
+        ).with(client: client)
+        handler
       end
     end
-
 
     context "with full record signature" do
       let(:mapper){ get_json_record_mapper("core_6-1-0_collectionobject") }

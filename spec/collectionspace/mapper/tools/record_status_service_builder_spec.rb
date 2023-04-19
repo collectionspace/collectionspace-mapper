@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder do
-  subject(:builder) { handler.status_checker }
+  subject(:builder){ handler.status_checker }
 
   let(:handler) do
     setup_handler(

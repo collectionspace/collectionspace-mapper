@@ -45,7 +45,7 @@ module CollectionSpace
       end
 
       def transformed_term(field)
-        response.split_data[field].map { |term| term_csid(term) }
+        response.split_data[field].map{ |term| term_csid(term) }
       end
     end
   end

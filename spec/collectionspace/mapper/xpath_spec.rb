@@ -13,7 +13,7 @@ RSpec.describe CollectionSpace::Mapper::Xpath do
   end
 
   context "with anthro collectionobject", vcr: "anthro_domain_check" do
-    let(:profile) { 'anthro' }
+    let(:profile){ "anthro" }
     let(:mapper){ "anthro_4-1-2_collectionobject" }
 
     context "xpath ending with commingledRemainsGroup" do
@@ -61,7 +61,7 @@ RSpec.describe CollectionSpace::Mapper::Xpath do
     end
 
     context "xpath ending with collectionobjects_nagpra" do
-      let(:path) { "collectionobjects_nagpra" }
+      let(:path){ "collectionobjects_nagpra" }
 
       it "has 5 children" do
         expect(result.children.size).to eq(5)
@@ -70,7 +70,7 @@ RSpec.describe CollectionSpace::Mapper::Xpath do
   end
 
   context "with bonsai profile", vcr: "bonsai_profile_check" do
-    let(:profile){ 'bonsai' }
+    let(:profile){ "bonsai" }
 
     context "with conservation rectype" do
       let(:mapper){ "bonsai_4-1-1_conservation" }
@@ -86,7 +86,7 @@ RSpec.describe CollectionSpace::Mapper::Xpath do
       end
 
       context "xpath ending with conservators" do
-        let(:path) { "conservation_common/conservators" }
+        let(:path){ "conservation_common/conservators" }
         it "is a repeating group" do
           expect(result.is_group?).to be false
         end
@@ -98,12 +98,12 @@ RSpec.describe CollectionSpace::Mapper::Xpath do
       let(:path){ "objectexit_common/deacApprovalGroupList/deacApprovalGroup" }
       let(:keep) do
         ["exitnumber",
-         "deaccessionapprovalgroup",
-         "deaccessionapprovalindividual",
-         "deaccessionapprovalstatus",
-         "deaccessionapprovaldate",
-         "deaccessionapprovalnote",
-         "deaccessiondate"]
+          "deaccessionapprovalgroup",
+          "deaccessionapprovalindividual",
+          "deaccessionapprovalstatus",
+          "deaccessionapprovaldate",
+          "deaccessionapprovalnote",
+          "deaccessiondate"]
       end
       let(:keptmappings){ result.for_row(keep).mappings.map(&:datacolumn) }
 

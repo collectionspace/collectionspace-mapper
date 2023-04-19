@@ -3,12 +3,13 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::ColumnMappings,
-    vcr: "core_domain_check" do
+  vcr: "core_domain_check" do
   subject(:mappings){ handler.record.mappings }
 
   # Building the handler calls RecordMapper, which calls the described class to
-  #   set the handler.record settings, including :mappings. The :mappings setting
-  #   is an instance of the described class, so we test the handler config
+  #   set the handler.record settings, including :mappings. The :mappings
+  #   setting is an instance of the described class, so we test the handler
+  #   config
   let(:handler) do
     setup_handler(
       mapper: mapper
@@ -39,7 +40,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings,
     let(:mapper){ "core_7-1-0_collectionobject" }
 
     it "returns list of downcased datacolumns" do
-      expect(mappings.known_columns).to include('objectnumber')
+      expect(mappings.known_columns).to include("objectnumber")
     end
   end
 
@@ -48,8 +49,8 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings,
 
     it "returns column mappings for required fields" do
       expected = %w[currentlocationlocationlocal currentlocationlocationoffsite
-                    currentlocationorganizationlocal currentlocationrefname
-                    movementreferencenumber].sort
+        currentlocationorganizationlocal currentlocationrefname
+        movementreferencenumber].sort
       expect(mappings.required_columns
              .map(&:datacolumn)
              .sort).to eq(expected)
