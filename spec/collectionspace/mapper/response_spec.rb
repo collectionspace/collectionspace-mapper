@@ -36,8 +36,8 @@ RSpec.describe CollectionSpace::Mapper::Response do
   describe "#merged_data", vcr: "core_domain_check" do
     let(:result){ response.merged_data }
 
-    it "downcases keys and removes empty fields from merged data" do
-      expect(result.keys).to eq(%w[objectnumber collection])
+    it "downcases keys" do
+      expect(result.keys).to eq(%w[objectnumber collection title numbervalue])
     end
 
     context "with non-conflicting default values specified" do

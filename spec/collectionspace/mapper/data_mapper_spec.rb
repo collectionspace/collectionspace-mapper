@@ -53,8 +53,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
       context "with collectionobject" do
         let(:mapper){ "core_6-1-0_collectionobject" }
 
-        context "overflow subgroup record with uneven subgroup values",
-          skip: "subgroup complications" do
+        context "overflow subgroup record with uneven subgroup values" do
+          #          skip: "subgroup complications" do
+          let(:customcfg){ {delimiter: "|"} }
           let(:datahash_path) {
             "spec/support/datahashes/core/collectionobject2.json"
           }
@@ -142,17 +143,17 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
 
   context "with botgarden", vcr: "botgarden_domain_check",
     type: "integration" do
-    let(:profile){ "botgarden" }
+      let(:profile){ "botgarden" }
 
-    context "with loanout" do
-      let(:mapper){ "botgarden_2-0-1_loanout" }
-      let(:datahash) { {"loanOutNumber" => "123", "sterile" => "n"} }
+      context "with loanout" do
+        let(:mapper){ "botgarden_2-0-1_loanout" }
+        let(:datahash) { {"loanOutNumber" => "123", "sterile" => "n"} }
 
-      it "adds record identifier to response" do
-        expect(mapped.identifier).to eq("123")
+        it "adds record identifier to response" do
+          expect(mapped.identifier).to eq("123")
+        end
       end
     end
-  end
 
   context "with anthro", type: "integration",
     vcr: "data_mapper_int_anthro" do
@@ -183,7 +184,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
             }
           }
         end
-      let(:datahash) { anthro_co_1 }
+        let(:datahash) { anthro_co_1 }
 
         it "adds namespace definitions" do
           urihash = handler.record.ns_uri.clone

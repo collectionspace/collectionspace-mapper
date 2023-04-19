@@ -1,0 +1,16 @@
+{
+  "objectnumber": "L2005.8.1",
+  "date_field_group": "objectProductionDateGroup",
+  "datedisplaydate": "1960s|1970s|1980s",
+  "dateearliestsingleyear": "1960|1970|1980",
+  "dateearliestsinglemonth": "1|1|1",
+  "dateearliestsingleday": "1|1",
+  "dateearliestsingleera": "CE",
+  "datelatestyear": "1969|1979|1989",
+  "datelatestmonth": "12|12|12",
+  "datelatestday": "31|31",
+  "datelatestera": "CE",
+  "dateearliestscalarvalue": "1960-01-01T00:00:00.000Z|1970-01-01T00:00:00.000Z",
+  "datelatestscalarvalue": "1969-12-31T00:00:00.000Z|1979-12-31T00:00:00.000Z",
+  "scalarvaluescomputed": "true|true|false"
+}

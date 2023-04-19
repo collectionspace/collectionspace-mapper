@@ -10,12 +10,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
   context "claim record", vcr: "data_mapper_anthro_claim" do
     let(:mapper){ "anthro_4-1-2_claim" }
 
-    # Tests for claim record are pending because changes must be made to
-    # handling of repeating field groups which contain more than one
-    # field which may be populated by multiple authorities.
-    # Problem in claimantGroupList
-    context "record 1", skip: "multi-authority repeatable fields "\
-      "limitation" do
+    context "record 1" do
         let(:datahash_path) {
           "spec/support/datahashes/anthro/claim1.json"
         }

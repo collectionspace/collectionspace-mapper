@@ -13,6 +13,7 @@ module CollectionSpace
         @handler = handler
         @mappings = handler.record.mappings
         @hash = create_xpaths
+        handler.record.extensions.each{ |ext| extend ext }
         self
       end
 
@@ -27,11 +28,15 @@ module CollectionSpace
 
       # @param data [Hash]
       def for_row(data)
-        keep = data.keys.map(&:downcase) + ['shortidentifier']
+        keep = keep_fields(data)
         result = dup.map{ |path, xpath| [path, xpath.for_row(keep)] }
           .to_h
           .reject{ |_path, xpath| xpath.mappings.empty? }
         result
+      end
+
+      def keep_fields(data)
+        data.keys.map(&:downcase) + ['shortidentifier']
       end
 
       def to_s

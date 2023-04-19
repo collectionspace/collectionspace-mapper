@@ -34,9 +34,10 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
   end
 
-  context "taxon record", vcr: "data_mapper_botgarden_taxon",
-    skip: "multiauthority field groups" do
+  context "taxon record", vcr: "data_mapper_botgarden_taxon" do
+#    skip: "multiauthority field groups" do
     let(:mapper){ "botgarden_3-0-2_taxon-local" }
+    let(:customcfg){ {response_mode: "verbose"} }
 
     context "record 1" do
       let(:datahash_path) {

@@ -13,7 +13,7 @@ endif::[]
 
 toc::[]
 
-A JSON config hash may be passed to a new `Mapper::DataHandler` to control various aspects of the data transformation. 
+A JSON config hash may be passed to a new `Mapper::DataHandler` to control various aspects of the data transformation.
 
 .Example config JSON
 [source,javascript]
@@ -49,9 +49,13 @@ A JSON config hash may be passed to a new `Mapper::DataHandler` to control vario
 }
 ----
 
+== batch_mode
+
+`full record`:: The "normal" mode, using CSV template that has all fields for the record type. Allows you to create a full record from each row of data in the CSV. For structured dates, a date string is entered in the column for the structured date group field, and teh application handles parsing the date details. This processing cannot set period, association, note, certainty, qualifier, value, or unit fields within structured date detailed fields.
+`date details`:: Allows you to skip the application's normal parsing/processing of date strings into structured dates, and directly ingest all structured date detailed fields.
 == check_record_status
 
-If `true`, looks up each record via cspace-services API and sets `Response.record_status` to `:exists` if the record is found, or `:new` if it is not. 
+If `true`, looks up each record via cspace-services API and sets `Response.record_status` to `:exists` if the record is found, or `:new` if it is not.
 
 If `false`, does not search services API for the record. Sets `Response.record_status` to `:new`.
 
@@ -93,7 +97,7 @@ See also <<force_defaults>>.
 
 == delimiter
 
-Delimiter character or string used to split repeatable values within the cell of a CSV. 
+Delimiter character or string used to split repeatable values within the cell of a CSV.
 
 - *Required?:* yes
 - *Defaults to:* |
@@ -105,7 +109,7 @@ See also <<subgroup_delimiter>>.
 
 Only has an effect if you are also providing <<default_values>> in your config.
 
-Relevant if some fields for which you are providing `default_values` have other values in the source data (CSV). 
+Relevant if some fields for which you are providing `default_values` have other values in the source data (CSV).
 
 If `false`, default values will not replace or be added to values passed in via the data hash; default value will be inserted if field is missing or empty in data hash.
 
@@ -128,9 +132,9 @@ WARNING: Do not use this option at all if you are not 100% certain of what it do
 
 There may be odd cases where you end up with true duplicate records, in your system, however. The `use_first` value for this config option was added to enable batch deletion of known duplicate records. If your records with the same ID are not actually duplicates, this can be very destructive, so *use with care*.
 
-If using this option to enable batch deletes of records with duplicate ids, you have no control over which record with the given id will be deleted. If they are true duplicate records, that is fine. Note that, only one record with a given ID is ever updated or deleted at a time via the CSV importer. If you had 3 records with the same id, and you used this option to do a delete transfer, you will still have 2 records with the same id in the system. 
+If using this option to enable batch deletes of records with duplicate ids, you have no control over which record with the given id will be deleted. If they are true duplicate records, that is fine. Note that, only one record with a given ID is ever updated or deleted at a time via the CSV importer. If you had 3 records with the same id, and you used this option to do a delete transfer, you will still have 2 records with the same id in the system.
 
-While it is possible to use this setting to batch update existing records that do not have unique ids, it is strongly discouraged. You will not have any control over _which_ of the records with a non-unique id is updated. If the records sharing an ID were not duplicate records, you may be updating the wrong record. If they were duplicates, they won't be after you update one, but you will still have duplicate ids in the system. 
+While it is possible to use this setting to batch update existing records that do not have unique ids, it is strongly discouraged. You will not have any control over _which_ of the records with a non-unique id is updated. If the records sharing an ID were not duplicate records, you may be updating the wrong record. If they were duplicates, they won't be after you update one, but you will still have duplicate ids in the system.
 
 - *Required?:* no
 - *Defaults to:* fail
@@ -146,7 +150,7 @@ If `verbose`, `Mapper::Response` also has the following attributes, which may be
 - `.merged_data` - result of merging any default values into `orig_data`.
 - `.split_data` - result of splitting `merged_data` using `delimiter` and `subgroup_delimiter`. All field values are now arrays.
 - `.transformed_data` - result of any transformations applied to `split_data`.
-- `.combined_data` - result of combining separate data columns (such as `approvedByPerson` and `approvedByOrganization`) into one CollectionSpace field (`approvedBy`).  
+- `.combined_data` - result of combining separate data columns (such as `approvedByPerson` and `approvedByOrganization`) into one CollectionSpace field (`approvedBy`).
 
 - *Required?:* yes
 - *Defaults to:* normal
@@ -241,5 +245,3 @@ Setting this to `coerce` results in the years being parsed as 2019 and 1945 via 
 - *Defaults to:* `coerce`
 - *Data type*: string
 - *Allowed values*: `coerce`, `literal`
-
-

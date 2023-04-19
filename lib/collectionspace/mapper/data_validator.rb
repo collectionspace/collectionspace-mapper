@@ -9,6 +9,8 @@ module CollectionSpace
       def initialize(handler)
         @handler = handler
         handler.config.validator = self
+        handler.record.extensions.each{ |ext| extend ext }
+
         @id_field = get_id_field
         @required_mappings = handler.record.mappings
           .required_columns
@@ -17,11 +19,13 @@ module CollectionSpace
       end
 
       def validate(response)
-        if response.errors.empty?
-          data = response.merged_data
-          res = check_required_fields(data) unless required_fields.empty?
-          response.add_error(res)
-        end
+        return response unless response.errors.empty?
+
+        check_required_fields(response) unless required_fields.empty?
+        return response unless response.errors.empty?
+
+        special_checks(response)
+
         response
       end
 
@@ -57,28 +61,32 @@ module CollectionSpace
 
       # @todo The logic of checking should be moved to the *RequiredField
       #   classes
-      def check_required_fields(data)
-        errs = []
+      def check_required_fields(response)
+        data = response.merged_data
         required_fields.each do |field, columns|
           if columns.length == 1
             checkfield = SingleColumnRequiredField.new(field, columns)
             unless checkfield.present_in?(data)
-              errs << checkfield.missing_message
+              response.add_error(checkfield.missing_message)
             end
             if checkfield.present_in?(data) && !checkfield.populated_in?(data)
-              errs << checkfield.empty_message
+              response.add_error(checkfield.empty_message)
             end
           elsif columns.length > 1
             checkfield = MultiColumnRequiredField.new(field, columns)
             unless checkfield.present_in?(data)
-              errs << checkfield.missing_message
+              response.add_error(checkfield.missing_message)
             end
             if checkfield.present_in?(data) && !checkfield.populated_in?(data)
-              errs << checkfield.empty_message
+              response.add_error(checkfield.empty_message)
             end
           end
         end
-        errs
+        response
+      end
+
+      def special_checks(response)
+        response # Actual behavior may be defined in extensions
       end
     end
   end

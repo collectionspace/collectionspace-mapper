@@ -47,13 +47,9 @@ module CollectionSpace
       end
 
       def combine_data_fields
-        response.xpaths.values.each { |xpath| combine_data_values(xpath) }
-      end
+        return unless response.valid?
 
-      # used by NonHierarchicalRelationshipPrepper and AuthorityHierarchyPrepper
-      def push_errors_and_warnings
-        response.add_error(errors) unless errors.empty?
-        response.add_error(warnings) unless warnings.empty?
+        response.xpaths.values.each { |xpath| combine_data_values(xpath) }
       end
 
       def identifier?(column)
@@ -122,6 +118,7 @@ module CollectionSpace
         xpath.mappings.each do |mapping|
           column = mapping.datacolumn
           transforms = mapping.transforms.dup
+
           transforms.delete(:vocabulary)
           transforms.delete(:authority)
 

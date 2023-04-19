@@ -20,7 +20,7 @@
         <termSourceID/>
         <termSourceDetail>p. 899</termSourceDetail>
         <termSourceNote>source note</termSourceNote>
-        <termFormattedDisplayName>Achillea millefolium</termFormattedDisplayName>
+        <termFormattedDisplayName>&lt;i&gt;Achillea millefolium&lt;/i&gt;</termFormattedDisplayName>
         <termType>descriptor</termType>
         <taxonomicStatus>accepted</taxonomicStatus>
         <termSource>urn:cspace:c.botgarden.collectionspace.org:citationauthorities:name(citation):item:name(SpPl289917531681516085952)'Sp. Pl. 2: 899. 1753'</termSource>
@@ -36,7 +36,7 @@
         <termSourceID>7878903</termSourceID>
         <termSourceDetail>33</termSourceDetail>
         <termSourceNote>source note 2</termSourceNote>
-        <termFormattedDisplayName>Achillea alpicola</termFormattedDisplayName>
+        <termFormattedDisplayName>&lt;i&gt;Achillea alpicola&lt;/i&gt;</termFormattedDisplayName>
         <termType>used for term</termType>
         <taxonomicStatus>invalid</taxonomicStatus>
         <termSource>urn:cspace:c.botgarden.collectionspace.org:citationauthorities:name(worldcat):item:name(BullTorreyBotClub1681516105394)'Bull. Torrey Bot. Club'</termSource>
@@ -78,7 +78,7 @@
     <taxonIsNamedHybrid>false</taxonIsNamedHybrid>
     <taxonRecordTypes/>
     <taxonCurrency>current</taxonCurrency>
-    <shortIdentifier>Achilleamillefolium1681516218552</shortIdentifier>
+    <shortIdentifier>Achilleamillefolium1482849582</shortIdentifier>
     <proposed>true</proposed>
     <taxonAuthorGroupList>
       <taxonAuthorGroup>

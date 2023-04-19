@@ -16,6 +16,8 @@ module CollectionSpace
 
       # @param mapping [Hash] for a given CSV column
       def initialize(mapping:)
+        @mapping = mapping
+
         mapping.each do |key, value|
           instance_variable_set("@#{key}", value)
         end
@@ -41,8 +43,10 @@ module CollectionSpace
 
       private
 
+      attr_reader :mapping
+
       def symbolize_transforms
-        return if @transforms.blank?
+        return if transforms.blank?
 
         @transforms.transform_keys!(&:to_sym)
       end

@@ -7,9 +7,10 @@ module CollectionSpace
   module Mapper
     # given a RecordMapper hash and a data hash, returns CollectionSpace XML
     #   document
-    class FullRecordDataHandler
+    class HandlerFullRecord
       include Dry::Configurable
 
+      setting :batch_mode, default: "full record", reader: true
       # @return [CollectionSpace::Mapper::RecordMapper, nil]
       setting :recordmapper, default: nil, reader: true
       # @return [CollectionSpace::Client, nil]
@@ -100,6 +101,8 @@ module CollectionSpace
       # @param config [Hash, String] parseable JSON string or already-
       #   parsed JSON converted to Hash
       def initialize(record_mapper:, client:, cache:, csid_cache:, config: {})
+        pre_initialize
+
         @errors = []
         @warnings = []
         self.config.client = client
@@ -113,25 +116,20 @@ module CollectionSpace
           handler: self,
           mapper: record_mapper
         )
-
         CollectionSpace::Mapper::BatchConfig.new(
           config: config,
           handler: self
         )
-
-        CollectionSpace::Mapper::DataValidator.new(self)
+        merge_config_transforms
+        get_data_validator
         CollectionSpace::Mapper::Searcher.new(self)
         CollectionSpace::Mapper::DataSplitter.new(self)
-
         self.config.prepper_class = get_prepper_class
-
-        self.config.date_handler =
-          CollectionSpace::Mapper::Dates::StructuredDateHandler.new(self)
-
-        # merge_config_transforms
-
+        get_date_handler
         self.config.status_checker =
           CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder.call(self)
+
+        post_initialize
       end
 
       def add_error(error)
@@ -204,6 +202,10 @@ module CollectionSpace
 
       private
 
+      def pre_initialize
+        # Defined in subclasses
+      end
+
       def get_prepper_class
         case record.recordtype
         when "authorityhierarchy"
@@ -215,6 +217,18 @@ module CollectionSpace
         else
           CollectionSpace::Mapper::DataPrepper
         end
+      end
+
+      def get_date_handler
+        CollectionSpace::Mapper::Dates::StructuredDateHandler.new(self)
+      end
+
+      def get_data_validator
+        CollectionSpace::Mapper::DataValidator.new(self)
+      end
+
+      def post_initialize
+        # Defined in subclasses
       end
 
       # you can specify per-data-key transforms in your config.json

@@ -272,15 +272,15 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
               "measuredByPerson" => "Gomongo^^Comodore;Gomongo",
               "measuredByOrganization" => "Cuckoo^^;Cuckoo",
               "measurementMethod" =>
-                "sliding_calipers^^theodolite_total_station^^electronic_distance"\
-                "_measurement^^measuring_tape_cloth;measuring_tape_cloth^^"\
-                "measuring_tape_cloth",
+                "sliding_calipers^^theodolite_total_station^^electronic_"\
+                "distance_measurement^^measuring_tape_cloth;measuring_tape_"\
+                "cloth^^measuring_tape_cloth",
               "value" => "25^^83^^56^^10;5^^5",
               "measurementUnit" =>
                 "centimeters^^carats^^kilograms^^inches;inches^^inches",
               "valueQualifier" => "cm^^ct^^kg^^in;q1^^q2",
               "valueDate" =>
-                "2020-09-23^^2020-09-28^^2020-09-25^^2020-09-30;2020-07-21^^^"\
+                "2020-09-23^^2020-09-28^^2020-09-25^^2020-09-30;2020-07-21^^"\
                 "2020-07-21"
             }
           end

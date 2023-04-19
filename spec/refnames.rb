@@ -17,7 +17,7 @@ module Helpers
       ["citationauthorities", "citation", "makasi",
         "urn:cspace:DOMAIN:citationauthorities:name(citation):item:name(makasi1599645537547)'makasi'"],
       ["citationauthorities", "worldcat", "Bull. Torrey Bot. Club",
-        "urn:cspace:DOMAIN:citationauthorities:name(worldcat):item:name(BullTorreyBotClub331599245358364)'Bull. Torrey Bot. Club 33'"],
+        "urn:cspace:DOMAIN:citationauthorities:name(worldcat):item:name(BullTorreyBotClub331599245358364)'Bull. Torrey Bot. Club'"],
       ["citationauthorities", "worldcat", "Chelse",
         "urn:cspace:DOMAIN:citationauthorities:name(worldcat):item:name(Chelse1599645525740)'Chelse'"],
       ["citationauthorities", "worldcat", "Patiently",

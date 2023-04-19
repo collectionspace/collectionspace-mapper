@@ -24,6 +24,18 @@ module CollectionSpace
         end
       end
 
+      BOOLEAN_LOOKUP = {
+        "true" => "true",
+        "false" => "false",
+        "" => "false",
+        "yes" => "true",
+        "no" => "false",
+        "y" => "true",
+        "n" => "false",
+        "t" => "true",
+        "f" => "false"
+      }
+
       # @param value [String]
       # @param mapping [CollectionSpace::Mapper::ColumnMapping]
       # @param handler [CollectionSpace::Mapper::DataHandler]
@@ -49,18 +61,6 @@ module CollectionSpace
       private
 
       attr_reader :value, :transforms, :column, :handler, :response
-
-      BOOLEAN_LOOKUP = {
-        "true" => "true",
-        "false" => "false",
-        "" => "false",
-        "yes" => "true",
-        "no" => "false",
-        "y" => "true",
-        "n" => "false",
-        "t" => "true",
-        "f" => "false"
-      }
 
       def process_replacements
         return value if value.nil? || value.empty?

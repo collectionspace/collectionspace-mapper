@@ -78,8 +78,8 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
     end
   end
 
-  describe "#terms", skip: "term-reporting errors" do
-    let(:terms) { response.terms }
+  describe "#terms" do
+    let(:terms) { th; response.terms }
 
     context "titletranslationlanguage (vocabulary, field subgroup)" do
       let(:colname) { "titleTranslationLanguage" }
@@ -132,8 +132,8 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
 
       context "when new term (Reference 3) is initially encountered" do
         it "contains UsedTerm object for each value",
-          skip: "unexpected failure",
           vcr: "term_handler_terms_ref_multi_used" do
+            th
             found = response.terms.select { |h| h.found? }
             not_found = response.terms.reject { |h| h.found? }
             expect(response.terms.length).to eq(3)

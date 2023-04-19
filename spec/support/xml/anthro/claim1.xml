@@ -11,175 +11,6 @@
     <updatedAt>2020-09-11T20:13:57.919Z</updatedAt>
   </ns2:collectionspace_core>
   <ns2:claims_nagpra xmlns:ns2="http://collectionspace.org/services/claim/domain/nagpra" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <objectsPhotographed>false</objectsPhotographed>
-    <nagpraClaimSentToNatlGroupList>
-      <nagpraClaimSentToNatlGroup>
-        <nagpraClaimSentToNatlNote>National NAGPRA</nagpraClaimSentToNatlNote>
-        <nagpraClaimSentToNatlDate>2020-09-24T00:00:00.000Z</nagpraClaimSentToNatlDate>
-      </nagpraClaimSentToNatlGroup>
-      <nagpraClaimSentToNatlGroup>
-        <nagpraClaimSentToNatlNote>Sent to National</nagpraClaimSentToNatlNote>
-        <nagpraClaimSentToNatlDate>2020-09-26T00:00:00.000Z</nagpraClaimSentToNatlDate>
-      </nagpraClaimSentToNatlGroup>
-    </nagpraClaimSentToNatlGroupList>
-    <tribeContactedForPackingPreferences>false</tribeContactedForPackingPreferences>
-    <objectsLocatedAndCountedNote>and counted</objectsLocatedAndCountedNote>
-    <dateArrangedForTransferNote>pickup/transfer</dateArrangedForTransferNote>
-    <objectsMarkedAsDeaccessionedNote>marked as deaccessioned</objectsMarkedAsDeaccessionedNote>
-    <workingTeamNotifiedNote>NAGPRA team notified
-￼</workingTeamNotifiedNote>
-    <accessionFileResearchCompleted>true</accessionFileResearchCompleted>
-    <registrationDocumentsDrafted>true</registrationDocumentsDrafted>
-    <objectsConsolidated>false</objectsConsolidated>
-    <workingTeamNotified>true</workingTeamNotified>
-    <nagpraClaimTransferGroupList>
-      <nagpraClaimTransferGroup>
-        <nagpraClaimTransferDate>2020-09-22T00:00:00.000Z</nagpraClaimTransferDate>
-        <nagpraClaimTransferNote/>
-      </nagpraClaimTransferGroup>
-    </nagpraClaimTransferGroupList>
-    <nagpraClaimNoticeGroupList>
-      <nagpraClaimNoticeGroup>
-        <nagpraClaimNoticeNote>NAGPRA 30-day notice</nagpraClaimNoticeNote>
-        <nagpraClaimNoticeDateType>begin</nagpraClaimNoticeDateType>
-        <nagpraClaimNoticeDate>2020-09-30T00:00:00.000Z</nagpraClaimNoticeDate>
-      </nagpraClaimNoticeGroup>
-    </nagpraClaimNoticeGroupList>
-    <dateArrangedForTransfer>true</dateArrangedForTransfer>
-    <nagpraClaimSiteGroupList>
-      <nagpraClaimSiteGroup>
-        <nagpraClaimSiteName>urn:cspace:c.anthro.collectionspace.org:placeauthorities:name(place):item:name(Local1599824385298)'Local'</nagpraClaimSiteName>
-        <nagpraClaimSiteNote>Osha</nagpraClaimSiteNote>
-      </nagpraClaimSiteGroup>
-      <nagpraClaimSiteGroup>
-        <nagpraClaimSiteName>urn:cspace:c.anthro.collectionspace.org:placeauthorities:name(place):item:name(Early1599824413345)'Early'</nagpraClaimSiteName>
-        <nagpraClaimSiteNote/>
-      </nagpraClaimSiteGroup>
-    </nagpraClaimSiteGroupList>
-    <surroundingTribesContacted>false</surroundingTribesContacted>
-    <documentsArchivedNote>documents archived</documentsArchivedNote>
-    <nagpraClaimNatlApprovalGroupList>
-      <nagpraClaimNatlApprovalGroup>
-        <nagpraClaimNatlApprovalDate>2020-09-25T00:00:00.000Z</nagpraClaimNatlApprovalDate>
-        <nagpraClaimNatlApprovalNote>Publication by</nagpraClaimNatlApprovalNote>
-      </nagpraClaimNatlApprovalGroup>
-    </nagpraClaimNatlApprovalGroupList>
-    <objectsMarkedAsDeaccessioned>true</objectsMarkedAsDeaccessioned>
-    <dispositionPossibilitiesDiscussed>true</dispositionPossibilitiesDiscussed>
-    <registrationDocumentsDraftedNote>documents drawn up</registrationDocumentsDraftedNote>
-    <nagpraClaimAltNameGroupList>
-      <nagpraClaimAltNameGroup>
-        <nagpraClaimAltName>one</nagpraClaimAltName>
-        <nagpraClaimAltNameNote>free</nagpraClaimAltNameNote>
-      </nagpraClaimAltNameGroup>
-      <nagpraClaimAltNameGroup>
-        <nagpraClaimAltName>two</nagpraClaimAltName>
-        <nagpraClaimAltNameNote/>
-      </nagpraClaimAltNameGroup>
-      <nagpraClaimAltNameGroup>
-        <nagpraClaimAltName/>
-        <nagpraClaimAltNameNote>available</nagpraClaimAltNameNote>
-      </nagpraClaimAltNameGroup>
-    </nagpraClaimAltNameGroupList>
-    <nagpraClaimSentToLocalGroupList>
-      <nagpraClaimSentToLocalGroup>
-        <nagpraClaimSentToLocalDate>2020-09-15T00:00:00.000Z</nagpraClaimSentToLocalDate>
-        <nagpraClaimSentToLocalNote>committee</nagpraClaimSentToLocalNote>
-      </nagpraClaimSentToLocalGroup>
-      <nagpraClaimSentToLocalGroup>
-        <nagpraClaimSentToLocalDate>2020-09-18T00:00:00.000Z</nagpraClaimSentToLocalDate>
-        <nagpraClaimSentToLocalNote>Sent to</nagpraClaimSentToLocalNote>
-      </nagpraClaimSentToLocalGroup>
-    </nagpraClaimSentToLocalGroupList>
-    <siteFileResearchCompleted>true</siteFileResearchCompleted>
-    <nagpraClaimTypes>
-      <nagpraClaimType>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(nagpraclaimtype):item:name(affiliatedHsr)'affiliated human skeletal remains (HSR)'</nagpraClaimType>
-      <nagpraClaimType>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(nagpraclaimtype):item:name(needsFurtherResearch)'needs further research'</nagpraClaimType>
-      <nagpraClaimType>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(nagpraclaimtype):item:name(nonNagpra)'not subject to NAGPRA'</nagpraClaimType>
-      <nagpraClaimType>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(nagpraclaimtype):item:name(objectOfCulturalPatrimony)'object of cultural patrimony'</nagpraClaimType>
-      <nagpraClaimType>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(nagpraclaimtype):item:name(ufo)'unassociated funerary object (UFO)'</nagpraClaimType>
-    </nagpraClaimTypes>
-    <surroundingTribesContactedNote>tribes contacted</surroundingTribesContactedNote>
-    <nagpraClaimNatlRespGroupList>
-      <nagpraClaimNatlRespGroup>
-        <nagpraClaimNatlRespNote>from National NAGPRA</nagpraClaimNatlRespNote>
-        <nagpraClaimNatlRespDate>2020-09-17T00:00:00.000Z</nagpraClaimNatlRespDate>
-      </nagpraClaimNatlRespGroup>
-    </nagpraClaimNatlRespGroupList>
-    <nagpraClaimGroupGroupList>
-      <nagpraClaimGroupGroup>
-        <nagpraClaimGroupNote>Come</nagpraClaimGroupNote>
-        <nagpraClaimGroupName>urn:cspace:c.anthro.collectionspace.org:conceptauthorities:name(ethculture):item:name(Hero1599824418804)'Hero'</nagpraClaimGroupName>
-      </nagpraClaimGroupGroup>
-      <nagpraClaimGroupGroup>
-        <nagpraClaimGroupNote/>
-        <nagpraClaimGroupName>urn:cspace:c.anthro.collectionspace.org:conceptauthorities:name(ethculture):item:name(Got1599824429903)'Got'</nagpraClaimGroupName>
-      </nagpraClaimGroupGroup>
-    </nagpraClaimGroupGroupList>
-    <objectsConsolidatedNote>Objects consolidated</objectsConsolidatedNote>
-    <objectsPhotographedNote>photographed</objectsPhotographedNote>
-    <nagpraClaimNotes>
-      <nagpraClaimNote>Rooms note</nagpraClaimNote>
-    </nagpraClaimNotes>
-    <siteFileResearchCompletedNote>research completed</siteFileResearchCompletedNote>
-    <nagpraClaimInitialResponseGroupList>
-      <nagpraClaimInitialResponseGroup>
-        <nagpraClaimInitialResponseDate>2020-09-14T00:00:00.000Z</nagpraClaimInitialResponseDate>
-        <nagpraClaimInitialResponseNote>Note</nagpraClaimInitialResponseNote>
-      </nagpraClaimInitialResponseGroup>
-      <nagpraClaimInitialResponseGroup>
-        <nagpraClaimInitialResponseDate>2020-09-09T00:00:00.000Z</nagpraClaimInitialResponseDate>
-        <nagpraClaimInitialResponseNote>Initial response</nagpraClaimInitialResponseNote>
-      </nagpraClaimInitialResponseGroup>
-    </nagpraClaimInitialResponseGroupList>
-    <nagpraClaimPeriodGroupList>
-      <nagpraClaimPeriodGroup>
-        <nagpraClaimPeriodDateGroup>
-          <scalarValuesComputed>true</scalarValuesComputed>
-          <dateEarliestSingleCertainty/>
-          <dateEarliestSingleQualifierUnit/>
-          <dateDisplayDate>2020-01-05</dateDisplayDate>
-          <dateLatestScalarValue>2020-01-06T00:00:00.000Z</dateLatestScalarValue>
-          <dateEarliestSingleQualifierValue/>
-          <datePeriod/>
-          <dateLatestEra/>
-          <dateEarliestSingleDay>5</dateEarliestSingleDay>
-          <dateEarliestSingleQualifier/>
-          <dateEarliestSingleYear>2020</dateEarliestSingleYear>
-          <dateLatestCertainty/>
-          <dateAssociation/>
-          <dateLatestDay/>
-          <dateEarliestSingleMonth>1</dateEarliestSingleMonth>
-          <dateEarliestSingleEra>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
-          <dateLatestYear/>
-          <dateLatestQualifierUnit/>
-          <dateNote/>
-          <dateLatestQualifierValue/>
-          <dateLatestQualifier/>
-          <dateEarliestScalarValue>2020-01-05T00:00:00.000Z</dateEarliestScalarValue>
-          <dateLatestMonth/>
-        </nagpraClaimPeriodDateGroup>
-        <nagpraClaimPeriodNote>Late</nagpraClaimPeriodNote>
-      </nagpraClaimPeriodGroup>
-    </nagpraClaimPeriodGroupList>
-    <documentsArchived>true</documentsArchived>
-    <objectsLocatedAndCounted>true</objectsLocatedAndCounted>
-    <nagpraClaimName>Rucio</nagpraClaimName>
-    <nagpraClaimLocalRecGroupList>
-      <nagpraClaimLocalRecGroup>
-        <nagpraClaimLocalRecDate>2020-09-16T00:00:00.000Z</nagpraClaimLocalRecDate>
-        <nagpraClaimLocalRecNote>NAGPRA committee</nagpraClaimLocalRecNote>
-      </nagpraClaimLocalRecGroup>
-    </nagpraClaimLocalRecGroupList>
-    <dispositionPossibilitiesDiscussedNote>possibilities discussed</dispositionPossibilitiesDiscussedNote>
-  </ns2:claims_nagpra>
-  <ns2:claims_common xmlns:ns2="http://collectionspace.org/services/claim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <claimReceivedGroupList>
-      <claimReceivedGroup>
-        <claimReceivedDate>2020-09-18T00:00:00.000Z</claimReceivedDate>
-        <claimReceivedNote>show</claimReceivedNote>
-      </claimReceivedGroup>
-    </claimReceivedGroupList>
     <claimantGroupList>
       <claimantGroup>
         <claimantNote>Moro</claimantNote>
@@ -193,7 +24,7 @@
       </claimantGroup>
       <claimantGroup>
         <claimantNote>n2</claimantNote>
-        <claimFiledBy>urn:cspace:c.anthro.collectionspace.org:personauthorities:name(person):item:name(BuckJane1590698328896)'Buck, Jane'</claimFiledBy>
+        <claimFiledBy>urn:cspace:c.anthro.collectionspace.org:personauthorities:name(person):item:name(Abel1599464025893)'Abel'</claimFiledBy>
         <claimFiledOnBehalfOf>urn:cspace:c.anthro.collectionspace.org:personauthorities:name(person):item:name(GabrielSolares1594848906847)'Gabriel Solares'</claimFiledOnBehalfOf>
       </claimantGroup>
       <claimantGroup>
@@ -213,7 +44,7 @@
       </claimantGroup>
       <claimantGroup>
         <claimantNote>n4</claimantNote>
-        <claimFiledBy>urn:cspace:c.anthro.collectionspace.org:orgauthorities:name(organization):item:name(Organization21587136613707)'Organization 2'</claimFiledBy>
+        <claimFiledBy>urn:cspace:c.anthro.collectionspace.org:orgauthorities:name(organization):item:name(FVA1599246022216)'FVA'</claimFiledBy>
         <claimFiledOnBehalfOf>urn:cspace:c.anthro.collectionspace.org:orgauthorities:name(organization):item:name(Organization11587136583004)'Organization 1'</claimFiledOnBehalfOf>
       </claimantGroup>
     </claimantGroupList>

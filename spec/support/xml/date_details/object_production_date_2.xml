@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document name="collectionobjects">
+  <ns2:collectionspace_core xmlns:ns2="http://collectionspace.org/collectionspace_core/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <createdAt>2020-09-09T10:00:45.052Z</createdAt>
+    <updatedBy>admin@core.collectionspace.org</updatedBy>
+    <createdBy>admin@core.collectionspace.org</createdBy>
+    <workflowState>project</workflowState>
+    <tenantId>1</tenantId>
+    <refName>urn:cspace:c.core.collectionspace.org:collectionobjects:id(998b6cad-4a55-4904-93b2)'36548'</refName>
+    <uri>/collectionobjects/998b6cad-4a55-4904-93b2</uri>
+    <updatedAt>2020-09-09T11:28:51.773Z</updatedAt>
+  </ns2:collectionspace_core>
+  <ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <objectNumber>M2005.2.1</objectNumber>
+    <objectProductionDateGroupList>
+      <objectProductionDateGroup>
+        <dateDisplayDate>circa 1938</dateDisplayDate>
+        <dateEarliestSingleYear>1938</dateEarliestSingleYear>
+        <dateEarliestSingleMonth>1</dateEarliestSingleMonth>
+        <dateEarliestSingleDay>1</dateEarliestSingleDay>
+        <dateEarliestSingleEra>urn:cspace:c.core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+        <dateEarliestSingleCertainty>urn:cspace:c.core.collectionspace.org:vocabularies:name(datecertainty):item:name(circa)'Circa'</dateEarliestSingleCertainty>
+        <dateLatestYear>1938</dateLatestYear>
+        <dateLatestMonth>12</dateLatestMonth>
+        <dateLatestDay>31</dateLatestDay>
+        <dateLatestEra>urn:cspace:c.core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateLatestEra>
+        <dateLatestCertainty>urn:cspace:c.core.collectionspace.org:vocabularies:name(datecertainty):item:name(circa)'Circa'</dateLatestCertainty>
+        <dateEarliestScalarValue>1938-01-01T00:00:00.000Z</dateEarliestScalarValue>
+        <dateLatestScalarValue>1938-12-31T00:00:00.000Z</dateLatestScalarValue>
+        <scalarValuesComputed>true</scalarValuesComputed>
+        <dateEarliestSingleQualifierUnit/>
+        <dateEarliestSingleQualifierValue/>
+        <datePeriod/>
+        <dateEarliestSingleQualifier/>
+        <dateAssociation/>
+        <dateLatestQualifierUnit/>
+        <dateNote/>
+        <dateLatestQualifierValue/>
+        <dateLatestQualifier/>
+      </objectProductionDateGroup>
+    </objectProductionDateGroupList>
+  </ns2:collectionobjects_common>
+  <ns2:account_permission xmlns:ns2="http://collectionspace.org/services/authorization">
+    <account>
+      <accountId>d884e854-a10b-49c8-87e7-e7a900ffdc52</accountId>
+      <screenName>Administrator</screenName>
+      <userId>admin@core.collectionspace.org</userId>
+      <tenantId>1</tenantId>
+    </account>
+  </ns2:account_permission>
+</document>

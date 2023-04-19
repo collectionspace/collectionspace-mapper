@@ -1,0 +1,18 @@
+{
+  "objectnumber": "M2005.2.1",
+  "date_field_group": "objectProductionDateGroup",
+  "datedisplaydate": "circa 1938",
+  "dateearliestsingleyear": "1938",
+  "dateearliestsinglemonth": "1",
+  "dateearliestsingleday": "1",
+  "dateearliestsingleera": "CE",
+  "dateearliestsinglecertainty": "Circa",
+  "datelatestyear": "1938",
+  "datelatestmonth": "12",
+  "datelatestday": "31",
+  "datelatestera": "CE",
+  "datelatestcertainty": "Circa",
+  "dateearliestscalarvalue": "1938-01-01T00:00:00.000Z",
+  "datelatestscalarvalue": "1938-12-31T00:00:00.000Z",
+  "scalarvaluescomputed": "true"
+}
