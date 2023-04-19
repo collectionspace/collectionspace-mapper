@@ -70,42 +70,42 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       end
 
       context "when ID not found", vcr: "core_nhr_ids_not_found" do
-          let(:datahash_path) do
-            "spec/support/datahashes/core/"\
-              "nonHierarchicalRelationship2.json"
-          end
-          let(:mapped_pair){ handler.process(response) }
+        let(:datahash_path) do
+          "spec/support/datahashes/core/"\
+            "nonHierarchicalRelationship2.json"
+        end
+        let(:mapped_pair){ handler.process(response) }
 
-          context "with original data" do
-            let(:mapped){ mapped_pair[0] }
-            let(:fixture_path) { "core/nonHierarchicalRelationship2A.xml" }
+        context "with original data" do
+          let(:mapped){ mapped_pair[0] }
+          let(:fixture_path){ "core/nonHierarchicalRelationship2A.xml" }
 
-            it "sets response id field as expected" do
-              expect(mapped.identifier).to eq(
-                "2020.1.107 TEST (collectionobjects) -> LOC MISSING (movements)"
-              )
-            end
-
-            it "doc is nil because response is invalid" do
-              expect(mapped.doc).to be_nil
-            end
+          it "sets response id field as expected" do
+            expect(mapped.identifier).to eq(
+              "2020.1.107 TEST (collectionobjects) -> LOC MISSING (movements)"
+            )
           end
 
-          context "with flipped data" do
-            let(:mapped){ mapped_pair[1] }
-            let(:fixture_path) { "core/nonHierarchicalRelationship2B.xml" }
-
-            it "sets response id field as expected" do
-              expect(mapped.identifier).to eq(
-                "LOC MISSING (movements) -> 2020.1.107 TEST (collectionobjects)"
-              )
-            end
-
-            it "doc is nil because response is invalid" do
-              expect(mapped.doc).to be_nil
-            end
+          it "doc is nil because response is invalid" do
+            expect(mapped.doc).to be_nil
           end
         end
+
+        context "with flipped data" do
+          let(:mapped){ mapped_pair[1] }
+          let(:fixture_path){ "core/nonHierarchicalRelationship2B.xml" }
+
+          it "sets response id field as expected" do
+            expect(mapped.identifier).to eq(
+              "LOC MISSING (movements) -> 2020.1.107 TEST (collectionobjects)"
+            )
+          end
+
+          it "doc is nil because response is invalid" do
+            expect(mapped.doc).to be_nil
+          end
+        end
+      end
     end
 
     context "authority hierarchy record" do
@@ -119,7 +119,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         let(:datahash_path) {
           "spec/support/datahashes/core/authorityHierarchy1.json"
         }
-        let(:fixture_path) { "core/authorityHierarchy1.xml" }
+        let(:fixture_path){ "core/authorityHierarchy1.xml" }
 
         it "sets response id field as expected" do
           expect(mapped.identifier).to eq("Cats > Siamese cats")
@@ -150,7 +150,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         let(:datahash_path) {
           "spec/support/datahashes/core/objectHierarchy1.json"
         }
-        let(:fixture_path) { "core/objectHierarchy1.xml" }
+        let(:fixture_path){ "core/objectHierarchy1.xml" }
 
         it "sets response id field as expected" do
           expect(mapped.identifier).to eq("2020.1.105 > 2020.1.1055")
@@ -177,7 +177,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         let(:datahash_path) {
           "spec/support/datahashes/core/acquisition1.json"
         }
-        let(:fixture_path) { "core/acquisition1.xml" }
+        let(:fixture_path){ "core/acquisition1.xml" }
 
         it_behaves_like "Mapped"
       end
@@ -186,7 +186,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         let(:datahash_path) {
           "spec/support/datahashes/core/acquisition2.json"
         }
-        let(:fixture_path) { "core/acquisition2.xml" }
+        let(:fixture_path){ "core/acquisition2.xml" }
 
         it "no xml is produced" do
           expect(mapped.doc).to be_nil
@@ -223,7 +223,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         let(:datahash_path) {
           "spec/support/datahashes/core/collectionobject1.json"
         }
-        let(:fixture_path) { "core/collectionobject1.xml" }
+        let(:fixture_path){ "core/collectionobject1.xml" }
 
         it_behaves_like "Mapped"
       end
@@ -232,7 +232,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         let(:datahash_path) {
           "spec/support/datahashes/core/collectionobject4.json"
         }
-        let(:fixture_path) { "core/collectionobject4.xml" }
+        let(:fixture_path){ "core/collectionobject4.xml" }
 
         it_behaves_like "MappedWithBlanks"
       end
@@ -244,7 +244,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
           let(:datahash_path) {
             "spec/support/datahashes/core/collectionobject5.json"
           }
-          let(:fixture_path) { "core/collectionobject5.xml" }
+          let(:fixture_path){ "core/collectionobject5.xml" }
 
           it_behaves_like "Mapped"
         end
@@ -257,7 +257,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         let(:datahash_path) {
           "spec/support/datahashes/core/conditioncheck1.json"
         }
-        let(:fixture_path) { "core/conditioncheck1.xml" }
+        let(:fixture_path){ "core/conditioncheck1.xml" }
 
         it_behaves_like "Mapped"
       end
@@ -270,7 +270,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         let(:datahash_path) {
           "spec/support/datahashes/core/conservation1.json"
         }
-        let(:fixture_path) { "core/conservation1.xml" }
+        let(:fixture_path){ "core/conservation1.xml" }
 
         it_behaves_like "Mapped"
       end
@@ -283,7 +283,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         let(:datahash_path) {
           "spec/support/datahashes/core/exhibition1.json"
         }
-        let(:fixture_path) { "core/exhibition1.xml" }
+        let(:fixture_path){ "core/exhibition1.xml" }
 
         it_behaves_like "Mapped"
       end
@@ -293,8 +293,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       let(:mapper){ "core_6-1-0_group" }
 
       context "record 1", vcr: "core_grp_1" do
-        let(:datahash_path) { "spec/support/datahashes/core/group1.json" }
-        let(:fixture_path) { "core/group1.xml" }
+        let(:datahash_path){ "spec/support/datahashes/core/group1.json" }
+        let(:fixture_path){ "core/group1.xml" }
 
         it_behaves_like "Mapped"
       end
@@ -304,8 +304,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       let(:mapper){ "core_6-1-0_intake" }
 
       context "record 1", vcr: "core_int_1" do
-        let(:datahash_path) { "spec/support/datahashes/core/intake1.json" }
-        let(:fixture_path) { "core/intake1.xml" }
+        let(:datahash_path){ "spec/support/datahashes/core/intake1.json" }
+        let(:fixture_path){ "core/intake1.xml" }
 
         it_behaves_like "Mapped"
       end
@@ -315,8 +315,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       let(:mapper){ "core_6-1-0_loanin" }
 
       context "record 1", vcr: "core_li_1" do
-        let(:datahash_path) { "spec/support/datahashes/core/loanin1.json" }
-        let(:fixture_path) { "core/loanin1.xml" }
+        let(:datahash_path){ "spec/support/datahashes/core/loanin1.json" }
+        let(:fixture_path){ "core/loanin1.xml" }
 
         it_behaves_like "Mapped"
       end
@@ -326,8 +326,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       let(:mapper){ "core_6-1-0_loanout" }
 
       context "record 1", vcr: "core_lo_1" do
-        let(:datahash_path) { "spec/support/datahashes/core/loanout1.json" }
-        let(:fixture_path) { "core/loanout1.xml" }
+        let(:datahash_path){ "spec/support/datahashes/core/loanout1.json" }
+        let(:fixture_path){ "core/loanout1.xml" }
 
         it_behaves_like "Mapped"
       end
@@ -337,8 +337,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       let(:mapper){ "core_6-1-0_movement" }
 
       context "record 1" do
-        let(:datahash_path) { "spec/support/datahashes/core/movement1.json" }
-        let(:fixture_path) { "core/movement1.xml" }
+        let(:datahash_path){ "spec/support/datahashes/core/movement1.json" }
+        let(:fixture_path){ "core/movement1.xml" }
 
         it_behaves_like "Mapped"
       end
@@ -348,8 +348,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       let(:mapper){ "core_6-1-0_media" }
 
       context "record 1", vcr: "core_med_1" do
-        let(:datahash_path) { "spec/support/datahashes/core/media1.json" }
-        let(:fixture_path) { "core/media1.xml" }
+        let(:datahash_path){ "spec/support/datahashes/core/media1.json" }
+        let(:fixture_path){ "core/media1.xml" }
 
         it_behaves_like "Mapped"
       end
@@ -362,7 +362,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         let(:datahash_path) {
           "spec/support/datahashes/core/objectexit1.json"
         }
-        let(:fixture_path) { "core/objectexit1.xml" }
+        let(:fixture_path){ "core/objectexit1.xml" }
 
         it_behaves_like "Mapped"
       end
@@ -372,8 +372,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       let(:mapper){ "core_6-1-0_uoc" }
 
       context "record 1", vcr: "core_uoc_1" do
-        let(:datahash_path) { "spec/support/datahashes/core/uoc1.json" }
-        let(:fixture_path) { "core/uoc1.xml" }
+        let(:datahash_path){ "spec/support/datahashes/core/uoc1.json" }
+        let(:fixture_path){ "core/uoc1.xml" }
 
         it_behaves_like "Mapped"
       end

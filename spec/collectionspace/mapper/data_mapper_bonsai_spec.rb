@@ -14,7 +14,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       let(:datahash_path) {
         "spec/support/datahashes/bonsai/objectexit1.json"
       }
-      let(:fixture_path) { "bonsai/objectexit1.xml" }
+      let(:fixture_path){ "bonsai/objectexit1.xml" }
 
       it_behaves_like "Mapped"
     end

@@ -18,7 +18,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
           "(person):item:name(MaryPoole1796320156)'Mary Poole'"
       end
 
-      it 'creates new RefName object from urn' do
+      it "creates new RefName object from urn" do
         expect(result.type).to eq("personauthorities")
         expect(result.subtype).to eq("person")
         expect(result.display_name).to eq("Mary Poole")

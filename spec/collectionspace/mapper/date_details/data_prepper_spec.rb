@@ -12,13 +12,13 @@ RSpec.describe CollectionSpace::Mapper::DateDetails::DataPrepper do
       config: config
     )
   end
-  let(:profile){ 'core' }
+  let(:profile){ "core" }
   let(:mapper){ "core_6-1-0_collectionobject" }
   let(:baseconfig){ {delimiter: "|", batch_mode: "date details"} }
   let(:customcfg){ {} }
   let(:config){ baseconfig.merge(customcfg) }
 
-  describe "#prep", vcr: "core_domain_check"  do
+  describe "#prep", vcr: "core_domain_check" do
     let(:response){ prepper.prep }
 
     describe "leading/trailing space stripping" do
@@ -30,10 +30,9 @@ RSpec.describe CollectionSpace::Mapper::DateDetails::DataPrepper do
             "scalarValuesComputed" => "f"
           }
         end
-        let(:result) { response.transformed_data["objectnumber"] }
+        let(:result){ response.transformed_data["objectnumber"] }
 
         it "strips leading/trailing spaces from id field(s)" do
-
           expect(result).to eq(["123"])
         end
 
@@ -61,21 +60,20 @@ RSpec.describe CollectionSpace::Mapper::DateDetails::DataPrepper do
           .map{ |term| [term.field, term.urn] }
           .to_h
         expected = {
-          "datelatestcertainty"=>"urn:cspace:c.core.collectionspace.org:"\
+          "datelatestcertainty" => "urn:cspace:c.core.collectionspace.org:"\
             "vocabularies:name(datecertainty):item:name(circa)'Circa'",
-          "datelatestera"=>"urn:cspace:c.core.collectionspace.org:"\
+          "datelatestera" => "urn:cspace:c.core.collectionspace.org:"\
             "vocabularies:name(dateera):item:name(ce)'CE'",
-          "dateearliestsinglecertainty"=>
+          "dateearliestsinglecertainty" =>
             "urn:cspace:c.core.collectionspace.org:"\
             "vocabularies:name(datecertainty):item:name(circa)'Circa'",
-          "dateearliestsingleera"=>
+          "dateearliestsingleera" =>
             "urn:cspace:c.core.collectionspace.org:"\
             "vocabularies:name(dateera):item:name(ce)'CE'"
         }
         expect(chk).to eq(expected)
       end
     end
-
 
     describe "#transform_date_fields" do
       let(:result){ response.transformed_data }
@@ -84,7 +82,7 @@ RSpec.describe CollectionSpace::Mapper::DateDetails::DataPrepper do
       end
       let(:targetfield){ "objectproductiondategroup" }
       let(:fieldresult){ result[targetfield] }
-      let(:chk){ fieldresult.map { |e| e.class }.uniq }
+      let(:chk){ fieldresult.map{ |e| e.class }.uniq }
 
       context "when single value date details" do
         let(:datahash) do

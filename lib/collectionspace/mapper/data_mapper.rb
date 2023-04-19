@@ -14,7 +14,7 @@ module CollectionSpace
         @handler = handler
         @doc = handler.record.xml_template.dup
 
-        response.xpaths.values.each { |xpath| map(xpath) }
+        response.xpaths.values.each{ |xpath| map(xpath) }
         if handler.record.service_type == "authority"
           add_short_id
         end
@@ -40,7 +40,7 @@ module CollectionSpace
           thexpath = "//#{mapping.namespace}/#{mapping.fieldname}"
           value = doc.xpath(thexpath).first
           value = value.text
-         response.add_identifier(value)
+          response.add_identifier(value)
         end
       end
 
@@ -183,7 +183,7 @@ module CollectionSpace
         groupname = targetnode.name.dup
         targetnode.remove
 
-        max_ct = thisdata.values.map { |v| v.size }.max
+        max_ct = thisdata.values.map{ |v| v.size }.max
         max_ct.times do
           group = Nokogiri::XML::Node.new(groupname, doc)
           pnode.add_child(group)
@@ -200,7 +200,7 @@ module CollectionSpace
       end
 
       def add_uneven_subgroup_warning(parent_path:, intervening_path:,
-                                      subgroup:)
+        subgroup:)
         sgpath = "#{parent_path}/#{intervening_path.join("/")}/#{subgroup}"
         response.add_warning({
           category: :uneven_subgroup_field_values,
@@ -214,7 +214,7 @@ module CollectionSpace
       end
 
       def add_too_many_subgroups_warning(parent_path:, intervening_path:,
-                                         subgroup:)
+        subgroup:)
         sgpath = "#{intervening_path.join("/")}/#{subgroup}"
         response.add_warning({
           category: :subgroup_contains_data_for_nonexistent_groups,
@@ -256,11 +256,11 @@ module CollectionSpace
       # we need to know this in order to create enough empty subgroup elements
       #   to hold the data
       def maximum_subgroup_values(data)
-        data.map { |_field, values| subgroup_value_count(values) }.flatten.max
+        data.map{ |_field, values| subgroup_value_count(values) }.flatten.max
       end
 
       def subgroup_value_count(values)
-        values.map { |subgroup_values| subgroup_values.length }.max
+        values.map{ |subgroup_values| subgroup_values.length }.max
       end
 
       def assign_subgroup_values_to_group_hash_data(groups, field, subgroups)
@@ -288,13 +288,13 @@ module CollectionSpace
 
         unless even_subgroup_field_values?(thisdata)
           add_uneven_subgroup_warning(parent_path: parent_path,
-                                      intervening_path: subgroup_path,
-                                      subgroup: subgroup)
+            intervening_path: subgroup_path,
+            subgroup: subgroup)
         end
         unless group_accommodates_subgroup?(groups, thisdata)
           add_too_many_subgroups_warning(parent_path: parent_path,
-                                         intervening_path: subgroup_path,
-                                         subgroup: subgroup)
+            intervening_path: subgroup_path,
+            subgroup: subgroup)
         end
 
         thisdata.each { |field, subgroups|
@@ -316,7 +316,7 @@ module CollectionSpace
 
         groups.each do |group_index, group|
           target = subgrouplist_target(parent_path, group_index, subgroup_path,
-                                       subgroup)
+            subgroup)
           map_subgroups_to_group(group, target)
         end
       end

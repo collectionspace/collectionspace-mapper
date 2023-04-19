@@ -3,7 +3,6 @@
 module CollectionSpace
   module Mapper
     class UnknownTerm
-
       # Reconstitute UnknownTerm object from cached string
       # @param str [String] of form: type|||subtype|||term
       def self.from_string(str)

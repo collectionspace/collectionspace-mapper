@@ -4,7 +4,7 @@ require "spec_helper"
 module MatchDocMatcher
   class MatchDocMatcher
     def initialize(fixture_path, handler, mode: :normal, blanks: :drop)
-      delblank = blanks == :drop ? true : false
+      delblank = blanks == :drop
       @fixture_doc = get_xml_fixture(fixture_path, delblank)
       @fixture_xpaths = test_xpaths(fixture_doc, handler.record.mappings)
       @mode = mode
@@ -112,18 +112,19 @@ module MatchDocMatcher
     end
 
     def mapped_vals
-      @mapped_vals ||= mapped_vals = fixture_xpaths.map{ |xpath|
+      @mapped_vals ||= fixture_xpaths.map{ |xpath|
         [xpath, standardize_value(mapped_doc.xpath(xpath).text)]
       }.to_h
     end
 
-    # The way CollectionSpace uses different URIs for the same namespace prefix in
-    #   the same document is irregular and makes it impossible to query a document
-    #   via xpath if the namespaces are defined. For testing, remove them...
+    # The way CollectionSpace uses different URIs for the same namespace prefix
+    #   in the same document is irregular and makes it impossible to query a
+    #   document via xpath if the namespaces are defined. For testing, remove
+    #   them...
     def remove_namespaces(doc)
       doc = doc.clone
       doc.remove_namespaces!
-      doc.xpath("/*/*").each { |n| n.name = n.name.sub("ns2:", "") }
+      doc.xpath("/*/*").each{ |n| n.name = n.name.sub("ns2:", "") }
       doc
     end
 
@@ -158,14 +159,14 @@ module MatchDocMatcher
           node.remove
         end
         # Drop fields created by CS application
-        node.remove if rejectfields.bsearch { |f| f == node.name }
+        node.remove if rejectfields.bsearch{ |f| f == node.name }
       end
       doc
     end
 
     def get_xpaths(doc)
       xpaths = []
-      doc.traverse { |node| xpaths << node.path }
+      doc.traverse{ |node| xpaths << node.path }
       xpaths.sort!
     end
 
@@ -180,10 +181,11 @@ module MatchDocMatcher
       end
     end
 
-    # returns array of just the most specific xpaths from cleaned fixture XML for
-    #   testing removes fields not included in the RecordMapper mappings (which
-    #   may be set in the XML due to weird default stuff in the
+    # returns array of just the most specific xpaths from cleaned fixture XML
+    #   for testing removes fields not included in the RecordMapper mappings
+    #   (which may be set in the XML due to weird default stuff in the
     #   application/services layer, but don't need to be in mapped XML)
+    #
     # testdoc should be the result of calling get_xml_fixture
     def test_xpaths(testdoc, mappings)
       xpaths = list_xpaths(testdoc)
@@ -197,7 +199,7 @@ module MatchDocMatcher
 
       xpaths.select do |path|
         path = remove_xpath_occurrence_indicators(path)
-        mappaths.any? { |e| path.start_with?(e) }
+        mappaths.any?{ |e| path.start_with?(e) }
       end
     end
 

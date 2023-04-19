@@ -10,8 +10,8 @@ module CollectionSpace
     #   CollectionSpace XML
     class RecordMapper
       # @param handler [CollectionSpace::Mapper::DataHandler]
-      # @param mapper [String, Hash] parseable JSON string or already-parsed Hash
-      #   from JSON
+      # @param mapper [String, Hash] parseable JSON string or already-parsed
+      #   Hash from JSON
       def initialize(handler:, mapper:)
         @handler = handler
         handler.config.recordmapper = self
@@ -97,8 +97,6 @@ module CollectionSpace
           CollectionSpace::Mapper::Authority
         when "relation"
           CollectionSpace::Mapper::Relationship
-        else
-          nil
         end
       end
 

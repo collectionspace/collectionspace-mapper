@@ -16,14 +16,14 @@ RSpec.describe CollectionSpace::Mapper::Response do
   let(:mapper){ "core_6-1-0_collectionobject" }
   let(:baseconfig){ {delimiter: ";"} }
   let(:customcfg){ {} }
-  let(:config) { baseconfig.merge(customcfg) }
+  let(:config){ baseconfig.merge(customcfg) }
 
   let(:data) do
     {
-      'objectNumber'=>'123',
+      "objectNumber" => "123",
       "collection" => "Permanent Collection",
-      "title"=>"",
-      "numberValue"=>nil
+      "title" => "",
+      "numberValue" => nil
     }
   end
 
@@ -54,7 +54,7 @@ RSpec.describe CollectionSpace::Mapper::Response do
       let(:customcfg) do
         {default_values: {
           "publishTo" => "DPLA;Omeka",
-          "collection"=>"Temp"
+          "collection" => "Temp"
         }}
       end
 
@@ -69,7 +69,7 @@ RSpec.describe CollectionSpace::Mapper::Response do
         {
           default_values: {
             "publishTo" => "DPLA;Omeka",
-            "collection"=>"Temp"
+            "collection" => "Temp"
           },
           force_defaults: true
         }
@@ -83,8 +83,8 @@ RSpec.describe CollectionSpace::Mapper::Response do
   end
 
   describe "#set_record_status", vcr: "core_domain_check" do
-    let(:checker){ double('Checker') }
-    let(:data){ { field: 'foo'} }
+    let(:checker){ double("Checker") }
+    let(:data){ {field: "foo"} }
 
     context "when new" do
       it "sets status as expected" do
@@ -104,16 +104,16 @@ RSpec.describe CollectionSpace::Mapper::Response do
         allow(checker).to receive(:call).and_return(
           {
             status: :existing,
-            csid: 'csid',
-            uri: 'uri',
-            refname: 'refname'
+            csid: "csid",
+            uri: "uri",
+            refname: "refname"
           }
         )
         response.set_record_status
         expect(response.record_status).to eq(:existing)
-        expect(response.csid).to eq('csid')
-        expect(response.uri).to eq('uri')
-        expect(response.refname).to eq('refname')
+        expect(response.csid).to eq("csid")
+        expect(response.uri).to eq("uri")
+        expect(response.refname).to eq("refname")
       end
     end
 
@@ -130,18 +130,18 @@ RSpec.describe CollectionSpace::Mapper::Response do
 
   describe "#valid?", vcr: "botgarden_domain_check" do
     let(:result){ response.valid? }
-    let(:profile){ 'botgarden' }
+    let(:profile){ "botgarden" }
     let(:mapper){ "botgarden_2-0-1_taxon-local" }
 
     context "when there are no errors" do
-      let(:data) { {"termDisplayName" => "Tanacetum"} }
+      let(:data){ {"termDisplayName" => "Tanacetum"} }
 
       it "returns true" do
         expect(result).to be true
       end
     end
     context "when there is one or more errors" do
-      let(:data) { {"taxonName" => "Tanacetum"} }
+      let(:data){ {"taxonName" => "Tanacetum"} }
       it "returns false" do
         expect(result).to be false
       end
@@ -149,7 +149,7 @@ RSpec.describe CollectionSpace::Mapper::Response do
   end
 
   describe "#xml", vcr: "botgarden_taxon_tanacetum" do
-    let(:profile){ 'botgarden' }
+    let(:profile){ "botgarden" }
     let(:mapper){ "botgarden_2-0-1_taxon-local" }
 
     let(:data) {
@@ -174,12 +174,12 @@ RSpec.describe CollectionSpace::Mapper::Response do
 
     context "when authority record" do
       let(:mapper){ "core_6-1-0_place-local" }
-      let(:data) { {"termdisplayname" => "Silk Hope"} }
+      let(:data){ {"termdisplayname" => "Silk Hope"} }
 
       it "keeps mapping for shortIdentifier in xphash" do
         mappings = result["places_common"].mappings
           .map(&:fieldname)
-        expect(mappings).to include('shortIdentifier')
+        expect(mappings).to include("shortIdentifier")
       end
 
       it "removes xpaths to which no fields map" do
@@ -188,12 +188,12 @@ RSpec.describe CollectionSpace::Mapper::Response do
     end
   end
 
-  describe '#terms', vcr: "core_domain_check" do
+  describe "#terms", vcr: "core_domain_check" do
     let(:customcfg){ {delimiter: "|", response_mode: "verbose"} }
     let(:processed){ response.map }
 
     context "with some terms found and some terms not found" do
-      let(:result) { processed.terms.reject{ |t| t.found? } }
+      let(:result){ processed.terms.reject{ |t| t.found? } }
 
       vcr_found_opts = {
         cassette_name: "datahandler_uncached_found_terms",
@@ -267,14 +267,14 @@ RSpec.describe CollectionSpace::Mapper::Response do
 
       result = handler.process(resp2)
         .terms
-        .select { |t| !t.found? }
+        .select{ |t| !t.found? }
       expect(result.length).to eq(1)
     end
   end
 
   describe "#map", vcr: "botgarden_taxon_tanacetum" do
     let(:result){ response.map }
-    let(:profile){ 'botgarden' }
+    let(:profile){ "botgarden" }
     let(:mapper){ "botgarden_2-0-1_taxon-local" }
     let(:data) {
       {"termDisplayName" => "Tanacetum;Tansy", "termStatus" => "made up"}
@@ -293,7 +293,7 @@ RSpec.describe CollectionSpace::Mapper::Response do
 
     context "when response_mode = verbose in config",
       vcr: "botgarden_taxon_tanacetum" do
-        let(:customcfg){ {response_mode: 'verbose'} }
+        let(:customcfg){ {response_mode: "verbose"} }
 
         it "returns as expected" do
           expect(result.doc).to be_a(Nokogiri::XML::Document)

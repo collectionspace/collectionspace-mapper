@@ -62,7 +62,7 @@ module CollectionSpace
       end
 
       def dup
-        newobj = self.clone
+        newobj = clone
         instance_variables.each do |ivar|
           newobj.instance_variable_set(
             ivar,
@@ -176,10 +176,10 @@ module CollectionSpace
         defaults = handler.batch.default_values
         return orig_data unless defaults
 
-        if handler.batch.force_defaults
-          to_merge = defaults
+        to_merge = if handler.batch.force_defaults
+          defaults
         else
-          to_merge = non_forced_defaults(defaults)
+          non_forced_defaults(defaults)
         end
         orig_data.merge(to_merge)
       end
@@ -189,8 +189,6 @@ module CollectionSpace
           origval = orig_data[field]
           if origval.nil? || origval.empty?
             [field, val]
-          else
-            nil
           end
         }.compact.to_h
       end

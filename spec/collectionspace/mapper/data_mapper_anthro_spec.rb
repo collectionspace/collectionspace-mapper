@@ -11,13 +11,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     let(:mapper){ "anthro_4-1-2_claim" }
 
     context "record 1" do
-        let(:datahash_path) {
-          "spec/support/datahashes/anthro/claim1.json"
-        }
-        let(:fixture_path) { "anthro/claim1.xml" }
+      let(:datahash_path) {
+        "spec/support/datahashes/anthro/claim1.json"
+      }
+      let(:fixture_path){ "anthro/claim1.xml" }
 
-        it_behaves_like "Mapped"
-      end
+      it_behaves_like "Mapped"
+    end
   end
 
   context "collectionobject", vcr: "data_mapper_anthro_collectionobject" do
@@ -29,7 +29,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       let(:datahash_path) {
         "spec/support/datahashes/anthro/collectionobject2.json"
       }
-      let(:fixture_path) { "anthro/collectionobject1.xml" }
+      let(:fixture_path){ "anthro/collectionobject1.xml" }
 
       it_behaves_like "Mapped"
     end
@@ -42,7 +42,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       let(:datahash_path) {
         "spec/support/datahashes/anthro/osteology1.json"
       }
-      let(:fixture_path) { "anthro/osteology1.xml" }
+      let(:fixture_path){ "anthro/osteology1.xml" }
 
       it_behaves_like "Mapped"
     end

@@ -27,14 +27,14 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
   end
 
   describe "#call" do
-    let(:result) { service.call(id) }
+    let(:result){ service.call(id) }
 
     context "when mapper is for an authority" do
       let(:mapper){ "core_6-1-0_person-local" }
 
       context "and one result is found",
         vcr: "client_status_svc_auth_lookup_found" do
-          let(:id){ 'John Doe' }
+          let(:id){ "John Doe" }
 
           it "status = :existing" do
             expect(result[:status]).to eq(:existing)

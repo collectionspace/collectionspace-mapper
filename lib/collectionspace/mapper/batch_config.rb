@@ -10,7 +10,6 @@ module CollectionSpace
     # Called on initialization of {CollectionSpace::Mapper::DataHandler}, and
     #   sets values in that class' `batch` configuration.
     class BatchConfig
-
       VALID_VALUES = {
         batch_mode: ["full record", "date details", "vocabulary terms"],
         check_record_status: ["true", "false", true, false],

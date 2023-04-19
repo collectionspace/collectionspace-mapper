@@ -48,8 +48,8 @@ end
 
 puts "#{datahashes.size} datahashes"
 
-datahashes.map! { |dh| dh.compact }
-datahashes.map! { |dh| JSON.pretty_generate(dh) }
+datahashes.map!{ |dh| dh.compact }
+datahashes.map!{ |dh| JSON.pretty_generate(dh) }
 
 datahashes.each_with_index do |dh, i|
   rownum = i + 2

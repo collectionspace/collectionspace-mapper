@@ -34,10 +34,10 @@ AllCops:
 #   NewCops: enable
 #   SuggestExtensions:
 #     rubocop-rake: false
-# Layout/SpaceBeforeBlockBraces:
-#   EnforcedStyle: no_space
-#   EnforcedStyleForEmptyBraces: no_space
-# Layout/SpaceInsideHashLiteralBraces:
-#   EnforcedStyle: no_space
+Layout/SpaceBeforeBlockBraces:
+  EnforcedStyle: no_space
+  EnforcedStyleForEmptyBraces: no_space
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
 # Lint/RedundantCopDisableDirective:
 #   Enabled: false

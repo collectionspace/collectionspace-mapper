@@ -5,7 +5,7 @@ module CollectionSpace
     # special behavior for media mapping
     module Media
       def extended(mod)
-        puts "#{mod} extended with #{self.name}"
+        puts "#{mod} extended with #{name}"
       end
 
       def special_mappings

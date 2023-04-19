@@ -3,10 +3,10 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Dates::DateBomber do
-  subject(:bomber) { described_class.new }
+  subject(:bomber){ described_class.new }
 
   describe "#mappable" do
-    let(:result) { bomber.mappable }
+    let(:result){ bomber.mappable }
 
     it "returns expected" do
       expected = CollectionSpace::Mapper.bomb
@@ -15,7 +15,7 @@ RSpec.describe CollectionSpace::Mapper::Dates::DateBomber do
   end
 
   describe "#stamp" do
-    let(:result) { bomber.stamp }
+    let(:result){ bomber.stamp }
 
     it "returns expected" do
       expected = CollectionSpace::Mapper.bomb

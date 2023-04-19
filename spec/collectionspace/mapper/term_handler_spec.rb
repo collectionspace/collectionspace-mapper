@@ -25,45 +25,48 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
   end
   let(:response) do
     CollectionSpace::Mapper::Response.new(
-      {colname=>"foo"},
+      {colname => "foo"},
       handler
     )
   end
 
   describe ".new", vcr: "core_domain_check" do
-    let(:result){ th; response.transformed_data[colname.downcase] }
+    let(:result){
+      th
+      response.transformed_data[colname.downcase]
+    }
     let(:errs){ response.errors }
 
     context "titletranslationlanguage (vocabulary, field subgroup)" do
-        let(:colname) { "titleTranslationLanguage" }
-        let(:data) {
-          [["%NULLVALUE%", "Swahili"], %w[Klingon Spanish],
-           [CollectionSpace::Mapper.bomb]]
-        }
+      let(:colname){ "titleTranslationLanguage" }
+      let(:data) {
+        [["%NULLVALUE%", "Swahili"], %w[Klingon Spanish],
+          [CollectionSpace::Mapper.bomb]]
+      }
 
-        it "result is the transformed value for mapping",
-          vcr: "term_handler_result_titletranslationlanguage" do
-            expected = [
-              ["",
-               "urn:cspace:c.core.collectionspace.org:vocabularies:name"\
-                 "(languages):item:name(swa)'Swahili'"],
-              ["",
-               "urn:cspace:c.core.collectionspace.org:vocabularies:name"\
-                 "(languages):item:name(spa)'Spanish'"],
-              [CollectionSpace::Mapper.bomb]
-            ]
-            expect(result).to eq(expected)
-            err = errs.find do
-              |error| error.is_a?(Hash) &&
-                error[:category] == :no_records_found_for_term
-            end
-            expect(err[:value]).to eq("Klingon")
+      it "result is the transformed value for mapping",
+        vcr: "term_handler_result_titletranslationlanguage" do
+          expected = [
+            ["",
+              "urn:cspace:c.core.collectionspace.org:vocabularies:name"\
+                "(languages):item:name(swa)'Swahili'"],
+            ["",
+              "urn:cspace:c.core.collectionspace.org:vocabularies:name"\
+                "(languages):item:name(spa)'Spanish'"],
+            [CollectionSpace::Mapper.bomb]
+          ]
+          expect(result).to eq(expected)
+          err = errs.find do |error|
+            error.is_a?(Hash) &&
+              error[:category] == :no_records_found_for_term
           end
-      end
+          expect(err[:value]).to eq("Klingon")
+        end
+    end
 
     context "reference (authority, field group)" do
-      let(:colname) { "referenceLocal" }
-      let(:data) { ["Arthur", "Harding", "%NULLVALUE%"] }
+      let(:colname){ "referenceLocal" }
+      let(:data){ ["Arthur", "Harding", "%NULLVALUE%"] }
 
       it "result is the transformed value for mapping" do
         expected = [
@@ -79,20 +82,23 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
   end
 
   describe "#terms" do
-    let(:terms) { th; response.terms }
+    let(:terms){
+      th
+      response.terms
+    }
 
     context "titletranslationlanguage (vocabulary, field subgroup)" do
-      let(:colname) { "titleTranslationLanguage" }
+      let(:colname){ "titleTranslationLanguage" }
       let(:data) {
         [["%NULLVALUE%", "Swahili"], %w[Sanza Spanish],
-         [CollectionSpace::Mapper.bomb]]
+          [CollectionSpace::Mapper.bomb]]
       }
 
       context "when new term (Sanza) is initially encountered" do
         it "returns terms as expected",
           vcr: "term_handler_terms_sanza" do
-            found = terms.select { |h| h.found? }
-            not_found = terms.reject { |h| h.found? }
+            found = terms.select{ |h| h.found? }
+            not_found = terms.reject{ |h| h.found? }
             expect(terms.length).to eq(3)
             expect(found.length).to eq(2)
             expect(not_found.first.urn).to eq(
@@ -105,17 +111,17 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
         it "the term is still treated as not found",
           vcr: "term_handler_terms_sanza" do
             new_resp = CollectionSpace::Mapper::Response.new(
-              {colname=>"bar"},
+              {colname => "bar"},
               handler
             )
-            new_th = CollectionSpace::Mapper::TermHandler.new(
+            CollectionSpace::Mapper::TermHandler.new(
               mapping: mapping,
               data: data,
               handler: handler,
               response: new_resp
             )
 
-            chk = new_resp.terms.select { |h| !h.found? }
+            chk = new_resp.terms.select{ |h| !h.found? }
             expect(chk.length).to eq(1)
             expect(chk.first.urn).to eq(
               "vocabularies|||languages|||Sanza"
@@ -125,7 +131,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
     end
 
     context "reference (authority, field group)" do
-      let(:colname) { "referenceLocal" }
+      let(:colname){ "referenceLocal" }
       let(:data) {
         ["Reference 3", "Reference 3", "Reference 4", "%NULLVALUE%"]
       }
@@ -134,8 +140,8 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
         it "contains UsedTerm object for each value",
           vcr: "term_handler_terms_ref_multi_used" do
             th
-            found = response.terms.select { |h| h.found? }
-            not_found = response.terms.reject { |h| h.found? }
+            found = response.terms.select{ |h| h.found? }
+            not_found = response.terms.reject{ |h| h.found? }
             expect(response.terms.length).to eq(3)
             expect(found.length).to eq(0)
             expect(not_found[0].display_name).to eq("Reference 3")

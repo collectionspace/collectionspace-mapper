@@ -8,25 +8,25 @@ RSpec.describe CollectionSpace::Mapper::DataSplitter do
   let(:handler) do
     setup_handler(
       mapper: "core_6-1-0_group",
-      config: {delimiter: ';', subgroup_delimiter: '^^' }
+      config: {delimiter: ";", subgroup_delimiter: "^^"}
     )
   end
 
   describe "#call", vcr: "core_domain_check" do
     let(:result){ splitter.call(data, mode) }
 
-    context 'with unsupported mode' do
+    context "with unsupported mode" do
       let(:mode){ :unknown }
       let(:data){ "a" }
 
-      it 'raises error' do
+      it "raises error" do
         expect{ result }.to raise_error(
-          CollectionSpace::Mapper::UnknownSplitterMode, 'unknown'
+          CollectionSpace::Mapper::UnknownSplitterMode, "unknown"
         )
       end
     end
 
-    context 'with mode = :simple' do
+    context "with mode = :simple" do
       let(:mode){ :simple }
 
       context 'when "a"' do
@@ -78,13 +78,13 @@ RSpec.describe CollectionSpace::Mapper::DataSplitter do
       end
     end
 
-    context 'with mode = :subgroup' do
+    context "with mode = :subgroup" do
       let(:mode){ :subgroup }
 
       context 'when "a^^b;c^^d"' do
-          let(:data){ "a^^b;c^^d" }
+        let(:data){ "a^^b;c^^d" }
 
-          it 'returns [["a", "b"], ["c", "d"]]' do
+        it 'returns [["a", "b"], ["c", "d"]]' do
           expect(result).to eq([%w[a b], %w[c d]])
         end
       end

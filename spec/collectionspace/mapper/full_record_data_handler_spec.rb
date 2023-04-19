@@ -11,12 +11,12 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
     )
   end
 
-  let(:profile){ 'core' }
+  let(:profile){ "core" }
   let(:mapper){ "core_6-1-0_collectionobject" }
   let(:config){ {} }
 
   describe "#service_type", vcr: "anthro_domain_check" do
-    let(:servicetype) { handler.service_type }
+    let(:servicetype){ handler.service_type }
 
     context "when anthro place" do
       let(:profile){ "anthro" }
@@ -31,7 +31,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
   describe "#validate", vcr: "core_domain_check" do
     let(:result){ handler.validate(data) }
 
-    context 'when given Hash' do
+    context "when given Hash" do
       let(:data){ {"objectNumber" => "123"} }
 
       it "returns CollectionSpace::Mapper::Response object" do
@@ -39,7 +39,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
       end
     end
 
-    context 'when given Response' do
+    context "when given Response" do
       let(:data) do
         CollectionSpace::Mapper::Response.new(
           {"objectNumber" => "123"},
@@ -54,8 +54,8 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
   end
 
   describe "#check_fields", vcr: "bonsai_domain_check" do
-    let(:result) { handler.check_fields(data) }
-    let(:profile){ 'bonsai' }
+    let(:result){ handler.check_fields(data) }
+    let(:profile){ "bonsai" }
     let(:mapper){ "bonsai_4-1-1_conservation" }
     let(:data) do
       {
@@ -75,7 +75,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
   end
 
   describe "#prep", vcr: "core_domain_check" do
-    let(:data) { {"objectNumber" => "123"} }
+    let(:data){ {"objectNumber" => "123"} }
 
     it "can be called with response from validation" do
       vresult = handler.validate(data)
@@ -95,7 +95,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
     end
 
     context "when response_mode = verbose" do
-      let(:config){ {response_mode: 'verbose'} }
+      let(:config){ {response_mode: "verbose"} }
 
       it "returned response includes detailed data transformation info" do
         result = handler.prep(data)
@@ -130,9 +130,9 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
   end
 
   describe "#map", vcr: "datahandler_process_and_map" do
-    let(:data) { {"objectNumber" => "123"} }
-    let(:prepped) { handler.prep(data) }
-    let(:result) { handler.map(prepped) }
+    let(:data){ {"objectNumber" => "123"} }
+    let(:prepped){ handler.prep(data) }
+    let(:result){ handler.map(prepped) }
 
     it "returns CollectionSpace::Mapper::Response object" do
       expect(result).to be_a(CollectionSpace::Mapper::Response)
@@ -147,7 +147,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
     end
 
     context "when response_mode = verbose" do
-      let(:config){ {response_mode: 'verbose'} }
+      let(:config){ {response_mode: "verbose"} }
 
       it "returned response includes detailed data transformation info" do
         expect(result.transformed_data).not_to be_empty

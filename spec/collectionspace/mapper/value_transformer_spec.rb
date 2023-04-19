@@ -2,6 +2,14 @@
 
 require "spec_helper"
 
+class FakeMapping
+  attr_reader :datacolumn, :transforms
+  def initialize(column, transforms)
+    @datacolumn = column
+    @transforms = transforms
+  end
+end
+
 RSpec.describe CollectionSpace::Mapper::ValueTransformer do
   subject(:transformer) do
     described_class.new(
@@ -10,14 +18,6 @@ RSpec.describe CollectionSpace::Mapper::ValueTransformer do
       handler: handler,
       response: response
     )
-  end
-
-  class FakeMapping
-    attr_reader :datacolumn, :transforms
-    def initialize(column, transforms)
-      @datacolumn = column
-      @transforms = transforms
-    end
   end
 
   let(:handler) do
@@ -31,13 +31,13 @@ RSpec.describe CollectionSpace::Mapper::ValueTransformer do
   let(:mapping){ FakeMapping.new(column, transforms) }
   let(:response) do
     CollectionSpace::Mapper::Response.new(
-      {column=>value},
+      {column => value},
       handler
     )
   end
 
   describe "#call", vcr: "anthro_domain_check" do
-    let(:result) { transformer.call }
+    let(:result){ transformer.call }
 
     context "when boolean (dentition)" do
       let(:column){ "dentition" }
@@ -46,7 +46,7 @@ RSpec.describe CollectionSpace::Mapper::ValueTransformer do
       }
 
       context "with empty string" do
-        let(:value) { "" }
+        let(:value){ "" }
 
         it "returns false" do
           expect(result).to eq("false")
@@ -59,7 +59,7 @@ RSpec.describe CollectionSpace::Mapper::ValueTransformer do
       let(:transforms) {
         {vocabulary: "behrensmeyer", special: %w[behrensmeyer_translate]}
       }
-      let(:value) { "0" }
+      let(:value){ "0" }
 
       it "returns transformed value for retrieving refname" do
         expect(result).to eq("0 - no cracking or flaking on bone surface")
@@ -71,7 +71,7 @@ RSpec.describe CollectionSpace::Mapper::ValueTransformer do
       let(:transforms) {
         {vocabulary: "behrensmeyer", special: %w[behrensmeyer_translate]}
       }
-      let(:value) { "0" }
+      let(:value){ "0" }
 
       it "returns transformed value for retrieving refname" do
         expect(result).to eq("0 - no cracking or flaking on bone surface")
@@ -89,8 +89,7 @@ RSpec.describe CollectionSpace::Mapper::ValueTransformer do
           ]
         }
       end
-      let(:value) { "Adolescent 26 - 75%" }
-
+      let(:value){ "Adolescent 26 - 75%" }
 
       it "returns replaced value for retrieving refname" do
         expect(result).to eq("adolescent 26-75%")
@@ -99,7 +98,7 @@ RSpec.describe CollectionSpace::Mapper::ValueTransformer do
 
     context "when multiple replacements" do
       let(:column){ "title" }
-      let(:value) { "rice plant" }
+      let(:value){ "rice plant" }
       let(:transforms) do
         {
           replacements: [

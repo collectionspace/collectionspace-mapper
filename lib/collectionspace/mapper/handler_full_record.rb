@@ -184,10 +184,10 @@ module CollectionSpace
       # Called by CSV Importer preprocessing step
       # @param data [Hash, CollectionSpace::Mapper::Response]
       def validate(data)
-        if data.is_a?(Hash)
-          response = CollectionSpace::Mapper::Response.new(data, self)
+        response = if data.is_a?(Hash)
+          CollectionSpace::Mapper::Response.new(data, self)
         else
-          response = data
+          data
         end
         response.validate
       end
@@ -250,7 +250,7 @@ module CollectionSpace
 
       def transform_target(data_column)
         record.mappings
-          .find { |field_mapping| field_mapping.datacolumn == data_column }
+          .find{ |field_mapping| field_mapping.datacolumn == data_column }
       end
     end
   end

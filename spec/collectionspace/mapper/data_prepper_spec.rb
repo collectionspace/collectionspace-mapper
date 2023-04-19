@@ -12,19 +12,19 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
       config: config
     )
   end
-  let(:profile){ 'anthro' }
+  let(:profile){ "anthro" }
   let(:mapper){ "anthro_4-1-2_collectionobject" }
   let(:baseconfig){ {delimiter: ";"} }
   let(:customcfg){ {} }
   let(:config){ baseconfig.merge(customcfg) }
 
-  describe "#prep", vcr: "anthro_domain_check"  do
+  describe "#prep", vcr: "anthro_domain_check" do
     let(:response){ prepper.prep }
 
     describe "leading/trailing space stripping" do
       context "when identifier field" do
-        let(:datahash) { {"objectNumber" => "123 "} }
-        let(:result) { response.transformed_data["objectnumber"] }
+        let(:datahash){ {"objectNumber" => "123 "} }
+        let(:result){ response.transformed_data["objectnumber"] }
 
         it "strips leading/trailing spaces from id field(s)" do
           expect(result).to eq(["123"])
@@ -43,10 +43,10 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
         let(:datahash) do
           {
             "objectNumber" => "123 ",
-            "numberValue"=>" 456 ;786 ;288"
+            "numberValue" => " 456 ;786 ;288"
           }
         end
-        let(:result) { response.transformed_data["numbervalue"] }
+        let(:result){ response.transformed_data["numbervalue"] }
 
         it "strips leading/trailing spaces from id field(s)" do
           expect(result).to eq(["456", "786", "288"])
@@ -64,8 +64,8 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
           "titleTranslation" => "Un Homme^^Hombre; Une Femme^^Fraulein",
           "titleTranslationLanguage" => "French^^Spanish;French^^German",
           "titleType" => "collection;generic",
-          "behrensmeyerUpper"=>"2; 5",
-          "dentition"=>";y"
+          "behrensmeyerUpper" => "2; 5",
+          "dentition" => ";y"
         }
       end
 
@@ -91,7 +91,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
           "urn:cspace:c.anthro.collectionspace.org:vocabularies:name"\
             "(behrensmeyer):item:name(5)'5 - bone crumbling in situ, large "\
             "splinters'"
-          ]
+        ]
         expect(result["titletranslationlanguage"]).to eq(title_expected)
         expect(result["behrensmeyerupper"]).to eq(behrensmeyer_expected)
         expect(result["dentition"]).to eq(["false", "true"])
@@ -105,7 +105,6 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
       end
     end
 
-
     describe "#transform_date_fields" do
       let(:result){ response.transformed_data }
 
@@ -118,7 +117,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
         end
 
         it "results in mappable structured date hashes" do
-          chk = result["identdategroup"].map { |e| e.class }.uniq
+          chk = result["identdategroup"].map{ |e| e.class }.uniq
           expect(chk).to eq([Hash])
         end
       end
@@ -132,7 +131,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
         end
 
         it "results in array of datestamp strings" do
-          chk = result["annotationdate"].select { |e| e["T00:00:00.000Z"] }
+          chk = result["annotationdate"].select{ |e| e["T00:00:00.000Z"] }
           expect(chk.size).to eq(2)
         end
       end
@@ -254,7 +253,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
 
       context "when multi-authority field is part of repeating subgroup",
         vcr: "core_domain_check" do
-          let(:profile){ "core" }
+        let(:profile){ "core" }
         let(:mapper){ "core_6-1-0_media" }
         let(:xpath) {
           "media_common/measuredPartGroupList/measuredPartGroup/"\
@@ -317,8 +316,8 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
               "measuredByPerson" => "Gomongo^^Comodore",
               "measuredByOrganization" => "Cuckoo^^",
               "measurementMethod" =>
-                "sliding_calipers^^theodolite_total_station^^electronic_distance"\
-                "_measurement^^measuring_tape_cloth",
+                "sliding_calipers^^theodolite_total_station^^electronic_"\
+                "distance_measurement^^measuring_tape_cloth",
               "value" => "25^^83^^56^^10",
               "measurementUnit" => "centimeters^^carats^^kilograms^^inches",
               "valueQualifier" => "cm^^ct^^kg^^in",

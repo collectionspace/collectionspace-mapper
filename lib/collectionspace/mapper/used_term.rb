@@ -23,7 +23,7 @@ module CollectionSpace
         @category = category
         @field = field
         @found = found
-        @refname  = refname
+        @refname = refname
         @key = refname.key
       end
 

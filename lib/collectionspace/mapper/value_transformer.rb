@@ -15,7 +15,7 @@ module CollectionSpace
         # @param handler [CollectionSpace::Mapper::DataHandler]
         # @param response [CollectionSpace::Mapper::Response]
         def call(value:, mapping:, handler:, response:)
-          self.new(
+          new(
             value: value,
             mapping: mapping,
             handler: handler,

@@ -6,7 +6,7 @@ module CollectionSpace
       class ShortIdentifier
         class << self
           def call(term)
-            self.new(term: term).call
+            new(term: term).call
           end
         end
 

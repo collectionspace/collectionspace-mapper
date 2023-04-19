@@ -10,7 +10,7 @@ module CollectionSpace
     class XmlTemplate
       class << self
         def call(...)
-          self.new(...)
+          new(...)
         end
       end
 
@@ -23,13 +23,14 @@ module CollectionSpace
       def doc
         xml.dup
       end
+
       private
 
       attr_reader :docstructure, :xml
 
       def build_xml
         builder = Nokogiri::XML::Builder.new do |xml|
-          xml.document { create_record_namespace_nodes(xml) }
+          xml.document{ create_record_namespace_nodes(xml) }
         end
         Nokogiri::XML(builder.to_xml)
       end

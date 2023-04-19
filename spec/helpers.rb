@@ -32,16 +32,18 @@ module Helpers
   end
 
   # @todo remove after refactoring config
-  def setup(profile: 'core', mapper: nil)
+  def setup(profile: "core", mapper: nil)
     CollectionSpace::Mapper.config.client = send("#{profile}_client".to_sym)
     CollectionSpace::Mapper.config.termcache = send("#{profile}_cache".to_sym)
-    CollectionSpace::Mapper.config.csidcache = send("#{profile}_csid_cache".to_sym)
+    CollectionSpace::Mapper.config.csidcache = send(
+      "#{profile}_csid_cache".to_sym
+    )
     if mapper
       setup_recordmapper(mapper)
     end
   end
 
-  def setup_handler(mapper:, profile: 'core', config: {})
+  def setup_handler(mapper:, profile: "core", config: {})
     client = send("#{profile}_client".to_sym)
     termcache = send("#{profile}_cache".to_sym)
     csidcache = send("#{profile}_csid_cache".to_sym)
@@ -59,8 +61,8 @@ module Helpers
   def setup_recordmapper(mapper)
     CollectionSpace::Mapper.config.recordmapper =
       CollectionSpace::Mapper::RecordMapper.new(
-      mapper: get_json_record_mapper(mapper)
-    )
+        mapper: get_json_record_mapper(mapper)
+      )
   end
 
   def get_record_mapper_object(path, cache = nil)
@@ -77,7 +79,7 @@ module Helpers
   def remove_namespaces(doc)
     doc = doc.clone
     doc.remove_namespaces!
-    doc.xpath("/*/*").each { |n| n.name = n.name.sub("ns2:", "") }
+    doc.xpath("/*/*").each{ |n| n.name = n.name.sub("ns2:", "") }
     doc
   end
 
@@ -112,14 +114,14 @@ module Helpers
         node.remove
       end
       # Drop fields created by CS application
-      node.remove if rejectfields.bsearch { |f| f == node.name }
+      node.remove if rejectfields.bsearch{ |f| f == node.name }
     end
     doc
   end
 
   def get_xpaths(doc)
     xpaths = []
-    doc.traverse { |node| xpaths << node.path }
+    doc.traverse{ |node| xpaths << node.path }
     xpaths.sort!
   end
 
@@ -151,7 +153,7 @@ module Helpers
 
     xpaths.select do |path|
       path = remove_xpath_occurrence_indicators(path)
-      mappaths.any? { |e| path.start_with?(e) }
+      mappaths.any?{ |e| path.start_with?(e) }
     end
   end
 

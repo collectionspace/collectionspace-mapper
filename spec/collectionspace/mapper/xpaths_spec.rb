@@ -13,7 +13,7 @@ RSpec.describe CollectionSpace::Mapper::Xpaths do
   end
 
   describe "#for_row", vcr: "bonsai_domain_check" do
-    let(:profile){ 'bonsai' }
+    let(:profile){ "bonsai" }
     let(:mapper){ "bonsai_4-1-1_objectexit" }
 
     it "removes non-kept mappings" do

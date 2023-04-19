@@ -32,7 +32,7 @@ module CollectionSpace
       def cached_as_unknown?(val)
         return true if termcache.exists?("unknownvalue", type_subtype, val)
         return true if termcache.exists?("unknownvalue", type_subtype,
-                                         case_swap(val))
+          case_swap(val))
 
         false
       end
@@ -159,7 +159,7 @@ module CollectionSpace
         return found if found
 
         response.add_error({
-          category: "unsuccessful_csid_lookup_for_term".to_sym,
+          category: :unsuccessful_csid_lookup_for_term,
           field: "",
           type: type,
           subtype: subtype,

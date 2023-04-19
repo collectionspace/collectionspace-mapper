@@ -12,12 +12,12 @@ RSpec.describe CollectionSpace::Mapper::AuthorityHierarchyPrepper do
       config: config
     )
   end
-  let(:profile){ 'core' }
+  let(:profile){ "core" }
   let(:mapper){ "core_6-1-0_authorityhierarchy" }
   let(:config){ {response_mode: "verbose"} }
   let(:datahash){ get_datahash(path: datahash_path) }
 
-  describe "#prep", vcr: "core_domain_check"  do
+  describe "#prep", vcr: "core_domain_check" do
     let(:response){ prepper.prep }
 
     vcr_opts = {

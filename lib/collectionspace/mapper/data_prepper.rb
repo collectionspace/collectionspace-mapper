@@ -3,7 +3,6 @@
 module CollectionSpace
   module Mapper
     class DataPrepper
-
       # @param data [Hash, CollectionSpace::Mapper::Response]
       # @param handler [CollectionSpace::Mapper::DataHandler]
       def initialize(data, handler)
@@ -31,25 +30,25 @@ module CollectionSpace
       end
 
       def transform_data
-        response.xpaths.values.each { |xpath| do_transforms(xpath) }
+        response.xpaths.values.each{ |xpath| do_transforms(xpath) }
       end
 
       def transform_date_fields
-        response.xpaths.values.each { |xpath| do_date_transforms(xpath) }
+        response.xpaths.values.each{ |xpath| do_date_transforms(xpath) }
       end
 
       def handle_term_fields
-        response.xpaths.values.each { |xpath| do_term_handling(xpath) }
+        response.xpaths.values.each{ |xpath| do_term_handling(xpath) }
       end
 
       def check_data
-        response.xpaths.values.each { |xpath| check_data_quality(xpath) }
+        response.xpaths.values.each{ |xpath| check_data_quality(xpath) }
       end
 
       def combine_data_fields
         return unless response.valid?
 
-        response.xpaths.values.each { |xpath| combine_data_values(xpath) }
+        response.xpaths.values.each{ |xpath| combine_data_values(xpath) }
       end
 
       def identifier?(column)
@@ -145,7 +144,7 @@ module CollectionSpace
       end
 
       def transform_values(mapping, data)
-        data.map { |val| transform(mapping, val) }
+        data.map{ |val| transform(mapping, val) }
       end
 
       def transform(mapping, value)
@@ -167,14 +166,12 @@ module CollectionSpace
           data = sourcedata[column]
           next if data.blank?
 
-
           subgroup = !data.first.is_a?(String)
 
           csdates = [data].flatten
             .map do |dateval|
               CollectionSpace::Mapper::Dates::CspaceDate.new(dateval, handler)
             end
-
 
           case type
           when "structured date group"
@@ -269,23 +266,23 @@ module CollectionSpace
         xform = response.transformed_data
 
         fields.each do |field, cols|
-            xformed = cols.map{ |col|
-              xform[col.datacolumn.downcase]
-            }.compact
-            chk = []
-            xformed.each { |arr| chk << arr.map { |e| e.class } }
-            chk = chk.flatten.uniq
-            if chk == [String] || chk == [Hash]
-              response.combined_data[xpath.path][field] = xformed.flatten
-            elsif chk == [Array]
-              response.combined_data[xpath.path][field] =
-                combine_subgroup_values(xformed)
-            elsif chk == [NilClass] || chk.empty?
-              next
-            else
-              raise StandardError,
-                "Mixed class types in multi-column field set"
-            end
+          xformed = cols.map{ |col|
+            xform[col.datacolumn.downcase]
+          }.compact
+          chk = []
+          xformed.each{ |arr| chk << arr.map{ |e| e.class } }
+          chk = chk.flatten.uniq
+          if chk == [String] || chk == [Hash]
+            response.combined_data[xpath.path][field] = xformed.flatten
+          elsif chk == [Array]
+            response.combined_data[xpath.path][field] =
+              combine_subgroup_values(xformed)
+          elsif chk == [NilClass] || chk.empty?
+            next
+          else
+            raise StandardError,
+              "Mixed class types in multi-column field set"
+          end
         end
       end
 
@@ -312,10 +309,10 @@ module CollectionSpace
       def combine_subgroup_values(data)
         combined = []
         group_count = data.map(&:length).uniq.max
-        group_count.times { combined << [] }
+        group_count.times{ combined << [] }
         data.each do |field|
           field.each_with_index do |valarr, i|
-            valarr.each { |e| combined[i] << e }
+            valarr.each{ |e| combined[i] << e }
           end
         end
         combined

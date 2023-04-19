@@ -24,6 +24,7 @@ loader.eager_load
 module CollectionSpace
   module Mapper
     extend Dry::Configurable
+
     module_function
 
     # @return [String] The bomb emoji, used for nuking the contents of fields
@@ -31,15 +32,15 @@ module CollectionSpace
     # @return [Array<String>]
     setting :structured_date_detailed_fields,
       default: %w[dateDisplayDate datePeriod dateAssociation dateNote
-                  dateEarliestSingleYear dateEarliestSingleMonth
-                  dateEarliestSingleDay dateEarliestSingleEra
-                  dateEarliestSingleCertainty dateEarliestSingleQualifier
-                  dateEarliestSingleQualifierValue
-                  dateEarliestSingleQualifierUnit dateLatestYear dateLatestMonth
-                  dateLatestDay dateLatestEra dateLatestCertainty
-                  dateLatestQualifier dateLatestQualifierValue
-                  dateLatestQualifierUnit dateEarliestScalarValue
-                  dateLatestScalarValue scalarValuesComputed],
+        dateEarliestSingleYear dateEarliestSingleMonth
+        dateEarliestSingleDay dateEarliestSingleEra
+        dateEarliestSingleCertainty dateEarliestSingleQualifier
+        dateEarliestSingleQualifierValue
+        dateEarliestSingleQualifierUnit dateLatestYear dateLatestMonth
+        dateLatestDay dateLatestEra dateLatestCertainty
+        dateLatestQualifier dateLatestQualifierValue
+        dateLatestQualifierUnit dateEarliestScalarValue
+        dateLatestScalarValue scalarValuesComputed],
       reader: true
   end
 end
