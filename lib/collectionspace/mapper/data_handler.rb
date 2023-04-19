@@ -61,8 +61,8 @@ module CollectionSpace
         def full_record_config?(args)
           args.keys.none?(:config) ||
             args[:config].empty? ||
-            args[:config].keys.none?(:batch_mode) ||
-            args[:config][:batch_mode] == "full record"
+            args[:config].keys.none?("batch_mode") ||
+            args[:config]["batch_mode"] == "full record"
         end
 
         def vocab_term_args?(args)
@@ -71,14 +71,14 @@ module CollectionSpace
 
         def vocab_term_config?(args)
           args.key?(:config) &&
-            args[:config].key?(:batch_mode) &&
-            args[:config][:batch_mode] == "vocabulary terms"
+            args[:config].key?("batch_mode") &&
+            args[:config]["batch_mode"] == "vocabulary terms"
         end
 
         def date_details_config?(args)
           args.key?(:config) &&
-            args[:config].key?(:batch_mode) &&
-            args[:config][:batch_mode] == "date details"
+            args[:config].key?("batch_mode") &&
+            args[:config]["batch_mode"] == "date details"
         end
       end
     end
