@@ -20,6 +20,15 @@ module CollectionSpace
         def get_date_handler
           nil
         end
+
+        def known_fields
+          [
+            record.identifier_field,
+            "date_field_group",
+            CollectionSpace::Mapper.structured_date_detailed_fields
+          ].flatten
+            .map(&:downcase)
+        end
       end
     end
   end
