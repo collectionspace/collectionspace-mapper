@@ -52,6 +52,7 @@ module CollectionSpace
         setting :document_name, default: nil, reader: true
         setting :extensions, default: [], reader: true
         setting :identifier_field, default: nil, reader: true
+        setting :mapper_name, default: nil, reader: true
         # @return [CollectionSpace::Mapper::ColumnMappings, nil]
         setting :mappings, default: nil, reader: true
         setting :namespaces, default: nil, reader: true
@@ -166,11 +167,12 @@ module CollectionSpace
         response.map
       end
 
-      # Used by collectionspace-csv-importer preprocessing step
+      # Used by collectionspace-csv-importer preprocessing step and
+      #   collectionspace-migration-tools
+      # @param data [Hash] one row of the batch data
       def check_fields(data)
         data_fields = data.keys.map(&:downcase)
-        known = record.mappings.known_columns
-        unknown = data_fields - known
+        unknown = data_fields - known_fields
         known = data_fields - unknown
         {known_fields: known, unknown_fields: unknown}
       end
@@ -251,6 +253,10 @@ module CollectionSpace
       def transform_target(data_column)
         record.mappings
           .find{ |field_mapping| field_mapping.datacolumn == data_column }
+      end
+
+      def known_fields
+        record.mappings.known_columns
       end
     end
   end
