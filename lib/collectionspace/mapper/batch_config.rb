@@ -12,6 +12,7 @@ module CollectionSpace
     class BatchConfig
 
       VALID_VALUES = {
+        batch_mode: ["full record", "date details", "vocabulary terms"],
         check_record_status: ["true", "false", true, false],
         date_format: ["month day year", "day month year"],
         force_defaults: ["true", "false", true, false],
@@ -51,14 +52,6 @@ module CollectionSpace
       def add_default_value(column, value)
         @default_values ||= {}
         @default_values[column] = value
-      end
-
-      def temp_set_app_config
-        hash.each do |setting, value|
-          cfg = CollectionSpace::Mapper.config.batch
-          setter = "#{setting}=".to_sym
-          cfg.send(setter, value)
-        end
       end
 
       private

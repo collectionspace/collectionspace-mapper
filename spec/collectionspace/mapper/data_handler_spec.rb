@@ -17,9 +17,10 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
       end
 
       it "returns vocabulary term handler" do
-        expect(handler).to be_a(
-          CollectionSpace::Mapper::VocabularyTerms::Handler
-        )
+          expect(CollectionSpace::Mapper::VocabularyTerms::Handler).to receive(
+            :new
+          ).with(**{client: client})
+          handler
       end
     end
 
@@ -41,9 +42,10 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
         end
 
         it "returns full record handler" do
-          expect(handler).to be_a(
-            CollectionSpace::Mapper::FullRecordDataHandler
-          )
+          expect(CollectionSpace::Mapper::HandlerFullRecord).to receive(
+            :new
+          ).with(**args)
+          handler
         end
       end
 
@@ -59,9 +61,10 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
         end
 
         it "returns full record handler" do
-          expect(handler).to be_a(
-            CollectionSpace::Mapper::FullRecordDataHandler
-          )
+          expect(CollectionSpace::Mapper::HandlerFullRecord).to receive(
+            :new
+          ).with(**args)
+          handler
         end
       end
 
@@ -77,9 +80,10 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
         end
 
         it "returns full record handler" do
-          expect(handler).to be_a(
-            CollectionSpace::Mapper::FullRecordDataHandler
-          )
+          expect(CollectionSpace::Mapper::HandlerFullRecord).to receive(
+            :new
+          ).with(**args)
+          handler
         end
       end
 
@@ -95,9 +99,29 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
         end
 
         it "returns full record handler" do
-          expect(handler).to be_a(
-            CollectionSpace::Mapper::FullRecordDataHandler
-          )
+          expect(CollectionSpace::Mapper::HandlerFullRecord).to receive(
+            :new
+          ).with(**args)
+          handler
+        end
+      end
+
+      context "with config setting batch mode to date details" do
+        let(:args) do
+          {
+            record_mapper: mapper,
+            client: client,
+            cache: cache,
+            csid_cache: csidcache,
+            config: {batch_mode: "date details"}
+          }
+        end
+
+        it "returns full record handler" do
+          expect(CollectionSpace::Mapper::DateDetails::Handler).to receive(
+            :new
+          ).with(**args)
+          handler
         end
       end
     end

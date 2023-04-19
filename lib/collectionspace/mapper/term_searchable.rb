@@ -108,13 +108,36 @@ module CollectionSpace
         apiresponse = searcher.call(type: type, value: objnum)
 
         if apiresponse
-          rec = rec_from_response(category, objnum, apiresponse)
-          return nil unless rec
+          result_ct = apiresponse["totalItems"]
+          case result_ct
+          when "1"
+            rec = rec_from_response(category, objnum, apiresponse)
+            return nil unless rec
 
-          csid = rec["csid"]
-          csidcache.put(type, "", objnum, csid)
-          termcache.put(type, "", objnum, rec["refName"])
-          csid
+            csid = rec["csid"]
+            csidcache.put(type, "", objnum, csid)
+            termcache.put(type, "", objnum, rec["refName"])
+            csid
+          when "0"
+            response.add_error({
+              category: "unsuccessful_csid_lookup_for_#{category}".to_sym,
+              field: "",
+              subtype: "",
+              type: type,
+              value: objnum,
+              message: "No record (and no CSID) found for #{objnum}."
+            })
+            nil
+          else
+            response.add_error({
+              category: "multiple_records_found_for_#{category}".to_sym,
+              field: column,
+              type: type,
+              subtype: subtype,
+              value: val,
+              message: "#{result_ct} records found with record id: #{val}"
+            })
+          end
         else
           response.add_error({
             category: "unsuccessful_csid_lookup_for_#{category}".to_sym,
@@ -132,7 +155,17 @@ module CollectionSpace
         cached = cached_term_csid(term)
         return cached if cached
 
-        searched_term(term, :csid)
+        found = searched_term(term, :csid)
+        return found if found
+
+        response.add_error({
+          category: "unsuccessful_csid_lookup_for_term".to_sym,
+          field: "",
+          type: type,
+          subtype: subtype,
+          value: term,
+          message: "Problem with search for #{term}."
+        })
       end
 
       def response_item_count(apiresponse)
@@ -187,15 +220,15 @@ module CollectionSpace
 
       def add_bad_lookup_error(category, val)
         response.add_error({
-            category: "unsuccessful_csid_lookup_for_#{category}".to_sym,
-            field: column,
-            type: type,
-            subtype: subtype,
-            value: val,
-            message: "Problem with search for #{val}"
-          })
+          category: "unsuccessful_csid_lookup_for_#{category}".to_sym,
+          field: column,
+          type: type,
+          subtype: subtype,
+          value: val,
+          message: "Problem with search for #{val}"
+        })
 
-          nil
+        nil
       end
 
       # added toward refactoring that isn't done yet

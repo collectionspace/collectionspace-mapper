@@ -8,6 +8,31 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
   context "core profile" do
     let(:profile){ "core" }
 
+    context "with batch_mode = date details", vcr: "core_domain_check" do
+      let(:customcfg){ {batch_mode: "date details", delimiter: "|"} }
+      let(:mapper){ "core_6-1-0_collectionobject" }
+
+      context "with single value date details" do
+        let(:datahash_path) do
+          "spec/support/datahashes/date_details/"\
+            "object_production_date_2.json"
+        end
+        let(:fixture_path){ "date_details/object_production_date_2.xml" }
+
+        it_behaves_like "Mapped"
+      end
+
+      context "with multi value date details (even)" do
+        let(:datahash_path) do
+          "spec/support/datahashes/date_details/"\
+            "object_production_date_3.json"
+        end
+        let(:fixture_path){ "date_details/object_production_date_3.xml" }
+
+        it_behaves_like "Mapped"
+      end
+    end
+
     context "non-hierarchical relationship record" do
       let(:mapper){ "core_6-1-0_nonhierarchicalrelationship" }
 
@@ -44,10 +69,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         end
       end
 
-      # # @todo review whether this is even right, or whether this situation
-      # #   should return an error
-      context "when ID not found", vcr: "core_nhr_ids_not_found",
-        skip: "Looks like wrong behavior" do
+      context "when ID not found", vcr: "core_nhr_ids_not_found" do
           let(:datahash_path) do
             "spec/support/datahashes/core/"\
               "nonHierarchicalRelationship2.json"
@@ -64,7 +86,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
               )
             end
 
-            it_behaves_like "Mapped"
+            it "doc is nil because response is invalid" do
+              expect(mapped.doc).to be_nil
+            end
           end
 
           context "with flipped data" do
@@ -77,7 +101,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
               )
             end
 
-            it_behaves_like "Mapped"
+            it "doc is nil because response is invalid" do
+              expect(mapped.doc).to be_nil
+            end
           end
         end
     end
@@ -106,18 +132,14 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         cassette_name: "core_concept_cats_tuxedo",
         record: :new_episodes
       }
-      context "with a missing term", vcr: vcr_opts,
-        skip: "should not attempt to map"  do
+      context "with a missing term", vcr: vcr_opts do
         let(:datahash_path) {
           "spec/support/datahashes/core/authorityHierarchy2.json"
         }
-        let(:fixture_path) { "core/authorityHierarchy2.xml" }
 
-        it "sets response id field as expected" do
-          expect(mapped.identifier).to eq("Cats > Tuxedo cats")
+        it "doc is nil because response is invalid" do
+          expect(mapped.doc).to be_nil
         end
-
-        it_behaves_like "Mapped"
       end
     end
 
@@ -137,17 +159,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         it_behaves_like "Mapped"
       end
 
-      context "with missing record", skip: "should not attempt to map",
-        vcr: "core_oh_ids_not_found" do
+      context "with missing record", vcr: "core_oh_ids_not_found" do
         let(:datahash_path) {
           "spec/support/datahashes/core/objectHierarchy2.json"
         }
-        let(:fixture_path) { "core/objectHierarchy2.xml" }
 
-        it_behaves_like "Mapped"
-
-        it "sets response id field as expected" do
-          expect(response.identifier).to eq("2020.1.105 > MISSING")
+        it "doc is nil because response is invalid" do
+          expect(mapped.doc).to be_nil
         end
       end
     end
@@ -170,7 +188,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         }
         let(:fixture_path) { "core/acquisition2.xml" }
 
-        it_behaves_like "Mapped"
+        it "no xml is produced" do
+          expect(mapped.doc).to be_nil
+        end
 
         it "response has unparseable date error" do
           errors = mapped.errors
@@ -338,17 +358,11 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     context "objectexit record" do
       let(:mapper){ "core_6-1-0_objectexit" }
 
-      context "record 1", vcr: "core_oe_1", skip: "funky default date value" do
+      context "record 1", vcr: "core_oe_1" do
         let(:datahash_path) {
           "spec/support/datahashes/core/objectexit1.json"
         }
         let(:fixture_path) { "core/objectexit1.xml" }
-
-        # In previous test, where xpath is fixture xpath:
-        #   TODO: - why is this next clause here?
-        # next if xpath.start_with?(
-        #   "/document/objectexit_common/exitDateGroup"
-        # )
 
         it_behaves_like "Mapped"
       end

@@ -880,4 +880,417 @@ http_interactions:
         Type'</refName><updatedAt>2020-02-08T03:30:34.905Z</updatedAt><workflowState>project</workflowState><rev>7</rev><shortIdentifier>worktype</shortIdentifier><displayName>Work
         Type</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
   recorded_at: Mon, 17 Apr 2023 00:47:14 GMT
+- request:
+    method: post
+    uri: https://core.dev.collectionspace.org/cspace-services/collectionobjects?pgSz=25&wf_deleted=false
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <document name="collectionobjects">
+          <ns2:collectionspace_core xmlns:ns2="http://collectionspace.org/collectionspace_core/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <createdAt>2020-09-09T10:00:45.052Z</createdAt>
+            <updatedBy>admin@core.collectionspace.org</updatedBy>
+            <createdBy>admin@core.collectionspace.org</createdBy>
+            <workflowState>project</workflowState>
+            <tenantId>1</tenantId>
+            <refName>urn:cspace:c.core.collectionspace.org:collectionobjects:id(998b6cad-4a55-4904-93b2)'36548'</refName>
+            <uri>/collectionobjects/998b6cad-4a55-4904-93b2</uri>
+            <updatedAt>2020-09-09T11:28:51.773Z</updatedAt>
+          </ns2:collectionspace_core>
+          <ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <objectNumber>M2005.2.1</objectNumber>
+            <objectProductionDateGroupList>
+              <objectProductionDateGroup>
+                <dateDisplayDate>circa 1938</dateDisplayDate>
+                <dateEarliestSingleYear>1938</dateEarliestSingleYear>
+                <dateEarliestSingleMonth>1</dateEarliestSingleMonth>
+                <dateEarliestSingleDay>1</dateEarliestSingleDay>
+                <dateEarliestSingleEra>urn:cspace:c.core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+                <dateEarliestSingleCertainty>urn:cspace:c.core.collectionspace.org:vocabularies:name(datecertainty):item:name(circa)'Circa'</dateEarliestSingleCertainty>
+                <dateLatestYear>1938</dateLatestYear>
+                <dateLatestMonth>12</dateLatestMonth>
+                <dateLatestDay>31</dateLatestDay>
+                <dateLatestEra>urn:cspace:c.core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateLatestEra>
+                <dateLatestCertainty>urn:cspace:c.core.collectionspace.org:vocabularies:name(datecertainty):item:name(circa)'Circa'</dateLatestCertainty>
+                <dateEarliestScalarValue>1938-01-01T00:00:00.000Z</dateEarliestScalarValue>
+                <dateLatestScalarValue>1938-12-31T00:00:00.000Z</dateLatestScalarValue>
+                <dateEarliestSingleQualifierUnit/>
+                <dateEarliestSingleQualifierValue/>
+                <datePeriod/>
+                <dateEarliestSingleQualifier/>
+                <dateAssociation/>
+                <dateLatestQualifierUnit/>
+                <dateNote/>
+                <dateLatestQualifierValue/>
+                <dateLatestQualifier/>
+              </objectProductionDateGroup>
+            </objectProductionDateGroupList>
+          </ns2:collectionobjects_common>
+          <ns2:account_permission xmlns:ns2="http://collectionspace.org/services/authorization">
+            <account>
+              <accountId>d884e854-a10b-49c8-87e7-e7a900ffdc52</accountId>
+              <screenName>Administrator</screenName>
+              <userId>admin@core.collectionspace.org</userId>
+              <tenantId>1</tenantId>
+            </account>
+          </ns2:account_permission>
+        </document>
+    headers:
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - nnnn
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 201
+      message: ''
+    headers:
+      Date:
+      - Mon, 17 Apr 2023 21:21:30 GMT
+      Content-Length:
+      - '0'
+      Connection:
+      - keep-alive
+      Location:
+      - http://core.dev.collectionspace.org/cspace-services/collectionobjects/dd530492-432d-4ca3-8dd4
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Mon, 17 Apr 2023 21:21:30 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/collectionobjects?as=collectionobjects_common:objectNumber%20=%20%27M2005.2.1%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 18 Apr 2023 16:49:10 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '729'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|objectNumber|objectName|title|responsibleDepartment</fieldsReturned><list-item><csid>dd530492-432d-4ca3-8dd4</csid><uri>/collectionobjects/dd530492-432d-4ca3-8dd4</uri><refName>urn:cspace:core.collectionspace.org:collectionobjects:id(dd530492-432d-4ca3-8dd4)'M2005.2.1'</refName><updatedAt>2023-04-17T21:21:30.077Z</updatedAt><workflowState>project</workflowState><objectNumber>M2005.2.1</objectNumber></list-item></ns2:abstract-common-list>
+  recorded_at: Tue, 18 Apr 2023 16:49:10 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/collectionobjects?as=collectionobjects_common:objectNumber%20=%20%27L2005.8.1%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 18 Apr 2023 19:41:48 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '729'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|objectNumber|objectName|title|responsibleDepartment</fieldsReturned><list-item><csid>dd530492-432d-4ca3-8dd4</csid><uri>/collectionobjects/dd530492-432d-4ca3-8dd4</uri><refName>urn:cspace:core.collectionspace.org:collectionobjects:id(dd530492-432d-4ca3-8dd4)'L2005.8.1'</refName><updatedAt>2023-04-18T17:12:07.484Z</updatedAt><workflowState>project</workflowState><objectNumber>L2005.8.1</objectNumber></list-item></ns2:abstract-common-list>
+  recorded_at: Tue, 18 Apr 2023 19:41:48 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/conceptauthorities/urn:cspace:name(concept)/items?as=concepts_common:conceptTermGroupList/0/termDisplayName%20=%20%27Cats%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 18 Apr 2023 22:58:01 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '896'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|proposed|deprecated|termStatus|termDisplayName</fieldsReturned><list-item><csid>fba204d0-004b-49a3-8676</csid><uri>/conceptauthorities/7022dcc2-2f66-4cb8-b768/items/fba204d0-004b-49a3-8676</uri><refName>urn:cspace:core.collectionspace.org:conceptauthorities:name(concept):item:name(Cats1614282053365)'Cats'</refName><updatedAt>2021-07-31T06:06:17.313Z</updatedAt><workflowState>project</workflowState><rev>1</rev><shortIdentifier>Cats1614282053365</shortIdentifier><sas>false</sas><proposed>true</proposed><termDisplayName>Cats</termDisplayName></list-item></ns2:abstract-common-list>
+  recorded_at: Tue, 18 Apr 2023 22:58:01 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/conceptauthorities/urn:cspace:name(concept)/items?as=concepts_common:conceptTermGroupList/0/termDisplayName%20=%20%27Tuxedo%20cats%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 18 Apr 2023 22:58:02 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '402'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|proposed|deprecated|termStatus|termDisplayName</fieldsReturned></ns2:abstract-common-list>
+  recorded_at: Tue, 18 Apr 2023 22:58:02 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/conceptauthorities/urn:cspace:name(concept)/items?as=concepts_common:conceptTermGroupList/0/termDisplayName%20=%20%27tuxedo%20cats%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 18 Apr 2023 22:58:02 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '402'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|proposed|deprecated|termStatus|termDisplayName</fieldsReturned></ns2:abstract-common-list>
+  recorded_at: Tue, 18 Apr 2023 22:58:02 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/media?as=media_common:identificationNumber%20=%20%27%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 18 Apr 2023 23:22:00 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '367'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|identificationNumber|blobCsid|title</fieldsReturned></ns2:abstract-common-list>
+  recorded_at: Tue, 18 Apr 2023 23:22:00 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/collectionobjects?as=collectionobjects_common:objectNumber%20=%20%27%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 18 Apr 2023 23:22:01 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '383'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|objectNumber|objectName|title|responsibleDepartment</fieldsReturned></ns2:abstract-common-list>
+  recorded_at: Tue, 18 Apr 2023 23:22:01 GMT
 recorded_with: VCR 6.1.0

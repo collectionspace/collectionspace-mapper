@@ -27,7 +27,7 @@ module CollectionSpace
         @orig_data = data_hash
         @errors = []
         @warnings = []
-        @merged_data = merge_default_values_and_clean
+        @merged_data = prepare_merged_data
         @states = %i[defaults_merged merged_keys_downcased]
         @xpaths = set_xpaths
         @split_data = {}
@@ -131,9 +131,12 @@ module CollectionSpace
         return self if states.any?(:mapped)
 
         prep unless states.any?(:prepped_for_mapping)
-        # @todo This should not produce XML for records with ERRORS,
-        #   but it is a behavior change that might be unexpected. Revisit.
-        # return self unless valid?
+        return self unless valid?
+
+        # Remove blank/empty values before mapping
+        @transformed_data = transformed_data.delete_if do |_key, value|
+          value.nil? || value.empty?
+        end
 
         CollectionSpace::Mapper::DataMapper.new(self, handler)
         tag_terms
@@ -163,11 +166,10 @@ module CollectionSpace
 
       attr_reader :handler, :states
 
-      def merge_default_values_and_clean
+      def prepare_merged_data
         merged = merge_default_values
 
         merged.transform_keys(&:downcase)
-          .delete_if{ |_key, val| val.nil? || val.empty? }
       end
 
       def merge_default_values
@@ -194,8 +196,8 @@ module CollectionSpace
       end
 
       def set_xpaths
-        return self if states.any?(:xpaths_set)
-        return self unless valid?
+        return if states.any?(:xpaths_set)
+        return nil unless valid?
 
         states << :xpaths_set
         handler.record.xpaths.for_row(merged_data)
@@ -210,11 +212,6 @@ module CollectionSpace
       def found_terms
         terms.select{ |term| term.found? }
       end
-
-      # # @todo this should be
-      # def mark_cached_unknown_terms_as_not_found
-      #   cached_unknown_terms.each{ |term| !term.found? }
-      # end
 
       def missing_terms
         terms.select{ |term| !term.found? }

@@ -9,6 +9,7 @@ module CollectionSpace
         # @param handler [CollectionSpace::Mapper::DataHandler]
         def initialize(handler)
           @handler = handler
+          handler.config.date_handler = self
         end
 
         def ce

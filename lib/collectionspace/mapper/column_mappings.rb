@@ -17,6 +17,7 @@ module CollectionSpace
       def initialize(mappings:, handler:)
         @handler = handler
         handler.record.extensions.each{ |ext| extend ext }
+        @transforms = handler.batch.transforms
 
         @all = []
         @lkup = {}
@@ -48,7 +49,7 @@ module CollectionSpace
 
       private
 
-      attr_reader :handler, :all, :lkup
+      attr_reader :handler, :transforms, :all, :lkup
 
       def add_mapping(mapping)
         mapobj = CollectionSpace::Mapper::ColumnMapping.new(

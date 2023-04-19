@@ -1,0 +1,320 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://anthro.dev.collectionspace.org/cspace-services/personauthorities?pgNum=0&pgSz=1&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AYW50aHJvLmNvbGxlY3Rpb25zcGFjZS5vcmc6QWRtaW5pc3RyYXRvcg==
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 18 Apr 2023 22:32:22 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '806'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>a67671b9-0fdf-4af3-9e04</csid><uri>/personauthorities/a67671b9-0fdf-4af3-9e04</uri><refName>urn:cspace:anthro.collectionspace.org:personauthorities:name(ulan_pa)'ULAN
+        Persons'</refName><updatedAt>2021-11-18T02:24:50.454Z</updatedAt><workflowState>project</workflowState><rev>0</rev><shortIdentifier>ulan_pa</shortIdentifier><displayName>ULAN
+        Persons</displayName><vocabType>PersonAuthority</vocabType></list-item></ns2:abstract-common-list>
+  recorded_at: Tue, 18 Apr 2023 22:32:22 GMT
+- request:
+    method: get
+    uri: https://anthro.dev.collectionspace.org/cspace-services/personauthorities/urn:cspace:name(person)/items?as=persons_common:personTermGroupList/0/termDisplayName%20=%20%27Buck,%20Jane%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AYW50aHJvLmNvbGxlY3Rpb25zcGFjZS5vcmc6QWRtaW5pc3RyYXRvcg==
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 18 Apr 2023 22:32:23 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '419'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|sas|surName|deprecated|foreName|shortIdentifier|proposed|termStatus|termDisplayName</fieldsReturned></ns2:abstract-common-list>
+  recorded_at: Tue, 18 Apr 2023 22:32:23 GMT
+- request:
+    method: get
+    uri: https://anthro.dev.collectionspace.org/cspace-services/personauthorities/urn:cspace:name(person)/items?as=persons_common:personTermGroupList/0/termDisplayName%20=%20%27buck,%20jane%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AYW50aHJvLmNvbGxlY3Rpb25zcGFjZS5vcmc6QWRtaW5pc3RyYXRvcg==
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 18 Apr 2023 22:32:23 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '419'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|sas|surName|deprecated|foreName|shortIdentifier|proposed|termStatus|termDisplayName</fieldsReturned></ns2:abstract-common-list>
+  recorded_at: Tue, 18 Apr 2023 22:32:23 GMT
+- request:
+    method: get
+    uri: https://anthro.dev.collectionspace.org/cspace-services/orgauthorities/urn:cspace:name(organization)/items?as=organizations_common:orgTermGroupList/0/termDisplayName%20=%20%27Organization%202%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AYW50aHJvLmNvbGxlY3Rpb25zcGFjZS5vcmc6QWRtaW5pc3RyYXRvcg==
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 18 Apr 2023 22:32:24 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '402'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|proposed|deprecated|termStatus|termDisplayName</fieldsReturned></ns2:abstract-common-list>
+  recorded_at: Tue, 18 Apr 2023 22:32:24 GMT
+- request:
+    method: get
+    uri: https://anthro.dev.collectionspace.org/cspace-services/orgauthorities/urn:cspace:name(organization)/items?as=organizations_common:orgTermGroupList/0/termDisplayName%20=%20%27organization%202%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AYW50aHJvLmNvbGxlY3Rpb25zcGFjZS5vcmc6QWRtaW5pc3RyYXRvcg==
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 18 Apr 2023 22:32:24 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '402'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|proposed|deprecated|termStatus|termDisplayName</fieldsReturned></ns2:abstract-common-list>
+  recorded_at: Tue, 18 Apr 2023 22:32:24 GMT
+- request:
+    method: get
+    uri: https://anthro.dev.collectionspace.org/cspace-services/claims?as=claims_common:claimNumber%20=%20%27CL2020.1.4%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AYW50aHJvLmNvbGxlY3Rpb25zcGFjZS5vcmc6QWRtaW5pc3RyYXRvcg==
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 18 Apr 2023 22:38:22 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '380'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|claimFiledOnBehalfOf|claimNumber|nagpraClaimName</fieldsReturned></ns2:abstract-common-list>
+  recorded_at: Tue, 18 Apr 2023 22:38:22 GMT
+- request:
+    method: get
+    uri: https://anthro.dev.collectionspace.org/cspace-services/claims?as=claims_common:claimNumber%20=%20%27%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AYW50aHJvLmNvbGxlY3Rpb25zcGFjZS5vcmc6QWRtaW5pc3RyYXRvcg==
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 18 Apr 2023 23:22:31 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '380'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|claimFiledOnBehalfOf|claimNumber|nagpraClaimName</fieldsReturned></ns2:abstract-common-list>
+  recorded_at: Tue, 18 Apr 2023 23:22:31 GMT
+recorded_with: VCR 6.1.0

@@ -9,15 +9,16 @@ module CollectionSpace
       # @param handler [CollectionSpace::Mapper::DataHandler]
       def initialize(response, handler)
         @response = response
+        return unless response.valid?
+
         @handler = handler
-        @xpaths = response.xpaths
         @doc = handler.record.xml_template.dup
 
-        xpaths.values.each { |xpath| map(xpath) }
+        response.xpaths.values.each { |xpath| map(xpath) }
         if handler.record.service_type == "authority"
           add_short_id
         end
-        set_response_identifier
+        set_identifier_value
         clean_doc
         defuse_bomb
         add_namespaces
@@ -26,9 +27,9 @@ module CollectionSpace
 
       private
 
-      attr_reader :response, :handler, :xpaths, :doc
+      attr_reader :response, :handler, :doc
 
-      def set_response_identifier
+      def set_identifier_value
         if handler.record.service_type == "relation"
           set_relation_id
         else
@@ -39,7 +40,7 @@ module CollectionSpace
           thexpath = "//#{mapping.namespace}/#{mapping.fieldname}"
           value = doc.xpath(thexpath).first
           value = value.text
-          response.add_identifier(value)
+         response.add_identifier(value)
         end
       end
 
@@ -226,9 +227,9 @@ module CollectionSpace
             "subgroup values will be skipped. The usual cause of this is that "\
             "you separated subgroup values that belong inside the same parent "\
             "group with the repeating field delimiter "\
-            "(#{CollectionSpace::Mapper.batch.delimiter}) instead of the "\
+            "(#{handler.batch.delimiter}) instead of the "\
             "subgroup delimiter "\
-            "(#{CollectionSpace::Mapper.batch.subgroup_delimiter})"
+            "(#{handler.batch.subgroup_delimiter})"
         })
       end
 

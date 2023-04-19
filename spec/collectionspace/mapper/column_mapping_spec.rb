@@ -3,7 +3,9 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::ColumnMapping do
-  subject(:mapping) { described_class.new(mapping: hash) }
+  subject(:mapping) do
+    described_class.new(mapping: hash)
+  end
 
   # all mapping hash keys from Untangler
   #      :fieldname=>"numberValue",

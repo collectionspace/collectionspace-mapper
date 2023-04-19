@@ -61,6 +61,21 @@ module CollectionSpace
         end
       end
 
+      def set_extension_configs
+        service_type = service_type_extension
+        record_type = record_type_extension
+        batch_mode = batch_mode_extension
+        all = [service_type, record_type, batch_mode].compact.uniq
+
+        handler.config.record.service_type_mixin =
+          service_type
+
+        handler.config.record.recordtype_mixin =
+          record_type_extension
+
+        handler.config.record.extensions = all
+      end
+
       def record_type_extension
         case handler.record.recordtype
         when "media"
@@ -72,20 +87,6 @@ module CollectionSpace
         when "nonhierarchicalrelationship"
           CollectionSpace::Mapper::NonHierarchicalRelationship
         end
-      end
-
-      def set_extension_configs
-        service_type = service_type_extension
-        record_type = record_type_extension
-        all = [service_type, record_type].compact.uniq
-
-        handler.config.record.service_type_mixin =
-          service_type
-
-        handler.config.record.recordtype_mixin =
-          record_type_extension
-
-        handler.config.record.extensions = all
       end
 
       # The value returned here is used to enable module extension when creating
@@ -101,6 +102,12 @@ module CollectionSpace
         end
       end
 
+      def batch_mode_extension
+        case handler.batch_mode
+        when "date details"
+          CollectionSpace::Mapper::DateDetails
+        end
+      end
     end
   end
 end

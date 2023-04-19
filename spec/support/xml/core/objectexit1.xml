@@ -30,7 +30,7 @@
     <displosalValue>20</displosalValue>
     <deaccessionAuthorizer>urn:cspace:c.core.collectionspace.org:personauthorities:name(person):item:name(sasa1599551852678)'sasa'</deaccessionAuthorizer>
     <exitDateGroup>
-      <scalarValuesComputed>true</scalarValuesComputed>
+      <scalarValuesComputed/>
       <dateEarliestSingleCertainty/>
       <dateEarliestSingleQualifierUnit/>
       <dateDisplayDate/>
