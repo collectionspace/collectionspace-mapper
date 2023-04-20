@@ -12,16 +12,20 @@ This project bumps the version number for any changes (including documentation u
 - none
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
-- (dev) Use VCR gem to speed up tests
-- (dev) Major refactoring, including removal of unused code; pulling values used throughout the application into config set by initialization of Handler class; clean up code now that config can be referenced instead of passing around complicated arg signatures; FINALLY move xpath processing out of handler into its own object(s); move functionality and tests to more appropriate classes; major DRYing up of tests, including a custom XML document matcher.
-- `DataHandler` now only takes incoming args, and determines what type of more specific Handler to return, based on the given args (including the new `batch_mode` setting in batch config). The main mapping functionality has now been moved to `HandlerFullRecord`.
-- `DateDetails::Handler` is introduced to support ingest of structured date details fields into a specified structured date field group, via the same interface as `HandlerFullRecord`.
+
+## [5.0.0] - 2023-04-19
 - **Possibly breaking**:
-  - XML documents are no longer produced at all for Responses that are invalid (i.e. have one or more errors) at the end of the data transformation/prep phase.
+  - XML documents are no longer produced for Responses that are invalid (i.e. have one or more errors) at the end of the data transformation/prep phase.
   - Error definitions have all been moved to `CollectionSpace::Mapper::Error` module definition file, inherit from appropriate Ruby exception classes, and include `CollectionSpace::Mapper::Error` for scoping to the application. If any external applications rescue specific errors, failures may occur. The errors rescued will need to be updated.
   - The `CollectionSpace::Mapper.setup_data` method has been removed, as it was mainly introduced to support testing. All test-related code is now in the `./spec` directory. Creating a new Response object now requires not only the incoming data, but the relevant Handler class.
 
 NOTE: The potential breaking changes have been accounted for in collectionspace-migration-tools, but not yet in collectionspace-csv-importer. **CSV Importer is stuck at 4.1.2 until it is updated to use Ruby 3.2, after which it should continue to use 4.1.3 until I can full test these changes with it**
+
+- `DataHandler` now only takes incoming args, and determines what type of more specific Handler to return, based on the given args (including the new `batch_mode` setting in batch config). The main mapping functionality has now been moved to `HandlerFullRecord`.
+- `DateDetails::Handler` is introduced to support ingest of structured date details fields into a specified structured date field group, via the same interface as `HandlerFullRecord`.
+
+- (dev) Use VCR gem to speed up tests
+- (dev) Major refactoring, including removal of unused code; pulling values used throughout the application into config set by initialization of Handler class; clean up code now that config can be referenced instead of passing around complicated arg signatures; FINALLY move xpath processing out of handler into its own object(s); move functionality and tests to more appropriate classes; major DRYing up of tests, including a custom XML document matcher.
 
 ## [4.1.3] - 2023-03-17
 - Update for Ruby 3.2
