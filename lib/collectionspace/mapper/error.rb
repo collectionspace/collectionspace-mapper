@@ -11,7 +11,7 @@ module CollectionSpace
     # - be identified or rescued by standard Ruby exception
     #   hierarchy ancestor, OR by application-specific error status
     module Error
-      # Placeholder
+      # Any application-specific error methods can be added here.
     end
 
     class ConfigKeyMissingError < StandardError
