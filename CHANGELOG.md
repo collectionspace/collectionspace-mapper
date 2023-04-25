@@ -13,6 +13,9 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 
+## [5.0.1] - 2023-04-25
+- BUGFIX for [#165](https://github.com/collectionspace/collectionspace-mapper/issues/165)
+
 ## [5.0.0] - 2023-04-19
 - **Possibly breaking**:
   - XML documents are no longer produced for Responses that are invalid (i.e. have one or more errors) at the end of the data transformation/prep phase.
