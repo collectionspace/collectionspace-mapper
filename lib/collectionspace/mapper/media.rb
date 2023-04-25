@@ -18,7 +18,8 @@ module CollectionSpace
             required: "n",
             repeats: "n",
             in_repeating_group: "n/a",
-            datacolumn: "mediaFileURI"
+            datacolumn: "mediaFileURI",
+            transforms: {}
           }
         ]
       end
