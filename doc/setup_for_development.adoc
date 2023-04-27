@@ -1,9 +1,6 @@
 = Setting up for development work
 
-- You will need Ruby 2.7.2 in your development environment. (I recommend using https://rvm.io/[Ruby Version Manager (rvm)] to manage your Ruby development environment.)
-- Do `bundle --version`
-- If the version of Bundler is lower than 2.1.2, do `gem update bundler`
-** Bundler should come standard with Ruby 2.6.6, but I believe it comes by default with an older version. If you get an error that you don't have Bundler installed when you try to check the version, do `gem install bundler`
+- You will need Ruby version specified in `./.ruby-version` in your development environment.
 - Clone this repo
 - `cd` into this repo
 - Do `bundle install` -- this will install other dependencies
