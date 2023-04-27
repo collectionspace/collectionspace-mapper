@@ -16,6 +16,8 @@ This page outlines requirements and limitations for your input data.
 
 {asciidoctor-version}
 
+(Not yet, it doesn't... TODO)
+
 toc::[]
 
 == Multivalued fields populated by more than one authority
@@ -27,4 +29,3 @@ toc::[]
 * `core/acquisition/acquisitionAuthorizer` (Local Person authority or Local Organization authority values)
 
 image::multiauth_taxonCitation.png[taxonCitation in UI,align="center"]
-
