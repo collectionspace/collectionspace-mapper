@@ -53,6 +53,7 @@ A JSON config hash may be passed to a new `Mapper::DataHandler` to control vario
 
 `full record`:: The "normal" mode, using CSV template that has all fields for the record type. Allows you to create a full record from each row of data in the CSV. For structured dates, a date string is entered in the column for the structured date group field, and teh application handles parsing the date details. This processing cannot set period, association, note, certainty, qualifier, value, or unit fields within structured date detailed fields.
 `date details`:: Allows you to skip the application's normal parsing/processing of date strings into structured dates, and directly ingest all structured date detailed fields.
+
 == check_record_status
 
 If `true`, looks up each record via cspace-services API and sets `Response.record_status` to `:exists` if the record is found, or `:new` if it is not.
