@@ -41,8 +41,7 @@ module CollectionSpace
         returned = termcache.get("unknownvalue", type_subtype, val)
         return returned if returned
 
-        returned = termcache.get("unknownvalue", type_subtype, case_swap(val))
-        return returned if returned
+        termcache.get("unknownvalue", type_subtype, case_swap(val))
       end
 
       def type_subtype
@@ -54,8 +53,7 @@ module CollectionSpace
         returned = termcache.get(termtype, termsubtype, val)
         return returned if returned
 
-        returned = termcache.get(termtype, termsubtype, case_swap(val))
-        return returned if returned
+        termcache.get(termtype, termsubtype, case_swap(val))
       end
 
       # returns csid of cached term
@@ -63,8 +61,7 @@ module CollectionSpace
         returned = csidcache.get(termtype, termsubtype, val)
         return returned if returned
 
-        returned = csidcache.get(termtype, termsubtype, case_swap(val))
-        return returned if returned
+        csidcache.get(termtype, termsubtype, case_swap(val))
       end
 
       # returns specified data type (:csid or :refname) for searched term

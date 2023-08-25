@@ -24,10 +24,10 @@ module CollectionSpace
       attr_reader :handler, :hash
 
       def set_hash(mapper)
-        return mapper.transform_keys{ |key| key.to_sym } if mapper.is_a?(Hash)
+        return mapper.transform_keys { |key| key.to_sym } if mapper.is_a?(Hash)
 
         JSON.parse(mapper)
-          .transform_keys{ |key| key.to_sym }
+          .transform_keys { |key| key.to_sym }
       end
 
       def configure_record

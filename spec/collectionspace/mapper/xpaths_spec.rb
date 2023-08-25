@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Xpaths do
-  subject(:xpaths){ handler.record.xpaths }
+  subject(:xpaths) { handler.record.xpaths }
 
   let(:handler) do
     setup_handler(
@@ -13,8 +13,8 @@ RSpec.describe CollectionSpace::Mapper::Xpaths do
   end
 
   describe "#for_row", vcr: "bonsai_domain_check" do
-    let(:profile){ "bonsai" }
-    let(:mapper){ "bonsai_4-1-1_objectexit" }
+    let(:profile) { "bonsai" }
+    let(:mapper) { "bonsai_4-1-1_objectexit" }
 
     it "removes non-kept mappings" do
       xpath = "objectexit_common/deacApprovalGroupList/deacApprovalGroup"

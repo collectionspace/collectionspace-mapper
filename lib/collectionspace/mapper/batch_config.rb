@@ -28,7 +28,7 @@ module CollectionSpace
       def initialize(handler:, config: {})
         @handler = handler
         @config = parse(config)
-        handler.record.extensions.each{ |ext| extend ext }
+        handler.record.extensions.each { |ext| extend ext }
 
         add_special_defaults
         return if @config.empty?
@@ -79,7 +79,7 @@ module CollectionSpace
       end
 
       def validate
-        VALID_VALUES.keys.each{ |setting| validate_setting(setting) }
+        VALID_VALUES.keys.each { |setting| validate_setting(setting) }
       end
 
       # @param setting [Symbol]

@@ -4,7 +4,7 @@ require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache,
   vcr: "core_domain_check" do
-    subject(:service){ handler.status_checker }
+    subject(:service) { handler.status_checker }
 
     let(:handler) do
       setup_handler(
@@ -13,17 +13,17 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache,
         config: config
       )
     end
-    let(:profile){ "core" }
-    let(:config){ {status_check_method: "cache"} }
+    let(:profile) { "core" }
+    let(:config) { {status_check_method: "cache"} }
 
     describe "#call" do
-      let(:result){ service.call(id) }
+      let(:result) { service.call(id) }
 
       context "when mapper is for an authority" do
-        let(:mapper){ "core_6-1-0_person-local" }
+        let(:mapper) { "core_6-1-0_person-local" }
 
         context "and result is found" do
-          let(:id){ "John Doe" }
+          let(:id) { "John Doe" }
 
           it "status = :existing" do
             expect(result[:status]).to eq(:existing)
@@ -43,7 +43,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache,
         end
 
         context "and no result is found" do
-          let(:id){ "Chickweed Guineafowl" }
+          let(:id) { "Chickweed Guineafowl" }
           it "status = :new" do
             expect(result[:status]).to eq(:new)
           end
@@ -51,10 +51,10 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache,
       end
 
       context "when mapper is for an object" do
-        let(:mapper){ "core_6-1-0_collectionobject" }
+        let(:mapper) { "core_6-1-0_collectionobject" }
 
         context "when object is cached" do
-          let(:id){ "Hierarchy Test 001" }
+          let(:id) { "Hierarchy Test 001" }
 
           it "status = existing" do
             expect(result[:status]).to eq(:existing)
@@ -62,7 +62,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache,
         end
 
         context "when object is not cached" do
-          let(:id){ "2000.1" }
+          let(:id) { "2000.1" }
 
           it "status = new" do
             expect(result[:status]).to eq(:new)
@@ -71,10 +71,10 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache,
       end
 
       context "when mapper is for a procedure" do
-        let(:mapper){ "core_6-1-0_acquisition" }
+        let(:mapper) { "core_6-1-0_acquisition" }
 
         context "when cached" do
-          let(:id){ "ACQ 123" }
+          let(:id) { "ACQ 123" }
 
           it "status = existing" do
             expect(result[:status]).to eq(:existing)
@@ -82,7 +82,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache,
         end
 
         context "when not cached" do
-          let(:id){ "foo.bar" }
+          let(:id) { "foo.bar" }
 
           it "status = new" do
             expect(result[:status]).to eq(:new)
@@ -91,7 +91,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache,
       end
 
       context "when mapper is for a hierarchical relationship" do
-        let(:mapper){ "core_6-1-0_objecthierarchy" }
+        let(:mapper) { "core_6-1-0_objecthierarchy" }
 
         context "when cached" do
           let(:id) do
@@ -123,7 +123,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceCache,
       end
 
       context "when mapper is for a non-hierarchical relationship" do
-        let(:mapper){ "core_6-1-0_nonhierarchicalrelationship" }
+        let(:mapper) { "core_6-1-0_nonhierarchicalrelationship" }
 
         context "when cached" do
           let(:id) do

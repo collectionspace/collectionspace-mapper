@@ -6,18 +6,18 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
   include_context "data_mapper"
 
   context "core profile" do
-    let(:profile){ "core" }
+    let(:profile) { "core" }
 
     context "with batch_mode = date details", vcr: "core_domain_check" do
-      let(:customcfg){ {"batch_mode" => "date details", "delimiter" => "|"} }
-      let(:mapper){ "core_6-1-0_collectionobject" }
+      let(:customcfg) { {"batch_mode" => "date details", "delimiter" => "|"} }
+      let(:mapper) { "core_6-1-0_collectionobject" }
 
       context "with single value date details" do
         let(:datahash_path) do
           "spec/support/datahashes/date_details/"\
             "object_production_date_2.json"
         end
-        let(:fixture_path){ "date_details/object_production_date_2.xml" }
+        let(:fixture_path) { "date_details/object_production_date_2.xml" }
 
         it_behaves_like "Mapped"
       end
@@ -27,24 +27,24 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
           "spec/support/datahashes/date_details/"\
             "object_production_date_3.json"
         end
-        let(:fixture_path){ "date_details/object_production_date_3.xml" }
+        let(:fixture_path) { "date_details/object_production_date_3.xml" }
 
         it_behaves_like "Mapped"
       end
     end
 
     context "non-hierarchical relationship record" do
-      let(:mapper){ "core_6-1-0_nonhierarchicalrelationship" }
+      let(:mapper) { "core_6-1-0_nonhierarchicalrelationship" }
 
       context "when all IDs found", vcr: "core_nhr_ids_found" do
         let(:datahash_path) {
           "spec/support/datahashes/core/nonHierarchicalRelationship1.json"
         }
-        let(:mapped_pair){ handler.process(response) }
+        let(:mapped_pair) { handler.process(response) }
 
         context "with original data" do
-          let(:mapped){ mapped_pair[0] }
-          let(:fixture_path){ "core/nonHierarchicalRelationship1A.xml" }
+          let(:mapped) { mapped_pair[0] }
+          let(:fixture_path) { "core/nonHierarchicalRelationship1A.xml" }
 
           it "sets response id field as expected" do
             expect(mapped.identifier).to eq(
@@ -56,8 +56,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         end
 
         context "with flipped data" do
-          let(:mapped){ mapped_pair[1] }
-          let(:fixture_path){ "core/nonHierarchicalRelationship1B.xml" }
+          let(:mapped) { mapped_pair[1] }
+          let(:fixture_path) { "core/nonHierarchicalRelationship1B.xml" }
 
           it "sets response id field as expected" do
             expect(mapped.identifier).to eq(
@@ -74,11 +74,11 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
           "spec/support/datahashes/core/"\
             "nonHierarchicalRelationship2.json"
         end
-        let(:mapped_pair){ handler.process(response) }
+        let(:mapped_pair) { handler.process(response) }
 
         context "with original data" do
-          let(:mapped){ mapped_pair[0] }
-          let(:fixture_path){ "core/nonHierarchicalRelationship2A.xml" }
+          let(:mapped) { mapped_pair[0] }
+          let(:fixture_path) { "core/nonHierarchicalRelationship2A.xml" }
 
           it "sets response id field as expected" do
             expect(mapped.identifier).to eq(
@@ -92,8 +92,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         end
 
         context "with flipped data" do
-          let(:mapped){ mapped_pair[1] }
-          let(:fixture_path){ "core/nonHierarchicalRelationship2B.xml" }
+          let(:mapped) { mapped_pair[1] }
+          let(:fixture_path) { "core/nonHierarchicalRelationship2B.xml" }
 
           it "sets response id field as expected" do
             expect(mapped.identifier).to eq(
@@ -109,7 +109,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "authority hierarchy record" do
-      let(:mapper){ "core_6-1-0_authorityhierarchy" }
+      let(:mapper) { "core_6-1-0_authorityhierarchy" }
 
       vcr_opts = {
         cassette_name: "core_concept_cats_siamese",
@@ -119,7 +119,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         let(:datahash_path) {
           "spec/support/datahashes/core/authorityHierarchy1.json"
         }
-        let(:fixture_path){ "core/authorityHierarchy1.xml" }
+        let(:fixture_path) { "core/authorityHierarchy1.xml" }
 
         it "sets response id field as expected" do
           expect(mapped.identifier).to eq("Cats > Siamese cats")
@@ -144,13 +144,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "object hierarchy record" do
-      let(:mapper){ "core_6-1-0_objecthierarchy" }
+      let(:mapper) { "core_6-1-0_objecthierarchy" }
 
       context "with existing records", vcr: "core_oh_ids_found" do
         let(:datahash_path) {
           "spec/support/datahashes/core/objectHierarchy1.json"
         }
-        let(:fixture_path){ "core/objectHierarchy1.xml" }
+        let(:fixture_path) { "core/objectHierarchy1.xml" }
 
         it "sets response id field as expected" do
           expect(mapped.identifier).to eq("2020.1.105 > 2020.1.1055")
@@ -171,13 +171,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "acquisition record", services_call: true do
-      let(:mapper){ "core_6-1-0_acquisition" }
+      let(:mapper) { "core_6-1-0_acquisition" }
 
       context "record 1", vcr: "core_acq_1" do
         let(:datahash_path) {
           "spec/support/datahashes/core/acquisition1.json"
         }
-        let(:fixture_path){ "core/acquisition1.xml" }
+        let(:fixture_path) { "core/acquisition1.xml" }
 
         it_behaves_like "Mapped"
       end
@@ -186,7 +186,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         let(:datahash_path) {
           "spec/support/datahashes/core/acquisition2.json"
         }
-        let(:fixture_path){ "core/acquisition2.xml" }
+        let(:fixture_path) { "core/acquisition2.xml" }
 
         it "no xml is produced" do
           expect(mapped.doc).to be_nil
@@ -217,13 +217,13 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     end
 
     context "collectionobject record" do
-      let(:mapper){ "core_6-1-0_collectionobject" }
+      let(:mapper) { "core_6-1-0_collectionobject" }
 
       context "record 1", vcr: "core_obj_1" do
         let(:datahash_path) {
           "spec/support/datahashes/core/collectionobject1.json"
         }
-        let(:fixture_path){ "core/collectionobject1.xml" }
+        let(:fixture_path) { "core/collectionobject1.xml" }
 
         it_behaves_like "Mapped"
       end
@@ -232,148 +232,148 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         let(:datahash_path) {
           "spec/support/datahashes/core/collectionobject4.json"
         }
-        let(:fixture_path){ "core/collectionobject4.xml" }
+        let(:fixture_path) { "core/collectionobject4.xml" }
 
         it_behaves_like "MappedWithBlanks"
       end
 
       context "record 5 (%NULLVALUE% term in repeating group)",
         vcr: "core_obj_5" do
-          let(:customcfg){ {delimiter: "|"} }
-          let(:mapper){ "core_6-1-0_collectionobject" }
+          let(:customcfg) { {delimiter: "|"} }
+          let(:mapper) { "core_6-1-0_collectionobject" }
           let(:datahash_path) {
             "spec/support/datahashes/core/collectionobject5.json"
           }
-          let(:fixture_path){ "core/collectionobject5.xml" }
+          let(:fixture_path) { "core/collectionobject5.xml" }
 
           it_behaves_like "Mapped"
         end
     end
 
     context "conditioncheck record", services_call: true do
-      let(:mapper){ "core_6-1-0_conditioncheck" }
+      let(:mapper) { "core_6-1-0_conditioncheck" }
 
       context "record 1", vcr: "core_cc_1" do
         let(:datahash_path) {
           "spec/support/datahashes/core/conditioncheck1.json"
         }
-        let(:fixture_path){ "core/conditioncheck1.xml" }
+        let(:fixture_path) { "core/conditioncheck1.xml" }
 
         it_behaves_like "Mapped"
       end
     end
 
     context "conservation record", services_call: true do
-      let(:mapper){ "core_6-1-0_conservation" }
+      let(:mapper) { "core_6-1-0_conservation" }
 
       context "record 1", vcr: "core_ct_1" do
         let(:datahash_path) {
           "spec/support/datahashes/core/conservation1.json"
         }
-        let(:fixture_path){ "core/conservation1.xml" }
+        let(:fixture_path) { "core/conservation1.xml" }
 
         it_behaves_like "Mapped"
       end
     end
 
     context "exhibition record", services_call: true do
-      let(:mapper){ "core_6-1-0_exhibition" }
+      let(:mapper) { "core_6-1-0_exhibition" }
 
       context "record 1", vcr: "core_exh_1" do
         let(:datahash_path) {
           "spec/support/datahashes/core/exhibition1.json"
         }
-        let(:fixture_path){ "core/exhibition1.xml" }
+        let(:fixture_path) { "core/exhibition1.xml" }
 
         it_behaves_like "Mapped"
       end
     end
 
     context "group record" do
-      let(:mapper){ "core_6-1-0_group" }
+      let(:mapper) { "core_6-1-0_group" }
 
       context "record 1", vcr: "core_grp_1" do
-        let(:datahash_path){ "spec/support/datahashes/core/group1.json" }
-        let(:fixture_path){ "core/group1.xml" }
+        let(:datahash_path) { "spec/support/datahashes/core/group1.json" }
+        let(:fixture_path) { "core/group1.xml" }
 
         it_behaves_like "Mapped"
       end
     end
 
     context "intake record" do
-      let(:mapper){ "core_6-1-0_intake" }
+      let(:mapper) { "core_6-1-0_intake" }
 
       context "record 1", vcr: "core_int_1" do
-        let(:datahash_path){ "spec/support/datahashes/core/intake1.json" }
-        let(:fixture_path){ "core/intake1.xml" }
+        let(:datahash_path) { "spec/support/datahashes/core/intake1.json" }
+        let(:fixture_path) { "core/intake1.xml" }
 
         it_behaves_like "Mapped"
       end
     end
 
     context "loanin record" do
-      let(:mapper){ "core_6-1-0_loanin" }
+      let(:mapper) { "core_6-1-0_loanin" }
 
       context "record 1", vcr: "core_li_1" do
-        let(:datahash_path){ "spec/support/datahashes/core/loanin1.json" }
-        let(:fixture_path){ "core/loanin1.xml" }
+        let(:datahash_path) { "spec/support/datahashes/core/loanin1.json" }
+        let(:fixture_path) { "core/loanin1.xml" }
 
         it_behaves_like "Mapped"
       end
     end
 
     context "loanout record" do
-      let(:mapper){ "core_6-1-0_loanout" }
+      let(:mapper) { "core_6-1-0_loanout" }
 
       context "record 1", vcr: "core_lo_1" do
-        let(:datahash_path){ "spec/support/datahashes/core/loanout1.json" }
-        let(:fixture_path){ "core/loanout1.xml" }
+        let(:datahash_path) { "spec/support/datahashes/core/loanout1.json" }
+        let(:fixture_path) { "core/loanout1.xml" }
 
         it_behaves_like "Mapped"
       end
     end
 
     context "movement record", vcr: "core_lmi_1" do
-      let(:mapper){ "core_6-1-0_movement" }
+      let(:mapper) { "core_6-1-0_movement" }
 
       context "record 1" do
-        let(:datahash_path){ "spec/support/datahashes/core/movement1.json" }
-        let(:fixture_path){ "core/movement1.xml" }
+        let(:datahash_path) { "spec/support/datahashes/core/movement1.json" }
+        let(:fixture_path) { "core/movement1.xml" }
 
         it_behaves_like "Mapped"
       end
     end
 
     context "media record" do
-      let(:mapper){ "core_6-1-0_media" }
+      let(:mapper) { "core_6-1-0_media" }
 
       context "record 1", vcr: "core_med_1" do
-        let(:datahash_path){ "spec/support/datahashes/core/media1.json" }
-        let(:fixture_path){ "core/media1.xml" }
+        let(:datahash_path) { "spec/support/datahashes/core/media1.json" }
+        let(:fixture_path) { "core/media1.xml" }
 
         it_behaves_like "Mapped"
       end
     end
 
     context "objectexit record" do
-      let(:mapper){ "core_6-1-0_objectexit" }
+      let(:mapper) { "core_6-1-0_objectexit" }
 
       context "record 1", vcr: "core_oe_1" do
         let(:datahash_path) {
           "spec/support/datahashes/core/objectexit1.json"
         }
-        let(:fixture_path){ "core/objectexit1.xml" }
+        let(:fixture_path) { "core/objectexit1.xml" }
 
         it_behaves_like "Mapped"
       end
     end
 
     context "uoc record" do
-      let(:mapper){ "core_6-1-0_uoc" }
+      let(:mapper) { "core_6-1-0_uoc" }
 
       context "record 1", vcr: "core_uoc_1" do
-        let(:datahash_path){ "spec/support/datahashes/core/uoc1.json" }
-        let(:fixture_path){ "core/uoc1.xml" }
+        let(:datahash_path) { "spec/support/datahashes/core/uoc1.json" }
+        let(:fixture_path) { "core/uoc1.xml" }
 
         it_behaves_like "Mapped"
       end

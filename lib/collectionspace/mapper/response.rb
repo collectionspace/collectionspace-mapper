@@ -185,7 +185,7 @@ module CollectionSpace
       end
 
       def non_forced_defaults(default_vals)
-        default_vals.map{ |field, val|
+        default_vals.map { |field, val|
           origval = orig_data[field]
           if origval.nil? || origval.empty?
             [field, val]
@@ -208,11 +208,11 @@ module CollectionSpace
       end
 
       def found_terms
-        terms.select{ |term| term.found? }
+        terms.select { |term| term.found? }
       end
 
       def missing_terms
-        terms.select{ |term| !term.found? }
+        terms.select { |term| !term.found? }
       end
 
       def record_new_missing_terms

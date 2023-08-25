@@ -6,14 +6,14 @@ module Helpers
   prepend MemoWise
   extend self
 
-  require_relative "./csids"
-  require_relative "./refnames"
-  require_relative "./anthro_helpers"
-  require_relative "./bonsai_helpers"
-  require_relative "./botgarden_helpers"
-  require_relative "./core_helpers"
-  require_relative "./fcart_helpers"
-  require_relative "./lhmc_helpers"
+  require_relative "csids"
+  require_relative "refnames"
+  require_relative "anthro_helpers"
+  require_relative "bonsai_helpers"
+  require_relative "botgarden_helpers"
+  require_relative "core_helpers"
+  require_relative "fcart_helpers"
+  require_relative "lhmc_helpers"
 
   FIXTUREDIR = "spec/support/xml"
 
@@ -79,7 +79,7 @@ module Helpers
   def remove_namespaces(doc)
     doc = doc.clone
     doc.remove_namespaces!
-    doc.xpath("/*/*").each{ |n| n.name = n.name.sub("ns2:", "") }
+    doc.xpath("/*/*").each { |n| n.name = n.name.sub("ns2:", "") }
     doc
   end
 
@@ -114,14 +114,14 @@ module Helpers
         node.remove
       end
       # Drop fields created by CS application
-      node.remove if rejectfields.bsearch{ |f| f == node.name }
+      node.remove if rejectfields.bsearch { |f| f == node.name }
     end
     doc
   end
 
   def get_xpaths(doc)
     xpaths = []
-    doc.traverse{ |node| xpaths << node.path }
+    doc.traverse { |node| xpaths << node.path }
     xpaths.sort!
   end
 
@@ -153,7 +153,7 @@ module Helpers
 
     xpaths.select do |path|
       path = remove_xpath_occurrence_indicators(path)
-      mappaths.any?{ |e| path.start_with?(e) }
+      mappaths.any? { |e| path.start_with?(e) }
     end
   end
 

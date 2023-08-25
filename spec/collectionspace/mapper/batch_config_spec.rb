@@ -4,14 +4,14 @@ require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::BatchConfig,
   vcr: "core_domain_check" do
-  subject(:config){ described_class.new(config: configopt, handler: handler) }
+  subject(:config) { described_class.new(config: configopt, handler: handler) }
 
   let(:handler) do
     setup_handler(
       mapper: mapper
     )
   end
-  let(:mapper){ "core_6-1-0_group" }
+  let(:mapper) { "core_6-1-0_group" }
 
   let(:configstr) do
     '{
@@ -42,12 +42,12 @@ RSpec.describe CollectionSpace::Mapper::BatchConfig,
         }
       }'
   end
-  let(:confighash){ JSON.parse(configstr) }
-  let(:configopt){ {} }
+  let(:confighash) { JSON.parse(configstr) }
+  let(:configopt) { {} }
 
   describe ".new" do
     context "when initialized with JSON string" do
-      let(:configopt){ configstr }
+      let(:configopt) { configstr }
 
       it "is created" do
         expect(config).to be_a(described_class)
@@ -55,7 +55,7 @@ RSpec.describe CollectionSpace::Mapper::BatchConfig,
     end
 
     context "when initialized with Hash" do
-      let(:configopt){ confighash }
+      let(:configopt) { confighash }
 
       it "is created" do
         expect(config).to be_a(described_class)
@@ -63,7 +63,7 @@ RSpec.describe CollectionSpace::Mapper::BatchConfig,
     end
 
     context "when initialized with Array" do
-      let(:configopt){ [2, 3] }
+      let(:configopt) { [2, 3] }
       it "raises error" do
         expect {
           config
@@ -72,7 +72,7 @@ RSpec.describe CollectionSpace::Mapper::BatchConfig,
     end
 
     context "when initialized with invalid setting value" do
-      let(:configopt){ {response_mode: "mouthy"} }
+      let(:configopt) { {response_mode: "mouthy"} }
 
       it "records warning and uses default value" do
         config
@@ -85,7 +85,7 @@ RSpec.describe CollectionSpace::Mapper::BatchConfig,
     end
 
     context "when initialized with invalid setting value" do
-      let(:configopt){ {responsemode: "mouthy"} }
+      let(:configopt) { {responsemode: "mouthy"} }
 
       it "records error and does not set value" do
         config
@@ -97,7 +97,7 @@ RSpec.describe CollectionSpace::Mapper::BatchConfig,
     end
 
     context "when initialized as object hierarchy" do
-      let(:mapper){ "core_6-1-0_objecthierarchy" }
+      let(:mapper) { "core_6-1-0_objecthierarchy" }
 
       it "sets special defaults" do
         config
@@ -106,7 +106,7 @@ RSpec.describe CollectionSpace::Mapper::BatchConfig,
     end
 
     context "when initialized as authority hierarchy" do
-      let(:mapper){ "core_6-1-0_authorityhierarchy" }
+      let(:mapper) { "core_6-1-0_authorityhierarchy" }
 
       it "sets special defaults" do
         config
@@ -117,7 +117,7 @@ RSpec.describe CollectionSpace::Mapper::BatchConfig,
     end
 
     context "when initialized as non-hierarchical relationship" do
-      let(:mapper){ "core_6-1-0_nonhierarchicalrelationship" }
+      let(:mapper) { "core_6-1-0_nonhierarchicalrelationship" }
 
       it "sets special defaults" do
         config

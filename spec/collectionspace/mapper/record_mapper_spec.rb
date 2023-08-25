@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::RecordMapper do
-  subject(:record){ handler.record }
+  subject(:record) { handler.record }
 
   # Building the handler calls the described class and sets the handler settings
   #   we are interested in from it, so we test the handler config
@@ -16,7 +16,7 @@ RSpec.describe CollectionSpace::Mapper::RecordMapper do
 
   describe "setting of record options", vcr: "anthro_domain_check" do
     context "when initialized with authority mapper" do
-      let(:mapper){ "anthro_4-1-2_citation-local" }
+      let(:mapper) { "anthro_4-1-2_citation-local" }
       it "sets as expected" do
         expect(record.recordtype).to eq("citation")
         expect(record.authority_type).to eq("citationauthorities")
@@ -40,7 +40,7 @@ RSpec.describe CollectionSpace::Mapper::RecordMapper do
     end
 
     context "when initialized with relationship mapper" do
-      let(:mapper){ "anthro_4-1-2_authorityhierarchy" }
+      let(:mapper) { "anthro_4-1-2_authorityhierarchy" }
       it "sets as expected" do
         expect(record.recordtype).to eq("authorityhierarchy")
         expect(record.service_type_mixin).to eq(
@@ -53,7 +53,7 @@ RSpec.describe CollectionSpace::Mapper::RecordMapper do
     end
 
     context "when initialized with collectionobject mapper" do
-      let(:mapper){ "anthro_4-1-2_collectionobject" }
+      let(:mapper) { "anthro_4-1-2_collectionobject" }
 
       it "sets as expected" do
         expect(record.recordtype).to eq("collectionobject")
@@ -66,7 +66,7 @@ RSpec.describe CollectionSpace::Mapper::RecordMapper do
     end
 
     context "when initialized with media mapper" do
-      let(:mapper){ "anthro_4-1-2_media" }
+      let(:mapper) { "anthro_4-1-2_media" }
 
       it "sets as expected" do
         expect(record.recordtype).to eq("media")

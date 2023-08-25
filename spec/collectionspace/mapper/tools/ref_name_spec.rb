@@ -10,7 +10,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
   end
 
   describe ".from_urn" do
-    let(:result){ described_class.from_urn(urn) }
+    let(:result) { described_class.from_urn(urn) }
 
     context "with authority urn" do
       let(:urn) do
@@ -58,9 +58,9 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
     end
 
     context "with unparseable URN" do
-      let(:urn){ "urn:cspace:core.collectionspace.org:weird" }
+      let(:urn) { "urn:cspace:core.collectionspace.org:weird" }
       it "raises error" do
-        expect{ result }.to raise_error(
+        expect { result }.to raise_error(
           CollectionSpace::Mapper::UnparseableRefNameUrnError
         )
       end
@@ -68,7 +68,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RefName do
   end
 
   describe ".from_term", vcr: "core_domain_check" do
-    let(:result){ described_class.from_term(**args) }
+    let(:result) { described_class.from_term(**args) }
 
     context "with authority data" do
       let(:args) do

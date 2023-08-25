@@ -16,14 +16,14 @@ module CollectionSpace
       # @param hander [CollectionSpace::Mapper::DataHandler]
       def initialize(mappings:, handler:)
         @handler = handler
-        handler.record.extensions.each{ |ext| extend ext }
+        handler.record.extensions.each { |ext| extend ext }
         @transforms = handler.batch.transforms
 
         @all = []
         @lkup = {}
-        mappings.each{ |mapping| add_mapping(mapping) }
+        mappings.each { |mapping| add_mapping(mapping) }
 
-        special_mappings.each{ |mapping| add_mapping(mapping) }
+        special_mappings.each { |mapping| add_mapping(mapping) }
       end
 
       def <<(mapping)

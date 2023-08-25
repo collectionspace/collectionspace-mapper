@@ -7,7 +7,7 @@
 require "ruby-prof"
 require "bundler/setup"
 require "collectionspace/mapper"
-require_relative "./helpers"
+require_relative "helpers"
 
 Helpers.populate_anthro(Helpers.anthro_cache)
 

@@ -10,7 +10,7 @@ module CollectionSpace
         end
 
         def mappable
-          fields.map{ |field| [field, bomb] }
+          fields.map { |field| [field, bomb] }
             .to_h
         end
 

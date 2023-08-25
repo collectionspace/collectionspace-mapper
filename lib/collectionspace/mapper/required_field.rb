@@ -15,7 +15,7 @@ module CollectionSpace
 
       def populated_in?(data)
         data = data.transform_keys(&:downcase)
-        values = @columns.map{ |column| data[column] }.reject(&:blank?)
+        values = @columns.map { |column| data[column] }.reject(&:blank?)
         values.any?
       end
     end

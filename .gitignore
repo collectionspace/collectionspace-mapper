@@ -7,6 +7,7 @@
 /tmp/
 /doc/include.rb
 
+**/.DS_Store
 .reek.todo
 
 # rspec failure tracking
@@ -14,4 +15,4 @@
 
 log.log
 .byebug_history
-.rubocop-https---raw-githubusercontent-com-kspurgin-code-quality-main-configurations-rubocop-standard-override-yml
+.rubocop-https*

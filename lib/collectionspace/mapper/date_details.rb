@@ -101,7 +101,7 @@ module CollectionSpace
         exp = CollectionSpace::Mapper::ValueTransformer::BOOLEAN_LOOKUP.keys
         vals = response.merged_data["scalarvaluescomputed"]
           .split(handler.batch.delimiter)
-          .reject{ |val| exp.any?(val) }
+          .reject { |val| exp.any?(val) }
         return if vals.empty?
 
         response.add_error(

@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder do
-  subject(:builder){ handler.status_checker }
+  subject(:builder) { handler.status_checker }
 
   let(:handler) do
     setup_handler(
@@ -11,7 +11,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder do
       config: config
     )
   end
-  let(:config){ {} }
+  let(:config) { {} }
 
   describe ".call", vcr: "core_domain_check" do
     it "returns RecordStatusServiceClient" do
@@ -21,7 +21,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder do
     end
 
     context "when status_check_method = cache" do
-      let(:config){ {status_check_method: "cache"} }
+      let(:config) { {status_check_method: "cache"} }
 
       it "raises returns RecordStatusServiceCache" do
         expect(builder).to be_a(

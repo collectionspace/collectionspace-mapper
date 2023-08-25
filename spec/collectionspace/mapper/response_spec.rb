@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Response do
-  subject(:response){ described_class.new(data, handler) }
+  subject(:response) { described_class.new(data, handler) }
 
   let(:handler) do
     setup_handler(
@@ -12,11 +12,11 @@ RSpec.describe CollectionSpace::Mapper::Response do
       config: config
     )
   end
-  let(:profile){ "core" }
-  let(:mapper){ "core_6-1-0_collectionobject" }
-  let(:baseconfig){ {delimiter: ";"} }
-  let(:customcfg){ {} }
-  let(:config){ baseconfig.merge(customcfg) }
+  let(:profile) { "core" }
+  let(:mapper) { "core_6-1-0_collectionobject" }
+  let(:baseconfig) { {delimiter: ";"} }
+  let(:customcfg) { {} }
+  let(:config) { baseconfig.merge(customcfg) }
 
   let(:data) do
     {
@@ -34,7 +34,7 @@ RSpec.describe CollectionSpace::Mapper::Response do
   end
 
   describe "#merged_data", vcr: "core_domain_check" do
-    let(:result){ response.merged_data }
+    let(:result) { response.merged_data }
 
     it "downcases keys" do
       expect(result.keys).to eq(%w[objectnumber collection title numbervalue])
@@ -83,8 +83,8 @@ RSpec.describe CollectionSpace::Mapper::Response do
   end
 
   describe "#set_record_status", vcr: "core_domain_check" do
-    let(:checker){ double("Checker") }
-    let(:data){ {field: "foo"} }
+    let(:checker) { double("Checker") }
+    let(:data) { {field: "foo"} }
 
     context "when new" do
       it "sets status as expected" do
@@ -118,7 +118,7 @@ RSpec.describe CollectionSpace::Mapper::Response do
     end
 
     context "when checking is turned off" do
-      let(:customcfg){ {check_record_status: false} }
+      let(:customcfg) { {check_record_status: false} }
 
       it "sets status as expected" do
         response.set_record_status
@@ -129,19 +129,19 @@ RSpec.describe CollectionSpace::Mapper::Response do
   end
 
   describe "#valid?", vcr: "botgarden_domain_check" do
-    let(:result){ response.valid? }
-    let(:profile){ "botgarden" }
-    let(:mapper){ "botgarden_2-0-1_taxon-local" }
+    let(:result) { response.valid? }
+    let(:profile) { "botgarden" }
+    let(:mapper) { "botgarden_2-0-1_taxon-local" }
 
     context "when there are no errors" do
-      let(:data){ {"termDisplayName" => "Tanacetum"} }
+      let(:data) { {"termDisplayName" => "Tanacetum"} }
 
       it "returns true" do
         expect(result).to be true
       end
     end
     context "when there is one or more errors" do
-      let(:data){ {"taxonName" => "Tanacetum"} }
+      let(:data) { {"taxonName" => "Tanacetum"} }
       it "returns false" do
         expect(result).to be false
       end
@@ -149,8 +149,8 @@ RSpec.describe CollectionSpace::Mapper::Response do
   end
 
   describe "#xml", vcr: "botgarden_taxon_tanacetum" do
-    let(:profile){ "botgarden" }
-    let(:mapper){ "botgarden_2-0-1_taxon-local" }
+    let(:profile) { "botgarden" }
+    let(:mapper) { "botgarden_2-0-1_taxon-local" }
 
     let(:data) {
       {"termDisplayName" => "Tanacetum;Tansy", "termStatus" => "made up"}
@@ -170,11 +170,11 @@ RSpec.describe CollectionSpace::Mapper::Response do
   end
 
   describe "#xpaths", vcr: "core_domain_check" do
-    let(:result){ response.xpaths }
+    let(:result) { response.xpaths }
 
     context "when authority record" do
-      let(:mapper){ "core_6-1-0_place-local" }
-      let(:data){ {"termdisplayname" => "Silk Hope"} }
+      let(:mapper) { "core_6-1-0_place-local" }
+      let(:data) { {"termdisplayname" => "Silk Hope"} }
 
       it "keeps mapping for shortIdentifier in xphash" do
         mappings = result["places_common"].mappings
@@ -189,11 +189,11 @@ RSpec.describe CollectionSpace::Mapper::Response do
   end
 
   describe "#terms", vcr: "core_domain_check" do
-    let(:customcfg){ {delimiter: "|", response_mode: "verbose"} }
-    let(:processed){ response.map }
+    let(:customcfg) { {delimiter: "|", response_mode: "verbose"} }
+    let(:processed) { response.map }
 
     context "with some terms found and some terms not found" do
-      let(:result){ processed.terms.reject{ |t| t.found? } }
+      let(:result) { processed.terms.reject { |t| t.found? } }
 
       vcr_found_opts = {
         cassette_name: "datahandler_uncached_found_terms",
@@ -267,15 +267,15 @@ RSpec.describe CollectionSpace::Mapper::Response do
 
       result = handler.process(resp2)
         .terms
-        .select{ |t| !t.found? }
+        .select { |t| !t.found? }
       expect(result.length).to eq(1)
     end
   end
 
   describe "#map", vcr: "botgarden_taxon_tanacetum" do
-    let(:result){ response.map }
-    let(:profile){ "botgarden" }
-    let(:mapper){ "botgarden_2-0-1_taxon-local" }
+    let(:result) { response.map }
+    let(:profile) { "botgarden" }
+    let(:mapper) { "botgarden_2-0-1_taxon-local" }
     let(:data) {
       {"termDisplayName" => "Tanacetum;Tansy", "termStatus" => "made up"}
     }
@@ -293,7 +293,7 @@ RSpec.describe CollectionSpace::Mapper::Response do
 
     context "when response_mode = verbose in config",
       vcr: "botgarden_taxon_tanacetum" do
-        let(:customcfg){ {response_mode: "verbose"} }
+        let(:customcfg) { {response_mode: "verbose"} }
 
         it "returns as expected" do
           expect(result.doc).to be_a(Nokogiri::XML::Document)

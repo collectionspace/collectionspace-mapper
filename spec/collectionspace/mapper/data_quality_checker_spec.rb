@@ -14,7 +14,7 @@ RSpec.describe CollectionSpace::Mapper::DataQualityChecker do
   let(:mapping) {
     CollectionSpace::Mapper::ColumnMapping.new(mapping: maphash)
   }
-  let(:response){ double("Response") }
+  let(:response) { double("Response") }
 
   context "when source_type = optionlist" do
     let(:maphash) do
@@ -33,7 +33,7 @@ RSpec.describe CollectionSpace::Mapper::DataQualityChecker do
     end
 
     context "with invalid option value" do
-      let(:data){ ["Permanent Collection"] }
+      let(:data) { ["Permanent Collection"] }
 
       it "adds expected warnings" do
         expect(response).to receive(:add_warning)
@@ -42,7 +42,7 @@ RSpec.describe CollectionSpace::Mapper::DataQualityChecker do
     end
 
     context "with placeholder, empty, and valid values" do
-      let(:data){ ["%NULLVALUE%", "", "permanent-collection"] }
+      let(:data) { ["%NULLVALUE%", "", "permanent-collection"] }
 
       it "does not add warning" do
         expect(response).not_to receive(:add_warning)

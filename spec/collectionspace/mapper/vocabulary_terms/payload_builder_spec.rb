@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::VocabularyTerms::PayloadBuilder do
-  subject(:builder){ described_class }
+  subject(:builder) { described_class }
 
   describe ".call" do
     it "returns as expected" do

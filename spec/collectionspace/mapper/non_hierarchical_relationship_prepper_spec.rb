@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::NonHierarchicalRelationshipPrepper do
-  subject(:prepper){ described_class.new(datahash, handler) }
+  subject(:prepper) { described_class.new(datahash, handler) }
 
   let(:handler) do
     setup_handler(
@@ -12,13 +12,13 @@ RSpec.describe CollectionSpace::Mapper::NonHierarchicalRelationshipPrepper do
       config: config
     )
   end
-  let(:profile){ "core" }
-  let(:mapper){ "core_6-1-0_nonhierarchicalrelationship" }
-  let(:config){ {response_mode: "verbose"} }
-  let(:datahash){ get_datahash(path: datahash_path) }
+  let(:profile) { "core" }
+  let(:mapper) { "core_6-1-0_nonhierarchicalrelationship" }
+  let(:config) { {response_mode: "verbose"} }
+  let(:datahash) { get_datahash(path: datahash_path) }
 
   describe "#prep", vcr: "core_domain_check" do
-    let(:responses){ prepper.prep }
+    let(:responses) { prepper.prep }
 
     context "with a missing term", vcr: "core_nhr_ids_not_found" do
       let(:datahash_path) do
@@ -27,7 +27,7 @@ RSpec.describe CollectionSpace::Mapper::NonHierarchicalRelationshipPrepper do
       end
 
       context "with original data" do
-        let(:prepped){ responses[0] }
+        let(:prepped) { responses[0] }
 
         it "sets response id field as expected" do
           expect(prepped.identifier).to eq(
@@ -42,7 +42,7 @@ RSpec.describe CollectionSpace::Mapper::NonHierarchicalRelationshipPrepper do
       end
 
       context "with flipped data" do
-        let(:prepped){ responses[1] }
+        let(:prepped) { responses[1] }
 
         it "sets response id field as expected" do
           expect(prepped.identifier).to eq(

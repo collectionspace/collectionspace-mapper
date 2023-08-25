@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Identifiers::AuthorityShortIdentifier do
-  subject(:idgenerator){ described_class }
+  subject(:idgenerator) { described_class }
 
   describe ".call" do
     it "generates hashed short identifiers for authorities" do
@@ -12,7 +12,7 @@ RSpec.describe CollectionSpace::Mapper::Identifiers::AuthorityShortIdentifier do
         "Achillea millefolium" => "Achilleamillefolium1482849582"
       }
 
-      result = authorities.keys.map{ |term| idgenerator.call(term) }
+      result = authorities.keys.map { |term| idgenerator.call(term) }
       expect(result).to eq(authorities.values)
     end
   end

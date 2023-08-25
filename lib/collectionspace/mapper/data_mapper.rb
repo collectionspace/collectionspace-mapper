@@ -14,7 +14,7 @@ module CollectionSpace
         @handler = handler
         @doc = handler.record.xml_template.dup
 
-        response.xpaths.values.each{ |xpath| map(xpath) }
+        response.xpaths.values.each { |xpath| map(xpath) }
         if handler.record.service_type == "authority"
           add_short_id
         end
@@ -116,7 +116,7 @@ module CollectionSpace
       end
 
       def simple_map(xpath, parent, thisdata)
-        xpath.mappings.group_by{ |mapping| mapping.fieldname }
+        xpath.mappings.group_by { |mapping| mapping.fieldname }
           .keys
           .each do |fieldname|
           data = thisdata.fetch(fieldname, nil)
@@ -183,7 +183,7 @@ module CollectionSpace
         groupname = targetnode.name.dup
         targetnode.remove
 
-        max_ct = thisdata.values.map{ |v| v.size }.max
+        max_ct = thisdata.values.map { |v| v.size }.max
         max_ct.times do
           group = Nokogiri::XML::Node.new(groupname, doc)
           pnode.add_child(group)
@@ -256,11 +256,11 @@ module CollectionSpace
       # we need to know this in order to create enough empty subgroup elements
       #   to hold the data
       def maximum_subgroup_values(data)
-        data.map{ |_field, values| subgroup_value_count(values) }.flatten.max
+        data.map { |_field, values| subgroup_value_count(values) }.flatten.max
       end
 
       def subgroup_value_count(values)
-        values.map{ |subgroup_values| subgroup_values.length }.max
+        values.map { |subgroup_values| subgroup_values.length }.max
       end
 
       def assign_subgroup_values_to_group_hash_data(groups, field, subgroups)

@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::DataPrepper do
-  subject(:prepper){ described_class.new(datahash, handler) }
+  subject(:prepper) { described_class.new(datahash, handler) }
 
   let(:handler) do
     setup_handler(
@@ -12,26 +12,26 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
       config: config
     )
   end
-  let(:profile){ "anthro" }
-  let(:mapper){ "anthro_4-1-2_collectionobject" }
-  let(:baseconfig){ {delimiter: ";"} }
-  let(:customcfg){ {} }
-  let(:config){ baseconfig.merge(customcfg) }
+  let(:profile) { "anthro" }
+  let(:mapper) { "anthro_4-1-2_collectionobject" }
+  let(:baseconfig) { {delimiter: ";"} }
+  let(:customcfg) { {} }
+  let(:config) { baseconfig.merge(customcfg) }
 
   describe "#prep", vcr: "anthro_domain_check" do
-    let(:response){ prepper.prep }
+    let(:response) { prepper.prep }
 
     describe "leading/trailing space stripping" do
       context "when identifier field" do
-        let(:datahash){ {"objectNumber" => "123 "} }
-        let(:result){ response.transformed_data["objectnumber"] }
+        let(:datahash) { {"objectNumber" => "123 "} }
+        let(:result) { response.transformed_data["objectnumber"] }
 
         it "strips leading/trailing spaces from id field(s)" do
           expect(result).to eq(["123"])
         end
 
         context "with strip_id_values = false" do
-          let(:customcfg){ {strip_id_values: false} }
+          let(:customcfg) { {strip_id_values: false} }
 
           it "does not strip leading/trailing spaces from id field(s)" do
             expect(result).to eq(["123 "])
@@ -46,7 +46,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
             "numberValue" => " 456 ;786 ;288"
           }
         end
-        let(:result){ response.transformed_data["numbervalue"] }
+        let(:result) { response.transformed_data["numbervalue"] }
 
         it "strips leading/trailing spaces from id field(s)" do
           expect(result).to eq(["456", "786", "288"])
@@ -55,7 +55,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
     end
 
     describe "term prep" do
-      let(:result){ response.transformed_data }
+      let(:result) { response.transformed_data }
       let(:datahash) do
         {
           "objectnumber" => "123",
@@ -106,7 +106,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
     end
 
     describe "#transform_date_fields" do
-      let(:result){ response.transformed_data }
+      let(:result) { response.transformed_data }
 
       context "when field is a structured date" do
         let(:datahash) do
@@ -117,7 +117,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
         end
 
         it "results in mappable structured date hashes" do
-          chk = result["identdategroup"].map{ |e| e.class }.uniq
+          chk = result["identdategroup"].map { |e| e.class }.uniq
           expect(chk).to eq([Hash])
         end
       end
@@ -131,7 +131,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
         end
 
         it "results in array of datestamp strings" do
-          chk = result["annotationdate"].select{ |e| e["T00:00:00.000Z"] }
+          chk = result["annotationdate"].select { |e| e["T00:00:00.000Z"] }
           expect(chk.size).to eq(2)
         end
       end
@@ -176,7 +176,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
     end
 
     describe "#combine_data_values" do
-      let(:result){ response.combined_data[xpath][field] }
+      let(:result) { response.combined_data[xpath][field] }
       let(:datahash) do
         {
           "objectnumber" => "123",
@@ -188,8 +188,8 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
       end
 
       context "when multi-authority field is not in repeating group" do
-        let(:xpath){ "collectionobjects_common/fieldCollectors" }
-        let(:field){ "fieldCollector" }
+        let(:xpath) { "collectionobjects_common/fieldCollectors" }
+        let(:field) { "fieldCollector" }
 
         it "combines values properly" do
           expected = [
@@ -210,7 +210,7 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
           "collectionobjects_common/objectProductionPeopleGroupList/"\
             "objectProductionPeopleGroup"
         end
-        let(:field){ "objectProductionPeople" }
+        let(:field) { "objectProductionPeople" }
 
         it "combines values properly" do
           expected = [
@@ -224,8 +224,8 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
 
         context "and one or more combined field values is blank",
           vcr: "core_domain_check" do
-            let(:profile){ "core" }
-            let(:mapper){ "core_6-1-0_conservation" }
+            let(:profile) { "core" }
+            let(:mapper) { "core_6-1-0_conservation" }
             let(:datahash) do
               {
                 "conservationNumber" => "CT2020.7",
@@ -253,13 +253,13 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
 
       context "when multi-authority field is part of repeating subgroup",
         vcr: "core_domain_check" do
-        let(:profile){ "core" }
-        let(:mapper){ "core_6-1-0_media" }
+        let(:profile) { "core" }
+        let(:mapper) { "core_6-1-0_media" }
         let(:xpath) {
           "media_common/measuredPartGroupList/measuredPartGroup/"\
             "dimensionSubGroupList/dimensionSubGroup"
         }
-        let(:field){ "measuredBy" }
+        let(:field) { "measuredBy" }
 
         context "when there is more than one group" do
           let(:datahash) do

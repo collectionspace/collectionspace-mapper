@@ -18,8 +18,8 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
       mapper: mapper
     )
   end
-  let(:profile){ "core" }
-  let(:mapper){ "core_6-1-0_collectionobject" }
+  let(:profile) { "core" }
+  let(:mapper) { "core_6-1-0_collectionobject" }
   let(:mapping) do
     handler.record.mappings.lookup(colname)
   end
@@ -31,14 +31,14 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
   end
 
   describe ".new", vcr: "core_domain_check" do
-    let(:result){
+    let(:result) {
       th
       response.transformed_data[colname.downcase]
     }
-    let(:errs){ response.errors }
+    let(:errs) { response.errors }
 
     context "titletranslationlanguage (vocabulary, field subgroup)" do
-      let(:colname){ "titleTranslationLanguage" }
+      let(:colname) { "titleTranslationLanguage" }
       let(:data) {
         [["%NULLVALUE%", "Swahili"], %w[Klingon Spanish],
           [CollectionSpace::Mapper.bomb]]
@@ -65,8 +65,8 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
     end
 
     context "reference (authority, field group)" do
-      let(:colname){ "referenceLocal" }
-      let(:data){ ["Arthur", "Harding", "%NULLVALUE%"] }
+      let(:colname) { "referenceLocal" }
+      let(:data) { ["Arthur", "Harding", "%NULLVALUE%"] }
 
       it "result is the transformed value for mapping" do
         expected = [
@@ -82,13 +82,13 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
   end
 
   describe "#terms" do
-    let(:terms){
+    let(:terms) {
       th
       response.terms
     }
 
     context "titletranslationlanguage (vocabulary, field subgroup)" do
-      let(:colname){ "titleTranslationLanguage" }
+      let(:colname) { "titleTranslationLanguage" }
       let(:data) {
         [["%NULLVALUE%", "Swahili"], %w[Sanza Spanish],
           [CollectionSpace::Mapper.bomb]]
@@ -97,8 +97,8 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
       context "when new term (Sanza) is initially encountered" do
         it "returns terms as expected",
           vcr: "term_handler_terms_sanza" do
-            found = terms.select{ |h| h.found? }
-            not_found = terms.reject{ |h| h.found? }
+            found = terms.select { |h| h.found? }
+            not_found = terms.reject { |h| h.found? }
             expect(terms.length).to eq(3)
             expect(found.length).to eq(2)
             expect(not_found.first.urn).to eq(
@@ -121,7 +121,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
               response: new_resp
             )
 
-            chk = new_resp.terms.select{ |h| !h.found? }
+            chk = new_resp.terms.select { |h| !h.found? }
             expect(chk.length).to eq(1)
             expect(chk.first.urn).to eq(
               "vocabularies|||languages|||Sanza"
@@ -131,7 +131,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
     end
 
     context "reference (authority, field group)" do
-      let(:colname){ "referenceLocal" }
+      let(:colname) { "referenceLocal" }
       let(:data) {
         ["Reference 3", "Reference 3", "Reference 4", "%NULLVALUE%"]
       }
@@ -140,8 +140,8 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
         it "contains UsedTerm object for each value",
           vcr: "term_handler_terms_ref_multi_used" do
             th
-            found = response.terms.select{ |h| h.found? }
-            not_found = response.terms.reject{ |h| h.found? }
+            found = response.terms.select { |h| h.found? }
+            not_found = response.terms.reject { |h| h.found? }
             expect(response.terms.length).to eq(3)
             expect(found.length).to eq(0)
             expect(not_found[0].display_name).to eq("Reference 3")
