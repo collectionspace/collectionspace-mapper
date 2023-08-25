@@ -56,6 +56,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "xxhash", ">= 0.4.0"
   spec.add_dependency "zeitwerk", "~> 2.5"
 
+  spec.add_development_dependency "bundler", "~> 2.3"
   spec.add_development_dependency "pry", "~>0.14"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec"
