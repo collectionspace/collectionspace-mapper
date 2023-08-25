@@ -141,7 +141,7 @@ DEPENDENCIES
   rspec
   rubocop
   simplecov
-  standard (~> 1.21)
+  standard
   vcr (~> 6.1)
   webmock
 
