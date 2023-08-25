@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::AuthorityHierarchyPrepper do
-  subject(:prepper){ described_class.new(datahash, handler) }
+  subject(:prepper) { described_class.new(datahash, handler) }
 
   let(:handler) do
     setup_handler(
@@ -12,13 +12,13 @@ RSpec.describe CollectionSpace::Mapper::AuthorityHierarchyPrepper do
       config: config
     )
   end
-  let(:profile){ "core" }
-  let(:mapper){ "core_6-1-0_authorityhierarchy" }
-  let(:config){ {response_mode: "verbose"} }
-  let(:datahash){ get_datahash(path: datahash_path) }
+  let(:profile) { "core" }
+  let(:mapper) { "core_6-1-0_authorityhierarchy" }
+  let(:config) { {response_mode: "verbose"} }
+  let(:datahash) { get_datahash(path: datahash_path) }
 
   describe "#prep", vcr: "core_domain_check" do
-    let(:response){ prepper.prep }
+    let(:response) { prepper.prep }
 
     vcr_opts = {
       cassette_name: "core_concept_cats_tuxedo",

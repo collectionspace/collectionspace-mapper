@@ -4,7 +4,7 @@ require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
   vcr: "core_domain_check" do
-  subject(:service){ handler.status_checker }
+  subject(:service) { handler.status_checker }
 
   let(:handler) do
     setup_handler(
@@ -13,28 +13,28 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
       config: config
     )
   end
-  let(:profile){ "core" }
-  let(:config){ {} }
+  let(:profile) { "core" }
+  let(:config) { {} }
 
   context "when mapper service_path not handled by collectionspace-client" do
-    let(:mapper){ "core_6-1-0_aardvark" }
+    let(:mapper) { "core_6-1-0_aardvark" }
 
     it "raises NoClientServiceError" do
-      expect{ handler }.to raise_error(
+      expect { handler }.to raise_error(
         CollectionSpace::Mapper::NoClientServiceError
       )
     end
   end
 
   describe "#call" do
-    let(:result){ service.call(id) }
+    let(:result) { service.call(id) }
 
     context "when mapper is for an authority" do
-      let(:mapper){ "core_6-1-0_person-local" }
+      let(:mapper) { "core_6-1-0_person-local" }
 
       context "and one result is found",
         vcr: "client_status_svc_auth_lookup_found" do
-          let(:id){ "John Doe" }
+          let(:id) { "John Doe" }
 
           it "status = :existing" do
             expect(result[:status]).to eq(:existing)
@@ -57,7 +57,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
 
       context "and no result is found",
         vcr: "client_status_svc_auth_lookup_not_found" do
-          let(:id){ "Chickweed Guineafowl" }
+          let(:id) { "Chickweed Guineafowl" }
 
           it "status = :new" do
             expect(result[:status]).to eq(:new)
@@ -66,18 +66,18 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
 
       context "and multiple results found",
         vcr: "client_status_svc_auth_lookup_multi_found" do
-          let(:id){ "Inkpot Guineafowl" }
+          let(:id) { "Inkpot Guineafowl" }
 
           context "with default config" do
             it "raises error" do
-              expect{ result }.to raise_error(
+              expect { result }.to raise_error(
                 CollectionSpace::Mapper::MultipleCsRecordsFoundError
               )
             end
           end
 
           context "with multiple_recs_found = use first in batchconfig" do
-            let(:config){ {multiple_recs_found: "use_first"} }
+            let(:config) { {multiple_recs_found: "use_first"} }
 
             it "returns result with count of records found" do
               expect(result.keys.any?(:multiple_recs_found)).to be true
@@ -88,8 +88,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
 
     context "when mapper is for an object",
       vcr: "client_status_svc_obj_lookup" do
-        let(:mapper){ "core_6-1-0_collectionobject" }
-        let(:id){ "2000.1" }
+        let(:mapper) { "core_6-1-0_collectionobject" }
+        let(:id) { "2000.1" }
 
         it "works the same" do
           expect(result[:status]).to eq(:existing)
@@ -98,8 +98,8 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
 
     context "when mapper is for a procedure",
       vcr: "client_status_svc_proc_lookup" do
-        let(:mapper){ "core_6-1-0_acquisition" }
-        let(:id){ "2000.001" }
+        let(:mapper) { "core_6-1-0_acquisition" }
+        let(:id) { "2000.001" }
 
         it "works the same" do
           expect(result[:status]).to eq(:existing)
@@ -108,7 +108,7 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
 
     context "when mapper is for a relationship",
       vcr: "client_status_svc_rel_lookup" do
-        let(:mapper){ "core_6-1-0_objecthierarchy" }
+        let(:mapper) { "core_6-1-0_objecthierarchy" }
         let(:id) do
           {
             sub: "56c04f5f-32b9-4f1d-8a4b",

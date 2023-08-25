@@ -18,7 +18,7 @@ module CollectionSpace
         return value if value.blank?
 
         newval = value
-        @operations.each{ |operation| newval = operation.perform(newval) }
+        @operations.each { |operation| newval = operation.perform(newval) }
         newval
       end
     end

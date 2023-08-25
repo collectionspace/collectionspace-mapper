@@ -7,8 +7,8 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
 
   context "with fcart acquisition", type: "integration",
     vcr: "fcart_domain_check" do
-      let(:profile){ "fcart" }
-      let(:mapper){ "fcart_3-0-1_acquisition" }
+      let(:profile) { "fcart" }
+      let(:mapper) { "fcart_3-0-1_acquisition" }
 
       it "maps records as expected in sequence" do
         data1 = JSON.parse(
@@ -33,15 +33,15 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
             'acquisitionnote":"Acquisition source role(s): Donor"}'
         )
         data = [data1, data2, data3]
-        docxpaths = data.map{ |dh|
+        docxpaths = data.map { |dh|
           CollectionSpace::Mapper::Response.new(dh, handler).prep
-        }.map{ |dr| dr.map }
-          .map{ |dr| remove_namespaces(dr.doc) }
-          .map{ |doc| list_xpaths(doc) }
+        }.map { |dr| dr.map }
+          .map { |dr| remove_namespaces(dr.doc) }
+          .map { |doc| list_xpaths(doc) }
 
         fixxpaths = ["fcart/acqseq1.xml", "fcart/acqseq2.xml",
-          "fcart/acqseq3.xml"].map{ |path| get_xml_fixture(path) }
-          .map{ |doc| list_xpaths(doc) }
+          "fcart/acqseq3.xml"].map { |path| get_xml_fixture(path) }
+          .map { |doc| list_xpaths(doc) }
 
         expect(docxpaths).to eq(fixxpaths)
       end
@@ -49,17 +49,17 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
 
   context "when core profile", type: "integration",
     vcr: "core_domain_check" do
-      let(:profile){ "core" }
+      let(:profile) { "core" }
       context "with collectionobject" do
-        let(:mapper){ "core_6-1-0_collectionobject" }
+        let(:mapper) { "core_6-1-0_collectionobject" }
 
         context "overflow subgroup record with uneven subgroup values" do
           #          skip: "subgroup complications" do
-          let(:customcfg){ {delimiter: "|"} }
+          let(:customcfg) { {delimiter: "|"} }
           let(:datahash_path) {
             "spec/support/datahashes/core/collectionobject2.json"
           }
-          let(:fixture_path){ "core/collectionobject2.xml" }
+          let(:fixture_path) { "core/collectionobject2.xml" }
 
           it "mapper response includes overflow subgroup warning" do
             w = mapped.warnings.any? { |w|
@@ -93,7 +93,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
       end
 
       context "when media ", type: "integration" do
-        let(:mapper){ "core_6-1-0_media" }
+        let(:mapper) { "core_6-1-0_media" }
 
         context "sending through the bomb emoji" do
           let(:datahash_path) {
@@ -106,7 +106,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
               xpath["identificationNumber"]
             }
             vals = []
-            xpaths.each{ |xpath| vals << doc.xpath(xpath).text }
+            xpaths.each { |xpath| vals << doc.xpath(xpath).text }
             expect(vals.uniq).to eq([""])
           end
         end
@@ -114,12 +114,12 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     end
 
   context "with lhmc profile", type: "integration", vcr: "lhmc_domain_check" do
-    let(:profile){ "lhmc" }
+    let(:profile) { "lhmc" }
 
     context "with person" do
-      let(:mapper){ "lhmc_3-1-1_person-local" }
-      let(:datahash){ {"termDisplayName" => "Xanadu", "placeNote" => "note"} }
-      let(:short_id_nodeset){ mapped_doc.xpath("//shortIdentifier") }
+      let(:mapper) { "lhmc_3-1-1_person-local" }
+      let(:datahash) { {"termDisplayName" => "Xanadu", "placeNote" => "note"} }
+      let(:short_id_nodeset) { mapped_doc.xpath("//shortIdentifier") }
 
       it "adds one shortIdentifier element to xml" do
         expect(short_id_nodeset.length).to eq(1)
@@ -143,11 +143,11 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
 
   context "with botgarden", vcr: "botgarden_domain_check",
     type: "integration" do
-      let(:profile){ "botgarden" }
+      let(:profile) { "botgarden" }
 
       context "with loanout" do
-        let(:mapper){ "botgarden_2-0-1_loanout" }
-        let(:datahash){ {"loanOutNumber" => "123", "sterile" => "n"} }
+        let(:mapper) { "botgarden_2-0-1_loanout" }
+        let(:datahash) { {"loanOutNumber" => "123", "sterile" => "n"} }
 
         it "adds record identifier to response" do
           expect(mapped.identifier).to eq("123")
@@ -157,10 +157,10 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
 
   context "with anthro", type: "integration",
     vcr: "data_mapper_int_anthro" do
-      let(:profile){ "anthro" }
+      let(:profile) { "anthro" }
 
       context "with collectionobject" do
-        let(:mapper){ "anthro_4-1-2_collectionobject" }
+        let(:mapper) { "anthro_4-1-2_collectionobject" }
 
         let(:customcfg) do
           {
@@ -184,11 +184,11 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
             }
           }
         end
-        let(:datahash){ anthro_co_1 }
+        let(:datahash) { anthro_co_1 }
 
         it "adds namespace definitions" do
           urihash = handler.record.ns_uri.clone
-          urihash.transform_keys!{ |k| "ns2:#{k}" }
+          urihash.transform_keys! { |k| "ns2:#{k}" }
           docdefs = {}
           mapped.doc.xpath("/*/*").each do |ns|
             docdefs[ns.name] = ns.namespace_definitions.find { |d|
@@ -196,7 +196,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
             }.href
           end
           unused_keys = urihash.keys - docdefs.keys
-          unused_keys.each{ |k| urihash.delete(k) }
+          unused_keys.each { |k| urihash.delete(k) }
           expect(docdefs).to eq(urihash)
         end
       end

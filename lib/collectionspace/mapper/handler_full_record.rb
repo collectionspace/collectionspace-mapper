@@ -252,7 +252,7 @@ module CollectionSpace
 
       def transform_target(data_column)
         record.mappings
-          .find{ |field_mapping| field_mapping.datacolumn == data_column }
+          .find { |field_mapping| field_mapping.datacolumn == data_column }
       end
 
       def known_fields

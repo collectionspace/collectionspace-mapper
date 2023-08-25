@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Dates::YearMonthDateCreator do
-  subject(:creator){ described_class.new(str, handler) }
+  subject(:creator) { described_class.new(str, handler) }
 
   let(:handler) do
     setup_handler(
@@ -13,10 +13,10 @@ RSpec.describe CollectionSpace::Mapper::Dates::YearMonthDateCreator do
   end
 
   describe "#mappable", vcr: "anthro_domain_check" do
-    let(:result){ creator.mappable }
+    let(:result) { creator.mappable }
 
     context "with 2022-06" do
-      let(:str){ "2022-06" }
+      let(:str) { "2022-06" }
 
       it "returns expected" do
         expected = {
@@ -41,20 +41,20 @@ RSpec.describe CollectionSpace::Mapper::Dates::YearMonthDateCreator do
     end
 
     context "with 1865-75" do
-      let(:str){ "1865-75" }
+      let(:str) { "1865-75" }
 
       it "raises error" do
         cst = CollectionSpace::Mapper::UnparseableStructuredDateError
-        expect{ result }.to raise_error(cst)
+        expect { result }.to raise_error(cst)
       end
     end
   end
 
   describe "#stamp", vcr: "anthro_domain_check" do
-    let(:result){ creator.stamp }
+    let(:result) { creator.stamp }
 
     context "with 2022-06" do
-      let(:str){ "2022-06" }
+      let(:str) { "2022-06" }
 
       it "returns expected" do
         expected = "2022-06-01T00:00:00.000Z"
@@ -63,11 +63,11 @@ RSpec.describe CollectionSpace::Mapper::Dates::YearMonthDateCreator do
     end
 
     context "with 1865-75" do
-      let(:str){ "1865-75" }
+      let(:str) { "1865-75" }
 
       it "raises error" do
         cst = CollectionSpace::Mapper::UnparseableDateError
-        expect{ result }.to raise_error(cst)
+        expect { result }.to raise_error(cst)
       end
     end
   end

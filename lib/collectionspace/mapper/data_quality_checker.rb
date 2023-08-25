@@ -38,7 +38,7 @@ module CollectionSpace
         if data.first.is_a?(String)
           validate_refnames(data)
         else
-          data.each{ |refnames| validate_refnames(refnames) }
+          data.each { |refnames| validate_refnames(refnames) }
         end
       end
 
@@ -68,7 +68,7 @@ module CollectionSpace
         if data.first.is_a?(String)
           check_opt_list_vals(data, opts)
         else
-          data.each{ |vals| check_opt_list_vals(vals, opts) }
+          data.each { |vals| check_opt_list_vals(vals, opts) }
         end
       end
 

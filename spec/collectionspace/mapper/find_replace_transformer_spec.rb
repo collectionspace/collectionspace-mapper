@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::FindReplaceTransformer do
-  subject(:transformer){ described_class.new(transform: transform) }
+  subject(:transformer) { described_class.new(transform: transform) }
 
   let(:transform) do
     [
@@ -19,17 +19,17 @@ RSpec.describe CollectionSpace::Mapper::FindReplaceTransformer do
   end
 
   describe "#transform" do
-    let(:result){ transformer.transform(value) }
+    let(:result) { transformer.transform(value) }
 
     context 'given "boo baz1 A"' do
-      let(:value){ "boo baz1 A" }
+      let(:value) { "boo baz1 A" }
       it 'returns "boo-baz1 A"' do
         expect(result).to eq("boo-baz1 A")
       end
     end
 
     context "given blank value" do
-      let(:value){ "" }
+      let(:value) { "" }
       it 'returns ""' do
         expect(result).to eq("")
       end

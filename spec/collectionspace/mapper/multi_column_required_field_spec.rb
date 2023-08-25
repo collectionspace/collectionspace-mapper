@@ -7,7 +7,7 @@ RSpec.describe CollectionSpace::Mapper::MultiColumnRequiredField do
     %w[currentLocationLocationLocal currentLocationLocationOffsite
       currentLocationOrganization]
   }
-  let(:field){ described_class.new("currentLocation", columns) }
+  let(:field) { described_class.new("currentLocation", columns) }
 
   describe "#present_in?" do
     context "when data contains one of the field datacolumns" do
@@ -38,7 +38,7 @@ RSpec.describe CollectionSpace::Mapper::MultiColumnRequiredField do
     end
   end
   describe "#missing_message" do
-    let(:result){ field.missing_message }
+    let(:result) { field.missing_message }
 
     it "returns expected message" do
       expected = "required field missing: currentlocation. At least one of "\
@@ -48,7 +48,7 @@ RSpec.describe CollectionSpace::Mapper::MultiColumnRequiredField do
     end
   end
   describe "#empty_message" do
-    let(:result){ field.empty_message }
+    let(:result) { field.empty_message }
 
     it "returns expected message" do
       expected = "required field empty: currentlocation. At least one of the "\

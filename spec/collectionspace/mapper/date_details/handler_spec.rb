@@ -10,17 +10,17 @@ RSpec.describe CollectionSpace::Mapper::DateDetails::Handler do
       config: config
     )
   end
-  let(:profile){ "core" }
-  let(:mapper){ "core_6-1-0_collectionobject" }
-  let(:baseconfig){ {"batch_mode" => "date details"} }
-  let(:customcfg){ {} }
-  let(:config){ baseconfig.merge(customcfg) }
+  let(:profile) { "core" }
+  let(:mapper) { "core_6-1-0_collectionobject" }
+  let(:baseconfig) { {"batch_mode" => "date details"} }
+  let(:customcfg) { {} }
+  let(:config) { baseconfig.merge(customcfg) }
 
-  let(:datahash){ get_datahash(path: datahash_path) }
-  let(:data){ CollectionSpace::Mapper::Response.new(datahash, handler) }
+  let(:datahash) { get_datahash(path: datahash_path) }
+  let(:data) { CollectionSpace::Mapper::Response.new(datahash, handler) }
 
   describe "#validate", vcr: "core_domain_check" do
-    let(:result){ handler.validate(data) }
+    let(:result) { handler.validate(data) }
 
     context "when given Hash" do
       let(:datahash_path) {

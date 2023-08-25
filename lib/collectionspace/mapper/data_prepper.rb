@@ -26,29 +26,29 @@ module CollectionSpace
       attr_reader :data, :handler, :splitter, :response, :date_handler
 
       def split_data
-        response.xpaths.values.each{ |xpath| do_splits(xpath) }
+        response.xpaths.values.each { |xpath| do_splits(xpath) }
       end
 
       def transform_data
-        response.xpaths.values.each{ |xpath| do_transforms(xpath) }
+        response.xpaths.values.each { |xpath| do_transforms(xpath) }
       end
 
       def transform_date_fields
-        response.xpaths.values.each{ |xpath| do_date_transforms(xpath) }
+        response.xpaths.values.each { |xpath| do_date_transforms(xpath) }
       end
 
       def handle_term_fields
-        response.xpaths.values.each{ |xpath| do_term_handling(xpath) }
+        response.xpaths.values.each { |xpath| do_term_handling(xpath) }
       end
 
       def check_data
-        response.xpaths.values.each{ |xpath| check_data_quality(xpath) }
+        response.xpaths.values.each { |xpath| check_data_quality(xpath) }
       end
 
       def combine_data_fields
         return unless response.valid?
 
-        response.xpaths.values.each{ |xpath| combine_data_values(xpath) }
+        response.xpaths.values.each { |xpath| combine_data_values(xpath) }
       end
 
       def identifier?(column)
@@ -139,12 +139,12 @@ module CollectionSpace
         if data.first.is_a?(String)
           transform_values(mapping, data)
         else
-          data.map{ |vals| transform_values(mapping, vals) }
+          data.map { |vals| transform_values(mapping, vals) }
         end
       end
 
       def transform_values(mapping, data)
-        data.map{ |val| transform(mapping, val) }
+        data.map { |val| transform(mapping, val) }
       end
 
       def transform(mapping, value)
@@ -259,18 +259,18 @@ module CollectionSpace
       def create_combined_data_xpath_structure(xpath, fields)
         response.combined_data[xpath.path] = {}
         fields.keys
-          .each{ |field| response.combined_data[xpath.path][field] = [] }
+          .each { |field| response.combined_data[xpath.path][field] = [] }
       end
 
       def initially_populate_combined_data(xpath, fields)
         xform = response.transformed_data
 
         fields.each do |field, cols|
-          xformed = cols.map{ |col|
+          xformed = cols.map { |col|
             xform[col.datacolumn.downcase]
           }.compact
           chk = []
-          xformed.each{ |arr| chk << arr.map{ |e| e.class } }
+          xformed.each { |arr| chk << arr.map { |e| e.class } }
           chk = chk.flatten.uniq
           if chk == [String] || chk == [Hash]
             response.combined_data[xpath.path][field] = xformed.flatten
@@ -309,10 +309,10 @@ module CollectionSpace
       def combine_subgroup_values(data)
         combined = []
         group_count = data.map(&:length).uniq.max
-        group_count.times{ combined << [] }
+        group_count.times { combined << [] }
         data.each do |field|
           field.each_with_index do |valarr, i|
-            valarr.each{ |e| combined[i] << e }
+            valarr.each { |e| combined[i] << e }
           end
         end
         combined

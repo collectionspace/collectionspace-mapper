@@ -22,7 +22,7 @@ module CollectionSpace
           "profile: #{handler.record.profile_basename}\n"\
           "version: #{handler.record.version}\n"\
           "rectype: #{handler.record.recordtype}\n"\
-          "#{for_recordtype.map{ |xp| "  #{xp}" }.join("\n")}"\
+          "#{for_recordtype.map { |xp| "  #{xp}" }.join("\n")}"\
           ">"
       end
       alias_method :inspect, :to_s
@@ -41,7 +41,7 @@ module CollectionSpace
 
       # @param keep [Array<String>] datacolumn values to keep
       def for_row(keep)
-        keeping = mappings.select{ |mapping| keep.any?(mapping.datacolumn) }
+        keeping = mappings.select { |mapping| keep.any?(mapping.datacolumn) }
 
         # these mappings were needed to get data in via template for processing,
         #   but do not actually get used to produce XML
@@ -85,7 +85,7 @@ module CollectionSpace
 
       def set_children
         set = xpaths.list
-          .select{ |xpath| xpath.start_with?(path) }
+          .select { |xpath| xpath.start_with?(path) }
         set - [path]
       end
 
@@ -129,7 +129,7 @@ module CollectionSpace
         return "" unless path["/"]
 
         set = xpaths.list
-          .select{ |xpath| path.start_with?(xpath) }
+          .select { |xpath| path.start_with?(xpath) }
           .sort_by(&:length)
           .reverse
 

@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Identifiers::ShortIdentifier do
-  subject(:idgenerator){ described_class }
+  subject(:idgenerator) { described_class }
 
   describe ".call" do
     it "generates non-hashed short identifiers for vocabularies" do
@@ -11,7 +11,7 @@ RSpec.describe CollectionSpace::Mapper::Identifiers::ShortIdentifier do
         "Jurgen Klopp!" => "JurgenKlopp",
         "Achillea millefolium" => "Achilleamillefolium"
       }
-      result = terms.keys.map{ |term| idgenerator.call(term) }
+      result = terms.keys.map { |term| idgenerator.call(term) }
       expect(result).to eq(terms.values)
     end
   end

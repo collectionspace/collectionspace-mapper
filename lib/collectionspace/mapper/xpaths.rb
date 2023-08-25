@@ -13,24 +13,24 @@ module CollectionSpace
         @handler = handler
         @mappings = handler.record.mappings
         @hash = create_xpaths
-        handler.record.extensions.each{ |ext| extend ext }
+        handler.record.extensions.each { |ext| extend ext }
       end
 
       def dup
-        hash.map{ |path, xpath| [path, xpath.dup] }
+        hash.map { |path, xpath| [path, xpath.dup] }
           .to_h
       end
 
       def each(&block)
-        hash.each{ |key, value| block.call(key, value) }
+        hash.each { |key, value| block.call(key, value) }
       end
 
       # @param data [Hash]
       def for_row(data)
         keep = keep_fields(data)
-        dup.map{ |path, xpath| [path, xpath.for_row(keep)] }
+        dup.map { |path, xpath| [path, xpath.for_row(keep)] }
           .to_h
-          .reject{ |_path, xpath| xpath.mappings.empty? }
+          .reject { |_path, xpath| xpath.mappings.empty? }
       end
 
       def keep_fields(data)
@@ -42,7 +42,7 @@ module CollectionSpace
           "profile: #{handler.record.profile_basename}\n"\
           "version: #{handler.record.version}\n"\
           "rectype: #{handler.record.recordtype}\n"\
-          "#{for_recordtype.map{ |xp| "  #{xp}" }.join("\n")}"\
+          "#{for_recordtype.map { |xp| "  #{xp}" }.join("\n")}"\
           ">"
       end
       alias_method :inspect, :to_s
@@ -64,8 +64,8 @@ module CollectionSpace
       attr_reader :handler, :mappings
 
       def create_xpaths
-        mappings.group_by{ |mapping| mapping.fullpath }
-          .map{ |xpath, maps|
+        mappings.group_by { |mapping| mapping.fullpath }
+          .map { |xpath, maps|
             [xpath, CollectionSpace::Mapper::Xpath.new(
               path: xpath,
               mappings: maps,

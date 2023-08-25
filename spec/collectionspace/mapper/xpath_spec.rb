@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::Xpath do
-  subject(:result){ handler.record.xpaths.lookup(path) }
+  subject(:result) { handler.record.xpaths.lookup(path) }
 
   let(:handler) do
     setup_handler(
@@ -13,8 +13,8 @@ RSpec.describe CollectionSpace::Mapper::Xpath do
   end
 
   context "with anthro collectionobject", vcr: "anthro_domain_check" do
-    let(:profile){ "anthro" }
-    let(:mapper){ "anthro_4-1-2_collectionobject" }
+    let(:profile) { "anthro" }
+    let(:mapper) { "anthro_4-1-2_collectionobject" }
 
     context "xpath ending with commingledRemainsGroup" do
       let(:path) {
@@ -61,7 +61,7 @@ RSpec.describe CollectionSpace::Mapper::Xpath do
     end
 
     context "xpath ending with collectionobjects_nagpra" do
-      let(:path){ "collectionobjects_nagpra" }
+      let(:path) { "collectionobjects_nagpra" }
 
       it "has 5 children" do
         expect(result.children.size).to eq(5)
@@ -70,10 +70,10 @@ RSpec.describe CollectionSpace::Mapper::Xpath do
   end
 
   context "with bonsai profile", vcr: "bonsai_profile_check" do
-    let(:profile){ "bonsai" }
+    let(:profile) { "bonsai" }
 
     context "with conservation rectype" do
-      let(:mapper){ "bonsai_4-1-1_conservation" }
+      let(:mapper) { "bonsai_4-1-1_conservation" }
 
       context "xpath ending with fertilizersToBeUsed" do
         let(:path) {
@@ -86,7 +86,7 @@ RSpec.describe CollectionSpace::Mapper::Xpath do
       end
 
       context "xpath ending with conservators" do
-        let(:path){ "conservation_common/conservators" }
+        let(:path) { "conservation_common/conservators" }
         it "is a repeating group" do
           expect(result.is_group?).to be false
         end
@@ -94,8 +94,8 @@ RSpec.describe CollectionSpace::Mapper::Xpath do
     end
 
     describe "#for_row" do
-      let(:mapper){ "bonsai_4-1-1_objectexit" }
-      let(:path){ "objectexit_common/deacApprovalGroupList/deacApprovalGroup" }
+      let(:mapper) { "bonsai_4-1-1_objectexit" }
+      let(:path) { "objectexit_common/deacApprovalGroupList/deacApprovalGroup" }
       let(:keep) do
         ["exitnumber",
           "deaccessionapprovalgroup",
@@ -105,7 +105,7 @@ RSpec.describe CollectionSpace::Mapper::Xpath do
           "deaccessionapprovalnote",
           "deaccessiondate"]
       end
-      let(:keptmappings){ result.for_row(keep).mappings.map(&:datacolumn) }
+      let(:keptmappings) { result.for_row(keep).mappings.map(&:datacolumn) }
 
       it "removes non-kept mappings" do
         expect(

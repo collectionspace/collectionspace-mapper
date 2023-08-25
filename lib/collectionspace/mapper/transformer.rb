@@ -17,7 +17,7 @@ module CollectionSpace
           when :vocabulary
             VocabularyTransformer.new(transform: transform)
           when :special
-            transform.map{ |xformname| special_transformers(xformname) }
+            transform.map { |xformname| special_transformers(xformname) }
           when :replacements
             FindReplaceTransformer.new(transform: transform)
           end

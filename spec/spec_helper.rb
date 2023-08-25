@@ -8,12 +8,12 @@ SimpleCov.start do
 end
 
 require "collectionspace/mapper"
-require_relative "./helpers"
-require_relative "./support/shared_contexts/data_mapper"
-require_relative "./support/shared_examples/mapped"
-require_relative "./support/shared_examples/mapped_failure"
-require_relative "./support/shared_examples/mapped_with_blanks"
-require_relative "./support/matchers/match_doc"
+require_relative "helpers"
+require_relative "support/shared_contexts/data_mapper"
+require_relative "support/shared_examples/mapped"
+require_relative "support/shared_examples/mapped_failure"
+require_relative "support/shared_examples/mapped_with_blanks"
+require_relative "support/matchers/match_doc"
 require "dry/configurable/test_interface"
 require "pry"
 require "vcr"

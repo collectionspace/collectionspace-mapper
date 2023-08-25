@@ -59,7 +59,7 @@ module MatchDocMatcher
       :mapped_doc, :mapped_xpaths
 
     def output_format(hash)
-      hash.map{ |xpath, val| "  #{xpath}\n    #{val}" }
+      hash.map { |xpath, val| "  #{xpath}\n    #{val}" }
         .join("\n")
     end
 
@@ -84,7 +84,7 @@ module MatchDocMatcher
     end
 
     def unexpected_val_output
-      unexpected_vals.map{ |xpath, val|
+      unexpected_vals.map { |xpath, val|
         "  #{xpath}\n"\
           "    Expected: #{fixture_vals[xpath]}\n"\
           "    Got     : #{val}"
@@ -106,13 +106,13 @@ module MatchDocMatcher
     end
 
     def fixture_vals
-      @fixture_vals ||= fixture_xpaths.map{ |xpath|
+      @fixture_vals ||= fixture_xpaths.map { |xpath|
         [xpath, standardize_value(fixture_doc.xpath(xpath).text)]
       }.to_h
     end
 
     def mapped_vals
-      @mapped_vals ||= fixture_xpaths.map{ |xpath|
+      @mapped_vals ||= fixture_xpaths.map { |xpath|
         [xpath, standardize_value(mapped_doc.xpath(xpath).text)]
       }.to_h
     end
@@ -124,7 +124,7 @@ module MatchDocMatcher
     def remove_namespaces(doc)
       doc = doc.clone
       doc.remove_namespaces!
-      doc.xpath("/*/*").each{ |n| n.name = n.name.sub("ns2:", "") }
+      doc.xpath("/*/*").each { |n| n.name = n.name.sub("ns2:", "") }
       doc
     end
 
@@ -159,14 +159,14 @@ module MatchDocMatcher
           node.remove
         end
         # Drop fields created by CS application
-        node.remove if rejectfields.bsearch{ |f| f == node.name }
+        node.remove if rejectfields.bsearch { |f| f == node.name }
       end
       doc
     end
 
     def get_xpaths(doc)
       xpaths = []
-      doc.traverse{ |node| xpaths << node.path }
+      doc.traverse { |node| xpaths << node.path }
       xpaths.sort!
     end
 
@@ -199,7 +199,7 @@ module MatchDocMatcher
 
       xpaths.select do |path|
         path = remove_xpath_occurrence_indicators(path)
-        mappaths.any?{ |e| path.start_with?(e) }
+        mappaths.any? { |e| path.start_with?(e) }
       end
     end
 

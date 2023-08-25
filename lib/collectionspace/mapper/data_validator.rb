@@ -9,7 +9,7 @@ module CollectionSpace
       def initialize(handler)
         @handler = handler
         handler.config.validator = self
-        handler.record.extensions.each{ |ext| extend ext }
+        handler.record.extensions.each { |ext| extend ext }
 
         @id_field = get_id_field
         @required_mappings = handler.record.mappings

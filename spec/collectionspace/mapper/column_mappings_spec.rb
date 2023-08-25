@@ -4,7 +4,7 @@ require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::ColumnMappings,
   vcr: "core_domain_check" do
-  subject(:mappings){ handler.record.mappings }
+  subject(:mappings) { handler.record.mappings }
 
   # Building the handler calls RecordMapper, which calls the described class to
   #   set the handler.record settings, including :mappings. The :mappings
@@ -17,7 +17,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings,
   end
 
   context "when initialized from authority RecordMapper" do
-    let(:mapper){ "core_7-1-0_citation-local" }
+    let(:mapper) { "core_7-1-0_citation-local" }
 
     it "adds shortIdentifier to mappings" do
       expect(mappings.known_columns.include?("shortidentifier")).to be true
@@ -25,7 +25,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings,
   end
 
   context "when initialized from media RecordMapper" do
-    let(:mapper){ "core_7-1-0_media" }
+    let(:mapper) { "core_7-1-0_media" }
 
     it "does not add shortIdentifier to mappings" do
       expect(mappings.known_columns.include?("shortidentifier")).to be false
@@ -37,7 +37,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings,
   end
 
   describe "#known_columns" do
-    let(:mapper){ "core_7-1-0_collectionobject" }
+    let(:mapper) { "core_7-1-0_collectionobject" }
 
     it "returns list of downcased datacolumns" do
       expect(mappings.known_columns).to include("objectnumber")
@@ -45,7 +45,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings,
   end
 
   describe "#required_columns" do
-    let(:mapper){ "core_7-1-0_movement" }
+    let(:mapper) { "core_7-1-0_movement" }
 
     it "returns column mappings for required fields" do
       expected = %w[currentlocationlocationlocal currentlocationlocationoffsite
@@ -58,7 +58,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings,
   end
 
   describe "#<<" do
-    let(:mapper){ "core_7-1-0_collectionobject" }
+    let(:mapper) { "core_7-1-0_collectionobject" }
 
     let(:added_field) do
       {
@@ -80,7 +80,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings,
   end
 
   describe "#lookup" do
-    let(:mapper){ "core_7-1-0_collectionobject" }
+    let(:mapper) { "core_7-1-0_collectionobject" }
 
     it "returns ColumnMapping for column name" do
       result = mappings.lookup("numberType").fieldname

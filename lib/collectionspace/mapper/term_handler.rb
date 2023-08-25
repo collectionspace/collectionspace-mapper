@@ -37,9 +37,9 @@ module CollectionSpace
 
       def handle_terms
         if data.first.is_a?(String)
-          data.map{ |val| handle_term(val) }
+          data.map { |val| handle_term(val) }
         else
-          data.map{ |arr| arr.map{ |val| handle_term(val) } }
+          data.map { |arr| arr.map { |val| handle_term(val) } }
         end
       end
 

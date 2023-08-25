@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::DateDetails::DataPrepper do
-  subject(:prepper){ described_class.new(datahash, handler) }
+  subject(:prepper) { described_class.new(datahash, handler) }
 
   let(:handler) do
     setup_handler(
@@ -12,14 +12,14 @@ RSpec.describe CollectionSpace::Mapper::DateDetails::DataPrepper do
       config: config
     )
   end
-  let(:profile){ "core" }
-  let(:mapper){ "core_6-1-0_collectionobject" }
-  let(:baseconfig){ {"delimiter" => "|", "batch_mode" => "date details"} }
-  let(:customcfg){ {} }
-  let(:config){ baseconfig.merge(customcfg) }
+  let(:profile) { "core" }
+  let(:mapper) { "core_6-1-0_collectionobject" }
+  let(:baseconfig) { {"delimiter" => "|", "batch_mode" => "date details"} }
+  let(:customcfg) { {} }
+  let(:config) { baseconfig.merge(customcfg) }
 
   describe "#prep", vcr: "core_domain_check" do
-    let(:response){ prepper.prep }
+    let(:response) { prepper.prep }
 
     describe "leading/trailing space stripping" do
       context "when identifier field" do
@@ -30,14 +30,14 @@ RSpec.describe CollectionSpace::Mapper::DateDetails::DataPrepper do
             "scalarValuesComputed" => "f"
           }
         end
-        let(:result){ response.transformed_data["objectnumber"] }
+        let(:result) { response.transformed_data["objectnumber"] }
 
         it "strips leading/trailing spaces from id field(s)" do
           expect(result).to eq(["123"])
         end
 
         context "with strip_id_values = false" do
-          let(:customcfg){ {strip_id_values: false} }
+          let(:customcfg) { {strip_id_values: false} }
 
           it "does not strip leading/trailing spaces from id field(s)" do
             expect(result).to eq(["123 "])
@@ -47,7 +47,7 @@ RSpec.describe CollectionSpace::Mapper::DateDetails::DataPrepper do
     end
 
     describe "term prep" do
-      let(:result){ response.transformed_data }
+      let(:result) { response.transformed_data }
       let(:datahash) do
         get_datahash(
           path: "spec/support/datahashes/date_details/"\
@@ -57,7 +57,7 @@ RSpec.describe CollectionSpace::Mapper::DateDetails::DataPrepper do
 
       it "adds expected UsedTerm objects to response.terms" do
         chk = response.terms
-          .map{ |term| [term.field, term.urn] }
+          .map { |term| [term.field, term.urn] }
           .to_h
         expected = {
           "datelatestcertainty" => "urn:cspace:c.core.collectionspace.org:"\
@@ -76,13 +76,13 @@ RSpec.describe CollectionSpace::Mapper::DateDetails::DataPrepper do
     end
 
     describe "#transform_date_fields" do
-      let(:result){ response.transformed_data }
+      let(:result) { response.transformed_data }
       let(:expectedkeys) do
         ["objectnumber", targetfield].sort
       end
-      let(:targetfield){ "objectproductiondategroup" }
-      let(:fieldresult){ result[targetfield] }
-      let(:chk){ fieldresult.map{ |e| e.class }.uniq }
+      let(:targetfield) { "objectproductiondategroup" }
+      let(:fieldresult) { result[targetfield] }
+      let(:chk) { fieldresult.map { |e| e.class }.uniq }
 
       context "when single value date details" do
         let(:datahash) do

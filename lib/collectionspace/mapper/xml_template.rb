@@ -30,7 +30,7 @@ module CollectionSpace
 
       def build_xml
         builder = Nokogiri::XML::Builder.new do |xml|
-          xml.document{ create_record_namespace_nodes(xml) }
+          xml.document { create_record_namespace_nodes(xml) }
         end
         Nokogiri::XML(builder.to_xml)
       end

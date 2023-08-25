@@ -16,7 +16,7 @@ module CollectionSpace
             .map(&:downcase)
           @date_field_lookup =
             CollectionSpace::Mapper.structured_date_detailed_fields
-              .map{ |field| [field.downcase, field] }
+              .map { |field| [field.downcase, field] }
               .to_h
         end
 
@@ -38,12 +38,12 @@ module CollectionSpace
 
         def date_data
           @date_data ||= response.merged_data
-            .select{ |field, _value| date_fields.any?(field) }
+            .select { |field, _value| date_fields.any?(field) }
         end
 
         def non_date_data
           @non_date_data ||= response.merged_data
-            .reject{ |field, _value| date_fields.any?(field) }
+            .reject { |field, _value| date_fields.any?(field) }
         end
 
         def split_data
@@ -121,19 +121,19 @@ module CollectionSpace
         end
 
         def extracted_date(index)
-          response.transformed_data.map{ |field, values|
+          response.transformed_data.map { |field, values|
             [field, values[index]]
           }.to_h
             .compact
         end
 
         def capitalized_fieldnames(datehash)
-          datehash.transform_keys!{ |key| date_field_lookup[key] }
+          datehash.transform_keys! { |key| date_field_lookup[key] }
         end
 
         def clean_transformed
           response.transformed_data
-            .delete_if{ |field, _val| date_data.keys.any?(field) }
+            .delete_if { |field, _val| date_data.keys.any?(field) }
         end
 
         def readd_id

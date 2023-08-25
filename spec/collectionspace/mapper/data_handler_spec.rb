@@ -3,12 +3,12 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::DataHandler do
-  subject(:handler){ described_class.new(**args) }
+  subject(:handler) { described_class.new(**args) }
 
   describe ".new", vcr: "core_domain_check" do
     context "with vocabulary term config" do
-      let(:client){ core_client }
-      let(:config){ {"batch_mode" => "vocabulary terms"} }
+      let(:client) { core_client }
+      let(:config) { {"batch_mode" => "vocabulary terms"} }
       let(:args) do
         {
           client: client,
@@ -25,10 +25,10 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
     end
 
     context "with full record signature" do
-      let(:mapper){ get_json_record_mapper("core_6-1-0_collectionobject") }
-      let(:client){ core_client }
-      let(:cache){ core_cache }
-      let(:csidcache){ core_csid_cache }
+      let(:mapper) { get_json_record_mapper("core_6-1-0_collectionobject") }
+      let(:client) { core_client }
+      let(:cache) { core_cache }
+      let(:csidcache) { core_csid_cache }
 
       context "without config" do
         let(:args) do
