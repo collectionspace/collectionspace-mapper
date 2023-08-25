@@ -61,7 +61,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "rubocop"
-  spec.add_development_dependency "simplecov", "~> 0.21"
+  spec.add_development_dependency "simplecov"
   spec.add_development_dependency "standard", "~> 1.21"
   spec.add_development_dependency "vcr", "~> 6.1"
   spec.add_development_dependency "webmock"

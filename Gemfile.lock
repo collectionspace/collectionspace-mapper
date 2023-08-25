@@ -140,7 +140,7 @@ DEPENDENCIES
   rake (~> 13.0)
   rspec
   rubocop
-  simplecov (~> 0.21)
+  simplecov
   standard (~> 1.21)
   vcr (~> 6.1)
   webmock
