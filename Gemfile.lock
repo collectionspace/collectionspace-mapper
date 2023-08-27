@@ -1,3 +1,14 @@
+GIT
+  remote: https://github.com/kspurgin/almost_standard.git
+  revision: 864bb93fb3bc72ae977366efdc5e8561f3909212
+  branch: main
+  specs:
+    almost_standard (0.1.2)
+      bundler
+      rubocop
+      rubocop-rspec
+      standard
+
 PATH
   remote: .
   specs:
@@ -155,15 +166,12 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  bundler (~> 2.3)
+  almost_standard!
   collectionspace-mapper!
   pry (~> 0.14)
   rake (~> 13.0)
   rspec
-  rubocop
-  rubocop-rspec
   simplecov
-  standard
   vcr (~> 6.1)
   webmock
 
