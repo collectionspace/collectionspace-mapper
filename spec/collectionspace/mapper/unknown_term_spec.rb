@@ -22,9 +22,9 @@ RSpec.describe CollectionSpace::Mapper::UnknownTerm do
       let(:str) { nil }
 
       it "fails" do
-        expect {
+        expect do
           result
-        }.to raise_error(
+        end.to raise_error(
           CollectionSpace::Mapper::ReconstituteCachedNilValueError
         )
       end

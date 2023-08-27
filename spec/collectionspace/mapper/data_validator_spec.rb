@@ -126,10 +126,10 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
         let(:mapper) { "core_6-1-0_movement" }
 
         context "with valid data" do
-          let(:data) {
+          let(:data) do
             {"movementReferenceNumber" => "1",
              "currentLocationLocationLocal" => "Loc"}
-          }
+          end
 
           it "validates valid data" do
             expect(response.valid?).to be true
@@ -155,9 +155,9 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
             let(:data) { {"objectNumber" => "123"} }
 
             it "no required field error returned" do
-              err = response.errors.select { |errhash|
+              err = response.errors.select do |errhash|
                 errhash[:type].start_with?("required field")
-              }
+              end
               expect(err.size).to eq(0)
             end
           end
@@ -165,9 +165,9 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
           context "and required field present but empty" do
             let(:data) { {"objectNumber" => ""} }
             it 'returns required field err w/ msg "required field empty"' do
-              err = response.errors.select { |err|
+              err = response.errors.select do |err|
                 err.start_with?("required field empty")
-              }
+              end
               expect(err.size).to eq(1)
             end
           end
@@ -176,9 +176,9 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
         context "when required field not present in data" do
           let(:data) { {"randomField" => "random value"} }
           it 'returns required field error w/msg "required field missing"' do
-            err = response.errors.select { |err|
+            err = response.errors.select do |err|
               err.start_with?("required field missing")
-            }
+            end
             expect(err.size).to eq(1)
           end
         end
@@ -195,9 +195,9 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
           end
 
           it "no required field error returned", services_call: true do
-            err = response.errors.select { |err|
+            err = response.errors.select do |err|
               err.start_with?("required field")
-            }
+            end
             expect(err.size).to eq(0)
           end
         end
@@ -213,9 +213,9 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
             let(:data) { {"loanOutNumber" => "123"} }
 
             it "no required field error returned" do
-              err = response.errors.select { |err|
+              err = response.errors.select do |err|
                 err.start_with?("required field")
-              }
+              end
               expect(err.size).to eq(0)
             end
           end
@@ -224,9 +224,9 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
             let(:data) { {"loanOutNumber" => ""} }
 
             it 'returns required field error w/msg "required field empty"' do
-              err = response.errors.select { |err|
+              err = response.errors.select do |err|
                 err.start_with?("required field empty")
-              }
+              end
               expect(err.size).to eq(1)
             end
           end
@@ -236,9 +236,9 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
           let(:data) { {"randomField" => "random value"} }
 
           it 'returns required field error w/msg "required field missing"' do
-            err = response.errors.select { |err|
+            err = response.errors.select do |err|
               err.start_with?("required field missing")
-            }
+            end
             expect(err.size).to eq(1)
           end
         end

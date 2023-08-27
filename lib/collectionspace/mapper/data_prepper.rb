@@ -266,9 +266,9 @@ module CollectionSpace
         xform = response.transformed_data
 
         fields.each do |field, cols|
-          xformed = cols.map { |col|
+          xformed = cols.map do |col|
             xform[col.datacolumn.downcase]
-          }.compact
+          end.compact
           chk = []
           xformed.each { |arr| chk << arr.map { |e| e.class } }
           chk = chk.flatten.uniq
@@ -287,14 +287,14 @@ module CollectionSpace
       end
 
       def clean_combined_data(xpath)
-        response.combined_data[xpath.path].select { |_fieldname, val|
+        response.combined_data[xpath.path].select do |_fieldname, val|
           val.blank?
-        }.keys.each do |fieldname|
+        end.keys.each do |fieldname|
           response.combined_data[xpath.path].delete(fieldname)
           unless fieldname == "shortIdentifier"
-            xpath.mappings.delete_if { |mapping|
+            xpath.mappings.delete_if do |mapping|
               mapping.fieldname == fieldname
-            }
+            end
           end
         end
       end

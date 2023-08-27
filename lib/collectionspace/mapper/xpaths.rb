@@ -65,13 +65,13 @@ module CollectionSpace
 
       def create_xpaths
         mappings.group_by { |mapping| mapping.fullpath }
-          .map { |xpath, maps|
+          .map do |xpath, maps|
             [xpath, CollectionSpace::Mapper::Xpath.new(
               path: xpath,
               mappings: maps,
               handler: handler
             )]
-          }.to_h
+          end.to_h
       end
 
       def set_subgroups

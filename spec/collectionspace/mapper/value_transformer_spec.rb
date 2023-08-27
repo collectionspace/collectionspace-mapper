@@ -41,9 +41,9 @@ RSpec.describe CollectionSpace::Mapper::ValueTransformer do
 
     context "when boolean (dentition)" do
       let(:column) { "dentition" }
-      let(:transforms) {
+      let(:transforms) do
         {special: %w[boolean]}
-      }
+      end
 
       context "with empty string" do
         let(:value) { "" }
@@ -56,9 +56,9 @@ RSpec.describe CollectionSpace::Mapper::ValueTransformer do
 
     context "when vocabulary: behrensmeyer" do
       let(:column) { "behrensmeyerupper" }
-      let(:transforms) {
+      let(:transforms) do
         {vocabulary: "behrensmeyer", special: %w[behrensmeyer_translate]}
-      }
+      end
       let(:value) { "0" }
 
       it "returns transformed value for retrieving refname" do
@@ -68,9 +68,9 @@ RSpec.describe CollectionSpace::Mapper::ValueTransformer do
 
     context "when vocabulary: behrensmeyer" do
       let(:column) { "behrensmeyerupper" }
-      let(:transforms) {
+      let(:transforms) do
         {vocabulary: "behrensmeyer", special: %w[behrensmeyer_translate]}
-      }
+      end
       let(:value) { "0" }
 
       it "returns transformed value for retrieving refname" do

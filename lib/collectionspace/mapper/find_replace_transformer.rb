@@ -9,9 +9,9 @@ module CollectionSpace
     class FindReplaceTransformer < Transformer
       def initialize(transform:)
         super
-        @operations = transform.map { |operation|
+        @operations = transform.map do |operation|
           FindReplaceOperation.create(operation)
-        }
+        end
       end
 
       def transform(value)

@@ -61,9 +61,9 @@ module CollectionSpace
 
       def transform_terms
         %w[item1_id item2_id].each_with_index do |field, i|
-          transformed = response.split_data[field].map { |id|
+          transformed = response.split_data[field].map do |id|
             get_rec_csid(id, types[i])
-          }
+          end
           response.transformed_data[field] = transformed
         end
 

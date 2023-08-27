@@ -21,9 +21,9 @@ RSpec.describe CollectionSpace::Mapper::ObjectHierarchyDataPrepper do
     let(:response) { prepper.prep }
 
     context "with a missing term", vcr: "core_oh_ids_not_found" do
-      let(:datahash_path) {
+      let(:datahash_path) do
         "spec/support/datahashes/core/objectHierarchy2.json"
-      }
+      end
 
       it "sets response identifier" do
         expect(response.identifier).to eq("2020.1.105 > MISSING")

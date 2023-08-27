@@ -65,9 +65,9 @@ RSpec.describe CollectionSpace::Mapper::BatchConfig,
     context "when initialized with Array" do
       let(:configopt) { [2, 3] }
       it "raises error" do
-        expect {
+        expect do
           config
-        }.to raise_error(CollectionSpace::Mapper::UnhandledConfigFormatError)
+        end.to raise_error(CollectionSpace::Mapper::UnhandledConfigFormatError)
       end
     end
 

@@ -97,9 +97,9 @@ module Helpers
     doc = remove_namespaces(
       Nokogiri::XML(
         File.read("#{FIXTUREDIR}/#{filename}")
-      ) { |c|
+      ) do |c|
         c.noblanks
-      }
+      end
     )
     doc = remove_blank_structured_dates(doc)
 
@@ -147,9 +147,9 @@ module Helpers
   end
 
   def mapper_defined_paths(xpaths, mappings)
-    mappaths = mappings.map { |mapping|
+    mappaths = mappings.map do |mapping|
       "/document/#{mapping.fullpath}/#{mapping.fieldname}"
-    }
+    end
 
     xpaths.select do |path|
       path = remove_xpath_occurrence_indicators(path)

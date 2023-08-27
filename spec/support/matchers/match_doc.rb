@@ -84,11 +84,11 @@ module MatchDocMatcher
     end
 
     def unexpected_val_output
-      unexpected_vals.map { |xpath, val|
+      unexpected_vals.map do |xpath, val|
         "  #{xpath}\n"\
           "    Expected: #{fixture_vals[xpath]}\n"\
           "    Got     : #{val}"
-      }.join("\n")
+      end.join("\n")
     end
 
     # Xpaths populated in mapped doc, but not fixture doc
@@ -106,15 +106,15 @@ module MatchDocMatcher
     end
 
     def fixture_vals
-      @fixture_vals ||= fixture_xpaths.map { |xpath|
+      @fixture_vals ||= fixture_xpaths.map do |xpath|
         [xpath, standardize_value(fixture_doc.xpath(xpath).text)]
-      }.to_h
+      end.to_h
     end
 
     def mapped_vals
-      @mapped_vals ||= fixture_xpaths.map { |xpath|
+      @mapped_vals ||= fixture_xpaths.map do |xpath|
         [xpath, standardize_value(mapped_doc.xpath(xpath).text)]
-      }.to_h
+      end.to_h
     end
 
     # The way CollectionSpace uses different URIs for the same namespace prefix
@@ -142,9 +142,9 @@ module MatchDocMatcher
       doc = remove_namespaces(
         Nokogiri::XML(
           File.read("spec/support/xml/#{filename}")
-        ) { |c|
+        ) do |c|
           c.noblanks
-        }
+        end
       )
       doc = remove_blank_structured_dates(doc)
 
@@ -193,9 +193,9 @@ module MatchDocMatcher
     end
 
     def mapper_defined_paths(xpaths, mappings)
-      mappaths = mappings.map { |mapping|
+      mappaths = mappings.map do |mapping|
         "/document/#{mapping.fullpath}/#{mapping.fieldname}"
-      }
+      end
 
       xpaths.select do |path|
         path = remove_xpath_occurrence_indicators(path)

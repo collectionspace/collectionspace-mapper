@@ -15,9 +15,9 @@ RSpec.describe CollectionSpace::Mapper::Dates::StructuredDateHandler do
 
   describe "#ce", vcr: "dates_ce" do
     let(:result) { date_handler.ce }
-    let(:refname) {
+    let(:refname) do
       "urn:cspace:#{domain}:vocabularies:name(dateera):item:name(ce)'CE'"
-    }
+    end
 
     context "when term is cached" do
       let(:domain) { "c.anthro.collectionspace.org" }

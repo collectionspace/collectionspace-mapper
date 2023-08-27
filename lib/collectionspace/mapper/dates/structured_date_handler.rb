@@ -31,9 +31,9 @@ module CollectionSpace
               date_string,
               handler
             )
-          elsif service_parseable_month_formats.any? { |re|
+          elsif service_parseable_month_formats.any? do |re|
                   date_string.match?(re)
-                }
+                end
             CollectionSpace::Mapper::Dates::ServicesParser.new(
               date_string,
               handler

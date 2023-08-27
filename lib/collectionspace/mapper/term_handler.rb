@@ -106,9 +106,9 @@ module CollectionSpace
           CollectionSpace::Mapper::UsedTerm.new(**opts)
         )
         add_missing_record_error("term", val)
-        [val, case_swap(val)].each { |value|
+        [val, case_swap(val)].each do |value|
           termcache.put("unknownvalue", type_subtype, value, urn)
-        }
+        end
       end
 
       # records the fact that this is an unknown term in the mapper response

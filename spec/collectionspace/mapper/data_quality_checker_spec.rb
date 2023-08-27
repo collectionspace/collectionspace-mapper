@@ -11,9 +11,9 @@ RSpec.describe CollectionSpace::Mapper::DataQualityChecker do
     )
   end
 
-  let(:mapping) {
+  let(:mapping) do
     CollectionSpace::Mapper::ColumnMapping.new(mapping: maphash)
-  }
+  end
   let(:response) { double("Response") }
 
   context "when source_type = optionlist" do

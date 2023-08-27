@@ -34,9 +34,9 @@ module CollectionSpace
           set_relation_id
         else
           id_field = handler.record.identifier_field
-          mapping = handler.record.mappings.find { |mapper|
+          mapping = handler.record.mappings.find do |mapper|
             mapper.fieldname == id_field
-          }
+          end
           thexpath = "//#{mapping.namespace}/#{mapping.fieldname}"
           value = doc.xpath(thexpath).first
           value = value.text
@@ -297,13 +297,13 @@ module CollectionSpace
             subgroup: subgroup)
         end
 
-        thisdata.each { |field, subgroups|
+        thisdata.each do |field, subgroups|
           assign_subgroup_values_to_group_hash_data(groups, field, subgroups)
-        }
+        end
 
-        groups.values.each { |grp|
+        groups.values.each do |grp|
           create_intermediate_subgroup_hierarchy(grp, subgroup_path)
-        }
+        end
 
         max_ct = maximum_subgroup_values(thisdata)
 

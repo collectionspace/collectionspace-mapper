@@ -43,9 +43,9 @@ module CollectionSpace
       end
 
       def validate_refnames(refnames)
-        refnames.each { |val|
+        refnames.each do |val|
           validate_refname(val) unless val.blank? || val == "%NULLVALUE%"
-        }
+        end
       end
 
       # @todo Use client refname parser to validate instead of a regexp

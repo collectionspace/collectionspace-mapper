@@ -121,9 +121,9 @@ module CollectionSpace
         end
 
         def extracted_date(index)
-          response.transformed_data.map { |field, values|
+          response.transformed_data.map do |field, values|
             [field, values[index]]
-          }.to_h
+          end.to_h
             .compact
         end
 
