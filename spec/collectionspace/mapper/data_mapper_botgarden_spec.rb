@@ -11,9 +11,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     let(:mapper) { "botgarden_3-0-2_pottag" }
 
     context "record 1" do
-      let(:datahash_path) {
+      let(:datahash_path) do
         "spec/support/datahashes/botgarden/pottag1.json"
-      }
+      end
       let(:fixture_path) { "botgarden/pottag1.xml" }
 
       it_behaves_like "Mapped"
@@ -24,9 +24,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     let(:mapper) { "botgarden_3-0-2_propagation" }
 
     context "record 1" do
-      let(:datahash_path) {
+      let(:datahash_path) do
         "spec/support/datahashes/botgarden/propagation1.json"
-      }
+      end
       let(:fixture_path) { "botgarden/propagation1.xml" }
 
       # these tests are waiting for namespace uri fixes in CCU RecordMappers
@@ -40,9 +40,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     let(:customcfg) { {response_mode: "verbose"} }
 
     context "record 1" do
-      let(:datahash_path) {
+      let(:datahash_path) do
         "spec/support/datahashes/botgarden/taxon1.json"
-      }
+      end
       let(:fixture_path) { "botgarden/taxon_new.xml" }
 
       it_behaves_like "Mapped"

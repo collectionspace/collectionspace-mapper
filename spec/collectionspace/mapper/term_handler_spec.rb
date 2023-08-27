@@ -31,18 +31,18 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
   end
 
   describe ".new", vcr: "core_domain_check" do
-    let(:result) {
+    let(:result) do
       th
       response.transformed_data[colname.downcase]
-    }
+    end
     let(:errs) { response.errors }
 
     context "titletranslationlanguage (vocabulary, field subgroup)" do
       let(:colname) { "titleTranslationLanguage" }
-      let(:data) {
+      let(:data) do
         [["%NULLVALUE%", "Swahili"], %w[Klingon Spanish],
           [CollectionSpace::Mapper.bomb]]
-      }
+      end
 
       it "result is the transformed value for mapping",
         vcr: "term_handler_result_titletranslationlanguage" do
@@ -82,17 +82,17 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
   end
 
   describe "#terms" do
-    let(:terms) {
+    let(:terms) do
       th
       response.terms
-    }
+    end
 
     context "titletranslationlanguage (vocabulary, field subgroup)" do
       let(:colname) { "titleTranslationLanguage" }
-      let(:data) {
+      let(:data) do
         [["%NULLVALUE%", "Swahili"], %w[Sanza Spanish],
           [CollectionSpace::Mapper.bomb]]
-      }
+      end
 
       context "when new term (Sanza) is initially encountered" do
         it "returns terms as expected",
@@ -132,9 +132,9 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
 
     context "reference (authority, field group)" do
       let(:colname) { "referenceLocal" }
-      let(:data) {
+      let(:data) do
         ["Reference 3", "Reference 3", "Reference 4", "%NULLVALUE%"]
-      }
+      end
 
       context "when new term (Reference 3) is initially encountered" do
         it "contains UsedTerm object for each value",

@@ -17,10 +17,10 @@ RSpec.describe CollectionSpace::Mapper::Xpath do
     let(:mapper) { "anthro_4-1-2_collectionobject" }
 
     context "xpath ending with commingledRemainsGroup" do
-      let(:path) {
+      let(:path) do
         "collectionobjects_anthro/commingledRemainsGroupList/"\
           "commingledRemainsGroup"
-      }
+      end
 
       it "is_group = true" do
         expect(result.is_group?).to be true
@@ -76,10 +76,10 @@ RSpec.describe CollectionSpace::Mapper::Xpath do
       let(:mapper) { "bonsai_4-1-1_conservation" }
 
       context "xpath ending with fertilizersToBeUsed" do
-        let(:path) {
+        let(:path) do
           "conservation_livingplant/fertilizationGroupList/"\
             "fertilizationGroup/fertilizersToBeUsed"
-        }
+        end
         it "is a repeating group" do
           expect(result.is_group?).to be true
         end

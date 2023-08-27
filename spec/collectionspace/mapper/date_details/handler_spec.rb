@@ -23,9 +23,9 @@ RSpec.describe CollectionSpace::Mapper::DateDetails::Handler do
     let(:result) { handler.validate(data) }
 
     context "when given Hash" do
-      let(:datahash_path) {
+      let(:datahash_path) do
         "spec/support/datahashes/date_details/object_production_date_2.json"
-      }
+      end
 
       it "returns CollectionSpace::Mapper::Response object" do
         expect(result).to be_a(CollectionSpace::Mapper::Response)

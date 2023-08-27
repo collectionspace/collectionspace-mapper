@@ -37,9 +37,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       let(:mapper) { "core_6-1-0_nonhierarchicalrelationship" }
 
       context "when all IDs found", vcr: "core_nhr_ids_found" do
-        let(:datahash_path) {
+        let(:datahash_path) do
           "spec/support/datahashes/core/nonHierarchicalRelationship1.json"
-        }
+        end
         let(:mapped_pair) { handler.process(response) }
 
         context "with original data" do
@@ -116,9 +116,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         record: :new_episodes
       }
       context "with existing terms", vcr: vcr_opts do
-        let(:datahash_path) {
+        let(:datahash_path) do
           "spec/support/datahashes/core/authorityHierarchy1.json"
-        }
+        end
         let(:fixture_path) { "core/authorityHierarchy1.xml" }
 
         it "sets response id field as expected" do
@@ -133,9 +133,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         record: :new_episodes
       }
       context "with a missing term", vcr: vcr_opts do
-        let(:datahash_path) {
+        let(:datahash_path) do
           "spec/support/datahashes/core/authorityHierarchy2.json"
-        }
+        end
 
         it "doc is nil because response is invalid" do
           expect(mapped.doc).to be_nil
@@ -147,9 +147,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       let(:mapper) { "core_6-1-0_objecthierarchy" }
 
       context "with existing records", vcr: "core_oh_ids_found" do
-        let(:datahash_path) {
+        let(:datahash_path) do
           "spec/support/datahashes/core/objectHierarchy1.json"
-        }
+        end
         let(:fixture_path) { "core/objectHierarchy1.xml" }
 
         it "sets response id field as expected" do
@@ -160,9 +160,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       end
 
       context "with missing record", vcr: "core_oh_ids_not_found" do
-        let(:datahash_path) {
+        let(:datahash_path) do
           "spec/support/datahashes/core/objectHierarchy2.json"
-        }
+        end
 
         it "doc is nil because response is invalid" do
           expect(mapped.doc).to be_nil
@@ -174,18 +174,18 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       let(:mapper) { "core_6-1-0_acquisition" }
 
       context "record 1", vcr: "core_acq_1" do
-        let(:datahash_path) {
+        let(:datahash_path) do
           "spec/support/datahashes/core/acquisition1.json"
-        }
+        end
         let(:fixture_path) { "core/acquisition1.xml" }
 
         it_behaves_like "Mapped"
       end
 
       context "record 2", vcr: "core_acq_2" do
-        let(:datahash_path) {
+        let(:datahash_path) do
           "spec/support/datahashes/core/acquisition2.json"
-        }
+        end
         let(:fixture_path) { "core/acquisition2.xml" }
 
         it "no xml is produced" do
@@ -220,18 +220,18 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       let(:mapper) { "core_6-1-0_collectionobject" }
 
       context "record 1", vcr: "core_obj_1" do
-        let(:datahash_path) {
+        let(:datahash_path) do
           "spec/support/datahashes/core/collectionobject1.json"
-        }
+        end
         let(:fixture_path) { "core/collectionobject1.xml" }
 
         it_behaves_like "Mapped"
       end
 
       context "record 4 (bomb and %NULLVALUE% terms)", vcr: "core_obj_4" do
-        let(:datahash_path) {
+        let(:datahash_path) do
           "spec/support/datahashes/core/collectionobject4.json"
-        }
+        end
         let(:fixture_path) { "core/collectionobject4.xml" }
 
         it_behaves_like "MappedWithBlanks"
@@ -241,9 +241,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
         vcr: "core_obj_5" do
           let(:customcfg) { {delimiter: "|"} }
           let(:mapper) { "core_6-1-0_collectionobject" }
-          let(:datahash_path) {
+          let(:datahash_path) do
             "spec/support/datahashes/core/collectionobject5.json"
-          }
+          end
           let(:fixture_path) { "core/collectionobject5.xml" }
 
           it_behaves_like "Mapped"
@@ -254,9 +254,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       let(:mapper) { "core_6-1-0_conditioncheck" }
 
       context "record 1", vcr: "core_cc_1" do
-        let(:datahash_path) {
+        let(:datahash_path) do
           "spec/support/datahashes/core/conditioncheck1.json"
-        }
+        end
         let(:fixture_path) { "core/conditioncheck1.xml" }
 
         it_behaves_like "Mapped"
@@ -267,9 +267,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       let(:mapper) { "core_6-1-0_conservation" }
 
       context "record 1", vcr: "core_ct_1" do
-        let(:datahash_path) {
+        let(:datahash_path) do
           "spec/support/datahashes/core/conservation1.json"
-        }
+        end
         let(:fixture_path) { "core/conservation1.xml" }
 
         it_behaves_like "Mapped"
@@ -280,9 +280,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       let(:mapper) { "core_6-1-0_exhibition" }
 
       context "record 1", vcr: "core_exh_1" do
-        let(:datahash_path) {
+        let(:datahash_path) do
           "spec/support/datahashes/core/exhibition1.json"
-        }
+        end
         let(:fixture_path) { "core/exhibition1.xml" }
 
         it_behaves_like "Mapped"
@@ -359,9 +359,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
       let(:mapper) { "core_6-1-0_objectexit" }
 
       context "record 1", vcr: "core_oe_1" do
-        let(:datahash_path) {
+        let(:datahash_path) do
           "spec/support/datahashes/core/objectexit1.json"
-        }
+        end
         let(:fixture_path) { "core/objectexit1.xml" }
 
         it_behaves_like "Mapped"

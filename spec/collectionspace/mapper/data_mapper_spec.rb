@@ -33,9 +33,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
             'acquisitionnote":"Acquisition source role(s): Donor"}'
         )
         data = [data1, data2, data3]
-        docxpaths = data.map { |dh|
+        docxpaths = data.map do |dh|
           CollectionSpace::Mapper::Response.new(dh, handler).prep
-        }.map { |dr| dr.map }
+        end.map { |dr| dr.map }
           .map { |dr| remove_namespaces(dr.doc) }
           .map { |doc| list_xpaths(doc) }
 
@@ -56,22 +56,22 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
         context "overflow subgroup record with uneven subgroup values" do
           #          skip: "subgroup complications" do
           let(:customcfg) { {delimiter: "|"} }
-          let(:datahash_path) {
+          let(:datahash_path) do
             "spec/support/datahashes/core/collectionobject2.json"
-          }
+          end
           let(:fixture_path) { "core/collectionobject2.xml" }
 
           it "mapper response includes overflow subgroup warning" do
-            w = mapped.warnings.any? { |w|
+            w = mapped.warnings.any? do |w|
               w[:category] == :subgroup_contains_data_for_nonexistent_groups
-            }
+            end
             expect(w).to be true
           end
 
           it "mapper response includes uneven subgroup values warning" do
-            w = mapped.warnings.any? { |w|
+            w = mapped.warnings.any? do |w|
               w[:category] == :uneven_subgroup_field_values
-            }
+            end
             expect(w).to be true
           end
 
@@ -79,14 +79,14 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
         end
 
         context "overflow subgroup record with even subgroup values" do
-          let(:datahash_path) {
+          let(:datahash_path) do
             "spec/support/datahashes/core/collectionobject3.json"
-          }
+          end
 
           it "mapper response does not include overflow subgroup warning" do
-            w = mapped.warnings.any? { |w|
+            w = mapped.warnings.any? do |w|
               w[:category] == :subgroup_contains_data_for_nonexistent_groups
-            }
+            end
             expect(w).to be false
           end
         end
@@ -96,15 +96,15 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
         let(:mapper) { "core_6-1-0_media" }
 
         context "sending through the bomb emoji" do
-          let(:datahash_path) {
+          let(:datahash_path) do
             "spec/support/datahashes/core/media2.json"
-          }
+          end
 
           it "sends through an empty node for any field containing bomb" do
             doc = remove_namespaces(mapped.doc)
-            xpaths = list_xpaths(doc).reject { |xpath|
+            xpaths = list_xpaths(doc).reject do |xpath|
               xpath["identificationNumber"]
-            }
+            end
             vals = []
             xpaths.each { |xpath| vals << doc.xpath(xpath).text }
             expect(vals.uniq).to eq([""])
@@ -191,9 +191,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
           urihash.transform_keys! { |k| "ns2:#{k}" }
           docdefs = {}
           mapped.doc.xpath("/*/*").each do |ns|
-            docdefs[ns.name] = ns.namespace_definitions.find { |d|
+            docdefs[ns.name] = ns.namespace_definitions.find do |d|
               d.prefix == "ns2"
-            }.href
+            end.href
           end
           unused_keys = urihash.keys - docdefs.keys
           unused_keys.each { |k| urihash.delete(k) }

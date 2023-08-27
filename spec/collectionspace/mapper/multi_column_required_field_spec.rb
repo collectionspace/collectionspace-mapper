@@ -3,10 +3,10 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::MultiColumnRequiredField do
-  let(:columns) {
+  let(:columns) do
     %w[currentLocationLocationLocal currentLocationLocationOffsite
       currentLocationOrganization]
-  }
+  end
   let(:field) { described_class.new("currentLocation", columns) }
 
   describe "#present_in?" do

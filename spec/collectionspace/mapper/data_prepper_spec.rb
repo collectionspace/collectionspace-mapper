@@ -98,9 +98,9 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
       end
 
       it "adds expected UsedTerm objects to response.terms" do
-        chk = response.terms.select { |t|
+        chk = response.terms.select do |t|
           t.field == "titletranslationlanguage"
-        }
+        end
         expect(chk.length).to eq(4)
       end
     end
@@ -234,10 +234,10 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
                 "statusDate" => ""
               }
             end
-            let(:xpath) {
+            let(:xpath) do
               "conservation_common/conservationStatusGroupList/"\
                 "conservationStatusGroup"
-            }
+            end
 
             it "removes empty fields from combined data response" do
               result = response.combined_data[xpath].keys
@@ -255,10 +255,10 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
         vcr: "core_domain_check" do
         let(:profile) { "core" }
         let(:mapper) { "core_6-1-0_media" }
-        let(:xpath) {
+        let(:xpath) do
           "media_common/measuredPartGroupList/measuredPartGroup/"\
             "dimensionSubGroupList/dimensionSubGroup"
-        }
+        end
         let(:field) { "measuredBy" }
 
         context "when there is more than one group" do

@@ -25,9 +25,9 @@ RSpec.describe CollectionSpace::Mapper::AuthorityHierarchyPrepper do
       record: :new_episodes
     }
     context "with a missing term", vcr: vcr_opts do
-      let(:datahash_path) {
+      let(:datahash_path) do
         "spec/support/datahashes/core/authorityHierarchy2.json"
-      }
+      end
 
       it "sets response identifier" do
         expect(response.identifier).to eq("Cats > Tuxedo cats")

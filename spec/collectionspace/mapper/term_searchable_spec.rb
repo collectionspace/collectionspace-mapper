@@ -18,9 +18,9 @@ end
 
 RSpec.describe CollectionSpace::Mapper::TermSearchable,
   vcr: "core_domain_check" do
-  subject(:term) {
+  subject(:term) do
     TermClass.new(termtype, termsubtype, handler)
-  }
+  end
 
   let(:handler) do
     setup_handler(

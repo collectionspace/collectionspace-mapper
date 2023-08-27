@@ -11,9 +11,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     let(:mapper) { "anthro_4-1-2_claim" }
 
     context "record 1" do
-      let(:datahash_path) {
+      let(:datahash_path) do
         "spec/support/datahashes/anthro/claim1.json"
-      }
+      end
       let(:fixture_path) { "anthro/claim1.xml" }
 
       it_behaves_like "Mapped"
@@ -26,9 +26,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     # Record 1 was used for testing default value merging, transformations,
     #   etc. We start with record 2 to purely test mapping functionality
     context "record 2" do
-      let(:datahash_path) {
+      let(:datahash_path) do
         "spec/support/datahashes/anthro/collectionobject2.json"
-      }
+      end
       let(:fixture_path) { "anthro/collectionobject1.xml" }
 
       it_behaves_like "Mapped"
@@ -39,9 +39,9 @@ RSpec.describe CollectionSpace::Mapper::DataMapper, type: "integration" do
     let(:mapper) { "anthro_4-1-2_osteology" }
 
     context "record 1" do
-      let(:datahash_path) {
+      let(:datahash_path) do
         "spec/support/datahashes/anthro/osteology1.json"
-      }
+      end
       let(:fixture_path) { "anthro/osteology1.xml" }
 
       it_behaves_like "Mapped"

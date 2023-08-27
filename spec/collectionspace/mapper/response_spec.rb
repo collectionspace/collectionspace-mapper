@@ -152,9 +152,9 @@ RSpec.describe CollectionSpace::Mapper::Response do
     let(:profile) { "botgarden" }
     let(:mapper) { "botgarden_2-0-1_taxon-local" }
 
-    let(:data) {
+    let(:data) do
       {"termDisplayName" => "Tanacetum;Tansy", "termStatus" => "made up"}
-    }
+    end
 
     context "when there is a doc", services_call: true do
       it "returns string" do
@@ -276,9 +276,9 @@ RSpec.describe CollectionSpace::Mapper::Response do
     let(:result) { response.map }
     let(:profile) { "botgarden" }
     let(:mapper) { "botgarden_2-0-1_taxon-local" }
-    let(:data) {
+    let(:data) do
       {"termDisplayName" => "Tanacetum;Tansy", "termStatus" => "made up"}
-    }
+    end
 
     it "returns as expected" do
       expect(result.doc).to be_a(Nokogiri::XML::Document)
