@@ -1,7 +1,7 @@
 {
   "config": {
     "profile_basename": "core",
-    "version": "7-1-0",
+    "version": "7-2-0",
     "recordtype": "collectionobject",
     "document_name": "collectionobjects",
     "service_name": "CollectionObjects",
@@ -53,6 +53,8 @@
       },
       "colors": {
       },
+      "apparelSizes": {
+      },
       "materialGroupList": {
         "materialGroup": {
         }
@@ -99,6 +101,8 @@
         "contentEventNameGroup": {
         }
       },
+      "contentEvents": {
+      },
       "contentOtherGroupList": {
         "contentOtherGroup": {
         }
@@ -112,6 +116,8 @@
         }
       },
       "objectProductionDateGroupList": {
+      },
+      "objectProductionEras": {
       },
       "techniqueGroupList": {
         "techniqueGroup": {
@@ -167,6 +173,8 @@
         "assocPlaceGroup": {
         }
       },
+      "assocEvents": {
+      },
       "assocEventOrganizations": {
       },
       "assocEventPeoples": {
@@ -194,6 +202,8 @@
       "referenceGroupList": {
         "referenceGroup": {
         }
+      },
+      "fieldCollectionSites": {
       },
       "fieldCollectionMethods": {
       },
@@ -484,6 +494,45 @@
 
       ],
       "datacolumn": "namedCollectionRefname",
+      "required": "n"
+    },
+    {
+      "fieldname": "descriptionLevel",
+      "transforms": {
+        "vocabulary": "descriptionlevel"
+      },
+      "source_type": "vocabulary",
+      "source_name": "descriptionlevel",
+      "namespace": "collectionobjects_common",
+      "xpath": [
+
+      ],
+      "data_type": "string",
+      "repeats": "n",
+      "in_repeating_group": "n/a",
+      "opt_list_values": [
+
+      ],
+      "datacolumn": "descriptionLevel",
+      "required": "n"
+    },
+    {
+      "fieldname": "descriptionLevel",
+      "transforms": {
+      },
+      "source_type": "refname",
+      "source_name": "descriptionlevel",
+      "namespace": "collectionobjects_common",
+      "xpath": [
+
+      ],
+      "data_type": "csrefname",
+      "repeats": "n",
+      "in_repeating_group": "n/a",
+      "opt_list_values": [
+
+      ],
+      "datacolumn": "descriptionLevelRefname",
       "required": "n"
     },
     {
@@ -942,6 +991,50 @@
       "required": "n"
     },
     {
+      "fieldname": "objectNameControlled",
+      "transforms": {
+        "authority": [
+          "conceptauthorities",
+          "nomenclature"
+        ]
+      },
+      "source_type": "authority",
+      "source_name": "concept/nomenclature",
+      "namespace": "collectionobjects_common",
+      "xpath": [
+        "objectNameList",
+        "objectNameGroup"
+      ],
+      "data_type": "string",
+      "repeats": "n",
+      "in_repeating_group": "y",
+      "opt_list_values": [
+
+      ],
+      "datacolumn": "objectNameControlled",
+      "required": "n"
+    },
+    {
+      "fieldname": "objectNameControlled",
+      "transforms": {
+      },
+      "source_type": "refname",
+      "source_name": "concept/nomenclature",
+      "namespace": "collectionobjects_common",
+      "xpath": [
+        "objectNameList",
+        "objectNameGroup"
+      ],
+      "data_type": "csrefname",
+      "repeats": "n",
+      "in_repeating_group": "y",
+      "opt_list_values": [
+
+      ],
+      "datacolumn": "objectNameControlledRefname",
+      "required": "n"
+    },
+    {
       "fieldname": "objectNameCurrency",
       "transforms": {
       },
@@ -1335,6 +1428,45 @@
       "required": "n"
     },
     {
+      "fieldname": "apparelSize",
+      "transforms": {
+        "vocabulary": "apparelsizes"
+      },
+      "source_type": "vocabulary",
+      "source_name": "apparelsizes",
+      "namespace": "collectionobjects_common",
+      "xpath": [
+        "apparelSizes"
+      ],
+      "data_type": "string",
+      "repeats": "y",
+      "in_repeating_group": "n",
+      "opt_list_values": [
+
+      ],
+      "datacolumn": "apparelSize",
+      "required": "n"
+    },
+    {
+      "fieldname": "apparelSize",
+      "transforms": {
+      },
+      "source_type": "refname",
+      "source_name": "apparelsizes",
+      "namespace": "collectionobjects_common",
+      "xpath": [
+        "apparelSizes"
+      ],
+      "data_type": "csrefname",
+      "repeats": "y",
+      "in_repeating_group": "n",
+      "opt_list_values": [
+
+      ],
+      "datacolumn": "apparelSizeRefname",
+      "required": "n"
+    },
+    {
       "fieldname": "material",
       "transforms": {
       },
@@ -1352,6 +1484,50 @@
 
       ],
       "datacolumn": "material",
+      "required": "n"
+    },
+    {
+      "fieldname": "materialControlled",
+      "transforms": {
+        "authority": [
+          "conceptauthorities",
+          "material_ca"
+        ]
+      },
+      "source_type": "authority",
+      "source_name": "concept/material",
+      "namespace": "collectionobjects_common",
+      "xpath": [
+        "materialGroupList",
+        "materialGroup"
+      ],
+      "data_type": "string",
+      "repeats": "n",
+      "in_repeating_group": "y",
+      "opt_list_values": [
+
+      ],
+      "datacolumn": "materialControlled",
+      "required": "n"
+    },
+    {
+      "fieldname": "materialControlled",
+      "transforms": {
+      },
+      "source_type": "refname",
+      "source_name": "concept/material",
+      "namespace": "collectionobjects_common",
+      "xpath": [
+        "materialGroupList",
+        "materialGroup"
+      ],
+      "data_type": "csrefname",
+      "repeats": "n",
+      "in_repeating_group": "y",
+      "opt_list_values": [
+
+      ],
+      "datacolumn": "materialControlledRefname",
       "required": "n"
     },
     {
@@ -2350,6 +2526,71 @@
       "required": "n"
     },
     {
+      "fieldname": "contentEvent",
+      "transforms": {
+        "authority": [
+          "chronologyauthorities",
+          "event"
+        ]
+      },
+      "source_type": "authority",
+      "source_name": "chronology/event",
+      "namespace": "collectionobjects_common",
+      "xpath": [
+        "contentEvents"
+      ],
+      "data_type": "string",
+      "repeats": "y",
+      "in_repeating_group": "n",
+      "opt_list_values": [
+
+      ],
+      "datacolumn": "contentEventChronologyEvent",
+      "required": "n"
+    },
+    {
+      "fieldname": "contentEvent",
+      "transforms": {
+        "authority": [
+          "chronologyauthorities",
+          "era"
+        ]
+      },
+      "source_type": "authority",
+      "source_name": "chronology/era",
+      "namespace": "collectionobjects_common",
+      "xpath": [
+        "contentEvents"
+      ],
+      "data_type": "string",
+      "repeats": "y",
+      "in_repeating_group": "n",
+      "opt_list_values": [
+
+      ],
+      "datacolumn": "contentEventChronologyEra",
+      "required": "n"
+    },
+    {
+      "fieldname": "contentEvent",
+      "transforms": {
+      },
+      "source_type": "refname",
+      "source_name": "chronology/event",
+      "namespace": "collectionobjects_common",
+      "xpath": [
+        "contentEvents"
+      ],
+      "data_type": "csrefname",
+      "repeats": "y",
+      "in_repeating_group": "n",
+      "opt_list_values": [
+
+      ],
+      "datacolumn": "contentEventRefname",
+      "required": "n"
+    },
+    {
       "fieldname": "contentOther",
       "transforms": {
       },
@@ -2946,6 +3187,48 @@
 
       ],
       "datacolumn": "objectProductionDateGroup",
+      "required": "n"
+    },
+    {
+      "fieldname": "objectProductionEra",
+      "transforms": {
+        "authority": [
+          "chronologyauthorities",
+          "era"
+        ]
+      },
+      "source_type": "authority",
+      "source_name": "chronology/era",
+      "namespace": "collectionobjects_common",
+      "xpath": [
+        "objectProductionEras"
+      ],
+      "data_type": "string",
+      "repeats": "y",
+      "in_repeating_group": "n",
+      "opt_list_values": [
+
+      ],
+      "datacolumn": "objectProductionEra",
+      "required": "n"
+    },
+    {
+      "fieldname": "objectProductionEra",
+      "transforms": {
+      },
+      "source_type": "refname",
+      "source_name": "chronology/era",
+      "namespace": "collectionobjects_common",
+      "xpath": [
+        "objectProductionEras"
+      ],
+      "data_type": "csrefname",
+      "repeats": "y",
+      "in_repeating_group": "n",
+      "opt_list_values": [
+
+      ],
+      "datacolumn": "objectProductionEraRefname",
       "required": "n"
     },
     {
@@ -3825,6 +4108,71 @@
       "required": "n"
     },
     {
+      "fieldname": "assocEvent",
+      "transforms": {
+        "authority": [
+          "chronologyauthorities",
+          "event"
+        ]
+      },
+      "source_type": "authority",
+      "source_name": "chronology/event",
+      "namespace": "collectionobjects_common",
+      "xpath": [
+        "assocEvents"
+      ],
+      "data_type": "string",
+      "repeats": "y",
+      "in_repeating_group": "n",
+      "opt_list_values": [
+
+      ],
+      "datacolumn": "assocEventChronologyEvent",
+      "required": "n"
+    },
+    {
+      "fieldname": "assocEvent",
+      "transforms": {
+        "authority": [
+          "chronologyauthorities",
+          "era"
+        ]
+      },
+      "source_type": "authority",
+      "source_name": "chronology/era",
+      "namespace": "collectionobjects_common",
+      "xpath": [
+        "assocEvents"
+      ],
+      "data_type": "string",
+      "repeats": "y",
+      "in_repeating_group": "n",
+      "opt_list_values": [
+
+      ],
+      "datacolumn": "assocEventChronologyEra",
+      "required": "n"
+    },
+    {
+      "fieldname": "assocEvent",
+      "transforms": {
+      },
+      "source_type": "refname",
+      "source_name": "chronology/event",
+      "namespace": "collectionobjects_common",
+      "xpath": [
+        "assocEvents"
+      ],
+      "data_type": "csrefname",
+      "repeats": "y",
+      "in_repeating_group": "n",
+      "opt_list_values": [
+
+      ],
+      "datacolumn": "assocEventRefname",
+      "required": "n"
+    },
+    {
       "fieldname": "assocEventOrganization",
       "transforms": {
         "authority": [
@@ -4587,6 +4935,48 @@
 
       ],
       "datacolumn": "referenceNote",
+      "required": "n"
+    },
+    {
+      "fieldname": "fieldCollectionSite",
+      "transforms": {
+        "authority": [
+          "placeauthorities",
+          "archaeological"
+        ]
+      },
+      "source_type": "authority",
+      "source_name": "place/archaeological",
+      "namespace": "collectionobjects_common",
+      "xpath": [
+        "fieldCollectionSites"
+      ],
+      "data_type": "string",
+      "repeats": "y",
+      "in_repeating_group": "n",
+      "opt_list_values": [
+
+      ],
+      "datacolumn": "fieldCollectionSite",
+      "required": "n"
+    },
+    {
+      "fieldname": "fieldCollectionSite",
+      "transforms": {
+      },
+      "source_type": "refname",
+      "source_name": "place/archaeological",
+      "namespace": "collectionobjects_common",
+      "xpath": [
+        "fieldCollectionSites"
+      ],
+      "data_type": "csrefname",
+      "repeats": "y",
+      "in_repeating_group": "n",
+      "opt_list_values": [
+
+      ],
+      "datacolumn": "fieldCollectionSiteRefname",
       "required": "n"
     },
     {
@@ -7601,10 +7991,10 @@
     {
       "fieldname": "applicationRequired",
       "transforms": {
-        "vocabulary": "requiredapplication"
+        "vocabulary": "interactingapplication"
       },
       "source_type": "vocabulary",
-      "source_name": "requiredapplication",
+      "source_name": "interactingapplication",
       "namespace": "collectionobjects_common",
       "xpath": [
         "applicationInteractionGroupList",
@@ -7624,7 +8014,7 @@
       "transforms": {
       },
       "source_type": "refname",
-      "source_name": "requiredapplication",
+      "source_name": "interactingapplication",
       "namespace": "collectionobjects_common",
       "xpath": [
         "applicationInteractionGroupList",
