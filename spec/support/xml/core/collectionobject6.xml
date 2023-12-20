@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document name="collectionobjects">
+  <ns2:collectionspace_core xmlns:ns2="http://collectionspace.org/collectionspace_core/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <createdAt>2023-12-19T22:49:12.842Z</createdAt>
+    <updatedBy>admin@core.collectionspace.org</updatedBy>
+    <createdBy>admin@core.collectionspace.org</createdBy>
+    <workflowState>project</workflowState>
+    <tenantId>1</tenantId>
+    <refName>urn:cspace:core.collectionspace.org:collectionobjects:id(7fba15c8-136b-4cc0-ae7f)'TEST6'</refName>
+    <uri>/collectionobjects/7fba15c8-136b-4cc0-ae7f</uri>
+    <updatedAt>2023-12-19T22:52:38.380Z</updatedAt>
+  </ns2:collectionspace_core>
+  <ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <rightsInGroupList>
+      <rightsInGroup>
+        <rightInBeginDate/>
+        <agreementReceived>2013-03-09T00:00:00.000Z</agreementReceived>
+        <rightInNote>Note text here</rightInNote>
+        <agreementSent/>
+        <rightInTypes/>
+        <rightInRestrictions>
+          <rightInRestriction>urn:cspace:c.core.collectionspace.org:vocabularies:name(rightsinrestriction):item:name(dnr)'Don't release owner data to third parties'</rightInRestriction>
+        </rightInRestrictions>
+        <agreementSigned>2013-03-08T00:00:00.000Z</agreementSigned>
+        <rightInEndDate/>
+        <rightReproductionStatement/>
+      </rightsInGroup>
+    </rightsInGroupList>
+    <objectNumber>TEST6</objectNumber>
+  </ns2:collectionobjects_common>
+  <ns2:account_permission xmlns:ns2="http://collectionspace.org/services/authorization">
+    <account>
+      <accountId>183e3447-f1f3-4e8d-a23d-8023c8e92dff</accountId>
+      <screenName>Administrator</screenName>
+      <userId>admin@core.collectionspace.org</userId>
+      <tenantId>1</tenantId>
+    </account>
+  </ns2:account_permission>
+</document>

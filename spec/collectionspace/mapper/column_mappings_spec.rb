@@ -37,7 +37,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings,
   end
 
   describe "#known_columns" do
-    let(:mapper) { "core_7-1-0_collectionobject" }
+    let(:mapper) { "core_7-2-0_collectionobject" }
 
     it "returns list of downcased datacolumns" do
       expect(mappings.known_columns).to include("objectnumber")
@@ -58,7 +58,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings,
   end
 
   describe "#<<" do
-    let(:mapper) { "core_7-1-0_collectionobject" }
+    let(:mapper) { "core_7-2-0_collectionobject" }
 
     let(:added_field) do
       {
@@ -80,7 +80,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings,
   end
 
   describe "#lookup" do
-    let(:mapper) { "core_7-1-0_collectionobject" }
+    let(:mapper) { "core_7-2-0_collectionobject" }
 
     it "returns ColumnMapping for column name" do
       result = mappings.lookup("numberType").fieldname

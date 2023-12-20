@@ -13,6 +13,9 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 
+## [5.0.2] - 2023-12-19
+- BUGFIX for [#148](https://github.com/collectionspace/collectionspace-mapper/issues/148)
+
 ## [5.0.1] - 2023-04-25
 - BUGFIX for [#165](https://github.com/collectionspace/collectionspace-mapper/issues/165)
 

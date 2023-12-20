@@ -166,7 +166,11 @@ module CollectionSpace
 
       def subgrouplist_target(parent_path, group_index, subgroup_path, subgroup)
         grp_target = doc.xpath("//#{parent_path}")[group_index]
-        target_xpath = "#{subgroup_path.join("/")}/#{subgroup}"
+        target_xpath = if subgroup_path.empty?
+          subgroup
+        else
+          "#{subgroup_path.join("/")}/#{subgroup}"
+        end
         grp_target.xpath(target_xpath)
       end
 
@@ -274,9 +278,9 @@ module CollectionSpace
       def map_subgroup(xpath, thisdata)
         parent_path = xpath.parent
         parent_set = doc.xpath("//#{parent_path}")
-        subgroup_path = xpath.mappings[0].fullpath.gsub(
-          "#{xpath.parent}/", ""
-        ).split("/")
+        subgroup_path = xpath.path
+          .delete_prefix("#{parent_path}/")
+          .split("/")
         subgroup = subgroup_path.pop
 
         # create a hash of subgroup data split up and structured for mapping
@@ -309,7 +313,12 @@ module CollectionSpace
 
         groups.each do |i, _data|
           max_ct.times do
-            target = doc.xpath("//#{parent_path}/#{subgroup_path.join("/")}")
+            targetpath = if subgroup_path.empty?
+              parent_path
+            else
+              "#{parent_path}/#{subgroup_path.join("/")}"
+            end
+            target = doc.xpath("//#{targetpath}")
             target[i].add_child(Nokogiri::XML::Node.new(subgroup, doc))
           end
         end

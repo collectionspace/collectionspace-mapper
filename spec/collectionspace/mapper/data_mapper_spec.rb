@@ -51,7 +51,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     vcr: "core_domain_check" do
       let(:profile) { "core" }
       context "with collectionobject" do
-        let(:mapper) { "core_6-1-0_collectionobject" }
+        let(:mapper) { "core_7-2-0_collectionobject" }
 
         context "overflow subgroup record with uneven subgroup values" do
           #          skip: "subgroup complications" do
@@ -74,6 +74,16 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
             end
             expect(w).to be true
           end
+
+          it_behaves_like "Mapped"
+        end
+
+        # Tests repeating field value within repeatable field group
+        context "with rights in field group" do
+          let(:datahash_path) do
+            "spec/support/datahashes/core/collectionobject6.json"
+          end
+          let(:fixture_path) { "core/collectionobject6.xml" }
 
           it_behaves_like "Mapped"
         end
