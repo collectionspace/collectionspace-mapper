@@ -51,7 +51,7 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
     vcr: "core_domain_check" do
       let(:profile) { "core" }
       context "with collectionobject" do
-        let(:mapper) { "core_6-1-0_collectionobject" }
+        let(:mapper) { "core_7-2-0_collectionobject" }
 
         context "overflow subgroup record with uneven subgroup values" do
           #          skip: "subgroup complications" do
