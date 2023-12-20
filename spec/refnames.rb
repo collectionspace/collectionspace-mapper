@@ -520,6 +520,8 @@ module Helpers
         "urn:cspace:DOMAIN:vocabularies:name(publishto):item:name(none)'None'"],
       ["vocabularies", "publishto", "Omeka",
         "urn:cspace:DOMAIN:vocabularies:name(publishto):item:name(omeka)'Omeka'"],
+      ["vocabularies", "rightsinrestriction", "Don't release owner data to third parties",
+        "urn:cspace:DOMAIN:vocabularies:name(rightsinrestriction):item:name(dnr)'Don't release owner data to third parties'"],
       ["vocabularies", "scarstrat", "boiling water",
         "urn:cspace:DOMAIN:vocabularies:name(scarstrat):item:name(boilingwater)'boiling water'"],
       ["vocabularies", "scarstrat", "cold strat",

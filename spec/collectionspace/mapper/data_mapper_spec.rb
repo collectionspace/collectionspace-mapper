@@ -78,6 +78,16 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
           it_behaves_like "Mapped"
         end
 
+        # Tests repeating field value within repeatable field group
+        context "with rights in field group" do
+          let(:datahash_path) do
+            "spec/support/datahashes/core/collectionobject6.json"
+          end
+          let(:fixture_path) { "core/collectionobject6.xml" }
+
+          it_behaves_like "Mapped"
+        end
+
         context "overflow subgroup record with even subgroup values" do
           let(:datahash_path) do
             "spec/support/datahashes/core/collectionobject3.json"
