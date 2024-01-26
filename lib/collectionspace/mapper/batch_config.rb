@@ -16,6 +16,7 @@ module CollectionSpace
         date_format: ["month day year", "day month year"],
         force_defaults: ["true", "false", true, false],
         multiple_recs_found: %w[fail use_first],
+        null_value_string_handling: %w[delete empty],
         response_mode: %w[normal verbose],
         search_if_not_cached: ["true", "false", true, false],
         status_check_method: %w[client cache],

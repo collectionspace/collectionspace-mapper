@@ -142,6 +142,19 @@ While it is possible to use this setting to batch update existing records that d
 - *Data type*: string
 - *Allowed values*: `fail`, `use_first`
 
+== null_value_string_handling
+
+Controls how fields containing `%NULLVALUE%` are handled.
+
+The default is `delete`, which is what the behavior has been all along. The effect of this is that, if you are loading data into a repeating field group and all the values for a given row are `%NULLVALUE%`, that row will be removed. This is generally desirable, as it prevents the creation of empty rows.
+
+However, for some more complex ingest processes, you may need to invoke the `empty` option. One example of this is if you are loading Associated date data into Objects, and you are using `batch mode: date details` to load the structured date fields. Some objects have multiple date values in this field, and not all of the values have an associated date values also have assocDateType or assocDateNote values. If you do a subsequent normal ingest to populate those fields, and empty rows are deleted, the date values associated with the empty rows will also be deleted. If you switch to treating ``%NULLVALUE%`` as an empty string instead, then the empty rows (in the second ingest) associated with date values lacking types or notes will be loaded, preventing the deletion of dates.
+
+- *Required?:* no
+- *Defaults to:* `delete`
+- *Data type*: string
+- *Allowed values*: `delete`, `empty`
+
 == response_mode
 
 If `normal`, `Mapper::Response.orig_data` returns the original data hash, and `Mapper::Response.doc` returns the resulting XML document.

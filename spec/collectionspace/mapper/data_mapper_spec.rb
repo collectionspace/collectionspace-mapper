@@ -54,7 +54,6 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
         let(:mapper) { "core_7-2-0_collectionobject" }
 
         context "overflow subgroup record with uneven subgroup values" do
-          #          skip: "subgroup complications" do
           let(:customcfg) { {delimiter: "|"} }
           let(:datahash_path) do
             "spec/support/datahashes/core/collectionobject2.json"
@@ -86,6 +85,36 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
           let(:fixture_path) { "core/collectionobject6.xml" }
 
           it_behaves_like "Mapped"
+        end
+
+        context "with %NULLVALUE% field values" do
+          let(:datahash_path) do
+            "spec/support/datahashes/core/collectionobject7.json"
+          end
+
+          context "with %NULLVALUE% nodes deleted" do
+            let(:customcfg) do
+              {
+                delimiter: "|",
+                null_value_string_handling: "delete"
+              }
+            end
+            let(:fixture_path) { "core/collectionobject7_deleted.xml" }
+
+            it_behaves_like "MappedWithBlanks"
+          end
+
+          context "with %NULLVALUE% nodes empty" do
+            let(:customcfg) do
+              {
+                delimiter: "|",
+                null_value_string_handling: "empty"
+              }
+            end
+            let(:fixture_path) { "core/collectionobject7_empty.xml" }
+
+            it_behaves_like "MappedWithBlanks"
+          end
         end
 
         context "overflow subgroup record with even subgroup values" do

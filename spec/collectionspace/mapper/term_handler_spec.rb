@@ -47,7 +47,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
       it "result is the transformed value for mapping",
         vcr: "term_handler_result_titletranslationlanguage" do
           expected = [
-            ["",
+            ["%NULLVALUE%",
               "urn:cspace:c.core.collectionspace.org:vocabularies:name"\
                 "(languages):item:name(swa)'Swahili'"],
             ["",
@@ -74,7 +74,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
             "(citation):item:name(Arthur62605812848)'Arthur'",
           "urn:cspace:c.core.collectionspace.org:citationauthorities:name"\
             "(citation):item:name(Harding2510592089)'Harding'",
-          ""
+          "%NULLVALUE%"
         ]
         expect(result).to eq(expected)
       end

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<document>
+  <ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <assocDateGroupList>
+      <assocDateGroup>
+	<assocDateType>Print</assocDateType>
+        <assocDateNote>Note1</assocDateNote>
+      </assocDateGroup>
+      <assocDateGroup>
+	<assocDateType></assocDateType>
+        <assocDateNote></assocDateNote>
+      </assocDateGroup>
+      <assocDateGroup>
+        <assocDateType>Negative</assocDateType>
+	<assocDateNote>Note2</assocDateNote>
+      </assocDateGroup>
+    </assocDateGroupList>
+    <objectNumber>36548</objectNumber>
+  </ns2:collectionobjects_common>
+</document>
