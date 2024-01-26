@@ -20,7 +20,6 @@ module CollectionSpace
         end
         set_identifier_value
         clean_doc
-        defuse_bomb
         add_namespaces
         response.add_doc(doc)
       end
@@ -78,9 +77,24 @@ module CollectionSpace
       end
 
       def clean_doc
+        remove_blank_nodes
+        handle_null_value_strings
+        defuse_bomb
+      end
+
+      def remove_blank_nodes
+        doc.traverse { |node| node.remove unless node.text.match?(/\S/m) }
+      end
+
+      def handle_null_value_strings
         doc.traverse do |node|
-          node.remove if node.text == "%NULLVALUE%"
-          node.remove unless node.text.match?(/\S/m)
+          case handler.config.batch.null_value_string_handling
+          when "delete"
+            node.remove if node.text == "%NULLVALUE%"
+            node.remove unless node.text.match?(/\S/m)
+          when "empty"
+            node.content = "" if node.text == "%NULLVALUE%"
+          end
         end
       end
 

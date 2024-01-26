@@ -4,7 +4,7 @@ require "spec_helper"
 module MatchDocMatcher
   class MatchDocMatcher
     def initialize(fixture_path, handler, mode: :normal, blanks: :drop)
-      delblank = blanks == :drop
+      delblank = (blanks == :drop)
       @fixture_doc = get_xml_fixture(fixture_path, delblank)
       @fixture_xpaths = test_xpaths(fixture_doc, handler.record.mappings)
       @mode = mode

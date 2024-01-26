@@ -142,6 +142,15 @@ While it is possible to use this setting to batch update existing records that d
 - *Data type*: string
 - *Allowed values*: `fail`, `use_first`
 
+== null_value_string_handling
+
+Controls how fields containing `%NULLVALUE%` are handled.
+
+- *Required?:* no
+- *Defaults to:* `delete`
+- *Data type*: string
+- *Allowed values*: `delete`, `empty`
+
 == response_mode
 
 If `normal`, `Mapper::Response.orig_data` returns the original data hash, and `Mapper::Response.doc` returns the resulting XML document.
