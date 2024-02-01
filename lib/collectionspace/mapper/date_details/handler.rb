@@ -22,12 +22,16 @@ module CollectionSpace
         end
 
         def known_fields
-          [
+          base = [
             record.identifier_field,
             "date_field_group",
             CollectionSpace::Mapper.structured_date_detailed_fields
           ].flatten
             .map(&:downcase)
+          return base unless record.service_type == "authority"
+
+          base << "termdisplayname"
+          base
         end
       end
     end
