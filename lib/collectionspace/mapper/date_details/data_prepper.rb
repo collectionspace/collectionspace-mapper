@@ -137,8 +137,20 @@ module CollectionSpace
         end
 
         def readd_id
-          response.transformed_data[id_field] =
+          id = case id_field
+          when "shortidentifier"
+            readd_authority_id
+          else
             response.split_data[id_field]
+          end
+          response.transformed_data[id_field] = id
+        end
+
+        def readd_authority_id
+          term = response.split_data["termdisplayname"][0]
+          CollectionSpace::Mapper::Identifiers::AuthorityShortIdentifier.call(
+            term
+          )
         end
       end
     end

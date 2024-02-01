@@ -13,6 +13,9 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 
+## [5.0.4] - 2024-02-01
+- Ensure `shortid` field is populated when mapping date details for authorities
+
 ## [5.0.3] - 2024-01-26
 - Add `null_value_string_handling` batch configuration option, with ability to switch to creating empty string nodes, rather than deleting nodes.
 

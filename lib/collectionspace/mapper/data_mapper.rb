@@ -15,9 +15,6 @@ module CollectionSpace
         @doc = handler.record.xml_template.dup
 
         response.xpaths.values.each { |xpath| map(xpath) }
-        if handler.record.service_type == "authority"
-          add_short_id
-        end
         set_identifier_value
         clean_doc
         add_namespaces
@@ -29,8 +26,11 @@ module CollectionSpace
       attr_reader :response, :handler, :doc
 
       def set_identifier_value
-        if handler.record.service_type == "relation"
+        case handler.record.service_type
+        when "relation"
           set_relation_id
+        when "authority"
+          add_short_id
         else
           id_field = handler.record.identifier_field
           mapping = handler.record.mappings.find do |mapper|
@@ -53,15 +53,22 @@ module CollectionSpace
       end
 
       def add_short_id
-        term = response.transformed_data["termdisplayname"][0]
         ns = handler.record.common_namespace
         targetnode = doc.xpath("/document/#{ns}").first
         child = Nokogiri::XML::Node.new("shortIdentifier", doc)
-        child.content =
-          CollectionSpace::Mapper::Identifiers::AuthorityShortIdentifier.call(
-            term
-          )
+
+        shortid =
+          if response.transformed_data.key?("shortidentifier")
+            response.transformed_data["shortidentifier"]
+          else
+            term = response.split_data["termdisplayname"][0]
+            CollectionSpace::Mapper::Identifiers::AuthorityShortIdentifier.call(
+              term
+            )
+          end
+        child.content = shortid
         targetnode.add_child(child)
+        response.add_identifier(shortid)
       end
 
       def map(xpath)
@@ -133,9 +140,9 @@ module CollectionSpace
         xpath.mappings.group_by { |mapping| mapping.fieldname }
           .keys
           .each do |fieldname|
-          data = thisdata.fetch(fieldname, nil)
-          populate_simple_field_data(fieldname, data, parent) if data
-        end
+            data = thisdata.fetch(fieldname, nil)
+            populate_simple_field_data(fieldname, data, parent) if data
+          end
       end
 
       def populate_simple_field_data(field_name, data, parent)
