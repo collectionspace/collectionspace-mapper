@@ -140,9 +140,9 @@ module CollectionSpace
         xpath.mappings.group_by { |mapping| mapping.fieldname }
           .keys
           .each do |fieldname|
-          data = thisdata.fetch(fieldname, nil)
-          populate_simple_field_data(fieldname, data, parent) if data
-        end
+            data = thisdata.fetch(fieldname, nil)
+            populate_simple_field_data(fieldname, data, parent) if data
+          end
       end
 
       def populate_simple_field_data(field_name, data, parent)
