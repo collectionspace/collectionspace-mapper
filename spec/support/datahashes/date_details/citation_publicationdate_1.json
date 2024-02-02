@@ -1,0 +1,16 @@
+{
+  "datedisplaydate": "1955|1975",
+  "dateearliestsingleyear": "1955|1975",
+  "dateearliestsinglemonth": "1|1",
+  "dateearliestsingleday": "1|1",
+  "dateearliestsingleera": "CE|CE",
+  "datelatestyear": "1955|1975",
+  "datelatestmonth": "12|12",
+  "datelatestday": "31|31",
+  "datelatestera": "CE|CE",
+  "dateearliestscalarvalue": "1955-01-01T00:00:00.000Z|1975-01-01T00:00:00.000Z",
+  "datelatestscalarvalue": "1955-12-31T00:00:00.000Z|1975-12-31T00:00:00.000Z",
+  "scalarvaluescomputed": "true|true",
+  "termdisplayname": "Foo",
+  "date_field_group": "publicationDate"
+}

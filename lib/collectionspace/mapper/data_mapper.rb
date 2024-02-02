@@ -38,6 +38,7 @@ module CollectionSpace
           end
           thexpath = "//#{mapping.namespace}/#{mapping.fieldname}"
           value = doc.xpath(thexpath).first
+
           value = value.text
           response.add_identifier(value)
         end
@@ -53,22 +54,23 @@ module CollectionSpace
       end
 
       def add_short_id
-        ns = handler.record.common_namespace
-        targetnode = doc.xpath("/document/#{ns}").first
-        child = Nokogiri::XML::Node.new("shortIdentifier", doc)
-
         shortid =
           if response.transformed_data.key?("shortidentifier")
-            response.transformed_data["shortidentifier"]
+            response.transformed_data["shortidentifier"][0]
           else
             term = response.split_data["termdisplayname"][0]
             CollectionSpace::Mapper::Identifiers::AuthorityShortIdentifier.call(
               term
             )
           end
+        response.add_identifier(shortid)
+        return if response.transformed_data.key?("shortidentifier")
+
+        ns = handler.record.common_namespace
+        targetnode = doc.xpath("/document/#{ns}").first
+        child = Nokogiri::XML::Node.new("shortIdentifier", doc)
         child.content = shortid
         targetnode.add_child(child)
-        response.add_identifier(shortid)
       end
 
       def map(xpath)

@@ -3,6 +3,8 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::DateDetails::Handler do
+  include_context "data_mapper"
+
   subject(:handler) do
     setup_handler(
       profile: profile,
@@ -46,85 +48,55 @@ RSpec.describe CollectionSpace::Mapper::DateDetails::Handler do
     end
   end
 
-  # describe "#check_fields", vcr: "bonsai_domain_check" do
-  #   let(:result) { handler.check_fields(data) }
-  #   let(:profile){ 'bonsai' }
-  #   let(:mapper){ "bonsai_4-1-1_conservation" }
-  #   let(:data) do
-  #     {
-  #       "conservationNumber" => "123",
-  #       "status" => "good",
-  #       "conservator" => "Someone"
-  #     }
-  #   end
+  describe "#check_fields", vcr: "core_datedetail_check_fields" do
+    let(:result) { handler.check_fields(datahash) }
+    let(:mapper) { "core_7-1-0_citation-local" }
 
-  #   it "returns expected hash" do
-  #     expected = {
-  #       known_fields: %w[conservationnumber status],
-  #       unknown_fields: %w[conservator]
-  #     }
-  #     expect(result).to eq(expected)
-  #   end
-  # end
+    context "with date fields only" do
+      let(:datahash_path) do
+        "spec/support/datahashes/date_details/citation_publicationdate_1.json"
+      end
 
-  # describe "#prep", vcr: "core_domain_check" do
-  #   let(:datahash_path) {
-  #     "spec/support/datahashes/core/authorityHierarchy1.json"
-  #   }
+      it "returns expected hash" do
+        expect(result[:unknown_fields]).to be_empty
+        expect(handler.grouped_fields).to be_empty
+      end
+    end
 
-  #           let(:data) { {"objectNumber" => "123"} }
+    context "with date and grouped fields only" do
+      let(:datahash_path) do
+        "spec/support/datahashes/date_details/citation_publicationdate_2.json"
+      end
 
-  #   it "can be called with response from validation" do
-  #     vresult = handler.validate(data)
-  #     result = handler.prep(vresult)
-  #     expect(result).to be_a(CollectionSpace::Mapper::Response)
-  #   end
+      it "returns expected hash" do
+        expect(result[:unknown_fields]).to be_empty
+        expect(handler.grouped_fields.length).to eq(2)
+      end
+    end
+  end
 
-  #   it "can be called with just data" do
-  #     result = handler.prep(data)
-  #     expect(result).to be_a(CollectionSpace::Mapper::Response)
-  #   end
+  describe "#process", vcr: "date_detail_datahandler_process_and_map" do
+    let(:mapper) { "core_7-1-0_citation-local" }
 
-  #   it "returned response includes detailed data transformation info" do
-  #     result = handler.prep(data)
+    context "with date data only" do
+      let(:datahash_path) do
+        "spec/support/datahashes/date_details/citation_publicationdate_1.json"
+      end
+      let(:fixture_path) { "date_details/citation_publicationdate_1.xml" }
 
-  #     expect(result.transformed_data).not_to be_empty
-  #   end
+      it_behaves_like "Mapped"
+    end
 
-  #   context "when response_mode = verbose" do
-  #     let(:config){ {response_mode: 'verbose'} }
+    context "with date and grouped field data" do
+      let(:datahash_path) do
+        "spec/support/datahashes/date_details/citation_publicationdate_2.json"
+      end
+      let(:fixture_path) { "date_details/citation_publicationdate_2.xml" }
 
-  #     it "returned response includes detailed data transformation info" do
-  #       result = handler.prep(data)
-  #       expect(result.transformed_data).not_to be_empty
-  #     end
-  #   end
-  # end
-
-  # describe "#process", vcr: "datahandler_process_and_map" do
-  #   let(:data) do
-  #     CollectionSpace::Mapper::Response.new(
-  #       {"objectNumber" => "123"},
-  #       handler
-  #     )
-  #   end
-
-  #   it "can be called with response from validation" do
-  #     validated = handler.validate(data)
-  #     result = handler.process(validated)
-  #     expect(result).to be_a(CollectionSpace::Mapper::Response)
-  #     expect(result.transformed_data).to be_empty
-  #   end
-
-  #   context "when response_mode = verbose" do
-  #     let(:config){ {response_mode: "verbose"} }
-
-  #     it "returned response includes detailed data transformation info" do
-  #       result = handler.process(data)
-  #       expect(result.transformed_data).not_to be_empty
-  #     end
-  #   end
-  # end
+      # before { binding.pry }
+      it_behaves_like "Mapped"
+    end
+  end
 
   # describe "#map", vcr: "datahandler_process_and_map" do
   #   let(:data) { {"objectNumber" => "123"} }
