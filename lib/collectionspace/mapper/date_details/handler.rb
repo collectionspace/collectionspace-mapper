@@ -78,8 +78,7 @@ module CollectionSpace
 
         def date_group_path(target)
           record.mappings
-            .select { |m| m.fieldname == target }
-            .first
+            .find { |m| m.fieldname == target }
             .fullpath
         end
       end
