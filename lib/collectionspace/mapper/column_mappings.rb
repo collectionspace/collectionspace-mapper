@@ -10,20 +10,23 @@ module CollectionSpace
       include Enumerable
       extend Forwardable
 
+      attr_reader :handler
+
       def_delegators :@all, :each, :reject!
 
       # @param mappings [Array<Hash>] from record mapper JSON file
       # @param hander [CollectionSpace::Mapper::DataHandler]
       def initialize(mappings:, handler:)
         @handler = handler
-        handler.record.extensions.each { |ext| extend ext }
         @transforms = handler.batch.transforms
 
         @all = []
         @lkup = {}
+        handler.record.extensions.each { |ext| extend ext }
         mappings.each { |mapping| add_mapping(mapping) }
 
-        special_mappings.each { |mapping| add_mapping(mapping) }
+        # binding.pry
+        # special_mappings.each { |mapping| add_mapping(mapping) }
       end
 
       def <<(mapping)
@@ -47,21 +50,21 @@ module CollectionSpace
         all.select(&:required?)
       end
 
-      private
-
-      attr_reader :handler, :transforms, :all, :lkup
-
       def add_mapping(mapping)
         mapobj = CollectionSpace::Mapper::ColumnMapping.new(
           mapping: mapping
         )
-        all << mapobj
-        lkup[mapobj.datacolumn] = mapobj
+        @all << mapobj
+        @lkup[mapobj.datacolumn] = mapobj
       end
 
-      def special_mappings
-        []
-      end
+      private
+
+      attr_reader :transforms, :all, :lkup
+
+      # def special_mappings
+      #   []
+      # end
     end
   end
 end

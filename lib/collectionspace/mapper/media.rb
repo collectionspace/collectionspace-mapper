@@ -4,15 +4,21 @@ module CollectionSpace
   module Mapper
     # special behavior for media mapping
     module Media
+      module_function
+
       def extended(mod)
-        puts "#{mod} extended with #{name}"
+        if mod.respond_to?(:add_mapping)
+          special_mappings(mod).each do |mapping|
+            mod.add_mapping(mapping)
+          end
+        end
       end
 
-      def special_mappings
+      def special_mappings(mod)
         [
           {
             fieldname: "mediaFileURI",
-            namespace: handler.record.common_namespace,
+            namespace: mod.handler.record.common_namespace,
             data_type: "string",
             xpath: [],
             required: "n",

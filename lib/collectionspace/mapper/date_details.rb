@@ -3,12 +3,21 @@
 module CollectionSpace
   module Mapper
     module DateDetails
-      # Methods used in ColumnMappings
-      def special_mappings
+      module_function
+
+      def extended(mod)
+        if mod.respond_to?(:add_mapping)
+          special_mappings(mod).each do |mapping|
+            mod.add_mapping(mapping)
+          end
+        end
+      end
+
+      def special_mappings(mod)
         base = [
           {
             fieldname: "date_field_group",
-            namespace: handler.record.common_namespace,
+            namespace: mod.handler.record.common_namespace,
             data_type: "string",
             xpath: [],
             required: "y",
@@ -19,7 +28,7 @@ module CollectionSpace
           },
           {
             fieldname: "scalarValuesComputed",
-            namespace: handler.record.common_namespace,
+            namespace: mod.handler.record.common_namespace,
             data_type: "string",
             xpath: [],
             required: "y",
@@ -29,10 +38,10 @@ module CollectionSpace
             transforms: {special: ["boolean"]}
           }
         ]
-        [base, vocab_mappings, optionlist_mappings].flatten
+        [base, vocab_mappings(mod), optionlist_mappings(mod)].flatten
       end
 
-      def vocab_mappings
+      def vocab_mappings(mod)
         {
           "dateLatestQualifierUnit" => "datequalifier",
           "dateLatestEra" => "dateera",
@@ -43,7 +52,7 @@ module CollectionSpace
         }.map do |fieldname, vocab|
           {
             fieldname: fieldname,
-            namespace: handler.record.common_namespace,
+            namespace: mod.handler.record.common_namespace,
             data_type: "string",
             xpath: [],
             required: "n",
@@ -57,14 +66,14 @@ module CollectionSpace
         end
       end
 
-      def optionlist_mappings
+      def optionlist_mappings(mod)
         {
           "dateLatestQualifier" => "dateQualifiers",
           "dateEarliestSingleQualifier" => "dateQualifiers"
         }.map do |fieldname, vocab|
           {
             fieldname: fieldname,
-            namespace: handler.record.common_namespace,
+            namespace: mod.handler.record.common_namespace,
             data_type: "string",
             xpath: [],
             required: "n",
@@ -93,7 +102,7 @@ module CollectionSpace
           "date_field_group value `#{val}` is not a known structured date "\
             "field group in a #{handler.record.recordtype} record. You must "\
             "enter a field that appears as a column header in the CSV "\
-            "template for this record type."
+            "template for this record type. Case sensitive!"
         )
       end
 
