@@ -131,7 +131,7 @@ module CollectionSpace
         self.config.status_checker =
           CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder.call(self)
 
-        post_initialize
+        post_initialize(binding)
       end
 
       def add_error(error)
@@ -230,7 +230,7 @@ module CollectionSpace
         CollectionSpace::Mapper::DataValidator.new(self)
       end
 
-      def post_initialize
+      def post_initialize(context)
         # Defined in subclasses
       end
 

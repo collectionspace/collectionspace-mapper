@@ -4,7 +4,8 @@ module CollectionSpace
   module Mapper
     module DateDetails
       class Handler < CollectionSpace::Mapper::HandlerFullRecord
-        attr_reader :grouped_handler, :grouped_fields, :target_path
+        attr_reader :authority_handler, :grouped_handler, :grouped_fields,
+          :target_path
 
         def check_fields(data)
           initial = super(data)
@@ -38,6 +39,15 @@ module CollectionSpace
           @grouped_handler = nil
           @grouped_fields = nil
           @target_path = nil
+        end
+
+        def post_initialize(context)
+          return unless record.service_type == "authority"
+
+          @authority_handler = CollectionSpace::Mapper::HandlerFullRecord.new(
+            record_mapper: record_mapper, client: client, cache: termcache,
+            csid_cache: csidcache
+          )
         end
 
         def get_prepper_class

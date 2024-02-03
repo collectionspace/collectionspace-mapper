@@ -18,12 +18,18 @@ module CollectionSpace
             CollectionSpace::Mapper.structured_date_detailed_fields
               .map { |field| [field.downcase, field] }
               .to_h
+          @authority_data = nil
           @grouped_data = nil
         end
 
         def prep
           unless handler.grouped_fields
             handler.check_fields(response.merged_data)
+          end
+          if handler.authority_handler
+            extract_authority_data
+            auth_prepped = handler.authority_handler
+              .prep(authority_data)
           end
           if handler.grouped_handler
             extract_grouped_data
@@ -36,6 +42,7 @@ module CollectionSpace
           clean_transformed
           readd_id
           combine_data_fields
+          merge_authority_data(auth_prepped) if authority_data
           merge_grouped_data(grouped_prepped) if grouped_data
           response
         end
@@ -43,7 +50,7 @@ module CollectionSpace
         private
 
         attr_reader :id_field, :target, :target_mapping, :date_fields,
-          :date_field_lookup, :grouped_data
+          :date_field_lookup, :grouped_data, :authority_data
 
         def date_data
           @date_data ||= response.merged_data
@@ -55,17 +62,22 @@ module CollectionSpace
             .reject { |field, _value| date_fields.any?(field) }
         end
 
+        def extract_authority_data
+          @authority_data = {}
+          copy_id_field_to(authority_data)
+        end
+
         def extract_grouped_data
           @grouped_data = {}
-          copy_id_field_to_grouped_data
+          copy_id_field_to(grouped_data)
           move_grouped_fields_to_grouped_data
         end
 
-        def copy_id_field_to_grouped_data
+        def copy_id_field_to(data_var)
           if response.merged_data.key?(id_field)
-            grouped_data[id_field] = response.merged_data[id_field]
+            data_var[id_field] = response.merged_data[id_field]
           elsif response.merged_data.key?("termdisplayname")
-            grouped_data["termdisplayname"] =
+            data_var["termdisplayname"] =
               response.merged_data["termdisplayname"]
           end
         end
@@ -182,6 +194,16 @@ module CollectionSpace
           CollectionSpace::Mapper::Identifiers::AuthorityShortIdentifier.call(
             term
           )
+        end
+
+        def merge_authority_data(auth_prepped)
+          added_paths = auth_prepped.xpaths
+            .reject { |path, xpath| response.xpaths.key?(path) }
+
+          added_paths.each do |path, xpath|
+            response.xpaths[path] = xpath
+            response.combined_data[path] = auth_prepped.combined_data[path]
+          end
         end
 
         def merge_grouped_data(grouped_prepped)

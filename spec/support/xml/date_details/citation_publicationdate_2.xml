@@ -14,6 +14,11 @@
   <ns2:citations_common xmlns:ns2="http://collectionspace.org/services/citation"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <rev>1</rev>
+        <citationTermGroupList>
+            <citationTermGroup>
+                <termDisplayName>Foo</termDisplayName>
+            </citationTermGroup>
+        </citationTermGroupList>
     <citationResourceIdentGroupList>
       <citationResourceIdentGroup>
         <resourceIdent/>
