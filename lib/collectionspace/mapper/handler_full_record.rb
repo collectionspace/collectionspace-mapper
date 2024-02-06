@@ -103,7 +103,7 @@ module CollectionSpace
       # @param config [Hash, String] parseable JSON string or already-
       #   parsed JSON converted to Hash
       def initialize(record_mapper:, client:, cache:, csid_cache:, config: {})
-        pre_initialize
+        pre_initialize(binding)
 
         @errors = []
         @warnings = []
@@ -131,7 +131,7 @@ module CollectionSpace
         self.config.status_checker =
           CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder.call(self)
 
-        post_initialize
+        post_initialize(binding)
       end
 
       def add_error(error)
@@ -205,7 +205,7 @@ module CollectionSpace
 
       private
 
-      def pre_initialize
+      def pre_initialize(context)
         # Defined in subclasses
       end
 
@@ -230,7 +230,7 @@ module CollectionSpace
         CollectionSpace::Mapper::DataValidator.new(self)
       end
 
-      def post_initialize
+      def post_initialize(context)
         # Defined in subclasses
       end
 

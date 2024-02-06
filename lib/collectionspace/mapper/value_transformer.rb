@@ -33,7 +33,9 @@ module CollectionSpace
         "y" => "true",
         "n" => "false",
         "t" => "true",
-        "f" => "false"
+        "f" => "false",
+        "%nullvalue%" => "false",
+        "%NULLVALUE%" => "false"
       }
 
       # @param value [String]

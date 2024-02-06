@@ -1,0 +1,171 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/personauthorities?pgNum=0&pgSz=1&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Thu, 01 Feb 2024 23:09:56 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '804'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=6F77305914AC7E6264DB249A06428D7D; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>4bea28cb-83be-4ca1-971b</csid><uri>/personauthorities/4bea28cb-83be-4ca1-971b</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person)'Local
+        Persons'</refName><updatedAt>2023-08-26T02:44:37.565Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>person</shortIdentifier><displayName>Local
+        Persons</displayName><vocabType>PersonAuthority</vocabType></list-item></ns2:abstract-common-list>
+  recorded_at: Thu, 01 Feb 2024 23:09:56 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/personauthorities?pgNum=0&pgSz=1&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Fri, 02 Feb 2024 19:58:07 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '804'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=FA119448D1F2F773A84C2CD4E068397E; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>4bea28cb-83be-4ca1-971b</csid><uri>/personauthorities/4bea28cb-83be-4ca1-971b</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person)'Local
+        Persons'</refName><updatedAt>2023-08-26T02:44:37.565Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>person</shortIdentifier><displayName>Local
+        Persons</displayName><vocabType>PersonAuthority</vocabType></list-item></ns2:abstract-common-list>
+  recorded_at: Fri, 02 Feb 2024 19:58:07 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/personauthorities?pgNum=0&pgSz=1&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Sat, 03 Feb 2024 00:12:48 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '804'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=FF38AA20D3594DAD241CFCD88D4DDDC0; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>4bea28cb-83be-4ca1-971b</csid><uri>/personauthorities/4bea28cb-83be-4ca1-971b</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person)'Local
+        Persons'</refName><updatedAt>2023-08-26T02:44:37.565Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>person</shortIdentifier><displayName>Local
+        Persons</displayName><vocabType>PersonAuthority</vocabType></list-item></ns2:abstract-common-list>
+  recorded_at: Sat, 03 Feb 2024 00:12:48 GMT
+recorded_with: VCR 6.1.0
