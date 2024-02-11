@@ -34,6 +34,10 @@ module CollectionSpace
           if handler.grouped_handler
             extract_grouped_data
             grouped_prepped = handler.grouped_handler.prep(grouped_data)
+            unless grouped_prepped.errors.empty?
+              grouped_prepped.errors.each { |err| response.add_error(err) }
+              return response
+            end
           end
           split_data
           transform_data
@@ -42,6 +46,8 @@ module CollectionSpace
           clean_transformed
           readd_id
           combine_data_fields
+          return response unless response.errors.empty?
+
           merge_authority_data(auth_prepped) if authority_data
           merge_grouped_data(grouped_prepped) if grouped_data
           response
@@ -209,9 +215,10 @@ module CollectionSpace
         def merge_grouped_data(grouped_prepped)
           path = handler.target_path
 
-          response.combined_data[path].merge!(
-            grouped_prepped.combined_data[path]
-          )
+          response.combined_data[path].tap { |data| binding.pry unless data }
+            .merge!(
+              grouped_prepped.combined_data[path]
+            )
           grouped_prepped.errors.each { |err| response.add_error(err) }
           grouped_prepped.terms.each { |term| response.add_term(term) }
           grouped_prepped.warnings.each do |warning|
