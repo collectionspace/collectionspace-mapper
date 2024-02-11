@@ -13,6 +13,9 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 
+## [5.0.6] - 2024-02-11
+- Return date details responses early if there are errors, to avoid exceptions
+
 ## [5.0.5] - 2024-02-02
 - For `date details` batch mode: add support for ingesting grouped fields at the same level as the structured date group. To find the group level of the structured date group, find the `date_field_group` value in the relevant CSV ingest template. If that field has a `REPEATING FIELD GROUP` value in the template, any other field values with the same `REPEATING FIELD GROUP` value can be ingested together.
 

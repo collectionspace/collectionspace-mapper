@@ -12,7 +12,7 @@ GIT
 PATH
   remote: .
   specs:
-    collectionspace-mapper (5.0.5)
+    collectionspace-mapper (5.0.6)
       activesupport (= 7.0.4.3)
       chronic
       collectionspace-client (~> 0.15.0)
