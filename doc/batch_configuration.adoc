@@ -157,6 +157,8 @@ However, for some more complex ingest processes, you may need to invoke the `emp
 
 == response_mode
 
+IMPORTANT: This is for development/debugging use only. If you are a CSV Importer user, don't change this in your batch config. You will not see any difference, and the larger responses will make your batches slower.
+
 If `normal`, `Mapper::Response.orig_data` returns the original data hash, and `Mapper::Response.doc` returns the resulting XML document.
 
 If `verbose`, `Mapper::Response` also has the following attributes, which may be helpful in debugging:
