@@ -67,6 +67,25 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
         end
       end
 
+      context "with empty config string" do
+        let(:args) do
+          {
+            record_mapper: mapper,
+            client: client,
+            cache: cache,
+            csid_cache: csidcache,
+            config: "{}"
+          }
+        end
+
+        it "returns full record handler" do
+          expect(CollectionSpace::Mapper::HandlerFullRecord).to receive(
+            :new
+          ).with(**args)
+          handler
+        end
+      end
+
       context "with config not setting batch mode" do
         let(:args) do
           {

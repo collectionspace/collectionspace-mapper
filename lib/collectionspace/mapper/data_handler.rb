@@ -59,10 +59,17 @@ module CollectionSpace
         end
 
         def full_record_config?(args)
-          args.keys.none?(:config) ||
-            args[:config].empty? ||
-            args[:config].keys.none?("batch_mode") ||
-            args[:config]["batch_mode"] == "full record"
+          return true if args.keys.none?(:config)
+
+          cfg = if args[:config].is_a?(String)
+            JSON.parse(args[:config])
+          else
+            args[:config]
+          end
+
+          cfg.empty? ||
+            cfg.keys.none?("batch_mode") ||
+            cfg["batch_mode"] == "full record"
         end
 
         def vocab_term_args?(args)
