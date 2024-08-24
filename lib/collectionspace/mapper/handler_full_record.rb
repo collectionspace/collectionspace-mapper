@@ -146,7 +146,8 @@ module CollectionSpace
 
       # Prep, then map
       def process(data)
-        prepped = data.prep
+        response = CollectionSpace::Mapper::Response.new(data, self)
+        prepped = response.prep
 
         case record.recordtype
         when "nonhierarchicalrelationship"
@@ -159,7 +160,11 @@ module CollectionSpace
       # Prep only - This is everything up until the mapping part, including
       #   splitting, stripping, and transforming
       def prep(data)
-        response = CollectionSpace::Mapper::Response.new(data, self)
+        response = if data.is_a?(Hash)
+          CollectionSpace::Mapper::Response.new(data, self)
+        else
+          data
+        end
         response.prep
       end
 
