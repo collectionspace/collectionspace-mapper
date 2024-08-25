@@ -103,7 +103,6 @@ module CollectionSpace
         @split_data = {}
         @transformed_data = {}
         @combined_data = {}
-        @terms = @terms.map(&:to_h)
         self
       end
 

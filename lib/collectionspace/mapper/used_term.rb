@@ -35,15 +35,6 @@ module CollectionSpace
 
       def missing? = !found
 
-      def to_h
-        {
-          category: category,
-          field: field,
-          refname: refname,
-          found: found?
-        }
-      end
-
       private
 
       attr_reader :found, :refname
