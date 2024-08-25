@@ -31,9 +31,9 @@ module CollectionSpace
         key <=> other.key
       end
 
-      def found?
-        found
-      end
+      def found? = found
+
+      def missing? = !found
 
       def to_h
         {
