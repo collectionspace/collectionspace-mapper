@@ -33,10 +33,10 @@ module Helpers
 
   # @todo remove after refactoring config
   def setup(profile: "core", mapper: nil)
-    CollectionSpace::Mapper.config.client = send("#{profile}_client".to_sym)
-    CollectionSpace::Mapper.config.termcache = send("#{profile}_cache".to_sym)
+    CollectionSpace::Mapper.config.client = send(:"#{profile}_client")
+    CollectionSpace::Mapper.config.termcache = send(:"#{profile}_cache")
     CollectionSpace::Mapper.config.csidcache = send(
-      "#{profile}_csid_cache".to_sym
+      :"#{profile}_csid_cache"
     )
     if mapper
       setup_recordmapper(mapper)
@@ -44,9 +44,9 @@ module Helpers
   end
 
   def setup_handler(mapper:, profile: "core", config: {})
-    client = send("#{profile}_client".to_sym)
-    termcache = send("#{profile}_cache".to_sym)
-    csidcache = send("#{profile}_csid_cache".to_sym)
+    client = send(:"#{profile}_client")
+    termcache = send(:"#{profile}_cache")
+    csidcache = send(:"#{profile}_csid_cache")
     mapper = get_json_record_mapper(mapper)
     CollectionSpace::Mapper::DataHandler.new(
       record_mapper: mapper,
