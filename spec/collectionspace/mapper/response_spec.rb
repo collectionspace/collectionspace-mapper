@@ -272,23 +272,31 @@ RSpec.describe CollectionSpace::Mapper::Response do
     end
   end
 
-  describe "#map", vcr: "botgarden_taxon_tanacetum" do
+  describe "#map" do
     let(:result) { response.map }
     let(:profile) { "botgarden" }
     let(:mapper) { "botgarden_2-0-1_taxon-local" }
     let(:data) do
-      {"termDisplayName" => "Tanacetum;Tansy", "termStatus" => "made up"}
+      {"termDisplayName" => "Tanacetum;Tansy", "termStatus" => "made up",
+       "taxonAuthorPerson" => "Linnaeus, Carl"}
     end
 
-    it "returns as expected" do
-      expect(result.doc).to be_a(Nokogiri::XML::Document)
-      expect(result.warnings).not_to be_empty
-      expect(result.identifier).not_to be_empty
-      expect(result.orig_data).to be_a(Hash)
-      expect(result.merged_data).to be_empty
-      expect(result.split_data).to be_empty
-      expect(result.transformed_data).to be_empty
-      expect(result.combined_data).to be_empty
+    context "when response_mode = normal in config (the default)",
+      vcr: "botgarden_taxon_tanacetum" do
+      let(:customcfg) { {response_mode: "normal"} }
+
+      it "returns as expected" do
+        expect(result.doc).to be_a(Nokogiri::XML::Document)
+        expect(result.warnings).not_to be_empty
+
+        expect(result.identifier).not_to be_empty
+        expect(result.orig_data).to be_a(Hash)
+        expect(result.merged_data).to be_empty
+        expect(result.split_data).to be_empty
+        expect(result.transformed_data).to be_empty
+        expect(result.combined_data).to be_empty
+        expect(result.terms.first).to be_a(CollectionSpace::Mapper::UsedTerm)
+      end
     end
 
     context "when response_mode = verbose in config",
@@ -304,6 +312,7 @@ RSpec.describe CollectionSpace::Mapper::Response do
           expect(result.split_data).not_to be_empty
           expect(result.transformed_data).not_to be_empty
           expect(result.combined_data).not_to be_empty
+          expect(result.terms.first).to be_a(CollectionSpace::Mapper::UsedTerm)
         end
       end
   end

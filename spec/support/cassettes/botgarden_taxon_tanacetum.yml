@@ -21,32 +21,41 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sun, 16 Apr 2023 19:47:54 GMT
+      - Sun, 25 Aug 2024 00:47:15 GMT
       Content-Type:
       - application/xml
       Content-Length:
       - '809'
       Connection:
       - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=1DB8939FC2DA2A6DAAE34785A0A3B536; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
       - no-cache
       Expires:
       - '0'
-      X-Xss-Protection:
-      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
       X-Frame-Options:
       - DENY
-      X-Content-Type-Options:
-      - nosniff
     body:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
-        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>8065991d-f25d-457c-9da9</csid><uri>/personauthorities/8065991d-f25d-457c-9da9</uri><refName>urn:cspace:botgarden.collectionspace.org:personauthorities:name(ulan_pa)'ULAN
-        Persons'</refName><updatedAt>2021-11-18T02:01:32.442Z</updatedAt><workflowState>project</workflowState><rev>0</rev><shortIdentifier>ulan_pa</shortIdentifier><displayName>ULAN
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>fc667278-47c1-4297-9b9a</csid><uri>/personauthorities/fc667278-47c1-4297-9b9a</uri><refName>urn:cspace:botgarden.collectionspace.org:personauthorities:name(person)'Local
+        Persons'</refName><updatedAt>2023-08-26T05:35:43.045Z</updatedAt><workflowState>project</workflowState><rev>2</rev><shortIdentifier>person</shortIdentifier><displayName>Local
         Persons</displayName><vocabType>PersonAuthority</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Sun, 16 Apr 2023 19:47:54 GMT
+  recorded_at: Sun, 25 Aug 2024 00:47:15 GMT
 - request:
     method: get
     uri: https://botgarden.dev.collectionspace.org/cspace-services/taxonomyauthority/urn:cspace:name(taxon)/items?as=taxon_common:taxonTermGroupList/0/termDisplayName%20=%20%27Tanacetum%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
@@ -68,28 +77,37 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sun, 16 Apr 2023 19:47:55 GMT
+      - Sun, 25 Aug 2024 00:47:16 GMT
       Content-Type:
       - application/xml
       Content-Length:
       - '402'
       Connection:
       - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=73E3EA67AB6A9330CB8C8A4CE0E0006C; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
       - no-cache
       Expires:
       - '0'
-      X-Xss-Protection:
-      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
       X-Frame-Options:
       - DENY
-      X-Content-Type-Options:
-      - nosniff
     body:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
         xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|proposed|deprecated|termStatus|termDisplayName</fieldsReturned></ns2:abstract-common-list>
-  recorded_at: Sun, 16 Apr 2023 19:47:55 GMT
+  recorded_at: Sun, 25 Aug 2024 00:47:16 GMT
 recorded_with: VCR 6.1.0
