@@ -263,7 +263,10 @@ module CollectionSpace
       end
 
       def known_fields
-        record.mappings.known_columns
+        from_mapper = record.mappings.known_columns
+        return from_mapper unless batch.record_matchpoint == "uri"
+
+        from_mapper + ["uri"]
       end
     end
   end
