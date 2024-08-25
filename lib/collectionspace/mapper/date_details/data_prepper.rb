@@ -215,7 +215,7 @@ module CollectionSpace
         def merge_grouped_data(grouped_prepped)
           path = handler.target_path
 
-          response.combined_data[path].tap { |data| binding.pry unless data }
+          response.combined_data[path]
             .merge!(
               grouped_prepped.combined_data[path]
             )

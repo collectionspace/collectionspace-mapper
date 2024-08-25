@@ -8,7 +8,7 @@ module CollectionSpace
           :target_path
 
         def check_fields(data)
-          initial = super(data)
+          initial = super
           @grouped_fields = []
           return initial if initial[:unknown_fields].empty?
 

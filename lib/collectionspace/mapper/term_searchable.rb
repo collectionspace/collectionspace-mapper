@@ -117,7 +117,7 @@ module CollectionSpace
             csid
           when "0"
             response.add_error({
-              category: "unsuccessful_csid_lookup_for_#{category}".to_sym,
+              category: :"unsuccessful_csid_lookup_for_#{category}",
               field: "",
               subtype: "",
               type: type,
@@ -127,7 +127,7 @@ module CollectionSpace
             nil
           else
             response.add_error({
-              category: "multiple_records_found_for_#{category}".to_sym,
+              category: :"multiple_records_found_for_#{category}",
               field: column,
               type: type,
               subtype: subtype,
@@ -137,7 +137,7 @@ module CollectionSpace
           end
         else
           response.add_error({
-            category: "unsuccessful_csid_lookup_for_#{category}".to_sym,
+            category: :"unsuccessful_csid_lookup_for_#{category}",
             field: "",
             subtype: "",
             type: type,
@@ -174,7 +174,7 @@ module CollectionSpace
 
       def add_missing_record_error(category, val)
         response.add_error({
-          category: "no_records_found_for_#{category}".to_sym,
+          category: :"no_records_found_for_#{category}",
           field: column,
           type: type,
           subtype: subtype,
@@ -203,7 +203,7 @@ module CollectionSpace
           rec = apiresponse["list_item"][0]
           using_uri = "#{client.config.base_uri}#{rec["uri"]}"
           response.add_warning({
-            category: "multiple_records_found_for_#{category}".to_sym,
+            category: :"multiple_records_found_for_#{category}",
             field: column,
             type: type,
             subtype: subtype,
@@ -217,7 +217,7 @@ module CollectionSpace
 
       def add_bad_lookup_error(category, val)
         response.add_error({
-          category: "unsuccessful_csid_lookup_for_#{category}".to_sym,
+          category: :"unsuccessful_csid_lookup_for_#{category}",
           field: column,
           type: type,
           subtype: subtype,

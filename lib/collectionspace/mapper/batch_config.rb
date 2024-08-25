@@ -107,7 +107,7 @@ module CollectionSpace
       end
 
       def set_config(setting, value)
-        setter = "#{setting}=".to_sym
+        setter = :"#{setting}="
         handler.config.batch.send(setter, value)
       rescue
         message = "BatchConfig: `#{setting}` is not a valid "\

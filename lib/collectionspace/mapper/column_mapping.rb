@@ -19,7 +19,7 @@ module CollectionSpace
         @mapping = mapping
 
         mapping.each do |key, value|
-          instance_variable_set("@#{key}", value)
+          instance_variable_set(:"@#{key}", value)
         end
         symbolize_transforms
       end

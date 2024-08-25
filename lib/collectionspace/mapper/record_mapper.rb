@@ -56,7 +56,7 @@ module CollectionSpace
 
       def set_config_from_mapper_config_section
         hash[:config].each do |setting, value|
-          setter = "#{setting}=".to_sym
+          setter = :"#{setting}="
           handler.config.record.send(setter, value)
         end
       end
