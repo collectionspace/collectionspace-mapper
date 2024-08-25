@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 gem "almost_standard",
   github: "kspurgin/almost_standard",
-  branch: "main",
+  tag: "1.0.0",
   group: :development
 
 gemspec
