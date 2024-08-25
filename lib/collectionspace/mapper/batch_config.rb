@@ -17,6 +17,7 @@ module CollectionSpace
         force_defaults: ["true", "false", true, false],
         multiple_recs_found: %w[fail use_first],
         null_value_string_handling: %w[delete empty],
+        record_matchpoint: %w[identifier uri],
         response_mode: %w[normal verbose],
         search_if_not_cached: ["true", "false", true, false],
         status_check_method: %w[client cache],

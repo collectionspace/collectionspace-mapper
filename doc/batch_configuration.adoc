@@ -155,6 +155,23 @@ However, for some more complex ingest processes, you may need to invoke the `emp
 - *Data type*: string
 - *Allowed values*: `delete`, `empty`
 
+== record_matchpoint
+
+Controls how records to be updated or deleted are identified in the target CollectionSpace instance.
+
+The default is `identifier`, which means the record ID viewable in the record itself. Record IDs are explained in https://github.com/lyrasis/collectionspace-data-explainers/blob/main/docs/record_ids_and_patterns.adoc#record-id-definition[a collectionspace-data-explainers documentation page].
+
+The alternate option is `uri`. This means the URI of the record in CollectionSpace. You can export URI as part of any CSV export from search results. This option allows you to perform the following operations that are impossible when `identifier` is the matchpoint:
+
+* batch updating the record identifier values
+* batch updating/deleting records when record identifier values are not unique in the system
+* batch updating/deleting records, such as LMIs, where the record identifier is not a required field and may not have been populated
+
+- *Required?:* yes
+- *Defaults to:* identifier
+- *Data type*: string
+- *Allowed values*: `identifier`, `uri`
+
 == response_mode
 
 IMPORTANT: This is for development/debugging use only. If you are a CSV Importer user, don't change this in your batch config. You will not see any difference, and the larger responses will make your batches slower.

@@ -83,6 +83,7 @@ module CollectionSpace
         setting :force_defaults, default: false, reader: true
         setting :multiple_recs_found, default: "fail", reader: true
         setting :null_value_string_handling, default: "delete", reader: true
+        setting :record_matchpoint, default: "identifier", reader: true
         setting :response_mode, default: "normal", reader: true
         setting :search_if_not_cached, default: true, reader: true
         setting :status_check_method, default: "client", reader: true
