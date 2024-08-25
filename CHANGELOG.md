@@ -13,6 +13,14 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 
+## [6.0.0] - 2024-08-24
+- **Breaking**
+  - Revert to activesupport v. 6.0.4.7 for compatibility with CSV Importer
+  - `Response.terms` now returns an Array of `UsedTerm` objects instead of Hashes
+- Add `UsedTerm.missing?` convenience method
+- Fix bug where `DataHandler` could not handle a batch config passed as a String
+- Fix bug where `HandlerFullRecord.process` failed if passed a Hash instead of a `Response`
+
 ## [5.0.6] - 2024-02-11
 - Return date details responses early if there are errors, to avoid exceptions
 
