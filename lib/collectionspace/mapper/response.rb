@@ -104,9 +104,6 @@ module CollectionSpace
         return if terms.empty?
 
         record_new_missing_terms
-        # unless cached_unknown_terms.empty?
-        #   mark_cached_unknown_terms_as_not_found
-        # end
       end
 
       def normal
