@@ -42,14 +42,12 @@ module CollectionSpace
       end
 
       def get_required_fields
-        h = {}
         handler.record.mappings
-          .required_columns.each do |mapping|
+          .required_columns.each_with_object({}) do |mapping, acc|
             field = mapping.fieldname.downcase
             column = mapping.datacolumn.downcase
-            h.key?(field) ? h[field] << column : h[field] = [column]
+            acc.key?(field) ? acc[field] << column : acc[field] = [column]
           end
-        h
       end
 
       # Adds id_field to @required_fields if not technically required by
