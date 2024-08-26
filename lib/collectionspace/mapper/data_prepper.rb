@@ -9,6 +9,7 @@ module CollectionSpace
         @handler = handler
         @splitter = handler.data_splitter
         @response = CollectionSpace::Mapper::Response.new(data, handler)
+        @id_field = handler.record.identifier_field.downcase
       end
 
       def prep
@@ -17,13 +18,22 @@ module CollectionSpace
         transform_date_fields
         handle_term_fields
         check_data
+        response.add_identifier(get_id)
         combine_data_fields
         response
       end
 
       private
 
-      attr_reader :data, :handler, :splitter, :response, :date_handler
+      attr_reader :data, :handler, :splitter, :response, :id_field
+
+      def get_id
+        response.transformed_data
+          .select { |key, _val| key == id_field }
+          .values
+          .flatten
+          .first
+      end
 
       def split_data
         response.xpaths.values.each { |xpath| do_splits(xpath) }
@@ -51,9 +61,7 @@ module CollectionSpace
         response.xpaths.values.each { |xpath| combine_data_values(xpath) }
       end
 
-      def identifier?(column)
-        column.downcase == handler.record.identifier_field.downcase
-      end
+      def identifier?(column) = column.downcase == id_field
 
       # @param xpath [CollectionSpace::Mapper::Xpath]
       def do_splits(xpath)

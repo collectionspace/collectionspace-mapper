@@ -15,7 +15,7 @@ module CollectionSpace
         @doc = handler.record.xml_template.dup
 
         response.xpaths.values.each { |xpath| map(xpath) }
-        set_identifier_value
+        add_short_id if handler.record.service_type == "authority"
         clean_doc
         add_namespaces
         response.add_doc(doc)
@@ -24,34 +24,6 @@ module CollectionSpace
       private
 
       attr_reader :response, :handler, :doc
-
-      def set_identifier_value
-        case handler.record.service_type
-        when "relation"
-          set_relation_id
-        when "authority"
-          add_short_id
-        else
-          id_field = handler.record.identifier_field
-          mapping = handler.record.mappings.find do |mapper|
-            mapper.fieldname == id_field
-          end
-          thexpath = "//#{mapping.namespace}/#{mapping.fieldname}"
-          value = doc.xpath(thexpath).first
-
-          value = value.text
-          response.add_identifier(value)
-        end
-      end
-
-      def set_relation_id
-        case handler.record.object_name
-        when "Object Hierarchy Relation"
-          narrow = response.orig_data["narrower_object_number"]
-          broad = response.orig_data["broader_object_number"]
-          response.add_identifier("#{broad} > #{narrow}")
-        end
-      end
 
       def add_short_id
         shortid =
