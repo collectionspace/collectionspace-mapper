@@ -82,9 +82,11 @@ module CollectionSpace
       end
 
       def valid?
-        validate unless states.any?(:validated)
+        validate unless validated?
         errors.empty?
       end
+
+      def invalid? = !valid?
 
       def set_record_status
         if handler.batch.check_record_status
@@ -119,8 +121,12 @@ module CollectionSpace
         doc&.to_xml
       end
 
+      def errors? = !errors.empty?
+
+      def validated? = states.include?(:validated)
+
       def validate
-        return self if states.any?(:validated)
+        return self if validated?
 
         handler.validator.validate(self)
         states << :validated

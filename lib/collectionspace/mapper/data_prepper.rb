@@ -46,7 +46,7 @@ module CollectionSpace
       end
 
       def combine_data_fields
-        return unless response.valid?
+        return if response.invalid?
 
         response.xpaths.values.each { |xpath| combine_data_values(xpath) }
       end
