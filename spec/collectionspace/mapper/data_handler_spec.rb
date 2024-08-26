@@ -79,9 +79,10 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
         end
 
         it "returns full record handler" do
+          exp_args = args.merge({config: {}})
           expect(CollectionSpace::Mapper::HandlerFullRecord).to receive(
             :new
-          ).with(**args)
+          ).with(**exp_args)
           handler
         end
       end
@@ -105,7 +106,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
         end
       end
 
-      context "with config setting batch mode to full record" do
+      context "with Hash config setting batch mode to full record" do
         let(:args) do
           {
             record_mapper: mapper,
@@ -124,21 +125,26 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
         end
       end
 
-      context "with config setting batch mode to date details" do
+      context "with string config specifying date details mode" do
+        let(:config) do
+          {"batch_mode" => "date details"}.to_json
+        end
+
         let(:args) do
           {
             record_mapper: mapper,
             client: client,
             cache: cache,
             csid_cache: csidcache,
-            config: {"batch_mode" => "date details"}
+            config: config
           }
         end
 
         it "returns full record handler" do
+          exp_args = args.merge({config: {"batch_mode" => "date details"}})
           expect(CollectionSpace::Mapper::DateDetails::Handler).to receive(
             :new
-          ).with(**args)
+          ).with(**exp_args)
           handler
         end
       end
