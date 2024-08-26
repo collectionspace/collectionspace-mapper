@@ -37,6 +37,8 @@ module CollectionSpace
         #   @param config [Hash, String] parseable JSON string or already-
         #     parsed JSON converted to Hash
         def new(**args)
+          ensure_config_is_parsed(args)
+
           if full_record_args?(args) && full_record_config?(args)
             CollectionSpace::Mapper::HandlerFullRecord.new(**args)
           elsif vocab_term_args?(args) && vocab_term_config?(args)
@@ -52,6 +54,14 @@ module CollectionSpace
 
         private
 
+        def ensure_config_is_parsed(args)
+          return if args.keys.none?(:config)
+          return if args[:config].respond_to?(:key?)
+
+          args[:config] = JSON.parse(args[:config])
+          args
+        end
+
         def full_record_args?(args)
           %i[record_mapper client cache csid_cache].all? do |arg|
             args.key?(arg)
@@ -61,12 +71,7 @@ module CollectionSpace
         def full_record_config?(args)
           return true if args.keys.none?(:config)
 
-          cfg = if args[:config].is_a?(String)
-            JSON.parse(args[:config])
-          else
-            args[:config]
-          end
-
+          cfg = args[:config]
           cfg.empty? ||
             cfg.keys.none?("batch_mode") ||
             cfg["batch_mode"] == "full record"
@@ -83,9 +88,10 @@ module CollectionSpace
         end
 
         def date_details_config?(args)
-          args.key?(:config) &&
-            args[:config].key?("batch_mode") &&
-            args[:config]["batch_mode"] == "date details"
+          return true if args.keys.none?(:config)
+
+          cfg = args[:config]
+          cfg.empty? || cfg.dig("batch_mode") == "date details"
         end
       end
     end
