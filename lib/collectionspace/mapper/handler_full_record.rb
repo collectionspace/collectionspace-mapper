@@ -265,6 +265,7 @@ module CollectionSpace
       def known_fields
         from_mapper = record.mappings.known_columns
         return from_mapper unless batch.record_matchpoint == "uri"
+        return from_mapper if record.service_type == "relation"
 
         from_mapper + ["uri"]
       end

@@ -50,73 +50,153 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
       let(:config) { {"batch_mode" => "date details"} }
       let(:mapper) { "core_6-1-0_collectionobject" }
 
-      context "with all required fields" do
-        let(:data) do
-          {"objectNumber" => "123",
-           "date_field_group" => "objectProductionDateGroup",
-           "scalarValuesComputed" => "true"}
+      context "when record_matchpoint = identifier" do
+        before { handler.config.batch.record_matchpoint == "identifier" }
+
+        context "with all required fields" do
+          let(:data) do
+            {"objectNumber" => "123",
+             "date_field_group" => "objectProductionDateGroup",
+             "scalarValuesComputed" => "true"}
+          end
+
+          it "validates valid data" do
+            expect(response.valid?).to be true
+          end
         end
 
-        it "validates valid data" do
-          expect(response.valid?).to be true
+        context "without date_field_group" do
+          let(:data) do
+            {"objectNumber" => "123",
+             "scalarValuesComputed" => "true"}
+          end
+
+          it "is invalid" do
+            expect(response.valid?).to be false
+            expect(response.errors.first).to match(
+              /^required field missing/
+            )
+          end
+        end
+
+        context "without scalarValuesComputed" do
+          let(:data) do
+            {"objectNumber" => "123",
+             "date_field_group" => "objectProductionDateGroup"}
+          end
+
+          it "is invalid" do
+            expect(response.valid?).to be false
+            expect(response.errors.first).to match(
+              /^required field missing/
+            )
+          end
+        end
+
+        context "with non-boolean convertible scalarValuesComputed" do
+          let(:data) do
+            {"objectNumber" => "123",
+             "date_field_group" => "objectProductionDateGroup",
+             "scalarValuesComputed" => "faux"}
+          end
+
+          it "is invalid" do
+            expect(response.valid?).to be false
+            expect(response.errors.first).to match(
+              /cannot be converted to true/
+            )
+          end
+        end
+
+        context "with date_field_group not in record mappings" do
+          let(:data) do
+            {"objectNumber" => "123",
+             "date_field_group" => "objectProductionDate",
+             "scalarValuesComputed" => "false"}
+          end
+
+          it "is invalid" do
+            expect(response.valid?).to be false
+            expect(response.errors.first).to match(
+              /not a known structured date field group/
+            )
+          end
         end
       end
 
-      context "without date_field_group" do
-        let(:data) do
-          {"objectNumber" => "123",
-           "scalarValuesComputed" => "true"}
+      context "when record_matchpoint = uri" do
+        let(:config) do
+          {"batch_mode" => "date details", "record_matchpoint" => "uri"}
         end
 
-        it "is invalid" do
-          expect(response.valid?).to be false
-          expect(response.errors.first).to match(
-            /^required field missing/
-          )
-        end
-      end
+        context "with all required fields" do
+          let(:data) do
+            {"uri" => "123",
+             "date_field_group" => "objectProductionDateGroup",
+             "scalarValuesComputed" => "true"}
+          end
 
-      context "without scalarValuesComputed" do
-        let(:data) do
-          {"objectNumber" => "123",
-           "date_field_group" => "objectProductionDateGroup"}
+          it "validates valid data" do
+            expect(response.valid?).to be true
+          end
         end
 
-        it "is invalid" do
-          expect(response.valid?).to be false
-          expect(response.errors.first).to match(
-            /^required field missing/
-          )
-        end
-      end
+        context "without date_field_group" do
+          let(:data) do
+            {"uri" => "123",
+             "scalarValuesComputed" => "true"}
+          end
 
-      context "with non-boolean convertible scalarValuesComputed" do
-        let(:data) do
-          {"objectNumber" => "123",
-           "date_field_group" => "objectProductionDateGroup",
-           "scalarValuesComputed" => "faux"}
-        end
-
-        it "is invalid" do
-          expect(response.valid?).to be false
-          expect(response.errors.first).to match(
-            /cannot be converted to true/
-          )
-        end
-      end
-
-      context "with date_field_group not in record mappings" do
-        let(:data) do
-          {"objectNumber" => "123",
-           "date_field_group" => "objectProductionDate",
-           "scalarValuesComputed" => "false"}
+          it "is invalid" do
+            expect(response.valid?).to be false
+            expect(response.errors.first).to match(
+              /^required field missing/
+            )
+          end
         end
 
-        it "is invalid" do
-          expect(response.valid?).to be false
-          expect(response.errors.first).to match(
-            /not a known structured date field group/
-          )
+        context "without scalarValuesComputed" do
+          let(:data) do
+            {"uri" => "123",
+             "date_field_group" => "objectProductionDateGroup"}
+          end
+
+          it "is invalid" do
+            expect(response.valid?).to be false
+            expect(response.errors.first).to match(
+              /^required field missing/
+            )
+          end
+        end
+
+        context "with non-boolean convertible scalarValuesComputed" do
+          let(:data) do
+            {"uri" => "123",
+             "date_field_group" => "objectProductionDateGroup",
+             "scalarValuesComputed" => "faux"}
+          end
+
+          it "is invalid" do
+            expect(response.valid?).to be false
+            expect(response.errors.first).to match(
+              /cannot be converted to true/
+            )
+          end
+        end
+
+        context "with date_field_group not in record mappings" do
+          let(:data) do
+            {"uri" => "123",
+             "date_field_group" => "objectProductionDate",
+             "scalarValuesComputed" => "false"}
+          end
+
+          it "is invalid" do
+            expect(response.valid?).to be false
+            expect(response.errors.first).to match(
+              /not a known structured date field group/
+            )
+          end
         end
       end
     end
@@ -125,80 +205,171 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
       vcr: "core_domain_check" do
         let(:mapper) { "core_6-1-0_movement" }
 
-        context "with valid data" do
-          let(:data) do
-            {"movementReferenceNumber" => "1",
-             "currentLocationLocationLocal" => "Loc"}
+        context "when record_matchpoint = identifier" do
+          let(:config) { {"record_matchpoint" => "identifier"} }
+
+          context "with valid data" do
+            let(:data) do
+              {"movementReferenceNumber" => "1",
+               "currentLocationLocationLocal" => "Loc"}
+            end
+
+            it "validates valid data" do
+              expect(response.valid?).to be true
+            end
           end
 
-          it "validates valid data" do
-            expect(response.valid?).to be true
+          context "with invalid data" do
+            let(:data) { {"movementReferenceNumber" => "2"} }
+
+            it "invalidates invalid data" do
+              expect(response.valid?).to be false
+            end
           end
         end
 
-        context "with invalid data" do
-          let(:data) { {"movementReferenceNumber" => "2"} }
+        context "when record_matchpoint = uri" do
+          let(:config) { {"record_matchpoint" => "uri"} }
 
-          it "invalidates invalid data" do
-            expect(response.valid?).to be false
+          context "with valid data" do
+            let(:data) do
+              {"uri" => "1",
+               "currentLocationLocationLocal" => "Loc"}
+            end
+
+            it "validates valid data" do
+              expect(response.valid?).to be true
+            end
+          end
+
+          context "with invalid data" do
+            let(:data) { {"uri" => "2"} }
+
+            it "invalidates invalid data" do
+              expect(response.valid?).to be false
+            end
           end
         end
       end
 
-    context "when recordtype has required field(s)",
+    context "when recordtype has single required field(s)",
       vcr: "anthro_domain_check" do
         let(:profile) { "anthro" }
         let(:mapper) { "anthro_4-1-2_collectionobject" }
 
-        context "and when required field present" do
-          context "and required field populated" do
-            let(:data) { {"objectNumber" => "123"} }
+        context "and when record_matchpoint = identifier" do
+          let(:config) { {"record_matchpoint" => "identifier"} }
 
-            it "no required field error returned" do
-              err = response.errors.select do |errhash|
-                errhash[:type].start_with?("required field")
+          context "and when required field present" do
+            context "and required field populated" do
+              let(:data) { {"objectNumber" => "123"} }
+
+              it "no required field error returned" do
+                err = response.errors.select do |errhash|
+                  errhash[:type].start_with?("required field")
+                end
+                expect(err.size).to eq(0)
+              end
+            end
+
+            context "and required field present but empty" do
+              let(:data) { {"objectNumber" => ""} }
+              it 'returns required field err w/ msg "required field empty"' do
+                err = response.errors.select do |err|
+                  err.start_with?("required field empty")
+                end
+                expect(err.size).to eq(1)
+              end
+            end
+          end
+
+          context "when required field not present in data" do
+            let(:data) { {"randomField" => "random value"} }
+            it 'returns required field error w/msg "required field missing"' do
+              err = response.errors.select do |err|
+                err.start_with?("required field missing")
+              end
+              expect(err.size).to eq(1)
+            end
+          end
+
+          context "when required field provided by defaults (auth hierarchy)" do
+            let(:profile) { "core" }
+            let(:mapper) { "core_6-1-0_authorityhierarchy" }
+
+            let(:data) do
+              raw = get_datahash(
+                path: "spec/support/datahashes/core/authorityHierarchy1.json"
+              )
+              CollectionSpace::Mapper::Response.new(raw, handler)
+            end
+
+            it "no required field error returned", services_call: true do
+              err = response.errors.select do |err|
+                err.start_with?("required field")
               end
               expect(err.size).to eq(0)
             end
           end
+        end
 
-          context "and required field present but empty" do
-            let(:data) { {"objectNumber" => ""} }
-            it 'returns required field err w/ msg "required field empty"' do
+        context "and when record_matchpoint = uri" do
+          let(:config) { {"record_matchpoint" => "uri"} }
+
+          context "and when required field present" do
+            context "and required field populated" do
+              let(:data) { {"uri" => "123"} }
+
+              it "no required field error returned" do
+                err = response.errors.select do |errhash|
+                  errhash[:type].start_with?("required field")
+                end
+                expect(err.size).to eq(0)
+              end
+            end
+
+            context "and required field present but empty" do
+              let(:data) { {"uri" => ""} }
+              it 'returns required field err w/ msg "required field empty"' do
+                err = response.errors.select do |err|
+                  err.start_with?("required field empty")
+                end
+                expect(err.size).to eq(1)
+              end
+            end
+          end
+
+          context "when required field not present in data" do
+            let(:data) { {"randomField" => "random value"} }
+            it 'returns required field error w/msg "required field missing"' do
               err = response.errors.select do |err|
-                err.start_with?("required field empty")
+                err.start_with?("required field missing")
               end
               expect(err.size).to eq(1)
             end
           end
         end
+      end
 
-        context "when required field not present in data" do
-          let(:data) { {"randomField" => "random value"} }
-          it 'returns required field error w/msg "required field missing"' do
-            err = response.errors.select do |err|
-              err.start_with?("required field missing")
+    context "when relation recordtype (all fields required)",
+      vcr: "core_domain_check" do
+        let(:profile) { "core" }
+        let(:mapper) { "core_6-1-0_nonhierarchicalrelationship" }
+
+        context "and when record_matchpoint = uri" do
+          let(:config) { {"record_matchpoint" => "uri"} }
+
+          context "and when required field present and populated" do
+            let(:data) do
+              get_datahash(
+                path: "spec/support/datahashes/core/"\
+                  "nonHierarchicalRelationship1.json"
+              )
             end
-            expect(err.size).to eq(1)
-          end
-        end
 
-        context "when required field provided by defaults (auth hierarchy)" do
-          let(:profile) { "core" }
-          let(:mapper) { "core_6-1-0_authorityhierarchy" }
-
-          let(:data) do
-            raw = get_datahash(
-              path: "spec/support/datahashes/core/authorityHierarchy1.json"
-            )
-            CollectionSpace::Mapper::Response.new(raw, handler)
-          end
-
-          it "no required field error returned", services_call: true do
-            err = response.errors.select do |err|
-              err.start_with?("required field")
+            it "no required field error returned" do
+              expect(response.errors).to be_empty
             end
-            expect(err.size).to eq(0)
           end
         end
       end
@@ -208,38 +379,81 @@ RSpec.describe CollectionSpace::Mapper::DataValidator do
         let(:profile) { "botgarden" }
         let(:mapper) { "botgarden_2-0-1_loanout" }
 
-        context "and when record id field present" do
-          context "and record id field populated" do
-            let(:data) { {"loanOutNumber" => "123"} }
+        context "and when record_matchpoint = identifier" do
+          let(:config) { {"record_matchpoint" => "identifier"} }
 
-            it "no required field error returned" do
-              err = response.errors.select do |err|
-                err.start_with?("required field")
+          context "and when record id field present" do
+            context "and record id field populated" do
+              let(:data) { {"loanOutNumber" => "123"} }
+
+              it "no required field error returned" do
+                err = response.errors.select do |err|
+                  err.start_with?("required field")
+                end
+                expect(err.size).to eq(0)
               end
-              expect(err.size).to eq(0)
+            end
+
+            context "and record id field present but empty" do
+              let(:data) { {"loanOutNumber" => ""} }
+
+              it 'returns required field error w/msg "required field empty"' do
+                err = response.errors.select do |err|
+                  err.start_with?("required field empty")
+                end
+                expect(err.size).to eq(1)
+              end
             end
           end
 
-          context "and record id field present but empty" do
-            let(:data) { {"loanOutNumber" => ""} }
+          context "when record id field not present in data" do
+            let(:data) { {"randomField" => "random value"} }
 
-            it 'returns required field error w/msg "required field empty"' do
+            it 'returns required field error w/msg "required field missing"' do
               err = response.errors.select do |err|
-                err.start_with?("required field empty")
+                err.start_with?("required field missing")
               end
               expect(err.size).to eq(1)
             end
           end
         end
 
-        context "when record id field not present in data" do
-          let(:data) { {"randomField" => "random value"} }
+        context "and when record_matchpoint = uri" do
+          let(:config) { {"record_matchpoint" => "uri"} }
 
-          it 'returns required field error w/msg "required field missing"' do
-            err = response.errors.select do |err|
-              err.start_with?("required field missing")
+          context "and when record id field present" do
+            context "and record id field populated" do
+              let(:data) { {"uri" => "123"} }
+
+              it "no required field error returned" do
+                err = response.errors.select do |err|
+                  err.start_with?("required field")
+                end
+                expect(err.size).to eq(0)
+              end
             end
-            expect(err.size).to eq(1)
+
+            context "and record id field present but empty" do
+              let(:data) { {"uri" => ""} }
+
+              it 'returns required field error w/msg "required field empty"' do
+                err = response.errors.select do |err|
+                  err.start_with?("required field empty")
+                end
+                expect(err.size).to eq(1)
+              end
+            end
+          end
+
+          context "when record id field not present in data" do
+            let(:data) { {"randomField" => "random value"} }
+
+            it 'returns required field error w/msg "required field missing"' do
+              err = response.errors.select do |err|
+                err.start_with?("required field missing")
+              end
+              expect(err.size).to eq(1)
+            end
           end
         end
       end

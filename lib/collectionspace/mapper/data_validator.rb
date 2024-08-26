@@ -12,17 +12,18 @@ module CollectionSpace
         handler.record.extensions.each { |ext| extend ext }
 
         @id_field = get_id_field
-        @required_mappings = handler.record.mappings
-          .required_columns
         @required_fields = get_required_fields
         faux_require_id_field
+        return if handler.record.service_type == "relation"
+
+        override_based_on_matchpoint if handler.batch.record_matchpoint == "uri"
       end
 
       def validate(response)
-        return response unless response.errors.empty?
+        return response if response.errors?
 
-        check_required_fields(response) unless required_fields.empty?
-        return response unless response.errors.empty?
+        check_required_fields(response)
+        return response if response.errors?
 
         special_checks(response)
 
@@ -31,7 +32,7 @@ module CollectionSpace
 
       private
 
-      attr_reader :handler, :id_field, :required_mappings, :required_fields
+      attr_reader :handler, :id_field, :required_fields
 
       def get_id_field
         idfield = handler.record.identifier_field
@@ -42,11 +43,12 @@ module CollectionSpace
 
       def get_required_fields
         h = {}
-        required_mappings.each do |mapping|
-          field = mapping.fieldname.downcase
-          column = mapping.datacolumn.downcase
-          h.key?(field) ? h[field] << column : h[field] = [column]
-        end
+        handler.record.mappings
+          .required_columns.each do |mapping|
+            field = mapping.fieldname.downcase
+            column = mapping.datacolumn.downcase
+            h.key?(field) ? h[field] << column : h[field] = [column]
+          end
         h
       end
 
@@ -59,9 +61,17 @@ module CollectionSpace
         required_fields[id_field] = [id_field]
       end
 
+      def override_based_on_matchpoint
+        @required_fields.delete(id_field)
+        @id_field = "uri"
+        @required_fields["uri"] = ["uri"]
+      end
+
       # @todo The logic of checking should be moved to the *RequiredField
       #   classes
       def check_required_fields(response)
+        return response if required_fields.empty?
+
         data = response.merged_data
         required_fields.each do |field, columns|
           if columns.length == 1
