@@ -98,7 +98,7 @@ module CollectionSpace
         def split_data
           response.merged_data.each do |field, val|
             splitval = if identifier?(field)
-              split_identifier(val)
+              strip_identifier(val)
             else
               splitter.call(val, :simple)
             end

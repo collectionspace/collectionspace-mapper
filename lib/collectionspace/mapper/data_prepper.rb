@@ -81,13 +81,13 @@ module CollectionSpace
         if mapping.repeats == "y"
           splitter.call(data, :simple)
         elsif identifier?(mapping.fieldname)
-          split_identifier(data)
+          strip_identifier(data)
         else
           [data.strip]
         end
       end
 
-      def split_identifier(data)
+      def strip_identifier(data)
         return [data.strip] if handler.batch.strip_id_values
 
         [data]
