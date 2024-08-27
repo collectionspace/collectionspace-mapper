@@ -13,11 +13,15 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder do
   end
   let(:config) { {} }
 
-  describe ".call", vcr: "core_domain_check" do
-    it "returns RecordStatusServiceClient" do
-      expect(builder).to be_a(
-        CollectionSpace::Mapper::Tools::RecordStatusServiceClient
-      )
+  context "when status_check_method = client", vcr: "core_domain_check" do
+    let(:config) { {status_check_method: "client"} }
+
+    describe ".call" do
+      it "returns RecordStatusServiceClient" do
+        expect(builder).to be_a(
+          CollectionSpace::Mapper::Tools::RecordStatusServiceClient
+        )
+      end
     end
 
     context "when status_check_method = cache" do
