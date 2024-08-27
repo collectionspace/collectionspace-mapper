@@ -9,22 +9,26 @@ module CollectionSpace
       # @param handler [CollectionSpace::Mapper::DataHandler]
       def initialize(response, handler)
         @response = response
-        return unless response.valid?
-
         @handler = handler
+      end
+
+      def map
+        return response unless response.valid?
+
         @doc = handler.record.xml_template.dup
 
-        response.xpaths.values.each { |xpath| map(xpath) }
+        response.xpaths.values.each { |xpath| xpath_map(xpath) }
         clean_doc
         add_namespaces
         response.add_doc(doc)
+        response
       end
 
       private
 
       attr_reader :response, :handler, :doc
 
-      def map(xpath)
+      def xpath_map(xpath)
         thisdata = response.combined_data[xpath.path]
         targetnode = doc.xpath("//#{xpath.path}")[0]
         if xpath.is_group? == false

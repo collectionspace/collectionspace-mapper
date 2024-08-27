@@ -149,7 +149,7 @@ module CollectionSpace
           value.nil? || value.empty?
         end
 
-        CollectionSpace::Mapper::DataMapper.new(self, handler)
+        CollectionSpace::Mapper::DataMapper.new(self, handler).map
         tag_terms
         set_record_status
         states << :mapped
