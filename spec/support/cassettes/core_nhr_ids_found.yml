@@ -231,4 +231,59 @@ http_interactions:
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rel="http://collectionspace.org/services/relation"
         xmlns:ns4="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>subjectCsid|relationshipType|predicateDisplayName|relationshipMetaType|objectCsid|uri|csid|subject|object</fieldsReturned></rel:relations-common-list>
   recorded_at: Sat, 15 Apr 2023 00:55:53 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/relations?obj=8e74756f-38f5-4dee-90d4&pgSz=25&prd=affects&sbj=22706401-8328-4778-86fa&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Mon, 26 Aug 2024 23:09:28 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '509'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=39732AA0526B17DE98D3C79080D56206; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><rel:relations-common-list
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rel="http://collectionspace.org/services/relation"
+        xmlns:ns4="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>subjectCsid|relationshipType|predicateDisplayName|relationshipMetaType|objectCsid|uri|csid|subject|object</fieldsReturned></rel:relations-common-list>
+  recorded_at: Mon, 26 Aug 2024 23:09:28 GMT
 recorded_with: VCR 6.1.0
