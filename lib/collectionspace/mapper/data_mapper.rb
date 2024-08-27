@@ -15,7 +15,6 @@ module CollectionSpace
         @doc = handler.record.xml_template.dup
 
         response.xpaths.values.each { |xpath| map(xpath) }
-        add_short_id if handler.record.service_type == "authority"
         clean_doc
         add_namespaces
         response.add_doc(doc)
@@ -24,26 +23,6 @@ module CollectionSpace
       private
 
       attr_reader :response, :handler, :doc
-
-      def add_short_id
-        shortid =
-          if response.transformed_data.key?("shortidentifier")
-            response.transformed_data["shortidentifier"][0]
-          else
-            term = response.split_data["termdisplayname"][0]
-            CollectionSpace::Mapper::Identifiers::AuthorityShortIdentifier.call(
-              term
-            )
-          end
-        response.add_identifier(shortid)
-        return if response.transformed_data.key?("shortidentifier")
-
-        ns = handler.record.common_namespace
-        targetnode = doc.xpath("/document/#{ns}").first
-        child = Nokogiri::XML::Node.new("shortIdentifier", doc)
-        child.content = shortid
-        targetnode.add_child(child)
-      end
 
       def map(xpath)
         thisdata = response.combined_data[xpath.path]

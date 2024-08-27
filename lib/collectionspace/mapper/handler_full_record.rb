@@ -216,6 +216,10 @@ module CollectionSpace
       end
 
       def get_prepper_class
+        if record.service_type == "authority"
+          return CollectionSpace::Mapper::AuthorityPrepper
+        end
+
         case record.recordtype
         when "authorityhierarchy"
           CollectionSpace::Mapper::AuthorityHierarchyPrepper
