@@ -186,6 +186,22 @@ RSpec.describe CollectionSpace::Mapper::Response do
         expect(result.length).to eq(2)
       end
     end
+
+    context "when nonHierarchicalRelationship record" do
+      let(:mapper) { "core_6-1-0_nonhierarchicalrelationship" }
+      let(:data) do
+        {
+          "item1_type" => "collectionobjects",
+          "item1_id" => "2020.1.107 TEST",
+          "item2_type" => "movements",
+          "item2_id" => "LOC2020.1.24"
+        }
+      end
+
+      it "returns expected xpaths " do
+        expect(result.keys).to eq(["relations_common"])
+      end
+    end
   end
 
   describe "#terms", vcr: "core_domain_check" do
