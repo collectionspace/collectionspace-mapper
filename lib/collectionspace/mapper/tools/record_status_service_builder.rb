@@ -8,14 +8,21 @@ module CollectionSpace
         class << self
           # @param handler [CollectionSpace::Mapper::DataHandler]
           def call(handler)
-            if handler.batch.status_check_method == "client"
-              CollectionSpace::Mapper::Tools::RecordStatusServiceClient.new(
-                handler
-              )
-            else
-              CollectionSpace::Mapper::Tools::RecordStatusServiceCache.new(
-                handler
-              )
+            class_for(handler).new(handler)
+          end
+
+          private
+
+          def class_for(handler)
+            chk_method = handler.batch.status_check_method
+            matchpoint = handler.batch.record_matchpoint
+
+            if chk_method == "client" && matchpoint == "identifier"
+              CollectionSpace::Mapper::Tools::RecordStatusServiceClient
+            elsif chk_method == "client" && matchpoint == "uri"
+              CollectionSpace::Mapper::Tools::RecordStatusServiceClientUri
+            elsif chk_method == "cache"
+              CollectionSpace::Mapper::Tools::RecordStatusServiceCache
             end
           end
         end

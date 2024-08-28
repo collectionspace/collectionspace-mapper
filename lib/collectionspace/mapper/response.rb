@@ -235,6 +235,8 @@ module CollectionSpace
       end
 
       def status_check_id
+        return uri_status_check_id if handler.batch.record_matchpoint == "uri"
+
         case handler.record.service_type
         when "relation"
           {
@@ -246,6 +248,15 @@ module CollectionSpace
           split_data["termdisplayname"].first
         else
           identifier
+        end
+      end
+
+      def uri_status_check_id
+        case handler.record.service_type
+        when "relation"
+          binding.pry
+        else
+          uri
         end
       end
     end

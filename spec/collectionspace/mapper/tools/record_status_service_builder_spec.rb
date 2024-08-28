@@ -22,6 +22,18 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder do
           CollectionSpace::Mapper::Tools::RecordStatusServiceClient
         )
       end
+
+      context "and when record_matchpoint = uri" do
+        let(:config) do
+          {status_check_method: "client", record_matchpoint: "uri"}
+        end
+
+        it "returns RecordStatusServiceClient" do
+          expect(builder).to be_a(
+            CollectionSpace::Mapper::Tools::RecordStatusServiceClientUri
+          )
+        end
+      end
     end
 
     context "when status_check_method = cache" do
@@ -31,6 +43,12 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceBuilder do
         expect(builder).to be_a(
           CollectionSpace::Mapper::Tools::RecordStatusServiceCache
         )
+      end
+
+      context "and when record_matchpoint = uri" do
+        let(:config) do
+          {status_check_method: "cache", record_matchpoint: "uri"}
+        end
       end
     end
   end
