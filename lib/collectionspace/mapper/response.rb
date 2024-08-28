@@ -65,6 +65,8 @@ module CollectionSpace
         @terms = terms.flatten.compact
       end
 
+      def add_uri(value) = @uri = value
+
       def add_warning(warning)
         warnings << warning
         @warnings = warnings.flatten.compact

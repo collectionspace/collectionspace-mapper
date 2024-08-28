@@ -21,35 +21,49 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
   describe "#prep", vcr: "anthro_domain_check" do
     let(:response) { prepper.prep }
 
+    context "when record_matchpoint = uri" do
+      let(:customcfg) { {record_matchpoint: "uri"} }
+      let(:datahash) do
+        {
+          "objectNumber" => "123.1",
+          "URI" => "/collectionobjects/ac7cc27c-7dde-4eb5-ace7"
+        }
+      end
+
+      it "preps as expected" do
+        expect(response.transformed_data).to eq({
+          "objectnumber" => ["123.1"]
+        })
+        expect(response.uri).to eq(
+          "/collectionobjects/ac7cc27c-7dde-4eb5-ace7"
+        )
+      end
+    end
+
     describe "leading/trailing space stripping" do
-      context "when identifier field" do
+      let(:result) { response.transformed_data }
+
+      context "with strip_id_values = true" do
         let(:datahash) { {"objectNumber" => "123 "} }
-        let(:result) { response.transformed_data["objectnumber"] }
+        let(:customcfg) { {strip_id_values: true} }
 
         it "strips leading/trailing spaces from id field(s)" do
-          expect(result).to eq(["123"])
-        end
-
-        context "with strip_id_values = false" do
-          let(:customcfg) { {strip_id_values: false} }
-
-          it "does not strip leading/trailing spaces from id field(s)" do
-            expect(result).to eq(["123 "])
-          end
+          expect(result["objectnumber"]).to eq(["123"])
         end
       end
 
-      context "when other data field" do
+      context "with strip_id_values = false" do
+        let(:customcfg) { {strip_id_values: false} }
         let(:datahash) do
           {
             "objectNumber" => "123 ",
             "numberValue" => " 456 ;786 ;288"
           }
         end
-        let(:result) { response.transformed_data["numbervalue"] }
 
-        it "strips leading/trailing spaces from id field(s)" do
-          expect(result).to eq(["456", "786", "288"])
+        it "strips from non-id fields, but not id fields" do
+          expect(result["objectnumber"]).to eq(["123 "])
+          expect(result["numbervalue"]).to eq(["456", "786", "288"])
         end
       end
     end
@@ -253,94 +267,94 @@ RSpec.describe CollectionSpace::Mapper::DataPrepper do
 
       context "when multi-authority field is part of repeating subgroup",
         vcr: "core_domain_check" do
-        let(:profile) { "core" }
-        let(:mapper) { "core_6-1-0_media" }
-        let(:xpath) do
-          "media_common/measuredPartGroupList/measuredPartGroup/"\
-            "dimensionSubGroupList/dimensionSubGroup"
-        end
-        let(:field) { "measuredBy" }
-
-        context "when there is more than one group" do
-          let(:datahash) do
-            {
-              "identificationNumber" => "MR2020.1.77",
-              "measuredPart" => "framed;",
-              "dimensionSummary" => "Past is gone;Summary",
-              "dimension" => "base^^^^weight^^circumference;height^^width",
-              "measuredByPerson" => "Gomongo^^Comodore;Gomongo",
-              "measuredByOrganization" => "Cuckoo^^;Cuckoo",
-              "measurementMethod" =>
-                "sliding_calipers^^theodolite_total_station^^electronic_"\
-                "distance_measurement^^measuring_tape_cloth;measuring_tape_"\
-                "cloth^^measuring_tape_cloth",
-              "value" => "25^^83^^56^^10;5^^5",
-              "measurementUnit" =>
-                "centimeters^^carats^^kilograms^^inches;inches^^inches",
-              "valueQualifier" => "cm^^ct^^kg^^in;q1^^q2",
-              "valueDate" =>
-                "2020-09-23^^2020-09-28^^2020-09-25^^2020-09-30;2020-07-21^^"\
-                "2020-07-21"
-            }
+          let(:profile) { "core" }
+          let(:mapper) { "core_6-1-0_media" }
+          let(:xpath) do
+            "media_common/measuredPartGroupList/measuredPartGroup/"\
+              "dimensionSubGroupList/dimensionSubGroup"
           end
+          let(:field) { "measuredBy" }
 
-          it "combines values properly" do
-            expected = [
-              [
-                "urn:cspace:c.core.collectionspace.org:personauthorities:name"\
-                  "(person):item:name(Gomongo1599463746195)'Gomongo'",
-                "urn:cspace:c.core.collectionspace.org:personauthorities:name"\
-                  "(person):item:name(Comodore1599463826401)'Comodore'",
-                "urn:cspace:c.core.collectionspace.org:orgauthorities:name"\
-                  "(organization):item:name(Cuckoo1599463786824)'Cuckoo'",
-                ""
-              ],
-              [
-                "urn:cspace:c.core.collectionspace.org:personauthorities:name"\
-                  "(person):item:name(Gomongo1599463746195)'Gomongo'",
-                "urn:cspace:c.core.collectionspace.org:orgauthorities:name"\
-                  "(organization):item:name(Cuckoo1599463786824)'Cuckoo'"
+          context "when there is more than one group" do
+            let(:datahash) do
+              {
+                "identificationNumber" => "MR2020.1.77",
+                "measuredPart" => "framed;",
+                "dimensionSummary" => "Past is gone;Summary",
+                "dimension" => "base^^^^weight^^circumference;height^^width",
+                "measuredByPerson" => "Gomongo^^Comodore;Gomongo",
+                "measuredByOrganization" => "Cuckoo^^;Cuckoo",
+                "measurementMethod" =>
+                  "sliding_calipers^^theodolite_total_station^^electronic_"\
+                  "distance_measurement^^measuring_tape_cloth;measuring_tape_"\
+                  "cloth^^measuring_tape_cloth",
+                "value" => "25^^83^^56^^10;5^^5",
+                "measurementUnit" =>
+                  "centimeters^^carats^^kilograms^^inches;inches^^inches",
+                "valueQualifier" => "cm^^ct^^kg^^in;q1^^q2",
+                "valueDate" =>
+                  "2020-09-23^^2020-09-28^^2020-09-25^^2020-09-30;2020-07-21^^"\
+                  "2020-07-21"
+              }
+            end
+
+            it "combines values properly" do
+              expected = [
+                [
+                  "urn:cspace:c.core.collectionspace.org:personauthorities:name"\
+                    "(person):item:name(Gomongo1599463746195)'Gomongo'",
+                  "urn:cspace:c.core.collectionspace.org:personauthorities:name"\
+                    "(person):item:name(Comodore1599463826401)'Comodore'",
+                  "urn:cspace:c.core.collectionspace.org:orgauthorities:name"\
+                    "(organization):item:name(Cuckoo1599463786824)'Cuckoo'",
+                  ""
+                ],
+                [
+                  "urn:cspace:c.core.collectionspace.org:personauthorities:name"\
+                    "(person):item:name(Gomongo1599463746195)'Gomongo'",
+                  "urn:cspace:c.core.collectionspace.org:orgauthorities:name"\
+                    "(organization):item:name(Cuckoo1599463786824)'Cuckoo'"
+                ]
               ]
-            ]
-            expect(result).to eq(expected)
-          end
-        end
-
-        context "when there is only one group" do
-          let(:datahash) do
-            {
-              "identificationNumber" => "MR2020.1.77",
-              "measuredPart" => "framed",
-              "dimensionSummary" => "Past is gone",
-              "dimension" => "base^^^^weight^^circumference",
-              "measuredByPerson" => "Gomongo^^Comodore",
-              "measuredByOrganization" => "Cuckoo^^",
-              "measurementMethod" =>
-                "sliding_calipers^^theodolite_total_station^^electronic_"\
-                "distance_measurement^^measuring_tape_cloth",
-              "value" => "25^^83^^56^^10",
-              "measurementUnit" => "centimeters^^carats^^kilograms^^inches",
-              "valueQualifier" => "cm^^ct^^kg^^in",
-              "valueDate" => "2020-09-23^^2020-09-28^^2020-09-25^^2020-09-30"
-            }
+              expect(result).to eq(expected)
+            end
           end
 
-          it "combines values properly" do
-            expected = [
-              [
-                "urn:cspace:c.core.collectionspace.org:personauthorities:name"\
-                  "(person):item:name(Gomongo1599463746195)'Gomongo'",
-                "urn:cspace:c.core.collectionspace.org:personauthorities:name"\
-                  "(person):item:name(Comodore1599463826401)'Comodore'",
-                "urn:cspace:c.core.collectionspace.org:orgauthorities:name"\
-                  "(organization):item:name(Cuckoo1599463786824)'Cuckoo'",
-                ""
+          context "when there is only one group" do
+            let(:datahash) do
+              {
+                "identificationNumber" => "MR2020.1.77",
+                "measuredPart" => "framed",
+                "dimensionSummary" => "Past is gone",
+                "dimension" => "base^^^^weight^^circumference",
+                "measuredByPerson" => "Gomongo^^Comodore",
+                "measuredByOrganization" => "Cuckoo^^",
+                "measurementMethod" =>
+                  "sliding_calipers^^theodolite_total_station^^electronic_"\
+                  "distance_measurement^^measuring_tape_cloth",
+                "value" => "25^^83^^56^^10",
+                "measurementUnit" => "centimeters^^carats^^kilograms^^inches",
+                "valueQualifier" => "cm^^ct^^kg^^in",
+                "valueDate" => "2020-09-23^^2020-09-28^^2020-09-25^^2020-09-30"
+              }
+            end
+
+            it "combines values properly" do
+              expected = [
+                [
+                  "urn:cspace:c.core.collectionspace.org:personauthorities:name"\
+                    "(person):item:name(Gomongo1599463746195)'Gomongo'",
+                  "urn:cspace:c.core.collectionspace.org:personauthorities:name"\
+                    "(person):item:name(Comodore1599463826401)'Comodore'",
+                  "urn:cspace:c.core.collectionspace.org:orgauthorities:name"\
+                    "(organization):item:name(Cuckoo1599463786824)'Cuckoo'",
+                  ""
+                ]
               ]
-            ]
-            expect(result).to eq(expected)
+              expect(result).to eq(expected)
+            end
           end
         end
-      end
     end
   end
 end

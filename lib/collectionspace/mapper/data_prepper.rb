@@ -20,6 +20,9 @@ module CollectionSpace
         check_data
         response.add_identifier(get_id)
         combine_data_fields
+        return response unless handler.batch.record_matchpoint == "uri"
+
+        response.add_uri(response.merged_data["uri"])
         response
       end
 
