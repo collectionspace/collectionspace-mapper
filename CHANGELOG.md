@@ -13,6 +13,9 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 
+## [6.0.1] - 2024-08-30
+- BUGFIX: Reponse did not get an identifier set if any terms were missing.
+
 ## [6.0.0] - 2024-08-24
 - **Breaking**
   - Revert to activesupport v. 6.0.4.7 for compatibility with CSV Importer
