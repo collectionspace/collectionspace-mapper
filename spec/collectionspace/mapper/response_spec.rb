@@ -192,8 +192,8 @@ RSpec.describe CollectionSpace::Mapper::Response do
     let(:customcfg) { {delimiter: "|", response_mode: "verbose"} }
     let(:processed) { response.map }
 
-    context "with some terms found and some terms not found" do
-      let(:result) { processed.terms.reject { |t| t.found? } }
+    context "with terms found in cache and instance" do
+      let(:result) { processed.terms.select { |t| t.missing? } }
 
       vcr_found_opts = {
         cassette_name: "datahandler_uncached_found_terms",
@@ -211,8 +211,9 @@ RSpec.describe CollectionSpace::Mapper::Response do
             }
           end
 
-          it "returns expected found values" do
+          it "returns no missing terms" do
             expect(result.length).to eq(0)
+            expect(processed.identifier).to eq("20CS.001.0002")
           end
         end
 
@@ -220,7 +221,7 @@ RSpec.describe CollectionSpace::Mapper::Response do
         cassette_name: "datahandler_uncached_unfound_terms",
         record: :new_episodes
       }
-      context "with terms in instance but not in cache, and not in instance",
+      context "with found term and missing term",
         vcr: vcr_unfound_opts do
           let(:data) do
             {
@@ -232,8 +233,9 @@ RSpec.describe CollectionSpace::Mapper::Response do
             }
           end
 
-          it "returns expected found values" do
+          it "returns 1 missing term" do
             expect(result.length).to eq(1)
+            expect(processed.identifier).to eq("20CS.001.0001")
           end
         end
     end
@@ -250,6 +252,9 @@ RSpec.describe CollectionSpace::Mapper::Response do
         # authority - in instance, not in cache
         "namedCollection" => "QA TARGET Work"
       }
+      resp1 = CollectionSpace::Mapper::Response.new(data1, handler)
+      handler.process(resp1)
+
       data2 = {
         "objectNumber" => "2",
         # vocabulary - now in cache
@@ -259,16 +264,11 @@ RSpec.describe CollectionSpace::Mapper::Response do
         # authority - not in instance, not in cache
         "contentConceptAssociated" => "Birbs"
       }
-
-      resp1 = CollectionSpace::Mapper::Response.new(data1, handler)
       resp2 = CollectionSpace::Mapper::Response.new(data2, handler)
-
-      handler.process(resp1)
-
       result = handler.process(resp2)
-        .terms
-        .select { |t| !t.found? }
-      expect(result.length).to eq(1)
+
+      expect(result.terms.count(&:missing?)).to eq(1)
+      expect(result.identifier).to eq("2")
     end
   end
 
