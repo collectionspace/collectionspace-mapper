@@ -6,7 +6,7 @@ module CollectionSpace
       attr_reader :orig_data, :doc,
         :record_status, :csid, :uri, :refname,
         :terms, :errors, :warnings,
-        :identifier, :merged_data, :xpaths,
+        :merged_data, :xpaths,
         :split_data, :transformed_data
       attr_accessor :combined_data
 
@@ -44,6 +44,15 @@ module CollectionSpace
 
       def add_identifier(id)
         @identifier = id
+      end
+
+      def identifier
+        return @identifier unless @identifier.empty?
+
+        id_field = handler.record.identifier_field.downcase
+        return @identifier unless transformed_data.key?(id_field)
+
+        transformed_data[id_field][0]
       end
 
       def add_error(error)
