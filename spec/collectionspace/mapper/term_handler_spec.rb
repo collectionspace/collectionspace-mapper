@@ -9,7 +9,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
       data: data,
       handler: handler,
       response: response
-    )
+    ).call
   end
 
   let(:handler) do
@@ -119,7 +119,7 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
               data: data,
               handler: handler,
               response: new_resp
-            )
+            ).call
 
             chk = new_resp.terms.select { |h| !h.found? }
             expect(chk.length).to eq(1)

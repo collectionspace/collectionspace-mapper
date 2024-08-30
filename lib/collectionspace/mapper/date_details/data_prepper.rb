@@ -136,7 +136,7 @@ module CollectionSpace
               data: data,
               handler: handler,
               response: response
-            )
+            ).call
           end
         end
 
