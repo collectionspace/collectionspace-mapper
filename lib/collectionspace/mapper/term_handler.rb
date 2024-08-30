@@ -5,6 +5,21 @@ module CollectionSpace
     class TermHandler
       include TermSearchable
 
+      class << self
+        # @param mapping [CollectionSpace::Mapper::ColumnMapping]
+        # @param data [Array<String>]
+        # @param handler [CollectionSpace::Mapper::DataHandler]
+        # @param response [CollectionSpace::Mapper::Response]
+        def call(mapping:, data:, handler:, response:)
+          new(
+            mapping: mapping,
+            data: data,
+            handler: handler,
+            response: response
+          ).call
+        end
+      end
+
       # @param mapping [CollectionSpace::Mapper::ColumnMapping]
       # @param data [Array<String>]
       # @param handler [CollectionSpace::Mapper::DataHandler]
@@ -14,26 +29,39 @@ module CollectionSpace
         @data = data
         @handler = handler
         @response = response
+      end
 
-        @column = mapping.datacolumn
-        @field = mapping.fieldname
-        @source_type = mapping.source_type.to_sym
-        case @source_type
-        when :authority
-          authconfig = mapping.transforms[:authority]
-          @type = authconfig[0]
-          @subtype = authconfig[1]
-        when :vocabulary
-          @type = "vocabularies"
-          @subtype = mapping.transforms[:vocabulary]
-        end
+      def call
         response.transformed_data[column] = handle_terms
       end
 
       private
 
-      attr_reader :mapping, :data, :handler, :response, :column, :source_type,
-        :type, :subtype
+      attr_reader :mapping, :data, :handler, :response
+
+      def column = @column ||= mapping.datacolumn
+
+      # def field = @field ||= mapping.fieldname
+
+      def source_type = @source_type ||= mapping.source_type.to_sym
+
+      def type
+        return @type if instance_variable_defined?(:@type)
+
+        case @source_type
+        when :authority then mapping.transforms[:authority][0]
+        when :vocabulary then "vocabularies"
+        end
+      end
+
+      def subtype
+        return @subtype if instance_variable_defined?(:@subtype)
+
+        case @source_type
+        when :authority then mapping.transforms[:authority][1]
+        when :vocabulary then mapping.transforms[:vocabulary]
+        end
+      end
 
       def handle_terms
         if data.first.is_a?(String)
