@@ -53,15 +53,7 @@ module CollectionSpace
         #   resolved in the collectionspace-client code.
         # Tests in examples/search.rb
         def lookup(value)
-          response = if ns_prefix == "relations"
-            client.find_relation(
-              subject_csid: value[:sub],
-              object_csid: value[:obj],
-              rel_type: value[:prd]
-            )
-          else
-            lookup_non_relationship(value)
-          end
+          response = get_response(value)
 
           ct = count_results(response)
           if ct == 0
@@ -80,6 +72,27 @@ module CollectionSpace
           end
         end
 
+        def get_response(value)
+          response = if ns_prefix == "relations"
+            client.find_relation(
+              subject_csid: value[:sub],
+              object_csid: value[:obj],
+              rel_type: value[:prd]
+            )
+          else
+            lookup_non_relationship(value)
+          end
+
+          if response && response.result.success?
+            response
+          elsif response
+            raise CollectionSpace::RequestError, response.result.body
+          else
+            raise CollectionSpace::RequestError,
+              "No response from CollectionSpace instance"
+          end
+        end
+
         def lookup_non_relationship(value)
           client.find(
             type: type,
@@ -94,11 +107,6 @@ module CollectionSpace
         end
 
         def count_results(response)
-          unless response.result.success?
-            raise CollectionSpace::RequestError,
-              response.result.body
-          end
-
           response.parsed[response_top]["totalItems"].to_i
         end
       end
