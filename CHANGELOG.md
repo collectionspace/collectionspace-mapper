@@ -13,6 +13,9 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 
+## [6.0.2] - 2024-09-13
+- BUGFIX: DataHandler now handles batch config passed as a String
+
 ## [6.0.1] - 2024-08-30
 - BUGFIX: Reponse did not get an identifier set if any terms were missing.
 
