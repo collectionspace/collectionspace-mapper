@@ -88,7 +88,9 @@ module CollectionSpace
 
       def set_record_status
         if handler.batch.check_record_status
-          result = handler.status_checker.call(status_check_id)
+          result = get_record_status
+          return unless result
+
           @record_status = result[:status]
           @csid = result[:csid]
           @uri = result[:uri]
@@ -242,6 +244,22 @@ module CollectionSpace
         else
           identifier
         end
+      end
+
+      def get_record_status
+        handler.status_checker.call(status_check_id)
+      rescue CollectionSpace::Mapper::MultipleCsRecordsFoundError => err
+        add_error({
+          category: "multiple_matching_records_found",
+          message: err.message
+        })
+        nil
+      rescue CollectionSpace::Mapper::Error, StandardError => err
+        add_error({
+          category: "unknown",
+          message: err.message
+        })
+        nil
       end
     end
   end

@@ -115,6 +115,25 @@ RSpec.describe CollectionSpace::Mapper::Response do
         expect(response.uri).to eq("uri")
         expect(response.refname).to eq("refname")
       end
+
+      context "when multiple records error" do
+        it "sets status as expected" do
+          errmsg = "3 matching records found in CollectionSpace. "\
+            "Cannot determine which to update."
+
+          handler.config.status_checker = checker
+          allow(checker).to receive(:call).and_raise(
+            CollectionSpace::Mapper::MultipleCsRecordsFoundError, 3
+          )
+          response.set_record_status
+          expect(response.record_status).to be_nil
+          expect(response.csid).to be_nil
+          expect(response.errors).to include({
+            category: "multiple_matching_records_found",
+            message: errmsg
+          })
+        end
+      end
     end
 
     context "when checking is turned off" do
