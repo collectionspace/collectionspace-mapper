@@ -71,7 +71,9 @@ RSpec.describe CollectionSpace::Mapper::Tools::RecordStatusServiceClient,
           context "with default config" do
             it "raises error" do
               expect { result }.to raise_error(
-                CollectionSpace::Mapper::MultipleCsRecordsFoundError
+                CollectionSpace::Mapper::MultipleCsRecordsFoundError,
+                "2 matching records found in CollectionSpace. "\
+                  "Cannot determine which to update."
               )
             end
           end
