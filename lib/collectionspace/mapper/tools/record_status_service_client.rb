@@ -69,14 +69,13 @@ module CollectionSpace
           elsif ct == 1
             reportable_result(response.parsed[response_top][response_nested])
           elsif ct > 1
-            unless use_first?
-              fail CollectionSpace::Mapper::MultipleCsRecordsFoundError,
-                ct
+            if use_first?
+              item = response.parsed[response_top][response_nested].first
+              num_found = response.parsed[response_top][response_nested].length
+              reportable_result(item).merge({multiple_recs_found: num_found})
+            else
+              fail CollectionSpace::Mapper::MultipleCsRecordsFoundError, ct
             end
-
-            item = response.parsed[response_top][response_nested].first
-            num_found = response.parsed[response_top][response_nested].length
-            reportable_result(item).merge({multiple_recs_found: num_found})
           end
         end
 
