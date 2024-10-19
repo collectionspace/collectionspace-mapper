@@ -115,7 +115,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable,
       term.send(:searched_term, val, :refname, termtype, termsubtype)
     end
 
-    context "when val exists in instance", vcr: "vocab_publishto_All" do
+    context "when val exists in instance", vcr: "vocab_publishto_cap_all" do
       let(:val) { "All" }
       it "returns refname urn" do
         expected = "urn:cspace:core.collectionspace.org:vocabularies:name"\

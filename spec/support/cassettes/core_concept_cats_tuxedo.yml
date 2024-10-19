@@ -228,4 +228,58 @@ http_interactions:
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rel="http://collectionspace.org/services/relation"
         xmlns:ns4="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>subjectCsid|relationshipType|predicateDisplayName|relationshipMetaType|objectCsid|uri|csid|subject|object</fieldsReturned></rel:relations-common-list>
   recorded_at: Tue, 18 Apr 2023 23:07:13 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/conceptauthorities/urn:cspace:name(concept)/items?as=concepts_common:conceptTermGroupList/0/termDisplayName%20ILIKE%20%27Tuxedo%20cats%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Sat, 19 Oct 2024 01:25:59 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '402'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=08314FB0A3AFCDDC802A656CAED92551; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|proposed|deprecated|termStatus|termDisplayName</fieldsReturned></ns2:abstract-common-list>
+  recorded_at: Sat, 19 Oct 2024 01:25:59 GMT
 recorded_with: VCR 6.1.0
