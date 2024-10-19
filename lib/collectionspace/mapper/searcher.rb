@@ -21,16 +21,13 @@ module CollectionSpace
 
       attr_reader :client, :active, :search_fields
 
-      def case_swap(string)
-        string.match?(/[A-Z]/) ? string.downcase : string.capitalize
-      end
-
-      def get_response(value, type, subtype)
+      def get_response(value, type, subtype, operator = "=")
         response = client.find(
           type: type,
           subtype: subtype,
           value: value,
-          field: search_field(type)
+          field: search_field(type),
+          operator: operator
         )
       rescue => e
         puts e.message
@@ -50,6 +47,10 @@ module CollectionSpace
 
       def parse_response(response)
         parsed = response.parsed["abstract_common_list"]
+        return parsed if parsed["list_item"].is_a?(Array)
+
+        parsed["list_item"] = [parsed["list_item"]]
+        parsed
       rescue => e
         puts e.message
         nil
@@ -83,7 +84,21 @@ module CollectionSpace
         as_is = get_response(value, type, subtype)
         return as_is if response_usable?(as_is)
 
-        get_response(case_swap(value), type, subtype)
+        case_insensitive_response(value, type, subtype)
+      end
+
+      def case_insensitive_response(value, type, subtype)
+        response = get_response(value, type, subtype, "ILIKE")
+        return nil unless response_usable?(response)
+
+        displayname = response.dig("list_item", 0, "displayName") ||
+          response.dig("list_item", 0, "termDisplayName")
+        warning = {
+          category: "case_insensitive_match",
+          message: "Searched: #{value}. Using: #{displayname}"
+        }
+        response["warnings"] = [warning]
+        response
       end
     end
   end

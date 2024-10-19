@@ -194,13 +194,20 @@ module CollectionSpace
       end
 
       def return_record(category, val, apiresponse, term_ct)
+        rec = apiresponse["list_item"][0]
+
         case term_ct
         when 0
-          rec = nil
+          nil
         when 1
-          rec = apiresponse["list_item"]
+          if apiresponse.key?("warnings")
+            apiresponse["warnings"].each do |warning|
+              response.add_warning(warning.merge({field: column}))
+            end
+          end
+          rec
+          # rec = apiresponse["list_item"]
         else
-          rec = apiresponse["list_item"][0]
           using_uri = "#{client.config.base_uri}#{rec["uri"]}"
           response.add_warning({
             category: :"multiple_records_found_for_#{category}",
@@ -210,9 +217,8 @@ module CollectionSpace
             value: val,
             message: "#{term_ct} records found. Using #{using_uri}"
           })
+          rec
         end
-
-        rec
       end
 
       def add_bad_lookup_error(category, val)
