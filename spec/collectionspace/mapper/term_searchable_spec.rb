@@ -7,13 +7,16 @@ class TermClass
 
   include CollectionSpace::Mapper::TermSearchable
 
-  attr_reader :type, :subtype, :handler
+  attr_reader :type, :subtype, :handler, :response
   def initialize(type, subtype, handler)
     @type = type
     @subtype = subtype
     @handler = handler
+    @response = CollectionSpace::Mapper::Response.new({}, handler)
     @errors = []
   end
+
+  def column = "foo"
 end
 
 RSpec.describe CollectionSpace::Mapper::TermSearchable,
@@ -125,12 +128,17 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable,
     end
 
     context "when case-swapped val exists in instance",
-      vcr: "vocab_publishto_all" do
+      vcr: "vocab_publishto_lower_all" do
       let(:val) { "all" }
       it "returns refname urn" do
         expected = "urn:cspace:core.collectionspace.org:vocabularies:name"\
           "(publishto):item:name(all)'All'"
         expect(result).to eq(expected)
+        expect(term.response.warnings).to include({
+          category: "case_insensitive_match",
+          message: "Searched: all. Using: All",
+          field: "foo"
+        })
       end
     end
   end
