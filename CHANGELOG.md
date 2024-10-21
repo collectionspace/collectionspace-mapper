@@ -13,6 +13,9 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 
+## [6.0.4] - 2024-10-21
+- Make fallback term search fully case-insensitive, rather than just capitalizing/downcasing first letter of term
+
 ## [6.0.3] - 2024-10-18
 - BUGFIX: Rescue error when record status check finds more than one matching record, and add to Response errors for handling by ingest application
 
