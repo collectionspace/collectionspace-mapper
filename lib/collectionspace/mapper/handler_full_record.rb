@@ -76,6 +76,8 @@ module CollectionSpace
       end
 
       setting :batch, reader: true do
+        setting :authority_terms_duplicate_mode, default: "normalized",
+          reader: true
         setting :check_record_status, default: true, reader: true
         setting :date_format, default: "month day year", reader: true
         setting :default_values, default: {}, reader: true

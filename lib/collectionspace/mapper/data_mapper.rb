@@ -60,7 +60,7 @@ module CollectionSpace
           else
             term = response.split_data["termdisplayname"][0]
             CollectionSpace::Mapper::Identifiers::AuthorityShortIdentifier.call(
-              term
+              term, handler.batch.authority_terms_duplicate_mode
             )
           end
         response.add_identifier(shortid)
