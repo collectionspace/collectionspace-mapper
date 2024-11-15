@@ -5,25 +5,9 @@ module CollectionSpace
     module Identifiers
       class ShortIdentifier
         class << self
-          def call(term)
-            new(term: term).call
+          def call(term, mode = "normalized")
+            term.gsub(/\W/, "")
           end
-        end
-
-        def initialize(term:)
-          @term = term
-        end
-
-        def call
-          prepped_term
-        end
-
-        private
-
-        attr_reader :term
-
-        def prepped_term
-          term.gsub(/\W/, "")
         end
       end
     end

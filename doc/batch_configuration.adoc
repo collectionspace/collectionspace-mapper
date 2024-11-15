@@ -24,12 +24,13 @@ A JSON config hash may be passed to a new `Mapper::DataHandler` to control vario
   "response_mode": "verbose",
   "strip_id_values": true,
   "multiple_recs_found": "fail",
+  "authority_terms_duplicate_mode": "exact",
   "check_record_status" : true,
-  "status_check_method" : 'client',
+  "status_check_method" : "client",
   "search_if_not_cached": true,
   "force_defaults": false,
   "date_format": "month day year",
-  "two_digit_year_handling": "convert to four digit",
+  "two_digit_year_handling": "coerce",
   "transforms": {
     "collection": {
       "special": [
@@ -48,6 +49,33 @@ A JSON config hash may be passed to a new `Mapper::DataHandler` to control vario
   }
 }
 ----
+
+== authority_terms_duplicate_mode
+
+Controls how the `shortIdentifier` field value for new authority records is created, and thus what counts as a "duplicate" authority term/id (first `termDisplayName` value in record).
+
+If `exact`, then the following near-variant terms can all be created in a batch:
+
+- Sidewalk cafes
+- Sidewalk cafes.
+- Sidewalk  cafes
+
+If `normalized`, all of the listed terms would be normalized to `sidewalkcafes` in the `shortIdentifier` and the three terms would be reported in the processing step as having duplicate IDs.
+
+The `exact` setting is useful if you do not have the capacity to normalize and programmatically handle near-duplicates in your authority data (and in the object/procedural data where the terms are used to populate fields) prior to loading your data into CollectionSpace. The down-sides of loading authority data that is this messy is that:
+
+- You are left with LOTS of cleanup to do in CollectionSpace, which is very tedious; and
+- Until that cleanup is done, if you need to do an advanced search for objects where the `contentConcept` (and not the `assocConcept`) is sidewalk cafes, you will have to "OR" together all 3 near-variant terms in your search to get comprehensive results
+- If used in a field that is faceted on in the public browser, there will be 3 separate facets for the 3 different strings until you clean up the terms
+
+These down-sides are compounded if you are starting from scratch, loading a large number of authority terms, and they are all full of near-duplicate values.
+
+The default value is `normalized` because the more you can clean up this kind trivial-to-programmatically-address variant before you put the data into CollectionSpace, the better your data will work inside CollectionSpace.
+
+- *Required?:* no
+- *Defaults to:* `normalized`
+- *Data type*: string
+- *Allowed values*: `exact`, `normalized`
 
 == batch_mode
 

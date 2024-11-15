@@ -17,7 +17,8 @@ module CollectionSpace
           end
 
           def from_term(source_type:, type:, subtype:, term:, handler:)
-            identifier = set_identifier(source_type, term)
+            mode = handler.batch.authority_terms_duplicate_mode
+            identifier = set_identifier(source_type, term, mode)
             new(
               type: type,
               subtype: subtype,
@@ -36,8 +37,8 @@ module CollectionSpace
             fail CollectionSpace::Mapper::UnparseableRefNameUrnError.new(urn)
           end
 
-          def set_identifier(type, term)
-            id_class(type).call(term)
+          def set_identifier(type, term, mode)
+            id_class(type).call(term, mode)
           end
 
           def id_class(type)
