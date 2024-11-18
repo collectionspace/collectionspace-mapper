@@ -13,6 +13,10 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 
+## [6.1.0] - 2024-11-18
+- Add `authority_terms_duplicate_mode` batch config setting that changes the way authority `shortIdentifier` values are generated, allowing near-duplicate terms to be created in a batch.
+- BUGFIX: Authority terms consisting solely of non-Latin characters are no longer normalized to a blank string for `shortIdentifier` creation, and thus will not be flagged as duplicate terms.
+
 ## [6.0.4] - 2024-10-21
 - Make fallback term search fully case-insensitive, rather than just capitalizing/downcasing first letter of term
 
