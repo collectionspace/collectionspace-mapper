@@ -24,7 +24,7 @@ Examples of setting up client and refcache are available in https://github.com/c
 
 - a parsed `cspace-config-untangler` RecordMapper
 
-RecordMapper JSON files for all current profile/rectype combinations can be found in: https://github.com/collectionspace/collectionspace-mapper/tree/master/spec/fixtures/files/mappers[`spec/fixtures/files/mappers`].
+RecordMapper JSON files for all profiles managed by Lyrasis can be found in the [cspace-config-untangler data/mappers directory](https://github.com/collectionspace/cspace-config-untangler/tree/main/data/mappers).
 
 These JSON files should be parsed before passing to this application.
 
