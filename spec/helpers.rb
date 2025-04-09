@@ -43,6 +43,15 @@ module Helpers
     end
   end
 
+  def setup_single_record_type_handler(mapper:, profile: "core", config: {})
+    CollectionSpace::Mapper::HandlerFullRecordOneCache.new(
+      record_mapper: mapper,
+      client: send(:"#{profile}_client"),
+      cache: send(:"#{profile}_cache"),
+      config: config
+    )
+  end
+
   def setup_handler(mapper:, profile: "core", config: {})
     client = send(:"#{profile}_client")
     termcache = send(:"#{profile}_cache")
