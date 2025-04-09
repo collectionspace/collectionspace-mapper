@@ -1,0 +1,415 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/personauthorities?pgNum=0&pgSz=1&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Mon, 02 Nov 2026 21:31:57 GMT
+      Content-Type:
+      - application/xml;charset=UTF-8
+      Content-Length:
+      - '805'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=F5C3F8592B5B820380E6FD322F127F46; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>dea4d607-725d-4318-a910</csid><uri>/personauthorities/dea4d607-725d-4318-a910</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person)'Local
+        Persons'</refName><updatedAt>2025-03-04T19:46:34.068Z</updatedAt><workflowState>project</workflowState><rev>73</rev><shortIdentifier>person</shortIdentifier><displayName>Local
+        Persons</displayName><vocabType>PersonAuthority</vocabType></list-item></ns2:abstract-common-list>
+  recorded_at: Mon, 02 Nov 2026 21:31:57 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/personauthorities?pgNum=0&pgSz=1&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Mon, 02 Nov 2026 21:31:57 GMT
+      Content-Type:
+      - application/xml;charset=UTF-8
+      Content-Length:
+      - '805'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=023C1D31803985B121DC5CB4F514BFD3; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>dea4d607-725d-4318-a910</csid><uri>/personauthorities/dea4d607-725d-4318-a910</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person)'Local
+        Persons'</refName><updatedAt>2025-03-04T19:46:34.068Z</updatedAt><workflowState>project</workflowState><rev>73</rev><shortIdentifier>person</shortIdentifier><displayName>Local
+        Persons</displayName><vocabType>PersonAuthority</vocabType></list-item></ns2:abstract-common-list>
+  recorded_at: Mon, 02 Nov 2026 21:31:57 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/collectionspace/cspace-config-untangler/refs/heads/main/data/mappers/community_profiles/release_9_0/core/core_11-0_group.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - raw.githubusercontent.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '3371'
+      Cache-Control:
+      - max-age=300
+      Content-Security-Policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      Content-Type:
+      - text/plain; charset=utf-8
+      Etag:
+      - W/"7c4dbd8329482a5a9a849ee82676a3c8b98890424e685b978f9d7f6f1724cd52"
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Github-Request-Id:
+      - 446A:6FE0D:86A37:D0E8F:6AE9014D
+      X-Github-Edge-Region:
+      - iad
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Mon, 02 Nov 2026 21:31:57 GMT
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-pdk-kpdk2140036-PDK
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1793655118.603141,VS0,VE103
+      Vary:
+      - Authorization,Accept-Encoding
+      Access-Control-Allow-Origin:
+      - "*"
+      Cross-Origin-Resource-Policy:
+      - cross-origin
+      X-Fastly-Request-Id:
+      - 9a9252e635f279780a4c948f7c9292380f9eec79
+      Expires:
+      - Mon, 02 Nov 2026 21:36:57 GMT
+      Source-Age:
+      - '0'
+    body:
+      encoding: ASCII-8BIT
+      base64_string: |
+        ewogICJjb25maWciOiB7CiAgICAicHJvZmlsZV9iYXNlbmFtZSI6ICJjb3Jl
+        IiwKICAgICJ2ZXJzaW9uIjogIjExLjAiLAogICAgInJlY29yZHR5cGUiOiAi
+        Z3JvdXAiLAogICAgImRvY3VtZW50X25hbWUiOiAiZ3JvdXBzIiwKICAgICJz
+        ZXJ2aWNlX25hbWUiOiAiR3JvdXBzIiwKICAgICJzZXJ2aWNlX3BhdGgiOiAi
+        Z3JvdXBzIiwKICAgICJzZXJ2aWNlX3R5cGUiOiAicHJvY2VkdXJlIiwKICAg
+        ICJvYmplY3RfbmFtZSI6ICJHcm91cCIsCiAgICAibnNfdXJpIjogewogICAg
+        ICAiZ3JvdXBzX2NvbW1vbiI6ICJodHRwOi8vY29sbGVjdGlvbnNwYWNlLm9y
+        Zy9zZXJ2aWNlcy9ncm91cCIKICAgIH0sCiAgICAiaWRlbnRpZmllcl9maWVs
+        ZCI6ICJ0aXRsZSIsCiAgICAic2VhcmNoX2ZpZWxkIjogInRpdGxlIgogIH0s
+        CiAgImRvY3N0cnVjdHVyZSI6IHsKICAgICJncm91cHNfY29tbW9uIjoge30K
+        ICB9LAogICJtYXBwaW5ncyI6IFsKICAgIHsKICAgICAgImZpZWxkbmFtZSI6
+        ICJ0aXRsZSIsCiAgICAgICJ0cmFuc2Zvcm1zIjoge30sCiAgICAgICJzb3Vy
+        Y2VfdHlwZSI6ICJuYSIsCiAgICAgICJzb3VyY2VfbmFtZSI6ICJuYSIsCiAg
+        ICAgICJuYW1lc3BhY2UiOiAiZ3JvdXBzX2NvbW1vbiIsCiAgICAgICJ4cGF0
+        aCI6IFtdLAogICAgICAiZGF0YV90eXBlIjogInN0cmluZyIsCiAgICAgICJy
+        ZXBlYXRzIjogIm4iLAogICAgICAiaW5fcmVwZWF0aW5nX2dyb3VwIjogIm4v
+        YSIsCiAgICAgICJvcHRfbGlzdF92YWx1ZXMiOiBbXSwKICAgICAgImRhdGFj
+        b2x1bW4iOiAidGl0bGUiLAogICAgICAicmVxdWlyZWQiOiAieSIKICAgIH0s
+        CiAgICB7CiAgICAgICJmaWVsZG5hbWUiOiAicmVzcG9uc2libGVEZXBhcnRt
+        ZW50IiwKICAgICAgInRyYW5zZm9ybXMiOiB7fSwKICAgICAgInNvdXJjZV90
+        eXBlIjogIm9wdGlvbmxpc3QiLAogICAgICAic291cmNlX25hbWUiOiAiZGVw
+        YXJ0bWVudHMiLAogICAgICAibmFtZXNwYWNlIjogImdyb3Vwc19jb21tb24i
+        LAogICAgICAieHBhdGgiOiBbXSwKICAgICAgImRhdGFfdHlwZSI6ICJzdHJp
+        bmciLAogICAgICAicmVwZWF0cyI6ICJuIiwKICAgICAgImluX3JlcGVhdGlu
+        Z19ncm91cCI6ICJuL2EiLAogICAgICAib3B0X2xpc3RfdmFsdWVzIjogWwog
+        ICAgICAgICJhbnRpcXVpdGllcyIsCiAgICAgICAgImFyY2hpdGVjdHVyZS1k
+        ZXNpZ24iLAogICAgICAgICJkZWNvcmF0aXZlLWFydHMiLAogICAgICAgICJl
+        dGhub2dyYXBoeSIsCiAgICAgICAgImhlcnBldG9sb2d5IiwKICAgICAgICAi
+        bWVkaWEtcGVyZm9ybWFuY2UtYXJ0IiwKICAgICAgICAicGFpbnRpbmdzLXNj
+        dWxwdHVyZSIsCiAgICAgICAgInBhbGVvYm90YW55IiwKICAgICAgICAicGhv
+        dG9ncmFwaHMiLAogICAgICAgICJwcmludHMtZHJhd2luZ3MiCiAgICAgIF0s
+        CiAgICAgICJkYXRhY29sdW1uIjogInJlc3BvbnNpYmxlRGVwYXJ0bWVudCIs
+        CiAgICAgICJyZXF1aXJlZCI6ICJuIgogICAgfSwKICAgIHsKICAgICAgImZp
+        ZWxkbmFtZSI6ICJvd25lciIsCiAgICAgICJ0cmFuc2Zvcm1zIjogewogICAg
+        ICAgICJhdXRob3JpdHkiOiBbCiAgICAgICAgICAicGVyc29uYXV0aG9yaXRp
+        ZXMiLAogICAgICAgICAgInBlcnNvbiIKICAgICAgICBdCiAgICAgIH0sCiAg
+        ICAgICJzb3VyY2VfdHlwZSI6ICJhdXRob3JpdHkiLAogICAgICAic291cmNl
+        X25hbWUiOiAicGVyc29uL2xvY2FsIiwKICAgICAgIm5hbWVzcGFjZSI6ICJn
+        cm91cHNfY29tbW9uIiwKICAgICAgInhwYXRoIjogW10sCiAgICAgICJkYXRh
+        X3R5cGUiOiAic3RyaW5nIiwKICAgICAgInJlcGVhdHMiOiAibiIsCiAgICAg
+        ICJpbl9yZXBlYXRpbmdfZ3JvdXAiOiAibi9hIiwKICAgICAgIm9wdF9saXN0
+        X3ZhbHVlcyI6IFtdLAogICAgICAiZGF0YWNvbHVtbiI6ICJvd25lciIsCiAg
+        ICAgICJyZXF1aXJlZCI6ICJuIgogICAgfSwKICAgIHsKICAgICAgImZpZWxk
+        bmFtZSI6ICJvd25lciIsCiAgICAgICJ0cmFuc2Zvcm1zIjoge30sCiAgICAg
+        ICJzb3VyY2VfdHlwZSI6ICJyZWZuYW1lIiwKICAgICAgInNvdXJjZV9uYW1l
+        IjogImF1dGhvcml0eSByZWZuYW1lIiwKICAgICAgIm5hbWVzcGFjZSI6ICJn
+        cm91cHNfY29tbW9uIiwKICAgICAgInhwYXRoIjogW10sCiAgICAgICJkYXRh
+        X3R5cGUiOiAiY3NyZWZuYW1lIiwKICAgICAgInJlcGVhdHMiOiAibiIsCiAg
+        ICAgICJpbl9yZXBlYXRpbmdfZ3JvdXAiOiAibi9hIiwKICAgICAgIm9wdF9s
+        aXN0X3ZhbHVlcyI6IFtdLAogICAgICAiZGF0YWNvbHVtbiI6ICJvd25lclJl
+        Zm5hbWUiLAogICAgICAicmVxdWlyZWQiOiAibiIKICAgIH0sCiAgICB7CiAg
+        ICAgICJmaWVsZG5hbWUiOiAiZ3JvdXBFYXJsaWVzdFNpbmdsZURhdGUiLAog
+        ICAgICAidHJhbnNmb3JtcyI6IHt9LAogICAgICAic291cmNlX3R5cGUiOiAi
+        bmEiLAogICAgICAic291cmNlX25hbWUiOiAibmEiLAogICAgICAibmFtZXNw
+        YWNlIjogImdyb3Vwc19jb21tb24iLAogICAgICAieHBhdGgiOiBbXSwKICAg
+        ICAgImRhdGFfdHlwZSI6ICJkYXRlIiwKICAgICAgInJlcGVhdHMiOiAibiIs
+        CiAgICAgICJpbl9yZXBlYXRpbmdfZ3JvdXAiOiAibi9hIiwKICAgICAgIm9w
+        dF9saXN0X3ZhbHVlcyI6IFtdLAogICAgICAiZGF0YWNvbHVtbiI6ICJncm91
+        cEVhcmxpZXN0U2luZ2xlRGF0ZSIsCiAgICAgICJyZXF1aXJlZCI6ICJuIgog
+        ICAgfSwKICAgIHsKICAgICAgImZpZWxkbmFtZSI6ICJncm91cExhdGVzdERh
+        dGUiLAogICAgICAidHJhbnNmb3JtcyI6IHt9LAogICAgICAic291cmNlX3R5
+        cGUiOiAibmEiLAogICAgICAic291cmNlX25hbWUiOiAibmEiLAogICAgICAi
+        bmFtZXNwYWNlIjogImdyb3Vwc19jb21tb24iLAogICAgICAieHBhdGgiOiBb
+        XSwKICAgICAgImRhdGFfdHlwZSI6ICJkYXRlIiwKICAgICAgInJlcGVhdHMi
+        OiAibiIsCiAgICAgICJpbl9yZXBlYXRpbmdfZ3JvdXAiOiAibi9hIiwKICAg
+        ICAgIm9wdF9saXN0X3ZhbHVlcyI6IFtdLAogICAgICAiZGF0YWNvbHVtbiI6
+        ICJncm91cExhdGVzdERhdGUiLAogICAgICAicmVxdWlyZWQiOiAibiIKICAg
+        IH0sCiAgICB7CiAgICAgICJmaWVsZG5hbWUiOiAic2NvcGVOb3RlIiwKICAg
+        ICAgInRyYW5zZm9ybXMiOiB7fSwKICAgICAgInNvdXJjZV90eXBlIjogIm5h
+        IiwKICAgICAgInNvdXJjZV9uYW1lIjogIm5hIiwKICAgICAgIm5hbWVzcGFj
+        ZSI6ICJncm91cHNfY29tbW9uIiwKICAgICAgInhwYXRoIjogW10sCiAgICAg
+        ICJkYXRhX3R5cGUiOiAic3RyaW5nIiwKICAgICAgInJlcGVhdHMiOiAibiIs
+        CiAgICAgICJpbl9yZXBlYXRpbmdfZ3JvdXAiOiAibi9hIiwKICAgICAgIm9w
+        dF9saXN0X3ZhbHVlcyI6IFtdLAogICAgICAiZGF0YWNvbHVtbiI6ICJzY29w
+        ZU5vdGUiLAogICAgICAicmVxdWlyZWQiOiAibiIKICAgIH0KICBdCn0=
+  recorded_at: Mon, 02 Nov 2026 21:31:57 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/collectionspace/cspace-config-untangler/refs/heads/main/data/mappers/community_profiles/release_9_0_tkinit/core/core_11-0_group.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - raw.githubusercontent.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '3437'
+      Cache-Control:
+      - max-age=300
+      Content-Security-Policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      Content-Type:
+      - text/plain; charset=utf-8
+      Etag:
+      - W/"42801fb95ca1c1311cf29cf370760468fd431de40831ceaeda0983f7cd04a2e9"
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Github-Request-Id:
+      - 4766:179EDD:1E381:28777:6AE901C0
+      X-Github-Edge-Region:
+      - iad
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Mon, 02 Nov 2026 21:33:54 GMT
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-pdk-kfty8610046-PDK
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1793655234.924061,VS0,VE98
+      Vary:
+      - Authorization,Accept-Encoding
+      Access-Control-Allow-Origin:
+      - "*"
+      Cross-Origin-Resource-Policy:
+      - cross-origin
+      X-Fastly-Request-Id:
+      - 63e7b56f3dfa1da202a0b82e6c501ce7cf6d389e
+      Expires:
+      - Mon, 02 Nov 2026 21:38:54 GMT
+      Source-Age:
+      - '0'
+    body:
+      encoding: ASCII-8BIT
+      base64_string: |
+        ewogICJjb25maWciOiB7CiAgICAiZGF0YUNvbmZpZ1R5cGUiOiAicmVjb3Jk
+        IHR5cGUiLAogICAgInByb2ZpbGVfYmFzZW5hbWUiOiAiY29yZSIsCiAgICAi
+        dmVyc2lvbiI6ICIxMS4wIiwKICAgICJyZWNvcmR0eXBlIjogImdyb3VwIiwK
+        ICAgICJkaXNwbGF5X25hbWUiOiAiR3JvdXAiLAogICAgImRvY3VtZW50X25h
+        bWUiOiAiZ3JvdXBzIiwKICAgICJzZXJ2aWNlX25hbWUiOiAiR3JvdXBzIiwK
+        ICAgICJzZXJ2aWNlX3BhdGgiOiAiZ3JvdXBzIiwKICAgICJzZXJ2aWNlX3R5
+        cGUiOiAicHJvY2VkdXJlIiwKICAgICJvYmplY3RfbmFtZSI6ICJHcm91cCIs
+        CiAgICAibnNfdXJpIjogewogICAgICAiZ3JvdXBzX2NvbW1vbiI6ICJodHRw
+        Oi8vY29sbGVjdGlvbnNwYWNlLm9yZy9zZXJ2aWNlcy9ncm91cCIKICAgIH0s
+        CiAgICAiaWRlbnRpZmllcl9maWVsZCI6ICJ0aXRsZSIsCiAgICAic2VhcmNo
+        X2ZpZWxkIjogInRpdGxlIgogIH0sCiAgImRvY3N0cnVjdHVyZSI6IHsKICAg
+        ICJncm91cHNfY29tbW9uIjoge30KICB9LAogICJtYXBwaW5ncyI6IFsKICAg
+        IHsKICAgICAgImZpZWxkbmFtZSI6ICJ0aXRsZSIsCiAgICAgICJ0cmFuc2Zv
+        cm1zIjoge30sCiAgICAgICJzb3VyY2VfdHlwZSI6ICJuYSIsCiAgICAgICJz
+        b3VyY2VfbmFtZSI6ICJuYSIsCiAgICAgICJuYW1lc3BhY2UiOiAiZ3JvdXBz
+        X2NvbW1vbiIsCiAgICAgICJ4cGF0aCI6IFtdLAogICAgICAiZGF0YV90eXBl
+        IjogInN0cmluZyIsCiAgICAgICJyZXBlYXRzIjogIm4iLAogICAgICAiaW5f
+        cmVwZWF0aW5nX2dyb3VwIjogIm4vYSIsCiAgICAgICJvcHRfbGlzdF92YWx1
+        ZXMiOiBbXSwKICAgICAgImRhdGFjb2x1bW4iOiAidGl0bGUiLAogICAgICAi
+        cmVxdWlyZWQiOiAieSIKICAgIH0sCiAgICB7CiAgICAgICJmaWVsZG5hbWUi
+        OiAicmVzcG9uc2libGVEZXBhcnRtZW50IiwKICAgICAgInRyYW5zZm9ybXMi
+        OiB7fSwKICAgICAgInNvdXJjZV90eXBlIjogIm9wdGlvbmxpc3QiLAogICAg
+        ICAic291cmNlX25hbWUiOiAiZGVwYXJ0bWVudHMiLAogICAgICAibmFtZXNw
+        YWNlIjogImdyb3Vwc19jb21tb24iLAogICAgICAieHBhdGgiOiBbXSwKICAg
+        ICAgImRhdGFfdHlwZSI6ICJzdHJpbmciLAogICAgICAicmVwZWF0cyI6ICJu
+        IiwKICAgICAgImluX3JlcGVhdGluZ19ncm91cCI6ICJuL2EiLAogICAgICAi
+        b3B0X2xpc3RfdmFsdWVzIjogWwogICAgICAgICJhbnRpcXVpdGllcyIsCiAg
+        ICAgICAgImFyY2hpdGVjdHVyZS1kZXNpZ24iLAogICAgICAgICJkZWNvcmF0
+        aXZlLWFydHMiLAogICAgICAgICJldGhub2dyYXBoeSIsCiAgICAgICAgImhl
+        cnBldG9sb2d5IiwKICAgICAgICAibWVkaWEtcGVyZm9ybWFuY2UtYXJ0IiwK
+        ICAgICAgICAicGFpbnRpbmdzLXNjdWxwdHVyZSIsCiAgICAgICAgInBhbGVv
+        Ym90YW55IiwKICAgICAgICAicGhvdG9ncmFwaHMiLAogICAgICAgICJwcmlu
+        dHMtZHJhd2luZ3MiCiAgICAgIF0sCiAgICAgICJkYXRhY29sdW1uIjogInJl
+        c3BvbnNpYmxlRGVwYXJ0bWVudCIsCiAgICAgICJyZXF1aXJlZCI6ICJuIgog
+        ICAgfSwKICAgIHsKICAgICAgImZpZWxkbmFtZSI6ICJvd25lciIsCiAgICAg
+        ICJ0cmFuc2Zvcm1zIjogewogICAgICAgICJhdXRob3JpdHkiOiBbCiAgICAg
+        ICAgICAicGVyc29uYXV0aG9yaXRpZXMiLAogICAgICAgICAgInBlcnNvbiIK
+        ICAgICAgICBdCiAgICAgIH0sCiAgICAgICJzb3VyY2VfdHlwZSI6ICJhdXRo
+        b3JpdHkiLAogICAgICAic291cmNlX25hbWUiOiAicGVyc29uL2xvY2FsIiwK
+        ICAgICAgIm5hbWVzcGFjZSI6ICJncm91cHNfY29tbW9uIiwKICAgICAgInhw
+        YXRoIjogW10sCiAgICAgICJkYXRhX3R5cGUiOiAic3RyaW5nIiwKICAgICAg
+        InJlcGVhdHMiOiAibiIsCiAgICAgICJpbl9yZXBlYXRpbmdfZ3JvdXAiOiAi
+        bi9hIiwKICAgICAgIm9wdF9saXN0X3ZhbHVlcyI6IFtdLAogICAgICAiZGF0
+        YWNvbHVtbiI6ICJvd25lciIsCiAgICAgICJyZXF1aXJlZCI6ICJuIgogICAg
+        fSwKICAgIHsKICAgICAgImZpZWxkbmFtZSI6ICJvd25lciIsCiAgICAgICJ0
+        cmFuc2Zvcm1zIjoge30sCiAgICAgICJzb3VyY2VfdHlwZSI6ICJyZWZuYW1l
+        IiwKICAgICAgInNvdXJjZV9uYW1lIjogImF1dGhvcml0eSByZWZuYW1lIiwK
+        ICAgICAgIm5hbWVzcGFjZSI6ICJncm91cHNfY29tbW9uIiwKICAgICAgInhw
+        YXRoIjogW10sCiAgICAgICJkYXRhX3R5cGUiOiAiY3NyZWZuYW1lIiwKICAg
+        ICAgInJlcGVhdHMiOiAibiIsCiAgICAgICJpbl9yZXBlYXRpbmdfZ3JvdXAi
+        OiAibi9hIiwKICAgICAgIm9wdF9saXN0X3ZhbHVlcyI6IFtdLAogICAgICAi
+        ZGF0YWNvbHVtbiI6ICJvd25lclJlZm5hbWUiLAogICAgICAicmVxdWlyZWQi
+        OiAibiIKICAgIH0sCiAgICB7CiAgICAgICJmaWVsZG5hbWUiOiAiZ3JvdXBF
+        YXJsaWVzdFNpbmdsZURhdGUiLAogICAgICAidHJhbnNmb3JtcyI6IHt9LAog
+        ICAgICAic291cmNlX3R5cGUiOiAibmEiLAogICAgICAic291cmNlX25hbWUi
+        OiAibmEiLAogICAgICAibmFtZXNwYWNlIjogImdyb3Vwc19jb21tb24iLAog
+        ICAgICAieHBhdGgiOiBbXSwKICAgICAgImRhdGFfdHlwZSI6ICJkYXRlIiwK
+        ICAgICAgInJlcGVhdHMiOiAibiIsCiAgICAgICJpbl9yZXBlYXRpbmdfZ3Jv
+        dXAiOiAibi9hIiwKICAgICAgIm9wdF9saXN0X3ZhbHVlcyI6IFtdLAogICAg
+        ICAiZGF0YWNvbHVtbiI6ICJncm91cEVhcmxpZXN0U2luZ2xlRGF0ZSIsCiAg
+        ICAgICJyZXF1aXJlZCI6ICJuIgogICAgfSwKICAgIHsKICAgICAgImZpZWxk
+        bmFtZSI6ICJncm91cExhdGVzdERhdGUiLAogICAgICAidHJhbnNmb3JtcyI6
+        IHt9LAogICAgICAic291cmNlX3R5cGUiOiAibmEiLAogICAgICAic291cmNl
+        X25hbWUiOiAibmEiLAogICAgICAibmFtZXNwYWNlIjogImdyb3Vwc19jb21t
+        b24iLAogICAgICAieHBhdGgiOiBbXSwKICAgICAgImRhdGFfdHlwZSI6ICJk
+        YXRlIiwKICAgICAgInJlcGVhdHMiOiAibiIsCiAgICAgICJpbl9yZXBlYXRp
+        bmdfZ3JvdXAiOiAibi9hIiwKICAgICAgIm9wdF9saXN0X3ZhbHVlcyI6IFtd
+        LAogICAgICAiZGF0YWNvbHVtbiI6ICJncm91cExhdGVzdERhdGUiLAogICAg
+        ICAicmVxdWlyZWQiOiAibiIKICAgIH0sCiAgICB7CiAgICAgICJmaWVsZG5h
+        bWUiOiAic2NvcGVOb3RlIiwKICAgICAgInRyYW5zZm9ybXMiOiB7fSwKICAg
+        ICAgInNvdXJjZV90eXBlIjogIm5hIiwKICAgICAgInNvdXJjZV9uYW1lIjog
+        Im5hIiwKICAgICAgIm5hbWVzcGFjZSI6ICJncm91cHNfY29tbW9uIiwKICAg
+        ICAgInhwYXRoIjogW10sCiAgICAgICJkYXRhX3R5cGUiOiAic3RyaW5nIiwK
+        ICAgICAgInJlcGVhdHMiOiAibiIsCiAgICAgICJpbl9yZXBlYXRpbmdfZ3Jv
+        dXAiOiAibi9hIiwKICAgICAgIm9wdF9saXN0X3ZhbHVlcyI6IFtdLAogICAg
+        ICAiZGF0YWNvbHVtbiI6ICJzY29wZU5vdGUiLAogICAgICAicmVxdWlyZWQi
+        OiAibiIKICAgIH0KICBdCn0=
+  recorded_at: Mon, 02 Nov 2026 21:33:54 GMT
+recorded_with: VCR 6.4.0
