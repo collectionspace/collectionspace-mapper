@@ -8,7 +8,7 @@ gem "collectionspace-client",
 
 gem "almost_standard",
   github: "kspurgin/almost_standard",
-  tag: "1.0.0",
+  tag: "1.0.1",
   group: :development
 
 gemspec
