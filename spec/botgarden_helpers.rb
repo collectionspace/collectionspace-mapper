@@ -18,14 +18,14 @@ module Helpers
 
   def botgarden_cache
     cache_config = base_cache_config.merge({domain: botgarden_domain})
-    cache = CollectionSpace::RefCache.new(config: cache_config)
+    cache = CollectionSpace::Refcache.new(config: cache_config)
     populate(cache, cacheable_refnames(botgarden_domain))
   end
   memo_wise(:botgarden_cache)
 
   def botgarden_csid_cache
     cache_config = base_cache_config.merge({domain: botgarden_domain})
-    cache = CollectionSpace::RefCache.new(config: cache_config)
+    cache = CollectionSpace::Refcache.new(config: cache_config)
     populate(cache, cacheable_csids)
   end
   memo_wise(:botgarden_csid_cache)

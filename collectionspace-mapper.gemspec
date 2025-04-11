@@ -47,7 +47,6 @@ Gem::Specification.new do |spec|
   # version used by collectionspace-csv-importer
   spec.add_dependency "activesupport"
   spec.add_dependency "chronic"
-  spec.add_dependency "collectionspace-refcache"
   spec.add_dependency "dry-configurable"
   spec.add_dependency "dry-monads"
   spec.add_dependency "memo_wise"
