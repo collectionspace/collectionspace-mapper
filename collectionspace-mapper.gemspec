@@ -56,7 +56,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "memo_wise"
   spec.add_dependency "nokogiri"
-  spec.add_dependency "xxhash", ">= 0.4.0"
+  spec.add_dependency "xxhash"
   spec.add_dependency "zeitwerk", "~> 2.5"
 
   spec.add_development_dependency "debug"
