@@ -57,7 +57,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "zeitwerk", "~> 2.5"
 
   spec.add_development_dependency "debug"
-  spec.add_development_dependency "pry", "~>0.14"
+  spec.add_development_dependency "pry"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "simplecov"
   spec.add_development_dependency "vcr", "~> 6.1"
