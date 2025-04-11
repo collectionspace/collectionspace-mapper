@@ -25,7 +25,7 @@ PATH
     collectionspace-mapper (6.1.0)
       activesupport (= 6.0.4.7)
       chronic
-      collectionspace-refcache (~> 1.0.0)
+      collectionspace-refcache
       dry-configurable (~> 0.14)
       dry-monads (~> 1.4)
       memo_wise (~> 1.1.0)
