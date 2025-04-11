@@ -16,6 +16,9 @@ RSpec.describe CollectionSpace::Mapper::RecordMapper do
 
   let(:profile) { "anthro" }
 
+  describe "#initialize" do
+  end
+
   describe "setting of record options", vcr: "anthro_domain_check" do
     context "when initialized with authority mapper" do
       let(:mapper) { "anthro_4-1-2_citation-local" }
@@ -84,6 +87,20 @@ RSpec.describe CollectionSpace::Mapper::RecordMapper do
 
       it "sets as expected" do
         expect(record.recordtype).to eq("acquisition")
+      end
+    end
+
+    context "when mapper URL is passed" do
+      let(:profile) { "core" }
+      let(:mapper) do
+        "https://raw.githubusercontent.com/collectionspace/"\
+          "cspace-config-untangler/refs/heads/main/data/mappers/"\
+          "community_profiles/release_8_1_1_newstyle/core/"\
+          "core_10-0-2_group.json"
+      end
+
+      it "sets as expected" do
+        expect(record.recordtype).to eq("group")
       end
     end
   end

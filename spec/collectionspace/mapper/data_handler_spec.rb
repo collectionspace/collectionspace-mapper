@@ -106,6 +106,28 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
         end
       end
 
+      context "with mapper sent as URL" do
+        let(:args) do
+          {
+            record_mapper: "https://raw.githubusercontent.com/collectionspace/"\
+              "cspace-config-untangler/refs/heads/main/data/mappers/"\
+              "community_profiles/release_8_1_1_newstyle/anthro/"\
+              "anthro_9-0-0_acquisition.json",
+            client: client,
+            cache: cache,
+            csid_cache: csidcache,
+            config: {delimiter: "|"}
+          }
+        end
+
+        it "returns full record handler" do
+          expect(CollectionSpace::Mapper::HandlerFullRecord).to receive(
+            :new
+          ).with(**args)
+          handler
+        end
+      end
+
       context "with Hash config setting batch mode to full record" do
         let(:args) do
           {
