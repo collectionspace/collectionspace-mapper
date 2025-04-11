@@ -41,10 +41,10 @@ cs_client_object = CollectionSpace::Client.new(
 )
 
 refname_cache_config = { domain: 'core.collectionspace.org' }
-refname_cache = CollectionSpace::RefCache.new(config: refname_cache_config)
+refname_cache = CollectionSpace::Refcache.new(config: refname_cache_config)
 
 csid_cache_config = { domain: 'core.collectionspace.org' }
-csid_cache = CollectionSpace::RefCache.new(config: csid_cache_config)
+csid_cache = CollectionSpace::Refcache.new(config: csid_cache_config)
 
 record_mapper = JSON.parse(File.read('spec/fixtures/files/mappers/release_6_1/core/core_6_1_0-collectionobject.json'))
 ----
@@ -53,7 +53,7 @@ record_mapper = JSON.parse(File.read('spec/fixtures/files/mappers/release_6_1/co
 ====
 The above will create in-memory https://github.com/yegor256/zache[Zache] caches.
 
-If using Redis as the CollectionSpace::RefCache backend, you need to make sure you are using two different Redis instances for the two caches, OR two different databases inside the same Redis instance.
+If using Redis as the CollectionSpace::Refcache backend, you need to make sure you are using two different Redis instances for the two caches, OR two different databases inside the same Redis instance.
 ====
 
 == Create DataHandler for batch

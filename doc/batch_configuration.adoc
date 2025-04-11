@@ -220,7 +220,7 @@ Controls whether the status of each record is determined via querying the servic
 ====
 **Do not** set this to `cache` unless:
 
-* you know you have an up-to-date `CollectionSpace::RefCache` accurately populated with all CSIDs from the CollectionSpace instance you are working with
+* you know you have an up-to-date `CollectionSpace::Refcache` accurately populated with all CSIDs from the CollectionSpace instance you are working with
 * you know no one is adding or deleting any records from the CollectionSpace instance you are working with while you are preparing records to be transferred into it
 
 If you use this in other circumstances, it is possible to inadvertently add duplicate records.
