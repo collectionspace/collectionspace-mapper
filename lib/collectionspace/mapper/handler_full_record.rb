@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "collectionspace/client"
-require "collectionspace/refcache"
-
 module CollectionSpace
   module Mapper
     # given a RecordMapper hash and a data hash, returns CollectionSpace XML
