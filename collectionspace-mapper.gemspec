@@ -52,7 +52,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "dry-configurable", "~>0.14"
   spec.add_dependency "dry-monads", "~>1.4"
   spec.add_dependency "memo_wise", "~> 1.1.0"
-  spec.add_dependency "nokogiri", ">= 1.13.3", "< 1.15.0"
+  spec.add_dependency "nokogiri"
   spec.add_dependency "xxhash", ">= 0.4.0"
   spec.add_dependency "zeitwerk", "~> 2.5"
 
