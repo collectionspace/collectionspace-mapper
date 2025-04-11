@@ -8,6 +8,8 @@ require "active_support/core_ext/object/blank"
 require "json"
 require "logger"
 
+require "collectionspace/client"
+require "collectionspace/refcache"
 require "dry-configurable"
 require "nokogiri"
 require "xxhash"
@@ -20,6 +22,7 @@ loader.inflector.inflect(
 loader.push_dir("#{__dir__}/mapper", namespace: CollectionSpace::Mapper)
 loader.setup
 loader.eager_load
+
 
 module CollectionSpace
   module Mapper

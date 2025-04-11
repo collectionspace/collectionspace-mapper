@@ -11,9 +11,9 @@ module CollectionSpace
         #   @param record_mapper [Hash, String] parseable JSON string or
         #     already-parsed JSON converted to Hash
         #   @param client [CollectionSpace::Client]
-        #   @param cache [CollectionSpace::RefCache] to be used for caching term
+        #   @param cache [CollectionSpace::Refcache] to be used for caching term
         #     refname URNs
-        #   @param csid_cache [CollectionSpace::RefCache]
+        #   @param csid_cache [CollectionSpace::Refcache]
         # @overload new(record_mapper:, client:, cache:, csid_cache:, config:)
         #   Config is given, but is empty, has no `batch_mode` setting, or
         #   `batch_mode` setting is `"full record"`. Returns
@@ -21,9 +21,9 @@ module CollectionSpace
         #   @param record_mapper [Hash, String] parseable JSON string or
         #     already-parsed JSON converted to Hash
         #   @param client [CollectionSpace::Client]
-        #   @param cache [CollectionSpace::RefCache] to be used for caching term
+        #   @param cache [CollectionSpace::Refcache] to be used for caching term
         #     refname URNs
-        #   @param csid_cache [CollectionSpace::RefCache]
+        #   @param csid_cache [CollectionSpace::Refcache]
         #   @param config [Hash, String] parseable JSON string or already-
         #     parsed JSON converted to Hash
         # @overload new(client:, config:)
