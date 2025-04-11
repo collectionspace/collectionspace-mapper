@@ -12,6 +12,7 @@ This project bumps the version number for any changes (including documentation u
 - none
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
+- BUGFIX: deriving config from RecordMapper does not break when new-style "dataConfigType" property is included
 
 ## [6.1.0] - 2024-11-18
 - Add `authority_terms_duplicate_mode` batch config setting that changes the way authority `shortIdentifier` values are generated, allowing near-duplicate terms to be created in a batch.
