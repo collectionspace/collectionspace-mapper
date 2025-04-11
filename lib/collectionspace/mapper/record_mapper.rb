@@ -57,6 +57,8 @@ module CollectionSpace
       def set_config_from_mapper_config_section
         hash[:config].each do |setting, value|
           setter = :"#{setting}="
+          next unless handler.config.record.respond_to?(setter)
+
           handler.config.record.send(setter, value)
         end
       end

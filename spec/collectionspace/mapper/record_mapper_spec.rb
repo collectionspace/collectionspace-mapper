@@ -9,10 +9,12 @@ RSpec.describe CollectionSpace::Mapper::RecordMapper do
   #   we are interested in from it, so we test the handler config
   let(:handler) do
     setup_handler(
-      profile: "anthro",
+      profile: profile,
       mapper: mapper
     )
   end
+
+  let(:profile) { "anthro" }
 
   describe "setting of record options", vcr: "anthro_domain_check" do
     context "when initialized with authority mapper" do
@@ -73,6 +75,15 @@ RSpec.describe CollectionSpace::Mapper::RecordMapper do
         expect(record.recordtype_mixin).to eq(
           CollectionSpace::Mapper::Media
         )
+      end
+    end
+
+    context "when initialized with newstyle mapper" do
+      let(:profile) { "core" }
+      let(:mapper) { "core_10-0-2_acquisition_newstyle" }
+
+      it "sets as expected" do
+        expect(record.recordtype).to eq("acquisition")
       end
     end
   end
