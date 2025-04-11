@@ -1,0 +1,77 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.collectionspace.org/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - www.collectionspace.org
+  response:
+    status:
+      code: 301
+      message: Moved Permanently
+    headers:
+      Date:
+      - Fri, 11 Apr 2025 15:40:21 GMT
+      Content-Type:
+      - text/html; charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Location:
+      - https://collectionspace.org/
+      Cf-Ray:
+      - 92eb94f9a8e4d68f-IAD
+      Cf-Cache-Status:
+      - HIT
+      Cache-Control:
+      - public, max-age=0, s-maxage=900
+      Expires:
+      - Fri, 11 Apr 2025 09:47:43 GMT
+      Vary:
+      - Accept-Encoding
+      Cache-Tag:
+      - 0dccacb9-8eb9-423b-9950-7a1e9a959e07,a108952dd57498500150fb83d902a6daf73c0b7bead73a7ac222db472182c80b
+      Ki-Cache-Tag:
+      - 0dccacb9-8eb9-423b-9950-7a1e9a959e07,a108952dd57498500150fb83d902a6daf73c0b7bead73a7ac222db472182c80b
+      Ki-Cache-Type:
+      - Edge
+      Ki-Cf-Cache-Status:
+      - HIT
+      Ki-Edge:
+      - v=21.0.0;mv=4.0.1
+      X-Content-Type-Options:
+      - nosniff
+      X-Edge-Location-Klb:
+      - '1'
+      X-Kinsta-Cache:
+      - HIT
+      X-Redirect-By:
+      - WordPress
+      Set-Cookie:
+      - __cf_bm=KK05gFm9JFmJMJD.vQ.33KE5NdvoyhAHTI8a8EBLwtg-1744386021-1.0.1.1-SzHbmW1ResVtYQfZW.jgWcqHCPUTlacc94xlDhzjC5Qoz6Aa.BxAnycYeZpJZZr5CVIf6RkNP2z0djFEbpMfSHAbsfZNGCojYJ7.28UudNY;
+        path=/; expires=Fri, 11-Apr-25 16:10:21 GMT; domain=.www.collectionspace.org;
+        HttpOnly; Secure; SameSite=None
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=jhRAoBQDTfeVvVoNZpbKFZtRHDNGjfX1i0LzGEniGTbc9XGQ740atUlOXyg%2FypL43dPIJb1jlp7oB8611eNldRwtlOryBqPq8ZLhgWU%2BrCCd9VvsdSlJmnMHTbOcUrawnrxuyYb1lDcq"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Fri, 11 Apr 2025 15:40:21 GMT
+recorded_with: VCR 6.3.1

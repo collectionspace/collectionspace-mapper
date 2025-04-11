@@ -55,6 +55,26 @@ module CollectionSpace
       end
     end
 
+    class UnfetchableFileError < StandardError
+      include CollectionSpace::Mapper::Error
+
+      def initialize(url, err)
+        msg = "Cannot fetch file from #{url}. Error received was: "\
+          "#{err.class.name}: #{err.message}"
+        super(msg)
+      end
+    end
+
+    class UnparseableJsonError < StandardError
+      include CollectionSpace::Mapper::Error
+
+      def initialize(url, err)
+        msg = "Cannot parse file fetched from #{url} as JSON. Error "\
+          "received was: #{err.class.name}: #{err.message}"
+        super(msg)
+      end
+    end
+
     class UnknownSplitterMode < TypeError
       include CollectionSpace::Mapper::Error
     end

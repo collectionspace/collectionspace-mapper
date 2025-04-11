@@ -47,7 +47,11 @@ module Helpers
     client = send(:"#{profile}_client")
     termcache = send(:"#{profile}_cache")
     csidcache = send(:"#{profile}_csid_cache")
-    mapper = get_json_record_mapper(mapper)
+    mapper = if mapper.start_with?("http")
+      mapper
+    else
+      get_json_record_mapper(mapper)
+    end
     CollectionSpace::Mapper::DataHandler.new(
       record_mapper: mapper,
       client: client,

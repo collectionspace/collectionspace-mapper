@@ -10,8 +10,8 @@ module CollectionSpace
     #   CollectionSpace XML
     class RecordMapper
       # @param handler [CollectionSpace::Mapper::DataHandler]
-      # @param mapper [String, Hash] parseable JSON string or already-parsed
-      #   Hash from JSON
+      # @param mapper [String, Hash] URL to JSON file, parseable JSON string, or
+      #   already-parsed Hash from JSON
       def initialize(handler:, mapper:)
         @handler = handler
         handler.config.recordmapper = self
@@ -26,8 +26,11 @@ module CollectionSpace
       def set_hash(mapper)
         return mapper.transform_keys { |key| key.to_sym } if mapper.is_a?(Hash)
 
-        JSON.parse(mapper)
-          .transform_keys { |key| key.to_sym }
+        if mapper&.start_with?("http")
+          return CollectionSpace::Mapper::Tools::JsonFetcher.call(mapper)
+        end
+
+        JSON.parse(mapper).transform_keys { |key| key.to_sym }
       end
 
       def configure_record
