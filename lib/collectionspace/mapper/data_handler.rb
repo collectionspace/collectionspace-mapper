@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "collectionspace/client"
-require "collectionspace/refcache"
-
 module CollectionSpace
   module Mapper
     # Interface for calling other data handlers with more specific behavior
