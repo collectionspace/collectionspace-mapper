@@ -129,6 +129,15 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
             expect(w).to be false
           end
         end
+
+        context "with subgroup having all empty values" do
+          let(:datahash_path) do
+            "spec/support/datahashes/core/collectionobject8.json"
+          end
+          let(:fixture_path) { "core/collectionobject8.xml" }
+
+          it_behaves_like "Mapped"
+        end
       end
 
       context "when media ", type: "integration" do

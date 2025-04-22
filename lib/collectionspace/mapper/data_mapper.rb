@@ -299,6 +299,8 @@ module CollectionSpace
       end
 
       def map_subgroup(xpath, thisdata)
+        return if thisdata.empty?
+
         parent_path = xpath.parent
         parent_set = doc.xpath("//#{parent_path}")
         subgroup_path = xpath.path
