@@ -15,6 +15,7 @@ RSpec.describe CollectionSpace::Mapper::BatchConfig,
 
   let(:configstr) do
     '{
+        "authority_terms_duplicate_mode": "exact",
         "delimiter": ";",
         "subgroup_delimiter": "^^",
         "response_mode": "verbose",

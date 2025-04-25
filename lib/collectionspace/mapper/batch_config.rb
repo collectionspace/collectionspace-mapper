@@ -11,6 +11,7 @@ module CollectionSpace
     #   sets values in that class' `batch` configuration.
     class BatchConfig
       VALID_VALUES = {
+        authority_terms_duplicate_mode: %w[normalized exact],
         batch_mode: ["full record", "date details", "vocabulary terms"],
         check_record_status: ["true", "false", true, false],
         date_format: ["month day year", "day month year"],
