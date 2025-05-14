@@ -14,6 +14,8 @@ This project bumps the version number for any changes (including documentation u
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 
 - Add rubocop binstub
+- `CollectionSpace::Mapper::VocabularyTerms::Handler.add_term` now accepts an optional `opt_fields` Hash, allowing `description`, `source`, `sourcePage`, and `termStatus` values to be added with a term.
+
 ## [6.1.1] - 2025-04-22
 - BUGFIX: deriving config from RecordMapper does not break when new-style "dataConfigType" property is included
 - DataHandler(s) can accept a URL for a mapper (or DataConfig, for new data-toolkit), and fetch/parse the JSON for use

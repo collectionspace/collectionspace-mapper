@@ -20,18 +20,21 @@ module CollectionSpace
 
         # @param vocab [String] the display name of the target Vocabulary
         # @param term [String] the term to create in the Vocabulary
-        def add_term(vocab:, term:)
+        def add_term(vocab:, term:, opt_fields: nil)
           vocabulary = yield vocabs.by_name(vocab)
-          vname = vocabulary["shortIdentifier"]
-          vcsid = vocabulary["csid"]
           tid = yield get_termid(term)
-          payload = yield PayloadBuilder.call(
+          vname = vocabulary["shortIdentifier"]
+
+          params = {
             domain: domain,
-            csid: vcsid,
+            csid: vocabulary["csid"],
             name: vname,
             term: term,
             termid: tid
-          )
+          }
+          params[:opt_fields] = opt_fields if opt_fields
+
+          payload = yield PayloadBuilder.call(**params)
           path = "#{vocabulary["uri"]}/items"
           posting = yield post_term(path, payload, vname, term)
 
