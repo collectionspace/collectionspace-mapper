@@ -13,6 +13,7 @@ This project bumps the version number for any changes (including documentation u
 
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 - Add rubocop binstub
+- `CollectionSpace::Mapper::VocabularyTerms::Handler.add_term` now accepts an optional `opt_fields` Hash, allowing `description`, `source`, `sourcePage`, and `termStatus` values to be added with a term.
 
 ## [6.1.2] - 2025-08-13
 - BUGFIX: the `methods` element was not getting added to the document structure for the exit procedure because it was getting interpreted as `Nokogiri::XML::Builder.methods`. This prevented the `method` field from being ingested. All keys are now sent to Builder with an underscore appended to prevent this behavior.
