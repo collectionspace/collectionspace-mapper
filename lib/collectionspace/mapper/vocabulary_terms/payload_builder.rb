@@ -16,9 +16,10 @@ module CollectionSpace
         # @param csid [String] CSID of vocabulary
         # @param name [String] machine name of vocabulary
         # @param term [String] to be created
-        # @param termid [String] shortidentifier value of term
+        # @param term_data [Hash{String=>String}] contains shortIdentifier for
+        #   new terms, and shortIdentifier and refName for existing terms
         # @param opt_fields [nil, Hash]
-        def self.call(domain:, csid:, name:, term:, termid:, opt_fields: nil)
+        def self.call(domain:, csid:, name:, term:, term_data:, opt_fields: nil)
           # rubocop:disable Layout/LineLength
           base_string = <<~XML
             <?xml version="1.0" encoding="utf-8" standalone="yes"?>
@@ -27,8 +28,7 @@ module CollectionSpace
                    xmlns:ns2="http://collectionspace.org/services/vocabulary"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                    <inAuthority>#{csid}</inAuthority>
-                   <shortIdentifier>#{termid}</shortIdentifier>
-                   <refName>urn:cspace:#{domain}:vocabularies:name(#{name}):item:name(#{termid})'#{term}'</refName>
+                   <shortIdentifier>#{term_data["shortIdentifier"]}</shortIdentifier>
                 </ns2:vocabularyitems_common>
             </document>
           XML
@@ -40,10 +40,22 @@ module CollectionSpace
           }
           ns = doc.xpath("//document/ns2:vocabularyitems_common", namespaces)
             .first
+          add_refname(doc, ns, term_data, domain, name, term)
           valid_opt_fields(opt_fields).merge({"displayName" => term})
             .each { |key, val| add_element(key, val, doc, ns) }
           CollectionSpace::Mapper.defuse_bomb(doc)
           Success(doc.to_xml)
+        end
+
+        def self.add_refname(doc, ns, term_data, domain, name, term)
+          node = Nokogiri::XML::Node.new("refName", doc)
+          node.content = if term_data.key?("refName")
+            term_data["refName"]
+          else
+            "urn:cspace:#{domain}:vocabularies:name(#{name}):item:"\
+              "name(#{term_data["shortIdentifier"]})'#{term}'"
+          end
+          ns.add_child(node)
         end
 
         def self.valid_opt_fields(opt_fields)
