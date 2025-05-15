@@ -94,12 +94,7 @@ module CollectionSpace
         parsed
       end
 
-      def response_item_count(response)
-        ct = response.dig("totalItems")
-        return ct.to_i if ct
-
-        nil
-      end
+      def response_item_count(response) = response.dig("totalItems")&.to_i
     end
   end
 end
