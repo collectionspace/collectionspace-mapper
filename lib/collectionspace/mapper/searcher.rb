@@ -21,6 +21,13 @@ module CollectionSpace
 
       attr_reader :client, :active, :search_fields
 
+      def search_response(value, type, subtype)
+        as_is = get_response(value, type, subtype)
+        return as_is if response_usable?(as_is)
+
+        case_insensitive_response(value, type, subtype)
+      end
+
       def get_response(value, type, subtype, operator = "=")
         response = client.find(
           type: type,
@@ -34,6 +41,35 @@ module CollectionSpace
         nil
       else
         parse_response(response)
+      end
+
+      def response_usable?(response)
+        ct = response_item_count(response)
+        return false unless ct
+        return false if ct == 0
+
+        true
+      end
+
+      def case_insensitive_response(value, type, subtype)
+        response = get_response(value, type, subtype, "ILIKE")
+        return nil unless response_usable?(response)
+
+        displayname = response.dig("list_item", 0, "displayName") ||
+          response.dig("list_item", 0, "termDisplayName")
+        warning = {
+          category: "case_insensitive_match",
+          message: "Searched: #{value}. Using: #{displayname}"
+        }
+        response["warnings"] = [warning]
+        response
+      end
+
+      def search_field(type)
+        cached_field = search_fields[type]
+        return cached_field if cached_field
+
+        lookup_search_field(type)
       end
 
       def lookup_search_field(type)
@@ -63,42 +99,6 @@ module CollectionSpace
         return ct.to_i if ct
 
         nil
-      end
-
-      def response_usable?(response)
-        ct = response_item_count(response)
-        return false unless ct
-        return false if ct == 0
-
-        true
-      end
-
-      def search_field(type)
-        cached_field = search_fields[type]
-        return cached_field if cached_field
-
-        lookup_search_field(type)
-      end
-
-      def search_response(value, type, subtype)
-        as_is = get_response(value, type, subtype)
-        return as_is if response_usable?(as_is)
-
-        case_insensitive_response(value, type, subtype)
-      end
-
-      def case_insensitive_response(value, type, subtype)
-        response = get_response(value, type, subtype, "ILIKE")
-        return nil unless response_usable?(response)
-
-        displayname = response.dig("list_item", 0, "displayName") ||
-          response.dig("list_item", 0, "termDisplayName")
-        warning = {
-          category: "case_insensitive_match",
-          message: "Searched: #{value}. Using: #{displayname}"
-        }
-        response["warnings"] = [warning]
-        response
       end
     end
   end
