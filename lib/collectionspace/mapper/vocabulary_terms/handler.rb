@@ -11,14 +11,13 @@ module CollectionSpace
       class Handler
         include Dry::Monads[:result]
         include Dry::Monads::Do.for(:add_term, :added_term_params,
-                                    :term_payload)
+          :term_payload)
 
         def initialize(client:)
           @client = client
           @domain = client.domain
           @vocabs = CollectionSpace::Mapper::Vocabularies.new(client)
         end
-
 
         # @param vocab [String] the display name of the target Vocabulary
         # @param term [String] the term to create in the Vocabulary
@@ -27,11 +26,11 @@ module CollectionSpace
         #   description, source, sourcePage, and termStatus fields
         def term_payload(vocab:, term:, mode: :add, opt_fields: nil)
           params = case mode
-                   when :add
-                     yield added_term_params(
-                       vocab: vocab, term: term, opt_fields: opt_fields
-                     )
-                   end
+          when :add
+            yield added_term_params(
+              vocab: vocab, term: term, opt_fields: opt_fields
+            )
+          end
           payload = yield PayloadBuilder.call(**params)
 
           Success(payload)
@@ -48,7 +47,25 @@ module CollectionSpace
           )
           path = "#{vocabulary["uri"]}/items"
           posting = yield post_term(
-            path, payload, vocabulary["shortIdentifier"], term)
+            path, payload, vocabulary["shortIdentifier"], term
+          )
+
+          Success(posting.sub(/^.*cspace-services/, ""))
+        end
+
+        # @param vocab [String] the display name of the target Vocabulary
+        # @param term [String] the term to create in the Vocabulary
+        # @param opt_fields [nil, Hash{String => String}] key/value pairs for
+        #   description, source, sourcePage, and termStatus fields
+        def update_term(vocab:, term:, opt_fields: nil)
+          vocabulary = yield vocabs.by_name(vocab)
+          payload = yield term_payload(
+            vocab: vocab, term: term, mode: :update, opt_fields: opt_fields
+          )
+          path = "#{vocabulary["uri"]}/items"
+          posting = yield post_term(
+            path, payload, vocabulary["shortIdentifier"], term
+          )
 
           Success(posting.sub(/^.*cspace-services/, ""))
         end
