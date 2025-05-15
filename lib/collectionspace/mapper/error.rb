@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "date"
+
 module CollectionSpace
   module Mapper
     # Mixin module included in any application-specific error classes
