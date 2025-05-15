@@ -12,7 +12,6 @@ module CollectionSpace
       class PayloadBuilder
         extend Dry::Monads[:result]
 
-        # rubocop:disable Layout/LineLength
         # @param domain [String] CS client domain
         # @param csid [String] CSID of vocabulary
         # @param name [String] machine name of vocabulary
@@ -20,38 +19,51 @@ module CollectionSpace
         # @param termid [String] shortidentifier value of term
         # @param opt_fields [nil, Hash]
         def self.call(domain:, csid:, name:, term:, termid:, opt_fields: nil)
-          payload = <<~XML
+          # rubocop:disable Layout/LineLength
+          base_string = <<~XML
             <?xml version="1.0" encoding="utf-8" standalone="yes"?>
             <document name="vocabularyitems">
                 <ns2:vocabularyitems_common
                    xmlns:ns2="http://collectionspace.org/services/vocabulary"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                    <inAuthority>#{csid}</inAuthority>
-                   <displayName>#{term}</displayName>
                    <shortIdentifier>#{termid}</shortIdentifier>
-                   <refName>
-                     urn:cspace:#{domain}:vocabularies:name(#{name}):item:name(#{termid})'#{term}'
-                   </refName>#{opt_fields_to_s(opt_fields)}
+                   <refName>urn:cspace:#{domain}:vocabularies:name(#{name}):item:name(#{termid})'#{term}'</refName>
                 </ns2:vocabularyitems_common>
             </document>
           XML
-          Success(payload)
+          # rubocop:enable Layout/LineLength
+
+          doc = Nokogiri.parse(base_string, "UTF-8")
+          namespaces = {
+            "ns2" => "http://collectionspace.org/services/vocabulary"
+          }
+          ns = doc.xpath("//document/ns2:vocabularyitems_common", namespaces)
+            .first
+          valid_opt_fields(opt_fields).merge({"displayName" => term})
+            .each { |key, val| add_element(key, val, doc, ns) }
+          CollectionSpace::Mapper.defuse_bomb(doc)
+          Success(doc.to_xml)
         end
-        # rubocop:enable Layout/LineLength
 
-        private
-
-        def self.opt_fields_to_s(opt_fields)
-          return "" unless opt_fields
+        def self.valid_opt_fields(opt_fields)
+          return {} unless opt_fields
 
           keep_fields = opt_fields.select do |key, val|
             KNOWN_OPT_FIELDS.include?(key)
           end
-          return "" if keep_fields.empty?
+          return {} if keep_fields.empty?
 
-          keep_fields.map { |key, value| "<#{key}>#{value}</#{key}>" }
-            .join("\n")
+          keep_fields
         end
+        private_class_method :valid_opt_fields
+
+        def self.add_element(key, val, doc, ns)
+          node = Nokogiri::XML::Node.new(key, doc)
+          node.content = val
+          ns.add_child(node)
+        end
+        private_class_method :add_element
       end
     end
   end
