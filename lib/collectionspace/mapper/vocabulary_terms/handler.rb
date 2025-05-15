@@ -70,7 +70,7 @@ module CollectionSpace
             csid: vocabulary["csid"],
             name: vocabulary["shortIdentifier"],
             term: term,
-            termid: tid
+            term_data: {"shortIdentifier" => tid}
           }
           params[:opt_fields] = opt_fields if opt_fields
 
