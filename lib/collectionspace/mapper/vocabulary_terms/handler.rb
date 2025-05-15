@@ -9,14 +9,26 @@ module CollectionSpace
       # Sets up a class with client context, that can process terms from
       #   multiple vocabularies
       class Handler
+        include Dry::Configurable
         include Dry::Monads[:result]
         include Dry::Monads::Do.for(:add_term, :added_term_params,
           :term_payload)
+
+        attr_reader :client
+
+        # @return [CollectionSpace::Mapper::Searcher, nil] class used to look up
+        #   terms in CS instance for the batch run
+        setting :searcher, default: nil, reader: true
+
+        setting :batch, reader: true do
+          setting :search_if_not_cached, default: true, reader: true
+        end
 
         def initialize(client:)
           @client = client
           @domain = client.domain
           @vocabs = CollectionSpace::Mapper::Vocabularies.new(client)
+          CollectionSpace::Mapper::Searcher.new(self)
         end
 
         # @param vocab [String] the display name of the target Vocabulary
@@ -72,7 +84,7 @@ module CollectionSpace
 
         private
 
-        attr_reader :client, :domain, :vocabs
+        attr_reader :domain, :vocabs
 
         # @param vocab [String] the display name of the target Vocabulary
         # @param term [String] the term to create in the Vocabulary
