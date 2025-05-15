@@ -88,7 +88,7 @@ module CollectionSpace
       def clean_doc
         remove_blank_nodes
         handle_null_value_strings
-        defuse_bomb
+        CollectionSpace::Mapper.defuse_bomb(doc)
       end
 
       def remove_blank_nodes
@@ -104,12 +104,6 @@ module CollectionSpace
           when "empty"
             node.content = "" if node.text == "%NULLVALUE%"
           end
-        end
-      end
-
-      def defuse_bomb
-        doc.traverse do |node|
-          node.content = "" if node.text == CollectionSpace::Mapper.bomb
         end
       end
 

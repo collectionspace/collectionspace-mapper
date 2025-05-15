@@ -42,5 +42,13 @@ module CollectionSpace
         dateLatestQualifierUnit dateEarliestScalarValue
         dateLatestScalarValue scalarValuesComputed],
       reader: true
+
+    # @param xml [Nokogiri::XML::Document, String]
+    def defuse_bomb(xml)
+      xml.traverse do |node|
+        node.content = "" if node.text == CollectionSpace::Mapper.bomb
+      end
+      xml
+    end
   end
 end
