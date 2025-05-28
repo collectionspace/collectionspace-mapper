@@ -185,17 +185,17 @@ module CollectionSpace
         nil
       end
 
-      # added toward refactoring that isn't done yet
-      def get_vocabulary_term(vocab:, term:)
-        result = termcache.get("vocabularies", vocab, term, search: true)
-        return result unless result.nil?
+      # # added toward refactoring that isn't done yet
+      # def get_vocabulary_term(vocab:, term:)
+      #   result = termcache.get("vocabularies", vocab, term, search: true)
+      #   return result unless result.nil?
 
-        if has_caps?(term)
-          termcache.get("vocabularies", vocab, term.downcase, search: true)
-        else
-          termcache.get("vocabularies", vocab, term.capitalize, search: true)
-        end
-      end
+      #   if has_caps?(term)
+      #     termcache.get("vocabularies", vocab, term.downcase, search: true)
+      #   else
+      #     termcache.get("vocabularies", vocab, term.capitalize, search: true)
+      #   end
+      # end
     end
   end
 end
