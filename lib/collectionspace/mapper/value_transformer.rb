@@ -48,10 +48,6 @@ module CollectionSpace
         @column = mapping.datacolumn
         @handler = handler
         @response = response
-
-        # The following are used by TermSearchable
-        @cache = handler.termcache
-        @client = handler.client
       end
 
       def call
