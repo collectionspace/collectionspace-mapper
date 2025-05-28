@@ -3,6 +3,8 @@
 module CollectionSpace
   module Mapper
     module TermSearchable
+      include CaseSwappable
+
       private
 
       def client
@@ -87,10 +89,6 @@ module CollectionSpace
         termcache.put(termtype, termsubtype, val, values[:refname])
         csidcache.put(termtype, termsubtype, val, values[:csid])
         values[return_type]
-      end
-
-      def case_swap(string)
-        string.match?(/[A-Z]/) ? string.downcase : string.capitalize
       end
 
       def obj_csid(objnum, type)
