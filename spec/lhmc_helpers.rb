@@ -29,4 +29,12 @@ module Helpers
     populate(cache, cacheable_csids)
   end
   memo_wise(:lhmc_csid_cache)
+
+  def lhmc_combined_cache
+    cache_config = base_cache_config.merge({domain: lhmc_domain})
+    cache = CollectionSpace::Refcache.new(config: cache_config)
+    populate(cache, cacheable_refnames(lhmc_domain), "refname")
+    populate(cache, cacheable_csids, "csid")
+  end
+  memo_wise(:lhmc_combined_cache)
 end
