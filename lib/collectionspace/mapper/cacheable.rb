@@ -135,6 +135,12 @@ module CollectionSpace
         args = [type, "", idval, refname]
         this_cache.send(:put, *args)
       end
+
+      def cache_unknown_term(term, cacheval)
+        this_cache = cache(:refname)
+        args = ["unknownvalue", type_subtype, term, cacheval]
+        this_cache.send(:put, *args)
+      end
     end
   end
 end
