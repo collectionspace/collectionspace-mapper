@@ -4,6 +4,7 @@ module CollectionSpace
   module Mapper
     module TermSearchable
       include CaseSwappable
+      include TypeSubtypeable
 
       private
 
@@ -44,10 +45,6 @@ module CollectionSpace
         return returned if returned
 
         termcache.get("unknownvalue", type_subtype, case_swap(val))
-      end
-
-      def type_subtype
-        "#{type}/#{subtype}"
       end
 
       # returns refName of cached term
