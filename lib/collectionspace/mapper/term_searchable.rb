@@ -3,6 +3,7 @@
 module CollectionSpace
   module Mapper
     module TermSearchable
+      include Cacheable
       include CaseSwappable
       include TypeSubtypeable
 
@@ -12,55 +13,8 @@ module CollectionSpace
         handler.client
       end
 
-      def termcache
-        handler.termcache
-      end
-
-      def csidcache
-        handler.csidcache
-      end
-
       def searcher
         handler.searcher
-      end
-
-      def in_cache?(val)
-        return true if termcache.exists?(type, subtype, val)
-        return true if termcache.exists?(type, subtype, case_swap(val))
-
-        false
-      end
-
-      # returns whether value is cached as an unknownvalue
-      def cached_as_unknown?(val)
-        return true if termcache.exists?("unknownvalue", type_subtype, val)
-        return true if termcache.exists?("unknownvalue", type_subtype,
-          case_swap(val))
-
-        false
-      end
-
-      def cached_unknown(type_subtype, val)
-        returned = termcache.get("unknownvalue", type_subtype, val)
-        return returned if returned
-
-        termcache.get("unknownvalue", type_subtype, case_swap(val))
-      end
-
-      # returns refName of cached term
-      def cached_term(val, termtype = type, termsubtype = subtype)
-        returned = termcache.get(termtype, termsubtype, val)
-        return returned if returned
-
-        termcache.get(termtype, termsubtype, case_swap(val))
-      end
-
-      # returns csid of cached term
-      def cached_term_csid(val, termtype = type, termsubtype = subtype)
-        returned = csidcache.get(termtype, termsubtype, val)
-        return returned if returned
-
-        csidcache.get(termtype, termsubtype, case_swap(val))
       end
 
       # returns specified data type (:csid or :refname) for searched term
@@ -83,13 +37,15 @@ module CollectionSpace
         return nil unless rec
 
         values = {refname: rec["refName"], csid: rec["csid"]}
-        termcache.put(termtype, termsubtype, val, values[:refname])
-        csidcache.put(termtype, termsubtype, val, values[:csid])
+        cache_term_values([termtype, termsubtype, val], values)
         values[return_type]
       end
 
+      # @param objnum [String] identifier field value of object or procedure
+      # @param type [String] record type name
+      # @return [String] csid of given object or procedure
       def obj_csid(objnum, type)
-        cached = csidcache.get(type, "", objnum)
+        cached = cached_obj_or_procedure_csid(objnum, type)
         return cached if cached
 
         lookup_obj_or_procedure_csid(objnum, type)
@@ -107,8 +63,8 @@ module CollectionSpace
             return nil unless rec
 
             csid = rec["csid"]
-            csidcache.put(type, "", objnum, csid)
-            termcache.put(type, "", objnum, rec["refName"])
+            cache_obj_or_procedure_csid(objnum, type, csid)
+            cache_obj_or_procedure_refname(objnum, type, rec["refName"])
             csid
           when "0"
             response.add_error({
