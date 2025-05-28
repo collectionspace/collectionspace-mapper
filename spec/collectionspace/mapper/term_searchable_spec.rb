@@ -38,79 +38,6 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable,
   let(:termtype) { "conceptauthorities" }
   let(:termsubtype) { "concept" }
 
-  describe "#in_cache?" do
-    let(:result) { term.send(:in_cache?, val) }
-    context "when not in cache" do
-      let(:val) { "Tiresias" }
-      it "returns false" do
-        expect(result).to be false
-      end
-    end
-
-    context "when in cache" do
-      let(:val) { "Test" }
-      it "returns true" do
-        expect(result).to be true
-      end
-    end
-
-    context "when captitalized form is in cache" do
-      let(:val) { "test" }
-      it "returns true" do
-        expect(result).to be true
-      end
-    end
-  end
-
-  describe "#cached_as_unknown?" do
-    let(:result) { term.send(:cached_as_unknown?, val) }
-    let(:val) { "blahblahblah" }
-
-    context "when not cached as unknown value" do
-      it "returns false" do
-        handler.termcache
-          .remove("unknownvalue", "#{termtype}/#{termsubtype}", val)
-        expect(result).to be false
-      end
-    end
-
-    context "when cached as unknown value" do
-      it "returns true" do
-        handler.termcache
-          .put("unknownvalue", "#{termtype}/#{termsubtype}", val, nil)
-        expect(result).to be true
-      end
-    end
-  end
-
-  describe "#cached_term" do
-    let(:result) { term.send(:cached_term, val) }
-    context "when not in cache" do
-      let(:val) { "Tiresias" }
-      it "returns nil" do
-        expect(result).to be_nil
-      end
-    end
-
-    context "when in cache" do
-      let(:val) { "Test" }
-      it "returns refname urn" do
-        expected = "urn:cspace:c.core.collectionspace.org:conceptauthorities:"\
-          "name(concept):item:name(Test1599650854716)'Test'"
-        expect(result).to eq(expected)
-      end
-    end
-
-    context "when capitalized form is in cache" do
-      let(:val) { "test" }
-      it "returns refname urn" do
-        expected = "urn:cspace:c.core.collectionspace.org:conceptauthorities"\
-          ":name(concept):item:name(Test1599650854716)'Test'"
-        expect(result).to eq(expected)
-      end
-    end
-  end
-
   describe "#searched_term" do
     let(:termtype) { "vocabularies" }
     let(:termsubtype) { "publishto" }
@@ -129,18 +56,18 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable,
 
     context "when case-swapped val exists in instance",
       vcr: "vocab_publishto_lower_all" do
-      let(:val) { "all" }
-      it "returns refname urn" do
-        expected = "urn:cspace:core.collectionspace.org:vocabularies:name"\
-          "(publishto):item:name(all)'All'"
-        expect(result).to eq(expected)
-        expect(term.response.warnings).to include({
-          category: "case_insensitive_match",
-          message: "Searched: all. Using: All",
-          field: "foo"
-        })
+        let(:val) { "all" }
+        it "returns refname urn" do
+          expected = "urn:cspace:core.collectionspace.org:vocabularies:name"\
+            "(publishto):item:name(all)'All'"
+          expect(result).to eq(expected)
+          expect(term.response.warnings).to include({
+            category: "case_insensitive_match",
+            message: "Searched: all. Using: All",
+            field: "foo"
+          })
+        end
       end
-    end
   end
 
   # also covers lookup_obj_csid
@@ -167,6 +94,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable,
 
   describe "#term_csid" do
     let(:result) { term.send(:term_csid, val) }
+
     context "when in cache" do
       let(:val) { "Sample Concept 1" }
       it "returns csid" do
