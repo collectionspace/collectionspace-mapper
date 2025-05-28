@@ -10,7 +10,7 @@ GIT
 
 GIT
   remote: https://github.com/collectionspace/collectionspace-refcache.git
-  revision: 57aa14a20ec93143764d2b2169c3ee04c7a4f8cb
+  revision: a95d1aa80a7a4c3cdb899ac52fc99aadb7debb97
   branch: data-toolkit
   specs:
     collectionspace-refcache (1.0.1)
