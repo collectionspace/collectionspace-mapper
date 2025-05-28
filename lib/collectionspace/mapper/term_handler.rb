@@ -133,7 +133,7 @@ module CollectionSpace
         )
         add_missing_record_error("term", val)
         [val, case_swap(val)].each do |value|
-          termcache.put("unknownvalue", type_subtype, value, urn)
+          cache_unknown_term(value, urn)
         end
       end
 
