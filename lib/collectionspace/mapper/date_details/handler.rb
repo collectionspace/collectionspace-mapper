@@ -3,6 +3,9 @@
 module CollectionSpace
   module Mapper
     module DateDetails
+      # @todo Make this work with all-in-one caching before implementing a
+      #   Data Toolkit activity to import date details or changing
+      #   collectionspace_migration_tools to use all-in-one caching
       class Handler < CollectionSpace::Mapper::HandlerFullRecord
         attr_reader :authority_handler, :grouped_handler, :grouped_fields,
           :target_path
