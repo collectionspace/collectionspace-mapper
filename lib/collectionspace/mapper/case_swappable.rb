@@ -9,6 +9,12 @@ module CollectionSpace
       def case_swap(string)
         string.match?(/[A-Z]/) ? string.downcase : string.capitalize
       end
+
+      def case_swap_element(array, idx)
+        array.insert(idx, case_swap(array[idx]))
+        array.delete_at(idx + 1)
+        array
+      end
     end
   end
 end
