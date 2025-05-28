@@ -3,14 +3,16 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::TermHandler do
-  subject(:th) do
+  subject(:term_handler) do
     described_class.new(
       mapping: mapping,
       data: data,
       handler: handler,
       response: response
-    ).call
+    )
   end
+
+  let(:th) { term_handler.call }
 
   let(:handler) do
     setup_handler(
@@ -104,6 +106,10 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
             expect(not_found.first.urn).to eq(
               "vocabularies|||languages|||Sanza"
             )
+            in_cache = handler.termcache.exists?(
+              "unknownvalue", "vocabularies/languages", "Sanza"
+            )
+            expect(in_cache).to be true
           end
       end
 
