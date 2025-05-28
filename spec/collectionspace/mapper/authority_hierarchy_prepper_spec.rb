@@ -37,6 +37,27 @@ RSpec.describe CollectionSpace::Mapper::AuthorityHierarchyPrepper do
         expect(response.errors.length).to eq(1)
         expect(response.valid?).to be false
       end
+
+      context "with single record type handler" do
+        let(:handler) do
+          setup_single_record_type_handler(
+            mapper: "https://raw.githubusercontent.com/collectionspace/"\
+              "cspace-config-untangler/refs/heads/main/data/mappers/"\
+              "community_profiles/release_8_1_1/core/"\
+              "core_10-0-2_authorityhierarchy.json",
+            config: config
+          )
+        end
+
+        it "sets response identifier" do
+          expect(response.identifier).to eq("Cats > Tuxedo cats")
+        end
+
+        it "adds error to response" do
+          expect(response.errors.length).to eq(1)
+          expect(response.valid?).to be false
+        end
+      end
     end
   end
 end
