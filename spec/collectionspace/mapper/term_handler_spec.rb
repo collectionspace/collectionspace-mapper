@@ -3,14 +3,16 @@
 require "spec_helper"
 
 RSpec.describe CollectionSpace::Mapper::TermHandler do
-  subject(:th) do
+  subject(:term_handler) do
     described_class.new(
       mapping: mapping,
       data: data,
       handler: handler,
       response: response
-    ).call
+    )
   end
+
+  let(:th) { term_handler.call }
 
   let(:handler) do
     setup_handler(
@@ -104,7 +106,37 @@ RSpec.describe CollectionSpace::Mapper::TermHandler do
             expect(not_found.first.urn).to eq(
               "vocabularies|||languages|||Sanza"
             )
+            in_cache = handler.termcache.exists?(
+              "unknownvalue", "vocabularies/languages", "Sanza"
+            )
+            expect(in_cache).to be true
           end
+
+        context "with single record type handler" do
+          let(:handler) do
+            setup_single_record_type_handler(
+              mapper: "https://raw.githubusercontent.com/collectionspace/"\
+                "cspace-config-untangler/refs/heads/main/data/mappers/"\
+                "community_profiles/release_8_1_1/core/"\
+                "core_10-0-2_collectionobject.json"
+            )
+          end
+
+          it "returns terms as expected",
+            vcr: "term_handler_terms_sanza" do
+              found = terms.select { |h| h.found? }
+              not_found = terms.reject { |h| h.found? }
+              expect(terms.length).to eq(3)
+              expect(found.length).to eq(2)
+              expect(not_found.first.urn).to eq(
+                "vocabularies|||languages|||Sanza"
+              )
+              in_cache = handler.cache.exists?(
+                "unknownvalue", "vocabularies/languages", "Sanza", "refname"
+              )
+              expect(in_cache).to be true
+            end
+        end
       end
 
       context "when new term is subsequently encountered" do
