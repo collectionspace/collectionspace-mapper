@@ -178,8 +178,9 @@ module Helpers
     end
   end
 
-  def populate(cache, terms)
+  def populate(cache, terms, value_type = nil)
     terms.each do |term|
+      term << value_type if value_type
       cache.put(*term)
     end
     cache
