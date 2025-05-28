@@ -10,7 +10,9 @@ module CollectionSpace
         super
         @type = "vocabularies"
         @subtype = opts[:transform]
-        @termcache = CollectionSpace::Mapper.termcache
+        # @todo If you get around to implementing this, it needs to support dual
+        #   or all-in-one cache
+        # @termcache = CollectionSpace::Mapper.termcache
         @csclient = CollectionSpace::Mapper.client
       end
 
