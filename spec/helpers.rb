@@ -48,7 +48,7 @@ module Helpers
     CollectionSpace::Mapper::SingleRecordType::Handler.new(
       record_mapper: mapper,
       client: send(:"#{profile}_client"),
-      cache: send(:"#{profile}_cache"),
+      cache: send(:"#{profile}_combined_cache"),
       config: config
     )
   end
@@ -188,8 +188,9 @@ module Helpers
     end
   end
 
-  def populate(cache, terms)
+  def populate(cache, terms, value_type = nil)
     terms.each do |term|
+      term << value_type if value_type
       cache.put(*term)
     end
     cache
