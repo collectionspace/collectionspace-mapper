@@ -158,6 +158,13 @@ module CollectionSpace
         args << "refname" if cache_mode == :allinone
         this_cache.send(:put, *args)
       end
+
+      def cache_unknown_term(term, cacheval)
+        this_cache = cache(:refname)
+        args = ["unknownvalue", type_subtype, term, cacheval]
+        args << "refname" if cache_mode == :allinone
+        this_cache.send(:put, *args)
+      end
     end
   end
 end
