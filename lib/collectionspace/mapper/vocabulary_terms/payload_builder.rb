@@ -5,12 +5,15 @@ require "dry/monads"
 module CollectionSpace
   module Mapper
     module VocabularyTerms
-      KNOWN_OPT_FIELDS = %w[description source sourcePage termStatus].freeze
+      ADD_OPT_FIELDS = %w[
+        description source sourcePage termStatus
+      ].freeze
+      UPDATE_OPT_FIELDS = (ADD_OPT_FIELDS + ["displayName"]).freeze
 
       # Sets up a class with client context, that can process terms from
       #   multiple vocabularies
       class PayloadBuilder
-        extend Dry::Monads[:result]
+        extend Dry::Monads[:result, :do]
 
         # @param mode [:add, :update]
         # @param domain [String] CS client domain
@@ -22,6 +25,8 @@ module CollectionSpace
         # @param opt_fields [nil, Hash]
         def self.call(mode:, domain:, csid:, name:, term:, term_data:,
           opt_fields: nil)
+          _chk = yield validate_opt_fields(mode, opt_fields)
+
           # rubocop:disable Layout/LineLength
           base_string = <<~XML
             <?xml version="1.0" encoding="utf-8" standalone="yes"?>
@@ -60,11 +65,27 @@ module CollectionSpace
           ns.add_child(node)
         end
 
+        def self.validate_opt_fields(mode, opt_fields)
+          return Success() unless opt_fields
+
+          known = case mode
+          when :add then ADD_OPT_FIELDS
+          when :update then UPDATE_OPT_FIELDS
+          end
+          chk = opt_fields.keys - known
+          return Success() if chk.empty?
+
+          msg = "Invalid optional field(s) provided for vocabulary term "\
+            "#{mode}: #{chk.join(", ")}"
+
+          Failure(msg)
+        end
+
         def self.valid_opt_fields(opt_fields)
           return {} unless opt_fields
 
           keep_fields = opt_fields.select do |key, val|
-            KNOWN_OPT_FIELDS.include?(key)
+            ADD_OPT_FIELDS.include?(key)
           end
           return {} if keep_fields.empty?
 
