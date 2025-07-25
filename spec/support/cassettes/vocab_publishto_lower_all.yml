@@ -21,11 +21,11 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sat, 19 Oct 2024 01:21:28 GMT
+      - Fri, 25 Jul 2025 22:57:52 GMT
       Content-Type:
       - application/xml
       Content-Length:
-      - '805'
+      - '804'
       Connection:
       - keep-alive
       Vary:
@@ -33,7 +33,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=25DF30A8318B186D8EBCF2B8F5368A65; Path=/cspace-services; Secure;
+      - JSESSIONID=DD4CBEACC54904A1EC18E97969002158; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -52,10 +52,10 @@ http_interactions:
     body:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
-        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>4bea28cb-83be-4ca1-971b</csid><uri>/personauthorities/4bea28cb-83be-4ca1-971b</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person)'Local
-        Persons'</refName><updatedAt>2023-08-26T05:44:37.565Z</updatedAt><workflowState>project</workflowState><rev>13</rev><shortIdentifier>person</shortIdentifier><displayName>Local
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>dea4d607-725d-4318-a910</csid><uri>/personauthorities/dea4d607-725d-4318-a910</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person)'Local
+        Persons'</refName><updatedAt>2025-03-04T19:46:34.068Z</updatedAt><workflowState>project</workflowState><rev>8</rev><shortIdentifier>person</shortIdentifier><displayName>Local
         Persons</displayName><vocabType>PersonAuthority</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Sat, 19 Oct 2024 01:21:28 GMT
+  recorded_at: Fri, 25 Jul 2025 22:57:52 GMT
 - request:
     method: get
     uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/urn:cspace:name(publishto)/items?as=vocabularyitems_common:displayName%20=%20%27all%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
@@ -77,7 +77,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sat, 19 Oct 2024 01:21:29 GMT
+      - Fri, 25 Jul 2025 22:57:52 GMT
       Content-Type:
       - application/xml
       Content-Length:
@@ -89,7 +89,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=88FA077D996907CA9425B1A58CF2A4B4; Path=/cspace-services; Secure;
+      - JSESSIONID=054FCD1860919E40257D844A0BFEA532; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -109,7 +109,7 @@ http_interactions:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
         xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|sourcePage|sas|proposed|referenced|deprecated|termStatus|description|source|order|displayName|shortIdentifier</fieldsReturned></ns2:abstract-common-list>
-  recorded_at: Sat, 19 Oct 2024 01:21:29 GMT
+  recorded_at: Fri, 25 Jul 2025 22:57:52 GMT
 - request:
     method: get
     uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/urn:cspace:name(publishto)/items?as=vocabularyitems_common:displayName%20ILIKE%20%27all%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
@@ -131,7 +131,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sat, 19 Oct 2024 01:21:29 GMT
+      - Fri, 25 Jul 2025 22:57:53 GMT
       Content-Type:
       - application/xml
       Content-Length:
@@ -143,7 +143,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=966DB39F7A5F200001AC53313B3B27EA; Path=/cspace-services; Secure;
+      - JSESSIONID=7FC8FEA4CBB3B1FE38035533BC69B263; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -162,6 +162,6 @@ http_interactions:
     body:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
-        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|sourcePage|sas|proposed|referenced|deprecated|termStatus|description|source|order|displayName|shortIdentifier</fieldsReturned><list-item><csid>1be6baa8-3691-4fad-bf01</csid><uri>/vocabularies/8fd03497-36d2-4d91-a46b/items/1be6baa8-3691-4fad-bf01</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(publishto):item:name(all)'All'</refName><updatedAt>2023-08-26T05:43:29.142Z</updatedAt><workflowState>project</workflowState><rev>0</rev><sas>false</sas><proposed>true</proposed><displayName>All</displayName><shortIdentifier>all</shortIdentifier></list-item></ns2:abstract-common-list>
-  recorded_at: Sat, 19 Oct 2024 01:21:29 GMT
-recorded_with: VCR 6.1.0
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|sourcePage|sas|proposed|referenced|deprecated|termStatus|description|source|order|displayName|shortIdentifier</fieldsReturned><list-item><csid>740465af-d7ae-40d9-a5ba</csid><uri>/vocabularies/e991a26e-6fe8-4310-8b92/items/740465af-d7ae-40d9-a5ba</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(publishto):item:name(all)'All'</refName><updatedAt>2025-03-04T19:40:45.909Z</updatedAt><workflowState>project</workflowState><rev>0</rev><sas>false</sas><proposed>true</proposed><displayName>All</displayName><shortIdentifier>all</shortIdentifier></list-item></ns2:abstract-common-list>
+  recorded_at: Fri, 25 Jul 2025 22:57:53 GMT
+recorded_with: VCR 6.3.1
