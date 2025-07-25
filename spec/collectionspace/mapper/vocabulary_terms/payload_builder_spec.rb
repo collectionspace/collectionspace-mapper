@@ -15,11 +15,12 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::PayloadBuilder do
         csid: "CSID",
         name: "NAME",
         term: "TERM"
-      }.merge({term_data: term_data})
+      }.merge({term_data: term_data, mode: mode})
     end
 
     context "when adding new term" do
       let(:term_data) { {"shortIdentifier" => "TERMID"} }
+      let(:mode) { :add }
 
       context "without opt_fields" do
         let(:params) { base_params }
@@ -113,6 +114,7 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::PayloadBuilder do
 
     context "when updating existing term" do
       let(:term_data) { {"shortIdentifier" => "TERMID"} }
+      let(:mode) { :update }
 
       context "without opt_fields" do
         let(:params) { base_params }

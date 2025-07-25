@@ -12,6 +12,7 @@ module CollectionSpace
       class PayloadBuilder
         extend Dry::Monads[:result]
 
+        # @param mode [:add, :update]
         # @param domain [String] CS client domain
         # @param csid [String] CSID of vocabulary
         # @param name [String] machine name of vocabulary
@@ -19,7 +20,8 @@ module CollectionSpace
         # @param term_data [Hash{String=>String}] contains shortIdentifier for
         #   new terms, and shortIdentifier and refName for existing terms
         # @param opt_fields [nil, Hash]
-        def self.call(domain:, csid:, name:, term:, term_data:, opt_fields: nil)
+        def self.call(mode:, domain:, csid:, name:, term:, term_data:,
+          opt_fields: nil)
           # rubocop:disable Layout/LineLength
           base_string = <<~XML
             <?xml version="1.0" encoding="utf-8" standalone="yes"?>
