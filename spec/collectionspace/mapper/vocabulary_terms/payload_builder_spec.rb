@@ -49,65 +49,18 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::PayloadBuilder do
         end
       end
 
-      context "with no valid opt_fields" do
-        let(:params) { base_params.merge({opt_fields: {"badField" => "foo"}}) }
-
-        it "returns as expected with no valid opt_fields" do
-          # rubocop:disable Layout/LineLength
-          expected = <<~XML
-            <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-            <document name="vocabularyitems">
-                <ns2:vocabularyitems_common
-                   xmlns:ns2="http://collectionspace.org/services/vocabulary"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                   <inAuthority>CSID</inAuthority>
-                   <shortIdentifier>TERMID</shortIdentifier>
-                   <refName>urn:cspace:DOMAIN:vocabularies:name(NAME):item:name(TERMID)'TERM'</refName>
-                   <displayName>TERM</displayName>
-                </ns2:vocabularyitems_common>
-            </document>
-          XML
-          # rubocop:enable Layout/LineLength
-          expect(result).to be_a(Dry::Monads::Success)
-          got_str = result.value!
-          got_doc = to_doc(got_str).to_xml
-          exp_doc = to_doc(expected).to_xml
-          expect(got_doc).to eq(exp_doc)
-        end
-      end
-
-      context "with valid opt_fields" do
+      context "with invalid opt_fields" do
         let(:params) do
-          base_params.merge({
-            opt_fields: {"badField" => "foo", "source" => "bar & baz",
-                         "sourcePage" => "2", "description" => "\u{1F4A3}"}
-          })
+          base_params.merge(
+            {opt_fields: {"description" => "a", "badField" => "foo"}}
+          )
         end
 
-        it "returns as expected with valid opt_fields" do
-          # rubocop:disable Layout/LineLength
-          expected = <<~XML
-            <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-            <document name="vocabularyitems">
-              <ns2:vocabularyitems_common
-                 xmlns:ns2="http://collectionspace.org/services/vocabulary"
-                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                   <inAuthority>CSID</inAuthority>
-                   <shortIdentifier>TERMID</shortIdentifier>
-                   <refName>urn:cspace:DOMAIN:vocabularies:name(NAME):item:name(TERMID)'TERM'</refName>
-                   <source>bar &amp; baz</source>
-                   <sourcePage>2</sourcePage>
-                   <description></description>
-                   <displayName>TERM</displayName>
-              </ns2:vocabularyitems_common>
-             </document>
-          XML
-          # rubocop:enable Layout/LineLength
-          expect(result).to be_a(Dry::Monads::Success)
-          got_str = result.value!
-          got_doc = to_doc(got_str).to_xml
-          exp_doc = to_doc(expected).to_xml
-          expect(got_doc).to eq(exp_doc)
+        it "returns Failure" do
+          expect(result).to be_a(Dry::Monads::Failure)
+          failmsg = "Invalid optional field(s) provided for vocabulary term "\
+            "#{mode}: badField"
+          expect(result.failure).to eq(failmsg)
         end
       end
     end
@@ -119,7 +72,7 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::PayloadBuilder do
       context "without opt_fields" do
         let(:params) { base_params }
 
-        it "returns as expected without opt_fields" do
+        it "returns as expected" do
           # rubocop:disable Layout/LineLength
           expected = <<~XML
             <?xml version="1.0" encoding="utf-8" standalone="yes"?>
@@ -144,67 +97,18 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::PayloadBuilder do
         end
       end
 
-      context "with no valid opt_fields" do
-        let(:params) { base_params.merge({opt_fields: {"badField" => "foo"}}) }
-
-        it "returns as expected with no valid opt_fields" do
-          # rubocop:disable Layout/LineLength
-          expected = <<~XML
-            <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-            <document name="vocabularyitems">
-                <ns2:vocabularyitems_common
-                   xmlns:ns2="http://collectionspace.org/services/vocabulary"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                   <inAuthority>CSID</inAuthority>
-                   <shortIdentifier>TERMID</shortIdentifier>
-                   <refName>urn:cspace:DOMAIN:vocabularies:name(NAME):item:name(TERMID)'TERM'</refName>
-                   <displayName>TERM</displayName>
-                </ns2:vocabularyitems_common>
-            </document>
-          XML
-          # rubocop:enable Layout/LineLength
-
-          expect(result).to be_a(Dry::Monads::Success)
-          got_str = result.value!
-          got_doc = to_doc(got_str).to_xml
-          exp_doc = to_doc(expected).to_xml
-          expect(got_doc).to eq(exp_doc)
-        end
-      end
-
-      context "with valid opt_fields" do
+      context "with invalid opt_fields" do
         let(:params) do
-          base_params.merge({
-            opt_fields: {"badField" => "foo", "source" => "bar & baz",
-                         "sourcePage" => "2", "description" => "\u{1F4A3}"}
-          })
+          base_params.merge(
+            {opt_fields: {"displayName" => "a", "badField" => "foo"}}
+          )
         end
 
-        it "returns as expected with valid opt_fields" do
-          # rubocop:disable Layout/LineLength
-          expected = <<~XML
-            <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-            <document name="vocabularyitems">
-              <ns2:vocabularyitems_common
-                 xmlns:ns2="http://collectionspace.org/services/vocabulary"
-                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                   <inAuthority>CSID</inAuthority>
-                   <shortIdentifier>TERMID</shortIdentifier>
-                   <refName>urn:cspace:DOMAIN:vocabularies:name(NAME):item:name(TERMID)'TERM'</refName>
-                   <source>bar &amp; baz</source>
-                   <sourcePage>2</sourcePage>
-                   <description></description>
-                   <displayName>TERM</displayName>
-              </ns2:vocabularyitems_common>
-             </document>
-          XML
-          # rubocop:enable Layout/LineLength
-
-          expect(result).to be_a(Dry::Monads::Success)
-          got_str = result.value!
-          got_doc = to_doc(got_str).to_xml
-          exp_doc = to_doc(expected).to_xml
-          expect(got_doc).to eq(exp_doc)
+        it "returns Failure" do
+          expect(result).to be_a(Dry::Monads::Failure)
+          failmsg = "Invalid optional field(s) provided for vocabulary term "\
+            "#{mode}: badField"
+          expect(result.failure).to eq(failmsg)
         end
       end
     end
