@@ -112,7 +112,7 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::PayloadBuilder do
     end
 
     context "when updating existing term" do
-      let(:term_data) { {"shortIdentifier"=>"TERMID", "refName"=>"PROVIDED"} }
+      let(:term_data) { {"shortIdentifier" => "TERMID"} }
 
       context "without opt_fields" do
         let(:params) { base_params }
@@ -126,11 +126,11 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::PayloadBuilder do
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                <inAuthority>CSID</inAuthority>
                <shortIdentifier>TERMID</shortIdentifier>
-               <refName>PROVIDED</refName>
                <displayName>TERM</displayName>
             </ns2:vocabularyitems_common>
         </document>
       XML
+                   <refName>urn:cspace:DOMAIN:vocabularies:name(NAME):item:name(TERMID)'TERM'</refName>
 
           expect(result).to be_a(Dry::Monads::Success)
           got_str = result.value!
@@ -152,11 +152,11 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::PayloadBuilder do
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                <inAuthority>CSID</inAuthority>
                <shortIdentifier>TERMID</shortIdentifier>
-               <refName>PROVIDED</refName>
                <displayName>TERM</displayName>
             </ns2:vocabularyitems_common>
         </document>
       XML
+                   <refName>urn:cspace:DOMAIN:vocabularies:name(NAME):item:name(TERMID)'TERM'</refName>
 
           expect(result).to be_a(Dry::Monads::Success)
           got_str = result.value!
@@ -183,7 +183,6 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::PayloadBuilder do
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                <inAuthority>CSID</inAuthority>
                <shortIdentifier>TERMID</shortIdentifier>
-               <refName>PROVIDED</refName>
                <source>bar &amp; baz</source>
                <sourcePage>2</sourcePage>
                <description></description>
@@ -191,6 +190,7 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::PayloadBuilder do
           </ns2:vocabularyitems_common>
          </document>
       XML
+                   <refName>urn:cspace:DOMAIN:vocabularies:name(NAME):item:name(TERMID)'TERM'</refName>
 
           expect(result).to be_a(Dry::Monads::Success)
           got_str = result.value!
