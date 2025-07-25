@@ -48,6 +48,7 @@ module CollectionSpace
               vocab: vocab, term_data: term, opt_fields: opt_fields
             )
           end
+          params[:mode] = mode
           payload = yield PayloadBuilder.call(**params)
 
           Success(payload)
