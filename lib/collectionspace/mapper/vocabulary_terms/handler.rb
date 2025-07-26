@@ -38,14 +38,15 @@ module CollectionSpace
         # @param opt_fields [nil, Hash{String => String}] key/value pairs for
         #   description, source, sourcePage, and termStatus fields
         def term_payload(vocab:, term:, mode: :add, opt_fields: nil)
+          send_opt_fields = opt_fields || {}
           params = case mode
           when :add
             yield added_term_params(
-              vocab: vocab, term: term, opt_fields: opt_fields
+              vocab: vocab, term: term, opt_fields: send_opt_fields
             )
           when :update
             yield updated_term_params(
-              vocab: vocab, term_data: term, opt_fields: opt_fields
+              vocab: vocab, term_data: term, opt_fields: send_opt_fields
             )
           end
           params[:mode] = mode
@@ -138,9 +139,9 @@ module CollectionSpace
             params[:opt_fields] = opt_fields
             return Success(params)
           end
+          params[:opt_fields] = opt_fields if opt_fields
 
           params[:term] = opt_fields.delete("displayName")
-          params[:opt_fields] = opt_fields
           Success(params)
         end
 
