@@ -20,12 +20,19 @@ module CollectionSpace
         # @param csid [String] CSID of vocabulary
         # @param name [String] machine name of vocabulary
         # @param term [String] to be created
-        # @param term_data [Hash{String=>String}] contains shortIdentifier for
-        #   new terms, and shortIdentifier and refName for existing terms
+        # @param term_data [Hash{String=>String}] contains shortIdentifier and
+        #   possibly other data in the future
         # @param opt_fields [Hash]
         def self.call(mode:, domain:, csid:, name:, term:, term_data:,
           opt_fields: {})
           _chk = yield validate_opt_fields(mode, opt_fields)
+
+          displayname = if opt_fields.key?("displayName")
+            opt_fields["displayName"]
+          else
+            opt_fields&.merge!({"displayName" => term})
+            term
+          end
 
           # rubocop:disable Layout/LineLength
           base_string = <<~XML
@@ -47,9 +54,8 @@ module CollectionSpace
           }
           ns = doc.xpath("//document/ns2:vocabularyitems_common", namespaces)
             .first
-          add_refname(doc, ns, term_data, domain, name, term)
-          valid_opt_fields(opt_fields).merge({"displayName" => term})
-            .each { |key, val| add_element(key, val, doc, ns) }
+          add_refname(doc, ns, term_data, domain, name, displayname)
+          opt_fields.each { |key, val| add_element(key, val, doc, ns) }
           CollectionSpace::Mapper.defuse_bomb(doc)
           Success(doc.to_xml)
         end
@@ -80,18 +86,7 @@ module CollectionSpace
 
           Failure(msg)
         end
-
-        def self.valid_opt_fields(opt_fields)
-          return {} unless opt_fields
-
-          keep_fields = opt_fields.select do |key, val|
-            ADD_OPT_FIELDS.include?(key)
-          end
-          return {} if keep_fields.empty?
-
-          keep_fields
-        end
-        private_class_method :valid_opt_fields
+        private_class_method :validate_opt_fields
 
         def self.add_element(key, val, doc, ns)
           node = Nokogiri::XML::Node.new(key, doc)
