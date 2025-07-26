@@ -132,16 +132,8 @@ module CollectionSpace
             term: term_data["displayName"],
             term_data: {"shortIdentifier" => term_data["shortIdentifier"]}
           }
-          return Success(params) unless opt_fields
-
-          new_term = opt_fields.fetch("displayName", nil)
-          unless new_term
-            params[:opt_fields] = opt_fields
-            return Success(params)
-          end
           params[:opt_fields] = opt_fields if opt_fields
 
-          params[:term] = opt_fields.delete("displayName")
           Success(params)
         end
 
