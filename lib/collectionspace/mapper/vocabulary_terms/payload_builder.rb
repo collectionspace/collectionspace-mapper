@@ -22,9 +22,9 @@ module CollectionSpace
         # @param term [String] to be created
         # @param term_data [Hash{String=>String}] contains shortIdentifier for
         #   new terms, and shortIdentifier and refName for existing terms
-        # @param opt_fields [nil, Hash]
+        # @param opt_fields [Hash]
         def self.call(mode:, domain:, csid:, name:, term:, term_data:,
-          opt_fields: nil)
+          opt_fields: {})
           _chk = yield validate_opt_fields(mode, opt_fields)
 
           # rubocop:disable Layout/LineLength
