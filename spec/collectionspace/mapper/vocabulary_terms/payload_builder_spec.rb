@@ -111,6 +111,36 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::PayloadBuilder do
           expect(result.failure).to eq(failmsg)
         end
       end
+
+      context "when updating display name of existing term" do
+        let(:params) do
+          base_params.merge({opt_fields: {"displayName" => "foo"}})
+        end
+
+        it "returns as expected" do
+          # rubocop:disable Layout/LineLength
+          expected = <<~XML
+            <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+            <document name="vocabularyitems">
+                <ns2:vocabularyitems_common
+                   xmlns:ns2="http://collectionspace.org/services/vocabulary"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                   <inAuthority>CSID</inAuthority>
+                   <shortIdentifier>TERMID</shortIdentifier>
+                   <refName>urn:cspace:DOMAIN:vocabularies:name(NAME):item:name(TERMID)'foo'</refName>
+                   <displayName>foo</displayName>
+                </ns2:vocabularyitems_common>
+            </document>
+          XML
+          # rubocop:enable Layout/LineLength
+
+          expect(result).to be_a(Dry::Monads::Success)
+          got_str = result.value!
+          got_doc = to_doc(got_str).to_xml
+          exp_doc = to_doc(expected).to_xml
+          expect(got_doc).to eq(exp_doc)
+        end
+      end
     end
   end
 end
