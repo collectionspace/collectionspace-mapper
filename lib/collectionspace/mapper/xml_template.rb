@@ -46,7 +46,11 @@ module CollectionSpace
       def process_group(xml, grouppath)
         docstructure.dig(*grouppath).keys.each do |key|
           thispath = grouppath.clone.append(key)
-          xml.send(key) do
+
+          # Send the key with an underscore on the end to keep element
+          #   names that are also ruby keywords/method names, like
+          #   "methods", from being treated as such
+          xml.send(:"#{key}_") do
             process_group(xml, thispath)
           end
         end
