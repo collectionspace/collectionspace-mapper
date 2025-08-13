@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document name="exits">
+    <ns2:exits_common xmlns:ns2="http://collectionspace.org/services/exit"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <reason>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(objexitreason):item:name(exitreason09)'repatriation (NAGPRA)'</reason>
+        <methods>
+            <method>urn:cspace:c.anthro.collectionspace.org:vocabularies:name(objexitmethod):item:name(objexitmethod02)'in person'</method>
+        </methods>
+        <exitNumber>1</exitNumber>
+    </ns2:exits_common>
+</document>

@@ -248,5 +248,19 @@ RSpec.describe CollectionSpace::Mapper::DataMapper do
           expect(docdefs).to eq(urihash)
         end
       end
+
+      context "with exit" do
+        let(:mapper) { "anthro_9-1-0_exit" }
+
+        context "with exit method" do
+          let(:customcfg) { {delimiter: "|"} }
+          let(:datahash_path) do
+            "spec/support/datahashes/anthro/exit1.json"
+          end
+          let(:fixture_path) { "anthro/exit1.xml" }
+
+          it_behaves_like "Mapped"
+        end
+      end
     end
 end

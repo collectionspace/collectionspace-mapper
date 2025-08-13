@@ -317,4 +317,58 @@ http_interactions:
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
         xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|objectNumber|objectName|typeSpecimenKind|title|responsibleDepartment</fieldsReturned></ns2:abstract-common-list>
   recorded_at: Tue, 18 Apr 2023 23:21:59 GMT
-recorded_with: VCR 6.1.0
+- request:
+    method: get
+    uri: https://anthro.dev.collectionspace.org/cspace-services/exits?as=exits_common:exitNumber%20=%20%271%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AYW50aHJvLmNvbGxlY3Rpb25zcGFjZS5vcmc6QWRtaW5pc3RyYXRvcg==
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Wed, 13 Aug 2025 21:58:20 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '348'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=7F130E3786D2D5AE88D0E775DE171FF7; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|owner|exitNumber</fieldsReturned></ns2:abstract-common-list>
+  recorded_at: Wed, 13 Aug 2025 21:58:20 GMT
+recorded_with: VCR 6.3.1
