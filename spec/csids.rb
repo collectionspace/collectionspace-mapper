@@ -8,6 +8,7 @@ module Helpers
       ["collectionobjects", "", "Hierarchy Test 001", "7976-7265-3715-6363"],
       ["conceptauthorities", "concept", "Sample Concept 1",
         "3736-2250-1869-4155"],
+      ["exits", nil, "1", "0000-1111-2222-3333"],
       ["hier", "22706401-8328-4778-86fa", "8e74756f-38f5-4dee-90d4",
         "xcvb-1234-9191-0000"],
       ["nhr", "22706401-8328-4778-86fa", "8e74756f-38f5-4dee-90d4",
