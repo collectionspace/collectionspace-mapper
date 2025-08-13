@@ -22,7 +22,7 @@ GIT
 PATH
   remote: .
   specs:
-    collectionspace-mapper (6.1.1)
+    collectionspace-mapper (6.1.2)
       activesupport (= 6.0.4.7)
       chronic
       collectionspace-refcache
