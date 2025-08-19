@@ -308,3 +308,58 @@ vh.add_term(vocab: 'annotationType', term: 'Credit line')
 <2> When response.status_code = 409. For other non-success responses, the response itself will be returned in the Failure.
 
 Calling `add_term` returns a https://dry-rb.org/gems/dry-monads/main/result/[dry-monads Result Success or Failure].
+
+==== Populate other vocabulary item fields
+
+Each vocabulary item has the following fields, in addition to its `displayName`:
+
+* `description`
+* `source`
+* `sourcePage`
+* `termStatus` (can be set to "active" or "inactive" by default)
+
+To populate these, you can send a Hash representing the fields in as an `opt_fields` argument:
+
+[source,ruby]
+----
+vh = CollectionSpace::Mapper::VocabularyTerms::Handler.new(client: client)
+opts = {"description" => "Use when...", "termStatus" => "active"}
+vh.add_term(vocab: 'Annotation Type', term: 'New term', opt_fields: opts)
+----
+
+=== Update vocabulary terms
+
+==== Add additional fields to existing term
+
+[source,ruby]
+----
+vh = CollectionSpace::Mapper::VocabularyTerms::Handler.new(client: client)
+opts = {"description" => "Use to record object-level credit line. Is NOT published "\
+          "to public browser"}
+vh.update_term(vocab: 'Annotation Type', term: 'Credit line', opt_fields: opts)
+----
+
+==== Updating display name of existing term
+
+WARNING: Changing the display name of a term that is used in many fields may take a long time to update, since it needs to also update all usages of the term. It may even time out. We have not battle-tested this functionality in large sites, and it may not be suitable for batch-update use in some sites due to performance issues.
+
+The `term` argument is the current term `displayName` value. This is used to look up and update the correct term record.
+
+The new `displayName` value is passed in via `opt_fields`:
+
+[source,ruby]
+----
+vh = CollectionSpace::Mapper::VocabularyTerms::Handler.new(client: client)
+opts = {"displayName" => "Unpublished credit line"}
+vh.update_term(vocab: 'Annotation Type', term: 'Credit line', opt_fields: opts)
+----
+
+=== Delete vocabulary terms
+
+The usual restrictions on deletions apply here. You will not be able to delete a term that is in use.
+
+[source,ruby]
+----
+vh = CollectionSpace::Mapper::VocabularyTerms::Handler.new(client: client)
+vh.delete_term(vocab: 'Annotation Type', term: 'Unwanted term')
+----
