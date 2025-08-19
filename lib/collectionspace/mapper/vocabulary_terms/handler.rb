@@ -10,9 +10,7 @@ module CollectionSpace
       #   multiple vocabularies
       class Handler
         include Dry::Configurable
-        include Dry::Monads[:result]
-        include Dry::Monads::Do.for(:add_term, :update_term, :added_term_params,
-          :term_payload)
+        include Dry::Monads[:result, :do]
 
         attr_reader :client
 
@@ -97,9 +95,56 @@ module CollectionSpace
           Success(putting)
         end
 
+        # @param vocab [String] the display name of the target Vocabulary
+        # @param term [String] the term to create in the Vocabulary
+        def delete_term(vocab:, term:)
+          vocabulary = yield vocabs.by_name(vocab)
+          termresp = searcher.call(
+            value: term, type: "vocabularies",
+            subtype: vocabulary["shortIdentifier"]
+          )
+          unless termresp
+            return Failure("The term \"#{term}\" does not exist in #{vocab}")
+          end
+
+          termrec = termresp.dig("list_item", 0)
+          path = termrec["uri"]
+          uses = yield term_usage_count(path)
+
+          if uses > 0
+            return Failure("#{vocab}/#{term} is used in records #{uses} times")
+          end
+
+          deleting = yield delete(path)
+
+          Success(deleting)
+        end
+
         private
 
         attr_reader :domain, :vocabs
+
+        def term_usage_count(path)
+          use_path = "#{path}/refObjs"
+          result = client.get(use_path)
+        rescue => err
+          Failure(err)
+        else
+          case result.status_code
+          when 200
+            ct = result.parsed
+              &.fetch("authority_ref_doc_list")
+              &.fetch("totalItems")
+              &.to_i
+            if ct.is_a?(Integer)
+              Success(ct)
+            else
+              Failure("Usage count cannot be extracted from #{result.parsed}")
+            end
+          else
+            Failure(result)
+          end
+        end
 
         # @param vocab [String] the display name of the target Vocabulary
         # @param term [String] the term to create in the Vocabulary
@@ -172,6 +217,19 @@ module CollectionSpace
             Success(result.result.dig(
               "document", "collectionspace_core", "uri"
             ))
+          else
+            Failure(result)
+          end
+        end
+
+        def delete(path)
+          result = client.delete(path)
+        rescue => err
+          Failure(err)
+        else
+          case result.status_code
+          when 200
+            Success("#{path} deleted")
           else
             Failure(result)
           end
