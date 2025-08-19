@@ -93,4 +93,46 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::Handler do
       end
     end
   end
+
+  describe "#delete_term" do
+    let(:result) do
+      handler.delete_term(vocab: vocab, term: term)
+    end
+
+    context "with existing term unused",
+      vcr: "vocab_terms_handler_delete_existing_unused" do
+        before { handler.add_term(vocab: "Annotation Type", term: "deleteme") }
+
+        let(:vocab) { "Annotation Type" }
+        let(:term) { "deleteme" }
+
+        it "returns Success" do
+          expect(result).to be_a(Dry::Monads::Success)
+        end
+      end
+
+    context "with existing term used",
+      vcr: "vocab_terms_handler_delete_existing_used" do
+        let(:vocab) { "Annotation Type" }
+        let(:term) { "nomenclature" }
+
+        it "returns Failure" do
+          expect(result).to be_a(Dry::Monads::Failure)
+          expect(result.failure).to eq("Annotation Type/nomenclature is used "\
+                                       "in records 3 times")
+        end
+      end
+
+    context "with non-existent term",
+      vcr: "vocab_terms_handler_delete_nonexisting" do
+        let(:vocab) { "Annotation Type" }
+        let(:term) { "foo" }
+
+        it "returns Failure" do
+          expect(result).to be_a(Dry::Monads::Failure)
+          expect(result.failure).to eq("The term \"foo\" does not exist in "\
+                                       "Annotation Type")
+        end
+      end
+  end
 end
