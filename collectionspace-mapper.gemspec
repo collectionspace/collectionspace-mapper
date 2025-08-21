@@ -44,8 +44,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  # version used by collectionspace-csv-importer
-  spec.add_dependency "activesupport", "= 6.0.4.7"
+  spec.add_dependency "activesupport"
   spec.add_dependency "chronic"
   spec.add_dependency "collectionspace-refcache"
 
