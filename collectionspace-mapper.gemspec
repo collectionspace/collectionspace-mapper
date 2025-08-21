@@ -51,8 +51,8 @@ Gem::Specification.new do |spec|
 
   # pinned because updating causes "uninitialized constant
   #   ActiveSupport::LoggerThreadSafeLevel::Logger"
-  spec.add_dependency "dry-configurable", "~>0.14"
-  spec.add_dependency "dry-monads", "~>1.4"
+  spec.add_dependency "dry-configurable"
+  spec.add_dependency "dry-monads"
 
   spec.add_dependency "memo_wise"
   spec.add_dependency "net-http"
