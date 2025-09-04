@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/personauthorities?pgNum=0&pgSz=1&wf_deleted=false
+    uri: https://core.dev.collectionspace.org/cspace-services/personauthorities?pgNum=0&pgSz=1&wf_deleted=true
     body:
       encoding: US-ASCII
       string: ''
@@ -21,7 +21,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Tue, 19 Aug 2025 20:46:34 GMT
+      - Thu, 04 Sep 2025 21:38:03 GMT
       Content-Type:
       - application/xml
       Content-Length:
@@ -33,7 +33,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=0C716E89A8D5B31080FAFE3B509676B0; Path=/cspace-services; Secure;
+      - JSESSIONID=AB2F7CF43DC94B9F0B33AFFB94D1AB02; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -53,12 +53,12 @@ http_interactions:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
         xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>dea4d607-725d-4318-a910</csid><uri>/personauthorities/dea4d607-725d-4318-a910</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person)'Local
-        Persons'</refName><updatedAt>2025-03-04T19:46:34.068Z</updatedAt><workflowState>project</workflowState><rev>8</rev><shortIdentifier>person</shortIdentifier><displayName>Local
+        Persons'</refName><updatedAt>2025-03-04T19:46:34.068Z</updatedAt><workflowState>project</workflowState><rev>9</rev><shortIdentifier>person</shortIdentifier><displayName>Local
         Persons</displayName><vocabType>PersonAuthority</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Tue, 19 Aug 2025 20:46:34 GMT
+  recorded_at: Thu, 04 Sep 2025 21:38:03 GMT
 - request:
     method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=0&pgSz=1&wf_deleted=false
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=0&pgSz=1&wf_deleted=true
     body:
       encoding: US-ASCII
       string: ''
@@ -77,7 +77,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Tue, 19 Aug 2025 20:46:34 GMT
+      - Thu, 04 Sep 2025 21:38:03 GMT
       Content-Type:
       - application/xml
       Content-Length:
@@ -89,7 +89,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=6671A7D65B156AFED1A585CCEC18553A; Path=/cspace-services; Secure;
+      - JSESSIONID=C3D1131B6258E641749E8ACBD9670BE2; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -111,10 +111,10 @@ http_interactions:
         xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>177</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>b5d7a52a-6bf3-407e-b719</csid><uri>/vocabularies/b5d7a52a-6bf3-407e-b719</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(apparelsizes)'Apparel
         sizes'</refName><updatedAt>2025-03-04T19:46:23.970Z</updatedAt><workflowState>project</workflowState><rev>12</rev><shortIdentifier>apparelsizes</shortIdentifier><displayName>Apparel
         sizes</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Tue, 19 Aug 2025 20:46:34 GMT
+  recorded_at: Thu, 04 Sep 2025 21:38:03 GMT
 - request:
     method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=0&pgSz=25&wf_deleted=false
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=0&pgSz=25&wf_deleted=true
     body:
       encoding: US-ASCII
       string: ''
@@ -133,7 +133,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Tue, 19 Aug 2025 20:46:34 GMT
+      - Thu, 04 Sep 2025 21:38:03 GMT
       Content-Type:
       - application/xml
       Transfer-Encoding:
@@ -145,7 +145,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=E92C926EB3B3C6A67590820D8C504924; Path=/cspace-services; Secure;
+      - JSESSIONID=16A4F581C634E02F59E7C019F99AF3E3; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -213,10 +213,10 @@ http_interactions:
         Object Status</displayName><vocabType>enum</vocabType></list-item><list-item><csid>dd0cf7f6-e9b4-4df8-8589</csid><uri>/vocabularies/dd0cf7f6-e9b4-4df8-8589</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(currency)'Standard
         Currency'</refName><updatedAt>2025-03-04T19:40:48.574Z</updatedAt><workflowState>project</workflowState><rev>7</rev><shortIdentifier>currency</shortIdentifier><displayName>Standard
         Currency</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Tue, 19 Aug 2025 20:46:34 GMT
+  recorded_at: Thu, 04 Sep 2025 21:38:03 GMT
 - request:
     method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=1&pgSz=25&wf_deleted=false
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=1&pgSz=25&wf_deleted=true
     body:
       encoding: US-ASCII
       string: ''
@@ -235,7 +235,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Tue, 19 Aug 2025 20:46:35 GMT
+      - Thu, 04 Sep 2025 21:38:04 GMT
       Content-Type:
       - application/xml
       Transfer-Encoding:
@@ -247,7 +247,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=24F86B0E56FBD3FED9F43920546BB961; Path=/cspace-services; Secure;
+      - JSESSIONID=49F24038AAFE3CFFBB4F1E01F2258194; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -317,10 +317,10 @@ http_interactions:
         Status</displayName><vocabType>enum</vocabType></list-item><list-item><csid>e9d85700-6ec2-4439-9668</csid><uri>/vocabularies/e9d85700-6ec2-4439-9668</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(treatmentpurpose)'Treatment
         Purpose'</refName><updatedAt>2025-03-04T19:45:38.152Z</updatedAt><workflowState>project</workflowState><rev>7</rev><shortIdentifier>treatmentpurpose</shortIdentifier><displayName>Treatment
         Purpose</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Tue, 19 Aug 2025 20:46:35 GMT
+  recorded_at: Thu, 04 Sep 2025 21:38:04 GMT
 - request:
     method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=2&pgSz=25&wf_deleted=false
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=2&pgSz=25&wf_deleted=true
     body:
       encoding: US-ASCII
       string: ''
@@ -339,7 +339,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Tue, 19 Aug 2025 20:46:35 GMT
+      - Thu, 04 Sep 2025 21:38:04 GMT
       Content-Type:
       - application/xml
       Transfer-Encoding:
@@ -351,7 +351,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=3F00B8FF0BA726C03971F7C5C0B6E0CC; Path=/cspace-services; Secure;
+      - JSESSIONID=CEB52B84E71D8E634469EF324381CE60; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -421,10 +421,10 @@ http_interactions:
         Properties</displayName><vocabType>enum</vocabType></list-item><list-item><csid>3ec48cc1-271d-4da1-9e02</csid><uri>/vocabularies/3ec48cc1-271d-4da1-9e02</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(electricalproperties)'Electrical
         Properties'</refName><updatedAt>2025-03-04T19:45:48.130Z</updatedAt><workflowState>project</workflowState><rev>4</rev><shortIdentifier>electricalproperties</shortIdentifier><displayName>Electrical
         Properties</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Tue, 19 Aug 2025 20:46:35 GMT
+  recorded_at: Thu, 04 Sep 2025 21:38:04 GMT
 - request:
     method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=3&pgSz=25&wf_deleted=false
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=3&pgSz=25&wf_deleted=true
     body:
       encoding: US-ASCII
       string: ''
@@ -443,7 +443,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Tue, 19 Aug 2025 20:46:36 GMT
+      - Thu, 04 Sep 2025 21:38:04 GMT
       Content-Type:
       - application/xml
       Transfer-Encoding:
@@ -455,7 +455,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=A10C989A033CA5A8F1D01EBCEA9D87F5; Path=/cspace-services; Secure;
+      - JSESSIONID=7AE2A8E7D4822F2177504E9E9A2729D0; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -525,10 +525,10 @@ http_interactions:
         Request Types</displayName><vocabType>enum</vocabType></list-item><list-item><csid>d21950c4-cf21-47fe-9e29</csid><uri>/vocabularies/d21950c4-cf21-47fe-9e29</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(nagpracategory)'NAGPRA
         Categories'</refName><updatedAt>2025-03-04T19:46:30.784Z</updatedAt><workflowState>project</workflowState><rev>7</rev><shortIdentifier>nagpracategory</shortIdentifier><displayName>NAGPRA
         Categories</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Tue, 19 Aug 2025 20:46:35 GMT
+  recorded_at: Thu, 04 Sep 2025 21:38:04 GMT
 - request:
     method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=4&pgSz=25&wf_deleted=false
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=4&pgSz=25&wf_deleted=true
     body:
       encoding: US-ASCII
       string: ''
@@ -547,7 +547,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Tue, 19 Aug 2025 20:46:36 GMT
+      - Thu, 04 Sep 2025 21:38:05 GMT
       Content-Type:
       - application/xml
       Transfer-Encoding:
@@ -559,7 +559,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=B6CDD9171578D8C54BC3915884A2D346; Path=/cspace-services; Secure;
+      - JSESSIONID=8F88440DD6D56C4E8819B71D3DE44D25; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -611,7 +611,7 @@ http_interactions:
         Cost Responsbile Party</displayName><vocabType>enum</vocabType></list-item><list-item><csid>1d48f5a6-d52d-440d-b05f</csid><uri>/vocabularies/1d48f5a6-d52d-440d-b05f</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(transportadditionalcosttype)'Transport
         Additional Cost Type'</refName><updatedAt>2025-03-04T19:46:04.895Z</updatedAt><workflowState>project</workflowState><rev>7</rev><shortIdentifier>transportadditionalcosttype</shortIdentifier><displayName>Transport
         Additional Cost Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>33b690e9-18b1-4e19-9390</csid><uri>/vocabularies/33b690e9-18b1-4e19-9390</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype)'Annotation
-        Type'</refName><updatedAt>2025-07-25T22:54:59.381Z</updatedAt><workflowState>project</workflowState><rev>86</rev><shortIdentifier>annotationtype</shortIdentifier><displayName>Annotation
+        Type'</refName><updatedAt>2025-07-25T22:54:59.381Z</updatedAt><workflowState>project</workflowState><rev>112</rev><shortIdentifier>annotationtype</shortIdentifier><displayName>Annotation
         Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>1a7ed743-3fe6-4f67-b24a</csid><uri>/vocabularies/1a7ed743-3fe6-4f67-b24a</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(insurancetype)'Insurance/Indemnity
         Type'</refName><updatedAt>2025-03-04T19:46:05.864Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>insurancetype</shortIdentifier><displayName>Insurance/Indemnity
         Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>9c02631b-c160-41fc-aedc</csid><uri>/vocabularies/9c02631b-c160-41fc-aedc</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(insurancestatus)'Insurance/Indemnity
@@ -629,10 +629,10 @@ http_interactions:
         Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>b1e799a0-d359-45ab-a298</csid><uri>/vocabularies/b1e799a0-d359-45ab-a298</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(programminglanguage)'Programming
         Languages'</refName><updatedAt>2025-03-04T19:46:08.345Z</updatedAt><workflowState>project</workflowState><rev>10</rev><shortIdentifier>programminglanguage</shortIdentifier><displayName>Programming
         Languages</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Tue, 19 Aug 2025 20:46:36 GMT
+  recorded_at: Thu, 04 Sep 2025 21:38:05 GMT
 - request:
     method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=5&pgSz=25&wf_deleted=false
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=5&pgSz=25&wf_deleted=true
     body:
       encoding: US-ASCII
       string: ''
@@ -651,7 +651,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Tue, 19 Aug 2025 20:46:36 GMT
+      - Thu, 04 Sep 2025 21:38:05 GMT
       Content-Type:
       - application/xml
       Transfer-Encoding:
@@ -663,7 +663,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=DE927814A39B31F8E799F08D2C15B23D; Path=/cspace-services; Secure;
+      - JSESSIONID=16D3F2D6D3C06AD307368F4570314ED3; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -729,10 +729,10 @@ http_interactions:
         Setup Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>3854cd66-50b0-4f73-9c9e</csid><uri>/vocabularies/3854cd66-50b0-4f73-9c9e</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(maintenancetype)'Maintenance
         Type'</refName><updatedAt>2025-03-04T19:46:15.783Z</updatedAt><workflowState>project</workflowState><rev>5</rev><shortIdentifier>maintenancetype</shortIdentifier><displayName>Maintenance
         Type</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Tue, 19 Aug 2025 20:46:36 GMT
+  recorded_at: Thu, 04 Sep 2025 21:38:05 GMT
 - request:
     method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=6&pgSz=25&wf_deleted=false
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=6&pgSz=25&wf_deleted=true
     body:
       encoding: US-ASCII
       string: ''
@@ -751,7 +751,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Tue, 19 Aug 2025 20:46:37 GMT
+      - Thu, 04 Sep 2025 21:38:06 GMT
       Content-Type:
       - application/xml
       Transfer-Encoding:
@@ -763,7 +763,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=6F27163F924DA65259A2ABC8DA282D8A; Path=/cspace-services; Secure;
+      - JSESSIONID=333A94768F4EBCAC0E6B8AAB82C0C6EA; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -833,10 +833,10 @@ http_interactions:
         Term Flag</displayName><vocabType>enum</vocabType></list-item><list-item><csid>7b14a161-8c33-4902-bfd5</csid><uri>/vocabularies/7b14a161-8c33-4902-bfd5</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(chronologytermstatus)'Chronology
         Term Status'</refName><updatedAt>2025-03-04T19:46:23.267Z</updatedAt><workflowState>project</workflowState><rev>4</rev><shortIdentifier>chronologytermstatus</shortIdentifier><displayName>Chronology
         Term Status</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Tue, 19 Aug 2025 20:46:37 GMT
+  recorded_at: Thu, 04 Sep 2025 21:38:05 GMT
 - request:
     method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=7&pgSz=25&wf_deleted=false
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=7&pgSz=25&wf_deleted=true
     body:
       encoding: US-ASCII
       string: ''
@@ -855,7 +855,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Tue, 19 Aug 2025 20:46:37 GMT
+      - Thu, 04 Sep 2025 21:38:06 GMT
       Content-Type:
       - application/xml
       Content-Length:
@@ -867,7 +867,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=9FA27EA0894343D44EA5B58B47E250C1; Path=/cspace-services; Secure;
+      - JSESSIONID=DDB3308AABFDF42138CA0D7FE8C91CEF; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -891,10 +891,10 @@ http_interactions:
         Historical Status</displayName><vocabType>enum</vocabType></list-item><list-item><csid>354a5527-b228-4c22-9c32</csid><uri>/vocabularies/354a5527-b228-4c22-9c32</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(chronologytypes)'Chronology
         Authority Types'</refName><updatedAt>2025-03-04T19:46:23.730Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>chronologytypes</shortIdentifier><displayName>Chronology
         Authority Types</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Tue, 19 Aug 2025 20:46:37 GMT
+  recorded_at: Thu, 04 Sep 2025 21:38:06 GMT
 - request:
     method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/urn:cspace:name(annotationtype)/items?as=vocabularyitems_common:displayName%20=%20%27nomenclature%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/urn:cspace:name(annotationtype)/items?as=vocabularyitems_common:displayName%20=%20%27nomenclature%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=true
     body:
       encoding: US-ASCII
       string: ''
@@ -913,7 +913,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Tue, 19 Aug 2025 20:46:37 GMT
+      - Thu, 04 Sep 2025 21:38:06 GMT
       Content-Type:
       - application/xml
       Content-Length:
@@ -925,7 +925,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=67F54C4F3421698219D73D203BF054B3; Path=/cspace-services; Secure;
+      - JSESSIONID=BB817315A3E903F2ACCE27D5CA850294; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -944,11 +944,11 @@ http_interactions:
     body:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
-        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|sourcePage|sas|proposed|referenced|deprecated|termStatus|description|source|order|displayName|shortIdentifier</fieldsReturned><list-item><csid>6fbda5d3-79c5-4d0e-a0b1</csid><uri>/vocabularies/33b690e9-18b1-4e19-9390/items/6fbda5d3-79c5-4d0e-a0b1</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype):item:name(nomenclature)'nomenclature'</refName><updatedAt>2025-07-26T00:09:27.809Z</updatedAt><workflowState>project</workflowState><rev>30</rev><sas>false</sas><proposed>true</proposed><order>0004</order><displayName>nomenclature</displayName><shortIdentifier>nomenclature</shortIdentifier></list-item></ns2:abstract-common-list>
-  recorded_at: Tue, 19 Aug 2025 20:46:37 GMT
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|sourcePage|sas|proposed|referenced|deprecated|termStatus|description|source|order|displayName|shortIdentifier</fieldsReturned><list-item><csid>6fbda5d3-79c5-4d0e-a0b1</csid><uri>/vocabularies/33b690e9-18b1-4e19-9390/items/6fbda5d3-79c5-4d0e-a0b1</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype):item:name(nomenclature)'nomenclature'</refName><updatedAt>2025-09-04T21:01:35.043Z</updatedAt><workflowState>project</workflowState><rev>34</rev><sas>false</sas><proposed>true</proposed><order>0004</order><displayName>nomenclature</displayName><shortIdentifier>nomenclature</shortIdentifier></list-item></ns2:abstract-common-list>
+  recorded_at: Thu, 04 Sep 2025 21:38:06 GMT
 - request:
     method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/33b690e9-18b1-4e19-9390/items/6fbda5d3-79c5-4d0e-a0b1/refObjs?pgSz=25&wf_deleted=false
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/33b690e9-18b1-4e19-9390/items/6fbda5d3-79c5-4d0e-a0b1/refObjs?pgSz=25&wf_deleted=true
     body:
       encoding: US-ASCII
       string: ''
@@ -967,7 +967,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Tue, 19 Aug 2025 20:46:38 GMT
+      - Thu, 04 Sep 2025 21:38:07 GMT
       Content-Type:
       - application/xml
       Content-Length:
@@ -979,7 +979,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=E749EE54A47B895C1E037E44C45BC15A; Path=/cspace-services; Secure;
+      - JSESSIONID=22B171B866ECA5796D5BADB00926BA62; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -999,5 +999,5 @@ http_interactions:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns3:authority-ref-doc-list
         xmlns:ns2="http://collectionspace.org/services/jaxb" xmlns:ns3="http://collectionspace.org/services/common/authorityref"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>3</itemsInPage><totalItems>3</totalItems><fieldsReturned>docType|docId|docNumber|docName|sourceField|uri|refName|updatedAt|workflowState</fieldsReturned><authority-ref-doc-item><docType>CollectionObject</docType><docId>f7879fc7-75f8-4ac3-ad2d</docId><docNumber>2025.1.15</docNumber><docName></docName><sourceField>collectionobjects_annotation:annotationType</sourceField><value>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype):item:name(nomenclature)'nomenclature'</value><uri>/collectionobjects/f7879fc7-75f8-4ac3-ad2d</uri><refName>urn:cspace:core.collectionspace.org:collectionobjects:id(f7879fc7-75f8-4ac3-ad2d)'2025.1.15'</refName><updatedAt>2025-08-19T20:14:05.078Z</updatedAt><workflowState>project</workflowState></authority-ref-doc-item><authority-ref-doc-item><docType>CollectionObject</docType><docId>500c9a90-fcbc-4a3e-b7ba</docId><docNumber>IN2025.6</docNumber><docName></docName><sourceField>collectionobjects_annotation:annotationType</sourceField><value>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype):item:name(nomenclature)'nomenclature'</value><uri>/collectionobjects/500c9a90-fcbc-4a3e-b7ba</uri><refName>urn:cspace:core.collectionspace.org:collectionobjects:id(500c9a90-fcbc-4a3e-b7ba)'IN2025.6'</refName><updatedAt>2025-08-19T20:09:56.796Z</updatedAt><workflowState>project</workflowState></authority-ref-doc-item><authority-ref-doc-item><docType>CollectionObject</docType><docId>fecfcba9-d226-4389-8b4e</docId><docNumber>2025.1.2</docNumber><docName></docName><sourceField>collectionobjects_annotation:annotationType</sourceField><value>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype):item:name(nomenclature)'nomenclature'</value><uri>/collectionobjects/fecfcba9-d226-4389-8b4e</uri><refName>urn:cspace:core.collectionspace.org:collectionobjects:id(fecfcba9-d226-4389-8b4e)'2025.1.2'</refName><updatedAt>2025-08-08T17:05:37.631Z</updatedAt><workflowState>project</workflowState></authority-ref-doc-item></ns3:authority-ref-doc-list>
-  recorded_at: Tue, 19 Aug 2025 20:46:38 GMT
+  recorded_at: Thu, 04 Sep 2025 21:38:07 GMT
 recorded_with: VCR 6.3.1

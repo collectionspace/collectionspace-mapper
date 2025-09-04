@@ -59,12 +59,23 @@ module CollectionSpace
         #   description, source, sourcePage, and termStatus fields
         def add_term(vocab:, term:, opt_fields: nil)
           vocabulary = yield vocabs.by_name(vocab)
+          status = term_status(term, vocabulary)
+          vocabshortid = vocabulary["shortIdentifier"]
+
+          if status.first == :exists
+            return Failure("#{vocabshortid}/#{term} already exists")
+          end
+
+          if status.first == :soft_deleted
+            return update_term(vocab: vocab, term: term, opt_fields: opt_fields)
+          end
+
           payload = yield term_payload(
             vocab: vocabulary, term: term, mode: :add, opt_fields: opt_fields
           )
           path = "#{vocabulary["uri"]}/items"
           posting = yield post_term(
-            path, payload, vocabulary["shortIdentifier"], term
+            path, payload, vocabshortid, term
           )
 
           Success(posting.sub(/^.*cspace-services/, ""))
@@ -76,20 +87,21 @@ module CollectionSpace
         #   description, source, sourcePage, and termStatus fields
         def update_term(vocab:, term:, opt_fields: nil)
           vocabulary = yield vocabs.by_name(vocab)
-          termresp = searcher.call(
-            value: term, type: "vocabularies",
-            subtype: vocabulary["shortIdentifier"]
-          )
-          unless termresp
+          status = term_status(term, vocabulary)
+          if status.first == :nonexistent
             return Failure("The term \"#{term}\" does not exist in #{vocab}")
           end
 
-          termrec = termresp.dig("list_item", 0)
+          termrec = status[1]
+          path = termrec["uri"]
+          if status.first == :soft_deleted
+            _undelete = yield un_soft_delete(path)
+          end
+
           payload = yield term_payload(
             vocab: vocabulary, term: termrec, mode: :update,
             opt_fields: opt_fields
           )
-          path = termrec["uri"]
           putting = yield put_term(path, payload)
 
           Success(putting)
@@ -97,25 +109,32 @@ module CollectionSpace
 
         # @param vocab [String] the display name of the target Vocabulary
         # @param term [String] the term to create in the Vocabulary
-        def delete_term(vocab:, term:)
+        # @param mode [:soft, :hard] :soft changes workflow state of term to
+        #   deleted; :hard actually deletes the term
+        def delete_term(vocab:, term:, mode: :soft)
           vocabulary = yield vocabs.by_name(vocab)
-          termresp = searcher.call(
-            value: term, type: "vocabularies",
-            subtype: vocabulary["shortIdentifier"]
-          )
-          unless termresp
+          status = term_status(term, vocabulary)
+          if status.first == :nonexistent
             return Failure("The term \"#{term}\" does not exist in #{vocab}")
           end
 
-          termrec = termresp.dig("list_item", 0)
+          termrec = status[1]
           path = termrec["uri"]
-          uses = yield term_usage_count(path)
+          if status.first == :soft_deleted
+            return Success(path)
+          end
 
+          uses = yield term_usage_count(path)
           if uses > 0
             return Failure("#{vocab}/#{term} is used in records #{uses} times")
           end
 
-          deleting = yield delete(path)
+          deleting = case mode
+          when :hard
+            yield delete(path)
+          when :soft
+            yield soft_delete(path)
+          end
 
           Success(deleting)
         end
@@ -123,6 +142,23 @@ module CollectionSpace
         private
 
         attr_reader :domain, :vocabs
+
+        def term_status(term, vocab)
+          response = searcher.call(
+            value: term, type: "vocabularies", subtype: vocab["shortIdentifier"]
+          )
+          return [:nonexistent, nil] unless response
+
+          grouped = response.dig("list_item")
+            .group_by { |item| item["workflowState"] }
+          if grouped.key?("project")
+            [:exists, grouped["project"].first]
+          elsif grouped.key?("deleted")
+            [:soft_deleted, grouped["deleted"].first]
+          else
+            [:unknown, grouped]
+          end
+        end
 
         def term_usage_count(path)
           use_path = "#{path}/refObjs"
@@ -230,6 +266,32 @@ module CollectionSpace
           case result.status_code
           when 200
             Success("#{path} deleted")
+          else
+            Failure(result)
+          end
+        end
+
+        def soft_delete(path)
+          result = client.send(:request, "PUT", "#{path}/workflow/delete")
+        rescue => err
+          Failure(err)
+        else
+          case result.status_code
+          when 200
+            Success(path)
+          else
+            Failure(result)
+          end
+        end
+
+        def un_soft_delete(path)
+          result = client.send(:request, "PUT", "#{path}/workflow/undelete")
+        rescue => err
+          Failure(err)
+        else
+          case result.status_code
+          when 200
+            Success(path)
           else
             Failure(result)
           end
