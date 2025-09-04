@@ -5,7 +5,12 @@ require "spec_helper"
 RSpec.describe CollectionSpace::Mapper::VocabularyTerms::Handler do
   subject(:handler) { described_class.new(client: client) }
 
-  let(:client) { core_client }
+  let(:client) do
+    c = core_client
+    c.config.include_deleted = true
+    c
+  end
+
   let(:opt_fields) { nil }
 
   describe "#add_term" do
@@ -35,6 +40,31 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::Handler do
         client.delete(result.value!)
       end
     end
+
+    context "with soft deleted term", vcr: "vocab_terms_handler_soft_deleted" do
+      before do
+        handler.add_term(vocab: "Annotation Type", term: "soft deleted")
+        handler.delete_term(vocab: "Annotation Type", term: "soft deleted")
+      end
+
+      after do
+        handler.delete_term(vocab: "Annotation Type", term: "soft deleted",
+          mode: :hard)
+      end
+
+      let(:vocab) { "Annotation Type" }
+      let(:term) { "soft deleted" }
+      let(:opt_fields) { {"description" => "a"} }
+      it "returns Success" do
+        expect(result).to be_a(Dry::Monads::Success)
+        parsed = client.get(result.value!).parsed
+        expect(parsed.dig("document", "vocabularyitems_common", "displayName"))
+          .to eq(term)
+        expect(parsed.dig("document", "vocabularyitems_common", "description"))
+          .to eq("a")
+        client.delete(result.value!)
+      end
+    end
   end
 
   describe "#update_term" do
@@ -44,22 +74,24 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::Handler do
 
     context "when adding a field to an existing term",
       vcr: "vocab_terms_handler_existing_add_field" do
-      let(:vocab) { "Annotation Type" }
-      let(:term) { "nomenclature" }
-      let(:opt_fields) { {"description" => "a"} }
-      it "returns Success" do
-        expect(result).to be_a(Dry::Monads::Success)
-        parsed = client.get(result.value!).parsed
-        expect(parsed.dig("document", "vocabularyitems_common", "description"))
-          .to eq("a")
-        handler.update_term(
-          vocab: vocab, term: term, opt_fields: {"description" => "💣"}
-        )
-        cleaned = client.get(result.value!).parsed
-        expect(cleaned.dig("document", "vocabularyitems_common", "description"))
-          .to be_nil
+        let(:vocab) { "Annotation Type" }
+        let(:term) { "nomenclature" }
+        let(:opt_fields) { {"description" => "a"} }
+        it "returns Success" do
+          expect(result).to be_a(Dry::Monads::Success)
+          parsed = client.get(result.value!).parsed
+          expect(parsed.dig("document", "vocabularyitems_common",
+            "description"))
+            .to eq("a")
+          handler.update_term(
+            vocab: vocab, term: term, opt_fields: {"description" => "💣"}
+          )
+          cleaned = client.get(result.value!).parsed
+          expect(cleaned.dig("document", "vocabularyitems_common",
+            "description"))
+            .to be_nil
+        end
       end
-    end
 
     context "when changing display name of existing term",
       vcr: "vocab_terms_handler_existing_change_term" do
@@ -83,6 +115,30 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::Handler do
         end
       end
 
+    context "when soft deleted term",
+      vcr: "vocab_terms_handler_update_softdeleted_change_term" do
+        before do
+          handler.add_term(vocab: "Annotation Type", term: "deleted term")
+          handler.delete_term(vocab: "Annotation Type", term: "deleted term")
+        end
+
+        after do
+          handler.delete_term(vocab: "Annotation Type", term: "undeleted term",
+            mode: :hard)
+        end
+
+        let(:vocab) { "Annotation Type" }
+        let(:term) { "deleted term" }
+        let(:opt_fields) { {"displayName" => "undeleted term"} }
+        it "returns Success" do
+          expect(result).to be_a(Dry::Monads::Success)
+          parsed = client.get(result.value!).parsed
+          expect(parsed.dig("document", "vocabularyitems_common",
+            "displayName"))
+            .to eq("undeleted term")
+        end
+      end
+
     context "with new term", vcr: "vocab_terms_handler_update_new" do
       let(:vocab) { "Annotation Type" }
       let(:term) { "nope" }
@@ -96,43 +152,122 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::Handler do
 
   describe "#delete_term" do
     let(:result) do
-      handler.delete_term(vocab: vocab, term: term)
+      handler.delete_term(vocab: vocab, term: term, mode: mode)
     end
 
-    context "with existing term unused",
-      vcr: "vocab_terms_handler_delete_existing_unused" do
-        before { handler.add_term(vocab: "Annotation Type", term: "deleteme") }
+    context "when mode = hard" do
+      let(:mode) { :hard }
 
-        let(:vocab) { "Annotation Type" }
-        let(:term) { "deleteme" }
+      context "with existing term unused",
+        vcr: "vocab_terms_handler_delete_existing_unused" do
+          before do
+            handler.add_term(vocab: "Annotation Type", term: "deleteme")
+          end
 
-        it "returns Success" do
-          expect(result).to be_a(Dry::Monads::Success)
+          let(:vocab) { "Annotation Type" }
+          let(:term) { "deleteme" }
+
+          it "returns Success" do
+            expect(result).to be_a(Dry::Monads::Success)
+          end
         end
-      end
 
-    context "with existing term used",
-      vcr: "vocab_terms_handler_delete_existing_used" do
-        let(:vocab) { "Annotation Type" }
-        let(:term) { "nomenclature" }
+      context "with existing term used",
+        vcr: "vocab_terms_handler_delete_existing_used" do
+          let(:vocab) { "Annotation Type" }
+          let(:term) { "nomenclature" }
 
-        it "returns Failure" do
-          expect(result).to be_a(Dry::Monads::Failure)
-          expect(result.failure).to eq("Annotation Type/nomenclature is used "\
-                                       "in records 3 times")
+          it "returns Failure" do
+            expect(result).to be_a(Dry::Monads::Failure)
+            expect(result.failure).to eq("Annotation Type/nomenclature is "\
+                                         "used in records 3 times")
+          end
         end
-      end
 
-    context "with non-existent term",
-      vcr: "vocab_terms_handler_delete_nonexisting" do
-        let(:vocab) { "Annotation Type" }
-        let(:term) { "foo" }
+      context "with non-existent term",
+        vcr: "vocab_terms_handler_delete_nonexisting" do
+          let(:vocab) { "Annotation Type" }
+          let(:term) { "foo" }
 
-        it "returns Failure" do
-          expect(result).to be_a(Dry::Monads::Failure)
-          expect(result.failure).to eq("The term \"foo\" does not exist in "\
-                                       "Annotation Type")
+          it "returns Failure" do
+            expect(result).to be_a(Dry::Monads::Failure)
+            expect(result.failure).to eq("The term \"foo\" does not exist in "\
+                                         "Annotation Type")
+          end
         end
-      end
+    end
+
+    context "when mode = soft" do
+      let(:mode) { :soft }
+
+      context "with existing term unused",
+        vcr: "vocab_terms_handler_soft_delete_existing_unused" do
+          before do
+            handler.add_term(vocab: "Annotation Type", term: "deleteme")
+          end
+
+          after do
+            handler.delete_term(vocab: "Annotation Type", term: "deleteme",
+              mode: :hard)
+          end
+
+          let(:vocab) { "Annotation Type" }
+          let(:term) { "deleteme" }
+
+          it "returns Success" do
+            expect(result).to be_a(Dry::Monads::Success)
+            parsed = client.get(result.value!).parsed
+            expect(parsed.dig("document", "collectionspace_core",
+              "workflowState")).to eq("deleted")
+          end
+        end
+
+      context "with existing term used",
+        vcr: "vocab_terms_handler_soft_delete_existing_used" do
+          let(:vocab) { "Annotation Type" }
+          let(:term) { "nomenclature" }
+
+          it "returns Failure" do
+            expect(result).to be_a(Dry::Monads::Failure)
+            expect(result.failure).to eq("Annotation Type/nomenclature is "\
+                                         "used in records 3 times")
+          end
+        end
+
+      context "with non-existent term",
+        vcr: "vocab_terms_handler_soft_delete_nonexisting" do
+          let(:vocab) { "Annotation Type" }
+          let(:term) { "foo" }
+
+          it "returns Failure" do
+            expect(result).to be_a(Dry::Monads::Failure)
+            expect(result.failure).to eq("The term \"foo\" does not exist in "\
+                                         "Annotation Type")
+          end
+        end
+
+      context "with existing soft deleted term",
+        vcr: "vocab_terms_handler_soft_delete_soft_deleted" do
+          before do
+            handler.add_term(vocab: "Annotation Type", term: "softdeleted")
+            handler.delete_term(vocab: "Annotation Type", term: "softdeleted")
+          end
+
+          after do
+            handler.delete_term(vocab: "Annotation Type", term: "softdeleted",
+              mode: :hard)
+          end
+
+          let(:vocab) { "Annotation Type" }
+          let(:term) { "softdeleted" }
+
+          it "returns Success" do
+            expect(result).to be_a(Dry::Monads::Success)
+            parsed = client.get(result.value!).parsed
+            expect(parsed.dig("document", "collectionspace_core",
+              "workflowState")).to eq("deleted")
+          end
+        end
+    end
   end
 end

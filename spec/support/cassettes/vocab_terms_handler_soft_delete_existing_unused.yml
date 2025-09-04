@@ -21,7 +21,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Thu, 04 Sep 2025 21:47:27 GMT
+      - Thu, 04 Sep 2025 21:37:26 GMT
       Content-Type:
       - application/xml
       Content-Length:
@@ -33,7 +33,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=FA3EA31E3A732F052BC99A0B086E5723; Path=/cspace-services; Secure;
+      - JSESSIONID=9BFDAECDA5E229C9082AF3553032A51A; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -55,7 +55,7 @@ http_interactions:
         xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>dea4d607-725d-4318-a910</csid><uri>/personauthorities/dea4d607-725d-4318-a910</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person)'Local
         Persons'</refName><updatedAt>2025-03-04T19:46:34.068Z</updatedAt><workflowState>project</workflowState><rev>9</rev><shortIdentifier>person</shortIdentifier><displayName>Local
         Persons</displayName><vocabType>PersonAuthority</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Thu, 04 Sep 2025 21:47:27 GMT
+  recorded_at: Thu, 04 Sep 2025 21:37:26 GMT
 - request:
     method: get
     uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=0&pgSz=1&wf_deleted=true
@@ -77,7 +77,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Thu, 04 Sep 2025 21:47:27 GMT
+      - Thu, 04 Sep 2025 21:37:26 GMT
       Content-Type:
       - application/xml
       Content-Length:
@@ -89,7 +89,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=42F0D94154FA878AAD455BA472B98DC6; Path=/cspace-services; Secure;
+      - JSESSIONID=86E2E725937F2CD7992C499CF214B41F; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -111,7 +111,7 @@ http_interactions:
         xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>177</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>b5d7a52a-6bf3-407e-b719</csid><uri>/vocabularies/b5d7a52a-6bf3-407e-b719</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(apparelsizes)'Apparel
         sizes'</refName><updatedAt>2025-03-04T19:46:23.970Z</updatedAt><workflowState>project</workflowState><rev>12</rev><shortIdentifier>apparelsizes</shortIdentifier><displayName>Apparel
         sizes</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Thu, 04 Sep 2025 21:47:27 GMT
+  recorded_at: Thu, 04 Sep 2025 21:37:26 GMT
 - request:
     method: get
     uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=0&pgSz=25&wf_deleted=true
@@ -133,7 +133,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Thu, 04 Sep 2025 21:47:28 GMT
+      - Thu, 04 Sep 2025 21:37:27 GMT
       Content-Type:
       - application/xml
       Transfer-Encoding:
@@ -145,7 +145,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=510591DF3EB6E830922964DE7F30AF6D; Path=/cspace-services; Secure;
+      - JSESSIONID=E513EC3412492E4220111D5B3FFBB225; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -213,7 +213,7 @@ http_interactions:
         Object Status</displayName><vocabType>enum</vocabType></list-item><list-item><csid>dd0cf7f6-e9b4-4df8-8589</csid><uri>/vocabularies/dd0cf7f6-e9b4-4df8-8589</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(currency)'Standard
         Currency'</refName><updatedAt>2025-03-04T19:40:48.574Z</updatedAt><workflowState>project</workflowState><rev>7</rev><shortIdentifier>currency</shortIdentifier><displayName>Standard
         Currency</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Thu, 04 Sep 2025 21:47:28 GMT
+  recorded_at: Thu, 04 Sep 2025 21:37:27 GMT
 - request:
     method: get
     uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=1&pgSz=25&wf_deleted=true
@@ -235,7 +235,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Thu, 04 Sep 2025 21:47:28 GMT
+      - Thu, 04 Sep 2025 21:37:27 GMT
       Content-Type:
       - application/xml
       Transfer-Encoding:
@@ -247,7 +247,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=4E7F35343FA0C2F1E82D53C31C61C834; Path=/cspace-services; Secure;
+      - JSESSIONID=36E9B8F34929B2C98AF4AF4F4C83BDB5; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -317,7 +317,7 @@ http_interactions:
         Status</displayName><vocabType>enum</vocabType></list-item><list-item><csid>e9d85700-6ec2-4439-9668</csid><uri>/vocabularies/e9d85700-6ec2-4439-9668</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(treatmentpurpose)'Treatment
         Purpose'</refName><updatedAt>2025-03-04T19:45:38.152Z</updatedAt><workflowState>project</workflowState><rev>7</rev><shortIdentifier>treatmentpurpose</shortIdentifier><displayName>Treatment
         Purpose</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Thu, 04 Sep 2025 21:47:28 GMT
+  recorded_at: Thu, 04 Sep 2025 21:37:27 GMT
 - request:
     method: get
     uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=2&pgSz=25&wf_deleted=true
@@ -339,7 +339,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Thu, 04 Sep 2025 21:47:28 GMT
+      - Thu, 04 Sep 2025 21:37:27 GMT
       Content-Type:
       - application/xml
       Transfer-Encoding:
@@ -351,7 +351,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=FBC695447F2A66C47FF574F75C2A54F4; Path=/cspace-services; Secure;
+      - JSESSIONID=6513D88FC81C1B212BD7EC42A2C8404C; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -421,7 +421,7 @@ http_interactions:
         Properties</displayName><vocabType>enum</vocabType></list-item><list-item><csid>3ec48cc1-271d-4da1-9e02</csid><uri>/vocabularies/3ec48cc1-271d-4da1-9e02</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(electricalproperties)'Electrical
         Properties'</refName><updatedAt>2025-03-04T19:45:48.130Z</updatedAt><workflowState>project</workflowState><rev>4</rev><shortIdentifier>electricalproperties</shortIdentifier><displayName>Electrical
         Properties</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Thu, 04 Sep 2025 21:47:28 GMT
+  recorded_at: Thu, 04 Sep 2025 21:37:27 GMT
 - request:
     method: get
     uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=3&pgSz=25&wf_deleted=true
@@ -443,7 +443,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Thu, 04 Sep 2025 21:47:29 GMT
+      - Thu, 04 Sep 2025 21:37:28 GMT
       Content-Type:
       - application/xml
       Transfer-Encoding:
@@ -455,7 +455,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=633440EF3D699071344BEF2C87CC68AE; Path=/cspace-services; Secure;
+      - JSESSIONID=5B823F53FC6587DD025E83508D0E68B0; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -525,7 +525,7 @@ http_interactions:
         Request Types</displayName><vocabType>enum</vocabType></list-item><list-item><csid>d21950c4-cf21-47fe-9e29</csid><uri>/vocabularies/d21950c4-cf21-47fe-9e29</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(nagpracategory)'NAGPRA
         Categories'</refName><updatedAt>2025-03-04T19:46:30.784Z</updatedAt><workflowState>project</workflowState><rev>7</rev><shortIdentifier>nagpracategory</shortIdentifier><displayName>NAGPRA
         Categories</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Thu, 04 Sep 2025 21:47:29 GMT
+  recorded_at: Thu, 04 Sep 2025 21:37:28 GMT
 - request:
     method: get
     uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=4&pgSz=25&wf_deleted=true
@@ -547,7 +547,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Thu, 04 Sep 2025 21:47:29 GMT
+      - Thu, 04 Sep 2025 21:37:28 GMT
       Content-Type:
       - application/xml
       Transfer-Encoding:
@@ -559,7 +559,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=FC677D24748C28436EB2932DB521117A; Path=/cspace-services; Secure;
+      - JSESSIONID=D43DE9FBCDB1BC2F369720A1D847BDCF; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -611,7 +611,7 @@ http_interactions:
         Cost Responsbile Party</displayName><vocabType>enum</vocabType></list-item><list-item><csid>1d48f5a6-d52d-440d-b05f</csid><uri>/vocabularies/1d48f5a6-d52d-440d-b05f</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(transportadditionalcosttype)'Transport
         Additional Cost Type'</refName><updatedAt>2025-03-04T19:46:04.895Z</updatedAt><workflowState>project</workflowState><rev>7</rev><shortIdentifier>transportadditionalcosttype</shortIdentifier><displayName>Transport
         Additional Cost Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>33b690e9-18b1-4e19-9390</csid><uri>/vocabularies/33b690e9-18b1-4e19-9390</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype)'Annotation
-        Type'</refName><updatedAt>2025-07-25T22:54:59.381Z</updatedAt><workflowState>project</workflowState><rev>119</rev><shortIdentifier>annotationtype</shortIdentifier><displayName>Annotation
+        Type'</refName><updatedAt>2025-07-25T22:54:59.381Z</updatedAt><workflowState>project</workflowState><rev>108</rev><shortIdentifier>annotationtype</shortIdentifier><displayName>Annotation
         Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>1a7ed743-3fe6-4f67-b24a</csid><uri>/vocabularies/1a7ed743-3fe6-4f67-b24a</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(insurancetype)'Insurance/Indemnity
         Type'</refName><updatedAt>2025-03-04T19:46:05.864Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>insurancetype</shortIdentifier><displayName>Insurance/Indemnity
         Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>9c02631b-c160-41fc-aedc</csid><uri>/vocabularies/9c02631b-c160-41fc-aedc</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(insurancestatus)'Insurance/Indemnity
@@ -629,7 +629,7 @@ http_interactions:
         Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>b1e799a0-d359-45ab-a298</csid><uri>/vocabularies/b1e799a0-d359-45ab-a298</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(programminglanguage)'Programming
         Languages'</refName><updatedAt>2025-03-04T19:46:08.345Z</updatedAt><workflowState>project</workflowState><rev>10</rev><shortIdentifier>programminglanguage</shortIdentifier><displayName>Programming
         Languages</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Thu, 04 Sep 2025 21:47:29 GMT
+  recorded_at: Thu, 04 Sep 2025 21:37:28 GMT
 - request:
     method: get
     uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=5&pgSz=25&wf_deleted=true
@@ -651,7 +651,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Thu, 04 Sep 2025 21:47:30 GMT
+      - Thu, 04 Sep 2025 21:37:28 GMT
       Content-Type:
       - application/xml
       Transfer-Encoding:
@@ -663,7 +663,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=DA9B94BB30CCFDDDA1381B611A3C3314; Path=/cspace-services; Secure;
+      - JSESSIONID=197B6CBB38D6848F68E374085CE41704; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -729,7 +729,7 @@ http_interactions:
         Setup Type</displayName><vocabType>enum</vocabType></list-item><list-item><csid>3854cd66-50b0-4f73-9c9e</csid><uri>/vocabularies/3854cd66-50b0-4f73-9c9e</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(maintenancetype)'Maintenance
         Type'</refName><updatedAt>2025-03-04T19:46:15.783Z</updatedAt><workflowState>project</workflowState><rev>5</rev><shortIdentifier>maintenancetype</shortIdentifier><displayName>Maintenance
         Type</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Thu, 04 Sep 2025 21:47:29 GMT
+  recorded_at: Thu, 04 Sep 2025 21:37:28 GMT
 - request:
     method: get
     uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=6&pgSz=25&wf_deleted=true
@@ -751,7 +751,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Thu, 04 Sep 2025 21:47:30 GMT
+      - Thu, 04 Sep 2025 21:37:29 GMT
       Content-Type:
       - application/xml
       Transfer-Encoding:
@@ -763,7 +763,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=ECDF7F8EE35C8D999A60DDE2CC3B1E9C; Path=/cspace-services; Secure;
+      - JSESSIONID=7AFC0E5DDC6B335776B1C2062FF51324; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -833,7 +833,7 @@ http_interactions:
         Term Flag</displayName><vocabType>enum</vocabType></list-item><list-item><csid>7b14a161-8c33-4902-bfd5</csid><uri>/vocabularies/7b14a161-8c33-4902-bfd5</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(chronologytermstatus)'Chronology
         Term Status'</refName><updatedAt>2025-03-04T19:46:23.267Z</updatedAt><workflowState>project</workflowState><rev>4</rev><shortIdentifier>chronologytermstatus</shortIdentifier><displayName>Chronology
         Term Status</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Thu, 04 Sep 2025 21:47:30 GMT
+  recorded_at: Thu, 04 Sep 2025 21:37:29 GMT
 - request:
     method: get
     uri: https://core.dev.collectionspace.org/cspace-services/vocabularies?pgNum=7&pgSz=25&wf_deleted=true
@@ -855,7 +855,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Thu, 04 Sep 2025 21:47:30 GMT
+      - Thu, 04 Sep 2025 21:37:29 GMT
       Content-Type:
       - application/xml
       Content-Length:
@@ -867,7 +867,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=40F8884F5B724B67BD5FC28D784D7D91; Path=/cspace-services; Secure;
+      - JSESSIONID=3D81DC49B3F92406D3A7381D3274E623; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -891,10 +891,10 @@ http_interactions:
         Historical Status</displayName><vocabType>enum</vocabType></list-item><list-item><csid>354a5527-b228-4c22-9c32</csid><uri>/vocabularies/354a5527-b228-4c22-9c32</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(chronologytypes)'Chronology
         Authority Types'</refName><updatedAt>2025-03-04T19:46:23.730Z</updatedAt><workflowState>project</workflowState><rev>3</rev><shortIdentifier>chronologytypes</shortIdentifier><displayName>Chronology
         Authority Types</displayName><vocabType>enum</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Thu, 04 Sep 2025 21:47:30 GMT
+  recorded_at: Thu, 04 Sep 2025 21:37:29 GMT
 - request:
     method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/urn:cspace:name(annotationtype)/items?as=vocabularyitems_common:displayName%20=%20%27foo%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=true
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/urn:cspace:name(annotationtype)/items?as=vocabularyitems_common:displayName%20=%20%27deleteme%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=true
     body:
       encoding: US-ASCII
       string: ''
@@ -913,11 +913,11 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Thu, 04 Sep 2025 21:47:31 GMT
+      - Thu, 04 Sep 2025 21:37:30 GMT
       Content-Type:
       - application/xml
       Content-Length:
-      - '445'
+      - '916'
       Connection:
       - keep-alive
       Vary:
@@ -925,7 +925,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=096004B3696EFF5DF4B3A5DCDE1A46D2; Path=/cspace-services; Secure;
+      - JSESSIONID=6A2E35D2804C9617198FCCB13202F24D; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -944,11 +944,11 @@ http_interactions:
     body:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
-        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|sourcePage|sas|proposed|referenced|deprecated|termStatus|description|source|order|displayName|shortIdentifier</fieldsReturned></ns2:abstract-common-list>
-  recorded_at: Thu, 04 Sep 2025 21:47:31 GMT
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|sourcePage|sas|proposed|referenced|deprecated|termStatus|description|source|order|displayName|shortIdentifier</fieldsReturned><list-item><csid>979e291a-b86b-4cfd-aa8f</csid><uri>/vocabularies/33b690e9-18b1-4e19-9390/items/979e291a-b86b-4cfd-aa8f</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype):item:name(deleteme)'deleteme'</refName><updatedAt>2025-09-04T20:13:04.489Z</updatedAt><workflowState>deleted</workflowState><rev>1</rev><sas>false</sas><proposed>true</proposed><displayName>deleteme</displayName><shortIdentifier>deleteme</shortIdentifier></list-item></ns2:abstract-common-list>
+  recorded_at: Thu, 04 Sep 2025 21:37:29 GMT
 - request:
     method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/urn:cspace:name(annotationtype)/items?as=vocabularyitems_common:displayName%20ILIKE%20%27foo%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=true
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/urn:cspace:name(annotationtype)/items?as=vocabularyitems_common:displayName%20=%20%27deleteme%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=true
     body:
       encoding: US-ASCII
       string: ''
@@ -967,11 +967,11 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Thu, 04 Sep 2025 21:47:31 GMT
+      - Thu, 04 Sep 2025 21:37:30 GMT
       Content-Type:
       - application/xml
       Content-Length:
-      - '445'
+      - '916'
       Connection:
       - keep-alive
       Vary:
@@ -979,7 +979,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=F37BFF199F1D5BB4B488A99239F62645; Path=/cspace-services; Secure;
+      - JSESSIONID=82D2E7C14DA43227D29BCAF938B26232; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -998,6 +998,512 @@ http_interactions:
     body:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
-        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|sourcePage|sas|proposed|referenced|deprecated|termStatus|description|source|order|displayName|shortIdentifier</fieldsReturned></ns2:abstract-common-list>
-  recorded_at: Thu, 04 Sep 2025 21:47:31 GMT
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|sourcePage|sas|proposed|referenced|deprecated|termStatus|description|source|order|displayName|shortIdentifier</fieldsReturned><list-item><csid>979e291a-b86b-4cfd-aa8f</csid><uri>/vocabularies/33b690e9-18b1-4e19-9390/items/979e291a-b86b-4cfd-aa8f</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype):item:name(deleteme)'deleteme'</refName><updatedAt>2025-09-04T20:13:04.489Z</updatedAt><workflowState>deleted</workflowState><rev>1</rev><sas>false</sas><proposed>true</proposed><displayName>deleteme</displayName><shortIdentifier>deleteme</shortIdentifier></list-item></ns2:abstract-common-list>
+  recorded_at: Thu, 04 Sep 2025 21:37:30 GMT
+- request:
+    method: put
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/33b690e9-18b1-4e19-9390/items/979e291a-b86b-4cfd-aa8f/workflow/undelete?pgSz=25&wf_deleted=true
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - nnnn
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Thu, 04 Sep 2025 21:37:30 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '333'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=4E50D35D640BA4D0DE10E09E8187C2C8; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <document name="workflow"><ns2:workflow_common xmlns:ns2="http://collectionspace.org/services/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><currentLifeCycleState>project</currentLifeCycleState><lifeCyclePolicy>cs_replicating</lifeCyclePolicy></ns2:workflow_common></document>
+  recorded_at: Thu, 04 Sep 2025 21:37:30 GMT
+- request:
+    method: put
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/33b690e9-18b1-4e19-9390/items/979e291a-b86b-4cfd-aa8f?pgSz=25&wf_deleted=true
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+        <document name="vocabularyitems">
+            <ns2:vocabularyitems_common xmlns:ns2="http://collectionspace.org/services/vocabulary" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+               <inAuthority>33b690e9-18b1-4e19-9390</inAuthority>
+               <shortIdentifier>deleteme</shortIdentifier>
+            <refName>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype):item:name(deleteme)'deleteme'</refName><displayName>deleteme</displayName></ns2:vocabularyitems_common>
+        </document>
+    headers:
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - nnnn
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Thu, 04 Sep 2025 21:37:31 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '1212'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=2060C3754AF5B8EA49912F6A5BE4A52D; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <document name="vocabularyitems"><ns2:collectionspace_core xmlns:ns2="http://collectionspace.org/collectionspace_core/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><createdAt>2025-09-04T19:34:44.632Z</createdAt><updatedBy>admin@core.collectionspace.org</updatedBy><createdBy>admin@core.collectionspace.org</createdBy><workflowState>project</workflowState><tenantId>1</tenantId><refName>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype):item:name(deleteme)'deleteme'</refName><uri>/vocabularies/33b690e9-18b1-4e19-9390/items/979e291a-b86b-4cfd-aa8f</uri><updatedAt>2025-09-04T21:37:31.159Z</updatedAt></ns2:collectionspace_core><ns2:vocabularyitems_common xmlns:ns2="http://collectionspace.org/services/vocabulary" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><rev>3</rev><sas>false</sas><csid>979e291a-b86b-4cfd-aa8f</csid><displayName>deleteme</displayName><shortIdentifier>deleteme</shortIdentifier><proposed>true</proposed><refName>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype):item:name(deleteme)'deleteme'</refName><inAuthority>33b690e9-18b1-4e19-9390</inAuthority></ns2:vocabularyitems_common></document>
+  recorded_at: Thu, 04 Sep 2025 21:37:31 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/urn:cspace:name(annotationtype)/items?as=vocabularyitems_common:displayName%20=%20%27deleteme%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Thu, 04 Sep 2025 21:37:31 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '916'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=FE26E1610067C25BD278D2EBE97FC4B8; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|sourcePage|sas|proposed|referenced|deprecated|termStatus|description|source|order|displayName|shortIdentifier</fieldsReturned><list-item><csid>979e291a-b86b-4cfd-aa8f</csid><uri>/vocabularies/33b690e9-18b1-4e19-9390/items/979e291a-b86b-4cfd-aa8f</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype):item:name(deleteme)'deleteme'</refName><updatedAt>2025-09-04T21:37:31.159Z</updatedAt><workflowState>project</workflowState><rev>3</rev><sas>false</sas><proposed>true</proposed><displayName>deleteme</displayName><shortIdentifier>deleteme</shortIdentifier></list-item></ns2:abstract-common-list>
+  recorded_at: Thu, 04 Sep 2025 21:37:31 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/33b690e9-18b1-4e19-9390/items/979e291a-b86b-4cfd-aa8f/refObjs?pgSz=25&wf_deleted=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Thu, 04 Sep 2025 21:37:31 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '442'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=A37C6F162EBB27AEC56CD84433A21F5B; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns3:authority-ref-doc-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb" xmlns:ns3="http://collectionspace.org/services/common/authorityref"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>docType|docId|docNumber|docName|sourceField|uri|refName|updatedAt|workflowState</fieldsReturned></ns3:authority-ref-doc-list>
+  recorded_at: Thu, 04 Sep 2025 21:37:31 GMT
+- request:
+    method: put
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/33b690e9-18b1-4e19-9390/items/979e291a-b86b-4cfd-aa8f/workflow/delete?pgSz=25&wf_deleted=true
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - nnnn
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Thu, 04 Sep 2025 21:37:32 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '333'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=A0A68CF0136115060228268A868D0B4C; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <document name="workflow"><ns2:workflow_common xmlns:ns2="http://collectionspace.org/services/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><currentLifeCycleState>deleted</currentLifeCycleState><lifeCyclePolicy>cs_replicating</lifeCyclePolicy></ns2:workflow_common></document>
+  recorded_at: Thu, 04 Sep 2025 21:37:32 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/33b690e9-18b1-4e19-9390/items/979e291a-b86b-4cfd-aa8f?pgSz=25&wf_deleted=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Thu, 04 Sep 2025 21:37:32 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '1508'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=BC3638A2B6B8DCFF52F97669B382E564; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <document name="vocabularyitems"><ns2:collectionspace_core xmlns:ns2="http://collectionspace.org/collectionspace_core/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><createdAt>2025-09-04T19:34:44.632Z</createdAt><updatedBy>admin@core.collectionspace.org</updatedBy><createdBy>admin@core.collectionspace.org</createdBy><workflowState>deleted</workflowState><tenantId>1</tenantId><refName>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype):item:name(deleteme)'deleteme'</refName><uri>/vocabularies/33b690e9-18b1-4e19-9390/items/979e291a-b86b-4cfd-aa8f</uri><updatedAt>2025-09-04T21:37:32.267Z</updatedAt></ns2:collectionspace_core><ns2:vocabularyitems_common xmlns:ns2="http://collectionspace.org/services/vocabulary" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><rev>4</rev><sas>false</sas><csid>979e291a-b86b-4cfd-aa8f</csid><displayName>deleteme</displayName><shortIdentifier>deleteme</shortIdentifier><proposed>true</proposed><refName>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype):item:name(deleteme)'deleteme'</refName><inAuthority>33b690e9-18b1-4e19-9390</inAuthority></ns2:vocabularyitems_common><ns2:account_permission xmlns:ns2="http://collectionspace.org/services/authorization"><account><accountId>9400bcbb-1a47-4f37-9582-9faa60de57bb</accountId><screenName>Administrator</screenName><userId>admin@core.collectionspace.org</userId><tenantId>1</tenantId></account></ns2:account_permission></document>
+  recorded_at: Thu, 04 Sep 2025 21:37:32 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/urn:cspace:name(annotationtype)/items?as=vocabularyitems_common:displayName%20=%20%27deleteme%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Thu, 04 Sep 2025 21:37:33 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '916'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=47FEDD6C375CEF1421D3ACDD019920CC; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|sourcePage|sas|proposed|referenced|deprecated|termStatus|description|source|order|displayName|shortIdentifier</fieldsReturned><list-item><csid>979e291a-b86b-4cfd-aa8f</csid><uri>/vocabularies/33b690e9-18b1-4e19-9390/items/979e291a-b86b-4cfd-aa8f</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype):item:name(deleteme)'deleteme'</refName><updatedAt>2025-09-04T21:37:32.267Z</updatedAt><workflowState>deleted</workflowState><rev>4</rev><sas>false</sas><proposed>true</proposed><displayName>deleteme</displayName><shortIdentifier>deleteme</shortIdentifier></list-item></ns2:abstract-common-list>
+  recorded_at: Thu, 04 Sep 2025 21:37:33 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/33b690e9-18b1-4e19-9390/items/979e291a-b86b-4cfd-aa8f/refObjs?pgSz=25&wf_deleted=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Thu, 04 Sep 2025 21:37:33 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '442'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=2AEDD5B6C11AB4CE5F587EDA2C79BE00; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns3:authority-ref-doc-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb" xmlns:ns3="http://collectionspace.org/services/common/authorityref"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>docType|docId|docNumber|docName|sourceField|uri|refName|updatedAt|workflowState</fieldsReturned></ns3:authority-ref-doc-list>
+  recorded_at: Thu, 04 Sep 2025 21:37:33 GMT
+- request:
+    method: delete
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/33b690e9-18b1-4e19-9390/items/979e291a-b86b-4cfd-aa8f?pgSz=25&wf_deleted=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Thu, 04 Sep 2025 21:37:33 GMT
+      Content-Length:
+      - '0'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=99DF87CA111488F2BA10BFC0BBEE5D37; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Thu, 04 Sep 2025 21:37:33 GMT
 recorded_with: VCR 6.3.1
