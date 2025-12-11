@@ -2,8 +2,10 @@
 
 module CollectionSpace
   module Mapper
-    # Checks incoming data before mapping to ensure the necessary data is
-    #   present to do the mapping
+    # Checks incoming batch data before mapping/processing step to ensure the
+    #   required data is present to do the mapping. Does not handle validation
+    #   of individual field values against defined data types, which is
+    #   handled during the actual mapping/processing.
     class DataValidator
       # @param handler [CollectionSpace::Mapper::DataHandler]
       def initialize(handler)
