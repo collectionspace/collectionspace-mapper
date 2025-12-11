@@ -22,7 +22,8 @@ module CollectionSpace
       #   looked-up entities
       setting :csidcache, default: nil, reader: true
       # @return [CollectionSpace::Mapper::DataValidator, nil] class used to
-      #   validate data for the batch run
+      #   perform initial validation of batch data for the batch run. Does not
+      #   validate individual field values!
       setting :validator, default: nil, reader: true
       # @return [CollectionSpace::Mapper::Searcher, nil] class used to look up
       #   terms in CS instance for the batch run
