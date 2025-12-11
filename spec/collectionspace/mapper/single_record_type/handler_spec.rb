@@ -13,11 +13,11 @@ RSpec.describe CollectionSpace::Mapper::SingleRecordType::Handler do
 
   let(:profile) { "core" }
   let(:mapper) do
-        "https://raw.githubusercontent.com/collectionspace/"\
-          "cspace-config-untangler/refs/heads/main/data/mappers/"\
-          "community_profiles/release_8_1_1_newstyle/core/"\
-          "core_10-0-2_group.json"
-      end
+    "https://raw.githubusercontent.com/collectionspace/"\
+      "cspace-config-untangler/refs/heads/main/data/mappers/"\
+      "community_profiles/release_8_1_1_newstyle/core/"\
+      "core_10-0-2_group.json"
+  end
   let(:config) { {} }
 
   describe "#service_type", vcr: "core_group_10-0-2" do
