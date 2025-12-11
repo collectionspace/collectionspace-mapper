@@ -14,6 +14,8 @@ This project bumps the version number for any changes (including documentation u
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 
 - none
+## [6.3.0] - 2025-12-11
+- Validate values in fields with boolean, float, integer data types. Add an error to the Response with category = invalid_value_for_data_type if any invalid values are detected.
 
 ## [6.2.0] - 2025-09-04
 - Add rubocop binstub
