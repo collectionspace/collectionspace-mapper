@@ -8,7 +8,6 @@ module CollectionSpace
       # @param data [Hash, CollectionSpace::Mapper::Response]
       def initialize(data, handler)
         super
-        @cache = handler.termcache
         @type = response.merged_data["term_type"]
         @subtype = response.merged_data["term_subtype"]
       end

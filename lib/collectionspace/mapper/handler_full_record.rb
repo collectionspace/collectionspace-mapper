@@ -15,10 +15,10 @@ module CollectionSpace
       # @return [String] base domain as used in RefName URNs (e.g.
       #   core.collectionspace.org)
       setting :domain, default: nil, reader: true
-      # @return [CollectionSpace::RefCache, nil] used to store refnames of
+      # @return [CollectionSpace::Refcache, nil] used to store refnames of
       #   looked-up terms
       setting :termcache, default: nil, reader: true
-      # @return [CollectionSpace::RefCache, nil] used to store CSIDs of
+      # @return [CollectionSpace::Refcache, nil] used to store CSIDs of
       #   looked-up entities
       setting :csidcache, default: nil, reader: true
       # @return [CollectionSpace::Mapper::DataValidator, nil] class used to
@@ -97,9 +97,9 @@ module CollectionSpace
       # @param record_mapper [Hash, String] parseable JSON string or already-
       #   parsed JSON converted to Hash
       # @param client [CollectionSpace::Client]
-      # @param cache [CollectionSpace::RefCache] to be used for caching term
+      # @param cache [CollectionSpace::Refcache] to be used for caching term
       #   refname URNs
-      # @param csid_cache [CollectionSpace::RefCache]
+      # @param csid_cache [CollectionSpace::Refcache]
       # @param config [Hash, String] parseable JSON string or already-
       #   parsed JSON converted to Hash
       def initialize(record_mapper:, client:, cache:, csid_cache:, config: {})

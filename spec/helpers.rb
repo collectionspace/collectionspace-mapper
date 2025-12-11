@@ -43,6 +43,16 @@ module Helpers
     end
   end
 
+  def setup_single_record_type_handler(mapper:, optlist_override: nil,
+    profile: "core", config: {})
+    CollectionSpace::Mapper::SingleRecordType::Handler.new(
+      record_mapper: mapper,
+      client: send(:"#{profile}_client"),
+      cache: send(:"#{profile}_combined_cache"),
+      config: config
+    )
+  end
+
   def setup_handler(mapper:, profile: "core", config: {})
     client = send(:"#{profile}_client")
     termcache = send(:"#{profile}_cache")
@@ -178,8 +188,9 @@ module Helpers
     end
   end
 
-  def populate(cache, terms)
+  def populate(cache, terms, value_type = nil)
     terms.each do |term|
+      term << value_type if value_type
       cache.put(*term)
     end
     cache
