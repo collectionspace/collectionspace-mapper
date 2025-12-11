@@ -12,11 +12,12 @@ module CollectionSpace
       private
 
       def cache_mode = if handler.respond_to?(:termcache) &&
-                           handler.respond_to?(:csidcache)
+          handler.respond_to?(:csidcache)
                          :separate
                        else
                          :allinone
                        end
+
       def cache(value_type)
         return combinedcache if cache_mode == :allinone
 

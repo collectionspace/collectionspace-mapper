@@ -194,8 +194,9 @@ RSpec.describe CollectionSpace::Mapper::Cacheable,
       context "when in cache" do
         let(:val) { "Test" }
         it "returns refname urn" do
-          expected = "urn:cspace:c.core.collectionspace.org:conceptauthorities:"\
-            "name(concept):item:name(Test1599650854716)'Test'"
+          expected = "urn:cspace:c.core.collectionspace.org:"\
+            "conceptauthorities:name(concept):item:"\
+            "name(Test1599650854716)'Test'"
           expect(result).to eq(expected)
         end
       end

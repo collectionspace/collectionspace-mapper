@@ -23,7 +23,6 @@ loader.push_dir("#{__dir__}/mapper", namespace: CollectionSpace::Mapper)
 loader.setup
 loader.eager_load
 
-
 module CollectionSpace
   module Mapper
     extend Dry::Configurable
