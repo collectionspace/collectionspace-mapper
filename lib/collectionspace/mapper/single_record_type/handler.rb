@@ -106,13 +106,14 @@ module CollectionSpace
           self.config.client = client
           self.config.domain = client.domain
           self.config.cache = if cache.is_a?(CollectionSpace::Refcache)
-                                cache
-                              else
-                                CollectionSpace::Refcache.new(config: {
-                                  domain: client.domain,
-                                  store: cache,
-                                  lifetime: 10 * 60}) # 10 minutes
-                              end
+            cache
+          else
+            CollectionSpace::Refcache.new(config: {
+              domain: client.domain,
+              store: cache,
+              lifetime: 10 * 60
+            }) # 10 minutes
+          end
 
           # initializing the RecordMapper causes app config record config
           #   settings to be populated, including :recordtype

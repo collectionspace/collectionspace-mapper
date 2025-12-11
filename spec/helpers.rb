@@ -44,7 +44,7 @@ module Helpers
   end
 
   def setup_single_record_type_handler(mapper:, optlist_override: nil,
-                                       profile: "core", config: {})
+    profile: "core", config: {})
     CollectionSpace::Mapper::SingleRecordType::Handler.new(
       record_mapper: mapper,
       client: send(:"#{profile}_client"),
@@ -58,10 +58,10 @@ module Helpers
     termcache = send(:"#{profile}_cache")
     csidcache = send(:"#{profile}_csid_cache")
     mapper = if mapper.start_with?("http")
-               mapper
-             else
-               get_json_record_mapper(mapper)
-             end
+      mapper
+    else
+      get_json_record_mapper(mapper)
+    end
     CollectionSpace::Mapper::DataHandler.new(
       record_mapper: mapper,
       client: client,
