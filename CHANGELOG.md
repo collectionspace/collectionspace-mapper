@@ -14,6 +14,10 @@ This project bumps the version number for any changes (including documentation u
 ## [Unreleased] - i.e. pushed to main branch but not yet tagged as a release
 
 - none
+
+## [6.3.1] - 2026-01-22
+- Allow `+` and `-` at the beginning of float and integer data types.
+
 ## [6.3.0] - 2025-12-11
 - Validate values in fields with boolean, float, integer data types. Add an error to the Response with category = invalid_value_for_data_type if any invalid values are detected.
 
