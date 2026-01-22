@@ -53,9 +53,9 @@ module CollectionSpace
 
       def valid_boolean?(v) = v.match?(/^(?:true|false)$/)
 
-      def valid_float?(v) = v.match?(/^\d+(?:\.\d+)?$/)
+      def valid_float?(v) = v.match?(/^[+-]?\d+(?:\.\d+)?$/)
 
-      def valid_integer?(v) = v.match?(/^\d+$/)
+      def valid_integer?(v) = v.match?(/^[+-]?\d+$/)
 
       # @param [Array<String>]
       def add_data_type_error(vals)
