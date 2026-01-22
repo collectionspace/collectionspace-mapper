@@ -29,14 +29,14 @@ RSpec.describe CollectionSpace::Mapper::DataQualityChecker do
     end
 
     context "with invalid value" do
-      let(:data) { ["1,234", "42", "about 42", "%NULLVALUE%"] }
+      let(:data) { ["1,234", "42", "about 42", "3-1", "3+1"] }
 
       it "adds expected error" do
         err = {
           category: :invalid_value_for_data_type,
           message: "The age column's data type is "\
             "integer. The following values are not valid "\
-            "integers: 1,234|about 42"
+            "integers: 1,234|about 42|3-1|3+1"
         }
         expect(response).to receive(:add_error).with(err).once
         checker
@@ -44,7 +44,7 @@ RSpec.describe CollectionSpace::Mapper::DataQualityChecker do
     end
 
     context "with placeholder, empty, and valid values" do
-      let(:data) { ["%NULLVALUE%", "", "42"] }
+      let(:data) { ["%NULLVALUE%", "", "42", "-7", "+7"] }
 
       it "does not add error" do
         expect(response).not_to receive(:add_error)
@@ -66,14 +66,16 @@ RSpec.describe CollectionSpace::Mapper::DataQualityChecker do
     end
 
     context "with invalid value" do
-      let(:data) { [["33", "$100.00"], ["1.2", "1,234"]] }
+      let(:data) do
+        [["33", "$100.00"], ["1.2", "1,234"], ["1.2-3.4", "1.2+3.4"]]
+      end
 
       it "adds expected error" do
         err = {
           category: :invalid_value_for_data_type,
           message: "The anthroownershippriceamount column's data type is "\
             "float. The following values are not valid "\
-            "floats: $100.00|1,234"
+            "floats: $100.00|1,234|1.2-3.4|1.2+3.4"
         }
         expect(response).to receive(:add_error).with(err).once
         checker
@@ -81,7 +83,7 @@ RSpec.describe CollectionSpace::Mapper::DataQualityChecker do
     end
 
     context "with placeholder, empty, and valid values" do
-      let(:data) { ["%NULLVALUE%", "", "1.2"] }
+      let(:data) { ["%NULLVALUE%", "", "1.2", "-123.004", "+123.004"] }
 
       it "does not add error" do
         expect(response).not_to receive(:add_error)
