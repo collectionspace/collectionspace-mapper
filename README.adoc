@@ -16,6 +16,6 @@ The full ecosystem of the CollectionSpace "batch data stack" is described https:
 == Documentation
 See files in the doc folder for all documentation. Of note:
 
-- https://github.com/collectionspace/collectionspace-mapper/blob/master/doc/setup_for_development.adoc[Setting up for development/testing]
-- https://github.com/collectionspace/collectionspace-mapper/blob/master/doc/usage.adoc[How to use `collectionspace-mapper` and its results]
-- https://github.com/collectionspace/collectionspace-mapper/blob/master/doc/batch_configuration.adoc[Data processing and transformation options]
+- https://github.com/collectionspace/collectionspace-mapper/blob/main/doc/setup_for_development.adoc[Setting up for development/testing]
+- https://github.com/collectionspace/collectionspace-mapper/blob/main/doc/usage.adoc[How to use `collectionspace-mapper` and its results]
+- https://github.com/collectionspace/collectionspace-mapper/blob/main/doc/batch_configuration.adoc[Data processing and transformation options]
