@@ -15,15 +15,17 @@ module CollectionSpace
       # @param ingestformat %i[csvimporter datatoolkit]
       def initialize(handler:, mapper:, ingestformat: :csvimporter)
         @handler = handler
+        @mapper = mapper
         @ingestformat = ingestformat
         handler.config.recordmapper = self
-        @hash = set_hash(mapper)
         configure_record
       end
 
       private
 
-      attr_reader :handler, :ingestformat, :hash
+      def hash = @hash ||= set_hash(mapper)
+
+      attr_reader :handler, :mapper, :ingestformat
 
       def set_hash(mapper)
         return mapper.transform_keys { |key| key.to_sym } if mapper.is_a?(Hash)
