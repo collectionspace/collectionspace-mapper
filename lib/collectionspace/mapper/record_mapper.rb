@@ -12,8 +12,10 @@ module CollectionSpace
       # @param handler [CollectionSpace::Mapper::DataHandler]
       # @param mapper [String, Hash] URL to JSON file, parseable JSON string, or
       #   already-parsed Hash from JSON
-      def initialize(handler:, mapper:)
+      # @param ingestformat %i[csvimporter datatoolkit]
+      def initialize(handler:, mapper:, ingestformat: :csvimporter)
         @handler = handler
+        @ingestformat = ingestformat
         handler.config.recordmapper = self
         @hash = set_hash(mapper)
         configure_record
@@ -21,7 +23,7 @@ module CollectionSpace
 
       private
 
-      attr_reader :handler, :hash
+      attr_reader :handler, :ingestformat, :hash
 
       def set_hash(mapper)
         return mapper.transform_keys { |key| key.to_sym } if mapper.is_a?(Hash)
