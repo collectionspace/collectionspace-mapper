@@ -87,7 +87,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable,
     context "when not in cache", vcr: "obj_csid_QA_TEST_001" do
       let(:objnum) { "QA TEST 001" }
       it "returns csid" do
-        expect(result).to eq("56c04f5f-32b9-4f1d-8a4b")
+        expect(result).to eq("a6afce09-1631-49b5-a996")
       end
     end
 
@@ -113,7 +113,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable,
       context "when not in cache", vcr: "obj_csid_QA_TEST_001" do
         let(:objnum) { "QA TEST 001" }
         it "returns csid" do
-          expect(result).to eq("56c04f5f-32b9-4f1d-8a4b")
+          expect(result).to eq("a6afce09-1631-49b5-a996")
         end
       end
     end
@@ -134,7 +134,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable,
     context "when not in cache", vcr: "term_csid_QA_TEST_Concept_2" do
       let(:val) { "QA TEST Concept 2" }
       it "returns csid" do
-        expect(result).to eq("8a76c4d7-d66d-451c-abee")
+        expect(result).to eq("2c680365-9571-48c3-b820")
       end
     end
 
@@ -161,7 +161,7 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable,
       context "when not in cache", vcr: "term_csid_QA_TEST_Concept_2" do
         let(:val) { "QA TEST Concept 2" }
         it "returns csid" do
-          expect(result).to eq("8a76c4d7-d66d-451c-abee")
+          expect(result).to eq("2c680365-9571-48c3-b820")
         end
       end
     end
