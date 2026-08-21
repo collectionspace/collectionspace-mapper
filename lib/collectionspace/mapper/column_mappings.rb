@@ -24,9 +24,6 @@ module CollectionSpace
         @lkup = {}
         handler.record.extensions.each { |ext| extend ext }
         mappings.each { |mapping| add_mapping(mapping) }
-
-        # binding.pry
-        # special_mappings.each { |mapping| add_mapping(mapping) }
       end
 
       def <<(mapping) = add_mapping(mapping)
@@ -53,10 +50,6 @@ module CollectionSpace
       private
 
       attr_reader :transforms, :all, :lkup
-
-      # def special_mappings
-      #   []
-      # end
     end
   end
 end
