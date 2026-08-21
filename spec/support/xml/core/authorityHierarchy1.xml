@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <document name="relations">
     <ns2:relations_common xmlns:ns2="http://collectionspace.org/services/relation">
-        <subjectCsid>235246aa-a981-4d2a-92f1</subjectCsid>
+        <subjectCsid>316ded5d-8318-484d-b236</subjectCsid>
         <relationshipType>hasBroader</relationshipType>
-        <objectCsid>fba204d0-004b-49a3-8676</objectCsid>
+        <objectCsid>0fc5b67c-b5e6-4311-bc21</objectCsid>
     </ns2:relations_common>
 </document>

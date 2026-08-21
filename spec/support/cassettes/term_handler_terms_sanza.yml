@@ -7,12 +7,14 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - CollectionSpaceClient/1.1.0
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
-      User-Agent:
-      - Ruby
       Authorization:
       - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
   response:
@@ -21,32 +23,41 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sun, 16 Apr 2023 19:48:08 GMT
+      - Fri, 21 Aug 2026 23:53:48 GMT
       Content-Type:
-      - application/xml
+      - application/xml;charset=UTF-8
       Content-Length:
-      - '807'
+      - '805'
       Connection:
       - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=AC2D5CA27F39ACBA79BD70B5F1FE55B2; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
       - no-cache
       Expires:
       - '0'
-      X-Xss-Protection:
-      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
       X-Frame-Options:
       - DENY
-      X-Content-Type-Options:
-      - nosniff
     body:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
-        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>0f6cddfa-32ce-4c25-9b2f</csid><uri>/personauthorities/0f6cddfa-32ce-4c25-9b2f</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person)'Local
-        Persons'</refName><updatedAt>2020-02-08T03:31:20.492Z</updatedAt><workflowState>project</workflowState><rev>1117</rev><shortIdentifier>person</shortIdentifier><displayName>Local
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>dea4d607-725d-4318-a910</csid><uri>/personauthorities/dea4d607-725d-4318-a910</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person)'Local
+        Persons'</refName><updatedAt>2025-03-04T19:46:34.068Z</updatedAt><workflowState>project</workflowState><rev>66</rev><shortIdentifier>person</shortIdentifier><displayName>Local
         Persons</displayName><vocabType>PersonAuthority</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Sun, 16 Apr 2023 19:48:08 GMT
+  recorded_at: Fri, 21 Aug 2026 23:53:48 GMT
 - request:
     method: get
     uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/urn:cspace:name(languages)/items?as=vocabularyitems_common:displayName%20=%20%27Sanza%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
@@ -54,12 +65,14 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - CollectionSpaceClient/1.1.0
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
-      User-Agent:
-      - Ruby
       Authorization:
       - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
   response:
@@ -68,99 +81,9 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sun, 16 Apr 2023 19:48:09 GMT
+      - Fri, 21 Aug 2026 23:53:49 GMT
       Content-Type:
-      - application/xml
-      Content-Length:
-      - '445'
-      Connection:
-      - keep-alive
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - '0'
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Frame-Options:
-      - DENY
-      X-Content-Type-Options:
-      - nosniff
-    body:
-      encoding: UTF-8
-      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
-        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|sourcePage|sas|proposed|referenced|deprecated|termStatus|description|source|order|displayName|shortIdentifier</fieldsReturned></ns2:abstract-common-list>
-  recorded_at: Sun, 16 Apr 2023 19:48:09 GMT
-- request:
-    method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/urn:cspace:name(languages)/items?as=vocabularyitems_common:displayName%20=%20%27sanza%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-      Authorization:
-      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Date:
-      - Sun, 16 Apr 2023 19:48:09 GMT
-      Content-Type:
-      - application/xml
-      Content-Length:
-      - '445'
-      Connection:
-      - keep-alive
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - '0'
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Frame-Options:
-      - DENY
-      X-Content-Type-Options:
-      - nosniff
-    body:
-      encoding: UTF-8
-      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
-        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|sourcePage|sas|proposed|referenced|deprecated|termStatus|description|source|order|displayName|shortIdentifier</fieldsReturned></ns2:abstract-common-list>
-  recorded_at: Sun, 16 Apr 2023 19:48:09 GMT
-- request:
-    method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/urn:cspace:name(languages)/items?as=vocabularyitems_common:displayName%20ILIKE%20%27Sanza%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-      Authorization:
-      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Date:
-      - Sat, 19 Oct 2024 01:26:25 GMT
-      Content-Type:
-      - application/xml
+      - application/xml;charset=UTF-8
       Content-Length:
       - '445'
       Connection:
@@ -170,7 +93,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=D1EE547633198BB199E4F6FE354641EE; Path=/cspace-services; Secure;
+      - JSESSIONID=CC478AFF02525F926DABF195839B37DD; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -190,7 +113,63 @@ http_interactions:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
         xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|sourcePage|sas|proposed|referenced|deprecated|termStatus|description|source|order|displayName|shortIdentifier</fieldsReturned></ns2:abstract-common-list>
-  recorded_at: Sat, 19 Oct 2024 01:26:25 GMT
+  recorded_at: Fri, 21 Aug 2026 23:53:49 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/urn:cspace:name(languages)/items?as=vocabularyitems_common:displayName%20ILIKE%20%27Sanza%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - CollectionSpaceClient/1.1.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Fri, 21 Aug 2026 23:53:49 GMT
+      Content-Type:
+      - application/xml;charset=UTF-8
+      Content-Length:
+      - '445'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=EDA12F76F876E9869412165378A7A815; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|sourcePage|sas|proposed|referenced|deprecated|termStatus|description|source|order|displayName|shortIdentifier</fieldsReturned></ns2:abstract-common-list>
+  recorded_at: Fri, 21 Aug 2026 23:53:49 GMT
 - request:
     method: get
     uri: https://raw.githubusercontent.com/collectionspace/cspace-config-untangler/refs/heads/main/data/mappers/community_profiles/release_8_1_1/core/core_10-0-2_collectionobject.json
@@ -232,21 +211,23 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       X-Github-Request-Id:
-      - A13A:2B6014:454C92:50AA1D:68377E37
+      - D172:149B4:20C3A5:2B1E53:6A88E508
+      X-Github-Edge-Region:
+      - iad
       Accept-Ranges:
       - bytes
       Date:
-      - Wed, 28 May 2025 22:17:58 GMT
+      - Fri, 21 Aug 2026 23:53:49 GMT
       Via:
       - 1.1 varnish
       X-Served-By:
-      - cache-pdk-kfty8610033-PDK
+      - cache-pdk-kpdk2140094-PDK
       X-Cache:
       - HIT
       X-Cache-Hits:
-      - '0'
+      - '1'
       X-Timer:
-      - S1748470678.361595,VS0,VE110
+      - S1787356430.846951,VS0,VE1
       Vary:
       - Authorization,Accept-Encoding
       Access-Control-Allow-Origin:
@@ -254,11 +235,11 @@ http_interactions:
       Cross-Origin-Resource-Policy:
       - cross-origin
       X-Fastly-Request-Id:
-      - 7500f150e889f51476b42bce59008437ffa0d63f
+      - 5dd63cdb415a8e248ec369742810db56a91c3363
       Expires:
-      - Wed, 28 May 2025 22:22:58 GMT
+      - Fri, 21 Aug 2026 23:58:49 GMT
       Source-Age:
-      - '0'
+      - '5'
     body:
       encoding: ASCII-8BIT
       base64_string: |
@@ -4462,5 +4443,5 @@ http_interactions:
         ICJuIiwKICAgICAgIm9wdF9saXN0X3ZhbHVlcyI6IFtdLAogICAgICAiZGF0
         YWNvbHVtbiI6ICJhcGlVcmwiLAogICAgICAicmVxdWlyZWQiOiAibiIKICAg
         IH0KICBdCn0=
-  recorded_at: Wed, 28 May 2025 22:17:58 GMT
-recorded_with: VCR 6.3.1
+  recorded_at: Fri, 21 Aug 2026 23:53:49 GMT
+recorded_with: VCR 6.4.0

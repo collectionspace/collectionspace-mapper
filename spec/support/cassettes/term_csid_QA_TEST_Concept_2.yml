@@ -7,12 +7,14 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - CollectionSpaceClient/1.1.0
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
-      User-Agent:
-      - Ruby
       Authorization:
       - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
   response:
@@ -21,32 +23,41 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sun, 16 Apr 2023 19:48:20 GMT
+      - Sat, 22 Aug 2026 00:07:17 GMT
       Content-Type:
-      - application/xml
+      - application/xml;charset=UTF-8
       Content-Length:
-      - '807'
+      - '805'
       Connection:
       - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=80AA567128EEECD229E598BD1AD20D93; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
       - no-cache
       Expires:
       - '0'
-      X-Xss-Protection:
-      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
       X-Frame-Options:
       - DENY
-      X-Content-Type-Options:
-      - nosniff
     body:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
-        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>0f6cddfa-32ce-4c25-9b2f</csid><uri>/personauthorities/0f6cddfa-32ce-4c25-9b2f</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person)'Local
-        Persons'</refName><updatedAt>2020-02-08T03:31:20.492Z</updatedAt><workflowState>project</workflowState><rev>1117</rev><shortIdentifier>person</shortIdentifier><displayName>Local
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>dea4d607-725d-4318-a910</csid><uri>/personauthorities/dea4d607-725d-4318-a910</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person)'Local
+        Persons'</refName><updatedAt>2025-03-04T19:46:34.068Z</updatedAt><workflowState>project</workflowState><rev>66</rev><shortIdentifier>person</shortIdentifier><displayName>Local
         Persons</displayName><vocabType>PersonAuthority</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Sun, 16 Apr 2023 19:48:20 GMT
+  recorded_at: Sat, 22 Aug 2026 00:07:17 GMT
 - request:
     method: get
     uri: https://core.dev.collectionspace.org/cspace-services/conceptauthorities/urn:cspace:name(concept)/items?as=concepts_common:conceptTermGroupList/0/termDisplayName%20=%20%27QA%20TEST%20Concept%202%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
@@ -54,12 +65,14 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - CollectionSpaceClient/1.1.0
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
-      User-Agent:
-      - Ruby
       Authorization:
       - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
   response:
@@ -68,32 +81,41 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sun, 16 Apr 2023 20:57:05 GMT
+      - Sat, 22 Aug 2026 00:07:17 GMT
       Content-Type:
-      - application/xml
+      - application/xml;charset=UTF-8
       Content-Length:
       - '942'
       Connection:
       - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=7CBA632F4E6B67364E4CA9D52CDFCED7; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
       - no-cache
       Expires:
       - '0'
-      X-Xss-Protection:
-      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
       X-Frame-Options:
       - DENY
-      X-Content-Type-Options:
-      - nosniff
     body:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
-        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|proposed|deprecated|termStatus|termDisplayName</fieldsReturned><list-item><csid>8a76c4d7-d66d-451c-abee</csid><uri>/conceptauthorities/7022dcc2-2f66-4cb8-b768/items/8a76c4d7-d66d-451c-abee</uri><refName>urn:cspace:core.collectionspace.org:conceptauthorities:name(concept):item:name(QATESTConcept21583850722125)'QA
-        TEST Concept 2'</refName><updatedAt>2020-03-10T21:32:02.125Z</updatedAt><workflowState>project</workflowState><rev>0</rev><shortIdentifier>QATESTConcept21583850722125</shortIdentifier><sas>false</sas><proposed>true</proposed><termDisplayName>QA
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|proposed|deprecated|termStatus|termDisplayName</fieldsReturned><list-item><csid>2c680365-9571-48c3-b820</csid><uri>/conceptauthorities/0f647b8b-7da5-466a-a179/items/2c680365-9571-48c3-b820</uri><refName>urn:cspace:core.collectionspace.org:conceptauthorities:name(concept):item:name(QATESTConcept21787357199042)'QA
+        TEST Concept 2'</refName><updatedAt>2026-08-22T00:06:39.042Z</updatedAt><workflowState>project</workflowState><rev>0</rev><shortIdentifier>QATESTConcept21787357199042</shortIdentifier><sas>false</sas><proposed>true</proposed><termDisplayName>QA
         TEST Concept 2</termDisplayName></list-item></ns2:abstract-common-list>
-  recorded_at: Sun, 16 Apr 2023 20:57:04 GMT
+  recorded_at: Sat, 22 Aug 2026 00:07:17 GMT
 - request:
     method: get
     uri: https://raw.githubusercontent.com/collectionspace/cspace-config-untangler/refs/heads/main/data/mappers/community_profiles/release_8_1_1/core/core_10-0-2_collectionobject.json
@@ -135,21 +157,23 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       X-Github-Request-Id:
-      - A13A:2B6014:454C92:50AA1D:68377E37
+      - D172:149B4:20C3A5:2B1E53:6A88E508
+      X-Github-Edge-Region:
+      - iad
       Accept-Ranges:
       - bytes
       Date:
-      - Wed, 28 May 2025 21:45:47 GMT
+      - Sat, 22 Aug 2026 00:08:07 GMT
       Via:
       - 1.1 varnish
       X-Served-By:
-      - cache-pdk-kfty8610050-PDK
+      - cache-pdk-kfty8610096-PDK
       X-Cache:
       - HIT
       X-Cache-Hits:
-      - '1'
+      - '0'
       X-Timer:
-      - S1748468748.967205,VS0,VE1
+      - S1787357288.872621,VS0,VE5
       Vary:
       - Authorization,Accept-Encoding
       Access-Control-Allow-Origin:
@@ -157,11 +181,11 @@ http_interactions:
       Cross-Origin-Resource-Policy:
       - cross-origin
       X-Fastly-Request-Id:
-      - e9b56c9ff042e822e01171b893ed7f414204a13a
+      - 9f820c535c7e212a3ff22bc3d6ba587b82c47bc7
       Expires:
-      - Wed, 28 May 2025 21:50:47 GMT
+      - Sat, 22 Aug 2026 00:13:07 GMT
       Source-Age:
-      - '47'
+      - '229'
     body:
       encoding: ASCII-8BIT
       base64_string: |
@@ -4365,5 +4389,5 @@ http_interactions:
         ICJuIiwKICAgICAgIm9wdF9saXN0X3ZhbHVlcyI6IFtdLAogICAgICAiZGF0
         YWNvbHVtbiI6ICJhcGlVcmwiLAogICAgICAicmVxdWlyZWQiOiAibiIKICAg
         IH0KICBdCn0=
-  recorded_at: Wed, 28 May 2025 21:45:47 GMT
-recorded_with: VCR 6.3.1
+  recorded_at: Sat, 22 Aug 2026 00:08:07 GMT
+recorded_with: VCR 6.4.0

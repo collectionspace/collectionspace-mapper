@@ -11,28 +11,25 @@ RSpec.describe CollectionSpace::Mapper::SingleRecordType::Handler do
     )
   end
 
-  let(:profile) { "core" }
-  let(:mapper) do
-    "https://raw.githubusercontent.com/collectionspace/"\
-      "cspace-config-untangler/refs/heads/main/data/mappers/"\
-      "community_profiles/release_8_1_1_newstyle/core/"\
-      "core_10-0-2_group.json"
-  end
+  let(:profile) { "anthro" }
   let(:config) { {} }
 
-  describe "#service_type", vcr: "core_group_10-0-2" do
+  describe "#service_type", vcr: "anthro_9-2-2_acquisition" do
     let(:servicetype) { handler.service_type }
 
-    context "when core group" do
+    context "when acquisition mapper given" do
       let(:mapper) do
         "https://raw.githubusercontent.com/collectionspace/"\
           "cspace-config-untangler/refs/heads/main/data/mappers/"\
-          "community_profiles/release_8_1_1_newstyle/core/"\
-          "core_10-0-2_group.json"
+          "community_profiles/release_8_3_newstyle/anthro/"\
+          "anthro_9-2-0_acquisition.json"
       end
 
       it "returns authority" do
         expect(servicetype).to eq("procedure")
+        expect(handler.record.common_namespace).to eq(
+          "acquisitions_common"
+        )
       end
     end
   end
