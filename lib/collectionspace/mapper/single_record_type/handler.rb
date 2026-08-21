@@ -3,42 +3,58 @@
 module CollectionSpace
   module Mapper
     module SingleRecordType
-      # given a RecordMapper hash and a data hash, returns CollectionSpace XML
-      #   document
+      # Initialized with a RecordMapper (or info on how to access
+      #   one), sets up to process rows for the represented record
+      #   type. Its #process method takes a Hash derived from a CSV
+      #   row and returns CollectionSpace XML document.
       class Handler
         include Dry::Configurable
 
+        # @return [String]
         setting :batch_mode, default: "full record", reader: true
+
         # @return [CollectionSpace::Client, nil]
         setting :client, default: nil, reader: true
+
         # @return [CollectionSpace::Mapper::RecordMapper, nil]
         setting :recordmapper, default: nil, reader: true
+
         # @return [String] base domain as used in RefName URNs (e.g.
         #   core.collectionspace.org)
         setting :domain, default: nil, reader: true
+
         # @return [CollectionSpace::Refcache, nil] used to store refnames of
         #   looked-up terms and CSIDs of looked-up entities
         setting :cache, default: nil, reader: true
+
         # @return [CollectionSpace::Mapper::DataValidator, nil] class used to
         #   validate data for the batch run
         setting :validator, default: nil, reader: true
+
         # @return [CollectionSpace::Mapper::Searcher, nil] class used to look up
         #   terms in CS instance for the batch run
         setting :searcher, default: nil, reader: true
+
         setting :data_splitter, default: nil, reader: true
+
         # @return [Constant, nil] class used to prep data rows for mapping in
         #   the batch run
         setting :prepper_class, default: nil, reader: true
+
         # @return [CollectionSpace::Mapper::Dates::StructuredDateHandler, nil]
         #   class used to handle structured date parsing
         setting :date_handler, default: nil, reader: true
+
         setting :status_checker, default: nil, reader: true
+
+        # @todo test changing to Set
         # @return [Hash] terms used in records which were not found in the CS
         #   instance. We use a Hash instead of an Array so that we don't have to
         #   deduplicate final list, or check that we aren't adding a duplicate
         #   each time we add a value
         setting :new_terms, default: {}, reader: true
 
+        # These settings are set from the give record mapper
         setting :record, reader: true do
           setting :authority_subtype, default: nil, reader: true
           setting :authority_subtypes, default: nil, reader: true
@@ -92,10 +108,16 @@ module CollectionSpace
         attr_reader :errors, :warnings
 
         # @param record_mapper [Hash, String] parseable JSON string or already-
-        #   parsed JSON converted to Hash
+        #   parsed JSON converted to Hash; must be in the Data Toolkit compliant
+        #   authority ingest format
         # @param client [CollectionSpace::Client]
-        # @param cache [SolidCache::Store] to be used for caching term
-        #   refname URNs
+        # @param cache [SolidCache::Store, CollectionSpace::Refcache] to be
+        #   used for caching term refname URNs and record CSIDs as needed;
+        #   May be any store conforming to the ActiveSupport::Cache::Store
+        #   abstract interface, such as a `SolidCache::Store` (as used by
+        #   the Data Toolkit, or a CollectionSpace::Refcache.
+        #   If not given a Refcache, A new Refcache is created with the
+        #   given store as its store.
         # @param config [Hash, String] parseable JSON string or already-
         #   parsed JSON converted to Hash
         def initialize(record_mapper:, client:, cache:, config: {})
