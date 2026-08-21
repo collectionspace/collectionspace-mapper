@@ -16,8 +16,10 @@ module CollectionSpace
 
       # @param mappings [Array<Hash>] from record mapper JSON file
       # @param handler [CollectionSpace::Mapper::DataHandler]
-      def initialize(mappings:, handler:)
+      # @param ingestformat [:csvimporter, :datatoolkit]
+      def initialize(mappings:, handler:, ingestformat: :csvimporter)
         @handler = handler
+        @ingestformat = ingestformat
         @transforms = handler.batch.transforms
 
         @all = []
