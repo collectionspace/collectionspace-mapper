@@ -15,7 +15,7 @@ module CollectionSpace
       def_delegators :@all, :each, :reject!
 
       # @param mappings [Array<Hash>] from record mapper JSON file
-      # @param hander [CollectionSpace::Mapper::DataHandler]
+      # @param handler [CollectionSpace::Mapper::DataHandler]
       def initialize(mappings:, handler:)
         @handler = handler
         @transforms = handler.batch.transforms
