@@ -7,7 +7,11 @@ module CollectionSpace
   module Mapper
     module VocabularyTerms
       # Sets up a class with client context, that can process terms from
-      #   multiple vocabularies
+      #   multiple vocabularies.
+      #
+      # @note In order to properly handle soft deleted vocabulary terms, the
+      #   client should have its `#config.include_deleted` set to true before
+      #   passing it to construct this class.
       class Handler
         include Dry::Configurable
         include Dry::Monads[:result, :do]
@@ -29,7 +33,8 @@ module CollectionSpace
           CollectionSpace::Mapper::Searcher.new(self)
         end
 
-        # @param vocab [String] the display name of the target Vocabulary
+        # @param vocab [String] the display or machine name of the target
+        #   Vocabulary
         # @param term [String, Hash] if mode is :add, the term string to create;
         #   if mode is :update, existing record for term, returned by searcher
         # @param mode [:add, :update]
@@ -53,7 +58,8 @@ module CollectionSpace
           Success(payload)
         end
 
-        # @param vocab [String] the display name of the target Vocabulary
+        # @param vocab [String] the display or machine name of the target
+        #   Vocabulary
         # @param term [String] the term to create in the Vocabulary
         # @param opt_fields [nil, Hash{String => String}] key/value pairs for
         #   description, source, sourcePage, and termStatus fields
@@ -108,7 +114,7 @@ module CollectionSpace
         end
 
         # @param vocab [String] the display name of the target Vocabulary
-        # @param term [String] the term to create in the Vocabulary
+        # @param term [String] the term to delete from the Vocabulary
         # @param mode [:soft, :hard] :soft changes workflow state of term to
         #   deleted; :hard actually deletes the term
         def delete_term(vocab:, term:, mode: :soft)
