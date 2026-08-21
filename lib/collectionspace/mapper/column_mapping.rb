@@ -24,18 +24,12 @@ module CollectionSpace
         symbolize_transforms
       end
 
-      def datacolumn
-        @datacolumn.downcase
-      end
+      def datacolumn = @datacolumn.downcase
 
-      def fullpath
-        @fullpath ||= [@namespace, @xpath].flatten.join("/")
-      end
+      def fullpath = @fullpath ||= [@namespace, @xpath].flatten.join("/")
 
       # includes both truly required and "required in template"
-      def required?
-        @required.start_with?("y")
-      end
+      def required? = @required.start_with?("y")
 
       def update_transforms(new_transforms)
         @transforms = @transforms.merge(new_transforms)

@@ -196,9 +196,7 @@ module CollectionSpace
         end
 
         # Map a prepped response
-        def map(response)
-          response.map
-        end
+        def map(response) = response.map
 
         # Used by collectionspace-csv-importer preprocessing step and
         #   collectionspace-migration-tools
@@ -212,9 +210,7 @@ module CollectionSpace
 
         # this is surfaced in public interface because it is used by
         #   collectionspace-csv-importer
-        def service_type
-          record.service_type
-        end
+        def service_type = record.service_type
 
         # Called by CSV Importer preprocessing step
         # @param data [Hash, CollectionSpace::Mapper::Response]
