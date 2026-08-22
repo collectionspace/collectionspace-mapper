@@ -18,6 +18,7 @@ module CollectionSpace
       # @param handler [CollectionSpace::Mapper::DataHandler]
       # @param ingestformat [:csvimporter, :datatoolkit]
       def initialize(mappings:, handler:, ingestformat: :csvimporter)
+        @mappings = mappings
         @handler = handler
         @ingestformat = ingestformat
         @transforms = handler.batch.transforms
@@ -42,16 +43,41 @@ module CollectionSpace
       def required_columns = all.select(&:required?)
 
       def add_mapping(mapping)
-        mapobj = CollectionSpace::Mapper::ColumnMapping.new(
-          mapping: mapping
-        )
+        mapobj = build_mapping(mapping)
         @all << mapobj
         @lkup[mapobj.datacolumn] = mapobj
       end
 
       private
 
-      attr_reader :transforms, :all, :lkup
+      attr_reader :mappings, :ingestformat, :transforms, :all, :lkup
+
+      def build_mapping(mapping)
+        if ingestformat == :csvimporter ||
+            (ingestformat == :datatoolkit && nonauth?(mapping))
+          return CollectionSpace::Mapper::ColumnMapping.new(mapping: mapping)
+        end
+
+        build_datatoolkit_authority_mapping(mapping)
+      end
+
+      def build_datatoolkit_authority_mapping(mapping)
+        CollectionSpace::Mapper::ColumnMapping.new(
+          mapping: mapping,
+          authority_companion: find_companion(mapping)
+        )
+      end
+
+      def find_companion(mapping)
+        mappings.find do |m|
+          m["fieldname"] == mapping["fieldname"] &&
+            m["source_type"] == "authority vocabulary indication"
+        end
+      end
+
+      def auth?(mapping) = mapping["source_type"] == "authority"
+
+      def nonauth?(mapping) = !auth?(mapping)
     end
   end
 end

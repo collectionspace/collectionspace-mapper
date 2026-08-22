@@ -15,13 +15,21 @@ module CollectionSpace
         :transforms, :xpath
 
       # @param mapping [Hash] for a given CSV column
-      def initialize(mapping:)
+      # @param authority_companion [Hash]
+      def initialize(mapping:, authority_companion: nil)
         @mapping = mapping
+        @authority_companion = authority_companion
 
         mapping.each do |key, value|
           instance_variable_set(:"@#{key}", value)
         end
         symbolize_transforms
+      end
+
+      def companion_column
+        return unless authority_companion
+
+        authority_companion["datacolumn"]
       end
 
       def datacolumn = @datacolumn.downcase
@@ -37,7 +45,7 @@ module CollectionSpace
 
       private
 
-      attr_reader :mapping
+      attr_reader :mapping, :authority_companion
 
       def symbolize_transforms
         return if transforms.blank?
