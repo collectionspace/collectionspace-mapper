@@ -7,12 +7,14 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - CollectionSpaceClient/1.1.0
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
-      User-Agent:
-      - Ruby
       Authorization:
       - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
   response:
@@ -21,32 +23,41 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sat, 15 Apr 2023 00:29:14 GMT
+      - Sat, 22 Aug 2026 00:15:35 GMT
       Content-Type:
-      - application/xml
+      - application/xml;charset=UTF-8
       Content-Length:
-      - '807'
+      - '805'
       Connection:
       - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=1BC4FECC0DAC92D426B897148F1F5F5A; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
       - no-cache
       Expires:
       - '0'
-      X-Xss-Protection:
-      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
       X-Frame-Options:
       - DENY
-      X-Content-Type-Options:
-      - nosniff
     body:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
-        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>0f6cddfa-32ce-4c25-9b2f</csid><uri>/personauthorities/0f6cddfa-32ce-4c25-9b2f</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person)'Local
-        Persons'</refName><updatedAt>2020-02-08T03:31:20.492Z</updatedAt><workflowState>project</workflowState><rev>1117</rev><shortIdentifier>person</shortIdentifier><displayName>Local
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>dea4d607-725d-4318-a910</csid><uri>/personauthorities/dea4d607-725d-4318-a910</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person)'Local
+        Persons'</refName><updatedAt>2025-03-04T19:46:34.068Z</updatedAt><workflowState>project</workflowState><rev>66</rev><shortIdentifier>person</shortIdentifier><displayName>Local
         Persons</displayName><vocabType>PersonAuthority</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Sat, 15 Apr 2023 00:29:14 GMT
+  recorded_at: Sat, 22 Aug 2026 00:15:35 GMT
 - request:
     method: get
     uri: https://core.dev.collectionspace.org/cspace-services/conceptauthorities/urn:cspace:name(concept)/items?as=concepts_common:conceptTermGroupList/0/termDisplayName%20=%20%27Cats%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
@@ -54,12 +65,14 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - CollectionSpaceClient/1.1.0
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
-      User-Agent:
-      - Ruby
       Authorization:
       - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
   response:
@@ -68,30 +81,39 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sat, 15 Apr 2023 01:32:58 GMT
+      - Sat, 22 Aug 2026 00:15:35 GMT
       Content-Type:
-      - application/xml
+      - application/xml;charset=UTF-8
       Content-Length:
       - '896'
       Connection:
       - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=BF63FF236DE86970940CE0B5F4041AF7; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
       - no-cache
       Expires:
       - '0'
-      X-Xss-Protection:
-      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
       X-Frame-Options:
       - DENY
-      X-Content-Type-Options:
-      - nosniff
     body:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
-        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|proposed|deprecated|termStatus|termDisplayName</fieldsReturned><list-item><csid>fba204d0-004b-49a3-8676</csid><uri>/conceptauthorities/7022dcc2-2f66-4cb8-b768/items/fba204d0-004b-49a3-8676</uri><refName>urn:cspace:core.collectionspace.org:conceptauthorities:name(concept):item:name(Cats1614282053365)'Cats'</refName><updatedAt>2021-07-31T06:06:17.313Z</updatedAt><workflowState>project</workflowState><rev>1</rev><shortIdentifier>Cats1614282053365</shortIdentifier><sas>false</sas><proposed>true</proposed><termDisplayName>Cats</termDisplayName></list-item></ns2:abstract-common-list>
-  recorded_at: Sat, 15 Apr 2023 01:32:59 GMT
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|proposed|deprecated|termStatus|termDisplayName</fieldsReturned><list-item><csid>0fc5b67c-b5e6-4311-bc21</csid><uri>/conceptauthorities/0f647b8b-7da5-466a-a179/items/0fc5b67c-b5e6-4311-bc21</uri><refName>urn:cspace:core.collectionspace.org:conceptauthorities:name(concept):item:name(Cats1787357472525)'Cats'</refName><updatedAt>2026-08-22T00:11:12.525Z</updatedAt><workflowState>project</workflowState><rev>0</rev><shortIdentifier>Cats1787357472525</shortIdentifier><sas>false</sas><proposed>true</proposed><termDisplayName>Cats</termDisplayName></list-item></ns2:abstract-common-list>
+  recorded_at: Sat, 22 Aug 2026 00:15:35 GMT
 - request:
     method: get
     uri: https://core.dev.collectionspace.org/cspace-services/conceptauthorities/urn:cspace:name(concept)/items?as=concepts_common:conceptTermGroupList/0/termDisplayName%20=%20%27Siamese%20cats%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
@@ -99,12 +121,14 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - CollectionSpaceClient/1.1.0
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
-      User-Agent:
-      - Ruby
       Authorization:
       - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
   response:
@@ -113,45 +137,56 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sat, 15 Apr 2023 01:32:59 GMT
+      - Sat, 22 Aug 2026 00:15:36 GMT
       Content-Type:
-      - application/xml
+      - application/xml;charset=UTF-8
       Content-Length:
       - '926'
       Connection:
       - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=1CFD234DD894243980F235777607283C; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
       - no-cache
       Expires:
       - '0'
-      X-Xss-Protection:
-      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
       X-Frame-Options:
       - DENY
-      X-Content-Type-Options:
-      - nosniff
     body:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
-        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|proposed|deprecated|termStatus|termDisplayName</fieldsReturned><list-item><csid>235246aa-a981-4d2a-92f1</csid><uri>/conceptauthorities/7022dcc2-2f66-4cb8-b768/items/235246aa-a981-4d2a-92f1</uri><refName>urn:cspace:core.collectionspace.org:conceptauthorities:name(concept):item:name(Siamesecats1614282068661)'Siamese
-        cats'</refName><updatedAt>2021-02-26T03:41:08.661Z</updatedAt><workflowState>project</workflowState><rev>0</rev><shortIdentifier>Siamesecats1614282068661</shortIdentifier><sas>false</sas><proposed>true</proposed><termDisplayName>Siamese
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|proposed|deprecated|termStatus|termDisplayName</fieldsReturned><list-item><csid>316ded5d-8318-484d-b236</csid><uri>/conceptauthorities/0f647b8b-7da5-466a-a179/items/316ded5d-8318-484d-b236</uri><refName>urn:cspace:core.collectionspace.org:conceptauthorities:name(concept):item:name(Siamesecats1787357705539)'Siamese
+        cats'</refName><updatedAt>2026-08-22T00:15:05.539Z</updatedAt><workflowState>project</workflowState><rev>0</rev><shortIdentifier>Siamesecats1787357705539</shortIdentifier><sas>false</sas><proposed>true</proposed><termDisplayName>Siamese
         cats</termDisplayName></list-item></ns2:abstract-common-list>
-  recorded_at: Sat, 15 Apr 2023 01:32:59 GMT
+  recorded_at: Sat, 22 Aug 2026 00:15:36 GMT
 - request:
     method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/relations?obj=fba204d0-004b-49a3-8676&pgSz=25&prd=hasBroader&sbj=235246aa-a981-4d2a-92f1&wf_deleted=false
+    uri: https://core.dev.collectionspace.org/cspace-services/relations?obj=0fc5b67c-b5e6-4311-bc21&pgSz=25&prd=hasBroader&sbj=316ded5d-8318-484d-b236&wf_deleted=false
     body:
       encoding: US-ASCII
       string: ''
     headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - CollectionSpaceClient/1.1.0
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
-      User-Agent:
-      - Ruby
       Authorization:
       - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
   response:
@@ -160,29 +195,38 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sat, 15 Apr 2023 01:32:59 GMT
+      - Sat, 22 Aug 2026 00:15:36 GMT
       Content-Type:
-      - application/xml
+      - application/xml;charset=UTF-8
       Content-Length:
       - '509'
       Connection:
       - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=04588904D9436903B48A6165E0FBBED4; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
       - no-cache
       Expires:
       - '0'
-      X-Xss-Protection:
-      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
       X-Frame-Options:
       - DENY
-      X-Content-Type-Options:
-      - nosniff
     body:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><rel:relations-common-list
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rel="http://collectionspace.org/services/relation"
         xmlns:ns4="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>subjectCsid|relationshipType|predicateDisplayName|relationshipMetaType|objectCsid|uri|csid|subject|object</fieldsReturned></rel:relations-common-list>
-  recorded_at: Sat, 15 Apr 2023 01:32:59 GMT
-recorded_with: VCR 6.1.0
+  recorded_at: Sat, 22 Aug 2026 00:15:36 GMT
+recorded_with: VCR 6.4.0

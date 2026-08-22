@@ -7,12 +7,14 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - CollectionSpaceClient/1.1.0
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
-      User-Agent:
-      - Ruby
       Authorization:
       - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
   response:
@@ -21,32 +23,41 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sat, 15 Apr 2023 00:29:14 GMT
+      - Sat, 22 Aug 2026 00:11:36 GMT
       Content-Type:
-      - application/xml
+      - application/xml;charset=UTF-8
       Content-Length:
-      - '807'
+      - '805'
       Connection:
       - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=73F1308E6FAB784DD9FCF1A924DD8458; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
       - no-cache
       Expires:
       - '0'
-      X-Xss-Protection:
-      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
       X-Frame-Options:
       - DENY
-      X-Content-Type-Options:
-      - nosniff
     body:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
-        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>0f6cddfa-32ce-4c25-9b2f</csid><uri>/personauthorities/0f6cddfa-32ce-4c25-9b2f</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person)'Local
-        Persons'</refName><updatedAt>2020-02-08T03:31:20.492Z</updatedAt><workflowState>project</workflowState><rev>1117</rev><shortIdentifier>person</shortIdentifier><displayName>Local
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>1</pageSize><itemsInPage>1</itemsInPage><totalItems>2</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|displayName|vocabType</fieldsReturned><list-item><csid>dea4d607-725d-4318-a910</csid><uri>/personauthorities/dea4d607-725d-4318-a910</uri><refName>urn:cspace:core.collectionspace.org:personauthorities:name(person)'Local
+        Persons'</refName><updatedAt>2025-03-04T19:46:34.068Z</updatedAt><workflowState>project</workflowState><rev>66</rev><shortIdentifier>person</shortIdentifier><displayName>Local
         Persons</displayName><vocabType>PersonAuthority</vocabType></list-item></ns2:abstract-common-list>
-  recorded_at: Sat, 15 Apr 2023 00:29:14 GMT
+  recorded_at: Sat, 22 Aug 2026 00:11:36 GMT
 - request:
     method: get
     uri: https://core.dev.collectionspace.org/cspace-services/conceptauthorities/urn:cspace:name(concept)/items?as=concepts_common:conceptTermGroupList/0/termDisplayName%20=%20%27Cats%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
@@ -54,12 +65,14 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - CollectionSpaceClient/1.1.0
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
-      User-Agent:
-      - Ruby
       Authorization:
       - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
   response:
@@ -68,30 +81,39 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sat, 15 Apr 2023 01:21:39 GMT
+      - Sat, 22 Aug 2026 00:11:37 GMT
       Content-Type:
-      - application/xml
+      - application/xml;charset=UTF-8
       Content-Length:
       - '896'
       Connection:
       - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=0A1F243579DDAB10BAC2989159BCBE70; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
       - no-cache
       Expires:
       - '0'
-      X-Xss-Protection:
-      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
       X-Frame-Options:
       - DENY
-      X-Content-Type-Options:
-      - nosniff
     body:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
-        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|proposed|deprecated|termStatus|termDisplayName</fieldsReturned><list-item><csid>fba204d0-004b-49a3-8676</csid><uri>/conceptauthorities/7022dcc2-2f66-4cb8-b768/items/fba204d0-004b-49a3-8676</uri><refName>urn:cspace:core.collectionspace.org:conceptauthorities:name(concept):item:name(Cats1614282053365)'Cats'</refName><updatedAt>2021-07-31T06:06:17.313Z</updatedAt><workflowState>project</workflowState><rev>1</rev><shortIdentifier>Cats1614282053365</shortIdentifier><sas>false</sas><proposed>true</proposed><termDisplayName>Cats</termDisplayName></list-item></ns2:abstract-common-list>
-  recorded_at: Sat, 15 Apr 2023 01:21:39 GMT
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|proposed|deprecated|termStatus|termDisplayName</fieldsReturned><list-item><csid>0fc5b67c-b5e6-4311-bc21</csid><uri>/conceptauthorities/0f647b8b-7da5-466a-a179/items/0fc5b67c-b5e6-4311-bc21</uri><refName>urn:cspace:core.collectionspace.org:conceptauthorities:name(concept):item:name(Cats1787357472525)'Cats'</refName><updatedAt>2026-08-22T00:11:12.525Z</updatedAt><workflowState>project</workflowState><rev>0</rev><shortIdentifier>Cats1787357472525</shortIdentifier><sas>false</sas><proposed>true</proposed><termDisplayName>Cats</termDisplayName></list-item></ns2:abstract-common-list>
+  recorded_at: Sat, 22 Aug 2026 00:11:37 GMT
 - request:
     method: get
     uri: https://core.dev.collectionspace.org/cspace-services/conceptauthorities/urn:cspace:name(concept)/items?as=concepts_common:conceptTermGroupList/0/termDisplayName%20=%20%27Tuxedo%20cats%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
@@ -99,12 +121,14 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - CollectionSpaceClient/1.1.0
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
-      User-Agent:
-      - Ruby
       Authorization:
       - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
   response:
@@ -113,145 +137,9 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Sat, 15 Apr 2023 01:21:39 GMT
+      - Sat, 22 Aug 2026 00:11:37 GMT
       Content-Type:
-      - application/xml
-      Content-Length:
-      - '402'
-      Connection:
-      - keep-alive
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - '0'
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Frame-Options:
-      - DENY
-      X-Content-Type-Options:
-      - nosniff
-    body:
-      encoding: UTF-8
-      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
-        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|proposed|deprecated|termStatus|termDisplayName</fieldsReturned></ns2:abstract-common-list>
-  recorded_at: Sat, 15 Apr 2023 01:21:39 GMT
-- request:
-    method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/conceptauthorities/urn:cspace:name(concept)/items?as=concepts_common:conceptTermGroupList/0/termDisplayName%20=%20%27tuxedo%20cats%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-      Authorization:
-      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Date:
-      - Sat, 15 Apr 2023 01:21:40 GMT
-      Content-Type:
-      - application/xml
-      Content-Length:
-      - '402'
-      Connection:
-      - keep-alive
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - '0'
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Frame-Options:
-      - DENY
-      X-Content-Type-Options:
-      - nosniff
-    body:
-      encoding: UTF-8
-      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
-        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|proposed|deprecated|termStatus|termDisplayName</fieldsReturned></ns2:abstract-common-list>
-  recorded_at: Sat, 15 Apr 2023 01:21:40 GMT
-- request:
-    method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/relations?obj=fba204d0-004b-49a3-8676&pgSz=25&prd=hasBroader&sbj%5B%5D%5Bcategory%5D=unsuccessful_csid_lookup_for_term&sbj%5B%5D%5Bfield%5D=&sbj%5B%5D%5Bmessage%5D=Problem%20with%20search%20for%20Tuxedo%20cats.&sbj%5B%5D%5Bsubtype%5D=concept&sbj%5B%5D%5Btype%5D=conceptauthorities&sbj%5B%5D%5Bvalue%5D=Tuxedo%20cats&wf_deleted=false
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-      Authorization:
-      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Date:
-      - Tue, 18 Apr 2023 23:07:13 GMT
-      Content-Type:
-      - application/xml
-      Content-Length:
-      - '509'
-      Connection:
-      - keep-alive
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - '0'
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Frame-Options:
-      - DENY
-      X-Content-Type-Options:
-      - nosniff
-    body:
-      encoding: UTF-8
-      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><rel:relations-common-list
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rel="http://collectionspace.org/services/relation"
-        xmlns:ns4="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>subjectCsid|relationshipType|predicateDisplayName|relationshipMetaType|objectCsid|uri|csid|subject|object</fieldsReturned></rel:relations-common-list>
-  recorded_at: Tue, 18 Apr 2023 23:07:13 GMT
-- request:
-    method: get
-    uri: https://core.dev.collectionspace.org/cspace-services/conceptauthorities/urn:cspace:name(concept)/items?as=concepts_common:conceptTermGroupList/0/termDisplayName%20ILIKE%20%27Tuxedo%20cats%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-      Authorization:
-      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Date:
-      - Sat, 19 Oct 2024 01:25:59 GMT
-      Content-Type:
-      - application/xml
+      - application/xml;charset=UTF-8
       Content-Length:
       - '402'
       Connection:
@@ -261,7 +149,7 @@ http_interactions:
       - Access-Control-Request-Method
       - Origin
       Set-Cookie:
-      - JSESSIONID=08314FB0A3AFCDDC802A656CAED92551; Path=/cspace-services; Secure;
+      - JSESSIONID=278B834D75FD2031164DF5B9D214312F; Path=/cspace-services; Secure;
         HttpOnly
       X-Content-Type-Options:
       - nosniff
@@ -281,5 +169,209 @@ http_interactions:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
         xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|proposed|deprecated|termStatus|termDisplayName</fieldsReturned></ns2:abstract-common-list>
-  recorded_at: Sat, 19 Oct 2024 01:25:59 GMT
-recorded_with: VCR 6.1.0
+  recorded_at: Sat, 22 Aug 2026 00:11:37 GMT
+- request:
+    method: get
+    uri: https://core.dev.collectionspace.org/cspace-services/conceptauthorities/urn:cspace:name(concept)/items?as=concepts_common:conceptTermGroupList/0/termDisplayName%20ILIKE%20%27Tuxedo%20cats%27&pgSz=25&sortBy=collectionspace_core:updatedAt%20DESC&wf_deleted=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - CollectionSpaceClient/1.1.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Sat, 22 Aug 2026 00:11:37 GMT
+      Content-Type:
+      - application/xml;charset=UTF-8
+      Content-Length:
+      - '402'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=A793296B235CD469E6A93F924C0192D4; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
+        xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>0</itemsInPage><totalItems>0</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|shortIdentifier|sas|proposed|deprecated|termStatus|termDisplayName</fieldsReturned></ns2:abstract-common-list>
+  recorded_at: Sat, 22 Aug 2026 00:11:37 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/collectionspace/cspace-config-untangler/refs/heads/main/data/mappers/community_profiles/release_8_1_1/core/core_10-0-2_authorityhierarchy.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - raw.githubusercontent.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '3328'
+      Cache-Control:
+      - max-age=300
+      Content-Security-Policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      Content-Type:
+      - text/plain; charset=utf-8
+      Etag:
+      - W/"6474d51c85fb34a098f254ed2281cba3056b61056e394eace06ed87b54f992ab"
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Github-Request-Id:
+      - D39E:1FE48B:25A2AC:2FFF8C:6A88E50A
+      X-Github-Edge-Region:
+      - iad
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Sat, 22 Aug 2026 00:11:38 GMT
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-pdk-kpdk2140072-PDK
+      X-Cache:
+      - HIT
+      X-Cache-Hits:
+      - '1'
+      X-Timer:
+      - S1787357498.100078,VS0,VE50
+      Vary:
+      - Authorization,Accept-Encoding
+      Access-Control-Allow-Origin:
+      - "*"
+      Cross-Origin-Resource-Policy:
+      - cross-origin
+      X-Fastly-Request-Id:
+      - 3bc7c2b8cfdc4c7818acae6415f5de82aa76fd0d
+      Expires:
+      - Sat, 22 Aug 2026 00:16:38 GMT
+      Source-Age:
+      - '0'
+    body:
+      encoding: ASCII-8BIT
+      base64_string: |
+        ewogICJjb25maWciOiB7CiAgICAicHJvZmlsZV9iYXNlbmFtZSI6ICJjb3Jl
+        IiwKICAgICJ2ZXJzaW9uIjogIjEwLjAuMiIsCiAgICAicmVjb3JkdHlwZSI6
+        ICJhdXRob3JpdHloaWVyYXJjaHkiLAogICAgImRvY3VtZW50X25hbWUiOiAi
+        cmVsYXRpb25zIiwKICAgICJzZXJ2aWNlX25hbWUiOiAiUmVsYXRpb25zIiwK
+        ICAgICJzZXJ2aWNlX3BhdGgiOiAicmVsYXRpb25zIiwKICAgICJzZXJ2aWNl
+        X3R5cGUiOiAicmVsYXRpb24iLAogICAgIm9iamVjdF9uYW1lIjogIkF1dGhv
+        cml0eSBIaWVyYXJjaHkgUmVsYXRpb24iLAogICAgIm5zX3VyaSI6IHsKICAg
+        ICAgInJlbGF0aW9uc19jb21tb24iOiAiaHR0cDovL2NvbGxlY3Rpb25zcGFj
+        ZS5vcmcvc2VydmljZXMvcmVsYXRpb24iCiAgICB9LAogICAgImlkZW50aWZp
+        ZXJfZmllbGQiOiAic3ViamVjdENzaWQiLAogICAgInNlYXJjaF9maWVsZCI6
+        ICJ0ZXJtIgogIH0sCiAgImRvY3N0cnVjdHVyZSI6IHsKICAgICJyZWxhdGlv
+        bnNfY29tbW9uIjogewogICAgICAic3ViamVjdENzaWQiOiB7fSwKICAgICAg
+        InJlbGF0aW9uc2hpcFR5cGUiOiB7fSwKICAgICAgIm9iamVjdENzaWQiOiB7
+        fQogICAgfQogIH0sCiAgIm1hcHBpbmdzIjogWwogICAgewogICAgICAiZmll
+        bGRuYW1lIjogInRlcm1UeXBlIiwKICAgICAgInRyYW5zZm9ybXMiOiB7fSwK
+        ICAgICAgInNvdXJjZV90eXBlIjogIm9wdGlvbmxpc3QiLAogICAgICAic291
+        cmNlX25hbWUiOiAiZmFrZVByb2ZpbGVBdXRob3JpdHlUeXBlcyIsCiAgICAg
+        ICJuYW1lc3BhY2UiOiAicmVsYXRpb25zX2NvbW1vbiIsCiAgICAgICJ4cGF0
+        aCI6IFtdLAogICAgICAiZGF0YV90eXBlIjogInN0cmluZyIsCiAgICAgICJy
+        ZXBlYXRzIjogIm4iLAogICAgICAiaW5fcmVwZWF0aW5nX2dyb3VwIjogIm4i
+        LAogICAgICAib3B0X2xpc3RfdmFsdWVzIjogWwogICAgICAgICJjaHJvbm9s
+        b2d5YXV0aG9yaXRpZXMiLAogICAgICAgICJjaXRhdGlvbmF1dGhvcml0aWVz
+        IiwKICAgICAgICAiY29uY2VwdGF1dGhvcml0aWVzIiwKICAgICAgICAibG9j
+        YXRpb25hdXRob3JpdGllcyIsCiAgICAgICAgIm9yZ2F1dGhvcml0aWVzIiwK
+        ICAgICAgICAicGVyc29uYXV0aG9yaXRpZXMiLAogICAgICAgICJwbGFjZWF1
+        dGhvcml0aWVzIiwKICAgICAgICAid29ya2F1dGhvcml0aWVzIgogICAgICBd
+        LAogICAgICAiZGF0YWNvbHVtbiI6ICJ0ZXJtX3R5cGUiLAogICAgICAicmVx
+        dWlyZWQiOiAieSBpbiB0ZW1wbGF0ZSIKICAgIH0sCiAgICB7CiAgICAgICJm
+        aWVsZG5hbWUiOiAidGVybVN1YlR5cGUiLAogICAgICAidHJhbnNmb3JtcyI6
+        IHt9LAogICAgICAic291cmNlX3R5cGUiOiAib3B0aW9ubGlzdCIsCiAgICAg
+        ICJzb3VyY2VfbmFtZSI6ICJmYWtlUHJvZmlsZUF1dGhvcml0eVN1YnR5cGVz
+        IiwKICAgICAgIm5hbWVzcGFjZSI6ICJyZWxhdGlvbnNfY29tbW9uIiwKICAg
+        ICAgInhwYXRoIjogW10sCiAgICAgICJkYXRhX3R5cGUiOiAic3RyaW5nIiwK
+        ICAgICAgInJlcGVhdHMiOiAibiIsCiAgICAgICJpbl9yZXBlYXRpbmdfZ3Jv
+        dXAiOiAibiIsCiAgICAgICJvcHRfbGlzdF92YWx1ZXMiOiBbCiAgICAgICAg
+        ImFjdGl2aXR5IiwKICAgICAgICAiYXJjaGFlb2xvZ2ljYWwiLAogICAgICAg
+        ICJhcmNoY3VsdHVyZSIsCiAgICAgICAgImNpdGF0aW9uIiwKICAgICAgICAi
+        Y29uYV93b3JrIiwKICAgICAgICAiY29uY2VwdCIsCiAgICAgICAgImVyYSIs
+        CiAgICAgICAgImV0aGN1bHR1cmUiLAogICAgICAgICJldmVudCIsCiAgICAg
+        ICAgImxvY2F0aW9uIiwKICAgICAgICAibWF0ZXJpYWxfY2EiLAogICAgICAg
+        ICJub21lbmNsYXR1cmUiLAogICAgICAgICJvY2Nhc2lvbiIsCiAgICAgICAg
+        Im9mZnNpdGVfc2xhIiwKICAgICAgICAib3JnYW5pemF0aW9uIiwKICAgICAg
+        ICAicGVyc29uIiwKICAgICAgICAicGxhY2UiLAogICAgICAgICJ0Z25fcGxh
+        Y2UiLAogICAgICAgICJ1bGFuX29hIiwKICAgICAgICAidWxhbl9wYSIsCiAg
+        ICAgICAgIndvcmsiLAogICAgICAgICJ3b3JsZGNhdCIKICAgICAgXSwKICAg
+        ICAgImRhdGFjb2x1bW4iOiAidGVybV9zdWJ0eXBlIiwKICAgICAgInJlcXVp
+        cmVkIjogInkgaW4gdGVtcGxhdGUiCiAgICB9LAogICAgewogICAgICAiZmll
+        bGRuYW1lIjogInN1YmplY3RDc2lkIiwKICAgICAgInRyYW5zZm9ybXMiOiB7
+        CiAgICAgICAgInNwZWNpYWwiOiBbCiAgICAgICAgICAidGVybV90b19jc2lk
+        IgogICAgICAgIF0KICAgICAgfSwKICAgICAgInNvdXJjZV90eXBlIjogIm5h
+        IiwKICAgICAgInNvdXJjZV9uYW1lIjogbnVsbCwKICAgICAgIm5hbWVzcGFj
+        ZSI6ICJyZWxhdGlvbnNfY29tbW9uIiwKICAgICAgInhwYXRoIjogW10sCiAg
+        ICAgICJkYXRhX3R5cGUiOiAic3RyaW5nIiwKICAgICAgInJlcGVhdHMiOiAi
+        biIsCiAgICAgICJpbl9yZXBlYXRpbmdfZ3JvdXAiOiAibiIsCiAgICAgICJv
+        cHRfbGlzdF92YWx1ZXMiOiBbXSwKICAgICAgImRhdGFjb2x1bW4iOiAibmFy
+        cm93ZXJfdGVybSIsCiAgICAgICJyZXF1aXJlZCI6ICJ5IgogICAgfSwKICAg
+        IHsKICAgICAgImZpZWxkbmFtZSI6ICJyZWxhdGlvbnNoaXBUeXBlIiwKICAg
+        ICAgInRyYW5zZm9ybXMiOiB7fSwKICAgICAgInNvdXJjZV90eXBlIjogIm5h
+        IiwKICAgICAgInNvdXJjZV9uYW1lIjogbnVsbCwKICAgICAgIm5hbWVzcGFj
+        ZSI6ICJyZWxhdGlvbnNfY29tbW9uIiwKICAgICAgInhwYXRoIjogW10sCiAg
+        ICAgICJkYXRhX3R5cGUiOiAic3RyaW5nIiwKICAgICAgInJlcGVhdHMiOiAi
+        biIsCiAgICAgICJpbl9yZXBlYXRpbmdfZ3JvdXAiOiAibiIsCiAgICAgICJv
+        cHRfbGlzdF92YWx1ZXMiOiBbXSwKICAgICAgImRhdGFjb2x1bW4iOiAicmVs
+        YXRpb25zaGlwdHlwZSIsCiAgICAgICJyZXF1aXJlZCI6ICJ5IiwKICAgICAg
+        InRvX3RlbXBsYXRlIjogZmFsc2UKICAgIH0sCiAgICB7CiAgICAgICJmaWVs
+        ZG5hbWUiOiAib2JqZWN0Q3NpZCIsCiAgICAgICJ0cmFuc2Zvcm1zIjogewog
+        ICAgICAgICJzcGVjaWFsIjogWwogICAgICAgICAgInRlcm1fdG9fY3NpZCIK
+        ICAgICAgICBdCiAgICAgIH0sCiAgICAgICJzb3VyY2VfdHlwZSI6ICJuYSIs
+        CiAgICAgICJzb3VyY2VfbmFtZSI6IG51bGwsCiAgICAgICJuYW1lc3BhY2Ui
+        OiAicmVsYXRpb25zX2NvbW1vbiIsCiAgICAgICJ4cGF0aCI6IFtdLAogICAg
+        ICAiZGF0YV90eXBlIjogInN0cmluZyIsCiAgICAgICJyZXBlYXRzIjogIm4i
+        LAogICAgICAiaW5fcmVwZWF0aW5nX2dyb3VwIjogIm4iLAogICAgICAib3B0
+        X2xpc3RfdmFsdWVzIjogW10sCiAgICAgICJkYXRhY29sdW1uIjogImJyb2Fk
+        ZXJfdGVybSIsCiAgICAgICJyZXF1aXJlZCI6ICJ5IgogICAgfQogIF0KfQ==
+  recorded_at: Sat, 22 Aug 2026 00:11:38 GMT
+recorded_with: VCR 6.4.0

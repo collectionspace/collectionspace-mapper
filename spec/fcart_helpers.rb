@@ -18,15 +18,23 @@ module Helpers
 
   def fcart_cache
     cache_config = base_cache_config.merge({domain: fcart_domain})
-    cache = CollectionSpace::RefCache.new(config: cache_config)
+    cache = CollectionSpace::Refcache.new(config: cache_config)
     populate(cache, cacheable_refnames(fcart_domain))
   end
   memo_wise(:fcart_cache)
 
   def fcart_csid_cache
     cache_config = base_cache_config.merge({domain: fcart_domain})
-    cache = CollectionSpace::RefCache.new(config: cache_config)
+    cache = CollectionSpace::Refcache.new(config: cache_config)
     populate(cache, cacheable_csids)
   end
   memo_wise(:fcart_csid_cache)
+
+  def fcart_combined_cache
+    cache_config = base_cache_config.merge({domain: fcart_domain})
+    cache = CollectionSpace::Refcache.new(config: cache_config)
+    populate(cache, cacheable_refnames(fcart_domain), "refname")
+    populate(cache, cacheable_csids, "csid")
+  end
+  memo_wise(:fcart_combined_cache)
 end

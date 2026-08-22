@@ -7,6 +7,8 @@ require "active_support/core_ext/object/blank"
 require "json"
 require "logger"
 
+require "collectionspace/client"
+require "collectionspace/refcache"
 require "dry-configurable"
 require "nokogiri"
 require "xxhash"
