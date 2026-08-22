@@ -141,7 +141,8 @@ module CollectionSpace
           #   settings to be populated, including :recordtype
           CollectionSpace::Mapper::RecordMapper.new(
             handler: self,
-            mapper: record_mapper
+            mapper: record_mapper,
+            ingestformat: :datatoolkit
           )
           CollectionSpace::Mapper::BatchConfig.new(
             config: config,
