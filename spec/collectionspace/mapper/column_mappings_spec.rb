@@ -34,26 +34,43 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings,
 
     describe "#known_columns" do
       let(:mapper) { "core_7-2-0_collectionobject" }
+      let(:result) { mappings.known_columns }
 
       it "returns list of downcased datacolumns" do
         expect(result).to include("objectnumber")
       end
 
+      context "when Data Toolkit mapper" do
+        let(:mapper) { "core_10-2-0_acquisition_dt" }
+        let(:handler) { setup_single_record_type_handler(mapper: mapper) }
 
-      expect(mappings.required_columns
-             .map(&:datacolumn)
-             .sort).to eq(expected)
+        it "returns list of downcased datacolumns" do
+          expect(result).to include("acquisitionreferencenumber")
+        end
+      end
     end
 
     describe "#required_columns" do
       let(:mapper) { "core_7-1-0_movement" }
+      let(:result) { mappings.required_columns }
+
       it "returns column mappings for required fields" do
         expected = %w[currentlocationlocationlocal
           currentlocationlocationoffsite
           currentlocationorganizationlocal currentlocationrefname
           movementreferencenumber].sort
+        expect(result.map(&:datacolumn).sort).to eq(expected)
       end
 
+      context "when Data Toolkit mapper" do
+        let(:mapper) { "core_10-2-0_movement_dt" }
+        let(:handler) { setup_single_record_type_handler(mapper: mapper) }
+
+        it "returns column mappings for required fields" do
+          expected = %w[currentlocation movementreferencenumber].sort
+          expect(result.map(&:datacolumn).sort).to eq(expected)
+        end
+      end
     end
 
     describe "#<<" do
@@ -84,6 +101,16 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings,
       it "returns ColumnMapping for column name" do
         result = mappings.lookup("numberType").fieldname
         expect(result).to eq("numberType")
+      end
+
+      context "when Data Toolkit mapper" do
+        let(:mapper) { "core_10-2-0_acquisition_dt" }
+        let(:handler) { setup_single_record_type_handler(mapper: mapper) }
+
+        it "returns ColumnMapping for column name" do
+          result = mappings.lookup("acquisitionSource")
+          expect(result.respond_to?(:authority_vocabularies)).to be true
+        end
       end
     end
   end

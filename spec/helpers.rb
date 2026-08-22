@@ -45,6 +45,11 @@ module Helpers
 
   def setup_single_record_type_handler(mapper:, optlist_override: nil,
     profile: "core", config: {})
+    mapper = if mapper.start_with?("http")
+      mapper
+    else
+      get_json_record_mapper(mapper)
+    end
     CollectionSpace::Mapper::SingleRecordType::Handler.new(
       record_mapper: mapper,
       client: send(:"#{profile}_client"),
