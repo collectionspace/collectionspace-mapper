@@ -55,7 +55,8 @@ module CollectionSpace
         handler.config.record.mappings =
           CollectionSpace::Mapper::ColumnMappings.new(
             mappings: hash[:mappings],
-            handler: handler
+            handler: handler,
+            ingestformat: ingestformat
           )
 
         CollectionSpace::Mapper::Xpaths.new(handler)
