@@ -15,8 +15,10 @@ module CollectionSpace
         :transforms, :xpath
 
       # @param mapping [Hash] for a given CSV column
-      def initialize(mapping:)
+      # @param authority_companion [Hash]
+      def initialize(mapping:, authority_companion: nil)
         @mapping = mapping
+        @authority_companion = authority_companion
 
         mapping.each do |key, value|
           instance_variable_set(:"@#{key}", value)
@@ -24,18 +26,18 @@ module CollectionSpace
         symbolize_transforms
       end
 
-      def datacolumn
-        @datacolumn.downcase
+      def companion_column
+        return unless authority_companion
+
+        authority_companion["datacolumn"]
       end
 
-      def fullpath
-        @fullpath ||= [@namespace, @xpath].flatten.join("/")
-      end
+      def datacolumn = @datacolumn.downcase
+
+      def fullpath = @fullpath ||= [@namespace, @xpath].flatten.join("/")
 
       # includes both truly required and "required in template"
-      def required?
-        @required.start_with?("y")
-      end
+      def required? = @required.start_with?("y")
 
       def update_transforms(new_transforms)
         @transforms = @transforms.merge(new_transforms)
@@ -43,7 +45,7 @@ module CollectionSpace
 
       private
 
-      attr_reader :mapping
+      attr_reader :mapping, :authority_companion
 
       def symbolize_transforms
         return if transforms.blank?
