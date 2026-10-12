@@ -2,9 +2,16 @@
 
 source "https://rubygems.org"
 
-gem "almost_standard",
-  github: "kspurgin/almost_standard",
-  tag: "1.0.1",
-  group: :development
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
+
+gem "collectionspace-refcache",
+  github: "collectionspace/collectionspace-refcache",
+  branch: "master"
+
+group :development do
+  gem "almost_standard",
+    github: "kspurgin/almost_standard",
+    tag: "1.0.1"
+end
 
 gemspec
