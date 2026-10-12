@@ -47,7 +47,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "activesupport"
   spec.add_dependency "chronic"
   spec.add_dependency "collectionspace-client"
-  spec.add_dependency "collectionspace-refcache"
+  # spec.add_dependency "collectionspace-refcache"
 
   # pinned because updating causes "uninitialized constant
   #   ActiveSupport::LoggerThreadSafeLevel::Logger"
