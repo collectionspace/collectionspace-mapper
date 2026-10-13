@@ -18,21 +18,21 @@ module Helpers
 
   def anthro_cache
     cache_config = base_cache_config.merge({domain: anthro_domain})
-    cache = CollectionSpace::Refcache.new(config: cache_config)
+    cache = CollectionSpace::RefCache.new(config: cache_config)
     populate(cache, cacheable_refnames(anthro_domain))
   end
   memo_wise(:anthro_cache)
 
   def anthro_csid_cache
     cache_config = base_cache_config.merge({domain: anthro_domain})
-    cache = CollectionSpace::Refcache.new(config: cache_config)
+    cache = CollectionSpace::RefCache.new(config: cache_config)
     populate(cache, cacheable_csids)
   end
   memo_wise(:anthro_csid_cache)
 
   def anthro_combined_cache
     cache_config = base_cache_config.merge({domain: anthro_domain})
-    cache = CollectionSpace::Refcache.new(config: cache_config)
+    cache = CollectionSpace::RefCache.new(config: cache_config)
     populate(cache, cacheable_refnames(anthro_domain), "refname")
     populate(cache, cacheable_csids, "csid")
   end

@@ -16,7 +16,7 @@ module CollectionSpace
         # @return [String] base domain as used in RefName URNs (e.g.
         #   core.collectionspace.org)
         setting :domain, default: nil, reader: true
-        # @return [CollectionSpace::Refcache, nil] used to store refnames of
+        # @return [CollectionSpace::RefCache, nil] used to store refnames of
         #   looked-up terms and CSIDs of looked-up entities
         setting :cache, default: nil, reader: true
         # @return [CollectionSpace::Mapper::DataValidator, nil] class used to
@@ -105,10 +105,10 @@ module CollectionSpace
           @warnings = []
           self.config.client = client
           self.config.domain = client.domain
-          self.config.cache = if cache.is_a?(CollectionSpace::Refcache)
+          self.config.cache = if cache.is_a?(CollectionSpace::RefCache)
             cache
           else
-            CollectionSpace::Refcache.new(config: {
+            CollectionSpace::RefCache.new(config: {
               domain: client.domain,
               store: cache,
               lifetime: 10 * 60
