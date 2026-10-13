@@ -26,6 +26,7 @@ module CollectionSpace
         def self.call(mode:, domain:, csid:, name:, term:, term_data:,
           opt_fields: {})
           _chk = yield validate_opt_fields(mode, opt_fields)
+          opt_fields = case_enforce_opt_fields(opt_fields)
 
           displayname = if opt_fields.key?("displayName")
             opt_fields["displayName"]
@@ -34,19 +35,10 @@ module CollectionSpace
             term
           end
 
-          # rubocop:disable Layout/LineLength
-          base_string = <<~XML
-            <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-            <document name="vocabularyitems">
-                <ns2:vocabularyitems_common
-                   xmlns:ns2="http://collectionspace.org/services/vocabulary"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                   <inAuthority>#{csid}</inAuthority>
-                   <shortIdentifier>#{term_data["shortIdentifier"]}</shortIdentifier>
-                </ns2:vocabularyitems_common>
-            </document>
-          XML
-          # rubocop:enable Layout/LineLength
+          base_string = case mode
+          when :add then add_base(csid, term_data)
+          when :update then update_base(term_data)
+          end
 
           doc = Nokogiri.parse(base_string, "UTF-8")
           namespaces = {
@@ -75,18 +67,69 @@ module CollectionSpace
           return Success() unless opt_fields
 
           known = case mode
-          when :add then ADD_OPT_FIELDS
-          when :update then UPDATE_OPT_FIELDS
+          when :add then ADD_OPT_FIELDS.dup
+          when :update then UPDATE_OPT_FIELDS.dup
           end
-          chk = opt_fields.keys - known
+          chk = opt_fields.keys.map!(&:downcase) - known.map!(&:downcase)
           return Success() if chk.empty?
 
+          msgfields = chk.map do |f|
+            opt_fields.keys.find do |k|
+              k.downcase == f
+            end
+          end
           msg = "Invalid optional field(s) provided for vocabulary term "\
-            "#{mode}: #{chk.join(", ")}"
+            "#{mode}: #{msgfields.join(", ")}"
 
           Failure(msg)
         end
         private_class_method :validate_opt_fields
+
+        def self.case_enforce_opt_fields(opt_fields)
+          opt_fields.transform_keys do |key|
+            if key == "sourcepage"
+              "sourcePage"
+            elsif key == "termstatus"
+              "termStatus"
+            elsif key == "displayname"
+              "displayName"
+            else
+              key
+            end
+          end
+        end
+        private_class_method :case_enforce_opt_fields
+
+        def self.add_base(csid, term_data)
+          # rubocop:disable Layout/LineLength
+          <<~XML
+            <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+            <document name="vocabularyitems">
+                <ns2:vocabularyitems_common
+                   xmlns:ns2="http://collectionspace.org/services/vocabulary"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                   <inAuthority>#{csid}</inAuthority>
+                   <shortIdentifier>#{term_data["shortIdentifier"]}</shortIdentifier>
+                </ns2:vocabularyitems_common>
+            </document>
+          XML
+        end
+        private_class_method :add_base
+
+        def self.update_base(term_data)
+          <<~XML
+            <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+            <document name="vocabularyitems">
+                <ns2:vocabularyitems_common
+                   xmlns:ns2="http://collectionspace.org/services/vocabulary"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                   <shortIdentifier>#{term_data["shortIdentifier"]}</shortIdentifier>
+                </ns2:vocabularyitems_common>
+            </document>
+          XML
+          # rubocop:enable Layout/LineLength
+        end
+        private_class_method :update_base
 
         def self.add_element(key, val, doc, ns)
           node = Nokogiri::XML::Node.new(key, doc)
