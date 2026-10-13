@@ -21,10 +21,8 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::Handler do
     context "with existing term", vcr: "vocab_terms_handler_existing" do
       let(:vocab) { "Annotation Type" }
       let(:term) { "nomenclature" }
-      it "returns Failure" do
-        expect(result).to be_a(Dry::Monads::Failure)
-        failmsg = "annotationtype/nomenclature already exists"
-        expect(result.failure).to eq(failmsg)
+      it "returns Success (state is as desired already; not a problem)" do
+        expect(result).to be_a(Dry::Monads::Success)
       end
     end
 

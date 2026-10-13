@@ -80,7 +80,6 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::PayloadBuilder do
                 <ns2:vocabularyitems_common
                    xmlns:ns2="http://collectionspace.org/services/vocabulary"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                   <inAuthority>CSID</inAuthority>
                    <shortIdentifier>TERMID</shortIdentifier>
                    <refName>urn:cspace:DOMAIN:vocabularies:name(NAME):item:name(TERMID)'TERM'</refName>
                    <displayName>TERM</displayName>
@@ -125,7 +124,6 @@ RSpec.describe CollectionSpace::Mapper::VocabularyTerms::PayloadBuilder do
                 <ns2:vocabularyitems_common
                    xmlns:ns2="http://collectionspace.org/services/vocabulary"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                   <inAuthority>CSID</inAuthority>
                    <shortIdentifier>TERMID</shortIdentifier>
                    <refName>urn:cspace:DOMAIN:vocabularies:name(NAME):item:name(TERMID)'foo'</refName>
                    <displayName>foo</displayName>

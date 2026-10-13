@@ -946,4 +946,69 @@ http_interactions:
       string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:abstract-common-list
         xmlns:ns2="http://collectionspace.org/services/jaxb"><pageNum>0</pageNum><pageSize>25</pageSize><itemsInPage>1</itemsInPage><totalItems>1</totalItems><fieldsReturned>csid|uri|refName|updatedAt|workflowState|rev|sourcePage|sas|proposed|referenced|deprecated|termStatus|description|source|order|displayName|shortIdentifier</fieldsReturned><list-item><csid>6fbda5d3-79c5-4d0e-a0b1</csid><uri>/vocabularies/33b690e9-18b1-4e19-9390/items/6fbda5d3-79c5-4d0e-a0b1</uri><refName>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype):item:name(nomenclature)'nomenclature'</refName><updatedAt>2025-09-04T21:01:35.043Z</updatedAt><workflowState>project</workflowState><rev>34</rev><sas>false</sas><proposed>true</proposed><order>0004</order><displayName>nomenclature</displayName><shortIdentifier>nomenclature</shortIdentifier></list-item></ns2:abstract-common-list>
   recorded_at: Thu, 04 Sep 2025 21:25:54 GMT
+- request:
+    method: put
+    uri: https://core.dev.collectionspace.org/cspace-services/vocabularies/33b690e9-18b1-4e19-9390/items/6fbda5d3-79c5-4d0e-a0b1?pgSz=25&wf_deleted=true
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+        <document name="vocabularyitems">
+            <ns2:vocabularyitems_common xmlns:ns2="http://collectionspace.org/services/vocabulary" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+               <shortIdentifier>nomenclature</shortIdentifier>
+            <refName>urn:cspace:core.collectionspace.org:vocabularies:name(nomenclature):item:name(nomenclature)'nomenclature'</refName><displayName>nomenclature</displayName></ns2:vocabularyitems_common>
+        </document>
+    headers:
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - nnnn
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic YWRtaW5AY29yZS5jb2xsZWN0aW9uc3BhY2Uub3JnOkFkbWluaXN0cmF0b3I=
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Mon, 12 Oct 2026 17:44:37 GMT
+      Content-Type:
+      - application/xml;charset=UTF-8
+      Content-Length:
+      - '1238'
+      Connection:
+      - keep-alive
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=618FB687844E9F1C32DA37716C08BDFD; Path=/cspace-services; Secure;
+        HttpOnly
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <document name="vocabularyitems"><ns2:collectionspace_core xmlns:ns2="http://collectionspace.org/collectionspace_core/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><createdAt>2025-03-04T19:46:05.592Z</createdAt><updatedBy>admin@core.collectionspace.org</updatedBy><createdBy>SPRING_ADMIN</createdBy><workflowState>project</workflowState><tenantId>1</tenantId><refName>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype):item:name(nomenclature)'nomenclature'</refName><uri>/vocabularies/33b690e9-18b1-4e19-9390/items/6fbda5d3-79c5-4d0e-a0b1</uri><updatedAt>2026-10-12T17:44:37.891Z</updatedAt></ns2:collectionspace_core><ns2:vocabularyitems_common xmlns:ns2="http://collectionspace.org/services/vocabulary" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><rev>39</rev><sas>false</sas><csid>6fbda5d3-79c5-4d0e-a0b1</csid><displayName>nomenclature</displayName><shortIdentifier>nomenclature</shortIdentifier><proposed>true</proposed><refName>urn:cspace:core.collectionspace.org:vocabularies:name(annotationtype):item:name(nomenclature)'nomenclature'</refName><inAuthority>33b690e9-18b1-4e19-9390</inAuthority><order>0004</order></ns2:vocabularyitems_common></document>
+  recorded_at: Mon, 12 Oct 2026 17:44:38 GMT
 recorded_with: VCR 6.3.1
