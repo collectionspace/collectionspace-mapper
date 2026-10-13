@@ -20,21 +20,21 @@ module Helpers
 
   def core_cache
     cache_config = base_cache_config.merge({domain: core_domain})
-    cache = CollectionSpace::Refcache.new(config: cache_config)
+    cache = CollectionSpace::RefCache.new(config: cache_config)
     populate(cache, cacheable_refnames(core_domain))
   end
   memo_wise(:core_cache)
 
   def core_csid_cache
     cache_config = base_cache_config.merge({domain: core_domain})
-    cache = CollectionSpace::Refcache.new(config: cache_config)
+    cache = CollectionSpace::RefCache.new(config: cache_config)
     populate(cache, cacheable_csids)
   end
   memo_wise(:core_csid_cache)
 
   def core_combined_cache
     cache_config = base_cache_config.merge({domain: core_domain})
-    cache = CollectionSpace::Refcache.new(config: cache_config)
+    cache = CollectionSpace::RefCache.new(config: cache_config)
     populate(cache, cacheable_refnames(core_domain), "refname")
     populate(cache, cacheable_csids, "csid")
   end
