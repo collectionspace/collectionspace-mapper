@@ -13,6 +13,9 @@ module CollectionSpace
       #   client should have its `#config.include_deleted` set to true before
       #   passing it to construct this class.
       class Handler
+        # @return [Array<String>] allowable optional fields for vocabulary terms
+        OPT_FIELDS = %w[description source sourcepage termstatus]
+
         include Dry::Configurable
         include Dry::Monads[:result, :do]
 
@@ -33,14 +36,14 @@ module CollectionSpace
           CollectionSpace::Mapper::Searcher.new(self)
         end
 
-        # @param vocab [String] the display or machine name of the target
-        #   Vocabulary
         # @param term [String, Hash] if mode is :add, the term string to create;
         #   if mode is :update, existing record for term, returned by searcher
         # @param mode [:add, :update]
+        # @param vocab [nil, String] the display or machine name of the target
+        #   Vocabulary; not required for :update mode
         # @param opt_fields [nil, Hash{String => String}] key/value pairs for
         #   description, source, sourcePage, and termStatus fields
-        def term_payload(vocab:, term:, mode: :add, opt_fields: nil)
+        def term_payload(term:, mode: :add, vocab: nil, opt_fields: nil)
           send_opt_fields = opt_fields || {}
           params = case mode
           when :add
@@ -49,7 +52,7 @@ module CollectionSpace
             )
           when :update
             yield updated_term_params(
-              vocab: vocab, term_data: term, opt_fields: send_opt_fields
+              term_data: term, opt_fields: send_opt_fields
             )
           end
           params[:mode] = mode
@@ -63,17 +66,22 @@ module CollectionSpace
         # @param term [String] the term to create in the Vocabulary
         # @param opt_fields [nil, Hash{String => String}] key/value pairs for
         #   description, source, sourcePage, and termStatus fields
-        def add_term(vocab:, term:, opt_fields: nil)
+        # @param row [CSV::Row] used to optionally extract opt_fields, if that
+        #   param is not explicitly given
+        def add_term(vocab:, term:, opt_fields: nil, row: nil)
           vocabulary = yield vocabs.by_name(vocab)
           status = term_status(term, vocabulary)
           vocabshortid = vocabulary["shortIdentifier"]
 
-          if status.first == :exists
-            return Failure("#{vocabshortid}/#{term} already exists")
-          end
+          opt_fields = extract_opt_fields(row) if !opt_fields && row
 
-          if status.first == :soft_deleted
-            return update_term(vocab: vocab, term: term, opt_fields: opt_fields)
+          if status.first == :exists || status.first == :soft_deleted
+            return update_known_term(
+              term: term,
+              opt_fields: opt_fields,
+              status: status.first,
+              current_term: status.last
+            )
           end
 
           payload = yield term_payload(
@@ -91,15 +99,22 @@ module CollectionSpace
         # @param term [String] the term to create in the Vocabulary
         # @param opt_fields [nil, Hash{String => String}] key/value pairs for
         #   description, source, sourcePage, and termStatus fields
-        def update_term(vocab:, term:, opt_fields: nil)
+        # @param row [CSV::Row] used to optionally extract opt_fields, if that
+        #   param is not explicitly given
+        def update_term(vocab:, term:, opt_fields: nil, row: nil)
           vocabulary = yield vocabs.by_name(vocab)
           status = term_status(term, vocabulary)
+
+          opt_fields = extract_opt_fields(row) if !opt_fields && row
+
           if status.first == :nonexistent
-            return Failure("The term \"#{term}\" does not exist in #{vocab}")
+            return Failure("The term \"#{term}\" does not exist in "\
+                           "#{vocab}")
           end
 
           termrec = status[1]
           path = termrec["uri"]
+
           if status.first == :soft_deleted
             _undelete = yield un_soft_delete(path)
           end
@@ -108,6 +123,7 @@ module CollectionSpace
             vocab: vocabulary, term: termrec, mode: :update,
             opt_fields: opt_fields
           )
+
           putting = yield put_term(path, payload)
 
           Success(putting)
@@ -148,6 +164,47 @@ module CollectionSpace
         private
 
         attr_reader :domain, :vocabs
+
+        def extract_opt_fields(row)
+          return unless OPT_FIELDS.any? { |f| row.key?(f) }
+
+          result = OPT_FIELDS.to_h { |f| [f, row[f]] }
+            .compact
+          return if result.empty?
+
+          result
+        end
+
+        # @param term [String] the term to update in the Vocabulary
+        # @param status [Symbol]
+        # @param current_term [Hash] from previous API search to get status
+        # @param opt_fields [nil, Hash{String => String}] key/value pairs for
+        #   description, source, sourcePage, and termStatus fields
+        def update_known_term(term:, status:, current_term:, opt_fields: nil)
+          opt_fields ||= {}
+          path = current_term["uri"]
+
+          if status == :soft_deleted
+            _undelete = yield un_soft_delete(path)
+          end
+
+          if current_term["displayName"] == term && opt_fields.empty?
+            return Success(current_term)
+          end
+
+          unless current_term["displayName"] == term
+            opt_fields.merge({"displayName" => term})
+            current_term["displayName"] = term
+          end
+
+          payload = yield term_payload(
+            term: current_term, mode: :update, opt_fields: opt_fields
+          )
+
+          putting = yield put_term(path, payload)
+
+          Success(putting)
+        end
 
         def term_status(term, vocab)
           response = searcher.call(
@@ -207,15 +264,15 @@ module CollectionSpace
           Success(params)
         end
 
-        # @param vocab [String] the display name of the target Vocabulary
         # @param term_data [Hash] existing record for the term
         # @param opt_fields [nil, Hash{String => String}] key/value pairs for
         #   description, source, sourcePage, and termStatus fields
-        def updated_term_params(vocab:, term_data:, opt_fields: nil)
+        # @return [Hash]
+        def updated_term_params(term_data:, opt_fields: nil)
           params = {
             domain: domain,
-            csid: vocab["csid"],
-            name: vocab["shortIdentifier"],
+            csid: term_data["csid"],
+            name: term_data["shortIdentifier"],
             term: term_data["displayName"],
             term_data: {"shortIdentifier" => term_data["shortIdentifier"]}
           }
