@@ -14,8 +14,6 @@ Gem::Specification.new do |spec|
   spec.homepage = "https://github.com/lyrasis/collectionspace-mapper"
   spec.license = "MIT"
 
-  spec.required_ruby_version = ">= 3.0.6"
-
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the
   #   'allowed_push_host' to allow pushing to a single host or delete this
   #   section to allow pushing to any host.
@@ -44,16 +42,12 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  # version used by collectionspace-csv-importer
-  spec.add_dependency "activesupport", "= 6.0.4.7"
+  spec.add_dependency "activesupport"
   spec.add_dependency "chronic"
+  spec.add_dependency "dry-configurable"
+  spec.add_dependency "dry-monads"
+  spec.add_dependency "collectionspace-client"
   spec.add_dependency "collectionspace-refcache"
-
-  # pinned because updating causes "uninitialized constant
-  #   ActiveSupport::LoggerThreadSafeLevel::Logger"
-  spec.add_dependency "dry-configurable", "~>0.14"
-  spec.add_dependency "dry-monads", "~>1.4"
-
   spec.add_dependency "memo_wise"
   spec.add_dependency "net-http"
   spec.add_dependency "nokogiri"
