@@ -15,6 +15,17 @@ This project bumps the version number for any changes (including documentation u
 
 - none
 
+## [7.0.0] - 2026-10-27
+
+- The `migration-tools` branch that has been maintained separately for `collectionspace_migration_tools` (CMT) for the past two years is merged into `main`. The CSV Importer is deployed from a Docker container that has all its dependencies, and does not need the real `main` branch to remain stuck in time.
+- Use Ruby 4.0.5
+- Use the `data-toolkit` branch of `collectionspace-refcache`
+- Extract methods related to swapping case for searching to `CaseSwappable` mixin module
+- Extract method related to combining term type and subtype in a consistent way to `TypeSubtypeable` mixin module
+- Extract methods related to caching to `Cacheable` mixin module
+- Improve vocabulary term addition/update/delete logic
+- General cleanup of code
+
 ## [6.3.1] - 2026-01-22
 - Allow `+` and `-` at the beginning of float and integer data types.
 
