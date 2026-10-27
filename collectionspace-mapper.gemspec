@@ -47,7 +47,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "dry-configurable"
   spec.add_dependency "dry-monads"
   spec.add_dependency "collectionspace-client"
-  spec.add_dependency "collectionspace-refcache"
   spec.add_dependency "memo_wise"
   spec.add_dependency "net-http"
   spec.add_dependency "nokogiri"
