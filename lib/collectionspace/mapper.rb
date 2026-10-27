@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
-require "collectionspace/mapper/version"
-
 require "active_support/core_ext/object/blank"
-
+require "collectionspace/client"
+require "collectionspace/mapper/version"
+require "collectionspace/refcache"
+require "dry-configurable"
 require "json"
 require "logger"
-
-require "dry-configurable"
 require "nokogiri"
 require "xxhash"
 require "zeitwerk"
