@@ -57,6 +57,39 @@ RSpec.describe CollectionSpace::Mapper::Cacheable,
         expect(result).to be true
       end
     end
+
+    context "with single record type handler" do
+      let(:handler) do
+        setup_single_record_type_handler(
+          mapper: "https://raw.githubusercontent.com/collectionspace/"\
+            "cspace-config-untangler/refs/heads/main/data/mappers/"\
+            "community_profiles/release_8_1_1/core/"\
+            "core_10-0-2_collectionobject.json",
+          config: config
+        )
+      end
+
+      context "when not in cache" do
+        let(:val) { "Tiresias" }
+        it "returns false" do
+          expect(result).to be false
+        end
+      end
+
+      context "when in cache" do
+        let(:val) { "Test" }
+        it "returns true" do
+          expect(result).to be true
+        end
+      end
+
+      context "when captitalized form is in cache" do
+        let(:val) { "test" }
+        it "returns true" do
+          expect(result).to be true
+        end
+      end
+    end
   end
 
   describe "#cached_as_unknown?" do
@@ -76,6 +109,38 @@ RSpec.describe CollectionSpace::Mapper::Cacheable,
         handler.termcache
           .put("unknownvalue", "#{termtype}/#{termsubtype}", val, nil)
         expect(result).to be true
+      end
+    end
+
+    context "with single record type handler" do
+      let(:handler) do
+        setup_single_record_type_handler(
+          mapper: "https://raw.githubusercontent.com/collectionspace/"\
+            "cspace-config-untangler/refs/heads/main/data/mappers/"\
+            "community_profiles/release_8_1_1/core/"\
+            "core_10-0-2_collectionobject.json",
+          config: config
+        )
+      end
+
+      context "when not cached as unknown value" do
+        it "returns false" do
+          handler.cache
+            .remove(
+              "unknownvalue", "#{termtype}/#{termsubtype}", val, "refname"
+            )
+          expect(result).to be false
+        end
+      end
+
+      context "when cached as unknown value" do
+        it "returns true" do
+          handler.cache
+            .put(
+              "unknownvalue", "#{termtype}/#{termsubtype}", val, nil, "refname"
+            )
+          expect(result).to be true
+        end
       end
     end
   end
@@ -105,6 +170,44 @@ RSpec.describe CollectionSpace::Mapper::Cacheable,
         expected = "urn:cspace:c.core.collectionspace.org:conceptauthorities"\
           ":name(concept):item:name(Test1599650854716)'Test'"
         expect(result).to eq(expected)
+      end
+    end
+
+    context "with single record type handler" do
+      let(:handler) do
+        setup_single_record_type_handler(
+          mapper: "https://raw.githubusercontent.com/collectionspace/"\
+            "cspace-config-untangler/refs/heads/main/data/mappers/"\
+            "community_profiles/release_8_1_1/core/"\
+            "core_10-0-2_collectionobject.json",
+          config: config
+        )
+      end
+
+      context "when not in cache" do
+        let(:val) { "Tiresias" }
+        it "returns nil" do
+          expect(result).to be_nil
+        end
+      end
+
+      context "when in cache" do
+        let(:val) { "Test" }
+        it "returns refname urn" do
+          expected = "urn:cspace:c.core.collectionspace.org:"\
+            "conceptauthorities:"\
+            "name(concept):item:name(Test1599650854716)'Test'"
+          expect(result).to eq(expected)
+        end
+      end
+
+      context "when capitalized form is in cache" do
+        let(:val) { "test" }
+        it "returns refname urn" do
+          expected = "urn:cspace:c.core.collectionspace.org:conceptauthorities"\
+            ":name(concept):item:name(Test1599650854716)'Test'"
+          expect(result).to eq(expected)
+        end
       end
     end
   end

@@ -47,7 +47,7 @@ module Helpers
     CollectionSpace::Mapper::HandlerFullRecordOneCache.new(
       record_mapper: mapper,
       client: send(:"#{profile}_client"),
-      cache: send(:"#{profile}_cache"),
+      cache: send(:"#{profile}_combined_cache"),
       config: config
     )
   end
