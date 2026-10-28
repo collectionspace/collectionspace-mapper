@@ -11,7 +11,16 @@ module CollectionSpace
 
       private
 
+      def cache_mode = if handler.respond_to?(:termcache) &&
+          handler.respond_to?(:csidcache)
+                         :separate
+                       else
+                         :allinone
+                       end
+
       def cache(value_type)
+        return combinedcache if cache_mode == :allinone
+
         case value_type
         when :refname then termcache
         when :csid then csidcache
@@ -30,11 +39,18 @@ module CollectionSpace
         handler.csidcache
       end
 
+      def combinedcache
+        return nil unless handler.respond_to?(:cache)
+
+        handler.cache
+      end
+
       # @param val [String]
       # @return [Boolean] whether or not refname for term is stored in cache
       def in_cache?(val)
         this_cache = cache(:refname)
         args = [type, subtype, val]
+        args << "refname" if cache_mode == :allinone
 
         return true if this_cache.send(:exists?, *args)
         return true if this_cache.send(:exists?, *case_swap_element(args, 2))
@@ -47,6 +63,7 @@ module CollectionSpace
       def cached_as_unknown?(val)
         this_cache = cache(:refname)
         args = ["unknownvalue", type_subtype, val]
+        args << "refname" if cache_mode == :allinone
 
         return true if this_cache.send(:exists?, *args)
         return true if this_cache.send(:exists?, *case_swap_element(args, 2))
@@ -57,6 +74,7 @@ module CollectionSpace
       def cached_unknown(type_subtype, val)
         this_cache = cache(:refname)
         args = ["unknownvalue", type_subtype, val]
+        args << "refname" if cache_mode == :allinone
 
         returned = this_cache.send(:get, *args)
         return returned if returned
@@ -71,6 +89,7 @@ module CollectionSpace
       def cached_term(val, termtype = type, termsubtype = subtype)
         this_cache = cache(:refname)
         args = [termtype, termsubtype, val]
+        args << "refname" if cache_mode == :allinone
 
         returned = this_cache.send(:get, *args)
         return returned if returned
@@ -85,6 +104,7 @@ module CollectionSpace
       def cached_term_csid(val, termtype = type, termsubtype = subtype)
         this_cache = cache(:csid)
         args = [termtype, termsubtype, val]
+        args << "csid" if cache_mode == :allinone
 
         returned = this_cache.send(:get, *args)
         return returned if returned
@@ -106,6 +126,7 @@ module CollectionSpace
       def cache_term_value(term_args, value_type, value)
         this_cache = cache(value_type)
         args = term_args + [value]
+        args << value_type.to_s if cache_mode == :allinone
         this_cache.send(:put, *args)
       end
 
@@ -115,6 +136,7 @@ module CollectionSpace
       def cached_obj_or_procedure_csid(idval, type)
         this_cache = cache(:csid)
         args = [type, "", idval]
+        args << "csid" if cache_mode == :allinone
         this_cache.send(:get, *args)
       end
 
@@ -124,6 +146,7 @@ module CollectionSpace
       def cache_obj_or_procedure_csid(idval, type, csid)
         this_cache = cache(:csid)
         args = [type, "", idval, csid]
+        args << "csid" if cache_mode == :allinone
         this_cache.send(:put, *args)
       end
 
@@ -133,12 +156,7 @@ module CollectionSpace
       def cache_obj_or_procedure_refname(idval, type, refname)
         this_cache = cache(:refname)
         args = [type, "", idval, refname]
-        this_cache.send(:put, *args)
-      end
-
-      def cache_unknown_term(term, cacheval)
-        this_cache = cache(:refname)
-        args = ["unknownvalue", type_subtype, term, cacheval]
+        args << "refname" if cache_mode == :allinone
         this_cache.send(:put, *args)
       end
     end

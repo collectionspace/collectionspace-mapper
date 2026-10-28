@@ -90,6 +90,33 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable,
         expect(result).to eq("56c04f5f-32b9-4f1d-8a4b")
       end
     end
+
+    context "with single record type handler" do
+      let(:handler) do
+        setup_single_record_type_handler(
+          mapper: "https://raw.githubusercontent.com/collectionspace/"\
+            "cspace-config-untangler/refs/heads/main/data/mappers/"\
+            "community_profiles/release_8_1_1/core/"\
+            "core_10-0-2_collectionobject.json",
+          config: config
+        )
+      end
+
+      context "when in cache" do
+        let(:objnum) { "Hierarchy Test 001" }
+
+        it "returns csid" do
+          expect(result).to eq("7976-7265-3715-6363")
+        end
+      end
+
+      context "when not in cache", vcr: "obj_csid_QA_TEST_001" do
+        let(:objnum) { "QA TEST 001" }
+        it "returns csid" do
+          expect(result).to eq("56c04f5f-32b9-4f1d-8a4b")
+        end
+      end
+    end
   end
 
   describe "#term_csid" do
@@ -108,6 +135,34 @@ RSpec.describe CollectionSpace::Mapper::TermSearchable,
       let(:val) { "QA TEST Concept 2" }
       it "returns csid" do
         expect(result).to eq("8a76c4d7-d66d-451c-abee")
+      end
+    end
+
+    context "with single record type handler" do
+      let(:handler) do
+        setup_single_record_type_handler(
+          mapper: "https://raw.githubusercontent.com/collectionspace/"\
+            "cspace-config-untangler/refs/heads/main/data/mappers/"\
+            "community_profiles/release_8_1_1/core/"\
+            "core_10-0-2_collectionobject.json",
+          config: config
+        )
+      end
+
+      context "when in cache" do
+        let(:val) { "Sample Concept 1" }
+        it "returns csid" do
+          # it 'returns csid', :skip => 'does not cause mapping to fail, so we
+          #   live with technical incorrectness for now' do
+          expect(result).to eq("3736-2250-1869-4155")
+        end
+      end
+
+      context "when not in cache", vcr: "term_csid_QA_TEST_Concept_2" do
+        let(:val) { "QA TEST Concept 2" }
+        it "returns csid" do
+          expect(result).to eq("8a76c4d7-d66d-451c-abee")
+        end
       end
     end
   end
