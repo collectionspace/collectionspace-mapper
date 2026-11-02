@@ -24,7 +24,7 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
       end
     end
 
-    context "with full record signature" do
+    context "with full record signature, dual cache" do
       let(:mapper) { get_json_record_mapper("core_6-1-0_collectionobject") }
       let(:client) { core_client }
       let(:cache) { core_cache }
@@ -162,7 +162,147 @@ RSpec.describe CollectionSpace::Mapper::DataHandler do
           }
         end
 
+        it "returns DateDetails handler" do
+          exp_args = args.merge({config: {"batch_mode" => "date details"}})
+          expect(CollectionSpace::Mapper::DateDetails::Handler).to receive(
+            :new
+          ).with(**exp_args)
+          handler
+        end
+      end
+    end
+
+    context "with full record signature, single cache" do
+      let(:mapper) { get_json_record_mapper("core_11-0_acquisition_tkinit") }
+      let(:client) { core_client }
+      let(:cache) { core_combined_cache }
+
+      context "without config" do
+        let(:args) do
+          {
+            record_mapper: mapper,
+            client: client,
+            cache: cache
+          }
+        end
+
         it "returns full record handler" do
+          expect(CollectionSpace::Mapper::HandlerFullRecordOneCache).to receive(
+            :new
+          ).with(**args)
+          handler
+        end
+      end
+
+      context "with empty config" do
+        let(:args) do
+          {
+            record_mapper: mapper,
+            client: client,
+            cache: cache,
+            config: {}
+          }
+        end
+
+        it "returns full record handler" do
+          expect(CollectionSpace::Mapper::HandlerFullRecordOneCache).to receive(
+            :new
+          ).with(**args)
+          handler
+        end
+      end
+
+      context "with empty config string" do
+        let(:args) do
+          {
+            record_mapper: mapper,
+            client: client,
+            cache: cache,
+            config: "{}"
+          }
+        end
+
+        it "returns full record handler" do
+          exp_args = args.merge({config: {}})
+          expect(CollectionSpace::Mapper::HandlerFullRecordOneCache).to receive(
+            :new
+          ).with(**exp_args)
+          handler
+        end
+      end
+
+      context "with config not setting batch mode" do
+        let(:args) do
+          {
+            record_mapper: mapper,
+            client: client,
+            cache: cache,
+            config: {delimiter: "|"}
+          }
+        end
+
+        it "returns full record handler" do
+          expect(CollectionSpace::Mapper::HandlerFullRecordOneCache).to receive(
+            :new
+          ).with(**args)
+          handler
+        end
+      end
+
+      context "with mapper sent as URL" do
+        let(:args) do
+          {
+            record_mapper: "https://raw.githubusercontent.com/collectionspace/"\
+          "cspace-config-untangler/refs/heads/main/data/mappers/"\
+          "community_profiles/release_9_0_tkinit/core/"\
+          "core_11-0_collectionobject.json",
+            client: client,
+            cache: cache,
+            config: {delimiter: "|"}
+          }
+        end
+
+        it "returns full record handler" do
+          expect(CollectionSpace::Mapper::HandlerFullRecordOneCache).to receive(
+            :new
+          ).with(**args)
+          handler
+        end
+      end
+
+      context "with Hash config setting batch mode to full record" do
+        let(:args) do
+          {
+            record_mapper: mapper,
+            client: client,
+            cache: cache,
+            config: {"batch_mode" => "full record"}
+          }
+        end
+
+        it "returns full record handler" do
+          expect(CollectionSpace::Mapper::HandlerFullRecordOneCache).to receive(
+            :new
+          ).with(**args)
+          handler
+        end
+      end
+
+      context "with string config specifying date details mode" do
+        let(:config) do
+          {"batch_mode" => "date details"}.to_json
+        end
+
+        let(:args) do
+          {
+            record_mapper: mapper,
+            client: client,
+            cache: cache,
+            config: config
+          }
+        end
+
+        it "returns DateDetails handler" do
           exp_args = args.merge({config: {"batch_mode" => "date details"}})
           expect(CollectionSpace::Mapper::DateDetails::Handler).to receive(
             :new

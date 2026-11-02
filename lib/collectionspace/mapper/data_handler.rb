@@ -22,7 +22,8 @@ module CollectionSpace
         #     already-parsed JSON converted to Hash
         #   @param client [CollectionSpace::Client]
         #   @param cache [CollectionSpace::Refcache] to be used for caching term
-        #     refname URNs
+        #     refname URNs; or, for all caching via the all in one cache
+        #     approach
         #   @param csid_cache [CollectionSpace::Refcache]
         #   @param config [Hash, String] parseable JSON string or already-
         #     parsed JSON converted to Hash
@@ -37,7 +38,11 @@ module CollectionSpace
           ensure_config_is_parsed(args)
 
           if full_record_args?(args) && full_record_config?(args)
-            CollectionSpace::Mapper::HandlerFullRecord.new(**args)
+            if args.key?(:csid_cache)
+              CollectionSpace::Mapper::HandlerFullRecord.new(**args)
+            else
+              CollectionSpace::Mapper::HandlerFullRecordOneCache.new(**args)
+            end
           elsif vocab_term_args?(args) && vocab_term_config?(args)
             CollectionSpace::Mapper::VocabularyTerms::Handler.new(
               client: args[:client]
@@ -60,7 +65,7 @@ module CollectionSpace
         end
 
         def full_record_args?(args)
-          %i[record_mapper client cache csid_cache].all? do |arg|
+          %i[record_mapper client cache].all? do |arg|
             args.key?(arg)
           end
         end
