@@ -93,7 +93,6 @@ RSpec.describe CollectionSpace::Mapper::DateDetails::Handler do
       end
       let(:fixture_path) { "date_details/citation_publicationdate_2.xml" }
 
-      # before { binding.pry }
       it_behaves_like "Mapped"
     end
   end

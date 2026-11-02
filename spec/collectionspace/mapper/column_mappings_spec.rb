@@ -10,11 +10,7 @@ RSpec.describe CollectionSpace::Mapper::ColumnMappings,
   #   set the handler.record settings, including :mappings. The :mappings
   #   setting is an instance of the described class, so we test the handler
   #   config
-  let(:handler) do
-    setup_handler(
-      mapper: mapper
-    )
-  end
+  let(:handler) { setup_handler(mapper: mapper) }
 
   context "when initialized from authority RecordMapper" do
     let(:mapper) { "core_7-1-0_citation-local" }

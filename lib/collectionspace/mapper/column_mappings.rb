@@ -24,31 +24,20 @@ module CollectionSpace
         @lkup = {}
         handler.record.extensions.each { |ext| extend ext }
         mappings.each { |mapping| add_mapping(mapping) }
-
-        # binding.pry
-        # special_mappings.each { |mapping| add_mapping(mapping) }
       end
 
-      def <<(mapping)
-        add_mapping(mapping)
-      end
+      def <<(mapping) = add_mapping(mapping)
 
-      def known_columns
-        all.map(&:datacolumn)
-      end
+      def known_columns = all.map(&:datacolumn)
 
-      def lookup(columnname)
-        lkup[columnname.downcase]
-      end
+      def lookup(columnname) = lkup[columnname.downcase]
 
       # Columns that are required for initial processing of CSV data
       #
       # For non-hierarchical relationships and authority hierarchy
       #   relationships, includes some columns that do not ultimately get
       #   mapped to XML
-      def required_columns
-        all.select(&:required?)
-      end
+      def required_columns = all.select(&:required?)
 
       def add_mapping(mapping)
         mapobj = CollectionSpace::Mapper::ColumnMapping.new(
@@ -61,10 +50,6 @@ module CollectionSpace
       private
 
       attr_reader :transforms, :all, :lkup
-
-      # def special_mappings
-      #   []
-      # end
     end
   end
 end
