@@ -15,6 +15,10 @@ This project bumps the version number for any changes (including documentation u
 
 - none
 
+## [7.1.0] - 2026-11-02
+
+- Adds `HandlerFullRecordOneCache` data handler class to support single-cache mapping of the one-column-per-controlling-authority-vocab datat ingest format.
+
 ## [7.0.0] - 2026-10-27
 
 - The `migration-tools` branch that has been maintained separately for `collectionspace_migration_tools` (CMT) for the past two years is merged into `main`. The CSV Importer is deployed from a Docker container that has all its dependencies, and does not need the real `main` branch to remain stuck in time.
